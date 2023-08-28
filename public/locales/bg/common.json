@@ -58,6 +58,7 @@
   "link": "Линк",
   "components": {
     "footer": {
+      "subscribe": "Абониране за известия",
       "donatе": "Дарете",
       "about-us": "За нас",
       "resources": "Ресурси",
@@ -94,7 +95,8 @@
     "personId": "Личност",
     "campaignId": "Кампания",
     "sourceCampaignId": "От кампания",
-    "targetCampaignId": "Към кампания"
+    "targetCampaignId": "Към кампания",
+    "email": "Имейл"
   },
   "cta": {
     "read-more": "Прочетете още",

@@ -26,7 +26,7 @@ export default function ActiveCampaignsSection() {
       <Root>
         <ActiveCampaignsWrapper>
           {activeCampaigns?.map((campaign, index) => (
-            <ActiveCampaignCard index={index} key={index} campaign={campaign} />
+            <ActiveCampaignCard index={index} key={campaign.id} campaign={campaign} />
           ))}
         </ActiveCampaignsWrapper>{' '}
         <SeeAllButtonWrapper>

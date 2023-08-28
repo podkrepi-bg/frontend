@@ -23,7 +23,10 @@ import Image from 'next/image'
 import useMobile from 'common/hooks/useMobile'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
 import { useShowMoreContent } from '../campaign-news/hooks/useShowMoreContent'
-import { sanitizeHTML } from 'common/util/htmlSanitizer'
+import { sanitizeHTML } from 'common/util/htmlUtils'
+import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
+import { scrollToTop } from '../campaign-news/utils/scrollToTop'
+import { getArticleHeight } from '../campaign-news/utils/getArticleHeight'
 
 const PREFIX = 'NewsTimeline'
 
@@ -117,6 +120,9 @@ const StyledTimeline = styled(Timeline)(({ theme }) => ({
     color: theme.palette.primary.light,
     textDecoration: 'underline',
     padding: 0,
+    margin: 0,
+    position: 'relative',
+    bottom: 3,
   },
 
   [`& .${classes.readAllButton}`]: {
@@ -150,7 +156,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   const { t, i18n } = useTranslation('news')
   const { small }: { small: boolean } = useMobile()
 
-  const CHARACTER_LIMIT = 120
+  const INITIAL_HEIGHT_LIMIT = 200
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
@@ -179,7 +185,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
               const images = GetArticleGalleryPhotos(article.newsFiles)
               const sanitizedDescription = sanitizeHTML(article.description)
               return (
-                <TimelineItem key={article.id} className={classes.timelineItem}>
+                <TimelineItem key={article.id} className={classes.timelineItem} id={article.id}>
                   {!small && (
                     <TimelineOppositeContent className={classes.timelineOppositeContent}>
                       <Grid container flexDirection={'column'} wrap="nowrap" gap={2}>
@@ -239,33 +245,39 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                       <Grid item>
                         <Typography className={classes.articleHeader}>{article.title}</Typography>
                       </Grid>
-                      <Grid container item direction={'row'}>
-                        {!isExpanded[article.id] &&
-                        sanitizedDescription.length > CHARACTER_LIMIT ? (
+                      <Grid
+                        container
+                        item
+                        direction={'row'}
+                        sx={{
+                          height:
+                            getArticleHeight(article.id) > INITIAL_HEIGHT_LIMIT &&
+                            !isExpanded[article.id]
+                              ? INITIAL_HEIGHT_LIMIT
+                              : 'auto',
+                          overflow: 'hidden',
+                        }}>
+                        <QuillStypeWrapper>
                           <Typography
                             component={'div'}
                             className={classes.articleDescription}
                             dangerouslySetInnerHTML={{
-                              __html: sanitizedDescription.slice(0, CHARACTER_LIMIT) + '...',
+                              __html: sanitizedDescription,
                             }}
+                            sx={{ wordBreak: 'break-word' }}
                           />
-                        ) : (
-                          <Typography
-                            component={'div'}
-                            className={classes.articleDescription}
-                            dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
-                          />
-                        )}
-                        {sanitizedDescription.length > CHARACTER_LIMIT && (
-                          <Button
-                            className={classes.readMoreButton}
-                            onClick={() => expandContent(article.id)}>
-                            {!isExpanded[article.id]
-                              ? `${t('read-more')} >`
-                              : `${t('read-less')} <`}
-                          </Button>
-                        )}
+                        </QuillStypeWrapper>
                       </Grid>
+                      {getArticleHeight(article.id) >= INITIAL_HEIGHT_LIMIT && (
+                        <Button
+                          className={classes.readMoreButton}
+                          onClick={() => {
+                            expandContent(article.id)
+                            scrollToTop(article.id)
+                          }}>
+                          {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
+                        </Button>
+                      )}
                       {article.newsFiles.length > 0 && (
                         <Grid container gap={1}>
                           <Grid container item direction={'column'} gap={0.5}>

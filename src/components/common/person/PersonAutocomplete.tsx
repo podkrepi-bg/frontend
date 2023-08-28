@@ -17,18 +17,11 @@ export default function PersonAutocomplete({
   autocompleteProps,
 }: PersonAutocompleteProps) {
   const { t } = useTranslation('person')
-  const {
-    data: personList,
-    isLoading,
-    refetch,
-  } = usePersonList({
-    enabled: false,
-    refetchOnWindowFocus: false,
-  })
+  const { data: { items: personList } = { items: [] }, isLoading, refetch } = usePersonList()
   return (
     <Autocomplete
       isOptionEqualToValue={(option, value) => option.firstName === value.firstName}
-      options={personList || []}
+      options={personList}
       getOptionLabel={(person) =>
         showId
           ? `${person.firstName} ${person.lastName} (${person.id})`

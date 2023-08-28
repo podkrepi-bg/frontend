@@ -1,29 +1,72 @@
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 
 import { useTranslation } from 'next-i18next'
 
-import { Unstable_Grid2 as Grid2, Stack, Typography, Grid } from '@mui/material'
-import RateReviewIcon from '@mui/icons-material/RateReview'
+import {
+  Unstable_Grid2 as Grid2,
+  Stack,
+  Typography,
+  Grid,
+  Button,
+  TextField,
+  InputAdornment,
+} from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import Pagination from '@mui/material/Pagination'
 
 import { bg, enUS } from 'date-fns/locale'
+import { moneyPublic } from 'common/util/money'
 import { useDonationWishesList } from 'common/hooks/donationWish'
 import { getExactDate } from 'common/util/date'
 import theme from 'common/theme'
+import { SortData } from 'gql/types'
+import { debounce } from 'lodash'
+
+type SortButton = {
+  label: string
+  value: string
+}
 
 type Props = {
   campaignId: string
   pageSize?: number
 }
 
-export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
+export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
   const { t, i18n } = useTranslation('campaigns')
   const locale = i18n.language == 'bg' ? bg : enUS
   const titleRef = useRef<HTMLElement>(null)
   const [pageIndex, setPageIndex] = useState<number>(0)
-  const { data, isSuccess } = useDonationWishesList(campaignId, pageIndex, pageSize)
+  const [searchValue, setSearchValue] = useState('')
+
+  const [sort, setSort] = useState<SortData>({
+    sortBy: 'createdAt',
+    sortOrder: 'desc',
+  })
+
+  const { data, isSuccess } = useDonationWishesList(
+    campaignId,
+    { pageIndex, pageSize },
+    sort,
+    searchValue,
+  )
   const numOfPages = isSuccess && data ? Math.ceil(data.totalCount / pageSize) : 0
+
+  const handleSort = (value: string) => {
+    setSort((sort) => ({
+      sortBy: value,
+      sortOrder: sort.sortBy === value ? (sort.sortOrder === 'desc' ? 'asc' : 'desc') : 'desc',
+    }))
+  }
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value)
+  }
+
+  const debounceSearch = useMemo(() => debounce(handleSearch, 300), [])
 
   const handlePageChange = (_e: React.ChangeEvent<unknown>, page: number) => {
     // <Pagination /> 's impl is 1 index based
@@ -37,37 +80,78 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
     }
   }
 
+  const sortButtons: SortButton[] = [
+    {
+      label: t('campaign.sort.date'),
+      value: 'createdAt',
+    },
+    {
+      label: t('campaign.sort.amount'),
+      value: 'amount',
+    },
+  ]
+
   return (
     <Grid2 container direction="column" rowGap={4}>
       <Grid2>
-        <Stack direction="row" alignItems="center">
-          <RateReviewIcon
-            color="action"
-            sx={{
-              width: theme.spacing(1.75),
-              height: theme.spacing(1.75),
-              marginRight: theme.spacing(1),
-            }}
-          />
+        <Typography
+          sx={{
+            color: '#000',
+            fontSize: theme.typography.pxToRem(25),
+            paddingBottom: '1rem',
+          }}>
+          {t('campaign.messages')}
+        </Typography>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent={{ xs: 'center', sm: 'start' }}
+          gap={2}
+          useFlexGap
+          flexWrap="wrap">
           <Typography
-            ref={titleRef}
             sx={{
-              color: theme.palette.grey[800],
-              fontSize: theme.typography.pxToRem(16),
-              fontWeight: 500,
+              color: theme.palette.grey[900],
+              fontSize: theme.typography.pxToRem(12),
+              fontWeight: 600,
             }}>
-            {t('campaign.messages')}
+            {t('campaign.sort.title')}
           </Typography>
+          {sortButtons.map(({ label, value }) => (
+            <Button
+              key={value}
+              variant="text"
+              onClick={() => handleSort(value)}
+              sx={{
+                fontSize: theme.typography.pxToRem(14),
+                color: 'rgba(0, 0, 0, 0.54)',
+              }}>
+              {label}
+              {sort.sortBy === value &&
+                (sort.sortOrder === 'asc' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />)}
+            </Button>
+          ))}
+          <TextField
+            placeholder={t('campaign.sort.search')}
+            size="small"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+            variant="outlined"
+            onChange={debounceSearch}
+          />
         </Stack>
       </Grid2>
       <Grid2 container direction="column" rowGap={3}>
         {isSuccess &&
-          data &&
-          data.items &&
-          data.items.map((wish) => (
+          data?.items?.map(({ id, person, donation, message, createdAt }) => (
             <Grid2
               container
-              key={wish.id}
+              key={id}
               direction="row"
               sx={{ p: 2, bgcolor: 'grey.100', borderRadius: theme.spacing(2) }}>
               <Grid2 xs={12}>
@@ -86,18 +170,29 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
                         fontSize: theme.typography.pxToRem(16),
                         color: theme.palette.grey[800],
                       }}>
-                      {wish.person
-                        ? wish.person.firstName + ' ' + wish.person.lastName
-                        : t('donations.anonymous')}
+                      {person ? person.firstName + ' ' + person.lastName : t('donations.anonymous')}
                     </Typography>
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        fontSize: theme.typography.pxToRem(14),
-                        color: 'rgba(0, 0, 0, 0.54)',
-                      }}>
-                      {getExactDate(wish.createdAt, locale)}
-                    </Typography>
+                    <Stack direction="row">
+                      {donation && (
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            fontSize: theme.typography.pxToRem(14),
+                            color: 'rgba(0, 0, 0, 0.54)',
+                            '&:after': { content: '"|"', paddingX: '5px' },
+                          }}>
+                          {moneyPublic(donation.amount, donation.currency)}
+                        </Typography>
+                      )}
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          fontSize: theme.typography.pxToRem(14),
+                          color: 'rgba(0, 0, 0, 0.54)',
+                        }}>
+                        {getExactDate(createdAt, locale)}
+                      </Typography>
+                    </Stack>
                     <Typography
                       component="blockquote"
                       sx={{
@@ -107,13 +202,18 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
                         '&:before': { content: 'open-quote', verticalAlign: theme.spacing(1.25) },
                         '&:after': { content: 'close-quote' },
                       }}>
-                      {wish.message}
+                      {message}
                     </Typography>
                   </Stack>
                 </Stack>
               </Grid2>
             </Grid2>
           ))}
+        <Grid2 xs={12}>
+          {data?.items?.length === 0 && searchValue !== '' && (
+            <Typography align="center"> {t('campaign.sort.noResults')}</Typography>
+          )}
+        </Grid2>
         <Grid2 xs={12}>
           {numOfPages > 1 && (
             <Pagination

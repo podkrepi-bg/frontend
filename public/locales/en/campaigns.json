@@ -89,6 +89,13 @@
     "guarantor": "guarantor",
     "others": "others",
     "messages": "Messages:",
+    "sort": {
+      "title": "Sort by:",
+      "date": "Date",
+      "amount": "Amount",
+      "search": "Search...",
+      "noResults": "No messages found"
+    },
     "profile": "Profile:",
     "status": "Status:",
     "gallery": "Gallery",
@@ -124,8 +131,13 @@
       "resume": "Resume",
       "retry": "Retry"
     },
+    "rte": {
+      "modern": "New (beta)",
+      "classic": "Classic"
+    },
     "beneficiary": {
       "name": "Beneficiary",
+      "label": "Beneficiary:",
       "add": "Add beneficiary",
       "create": "Create beneficiary"
     },
@@ -139,6 +151,7 @@
       "add": "Add organizer",
       "create": "Create organizer"
     },
+    "image-of": "Image of",
     "podkrepi-bg-operator": "Podkrepi.bg Operator:",
     "have-a-question": "Have a question?",
     "btn-connect": "Write to us",
@@ -186,7 +199,7 @@
   "donations": {
     "anonymous": "Anonymous",
     "none": "No donations yet",
-    "lv": "lv"
+    "lv": "lv."
   },
   "campaign-status": {
     "initial": "Initial",

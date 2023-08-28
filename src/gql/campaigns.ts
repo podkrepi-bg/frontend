@@ -192,3 +192,13 @@ export type CampaignDonationHistoryResponse = {
   items: CampaignDonation[]
   total: number
 }
+
+export type CampaignSubscribeInput = {
+  email: string
+  consent: boolean
+}
+
+export type CampaignSubscribeResponse = {
+  email: string
+  subscribed: boolean
+}

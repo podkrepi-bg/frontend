@@ -52,3 +52,17 @@ ul {
     }
   }
 }
+
+.sp-cm {
+  pre {
+    flex-shrink: 1;
+    overflow-wrap: anywhere;
+    white-space: break-spaces;
+    word-break: break-word;
+  }
+}
+
+// center the videos in campaign pages
+.ql-bubble .ql-video {
+  margin-inline: auto;
+}

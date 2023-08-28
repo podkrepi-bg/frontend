@@ -1,6 +1,6 @@
 import { Method } from 'axios'
 import { DonationStatus } from 'gql/donations.enums'
-import { FilterData, PaginationData } from 'gql/types'
+import { FilterData, PaginationData, SortData } from 'gql/types'
 
 type Endpoint = {
   url: string
@@ -31,6 +31,8 @@ export const endpoints = {
     viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
+    subscribeToCampaign: (id: string) =>
+      <Endpoint>{ url: `/campaign/${id}/subscribe`, method: 'POST' },
     deleteCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'DELETE' },
     uploadFile: (campaignId: string) =>
       <Endpoint>{ url: `/campaign-file/${campaignId}`, method: 'POST' },
@@ -44,6 +46,17 @@ export const endpoints = {
     listAllNews: (page: number) => <Endpoint>{ url: `/campaign/news?page=${page}`, method: 'GET' },
     listNewsForCampaign: (page: number, slug: string) =>
       <Endpoint>{ url: `/campaign/${slug}/news?page=${page}` },
+  },
+  notifications: {
+    sendConfirmationEmail: <Endpoint>{ url: '/notifications/send-confirm-email', method: 'POST' },
+    subscribePublicEmail: <Endpoint>{ url: '/notifications/public/subscribe', method: 'POST' },
+    unsubscribePublicEmail: <Endpoint>{ url: '/notifications/public/unsubscribe', method: 'POST' },
+    subscribeEmail: <Endpoint>{ url: '/notifications/subscribe', method: 'POST' },
+    unsubscribeEmail: <Endpoint>{ url: '/notifications/unsubscribe', method: 'POST' },
+    getCampaignNotificationSubscriptions: <Endpoint>{
+      url: '/notifications/campaign-notifications',
+      method: 'GET',
+    },
   },
   campaignNews: {
     createNewsArticle: <Endpoint>{ url: '/campaign-news', method: 'POST' },
@@ -79,7 +92,6 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
     createPaymentIntent: <Endpoint>{ url: '/donation/create-payment-intent', method: 'POST' },
-    createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
     donationsList: (
@@ -237,7 +249,15 @@ export const endpoints = {
       <Endpoint>{ url: `/campaign-types/${id}`, method: 'DELETE' },
   },
   person: {
-    list: <Endpoint>{ url: '/person', method: 'GET' },
+    list: (paginationData?: PaginationData, sort?: SortData, searchData?: string) => {
+      const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
+      const { sortBy, sortOrder } = (sort as SortData) || {}
+
+      return <Endpoint>{
+        url: `/person?pageindex=${pageIndex}&pagesize=${pageSize}&sortBy=${sortBy}&sortOrder=${sortOrder}&search=${searchData}`,
+        method: 'GET',
+      }
+    },
     createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
     viewPerson: (slug: string) => <Endpoint>{ url: `/person/${slug}`, method: 'GET' },
     viewPersonByKeylockId: (sub: string) =>
@@ -308,10 +328,19 @@ export const endpoints = {
   },
   donationWish: {
     createDonationWish: <Endpoint>{ url: '/donation-wish', method: 'POST' },
-    listDonationWishes: (campaignId?: string, pageIndex?: number, pageSize?: number) =>
-      <Endpoint>{
-        url: `/donation-wish/list/${campaignId}?pageindex=${pageIndex}&pagesize=${pageSize}`,
+    listDonationWishes: (
+      campaignId?: string,
+      paginationData?: PaginationData,
+      sort?: SortData,
+      searchData?: string,
+    ) => {
+      const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
+      const { sortBy, sortOrder } = (sort as SortData) || {}
+
+      return <Endpoint>{
+        url: `/donation-wish/list/${campaignId}?pageindex=${pageIndex}&pagesize=${pageSize}&search=${searchData}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
         method: 'GET',
-      },
+      }
+    },
   },
 }

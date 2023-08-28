@@ -10,6 +10,7 @@ export const Root = styled(Card)(() => ({
   alignItems: 'initial',
   boxShadow: 'none',
   position: 'relative',
+  borderRadius: theme.spacing(0.37),
 
   '&:hover': {
     filter: 'grayscale(15%)',
@@ -46,6 +47,7 @@ export const CampaignTitle = styled('h6')(() => ({
   color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
   fontWeight: 400,
+  textAlign: 'left',
   margin: theme.spacing(1, 0, 0),
   minHeight: theme.spacing(6.25),
   overflow: 'hidden',
@@ -105,6 +107,11 @@ export const DonateButton = styled(LinkButton)(() => ({
   '&:hover': {
     boxShadow:
       '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
+  },
+
+  '&.Mui-disabled': {
+    backgroundColor: 'rgba(152, 152, 152, 0.8)',
+    color: 'rgba(0, 0, 0, 0.4)',
   },
 
   [theme.breakpoints.up(1111)]: {

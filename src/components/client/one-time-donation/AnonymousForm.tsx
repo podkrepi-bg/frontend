@@ -3,10 +3,13 @@ import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 import EmailField from 'components/common/form/EmailField'
 import { useSession } from 'next-auth/react'
+import { useFormikContext } from 'formik'
+import { OneTimeDonation } from 'gql/donations'
 
 export default function AnonymousForm() {
   const { t } = useTranslation('one-time-donation')
   const { data: session } = useSession()
+  const formik = useFormikContext<OneTimeDonation>()
   const isLogged = session?.accessToken ? true : false
   return (
     <>
@@ -23,7 +26,13 @@ export default function AnonymousForm() {
             name="personsEmail"
             label="Email"
             fullWidth
-            value={isLogged ? session?.user?.email : null}
+            value={
+              isLogged
+                ? session?.user?.email
+                : formik.values.personsEmail
+                ? formik.values.personsEmail
+                : ''
+            }
             disabled={isLogged ? true : false}
           />
         </Grid>

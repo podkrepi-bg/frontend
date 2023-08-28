@@ -56,6 +56,7 @@ const validationSchema: yup.SchemaOf<CampaignNewsAdminCreateFormData> = yup
     description: yup.string().required(),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
+    notify: yup.bool().required(),
   })
 
 export type CampaignFormProps = {
@@ -80,6 +81,7 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
     description: '',
     terms: false,
     gdpr: false,
+    notify: false,
   }
 
   const handleError = (e: AxiosError<ApiErrors>) => {
@@ -124,6 +126,7 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
         sourceLink: values.sourceLink,
         description: values.description,
         state: ArticleStatus.draft,
+        notify: values.notify,
       })
       if (files.length > 0) {
         await fileUploadMutation.mutateAsync({

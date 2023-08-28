@@ -37,7 +37,10 @@
       "email-confirmed": "Потвърден имейл",
       "newsletter": "Известия",
       "company": "Компания",
-      "address": "Адрес"
+      "address": "Адрес",
+      "organizer": "Организатор",
+      "coordinator": "Координатор",
+      "beneficiary": "Бенефициент"
     },
     "cta": {
       "create": "Създай",

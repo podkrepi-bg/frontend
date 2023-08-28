@@ -11,7 +11,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
   const { slug } = ctx.query
   const client = new QueryClient()
   await client.prefetchQuery<CampaignResponse>(
-    [endpoints.campaign.viewCampaign(slug as string)],
+    [endpoints.campaign.viewCampaign(slug as string).url],
     queryFnFactory<CampaignResponse>(),
   )
   return {

@@ -16,6 +16,7 @@ import PasswordField from 'components/common/form/PasswordField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import EmailField from 'components/common/form/EmailField'
+import AcceptNewsLetterField from 'components/common/form/AcceptNewsletterField'
 
 export type RegisterFormData = {
   firstName: string
@@ -25,6 +26,7 @@ export type RegisterFormData = {
   confirmPassword: string
   terms: boolean
   gdpr: boolean
+  newsletter?: boolean
 }
 
 const validationSchema: yup.SchemaOf<RegisterFormData> = yup
@@ -38,6 +40,7 @@ const validationSchema: yup.SchemaOf<RegisterFormData> = yup
     confirmPassword: confirmPassword.required('validation:password-match'),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
+    newsletter: yup.bool().required().oneOf([true, false]),
   })
 
 const defaults: RegisterFormData = {
@@ -48,6 +51,7 @@ const defaults: RegisterFormData = {
   confirmPassword: '',
   terms: false,
   gdpr: false,
+  newsletter: false,
 }
 export type RegisterFormProps = { initialValues?: RegisterFormData }
 
@@ -130,6 +134,7 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
         <Grid item xs={12}>
           <AcceptTermsField name="terms" />
           <AcceptPrivacyPolicyField name="gdpr" />
+          <AcceptNewsLetterField name="newsletter" />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.register" loading={loading} />

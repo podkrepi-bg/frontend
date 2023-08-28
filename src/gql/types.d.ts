@@ -5,6 +5,11 @@ export type PaginationData = {
   pageSize: number
 }
 
+export type SortData = {
+  sortBy: string
+  sortOrder: string
+}
+
 export type FilterData = {
   status: DonationStatus
   paymentProvider: PaymentProvider

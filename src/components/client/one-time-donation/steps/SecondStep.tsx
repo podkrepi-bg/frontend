@@ -21,8 +21,8 @@ export default function SecondStep() {
   const mobile = useMediaQuery('(max-width:575px)')
   const { data: session } = useSession()
 
-  const [value, setValue] = useState('1')
   const formik = useFormikContext<OneTimeDonation>()
+  const [value, setValue] = useState(formik.values.isAnonymous ? '3' : '1')
   const handleChange = (event: React.SyntheticEvent, newTab: string) => {
     if (newTab === Tabs.Anonymous) {
       formik.setFieldValue('isAnonymous', true)
