@@ -1,6 +1,5 @@
 import { markdownShortcutPlugin } from '@mdxeditor/editor/plugins/markdown-shortcut'
 import { MDXEditor } from '@mdxeditor/editor/MDXEditor'
-import { diffSourcePlugin } from '@mdxeditor/editor/plugins/diff-source'
 import {
   DirectiveDescriptor,
   directivesPlugin,
@@ -16,7 +15,6 @@ import { toolbarPlugin } from '@mdxeditor/editor/plugins/toolbar'
 import { BlockTypeSelect } from '@mdxeditor/editor/plugins/toolbar/components/BlockTypeSelect'
 import { BoldItalicUnderlineToggles } from '@mdxeditor/editor/plugins/toolbar/components/BoldItalicUnderlineToggles'
 import { CreateLink } from '@mdxeditor/editor/plugins/toolbar/components/CreateLink'
-import { DiffSourceToggleWrapper } from '@mdxeditor/editor/plugins/toolbar/components/DiffSourceToggleWrapper'
 import { InsertImage } from '@mdxeditor/editor/plugins/toolbar/components/InsertImage'
 import { ListsToggle } from '@mdxeditor/editor/plugins/toolbar/components/ListsToggle'
 import { UndoRedo } from '@mdxeditor/editor/plugins/toolbar/components/UndoRedo'
@@ -165,24 +163,22 @@ export const ModernEditor: React.FC<ModernEditorProps> = ({ html, onChange }) =>
           toolbarPlugin({
             toolbarContents: () => (
               <>
-                <DiffSourceToggleWrapper>
-                  <UndoRedo />
-                  <BoldItalicUnderlineToggles />
-                  <ListsToggle />
-                  <Separator />
-                  <BlockTypeSelect />
-                  <CreateLink />
-                  <InsertImage />
-                  <YoutubeButton />
-                  <Separator />
-                </DiffSourceToggleWrapper>
+                <UndoRedo />
+                <BoldItalicUnderlineToggles />
+                <ListsToggle />
+                <Separator />
+                <BlockTypeSelect />
+                <CreateLink />
+                <InsertImage />
+                <YoutubeButton />
+                <Separator />
               </>
             ),
           }),
           linkPlugin(),
           listsPlugin(),
           headingsPlugin(),
-          diffSourcePlugin({ diffMarkdown: markdown }),
+          // diffSourcePlugin({ diffMarkdown: markdown }),
           linkDialogPlugin(),
           imagePlugin(),
           quotePlugin(),
