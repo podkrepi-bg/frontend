@@ -7,7 +7,7 @@ import { translateError } from 'common/form/useForm'
 import { TranslatableField } from 'common/form/validation'
 import { styled } from '@mui/material/styles'
 
-import { ModernEditor } from './MDXEditor'
+// import { ModernEditor } from './MDXEditor'
 import { QuillEditor } from './QuillEditor'
 
 export type FormRichTextFieldProps = {
@@ -33,7 +33,7 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
   const { t } = useTranslation()
   const [, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
-  const [useMdxEditor, setUseMdxEditor] = React.useState(true)
+  const [useMdxEditor, setUseMdxEditor] = React.useState(false)
 
   return (
     <div>
@@ -46,7 +46,7 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
       <Field name={name}>
         {({ field }: { field: FieldInputProps<string> }) => (
           <StyledGrid>
-            <EditorSwitch>
+            {/* <EditorSwitch>
               <label>
                 <input
                   type="radio"
@@ -67,12 +67,10 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
                 />{' '}
                 {t('campaigns:campaign.rte.classic')}
               </label>
-            </EditorSwitch>
+            </EditorSwitch> */}
 
             {useMdxEditor ? (
-              <>
-                <ModernEditor html={field.value} onChange={field.onChange(field.name)} />
-              </>
+              <>{/* <ModernEditor html={field.value} onChange={field.onChange(field.name)} /> */}</>
             ) : (
               <QuillEditor value={field.value} onChange={field.onChange(field.name)} />
             )}
