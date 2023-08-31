@@ -158,7 +158,9 @@
     "start-date": "Start date:",
     "end-date": "End date:",
     "tag": "Tag:",
-    "date": "Date:"
+    "date": "Date:",
+    "news": "News",
+    "wishes": "Wishes"
   },
   "info-graphics": {
     "donation-title": "100% of the donation goes to those in need",

@@ -75,9 +75,3 @@ export const StatusLabel = styled(Typography)(() => ({
 export const StatusText = styled('span')(() => ({
   fontSize: theme.typography.pxToRem(14),
 }))
-
-export const ExpensesButton = styled(Button)(() => ({
-  fontSize: theme.typography.pxToRem(14),
-  justifyContent: 'left',
-  marginBottom: theme.spacing(1),
-}))
