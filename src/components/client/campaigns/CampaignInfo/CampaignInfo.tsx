@@ -13,10 +13,10 @@ type Props = {
   showExpensesLink: boolean
 }
 
-export default function CampaignInfo({ campaign }: Props) {
+export default function CampaignInfo({ campaign, showExpensesLink }: Props) {
   return (
     <Grid mb={5}>
-      <CampaignInfoStatus showExpensesLink campaign={campaign} />
+      <CampaignInfoStatus showExpensesLink={showExpensesLink} campaign={campaign} />
       <BeneficiaryOrganizerWrapper>
         <CampaignInfoBeneficiary campaign={campaign} />
         <CampaignInfoOrganizer campaign={campaign} />

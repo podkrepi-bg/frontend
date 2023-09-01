@@ -59,7 +59,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
       fontSize: theme.typography.pxToRem(45),
       marginTop: 0,
-      marginBottom: theme.spacing(7),
+      marginBottom: theme.spacing(1),
     },
   },
 
@@ -157,7 +157,7 @@ export default function CampaignDetails({ campaign }: Props) {
           ''
         )}
         <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
-        <Grid item xs={12}>
+        <Grid item xs={12} id="wishes">
           <DonationWishes campaignId={campaign?.id} />
         </Grid>
         <Grid container item xs={12}>

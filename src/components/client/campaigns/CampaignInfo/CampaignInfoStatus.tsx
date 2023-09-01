@@ -3,18 +3,11 @@ import { CampaignResponse } from 'gql/campaigns'
 import { useTranslation } from 'next-i18next'
 
 import { bg, enUS } from 'date-fns/locale'
-import { Grid } from '@mui/material'
-import { Assessment } from '@mui/icons-material'
+import { Box, Chip, Grid } from '@mui/material'
 
 import { getExactDate } from 'common/util/date'
 
-import {
-  StatusText,
-  StatusLabel,
-  RowWrapper,
-  InfoStatusWrapper,
-  ExpensesButton,
-} from './CampaignInfo.styled'
+import { StatusText, StatusLabel, RowWrapper, InfoStatusWrapper } from './CampaignInfo.styled'
 
 type Props = {
   campaign: CampaignResponse
@@ -27,11 +20,38 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
 
   return (
     <Grid>
-      {showExpensesLink && (
-        <ExpensesButton startIcon={<Assessment />} href={'#expenses'}>
-          {t('campaigns:campaign.financial-report')}
-        </ExpensesButton>
-      )}
+      <Box component="span" display="flex" alignItems="center" sx={{ gap: '5px' }}>
+        {showExpensesLink && (
+          <Chip
+            component="a"
+            label={t('campaigns:campaign.financial-report')}
+            href="#expenses"
+            clickable
+            variant="outlined"
+            color="primary"
+            size="small"
+          />
+        )}
+        <Chip
+          component="a"
+          label={t('campaigns:campaign.news')}
+          href="#news"
+          clickable
+          color="primary"
+          variant="outlined"
+          size="small"
+        />
+
+        <Chip
+          component="a"
+          label={t('campaigns:campaign.wishes')}
+          href="#wishes"
+          clickable
+          variant="outlined"
+          color="primary"
+          size="small"
+        />
+      </Box>
       <InfoStatusWrapper>
         <Grid item xs={12} md={6}>
           <StatusLabel>{campaign.campaignType.name}</StatusLabel>
