@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { InputAdornment } from '@mui/material'
 import FormTextField from './FormTextField'
 
@@ -17,6 +19,10 @@ export default function NumberInputField({
   const { t, i18n } = useTranslation('one-time-donation')
   const [, meta, { setValue, setError }] = useField(name)
   const decimalSeparator = (1.1).toLocaleString(i18n.lang).charAt(1)
+
+  useEffect(() => {
+    setValue(1)
+  }, [])
 
   return (
     <FormTextField
@@ -89,13 +95,14 @@ export default function NumberInputField({
           max: limit,
           inputMode: 'decimal',
         },
-        style: { padding: 7 },
+        style: { padding: 5 },
         endAdornment: (
           <InputAdornment variant="filled" position="end">
             {t('first-step.BGN')}
           </InputAdornment>
         ),
       }}
+      autoFocus
     />
   )
 }

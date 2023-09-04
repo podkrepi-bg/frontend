@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { styled } from '@mui/material/styles'
 import { Trans, useTranslation } from 'next-i18next'
 import { useField, useFormikContext } from 'formik'
-import { Box, Collapse, Divider, Grid, List, Typography } from '@mui/material'
+import { Box, Collapse, Divider, Fade, Grid, List, Typography } from '@mui/material'
 import EventRepeatIcon from '@mui/icons-material/EventRepeat'
 import theme from 'common/theme'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
@@ -240,25 +240,28 @@ export default function FirstStep() {
                   label: moneyPublic(Number(v)),
                   value: String(Number(v)),
                 }))
-                .concat({ label: t('first-step.other'), value: 'other' }) || []
+                .concat({
+                  label: t('first-step.other'),
+                  value: 'other',
+                  hidden: amount.value === 'other',
+                } as { label: string; value: string; hidden?: boolean }) || []
             }
           />
-          <Collapse unmountOnExit in={amount.value === 'other'} timeout="auto">
+          <Fade unmountOnExit in={amount.value === 'other'} exit={false} timeout={200}>
             <Grid
               item
               xs={12}
               style={
                 !mobile
                   ? {
-                      float: 'right',
-                      marginTop: -50,
+                      paddingTop: 16,
                       width: '49%',
                     }
                   : { marginTop: theme.spacing(2) }
               }>
               <NumberInputField limit={STRIPE_LIMIT_BGN} />
             </Grid>
-          </Collapse>
+          </Fade>
           {amount.value ? (
             <Box sx={{ mt: 4 }}>
               <Grid container>
