@@ -53,8 +53,8 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           position={'relative'}
           sx={{
             width: '100%',
-            aspectRatio:1.5,
-            maxHeight: theme.spacing(27.9)
+            aspectRatio: 1.5,
+            maxHeight: theme.spacing(27.9),
           }}>
           <Image
             priority
@@ -63,7 +63,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
             fill
             sizes="(min-width: 2000px) 312px, (min-width: 1200px) calc(30vw - 38px), (min-width: 900px) calc(40.57vw - 29px), (min-width: 600px) calc(50vw - 28px), calc(100vw - 32px)"
             quality={index === 0 ? 100 : 75}
-            style={{objectFit: 'cover'}}
+            style={{ objectFit: 'cover' }}
           />
         </Box>
         {campaignState === CampaignState.complete && percentage >= 100 ? (

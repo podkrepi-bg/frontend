@@ -53,15 +53,15 @@ export default function CompletedCampaignsSection() {
             <CompletedCampaignLink
               onMouseDown={onLinkMouseDown}
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
-              sx={{position: 'relative', aspectRatio:1, height: (theme) => theme.spacing(37.5)}}
-            >
-              <Image 
-              fill 
-              alt={campaign.title} 
-              src={campaignListPictureUrl(campaign)}
-              sizes="(min-width: 2000px) 312px, (min-width: 1200px) calc(30vw - 38px), (min-width: 900px) calc(40.57vw - 29px), (min-width: 600px) calc(50vw - 28px), calc(100vw - 32px)" 
-              style={{objectFit: 'cover'}}  />
-              </CompletedCampaignLink>
+              sx={{ position: 'relative', aspectRatio: 1, height: (theme) => theme.spacing(37.5) }}>
+              <Image
+                fill
+                alt={campaign.title}
+                src={campaignListPictureUrl(campaign)}
+                sizes="(min-width: 2000px) 312px, (min-width: 1200px) calc(30vw - 38px), (min-width: 900px) calc(40.57vw - 29px), (min-width: 600px) calc(50vw - 28px), calc(100vw - 32px)"
+                style={{ objectFit: 'cover' }}
+              />
+            </CompletedCampaignLink>
             <CompletedSumWrapper>
               <Sum>
                 {i18n.language === 'bg'
