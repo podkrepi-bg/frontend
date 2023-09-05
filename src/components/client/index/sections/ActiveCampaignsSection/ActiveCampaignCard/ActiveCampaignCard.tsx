@@ -45,8 +45,11 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
             //   height: index === 0 ? theme.spacing(71.6) : theme.spacing(27.85),
             // },
             width: '100%',
+            aspectRatio:1.5,
+            [theme.breakpoints.up('lg')]: {
             maxHeight: index === 0 ? theme.spacing(71.6) : theme.spacing(27.85),
-            aspectRatio: index === 0 ? 1.24 : 1.54
+            aspectRatio: index === 0 ? 1.24 : 1.55
+            }
           }}>
           <Image
             priority
