@@ -21,13 +21,14 @@ const Root = styled('svg')(({ theme }) => ({
 
 type ParkhandsLogoProps = {
   variant?: 'fixed' | 'adaptive'
-  size?: 'small' | 'large'
+  size?: 'small' | 'large' | 'giant'
   locale?: string
   className?: string
 }
 const sizes = {
   small: [118, 24],
   large: [236, 48],
+  giant: [472, 96],
 }
 export default function PodkrepiLogo({
   variant = 'fixed',

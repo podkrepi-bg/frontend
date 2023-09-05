@@ -8,7 +8,7 @@ import { beneficiaryCampaignPictureUrl } from 'common/util/campaignImageUrls'
 import Layout from 'components/client/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
-import DonationStepper from '../Steps'
+import dynamic from 'next/dynamic'
 
 import {
   BeneficiaryAvatar,
@@ -23,6 +23,8 @@ import {
 const scrollWindow = () => {
   window.scrollTo({ top: 200, behavior: 'smooth' })
 }
+
+const DonationStepper = dynamic(() => import('../Steps'), { ssr: false })
 
 export default function OneTimeDonation({ slug }: { slug: string }) {
   const { data, isLoading } = useViewCampaign(slug)

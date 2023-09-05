@@ -66,6 +66,7 @@ export type CampaignNewsAdminCreateFormData = {
   description: string
   terms: boolean
   gdpr: boolean
+  notify: boolean
 }
 
 export type CampaignNewsInput = {
@@ -76,4 +77,5 @@ export type CampaignNewsInput = {
   sourceLink: string | undefined
   description: string
   state: ArticleStatus
+  notify: boolean
 }

@@ -50,6 +50,7 @@ import { useEditNewsArticle, useUploadCampaignNewsFiles } from 'service/campaign
 
 import UploadedCampaignFile from 'components/admin/campaign-news/UploadedCampaignFile'
 import CampaignDropdownSelector from 'components/admin/campaign-news/CampaignDropdownSelector'
+import CheckboxField from 'components/common/form/CheckboxField'
 
 const validationSchema: yup.SchemaOf<CampaignNewsInput> = yup
   .object()
@@ -62,6 +63,7 @@ const validationSchema: yup.SchemaOf<CampaignNewsInput> = yup
     sourceLink: yup.string().optional(),
     state: yup.mixed().oneOf(Object.values(ArticleStatus)).required(),
     description: yup.string().required(),
+    notify: yup.bool().required(),
   })
 
 type Props = {
@@ -87,6 +89,7 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
     sourceLink: article?.sourceLink || '',
     state: article?.state,
     description: article?.description,
+    notify: false,
   }
 
   const handleError = (e: AxiosError<ApiErrors>) => {
@@ -140,6 +143,7 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
         sourceLink: values.sourceLink,
         state: values.state,
         description: values.description,
+        notify: values.notify,
       })
 
       if (files.length > 0) {
@@ -253,6 +257,14 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
           </Grid>
           <Grid item xs={12} sm={4}>
             {isAdmin && <ArticleStatusSelect />}
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            {isAdmin && (
+              <CheckboxField
+                name="notify"
+                label={<Typography variant="body2">{t('campaigns:campaign.notify')}</Typography>}
+              />
+            )}
           </Grid>
           <Grid item xs={12}>
             <Typography>{t('campaigns:campaign.description')}</Typography>

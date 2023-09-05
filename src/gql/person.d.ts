@@ -13,6 +13,11 @@ export type PersonResponse = {
   emailConfirmed: boolean
 }
 
+export type PersonPaginatedResponse = {
+  items: PersonResponse[]
+  total: number
+}
+
 export type PersonFormData = {
   firstName: string
   lastName: string
@@ -48,6 +53,7 @@ export type Person = {
   personalNumber: string | null
   keycloakId: string | null
   stripeCustomerId: string | null
+  newsletter: boolean | null
 }
 
 export type UpdatePerson = Partial<

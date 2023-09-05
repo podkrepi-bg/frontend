@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { CampaignResponse } from 'gql/campaigns'
 
 import { Button, CircularProgress, Grid, IconButton, Menu, Typography } from '@mui/material'
-import { AddLinkOutlined, Favorite } from '@mui/icons-material'
+import { AddLinkOutlined, Favorite, MarkEmailUnread } from '@mui/icons-material'
 import { lighten } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
@@ -29,6 +29,7 @@ import CustomListItem from 'components/common/navigation/CustomListItem'
 import { socialMedia } from './helpers/socialMedia'
 import { CampaignState } from './helpers/campaign.enums'
 import { AlertStore } from 'stores/AlertStore'
+import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
 
 const PREFIX = 'InlineDonation'
 
@@ -51,6 +52,7 @@ const classes = {
   campaignInfoKey: `${PREFIX}-campaignInfoKey`,
   campaignInfoValue: `${PREFIX}-campaignInfoValue`,
   pagination: `${PREFIX}-pagination`,
+  subscribeLink: `${PREFIX}-subscribe`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -208,6 +210,19 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       fontSize: theme.typography.pxToRem(15),
     },
   },
+
+  [`& .${classes.subscribeLink}`]: {
+    fontWeight: 500,
+    fontSize: theme.typography.pxToRem(16.5),
+    textAlign: 'center',
+
+    '&:hover': {
+      textDecoration: 'underline',
+      transform: 'scale(1.01)',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+    },
+  },
 }))
 
 type Props = {
@@ -218,6 +233,7 @@ export default function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation('campaigns')
   const { asPath } = useRouter()
   const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
+  const [subscribeIsOpen, setSubscribeOpen] = useState(false)
   const active = status === 'copied' ? 'inherit' : 'primary'
   const [page, setPage] = useState<number>(0)
   const pageSize = 5
@@ -260,6 +276,7 @@ export default function InlineDonation({ campaign }: Props) {
               ? reachedAmount.split(',')[1].substring(0, 2)
               : reachedAmount.split('.')[1]}
           </Typography>
+          {i18n.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
         </Grid>
         <Grid>
           <Typography component="span" className={classes.moneyUnit}>
@@ -270,6 +287,7 @@ export default function InlineDonation({ campaign }: Props) {
               ? targetAmount.split(',')[1].substring(0, 2)
               : targetAmount.split('.')[1]}
           </Typography>
+          {i18n.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
         </Grid>
       </Grid>
       <Grid pt={1}>
@@ -319,6 +337,22 @@ export default function InlineDonation({ campaign }: Props) {
           </LinkButton>
         </Grid>
       </Grid>
+      {subscribeIsOpen && (
+        <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
+      )}
+      {/* Hide until notifications is ready */}
+      {/* <Grid
+        item
+        textAlign="center"
+        mt={1.8}
+        display="flex"
+        justifyContent="space-around"
+        paddingX={4}>
+        <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
+          {t('campaigns:cta.subscribe')}
+        </Typography>
+        <MarkEmailUnread onClick={() => setSubscribeOpen(true)} cursor="pointer" />
+      </Grid> */}
       {detailsShown &&
         (donationHistoryError ? (
           'Error fetching donation history'

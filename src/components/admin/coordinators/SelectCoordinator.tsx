@@ -7,7 +7,7 @@ import { useField } from 'formik'
 export default function SelectCoordinator({ name = 'coordinatorId' }) {
   const { t } = useTranslation()
   const [field] = useField(name)
-  const { data: personList } = usePersonList()
+  const { data: { items: personList } = { items: [] } } = usePersonList()
   const { data: coordinatorList } = useCoordinatorsList()
 
   return (

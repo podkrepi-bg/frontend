@@ -3,28 +3,72 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box, Avatar } from '@mui/material'
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { styled } from '@mui/material/styles'
+import {
+  DataGrid,
+  GridColDef,
+  GridPaginationModel,
+  GridRenderCellParams,
+  GridSortDirection,
+  GridSortModel,
+} from '@mui/x-data-grid'
+import CheckIcon from '@mui/icons-material/Check'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+
 import GridActions from 'components/admin/GridActions'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import { ModalStore } from '../PersonGrid'
 import { usePersonList } from 'common/hooks/person'
 import { routes } from 'common/routes'
-import { PersonResponse } from 'gql/person'
-import CheckIcon from '@mui/icons-material/Check'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import { PersonPaginatedResponse } from 'gql/person'
+import { PaginationData, SortData } from 'gql/types'
+
+const defaultSort: SortData = {
+  sortBy: 'createdAt',
+  sortOrder: 'desc',
+}
+
+const Centered = styled('div')({
+  flex: 1,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
 
 export default observer(function Grid() {
   const { t } = useTranslation()
 
-  const { data }: UseQueryResult<PersonResponse[]> = usePersonList()
-
   const { isDetailsOpen } = ModalStore
 
-  const [paginationModel, setPaginationModel] = useState({
+  const [paginationModel, setPaginationModel] = useState<PaginationData>({
+    pageIndex: 0,
     pageSize: 10,
-    page: 0,
   })
+  const [sortingModel, setSortingModel] = useState<SortData>(defaultSort)
+
+  const {
+    data: { items, total: totalCount } = { items: [], total: 0 },
+  }: UseQueryResult<PersonPaginatedResponse> = usePersonList(paginationModel, sortingModel)
+
+  const handlePaginationModelChange = React.useCallback((paginationModel: GridPaginationModel) => {
+    setPaginationModel({
+      pageIndex: paginationModel.page,
+      pageSize: paginationModel.pageSize,
+    })
+  }, [])
+
+  const handleSortModelChange = React.useCallback((sortModel: GridSortModel) => {
+    const sortData: SortData =
+      sortModel.length !== 0
+        ? {
+            sortBy: sortModel[0].field === 'name' ? 'firstName' : sortModel[0].field,
+            sortOrder: sortModel[0].sort ?? 'desc',
+          }
+        : defaultSort
+
+    setSortingModel(sortData)
+  }, [])
 
   const getColor = (initials: string): string => {
     const colors = ['#0179a8', '#346cb0', '#5f4b8b', '#b76ba3', '#a7c796', '#00a28a', '#3686a0']
@@ -130,14 +174,66 @@ export default observer(function Grid() {
       valueGetter: (f) => f.row.createdAt?.toString().slice(0, 10),
     },
     {
+      field: 'organizer',
+      headerName: t('person:admin.fields.organizer'),
+      minWidth: 130,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <Centered>
+            {params.row.organizer ? (
+              <CheckIcon style={{ color: '#00b386' }} />
+            ) : (
+              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+            )}
+          </Centered>
+        )
+      },
+    },
+    {
+      field: 'coordinators',
+      headerName: t('person:admin.fields.coordinator'),
+      minWidth: 130,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <Centered>
+            {params.row.coordinators ? (
+              <CheckIcon style={{ color: '#00b386' }} />
+            ) : (
+              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+            )}
+          </Centered>
+        )
+      },
+    },
+    {
+      field: 'beneficiaries',
+      headerName: t('person:admin.fields.beneficiary'),
+      minWidth: 130,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <Centered>
+            {params.row.beneficiaries.length > 0 ? (
+              <CheckIcon style={{ color: '#00b386' }} />
+            ) : (
+              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+            )}
+          </Centered>
+        )
+      },
+    },
+    {
       field: 'emailConfirmed',
       headerName: t('person:admin.fields.email-confirmed'),
       minWidth: 140,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return params.row.emailConfirmed === true ? (
-          <CheckIcon style={{ color: '#00b386' }} />
-        ) : (
-          <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+        return (
+          <Centered>
+            {params.row.emailConfirmed ? (
+              <CheckIcon style={{ color: '#00b386' }} />
+            ) : (
+              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+            )}
+          </Centered>
         )
       },
     },
@@ -146,10 +242,14 @@ export default observer(function Grid() {
       headerName: t('person:admin.fields.newsletter'),
       minWidth: 130,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return params.row.newsletter === true ? (
-          <CheckIcon style={{ color: '#00b386' }} />
-        ) : (
-          <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+        return (
+          <Centered>
+            {params.row.newsletter ? (
+              <CheckIcon style={{ color: '#00b386' }} />
+            ) : (
+              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+            )}
+          </Centered>
         )
       },
     },
@@ -184,14 +284,25 @@ export default observer(function Grid() {
             overflowX: 'hidden',
             borderRadius: '0 0 13px 13px',
           }}
-          rows={data || []}
+          rows={items}
           columns={columns}
           columnVisibilityModel={{
             id: false,
           }}
+          initialState={{
+            sorting: {
+              sortModel: [
+                { field: defaultSort.sortBy, sort: defaultSort.sortOrder as GridSortDirection },
+              ],
+            },
+          }}
           pageSizeOptions={[5, 10]}
-          paginationModel={paginationModel}
-          onPaginationModelChange={setPaginationModel}
+          paginationModel={{ page: paginationModel.pageIndex, pageSize: paginationModel.pageSize }}
+          paginationMode="server"
+          sortingMode="server"
+          rowCount={totalCount}
+          onPaginationModelChange={handlePaginationModelChange}
+          onSortModelChange={handleSortModelChange}
           disableRowSelectionOnClick
         />
       </Box>

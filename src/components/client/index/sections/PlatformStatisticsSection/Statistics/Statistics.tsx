@@ -7,12 +7,14 @@ import { getTotalDonatedMoney, useDonatedUsersCount } from 'common/hooks/donatio
 import { toNumberWithSpacesBetween } from 'common/util/number'
 
 import {
+  Fraction,
   SectionDivider,
   StatisticsSectionWrapper,
   StatisticsWrapper,
   SubtitleSectionNumber,
   SubtitleSectionText,
 } from './Statistics.styled'
+import { Stack } from '@mui/material'
 
 export default function Statistics() {
   const { t } = useTranslation('index')
@@ -20,6 +22,10 @@ export default function Statistics() {
   const { data: totalDonations } = useCampaignDonationHistory(undefined, 0, 1) //ask only for 1 item to get the total count
   const { data: donorsCount } = useDonatedUsersCount()
   const { data: totalDonatedMoney } = getTotalDonatedMoney()
+
+  const donatedMoney = fromMoney(totalDonatedMoney?.total || 0)
+  const unit = donatedMoney.toString().split('.')[0]
+  const fraction = donatedMoney.toString().split('.')[1]
 
   const sections: { value?: number; message: string }[] = [
     {
@@ -33,10 +39,6 @@ export default function Statistics() {
     {
       value: donorsCount?.count,
       message: t('platform-statistics.donated-users'),
-    },
-    {
-      value: fromMoney(totalDonatedMoney?.total ?? 0),
-      message: t('platform-statistics.donated-leva'),
     },
   ]
 
@@ -53,6 +55,16 @@ export default function Statistics() {
           <SectionDivider />
         </React.Fragment>
       ))}
+      <StatisticsWrapper>
+        <Stack flexDirection="row">
+          <SubtitleSectionNumber variant="subtitle1">
+            {toNumberWithSpacesBetween(unit)}
+          </SubtitleSectionNumber>
+          <Fraction>{fraction}</Fraction>
+        </Stack>
+        <SubtitleSectionText>{t('platform-statistics.donated-leva')}</SubtitleSectionText>
+      </StatisticsWrapper>
+      <SectionDivider />
     </StatisticsSectionWrapper>
   )
 }

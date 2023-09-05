@@ -14,7 +14,7 @@ import { DonationStatus } from 'gql/donations.enums'
 import { apiClient } from 'service/apiClient'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { isAdmin } from 'common/util/roles'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosError } from 'axios'
 
 // NOTE: shuffling the campaigns so that each gets its fair chance to be on top row
 export const campaignsOrderQueryFunction: QueryFunction<CampaignResponse[]> = async ({
@@ -43,10 +43,7 @@ export function useCampaignList() {
   return useQuery<CampaignResponse[]>(
     [endpoints.campaign.listCampaigns.url],
     campaignsOrderQueryFunction,
-    {
-      // Add 15 minutes of cache time
-      staleTime: 1000 * 60 * 15,
-    },
+    { enabled: false },
   )
 }
 
