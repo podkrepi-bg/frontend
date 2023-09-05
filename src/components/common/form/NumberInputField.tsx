@@ -80,7 +80,7 @@ export default function NumberInputField({
           return
         }
         if (Number(amount) > limit) {
-          setError(`${t('first-step.transaction-limit')} ${moneyPublic(limit, 'BGN', 1)}`)
+          setError(t('first-step.transaction-limit', { limit: moneyPublic(limit, 'BGN', 1) }))
           return
         } else if (Number(amount) < 1) {
           setValue(1)
