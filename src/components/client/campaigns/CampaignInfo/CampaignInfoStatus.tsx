@@ -6,6 +6,7 @@ import { bg, enUS } from 'date-fns/locale'
 import { Box, Chip, Grid } from '@mui/material'
 
 import { getExactDate } from 'common/util/date'
+import theme from 'common/theme'
 
 import { StatusText, StatusLabel, RowWrapper, InfoStatusWrapper } from './CampaignInfo.styled'
 
@@ -20,16 +21,22 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
 
   return (
     <Grid>
-      <Box component="span" display="flex" alignItems="center" sx={{ gap: '5px' }}>
+      <Box
+        component="span"
+        sx={{
+          display: 'flex',
+          gap: theme.spacing(1),
+          margin: theme.spacing(3, 0, 6),
+          alignItems: 'center',
+        }}>
         {showExpensesLink && (
           <Chip
             component="a"
             label={t('campaigns:campaign.financial-report')}
             href="#expenses"
             clickable
-            variant="outlined"
-            color="primary"
             size="small"
+            sx={{ backgroundColor: theme.palette.primary.light }}
           />
         )}
         <Chip
@@ -37,19 +44,16 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
           label={t('campaigns:campaign.news')}
           href="#news"
           clickable
-          color="primary"
-          variant="outlined"
           size="small"
+          sx={{ backgroundColor: theme.palette.primary.light }}
         />
-
         <Chip
           component="a"
           label={t('campaigns:campaign.wishes')}
           href="#wishes"
           clickable
-          variant="outlined"
-          color="primary"
           size="small"
+          sx={{ backgroundColor: theme.palette.primary.light }}
         />
       </Box>
       <InfoStatusWrapper>
