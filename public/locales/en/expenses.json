@@ -59,7 +59,8 @@
       "success": "Expenses were deleted successfully!!"
     },
     "delete": "Deleted expense",
-    "no-files-uploaded": "No files uploaded"
+    "no-files-uploaded": "No files uploaded",
+    "file-too-big": "File too big"
   },
   "btns": {
     "add": "Add",

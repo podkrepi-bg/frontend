@@ -234,6 +234,23 @@ export default function Form() {
             <FileUpload
               buttonLabel={t('expenses:add-documents')}
               onUpload={(newFiles) => {
+                newFiles = newFiles.filter((file) => {
+                  const maxFileSize = 20 * 1000000
+                  if (file.size > maxFileSize) {
+                    const alert =
+                      t('expenses:alerts.file-too-big') +
+                      ': ' +
+                      Math.ceil(file.size / 1000000) +
+                      'M' +
+                      '(max:' +
+                      maxFileSize / 1000000 +
+                      'M)!'
+                    AlertStore.show(alert, 'error')
+                    return false
+                  }
+                  return true
+                })
+
                 setFilesToUpload((prevFiles) => [...prevFiles, ...newFiles])
               }}
             />
