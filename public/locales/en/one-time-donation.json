@@ -22,7 +22,8 @@
     "amount": "How much would you like to donate?",
     "other": "Other amount",
     "BGN": "BGN",
-    "transaction-limit": "Donation can't exceed the sum of "
+    "only-number": "This field can contain only numbers.",
+    "transaction-limit": "Donation can't exceed the sum of {{limit}}"
   },
   "second-step": {
     "login": "Log in",
