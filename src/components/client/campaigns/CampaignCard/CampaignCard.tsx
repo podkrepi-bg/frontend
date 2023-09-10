@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { CardMedia } from '@mui/material'
+import { Box, CardMedia } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
@@ -23,6 +23,7 @@ import {
   SumNumber,
   SumWrapper,
 } from '../../index/sections/ActiveCampaignsSection/ActiveCampaignCard/ActiveCampaignCard.styled'
+import Image from 'next/image'
 
 type Props = { campaign: CampaignResponse; index: number }
 
@@ -47,26 +48,24 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   return (
     <Root data-testid={`campaign-card-${index}`}>
-      <Link href={routes.campaigns.viewCampaignBySlug(slug)} sx={{ position: 'relative' }}>
-        <CardMedia
-          component="img"
-          height="100%"
-          image={campaignImagesUrl}
-          alt={title}
+      <Link href={routes.campaigns.viewCampaignBySlug(slug)}>
+        <Box
+          position={'relative'}
           sx={{
-            maxHeight: theme.spacing(42.5),
-
-            [theme.breakpoints.up('lg')]: {
-              aspectRatio: '2',
-              height: theme.spacing(22.3),
-              maxHeight: 'inherit',
-            },
-
-            [theme.breakpoints.up(1430)]: {
-              height: theme.spacing(27.9),
-            },
-          }}
-        />
+            width: '100%',
+            aspectRatio: 1.5,
+            maxHeight: theme.spacing(27.9),
+          }}>
+          <Image
+            priority
+            src={campaignImagesUrl}
+            alt={title}
+            fill
+            sizes="(min-width: 2000px) 312px, (min-width: 1200px) calc(30vw - 38px), (min-width: 900px) calc(40.57vw - 29px), (min-width: 600px) calc(50vw - 28px), calc(100vw - 32px)"
+            quality={index === 0 ? 100 : 75}
+            style={{ objectFit: 'cover' }}
+          />
+        </Box>
         {campaignState === CampaignState.complete && percentage >= 100 ? (
           <SuccessfullCampaignTag />
         ) : (

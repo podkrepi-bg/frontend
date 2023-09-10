@@ -1,7 +1,7 @@
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { CardMedia } from '@mui/material'
+import { Box, CardMedia } from '@mui/material'
 
 import Link from 'components/common/Link'
 import CampaignProgress from 'components/client/campaigns/CampaignProgress'
@@ -9,6 +9,7 @@ import theme from 'common/theme'
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { moneyPublic } from 'common/util/money'
+import Image from 'next/image'
 
 import {
   CampaignTitle,
@@ -34,26 +35,32 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   return (
     <Root data-testid={`completed-campaign-${index}`}>
-      <Link href={routes.campaigns.viewCampaignBySlug(slug)} sx={{ position: 'relative' }}>
-        <CardMedia
-          component="img"
-          height="100%"
-          image={campaignImagesUrl}
-          alt={title}
+      <Link href={routes.campaigns.viewCampaignBySlug(slug)}>
+        <Box
+          position={'relative'}
           sx={{
-            maxHeight: theme.spacing(42.5),
-
+            // aspectRatio: 4 / 3,
+            // [theme.breakpoints.up('lg')]: {
+            //   aspectRatio: 0,
+            //   height: index === 0 ? theme.spacing(71.6) : theme.spacing(27.85),
+            // },
+            width: '100%',
+            aspectRatio: 1.5,
             [theme.breakpoints.up('lg')]: {
-              aspectRatio: '2',
-              height: theme.spacing(22.3),
-              maxHeight: 'inherit',
+              maxHeight: index === 0 ? theme.spacing(71.6) : theme.spacing(27.85),
+              aspectRatio: index === 0 ? 1.24 : 1.55,
             },
-
-            [theme.breakpoints.up(1430)]: {
-              height: theme.spacing(27.9),
-            },
-          }}
-        />
+          }}>
+          <Image
+            priority
+            src={campaignImagesUrl}
+            alt={title}
+            fill
+            sizes="(min-width: 2000px) 312px, (min-width: 1200px) calc(30vw - 38px), (min-width: 900px) calc(40.57vw - 29px), (min-width: 600px) calc(50vw - 28px), calc(100vw - 32px)"
+            quality={index === 0 ? 100 : 75}
+            style={{ objectFit: 'cover' }}
+          />
+        </Box>
         <StyledContent>
           <SumWrapper>
             <Sum>
