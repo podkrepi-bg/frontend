@@ -151,6 +151,11 @@ export default observer(function Grid() {
           rowCount={all_rows}
           disableRowSelectionOnClick
           isCellEditable={() => true}
+          initialState={{
+            sorting: {
+              sortModel: [{ field: 'transactionDate', sort: 'desc' }],
+            },
+          }}
         />
       </Box>
     </>
