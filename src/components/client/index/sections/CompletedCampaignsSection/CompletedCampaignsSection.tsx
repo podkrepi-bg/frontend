@@ -53,7 +53,7 @@ export default function CompletedCampaignsSection() {
             <CompletedCampaignLink
               onMouseDown={onLinkMouseDown}
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
-              sx={{ position: 'relative', width: '100%', aspectRatio:1}}>
+              sx={{ position: 'relative', width: '100%', aspectRatio: 1 }}>
               <Image
                 fill
                 alt={campaign.title}
