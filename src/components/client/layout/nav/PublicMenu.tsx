@@ -58,6 +58,7 @@ export default function PublicMenu() {
         onClick={handleMenu}
         size="medium"
         color="inherit"
+        aria-label="authentication"
         classes={{ endIcon: classes.dropdownArrowIcon }}
         endIcon={
           open ? <ArrowDropUpIcon color="primary" /> : <ArrowDropDownIcon color="primary" />
