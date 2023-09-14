@@ -6,6 +6,7 @@ import { Box, Divider, Link, Typography } from '@mui/material'
 
 import { formatDateString } from 'common/util/date'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
+import theme from 'common/theme'
 
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
@@ -35,7 +36,7 @@ const classes = {
 
 const Root = styled('div')(({ theme }) => ({
   [`& .${classes.editSpan}`]: {
-    color: '#294E85',
+    color: theme.palette.primary.dark,
   },
 
   [`& .${classes.editIcon}`]: { position: 'relative', top: '7px' },
@@ -200,7 +201,7 @@ export default function PersonalInfoTab() {
           <Divider className={classes.divider} />
           <Link
             href="#"
-            sx={{ color: '#294E85', float: 'right' }}
+            sx={{ color: theme.palette.primary.dark, float: 'right' }}
             onClick={() => setIsDisableAccountModalOpen(true)}>
             {t('profile:personalInfo.delete')}
           </Link>

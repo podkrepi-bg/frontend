@@ -6,9 +6,10 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import { useCampaignExpensesList } from 'common/hooks/expenses'
 import { useTranslation } from 'next-i18next'
 import { moneyPublic } from 'common/util/money'
+import theme from 'common/theme'
 
 const addIconStyles = {
-  background: '#4ac3ff',
+  background: theme.palette.primary.light,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 1.2,

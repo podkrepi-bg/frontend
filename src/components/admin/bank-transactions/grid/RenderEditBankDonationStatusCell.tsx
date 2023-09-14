@@ -5,6 +5,7 @@ import { paymentRef } from 'common/form/validation'
 import FormTextField from 'components/common/form/FormTextField'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
+import theme from 'common/theme'
 import { BankDonationStatus } from 'gql/bank-transactions.enums'
 import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
@@ -22,7 +23,7 @@ interface RenderCellProps {
 }
 
 const addIconStyles = {
-  background: '#4ac3ff',
+  background: theme.palette.primary.light,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 0.7,

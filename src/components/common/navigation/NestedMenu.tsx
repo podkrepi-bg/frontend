@@ -13,7 +13,7 @@ export default observer(function NestedMenu() {
   const commongStyles = {
     display: { xs: 'none', sm: 'block' },
     letterSpacing: '1px',
-    color: '#4ac3ff',
+    color: 'black',
     width: '100%',
     padding: 0,
   }

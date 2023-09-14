@@ -4,9 +4,10 @@ import { Add as AddIcon } from '@mui/icons-material'
 import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 
 const addIconStyles = {
-  background: '#4ac3ff',
+  background: theme.palette.primary.light,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 1.2,

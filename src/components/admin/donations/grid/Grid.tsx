@@ -21,6 +21,7 @@ import { useRouter } from 'next/router'
 import { money } from 'common/util/money'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 import { usePersonList } from 'common/hooks/person'
+import theme from 'common/theme'
 import RenderEditPersonCell from './RenderEditPersonCell'
 import { useStores } from '../../../../common/hooks/useStores'
 import RenderEditBillingEmailCell from './RenderEditBillingEmailCell'
@@ -29,7 +30,7 @@ interface RenderCellProps {
   params: GridRenderCellParams
 }
 const addIconStyles = {
-  background: '#4ac3ff',
+  background: theme.palette.primary.light,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 0.7,

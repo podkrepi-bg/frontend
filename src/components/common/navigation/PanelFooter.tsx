@@ -1,5 +1,7 @@
 import { Box } from '@mui/material'
 
+import theme from 'common/theme'
+
 type Props = {
   children: React.ReactNode
 }
@@ -12,7 +14,7 @@ function PanelFooter({ children }: Props) {
         bottom: 0,
         width: '100%',
         height: '45x',
-        background: '#294e85',
+        background: theme.palette.primary.dark,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
