@@ -27,6 +27,7 @@ export default function CampaignProgress({ campaignId, raised, target }: Props) 
       labelSize={theme.spacing(1.5)}
       labelAlignment={percentageRound < 10 ? 'left' : 'right'}
       customLabelStyles={{ fontWeight: 400 }}
+      transitionDuration={'0s'}
     />
   )
 }
