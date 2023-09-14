@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Box, CardMedia } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'

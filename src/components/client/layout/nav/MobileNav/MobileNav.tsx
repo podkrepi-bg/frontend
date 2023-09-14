@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 
-import { SwipeableDrawer, Hidden, Grid } from '@mui/material'
+import { SwipeableDrawer, Grid } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 
 import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
