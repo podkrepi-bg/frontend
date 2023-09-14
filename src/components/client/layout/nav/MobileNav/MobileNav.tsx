@@ -44,7 +44,7 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
   }, [])
 
   return (
-    <Hidden mdUp implementation="css">
+    <Grid sx={{ display: { xs: 'flex', md: 'none' } }}>
       <SwipeableDrawer
         anchor="right"
         open={mobileOpen}
@@ -80,6 +80,6 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
           </Grid>
         </NavMenuWrapper>
       </SwipeableDrawer>
-    </Hidden>
+    </Grid>
   )
 }
