@@ -39,16 +39,11 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         <Box
           position={'relative'}
           sx={{
-            // aspectRatio: 4 / 3,
-            // [theme.breakpoints.up('lg')]: {
-            //   aspectRatio: 0,
-            //   height: index === 0 ? theme.spacing(71.6) : theme.spacing(27.85),
-            // },
             width: '100%',
             aspectRatio: 1.5,
             [theme.breakpoints.up('lg')]: {
-              maxHeight: index === 0 ? theme.spacing(71.6) : theme.spacing(27.85),
-              aspectRatio: index === 0 ? 1.24 : 1.55,
+              maxHeight: index === 0 ? theme.spacing(70) : theme.spacing(27.1),
+              aspectRatio: index === 0 ? 1.11 : 1.43,
             },
           }}>
           <Image
