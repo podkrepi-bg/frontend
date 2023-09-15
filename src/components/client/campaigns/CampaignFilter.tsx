@@ -21,6 +21,7 @@ import {
   VolunteerActivism,
 } from '@mui/icons-material'
 import useMobile from 'common/hooks/useMobile'
+import theme from 'common/theme'
 
 const PREFIX = 'CampaignFilter'
 
@@ -35,22 +36,26 @@ const Root = styled('div')(() => ({
     borderRadius: 0,
     borderBottom: '1px solid transparent',
     padding: 1,
+
     '&:active': {
-      color: '#4AC3FF',
-      borderBottom: '5px solid #4AC3FF',
+      color: theme.palette.primary.light,
+      borderBottom: `5px solid ${theme.palette.primary.light}`,
     },
+
     '&:hover': {
       backgroundColor: 'white',
-      borderBottom: '5px solid #4AC3FF',
-      color: '#4AC3FF',
+      borderBottom: `5px solid ${theme.palette.primary.light}`,
+      color: theme.palette.primary.light,
     },
+
     '&:focus': {
-      color: '#4AC3FF',
-      borderBottom: '5px solid #4AC3FF',
+      color: theme.palette.primary.light,
+      borderBottom: `5px solid ${theme.palette.primary.light}`,
     },
+
     '&:selected': {
-      color: '#4AC3FF',
-      borderBottom: '5px solid #4AC3FF',
+      color: theme.palette.primary.light,
+      borderBottom: `5px solid ${theme.palette.primary.light}`,
     },
   },
 }))

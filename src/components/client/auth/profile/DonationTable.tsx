@@ -118,7 +118,12 @@ function DonationTable({ donations }: DonationTableProps) {
                       disabled={donation.status !== 'succeeded'}
                       endIcon={<ArrowForwardIcon />}>
                       <Link
-                        sx={{ color: donation.status !== 'succeeded' ? 'inherit' : '#32A9FE' }}
+                        sx={{
+                          color:
+                            donation.status !== 'succeeded'
+                              ? 'inherit'
+                              : theme.palette.primary.main,
+                        }}
                         target="_blank"
                         href={routes.donation.viewCertificate(donation.id)}>
                         {t('profile:donations.download')}

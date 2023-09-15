@@ -12,6 +12,7 @@ import Image from 'next/image'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
 import { useShowMoreContent } from './hooks/useShowMoreContent'
 import { HTMLContentSeparator } from 'common/util/htmlUtils'
+import theme from 'common/theme'
 import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
 import { scrollToTop } from './utils/scrollToTop'
 import { getArticleHeight } from './utils/getArticleHeight'
@@ -93,9 +94,9 @@ export default function CampaignNewsList({ articles }: Props) {
             container
             key={article.id}
             sx={{
-              backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#E3E3E3',
+              backgroundColor: index % 2 === 0 ? theme.palette.common.white : '#E3E3E3',
               borderBottom: 1,
-              borderColor: index % 2 === 0 ? '#FFFFFF' : '#C4C4C4',
+              borderColor: index % 2 === 0 ? theme.palette.common.white : '#C4C4C4',
             }}>
             <ArticleSection id={article.id}>
               <Grid container columnGap={2} rowGap={1} className={classes.dateAndAuthorContainer}>

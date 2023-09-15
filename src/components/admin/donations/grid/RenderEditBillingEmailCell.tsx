@@ -12,6 +12,7 @@ import { useEditDonation } from 'service/donation'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { personFilter } from 'components/common/person/PersonAutoCompleteFilter'
+import theme from 'common/theme'
 
 interface RenderEditCellProps {
   params: GridRenderEditCellParams
@@ -19,7 +20,7 @@ interface RenderEditCellProps {
   onUpdate(): void
 }
 const addIconStyles = {
-  background: '#4ac3ff',
+  background: theme.palette.primary.light,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 0.7,

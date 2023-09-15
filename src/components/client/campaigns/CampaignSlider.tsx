@@ -43,7 +43,7 @@ const Root = styled('div')(() => ({
     },
     '& .slick-dots li button:before': {
       fontSize: theme.spacing(1),
-      color: '#32a9fe',
+      color: theme.palette.primary.main,
     },
   },
 }))

@@ -10,10 +10,11 @@ import { AlertStore } from 'stores/AlertStore'
 import { downloadFile } from '../../../../common/util/downloadFile'
 import { useMemo, useState } from 'react'
 import { useStores } from 'common/hooks/useStores'
+import theme from 'common/theme'
 import { debounce } from 'lodash'
 
 const addIconStyles = {
-  background: '#4ac3ff',
+  background: theme.palette.primary.light,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 1.2,
