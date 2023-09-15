@@ -47,7 +47,7 @@ export default function ProjectMenuMobile() {
     <StyledAccordion className={classes.accordionWrapper}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
+        aria-controls="aboutus-panel-content"
         className={classes.accordionSummary}>
         {t('nav.about.about-us')}
       </AccordionSummary>

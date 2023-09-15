@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Menu } from '@mui/icons-material'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
-import { AppBar, Toolbar, IconButton, Grid, Hidden, ButtonBase } from '@mui/material'
+import { AppBar, Toolbar, IconButton, Grid, ButtonBase } from '@mui/material'
 
 import { routes } from 'common/routes'
 import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'

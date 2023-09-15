@@ -1,7 +1,7 @@
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Box, CardMedia } from '@mui/material'
+import { Box } from '@mui/material'
 
 import Link from 'components/common/Link'
 import CampaignProgress from 'components/client/campaigns/CampaignProgress'
@@ -39,16 +39,11 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         <Box
           position={'relative'}
           sx={{
-            // aspectRatio: 4 / 3,
-            // [theme.breakpoints.up('lg')]: {
-            //   aspectRatio: 0,
-            //   height: index === 0 ? theme.spacing(71.6) : theme.spacing(27.85),
-            // },
             width: '100%',
             aspectRatio: 1.5,
             [theme.breakpoints.up('lg')]: {
-              maxHeight: index === 0 ? theme.spacing(71.6) : theme.spacing(27.85),
-              aspectRatio: index === 0 ? 1.24 : 1.55,
+              maxHeight: index === 0 ? theme.spacing(71.2) : theme.spacing(27.65),
+              aspectRatio: index === 0 ? 0.9 : 1,
             },
           }}>
           <Image
