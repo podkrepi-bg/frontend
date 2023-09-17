@@ -38,9 +38,9 @@ export type PersonFormData = {
   companyNumber?: string
   legalPersonName?: string
   address?: string
-  isBeneficiary: boolean
-  isCoordinator: boolean
-  isOrganizer: boolean
+  isBeneficiary?: boolean
+  isCoordinator?: boolean
+  isOrganizer?: boolean
 }
 
 export type CreateBeneficiaryInput = {
