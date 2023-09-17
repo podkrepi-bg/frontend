@@ -11,6 +11,16 @@ export type PersonResponse = {
   createdAt: string
   newsletter: boolean
   emailConfirmed: boolean
+  beneficiaries?: PersonRoleResponse[]
+  coordinators?: PersonRoleResponse
+  organizer?: PersonRoleResponse
+}
+
+export type PersonRoleResponse = {
+  id: string
+  _count?: {
+    campaigns: number
+  }
 }
 
 export type PersonPaginatedResponse = {
@@ -28,6 +38,9 @@ export type PersonFormData = {
   companyNumber?: string
   legalPersonName?: string
   address?: string
+  isBeneficiary: boolean
+  isCoordinator: boolean
+  isOrganizer: boolean
 }
 
 export type CreateBeneficiaryInput = {
@@ -81,7 +94,10 @@ export type UpdateUserAccount = {
   password: string
 }
 
-export type AdminPersonFormData = Pick<PersonFormData, 'firstName' | 'lastName' | 'email' | 'phone'>
+export type AdminPersonFormData = Pick<
+  PersonFormData,
+  'firstName' | 'lastName' | 'email' | 'phone' | 'isBeneficiary' | 'isCoordinator' | 'isOrganizer'
+>
 
 export type AdminPersonResponse = Pick<
   PersonResponse,

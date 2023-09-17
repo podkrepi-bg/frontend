@@ -18,11 +18,11 @@ export const createOrganizer = () => {
   }
 }
 
-export const deleteOrganizer = (id: string) => {
+export const deleteOrganizer = () => {
   const { data: session } = useSession()
-  return async () => {
+  return async (data: string) => {
     return await apiClient.delete<OrganizerResponse, AxiosResponse<OrganizerResponse>>(
-      endpoints.organizer.removeOrganizer(id).url,
+      endpoints.organizer.removeOrganizer(data).url,
       authConfig(session?.accessToken),
     )
   }

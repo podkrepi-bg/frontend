@@ -17,12 +17,20 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { routes } from 'common/routes'
 import { usePerson } from 'common/hooks/person'
+import CheckboxField from 'components/common/form/CheckboxField'
+import { useCreateCoordinator, useDeleteCoordinator } from 'service/coordinator'
+import { CoordinatorResponse, CoorinatorInput } from 'gql/coordinators'
+import { createOrganizer, deleteOrganizer } from 'service/organizer'
+import { OrganizerInput } from 'gql/organizer'
 
 const validationSchema: yup.SchemaOf<AdminPersonFormData> = yup.object().defined().shape({
   firstName: name.required(),
   lastName: name.required(),
   email: email.required(),
   phone: phone.notRequired(),
+  isBeneficiary: yup.bool().required(),
+  isCoordinator: yup.bool().required(),
+  isOrganizer: yup.bool().required(),
 })
 
 const defaults: AdminPersonFormData = {
@@ -30,10 +38,20 @@ const defaults: AdminPersonFormData = {
   lastName: '',
   email: '',
   phone: '',
+  isBeneficiary: false,
+  isCoordinator: false,
+  isOrganizer: false,
 }
 
 type FormProps = {
-  initialValues?: AdminPersonFormData
+  initialValues?: {
+    coordinatorId?: string
+    activeCoordinator?: boolean
+    organizerId?: string
+    activeOrganizer?: boolean
+    beneficiaryId?: string
+    activeBeneficiary?: boolean
+  } & AdminPersonFormData
 }
 
 export default function PersonForm({ initialValues = defaults }: FormProps) {
@@ -48,14 +66,60 @@ export default function PersonForm({ initialValues = defaults }: FormProps) {
   >({
     mutationFn: editPersonId ? useEditPerson(editPersonId) : useCreatePerson(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => {
-      AlertStore.show(t('common:alerts.success'), 'success')
-      router.push(routes.admin.person.index)
-    },
   })
 
-  function handleSubmit(values: AdminPersonFormData) {
-    mutation.mutate(values)
+  const coordinatorCreateMutation = useMutation<
+    AxiosResponse<CoordinatorResponse>,
+    AxiosError<ApiErrors>,
+    CoorinatorInput
+  >({
+    mutationFn: useCreateCoordinator(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+  })
+
+  const coordinatorDeleteMutation = useMutation<
+    AxiosResponse<CoordinatorResponse>,
+    AxiosError<ApiErrors>,
+    string
+  >({
+    mutationFn: useDeleteCoordinator(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+  })
+
+  const organizerCreateMutation = useMutation<
+    AxiosResponse<CoordinatorResponse>,
+    AxiosError<ApiErrors>,
+    OrganizerInput
+  >({
+    mutationFn: createOrganizer(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+  })
+
+  const organizerDeleteMutation = useMutation<
+    AxiosResponse<CoordinatorResponse>,
+    AxiosError<ApiErrors>,
+    string
+  >({
+    mutationFn: deleteOrganizer(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+  })
+
+  async function handleSubmit(values: AdminPersonFormData) {
+    const { data: userResponse } = await mutation.mutateAsync(values)
+
+    if (values.isCoordinator !== initialValues.isCoordinator) {
+      !values.isCoordinator && initialValues.coordinatorId
+        ? coordinatorDeleteMutation.mutate(initialValues.coordinatorId)
+        : coordinatorCreateMutation.mutate({ personId: userResponse.id })
+    }
+
+    if (values.isOrganizer !== initialValues.isOrganizer) {
+      !values.isOrganizer && initialValues.organizerId
+        ? organizerDeleteMutation.mutate(initialValues.organizerId)
+        : organizerCreateMutation.mutate({ personId: userResponse.id })
+    }
+
+    router.push(routes.admin.person.index)
   }
 
   if (editPersonId) {
@@ -67,6 +131,15 @@ export default function PersonForm({ initialValues = defaults }: FormProps) {
       lastName: data?.lastName ?? '',
       email: data?.email ?? '',
       phone: data?.phone ?? '',
+      isBeneficiary: !!data?.beneficiaries?.length,
+      beneficiaryId: data?.beneficiaries?.at(0)?.id,
+      activeBeneficiary: !!data?.beneficiaries?.at(0)?._count?.campaigns,
+      isCoordinator: !!data?.coordinators,
+      coordinatorId: data?.coordinators?.id,
+      activeCoordinator: !!data?.coordinators?._count?.campaigns,
+      isOrganizer: !!data?.organizer,
+      organizerId: data?.organizer?.id,
+      activeOrganizer: !!data?.organizer?._count?.campaigns,
     }
   }
 
@@ -110,6 +183,27 @@ export default function PersonForm({ initialValues = defaults }: FormProps) {
               inputMode="tel"
               autoComplete="tel"
               label="person:admin.fields.phone"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <CheckboxField
+              name="isOrganizer"
+              disabled={initialValues.activeOrganizer}
+              label="person:admin.fields.organizer"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <CheckboxField
+              name="isCoordinator"
+              disabled={initialValues.activeCoordinator}
+              label="person:admin.fields.coordinator"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <CheckboxField
+              name="isBeneficiary"
+              disabled={initialValues.activeBeneficiary}
+              label="person:admin.fields.beneficiary"
             />
           </Grid>
           <Grid item xs={4} margin="auto">
