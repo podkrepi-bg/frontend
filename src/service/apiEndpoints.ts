@@ -148,14 +148,16 @@ export const endpoints = {
     transactionsList: (
       paginationData?: PaginationData,
       filterData?: FilterData,
+      sort?: SortData,
       searchData?: string,
     ) => {
       const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
       const { status, date } = (filterData as FilterData) || {}
+      const { sortBy, sortOrder } = (sort as SortData) || {}
       const { from, to } = date || {}
 
       return <Endpoint>{
-        url: `/bank-transaction/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&from=${from}&to=${to}&search=${searchData}`,
+        url: `/bank-transaction/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&from=${from}&to=${to}&search=${searchData}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
         method: 'GET',
       }
     },

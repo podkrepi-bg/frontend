@@ -12,6 +12,7 @@ import { money } from 'common/util/money'
 import { useStores } from '../../../../common/hooks/useStores'
 import { BankTransactionsHistoryResponse } from 'gql/bank-transactions'
 import { useBankTransactionsList } from 'common/hooks/bank-transactions'
+import { SortData } from 'gql/types'
 import RenderBankDonationStatusCell from './RenderEditBankDonationStatusCell'
 
 interface RenderCellProps {
@@ -22,8 +23,13 @@ export default observer(function Grid() {
   const { bankTransactionsStore } = useStores()
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
-    pageSize: 20,
+    pageSize: 5,
   })
+
+  const defaultSort: SortData = {
+    sortBy: 'transactionDate',
+    sortOrder: 'desc',
+  }
 
   const { t } = useTranslation()
 
@@ -34,6 +40,7 @@ export default observer(function Grid() {
   }: UseQueryResult<BankTransactionsHistoryResponse> = useBankTransactionsList(
     { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
     bankTransactionsStore.bankTransactionsFilter,
+    defaultSort,
     bankTransactionsStore.bankTransactionSearch,
   )
 
@@ -151,11 +158,6 @@ export default observer(function Grid() {
           rowCount={all_rows}
           disableRowSelectionOnClick
           isCellEditable={() => true}
-          initialState={{
-            sorting: {
-              sortModel: [{ field: 'transactionDate', sort: 'desc' }],
-            },
-          }}
         />
       </Box>
     </>
