@@ -35,7 +35,7 @@ const Root = styled(Layout)(({ theme }) => ({
     fontSize: theme.typography.pxToRem(45),
     lineHeight: theme.typography.pxToRem(60),
     letterSpacing: theme.typography.pxToRem(-1.5),
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
 
   '.ql-video, img': {
@@ -81,7 +81,6 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
       }>
       <Grid>
         <Grid
-          mb={4}
           sx={{
             padding: theme.spacing(0, 3),
             margin: '0 auto',
@@ -98,7 +97,7 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
             {t('news')}
           </Typography>
           <BreadcrumbWrapper crumb={breadcumbData} />
-          <Divider orientation="horizontal" />
+          <Divider orientation="horizontal" sx={{ marginBottom: theme.spacing(4) }} />
         </Grid>
         {data && data?.campaign.campaignNews.length > 0 && (
           <CampaignNewsList articles={data.campaign.campaignNews} />
