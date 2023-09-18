@@ -23,7 +23,7 @@ export default observer(function Grid() {
   const { bankTransactionsStore } = useStores()
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
-    pageSize: 5,
+    pageSize: 20,
   })
 
   const defaultSort: SortData = {
