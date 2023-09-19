@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup'
 import { Grid } from '@mui/material'
 
@@ -22,42 +22,70 @@ import { useCreateCoordinator, useDeleteCoordinator } from 'service/coordinator'
 import { CoordinatorResponse, CoorinatorInput } from 'gql/coordinators'
 import { createOrganizer, deleteOrganizer } from 'service/organizer'
 import { OrganizerInput } from 'gql/organizer'
+import { BeneficiaryFormData, BeneficiaryListResponse } from 'gql/beneficiary'
+import { BeneficiaryType } from 'components/admin/beneficiary/BeneficiaryTypes'
+import { useCreateBeneficiary, useEditBeneficiary, useRemoveBeneficiary } from 'service/beneficiary'
+import OrganizerRelationSelect from 'components/admin/beneficiary/OrganizerRelationSelect'
+import CountrySelect from 'components/admin/countries/CountrySelect'
+import CitySelect from 'components/admin/cities/CitySelect'
 
-const validationSchema: yup.SchemaOf<AdminPersonFormData> = yup.object().defined().shape({
-  firstName: name.required(),
-  lastName: name.required(),
-  email: email.required(),
-  phone: phone.notRequired(),
-  isBeneficiary: yup.bool().required(),
-  isCoordinator: yup.bool().required(),
-  isOrganizer: yup.bool().required(),
-})
+const validationSchema = yup
+  .object()
+  .defined()
+  .shape({
+    firstName: name.required(),
+    lastName: name.required(),
+    email: email.required(),
+    phone: phone.notRequired(),
+    isCoordinator: yup.bool().required(),
+    isOrganizer: yup.bool().required(),
+    isBeneficiary: yup.bool().required(),
+    description: yup.string().notRequired(),
+    cityId: yup.string().when('isBeneficiary', {
+      is: true,
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+    countryCode: yup.string().when('isBeneficiary', {
+      is: true,
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+    organizerRelation: yup.string().when('isBeneficiary', {
+      is: true,
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+  })
 
-const defaults: AdminPersonFormData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
-  isBeneficiary: false,
-  isCoordinator: false,
-  isOrganizer: false,
-}
-
-type FormProps = {
-  initialValues?: {
-    coordinatorId?: string
-    activeCoordinator?: boolean
-    organizerId?: string
-    activeOrganizer?: boolean
-    beneficiaryId?: string
-    activeBeneficiary?: boolean
-  } & AdminPersonFormData
-}
-
-export default function PersonForm({ initialValues = defaults }: FormProps) {
+export default function EditForm() {
   const router = useRouter()
   const { t } = useTranslation()
-  let editPersonId = router.query.id as string
+  const editPersonId = router.query.id as string
+  const { data }: UseQueryResult<PersonResponse> = usePerson(editPersonId)
+
+  const beneficiary = data?.beneficiaries?.at(0)
+  const [showBenefactor, setShowBenefactor] = useState<boolean>(!!beneficiary)
+
+  const initialValues = {
+    firstName: data?.firstName ?? '',
+    lastName: data?.lastName ?? '',
+    email: data?.email ?? '',
+    phone: data?.phone ?? '',
+    isCoordinator: !!data?.coordinators,
+    coordinatorId: data?.coordinators?.id,
+    activeCoordinator: !!data?.coordinators?._count?.campaigns,
+    isOrganizer: !!data?.organizer,
+    organizerId: data?.organizer?.id,
+    activeOrganizer: !!data?.organizer?._count?.campaigns,
+    isBeneficiary: !!data?.beneficiaries?.length,
+    beneficiaryId: beneficiary?.id,
+    activeBeneficiary: !!beneficiary?._count?.campaigns,
+    countryCode: beneficiary?.countryCode ?? 'BG',
+    cityId: beneficiary?.cityId ?? '',
+    description: beneficiary?.description ?? '',
+    organizerRelation: beneficiary?.organizerRelation ?? 'none',
+  }
 
   const mutation = useMutation<
     AxiosResponse<AdminPersonResponse>,
@@ -104,7 +132,25 @@ export default function PersonForm({ initialValues = defaults }: FormProps) {
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
   })
 
-  async function handleSubmit(values: AdminPersonFormData) {
+  const beneficiaryMutation = useMutation<
+    AxiosResponse<BeneficiaryListResponse>,
+    AxiosError<ApiErrors>,
+    BeneficiaryFormData
+  >({
+    mutationFn: beneficiary ? useEditBeneficiary(beneficiary.id) : useCreateBeneficiary(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+  })
+
+  const beneficiaryDeleteMutation = useMutation<
+    AxiosResponse<BeneficiaryListResponse>,
+    AxiosError<ApiErrors>,
+    string
+  >({
+    mutationFn: useRemoveBeneficiary(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+  })
+
+  async function handleSubmit(values: AdminPersonFormData & BeneficiaryFormData) {
     const { data: userResponse } = await mutation.mutateAsync(values)
 
     if (values.isCoordinator !== initialValues.isCoordinator) {
@@ -119,28 +165,19 @@ export default function PersonForm({ initialValues = defaults }: FormProps) {
         : organizerCreateMutation.mutate({ personId: userResponse.id })
     }
 
+    !values.isBeneficiary && initialValues.beneficiaryId
+      ? beneficiaryDeleteMutation.mutate(initialValues.beneficiaryId)
+      : beneficiaryMutation.mutate({
+          type: BeneficiaryType.individual,
+          personId: userResponse.id,
+          countryCode: values.countryCode,
+          cityId: values.cityId,
+          organizerRelation: values.organizerRelation,
+          description: values.description,
+          campaigns: values.campaigns,
+        })
+
     router.push(routes.admin.person.index)
-  }
-
-  if (editPersonId) {
-    editPersonId = String(editPersonId)
-    const { data }: UseQueryResult<PersonResponse> = usePerson(editPersonId)
-
-    initialValues = {
-      firstName: data?.firstName ?? '',
-      lastName: data?.lastName ?? '',
-      email: data?.email ?? '',
-      phone: data?.phone ?? '',
-      isBeneficiary: !!data?.beneficiaries?.length,
-      beneficiaryId: data?.beneficiaries?.at(0)?.id,
-      activeBeneficiary: !!data?.beneficiaries?.at(0)?._count?.campaigns,
-      isCoordinator: !!data?.coordinators,
-      coordinatorId: data?.coordinators?.id,
-      activeCoordinator: !!data?.coordinators?._count?.campaigns,
-      isOrganizer: !!data?.organizer,
-      organizerId: data?.organizer?.id,
-      activeOrganizer: !!data?.organizer?._count?.campaigns,
-    }
   }
 
   return (
@@ -168,12 +205,6 @@ export default function PersonForm({ initialValues = defaults }: FormProps) {
             />
           </Grid>
           <Grid item xs={12}>
-            {/* TODO: <CheckboxField
-              name="skipRegistration"
-              label="Бенефициента ще бъде представляван от организатора"
-            /> */}
-          </Grid>
-          <Grid item xs={12}>
             <EmailField label="person:admin.fields.email" name="email" />
           </Grid>
           <Grid item xs={12}>
@@ -185,32 +216,56 @@ export default function PersonForm({ initialValues = defaults }: FormProps) {
               label="person:admin.fields.phone"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <CheckboxField
               name="isOrganizer"
               disabled={initialValues.activeOrganizer}
               label="person:admin.fields.organizer"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <CheckboxField
               name="isCoordinator"
               disabled={initialValues.activeCoordinator}
               label="person:admin.fields.coordinator"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <CheckboxField
               name="isBeneficiary"
-              disabled={initialValues.activeBeneficiary}
               label="person:admin.fields.beneficiary"
+              onChange={(e) => {
+                setShowBenefactor(e.target.checked)
+              }}
             />
           </Grid>
+          {showBenefactor && (
+            <>
+              <Grid item xs={12}>
+                <OrganizerRelationSelect
+                  name="organizerRelation"
+                  label="person:admin.fields.organizerRelation"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <CountrySelect />
+              </Grid>
+              <Grid item xs={6}>
+                <CitySelect name="cityId" />
+              </Grid>
+              <Grid item xs={12}>
+                <FormTextField
+                  type="text"
+                  name="description"
+                  label="person:admin.fields.description"
+                  multiline
+                  rows={2}
+                />
+              </Grid>
+            </>
+          )}
           <Grid item xs={4} margin="auto">
-            <SubmitButton
-              fullWidth
-              label={editPersonId ? 'person:admin.cta.edit' : 'person:admin.cta.create'}
-            />
+            <SubmitButton fullWidth label={'person:admin.cta.edit'} />
           </Grid>
         </Grid>
       </GenericForm>

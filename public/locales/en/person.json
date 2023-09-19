@@ -41,7 +41,11 @@
       "address": "Address",
       "organizer": "Organizer",
       "coordinator": "Coordinator",
-      "beneficiary": "Beneficiary"
+      "beneficiary": "Beneficiary",
+      "organizerRelation": "Organizer relation",
+      "countryCode": "Country code",
+      "city": "City",
+      "description": "Description"
     },
     "cta": {
       "create": "Create",

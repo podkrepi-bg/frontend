@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react'
+
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
 import { Checkbox, FormControl, FormControlLabel, FormHelperText } from '@mui/material'
@@ -7,10 +9,16 @@ import { TranslatableField, translateError } from 'common/form/validation'
 export type CheckboxFieldProps = {
   name: string
   disabled?: boolean
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   label: string | number | React.ReactElement
 }
 
-export default function CheckboxField({ name, disabled, label }: CheckboxFieldProps) {
+export default function CheckboxField({
+  name,
+  disabled,
+  onChange: handleChange,
+  label,
+}: CheckboxFieldProps) {
   const { t } = useTranslation()
   const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
@@ -19,7 +27,16 @@ export default function CheckboxField({ name, disabled, label }: CheckboxFieldPr
       <FormControlLabel
         label={typeof label === 'string' ? `${t(label)}` : label}
         control={
-          <Checkbox color="primary" checked={Boolean(field.value)} disabled={disabled} {...field} />
+          <Checkbox
+            color="primary"
+            checked={Boolean(field.value)}
+            disabled={disabled}
+            {...field}
+            onChange={(e) => {
+              field.onChange(e)
+              if (handleChange) handleChange(e)
+            }}
+          />
         }
       />
       {Boolean(meta.error) && <FormHelperText error>{helperText}</FormHelperText>}

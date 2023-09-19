@@ -1,4 +1,5 @@
 import { UUID } from './types'
+import { BeneficiaryFormData } from './beneficiary'
 
 export type PersonResponse = {
   id: string
@@ -11,13 +12,24 @@ export type PersonResponse = {
   createdAt: string
   newsletter: boolean
   emailConfirmed: boolean
-  beneficiaries?: PersonRoleResponse[]
+  beneficiaries?: PersonBeneficiaryResponse[]
   coordinators?: PersonRoleResponse
   organizer?: PersonRoleResponse
 }
 
 export type PersonRoleResponse = {
   id: string
+  _count?: {
+    campaigns: number
+  }
+}
+
+export type PersonBeneficiaryResponse = {
+  id: string
+  countryCode: string
+  cityId: string
+  description?: string
+  organizerRelation?: PersonRelation
   _count?: {
     campaigns: number
   }
@@ -97,7 +109,8 @@ export type UpdateUserAccount = {
 export type AdminPersonFormData = Pick<
   PersonFormData,
   'firstName' | 'lastName' | 'email' | 'phone' | 'isBeneficiary' | 'isCoordinator' | 'isOrganizer'
->
+> &
+  Pick<BeneficiaryFormData, 'countryCode' | 'cityId' | 'description' | 'organizerRelation'>
 
 export type AdminPersonResponse = Pick<
   PersonResponse,
