@@ -15,7 +15,8 @@ export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
   ['.ql-editor, .ql-video']: {
     maxWidth: '100%',
   },
-  ['.ql-video']: {
+
+  ['.ql-video, iframe']: {
     maxWidth: '100%',
     marginInline: 'auto',
   },
