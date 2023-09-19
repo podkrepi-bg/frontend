@@ -67,6 +67,9 @@ export default function EditForm() {
   const beneficiary = data?.beneficiaries?.at(0)
   const [showBenefactor, setShowBenefactor] = useState<boolean>(!!beneficiary)
 
+  console.log(data)
+  console.log('active', !!beneficiary?._count?.campaigns)
+
   const initialValues = {
     firstName: data?.firstName ?? '',
     lastName: data?.lastName ?? '',
@@ -233,6 +236,7 @@ export default function EditForm() {
           <Grid item xs={4}>
             <CheckboxField
               name="isBeneficiary"
+              disabled={initialValues.activeBeneficiary}
               label="person:admin.fields.beneficiary"
               onChange={(e) => {
                 setShowBenefactor(e.target.checked)
