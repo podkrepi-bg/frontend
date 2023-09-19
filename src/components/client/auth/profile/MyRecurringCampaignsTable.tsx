@@ -9,6 +9,7 @@ import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { IconButton, Tooltip, Box } from '@mui/material'
 import { money } from 'common/util/money'
+import theme from 'common/theme'
 
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 
