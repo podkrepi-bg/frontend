@@ -123,7 +123,7 @@ export default function MyRecurringCampaignsTable() {
       {recurringDonations && recurringDonations.length !== 0 ? (
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             border: 'none',
             width: 'calc(100% - 48px)',
             left: '24px',

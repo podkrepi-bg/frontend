@@ -159,10 +159,12 @@ export default function AdminLayout({ children }: Props) {
         {children}
       </Box>
       <PanelFooter>
-        <Button sx={{ color: 'white' }}>
+        <Button sx={{ color: theme.palette.common.white }}>
           <GppGood />
         </Button>
-        <Typography color="white">{'Вие сте логнат като администратор'}</Typography>
+        <Typography color={theme.palette.common.white}>
+          {'Вие сте логнат като администратор'}
+        </Typography>
       </PanelFooter>
       <Snackbar />
     </StyledBox>

@@ -71,7 +71,7 @@ const Root = styled('div')(({ theme }) => ({
     marginBottom: theme.spacing(3),
   },
   [`& .${classes.boxTitle}`]: {
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.common.white,
     padding: theme.spacing(3, 9),
     paddingBottom: theme.spacing(3),
     marginTop: theme.spacing(3),

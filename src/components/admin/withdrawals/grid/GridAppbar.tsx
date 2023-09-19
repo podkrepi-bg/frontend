@@ -4,6 +4,7 @@ import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 import { Add as AddIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -20,7 +21,7 @@ export default function GridAppbar() {
   return (
     <Toolbar
       sx={{
-        background: 'white',
+        background: theme.palette.common.white,
         borderTop: '1px solid lightgrey',
         display: 'flex',
         justifyContent: 'space-between',

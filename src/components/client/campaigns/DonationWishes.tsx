@@ -96,7 +96,7 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
       <Grid2>
         <Typography
           sx={{
-            color: '#000',
+            color: theme.palette.common.black,
             fontSize: theme.typography.pxToRem(25),
             paddingBottom: '1rem',
           }}>

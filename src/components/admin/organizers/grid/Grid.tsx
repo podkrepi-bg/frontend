@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import GridActions from 'components/admin/GridActions'
+import theme from 'common/theme'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import { ModalStore } from '../OrganizerPage'
@@ -74,7 +75,7 @@ export default observer(function Grid() {
       <Box>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

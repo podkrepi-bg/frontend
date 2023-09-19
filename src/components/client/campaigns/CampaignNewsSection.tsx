@@ -21,6 +21,7 @@ import { useTranslation } from 'next-i18next'
 
 import Image from 'next/image'
 import useMobile from 'common/hooks/useMobile'
+import theme from 'common/theme'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
 import { useShowMoreContent } from '../campaign-news/hooks/useShowMoreContent'
 import { sanitizeHTML } from 'common/util/htmlUtils'
@@ -162,7 +163,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   return (
     <Grid container item xs={12} spacing={1} id="news">
       <Grid container item flexDirection={'column'}>
-        <Typography component={'h3'} fontSize={25} color="#000000">
+        <Typography component={'h3'} fontSize={25} color={theme.palette.common.black}>
           {t('news')}
         </Typography>
         {canCreateArticle && (

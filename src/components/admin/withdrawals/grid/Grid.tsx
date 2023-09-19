@@ -14,6 +14,7 @@ import { ModalStore } from '../WithdrawalPage'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import { fromMoney } from 'common/util/money'
+import theme from 'common/theme'
 
 export default observer(function Grid() {
   const { t } = useTranslation()
@@ -132,7 +133,7 @@ export default observer(function Grid() {
       <Box>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

@@ -9,6 +9,7 @@ import { routes } from 'common/routes'
 import GridActions from 'components/admin/GridActions'
 import { CampaignTypesResponse } from 'gql/campaign-types'
 import { useCampaignTypesList } from 'service/campaignTypes'
+import theme from 'common/theme'
 
 import { ModalStore } from '../CampaignTypesPage'
 import DetailsModal from './DetailsModal'
@@ -83,7 +84,7 @@ export default observer(function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

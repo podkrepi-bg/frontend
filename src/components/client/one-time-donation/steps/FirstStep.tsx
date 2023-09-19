@@ -37,7 +37,7 @@ const classes = {
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')(() => ({
   [`& .${classes.divider}`]: {
-    border: '1px solid #000000',
+    border: `1px solid ${theme.palette.common.black}`,
   },
 }))
 

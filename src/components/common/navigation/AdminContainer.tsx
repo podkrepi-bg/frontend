@@ -1,6 +1,7 @@
 import { Box, Container } from '@mui/material'
 
 import AppBarMenu from './AppBarMenu'
+import theme from 'common/theme'
 
 type Props = React.PropsWithChildren<{
   title: string
@@ -20,7 +21,7 @@ export default function AdminContainer({ title, children }: Props) {
       <Container sx={{ pt: '24px' }} disableGutters maxWidth={false}>
         <Box
           sx={{
-            background: 'white',
+            background: theme.palette.common.white,
             minHeight: '20rem',
             flexDirection: 'column',
             borderRadius: '25px',

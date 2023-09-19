@@ -47,7 +47,7 @@ const Root = styled('div')(({ theme }) => ({
     fontSize: '24px',
     lineHeight: '123.5%',
     letterSpacing: '0.25px',
-    color: '#000000',
+    color: theme.palette.common.black,
   },
 
   [`& .${classes.bold}`]: {
@@ -77,7 +77,7 @@ const Root = styled('div')(({ theme }) => ({
     margin: '0',
   },
   [`& .${classes.boxTitle}`]: {
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.common.white,
     padding: theme.spacing(3, 7),
     paddingBottom: theme.spacing(3),
     marginTop: theme.spacing(3),

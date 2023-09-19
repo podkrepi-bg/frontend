@@ -85,7 +85,9 @@ function DonationTable({ donations }: DonationTableProps) {
       </Grid>
       {filteredDonations?.length ? (
         <TableContainer>
-          <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
+          <Table
+            sx={{ minWidth: 650, backgroundColor: theme.palette.common.white }}
+            aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>{t('profile:donations.date')}</TableCell>
