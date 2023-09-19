@@ -12,6 +12,7 @@ import { money } from 'common/util/money'
 import { useStores } from '../../../../common/hooks/useStores'
 import { BankTransactionsHistoryResponse } from 'gql/bank-transactions'
 import { useBankTransactionsList } from 'common/hooks/bank-transactions'
+import theme from 'common/theme'
 import RenderBankDonationStatusCell from './RenderEditBankDonationStatusCell'
 
 interface RenderCellProps {
@@ -130,7 +131,7 @@ export default observer(function Grid() {
       <Box sx={{ mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

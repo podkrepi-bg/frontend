@@ -6,6 +6,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 import { BeneficiaryListResponse } from 'gql/beneficiary'
 import GridActions from 'components/admin/GridActions'
 import { useBeneficiariesList } from 'service/beneficiary'
@@ -121,7 +122,7 @@ export default observer(function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

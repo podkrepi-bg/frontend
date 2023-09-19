@@ -4,6 +4,7 @@ import { GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { CoordinatorResponse } from 'gql/coordinators'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
+import theme from 'common/theme'
 import GridActions from 'components/admin/GridActions'
 
 import { ModalStore } from '../CoordinatorsPage'
@@ -79,7 +80,7 @@ export default function CoordinatorsGrid() {
     <>
       <DataGrid
         style={{
-          background: 'white',
+          background: theme.palette.common.white,
           position: 'absolute',
           height: 'calc(100vh - 300px)',
           border: 'none',

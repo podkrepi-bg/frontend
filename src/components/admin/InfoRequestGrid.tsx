@@ -4,6 +4,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { DialogStore } from 'stores/DialogStore'
 import { formatDateString } from 'common/util/date'
 import { useInfoRequestList } from 'common/hooks/infoRequest'
+import theme from 'common/theme'
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID' },
@@ -43,7 +44,7 @@ export default function InfoRequestGrid() {
   return (
     <DataGrid
       style={{
-        background: 'white',
+        background: theme.palette.common.white,
         height: 'calc(100vh - 300px)',
         border: 'none',
         overflowY: 'auto',

@@ -59,7 +59,7 @@ export default function CircleCheckboxField({ name, label, labelProps }: CircleC
                   backgroundColor: theme.palette.primary.main,
                   // @ts-expect-error theme doesn't include overrides
                   borderRadius: theme.borders.round,
-                  color: '#fff',
+                  color: theme.palette.common.white,
                 })}
               />
             }

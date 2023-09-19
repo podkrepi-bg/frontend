@@ -9,6 +9,8 @@ import { AccessibilityNew } from '@mui/icons-material'
 import MailIcon from '@mui/icons-material/Mail'
 import HelpIcon from '@mui/icons-material/Help'
 
+import theme from 'common/theme'
+
 const PREFIX = 'StepperIcon'
 
 const classes = {
@@ -22,7 +24,7 @@ const Root = styled('div')({
     alignItems: 'center',
     backgroundColor: '#ccc',
     borderRadius: '50%',
-    color: '#fff',
+    color: theme.palette.common.white,
     display: 'flex',
     height: 50,
     justifyContent: 'center',

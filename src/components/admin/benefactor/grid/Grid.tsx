@@ -9,6 +9,7 @@ import { routes } from 'common/routes'
 import { BenefactorResponse } from 'gql/benefactor'
 import GridActions from 'components/admin/GridActions'
 import { useBenefactorList } from 'common/hooks/benefactor'
+import theme from 'common/theme'
 
 import { ModalStore } from '../BenefactorPage'
 import DetailsModal from './DetailsModal'
@@ -69,7 +70,7 @@ export default observer(function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

@@ -4,6 +4,7 @@ import Logo from './Logo'
 import { DonationResponse } from 'gql/donations'
 import { formatDateString } from 'common/util/date'
 import { money } from 'common/util/money'
+import theme from 'common/theme'
 
 Font.register({
   family: 'Arial',
@@ -14,7 +15,7 @@ Font.load({ fontFamily: 'Arial' })
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.common.white,
     fontFamily: 'Arial',
   },
   backgroundImage: {

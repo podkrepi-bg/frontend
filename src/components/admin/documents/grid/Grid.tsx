@@ -9,6 +9,7 @@ import { routes } from 'common/routes'
 import { DocumentResponse } from 'gql/document'
 import GridActions from 'components/admin/GridActions'
 import { useDocumentsList } from 'common/hooks/documents'
+import theme from 'common/theme'
 
 import { ModalStore } from '../DocumentsPage'
 import DeleteModal from './DeleteModal'
@@ -85,7 +86,7 @@ export default observer(function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

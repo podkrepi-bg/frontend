@@ -8,6 +8,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { routes } from 'common/routes'
 import Link from 'components/common/Link'
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
+import theme from 'common/theme'
 
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
@@ -136,7 +137,7 @@ export default function CampaignNewsGrid() {
     <>
       <Toolbar
         sx={{
-          background: 'white',
+          background: theme.palette.common.white,
           borderTop: '1px solid lightgrey',
           display: 'flex',
           justifyContent: 'space-between',
@@ -150,7 +151,7 @@ export default function CampaignNewsGrid() {
       </Toolbar>
       <DataGrid
         style={{
-          background: 'white',
+          background: theme.palette.common.white,
           position: 'absolute',
           height: 'calc(100vh - 300px)',
           border: 'none',
