@@ -67,9 +67,6 @@ export default function EditForm() {
   const beneficiary = data?.beneficiaries?.at(0)
   const [showBenefactor, setShowBenefactor] = useState<boolean>(!!beneficiary)
 
-  console.log(data)
-  console.log('active', !!beneficiary?._count?.campaigns)
-
   const initialValues = {
     firstName: data?.firstName ?? '',
     lastName: data?.lastName ?? '',
