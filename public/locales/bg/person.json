@@ -40,7 +40,12 @@
       "address": "Адрес",
       "organizer": "Организатор",
       "coordinator": "Координатор",
-      "beneficiary": "Бенефициент"
+      "beneficiary": "Бенефициент",
+      "organizerRelation": "Отношения с организатор",
+      "countryCode": "Държава",
+      "city": "Град",
+      "description": "Описание",
+      "disabled-tooltip": "Ролята не може да бъде премахната, потребителя е {{role}} в {{campaigns}} кампании"
     },
     "cta": {
       "create": "Създай",

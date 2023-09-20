@@ -23,7 +23,7 @@ export default observer(function DeleteModal() {
   const { hideDelete, selectedRecord } = ModalStore
 
   const mutation = useMutation<AxiosResponse<OrganizerResponse>, AxiosError<ApiErrors>, string>({
-    mutationFn: deleteOrganizer(selectedRecord.id),
+    mutationFn: deleteOrganizer(),
     onError: () => AlertStore.show(t('admin.alerts.delete-error'), 'error'),
     onSuccess: () => {
       hideDelete()

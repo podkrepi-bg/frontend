@@ -41,7 +41,12 @@
       "address": "Address",
       "organizer": "Organizer",
       "coordinator": "Coordinator",
-      "beneficiary": "Beneficiary"
+      "beneficiary": "Beneficiary",
+      "organizerRelation": "Organizer relation",
+      "countryCode": "Country code",
+      "city": "City",
+      "description": "Description",
+      "disabled-tooltip": "Cannot remove role because the user is {{role}} in {{campaigns}} campaigns"
     },
     "cta": {
       "create": "Create",
