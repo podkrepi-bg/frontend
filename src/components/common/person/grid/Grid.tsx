@@ -21,6 +21,7 @@ import DetailsModal from './DetailsModal'
 import { ModalStore } from '../PersonGrid'
 import { usePersonList } from 'common/hooks/person'
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 import { PersonPaginatedResponse } from 'gql/person'
 import { PaginationData, SortData } from 'gql/types'
 
@@ -274,7 +275,7 @@ export default observer(function Grid() {
       <Box>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

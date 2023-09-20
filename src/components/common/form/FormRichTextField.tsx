@@ -5,6 +5,7 @@ import { Typography } from '@mui/material'
 
 import { translateError } from 'common/form/useForm'
 import { TranslatableField } from 'common/form/validation'
+import theme from 'common/theme'
 import { styled } from '@mui/material/styles'
 
 import { ModernEditor } from './MDXEditor'
@@ -20,7 +21,7 @@ const StyledGrid = styled('div')(() => ({
     position: 'sticky',
     top: 0,
     zIndex: 1,
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.common.white,
   },
 }))
 

@@ -5,6 +5,7 @@ import { observer } from 'mobx-react'
 
 import { useCitiesList } from 'common/hooks/cities'
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 import GridActions from 'components/admin/GridActions'
 
 import { ModalStore } from '../CityPage'
@@ -65,7 +66,7 @@ export default observer(function CitiesGrid() {
     <>
       <DataGrid
         style={{
-          background: 'white',
+          background: theme.palette.common.white,
           position: 'absolute',
           height: 'calc(100vh - 300px)',
           border: 'none',

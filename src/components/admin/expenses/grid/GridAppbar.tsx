@@ -19,7 +19,7 @@ export default function ExpensesGridAppbar() {
   return (
     <Toolbar
       sx={{
-        background: 'white',
+        background: theme.palette.common.white,
         borderTop: '1px solid lightgrey',
         display: 'flex',
         justifyContent: 'space-between',

@@ -34,6 +34,7 @@ import { BankImportResult, BankTransactionsFileFormData } from 'gql/donations'
 import { TableBody, TableHead, TableRow } from '@mui/material'
 import { getExactDateTime } from 'common/util/date'
 import { money } from 'common/util/money'
+import theme from 'common/theme'
 
 const validationSchema: yup.SchemaOf<BankTransactionsFileFormData> = yup.object().defined().shape({
   bankTransactionsFileId: yup.string().required(),
@@ -186,7 +187,9 @@ export default function BankTransactionsFileForm({
                   })}>
                   {t('donations:bankImprotResultsSubtitle')}
                 </Typography>
-                <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
+                <Table
+                  sx={{ minWidth: 650, backgroundColor: theme.palette.common.white }}
+                  aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell>{t('donations:ext-payment-intent-id')}</TableCell>

@@ -1,4 +1,5 @@
 import { Slide, SnackbarOrigin } from '@mui/material'
+import theme from 'common/theme'
 
 export const globalSnackbarProps = {
   anchorOrigin: { vertical: 'bottom', horizontal: 'left' } as SnackbarOrigin,
@@ -10,7 +11,7 @@ export const globalSnackbarProps = {
 export const globalSnackbarContentProps = {
   sx: {
     minWidth: '300px',
-    backgroundColor: 'white',
-    color: 'black',
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
   },
 }

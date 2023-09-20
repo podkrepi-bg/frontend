@@ -20,6 +20,7 @@ import { authConfig } from 'service/restRequests'
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import EditIcon from '@mui/icons-material/Edit'
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 
 export default function Grid() {
   const { t } = useTranslation('recurring-donation')
@@ -134,7 +135,7 @@ export default function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

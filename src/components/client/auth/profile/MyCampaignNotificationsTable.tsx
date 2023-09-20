@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles'
 import RenderCampaignNotificationsConfirmModal from './MyNotificationsCampaignConfirmModal'
 import ContentTypography from 'components/client/faq/contents/ContentTypography'
 import { getRelativeDate } from 'common/util/date'
+import theme from 'common/theme'
 
 const PREFIX = 'MyNotificationsTab'
 
@@ -125,7 +126,7 @@ export default function MyCampaignNotificationsTable() {
       {data.length !== 0 ? (
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             width: 'calc(100% - 48px)',
             left: '24px',
             overflowY: 'auto',

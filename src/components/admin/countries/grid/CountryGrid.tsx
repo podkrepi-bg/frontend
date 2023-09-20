@@ -7,6 +7,7 @@ import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { useCountriesList } from 'common/hooks/countries'
+import theme from 'common/theme'
 import GridActions from 'components/admin/GridActions'
 
 import { ModalStore } from '../CountriesPage'
@@ -77,7 +78,7 @@ export default observer(function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

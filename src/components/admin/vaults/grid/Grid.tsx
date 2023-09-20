@@ -14,6 +14,7 @@ import { ModalStore } from '../VaultsPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import { money } from 'common/util/money'
+import theme from 'common/theme'
 
 export default observer(function Grid() {
   const { t } = useTranslation('vaults')
@@ -107,7 +108,7 @@ export default observer(function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

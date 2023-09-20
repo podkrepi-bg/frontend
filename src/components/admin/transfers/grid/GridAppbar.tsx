@@ -7,7 +7,7 @@ import { routes } from 'common/routes'
 import theme from 'common/theme'
 
 const toolbarStyles = {
-  background: 'white',
+  background: theme.palette.common.white,
   borderTop: '1px solid lightgrey',
   display: 'flex',
   justifyContent: 'space-between',

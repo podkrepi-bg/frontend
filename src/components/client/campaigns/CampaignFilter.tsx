@@ -43,7 +43,7 @@ const Root = styled('div')(() => ({
     },
 
     '&:hover': {
-      backgroundColor: 'white',
+      backgroundColor: theme.palette.common.white,
       borderBottom: `5px solid ${theme.palette.primary.light}`,
       color: theme.palette.primary.light,
     },

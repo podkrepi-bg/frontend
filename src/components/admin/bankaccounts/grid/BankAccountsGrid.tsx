@@ -5,6 +5,7 @@ import { GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 import { BankAccountResponse } from 'gql/bankaccounts'
 import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import GridActions from 'components/admin/GridActions'
@@ -64,7 +65,7 @@ export default observer(function BankAccountsGrid() {
     <>
       <DataGrid
         style={{
-          background: 'white',
+          background: theme.palette.common.white,
           position: 'absolute',
           height: 'calc(100vh - 300px)',
           border: 'none',

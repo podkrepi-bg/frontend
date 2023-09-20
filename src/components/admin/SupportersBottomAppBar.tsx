@@ -17,7 +17,7 @@ const addIconStyles = {
   boxShadow: 3,
 }
 const iconStyles = {
-  background: 'white',
+  background: theme.palette.common.white,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 0.5,
@@ -28,7 +28,7 @@ export default function SupportersBottomAppBar() {
   return (
     <Toolbar
       sx={{
-        background: 'white',
+        background: theme.palette.common.white,
         borderTop: '1px solid lightgrey',
         display: 'flex',
         justifyContent: 'space-between',

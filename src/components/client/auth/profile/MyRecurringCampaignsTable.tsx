@@ -9,6 +9,7 @@ import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { IconButton, Tooltip, Box } from '@mui/material'
 import { money } from 'common/util/money'
+import theme from 'common/theme'
 
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 
@@ -123,7 +124,7 @@ export default function MyRecurringCampaignsTable() {
       {recurringDonations && recurringDonations.length !== 0 ? (
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             border: 'none',
             width: 'calc(100% - 48px)',
             left: '24px',

@@ -9,6 +9,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useIrregularityList } from 'common/hooks/irregularity'
 
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 import GridActions from 'components/admin/GridActions'
 
 import DeleteModal from './DeleteModal'
@@ -125,7 +126,7 @@ export default observer(function Grid() {
       <Box>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

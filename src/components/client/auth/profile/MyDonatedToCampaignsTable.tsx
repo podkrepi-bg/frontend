@@ -4,6 +4,7 @@ import { Tooltip, Button, Box } from '@mui/material'
 
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
 import { money } from 'common/util/money'
+import theme from 'common/theme'
 import { useUserDonationsCampaigns } from 'common/hooks/campaigns'
 import Link from 'components/common/Link'
 import {
@@ -180,7 +181,7 @@ export default function MyDonatedToCampaignTable() {
       {data.length !== 0 ? (
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             border: 'none',
             width: 'calc(100% - 48px)',
             left: '24px',

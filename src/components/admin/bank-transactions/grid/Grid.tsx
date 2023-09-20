@@ -3,10 +3,10 @@ import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import theme from 'common/theme'
 import { observer } from 'mobx-react'
 
 import { getExactDateTime } from 'common/util/date'
-
 import { money } from 'common/util/money'
 
 import { useStores } from '../../../../common/hooks/useStores'
@@ -137,7 +137,7 @@ export default observer(function Grid() {
       <Box sx={{ mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',

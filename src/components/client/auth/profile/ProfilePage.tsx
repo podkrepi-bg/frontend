@@ -35,7 +35,7 @@ const StyledLayout = styled(Layout)({
     fontSize: '45px',
     lineHeight: '112px',
     letterSpacing: '-1.5px',
-    color: '#000000',
+    color: theme.palette.common.black,
     margin: '0',
     marginLeft: '10px',
   },
@@ -81,7 +81,7 @@ export default function ProfilePage() {
       <Box sx={{ width: '100%' }}>
         <Box
           sx={{
-            backgroundColor: 'white',
+            backgroundColor: theme.palette.common.white,
             borderRadius: '25px 25px 0px 0px',
             padding: '10px 10px',
             boxShadow: 3,

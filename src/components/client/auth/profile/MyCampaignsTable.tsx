@@ -6,6 +6,7 @@ import { Tooltip, Button, Box, Typography } from '@mui/material'
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
 import { money } from 'common/util/money'
 import { useGetUserCampaigns } from 'common/hooks/campaigns'
+import theme from 'common/theme'
 import Link from 'components/common/Link'
 import GridActions from 'components/admin/campaigns/grid/GridActions'
 import {
@@ -241,7 +242,7 @@ export default function MyCampaingsTable() {
           <ProfileTab name={ProfileTabs.myCampaigns}>
             <DataGrid
               style={{
-                background: 'white',
+                background: theme.palette.common.white,
                 border: 'none',
                 width: 'calc(100% - 48px)',
                 left: '24px',
