@@ -27,40 +27,20 @@ const classes = {
   support: `${PREFIX}-support`,
   applyButton: `${PREFIX}-applyButton`,
   arrowIcon: `${PREFIX}-arrowIcon`,
-  defaultPadding: `${PREFIX}-defaultPadding`,
 }
 
 const Root = styled(Layout)(({ theme }) => ({
-  [theme.breakpoints.up('sm')]: {
-    padding: 0,
-    margin: 0,
-    paddingTop: theme.spacing(1),
-    maxWidth: theme.spacing(300),
-  },
-
-  [theme.breakpoints.up(2000)]: {
-    paddingTop: theme.spacing(1),
-  },
-
-  [`& .${classes.defaultPadding}`]: {
-    paddingLeft: theme.spacing(7),
-    paddingRight: theme.spacing(7),
-    [theme.breakpoints.down('sm')]: {
-      paddingLeft: theme.spacing(0),
-      paddingRight: theme.spacing(0),
-    },
-  },
-
-  [theme.breakpoints.down('sm')]: {
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
-
   [`& .${classes.title}`]: {
     fontWeight: 500,
     fontSize: theme.typography.pxToRem(45),
     lineHeight: theme.typography.pxToRem(60),
     letterSpacing: theme.typography.pxToRem(-1.5),
+    marginBottom: theme.spacing(1),
+  },
+
+  '.ql-video, img': {
+    margin: '0 auto',
+    display: 'block',
   },
 }))
 
@@ -87,6 +67,8 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
 
   return (
     <Root
+      maxWidth={false}
+      style={{ padding: theme.spacing(0) }}
       prevPage={
         data?.pagination.prevPage
           ? `${baseUrl}${routes.campaigns.news.listNewsPaginated(data?.pagination.prevPage, slug)}`
@@ -98,12 +80,24 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
           : undefined
       }>
       <Grid>
-        <Grid className={classes.defaultPadding}>
+        <Grid
+          sx={{
+            padding: theme.spacing(0, 3),
+            margin: '0 auto',
+
+            [theme.breakpoints.up('sm')]: {
+              padding: theme.spacing(0, 5),
+            },
+
+            [theme.breakpoints.up('lg')]: {
+              maxWidth: '1280px',
+            },
+          }}>
           <Typography variant="h1" component="p" className={classes.title}>
             {t('news')}
           </Typography>
           <BreadcrumbWrapper crumb={breadcumbData} />
-          <Divider orientation="horizontal" />
+          <Divider orientation="horizontal" sx={{ marginBottom: theme.spacing(4) }} />
         </Grid>
         {data && data?.campaign.campaignNews.length > 0 && (
           <CampaignNewsList articles={data.campaign.campaignNews} />
