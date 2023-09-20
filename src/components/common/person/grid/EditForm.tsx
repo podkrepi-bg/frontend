@@ -74,13 +74,13 @@ export default function EditForm() {
     phone: data?.phone ?? '',
     isCoordinator: !!data?.coordinators,
     coordinatorId: data?.coordinators?.id,
-    activeCoordinator: !!data?.coordinators?._count?.campaigns,
+    coordinatorCampaigns: data?.coordinators?._count?.campaigns,
     isOrganizer: !!data?.organizer,
     organizerId: data?.organizer?.id,
-    activeOrganizer: !!data?.organizer?._count?.campaigns,
+    organizerCampaigns: data?.organizer?._count?.campaigns,
     isBeneficiary: !!data?.beneficiaries?.length,
     beneficiaryId: beneficiary?.id,
-    activeBeneficiary: !!beneficiary?._count?.campaigns,
+    beneficiaryCampaigns: beneficiary?._count?.campaigns,
     countryCode: beneficiary?.countryCode ?? 'BG',
     cityId: beneficiary?.cityId ?? '',
     description: beneficiary?.description ?? '',
@@ -219,21 +219,33 @@ export default function EditForm() {
           <Grid item xs={4}>
             <CheckboxField
               name="isOrganizer"
-              disabled={initialValues.activeOrganizer}
+              disabled={!!initialValues.organizerCampaigns}
+              disabledTooltip={t('person:admin.fields.disabled-tooltip', {
+                role: t('person:admin.fields.organizer'),
+                campaigns: initialValues.organizerCampaigns,
+              })}
               label="person:admin.fields.organizer"
             />
           </Grid>
           <Grid item xs={4}>
             <CheckboxField
               name="isCoordinator"
-              disabled={initialValues.activeCoordinator}
+              disabled={!!initialValues.coordinatorCampaigns}
+              disabledTooltip={t('person:admin.fields.disabled-tooltip', {
+                role: t('person:admin.fields.coordinator'),
+                campaigns: initialValues.coordinatorCampaigns,
+              })}
               label="person:admin.fields.coordinator"
             />
           </Grid>
           <Grid item xs={4}>
             <CheckboxField
               name="isBeneficiary"
-              disabled={initialValues.activeBeneficiary}
+              disabled={!!initialValues.beneficiaryCampaigns}
+              disabledTooltip={t('person:admin.fields.disabled-tooltip', {
+                role: t('person:admin.fields.beneficiary'),
+                campaigns: initialValues.beneficiaryCampaigns,
+              })}
               label="person:admin.fields.beneficiary"
               onChange={(e) => {
                 setShowBenefactor(e.target.checked)
