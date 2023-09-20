@@ -51,6 +51,7 @@ export const StatisticsWrapper = styled(Stack)(() => ({
 export const SubtitleSectionText = styled(Typography)(() => ({
   display: 'inline-block',
   marginLeft: theme.spacing(2),
+  fontSize: theme.typography.pxToRem(16),
 }))
 
 export const SectionDivider = styled(Divider)(() => ({
