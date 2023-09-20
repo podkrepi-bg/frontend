@@ -29,10 +29,9 @@ const classes = {
 }
 
 const ArticleSection = styled(Grid)(({ theme }) => ({
-  paddingLeft: theme.spacing(7),
-  paddingRight: theme.spacing(7),
   paddingTop: theme.spacing(2),
   paddingBottom: theme.spacing(2),
+
   [`& .${classes.articlepublishedDate}`]: {
     fontSize: theme.typography.pxToRem(14),
     fontWeight: 400,
@@ -97,6 +96,12 @@ export default function CampaignNewsList({ articles }: Props) {
               backgroundColor: index % 2 === 0 ? theme.palette.common.white : '#E3E3E3',
               borderBottom: 1,
               borderColor: index % 2 === 0 ? theme.palette.common.white : '#C4C4C4',
+              justifyContent: 'center',
+              padding: theme.spacing(0, 2),
+
+              [theme.breakpoints.up('sm')]: {
+                padding: theme.spacing(0, 5),
+              },
             }}>
             <ArticleSection id={article.id}>
               <Grid container columnGap={2} rowGap={1} className={classes.dateAndAuthorContainer}>

@@ -1,4 +1,6 @@
 import { useTranslation, i18n } from 'next-i18next'
+import Image from 'next/image'
+import Link from 'next/link'
 import { CampaignResponse } from 'gql/campaigns'
 
 import 'slick-carousel/slick/slick-theme.css'
@@ -17,7 +19,7 @@ import {
   CarouselWrapper,
   Sum,
   CampaignTitle,
-  CompletedCampaignLink,
+  CompletedCampaignImage,
   CardWrapper,
   SuccessfulCampaignLabel,
   CompletedSumWrapper,
@@ -25,8 +27,6 @@ import {
   CampaignProgressWrapper,
   SuccessfullCampiagnText,
 } from './CompletedCampaignsSection.styled'
-
-import Image from 'next/image'
 
 export default function CompletedCampaignsSection() {
   const { t } = useTranslation('campaigns')
@@ -50,31 +50,32 @@ export default function CompletedCampaignsSection() {
       <CarouselWrapper {...settings}>
         {completedCampaigns?.map((campaign, index) => (
           <CardWrapper key={index} data-testid={`completed-campaign-${index}`}>
-            <CompletedCampaignLink
-              onMouseDown={onLinkMouseDown}
-              href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
-              sx={{ position: 'relative', width: '100%', aspectRatio: 1 }}>
-              <Image
-                fill
-                alt={campaign.title}
-                src={campaignListPictureUrl(campaign)}
-                sizes="(min-width: 2000px) 312px, (min-width: 1200px) calc(30vw - 38px), (min-width: 900px) calc(40.57vw - 29px), (min-width: 600px) calc(50vw - 28px), calc(100vw - 32px)"
-                style={{ objectFit: 'cover' }}
-              />
-            </CompletedCampaignLink>
-            <CompletedSumWrapper>
-              <Sum>
-                {i18n.language === 'bg'
-                  ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
-                  : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
-              </Sum>
-              <SuccessfulCampaignLabel>
-                <SuccessfullCampaignIcon />
-                <SuccessfullCampiagnText>{t('successfull-label')}</SuccessfullCampiagnText>
-              </SuccessfulCampaignLabel>
-            </CompletedSumWrapper>
-            <CampaignProgressWrapper width={1} />
-            <CampaignTitle>{campaign.title}</CampaignTitle>
+            <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
+              <CompletedCampaignImage
+                onMouseDown={onLinkMouseDown}
+                sx={{ position: 'relative', width: '100%', aspectRatio: 1 }}>
+                <Image
+                  fill
+                  alt={campaign.title}
+                  src={campaignListPictureUrl(campaign)}
+                  sizes="(min-width: 2000px) 312px, (min-width: 1200px) calc(30vw - 38px), (min-width: 900px) calc(40.57vw - 29px), (min-width: 600px) calc(50vw - 28px), calc(100vw - 32px)"
+                  style={{ objectFit: 'cover' }}
+                />
+              </CompletedCampaignImage>
+              <CompletedSumWrapper>
+                <Sum>
+                  {i18n.language === 'bg'
+                    ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
+                    : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
+                </Sum>
+                <SuccessfulCampaignLabel>
+                  <SuccessfullCampaignIcon />
+                  <SuccessfullCampiagnText>{t('successfull-label')}</SuccessfullCampiagnText>
+                </SuccessfulCampaignLabel>
+              </CompletedSumWrapper>
+              <CampaignProgressWrapper width={1} />
+              <CampaignTitle>{campaign.title}</CampaignTitle>
+            </Link>
           </CardWrapper>
         ))}
       </CarouselWrapper>

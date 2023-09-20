@@ -1,6 +1,6 @@
 import Slider from 'react-slick'
 
-import { Link, Grid, Box, Typography } from '@mui/material'
+import { Grid, Box, Typography } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import styled from '@emotion/styled'
 
@@ -37,18 +37,18 @@ export const CardWrapper = styled(Grid)(() => ({
     margin: theme.spacing(0, 1.25),
     paddingRight: theme.spacing(2.5),
   },
+
+  '&:hover': {
+    opacity: 0.9,
+  },
 }))
 
-export const CompletedCampaignLink = styled(Link)(() => ({
+export const CompletedCampaignImage = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
   height: theme.spacing(37.5),
   backgroundSize: 'cover',
-
-  '&:hover': {
-    opacity: 0.9,
-  },
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
