@@ -38,8 +38,27 @@ export const StatisticsWrapper = styled(Stack)(() => ({
   flexDirection: 'row',
   alignItems: 'center',
   padding: theme.spacing(1.87, 0),
+  whiteSpace: 'nowrap',
 
-  '&:last-of-type': { flexDirection: 'column' },
+  '&:last-of-type': {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+
+    [theme.breakpoints.up('md')]: {
+      alignItems: 'center',
+    },
+
+    '> p': {
+      width: '100%',
+      margin: 0,
+      textAlign: 'center',
+
+      [theme.breakpoints.up('md')]: {
+        alignItems: 'center',
+        marginLeft: theme.spacing(2),
+      },
+    },
+  },
 
   [theme.breakpoints.up('md')]: {
     padding: theme.spacing(1.87),
@@ -51,6 +70,7 @@ export const StatisticsWrapper = styled(Stack)(() => ({
 export const SubtitleSectionText = styled(Typography)(() => ({
   display: 'inline-block',
   marginLeft: theme.spacing(2),
+  fontSize: theme.typography.pxToRem(16),
 }))
 
 export const SectionDivider = styled(Divider)(() => ({
