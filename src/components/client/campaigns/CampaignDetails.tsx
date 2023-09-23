@@ -26,6 +26,7 @@ import { routes } from 'common/routes'
 import { useCanEditCampaign } from 'common/hooks/campaigns'
 import { moneyPublic } from 'common/util/money'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
+import CampaignPublicExpensesChart from './CampaignPublicExpensesChart'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
@@ -142,6 +143,13 @@ export default function CampaignDetails({ campaign }: Props) {
                   ''
                 )}
               </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <CampaignPublicExpensesChart
+                slug={campaign.slug}
+                reachedAmount={campaign.summary.reachedAmount}
+                currency={campaign.currency}
+              />
             </Grid>
             <Grid item xs={12}>
               <Typography>
