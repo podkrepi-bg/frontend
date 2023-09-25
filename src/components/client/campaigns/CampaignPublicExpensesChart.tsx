@@ -13,11 +13,21 @@ import {
   TooltipItem,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
 import { fromMoney, moneyPublic, toMoney } from 'common/util/money'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Colors, Tooltip, Legend)
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Colors,
+  Tooltip,
+  Legend,
+  ChartDataLabels,
+)
 
 type ExpenseDataset = {
   type: string
@@ -26,12 +36,14 @@ type ExpenseDataset = {
 
 type Props = {
   slug: string
+  height: number
   reachedAmount: number
   currency?: string
 }
 
 export default observer(function CampaignPublicExpensesChart({
   slug,
+  height,
   reachedAmount,
   currency,
 }: Props) {
@@ -50,6 +62,7 @@ export default observer(function CampaignPublicExpensesChart({
 
   const options = {
     indexAxis: 'y' as const,
+    maintainAspectRatio: false,
     scales: {
       x: {
         stacked: true,
@@ -83,6 +96,20 @@ export default observer(function CampaignPublicExpensesChart({
             )}`,
         },
       },
+      datalabels: {
+        formatter: function (value: number) {
+          return moneyPublic(toMoney(value), currency)
+        },
+        display: 'auto',
+        color: 'black',
+        labels: {
+          value: {
+            font: {
+              weight: 400,
+            },
+          },
+        },
+      },
     },
   }
 
@@ -96,5 +123,5 @@ export default observer(function CampaignPublicExpensesChart({
     }),
   }
 
-  return <Bar options={options} height={80} data={data} />
+  return <Bar options={options} height={height} data={data} />
 })

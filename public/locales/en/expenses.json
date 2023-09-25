@@ -78,6 +78,7 @@
   },
   "description": "All expenses",
   "reported": "Total reported",
+  "donations": "Total donations",
   "uploaded-documents": "Uploaded documents",
   "uploaded-files": "Uploaded files",
   "new-files": "New files",

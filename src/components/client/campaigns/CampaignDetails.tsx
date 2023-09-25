@@ -7,7 +7,7 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import 'react-quill/dist/quill.bubble.css'
 
-import { Divider, Grid, Tooltip, Typography } from '@mui/material'
+import { Divider, Grid, Stack, Tooltip, Typography } from '@mui/material'
 import SecurityIcon from '@mui/icons-material/Security'
 import { styled } from '@mui/material/styles'
 
@@ -145,17 +145,26 @@ export default function CampaignDetails({ campaign }: Props) {
               </Typography>
             </Grid>
             <Grid item xs={12}>
+              <Stack direction="row" gap={1} alignItems="flex-start">
+                <ReceiptLongIcon />
+                <Stack direction="row" gap={1} flexWrap="wrap">
+                  <Typography noWrap>
+                    {t('expenses:reported')}: {moneyPublic(totalExpenses || 0, campaign.currency)}
+                  </Typography>
+                  <Typography noWrap>
+                    {t('expenses:donations')}:{' '}
+                    {moneyPublic(campaign.summary.reachedAmount, campaign.currency)}
+                  </Typography>
+                </Stack>
+              </Stack>
+            </Grid>
+            <Grid item xs={12}>
               <CampaignPublicExpensesChart
                 slug={campaign.slug}
+                height={120}
                 reachedAmount={campaign.summary.reachedAmount}
                 currency={campaign.currency}
               />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography>
-                <ReceiptLongIcon /> {t('expenses:reported')}:{' '}
-                {moneyPublic(totalExpenses || 0, campaign.currency)}
-              </Typography>
             </Grid>
             <Grid item xs={12} mt={2}>
               <CampaignPublicExpensesGrid slug={campaign.slug} />
