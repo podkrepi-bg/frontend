@@ -35,7 +35,20 @@ const validationSchema = yup
   .shape({
     firstName: name.required(),
     lastName: name.required(),
-    email: email.required(),
+    email: email
+      .when('isBeneficiary', {
+        is: true,
+        then: email.notRequired(),
+        otherwise: email.required(),
+      })
+      .when('isCoordinator', {
+        is: true,
+        then: email.required(),
+      })
+      .when('isOrganizer', {
+        is: true,
+        then: email.required(),
+      }),
     phone: phone.notRequired(),
     isCoordinator: yup.bool().required(),
     isOrganizer: yup.bool().required(),
@@ -70,8 +83,8 @@ export default function EditForm() {
   const initialValues = {
     firstName: data?.firstName ?? '',
     lastName: data?.lastName ?? '',
-    email: data?.email ?? '',
-    phone: data?.phone ?? '',
+    email: data?.email ?? undefined,
+    phone: data?.phone ?? undefined,
     isCoordinator: !!data?.coordinators,
     coordinatorId: data?.coordinators?.id,
     coordinatorCampaigns: data?.coordinators?._count?.campaigns,

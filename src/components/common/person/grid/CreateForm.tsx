@@ -27,6 +27,7 @@ import { useCreateBeneficiary } from 'service/beneficiary'
 import OrganizerRelationSelect from 'components/admin/beneficiary/OrganizerRelationSelect'
 import CountrySelect from 'components/admin/countries/CountrySelect'
 import CitySelect from 'components/admin/cities/CitySelect'
+import { treeItemClasses } from '@mui/lab'
 
 const validationSchema = yup
   .object()
@@ -34,7 +35,20 @@ const validationSchema = yup
   .shape({
     firstName: name.required(),
     lastName: name.required(),
-    email: email.required(),
+    email: email
+      .when('isBeneficiary', {
+        is: true,
+        then: email.notRequired(),
+        otherwise: email.required(),
+      })
+      .when('isCoordinator', {
+        is: true,
+        then: email.required(),
+      })
+      .when('isOrganizer', {
+        is: true,
+        then: email.required(),
+      }),
     phone: phone.notRequired(),
     isCoordinator: yup.bool().required(),
     isOrganizer: yup.bool().required(),
@@ -60,8 +74,8 @@ const validationSchema = yup
 const initialValues: AdminPersonFormData = {
   firstName: '',
   lastName: '',
-  email: '',
-  phone: '',
+  email: undefined,
+  phone: undefined,
   isOrganizer: false,
   isCoordinator: false,
   isBeneficiary: false,
