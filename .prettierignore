@@ -4,6 +4,7 @@ yarn.lock
 package-lock.json
 public/fonts
 public/img
+public/js
 manifests
 .github
 !.github/workflows
