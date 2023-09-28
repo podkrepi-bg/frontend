@@ -127,6 +127,7 @@ export default function CampaignNewsList({ articles }: Props) {
                       ? INITIAL_HEIGHT_LIMIT
                       : 'auto',
                   overflow: 'hidden',
+                  maxWidth: 1200,
                 }}>
                 <Grid container item direction={'column'} gap={1}>
                   <Typography className={classes.articleHeader}>{article.title}</Typography>
@@ -137,7 +138,7 @@ export default function CampaignNewsList({ articles }: Props) {
                       dangerouslySetInnerHTML={{
                         __html: sanitizedDescription,
                       }}
-                      sx={{ wordBreak: 'break-word', maxWidth: 1200 }}
+                      sx={{ wordBreak: 'break-word' }}
                     />
                   </QuillStypeWrapper>
                   <Grid container item direction={'column'} gap={0.5}>
