@@ -18,6 +18,8 @@ export const staticUrls = {
   swagger: 'https://podkrepi.bg/swagger',
   licenses: 'https://creativecommons.org/licenses/by-nc/4.0/',
   commercialPurposes: 'https://creativecommons.org/licenses/by-nc/4.0/#commercial_purposes',
+  technologicalMeasures:
+    'https://creativecommons.org/licenses/by-nc-sa/4.0/#technological_measures',
   projectDocs: 'https://docs.podkrepi.bg/',
   howToContribute:
     'https://docs.podkrepi.bg/general/communication/faq#kak-da-se-vkliucha-v-organizaciata',
