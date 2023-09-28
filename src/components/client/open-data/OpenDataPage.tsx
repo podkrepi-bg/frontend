@@ -18,30 +18,30 @@ export default function OpenDataPage() {
         <ExternalLink href={staticUrls.swagger}> https://podkrepi.bg/swagger</ExternalLink>
       </Text>
       <Text>
-        {t('open-data:creative-commons-pre-text')}
+        {t('open-data:ethical-use')}
         <ExternalLink href={staticUrls.licenses}> Creative Commons CC BY-NC 4.0</ExternalLink>
-        {t('open-data:creative-commons-after-text')}
+        {t('open-data:rights')}
       </Text>
       <UnorderedList>
         <ListItem>{t('open-data:share')}</ListItem>
         <ListItem>{t('open-data:adapt')}</ListItem>
         <Text>{t('open-data:note')}</Text>
         <Text>{t('open-data:terms')}</Text>
+        <ListItem>{t('open-data:acknowledgment')}</ListItem>
         <ListItem>
-          Признание - Вие сте длъжни да посочите като автор на данните Подкрепи.бг, да дадете
-          електронна препратка към лиценза и да укажете дали сте внесли промени. Можете да направите
-          това по всеки разумен начин, но не по начин, който предполага, че лицензодателят одобрява
-          Вас или използването от Ваша страна на материала.
+          {t('open-data:non-commercial-use')}
+          <ExternalLink href={staticUrls.commercialPurposes}>
+            {' '}
+            {t('open-data:commercial-purposes')}
+          </ExternalLink>{' '}
+          {t('open-data:money-gathering')}
         </ListItem>
         <ListItem>
-          Некомерсиално ползване - Вие нямате право да използвате данните за{' '}
-          <ExternalLink href={staticUrls.commercialPurposes}>търговски цели</ExternalLink> в смисъла
-          на събирането на пари за данните във вид на файл или за достъп до тях.
-        </ListItem>
-        <ListItem>
-          Без допълнителни ограничения - Вие нямате право да прилагате правни условия или{' '}
-          <ExternalLink href={staticUrls.technologicalMeasures}> технологични мерки</ExternalLink>,
-          които създават правни ограничения за други лица да извършват разрешеното от лиценза.
+          {t('open-data:additional-restrictions')}{' '}
+          <ExternalLink href={staticUrls.technologicalMeasures}>
+            {t('open-data:technological-measures')}
+          </ExternalLink>{' '}
+          {t('open-data:legal-restrictions')}
         </ListItem>
       </UnorderedList>
     </Layout>
