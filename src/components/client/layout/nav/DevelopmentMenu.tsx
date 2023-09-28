@@ -55,11 +55,6 @@ const allNavItems: NavItem[] = [
     label: 'nav.dev.open-source',
     target: '_blank',
   },
-  // {
-  //   href: routes.dev.openData,
-  //   label: 'nav.dev.open-data',
-  //   target: '_blank',
-  // },
 ]
 
 export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefined' ?? el.enabled)

@@ -15,6 +15,9 @@ export const staticUrls = {
   github:
     'https://github.com/podkrepi-bg/frontend#--%D0%B4%D0%B0%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%81%D0%BA%D0%B0-%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-%D0%BF%D0%BE%D0%B4%D0%BA%D1%80%D0%B5%D0%BF%D0%B8%D0%B1%D0%B3',
   figma: 'https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=3904%3A13406',
+  swagger: 'https://podkrepi.bg/swagger',
+  licenses: 'https://creativecommons.org/licenses/by-nc/4.0/',
+  commercialPurposes: 'https://creativecommons.org/licenses/by-nc/4.0/#commercial_purposes',
   projectDocs: 'https://docs.podkrepi.bg/',
   howToContribute:
     'https://docs.podkrepi.bg/general/communication/faq#kak-da-se-vkliucha-v-organizaciata',
