@@ -1,0 +1,9 @@
+{
+  "swagger-text": "To ensure full transparency of operations, in addition to the open source code, Podkrepi.bg provides also open data. The motivation is for everyone who is interested to be able to access anonymized data for the transactions of donations and amounts between the accounts related to the campaigns. To access the data you can use the UI as regular user or directly through the public methods of the API. The API description is supported using Swagger on the following url:",
+  "creative-commons-pre-text": "For the ethical use of our open data we chose to use",
+  "creative-commons-after-text": " according to which you are free to:",
+  "share": "Share - copy and redistribute the material in any medium or format.",
+  "adapt": "Adapt - rework, transform and further develop the material.",
+  "note": "Note: The licensor cannot revoke these freedoms as long as you follow the license terms.",
+  "terms": "Under the following conditions:"
+}

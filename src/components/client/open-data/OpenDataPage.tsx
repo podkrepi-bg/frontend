@@ -14,29 +14,19 @@ export default function OpenDataPage() {
   return (
     <Layout title={t('nav.dev.open-data')}>
       <Text>
-        За да осигури пълна прозрачност на дейноста си, освен отворен код, Подкрепи.бг предоставя
-        също и отворени данни. Целта е всеки при интерес да може да достъпи анонимизирани данни,
-        показващи движенията на даренията и сумите по сметките, свързани с кампаниите. За да
-        достъпите тези данни, можете да използвате UI като потребител или директно през публичните
-        методи на API. Описанието на API поддържаме чрез Swagger на този адрес:
+        {t('open-data:swagger-text')}
         <ExternalLink href={staticUrls.swagger}> https://podkrepi.bg/swagger</ExternalLink>
       </Text>
       <Text>
-        За етичното използване на отворените данни сме избрали да използваме лиценз
-        <ExternalLink href={staticUrls.licenses}> Creative Commons CC BY-NC 4.0</ExternalLink>,
-        според който имате право да:
+        {t('open-data:creative-commons-pre-text')}
+        <ExternalLink href={staticUrls.licenses}> Creative Commons CC BY-NC 4.0</ExternalLink>
+        {t('open-data:creative-commons-after-text')}
       </Text>
       <UnorderedList>
-        <ListItem>
-          Споделяте - да копирате и повторно да разпространявате материала на всякакъв носител или
-          във всякакъв формат.
-        </ListItem>
-        <ListItem>Адаптирате - да преработвате, преобразувате и доразвивате материала.</ListItem>
-        <Text>
-          Забележка: Ако спазвате условията на лиценза, лицензодателят не може да отмени тези
-          свободи.
-        </Text>
-        <Text>При следните условия:</Text>
+        <ListItem>{t('open-data:share')}</ListItem>
+        <ListItem>{t('open-data:adapt')}</ListItem>
+        <Text>{t('open-data:note')}</Text>
+        <Text>{t('open-data:terms')}</Text>
         <ListItem>
           Признание - Вие сте длъжни да посочите като автор на данните Подкрепи.бг, да дадете
           електронна препратка към лиценза и да укажете дали сте внесли промени. Можете да направите
