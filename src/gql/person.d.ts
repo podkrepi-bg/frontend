@@ -5,8 +5,8 @@ export type PersonResponse = {
   id: string
   firstName: string
   lastName: string
-  email: string
-  phone: string
+  email?: string
+  phone?: string
   address: string
   company: string
   createdAt: string
@@ -43,7 +43,7 @@ export type PersonPaginatedResponse = {
 export type PersonFormData = {
   firstName: string
   lastName: string
-  email: string
+  email?: string
   phone?: string
   legalEntity: boolean
   companyName?: string

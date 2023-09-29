@@ -15,7 +15,7 @@ export const personFilter = (
     const name = `${option.firstName.toLowerCase()} ${option.lastName.toLowerCase()}`
     return (
       name.includes(state.inputValue.toLowerCase()) ||
-      option.email.toLowerCase().includes(state.inputValue.toLowerCase())
+      option.email?.toLowerCase().includes(state.inputValue.toLowerCase())
     )
   })
 
