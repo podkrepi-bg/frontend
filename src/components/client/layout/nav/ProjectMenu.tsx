@@ -67,6 +67,10 @@ const allNavItems: NavItem[] = [
     label: 'nav.about.reports',
   },
   {
+    href: routes.dev.openData,
+    label: 'nav.dev.open-data',
+  },
+  {
     href: routes.contact,
     label: 'nav.about.contacts',
   },
