@@ -114,4 +114,16 @@ export const data: TeamData[] = [
     description: 'Маркетинг',
     linkedInProfile: 'https://www.linkedin.com/in/dilyana-kalinova-544762226/',
   },
+  {
+    img: '/img/team-photos/DessislavaPencheva.png',
+    name: 'Десислава Пенчева',
+    description: 'Маркетинг',
+    linkedInProfile: 'https://www.linkedin.com/in/dessislava-pencheva-emba-24369311/',
+  },
+  {
+    img: '/img/team-photos/ZdravkaGornachka.png',
+    name: 'Здравка Горначка',
+    description: 'Кампании',
+    linkedInProfile: 'https://www.linkedin.com/in/zdravka-gornachka-3a0b3510/',
+  },
 ]
