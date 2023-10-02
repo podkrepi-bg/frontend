@@ -187,7 +187,7 @@ export default function CreateForm() {
             <FormTextField type="text" label={t('reason')} name="reason" autoComplete="reason" />
           </Grid>
           <Grid item xs={12}>
-            <SelectDate name="targetDate"/>
+            <SelectDate name="targetDate" />
           </Grid>
 
           <Grid item xs={12}>

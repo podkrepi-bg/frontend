@@ -11,7 +11,7 @@ export type TransferInput = {
   amount: number
   reason: string
   documentId?: UUID | string | null
-  targetDate: Date | string 
+  targetDate: Date | string
   approvedById?: string | null
   sourceCampaignId: string
   sourceVaultId: string
@@ -25,7 +25,7 @@ export type TransferData = {
   amount: number | undefined
   reason: string | undefined
   documentId?: UUID | string | null
-  targetDate: Date | string 
+  targetDate: Date | string
   approvedById?: UUID | string | null
   sourceCampaignId: UUID | string | undefined
   sourceVaultId: UUID | string | undefined

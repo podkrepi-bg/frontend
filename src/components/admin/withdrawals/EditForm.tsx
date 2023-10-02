@@ -105,7 +105,7 @@ export default function EditForm() {
       reason: values.reason,
       sourceVaultId: values.sourceVaultId,
       sourceCampaignId: values.sourceCampaignId,
-      targetDate: values.targetDate ? new Date(values.targetDate) : null,
+      targetDate: values.targetDate,
       bankAccountId: values.bankAccountId,
       documentId: values.documentId,
       approvedById: values.approvedById,

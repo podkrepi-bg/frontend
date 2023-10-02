@@ -35,7 +35,7 @@ export type WithdrawalInput = {
   amountAvailable: number
   reason: string | undefined
   documentId?: UUID | undefined
-  targetDate: Date | string 
+  targetDate: Date | string
   approvedById?: UUID | undefined
   bankAccountId?: UUID | undefined
   sourceCampaignId?: UUID | undefined
