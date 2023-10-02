@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, Typography } from '@mui/material' 
+import { Box, Button, Grid, Typography } from '@mui/material'
 
 import SelectDate from './custom/SelectDate'
 import { WithdrawalData, WithdrawalInput, WithdrawalResponse } from 'gql/withdrawals'
@@ -58,7 +58,7 @@ export default function CreateForm() {
         otherwise: yup.number().positive().integer().required(),
       }),
       reason: yup.string().trim().min(1).max(300).required(),
-      targetDate: yup.date().min(new Date(), 'Date is invalid.').notRequired().nullable(), 
+      targetDate: yup.date().min(new Date(), 'Date is invalid.').notRequired().nullable(),
       currency: yup.string().oneOf(Object.values(Currency)).required(),
       sourceVaultId: yup.string().uuid().required(),
       sourceCampaignId: yup.string().uuid().required(),
