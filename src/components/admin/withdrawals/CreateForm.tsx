@@ -58,7 +58,7 @@ export default function CreateForm() {
         otherwise: yup.number().positive().integer().required(),
       }),
       reason: yup.string().trim().min(1).max(300).required(),
-      targetDate: yup.date().min(new Date(), 'Date is invalid.').notRequired().nullable(),
+      targetDate: yup.date().required(),
       currency: yup.string().oneOf(Object.values(Currency)).required(),
       sourceVaultId: yup.string().uuid().required(),
       sourceCampaignId: yup.string().uuid().required(),
@@ -105,7 +105,7 @@ export default function CreateForm() {
       sourceCampaignId: values.sourceCampaignId,
       bankAccountId: values.bankAccountId,
       documentId: values.documentId,
-      targetDate: values.targetDate ? new Date(values.targetDate) : null,
+      targetDate: values.targetDate,
       approvedById: values.approvedById,
     }
     mutation.mutate(data)
@@ -187,7 +187,7 @@ export default function CreateForm() {
             <FormTextField type="text" label={t('reason')} name="reason" autoComplete="reason" />
           </Grid>
           <Grid item xs={12}>
-            <SelectDate name="targetDate" />
+            <SelectDate name="targetDate"/>
           </Grid>
 
           <Grid item xs={12}>

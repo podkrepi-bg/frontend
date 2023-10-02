@@ -54,7 +54,7 @@ const validationSchema: yup.SchemaOf<WithdrawalData> = yup
     sourceCampaignId: yup.string().uuid().required(),
     bankAccountId: yup.string().uuid().required(),
     documentId: yup.string().uuid().required(),
-    targetDate: yup.date().min(new Date(), 'Date is invalid.').notRequired().nullable(),
+    targetDate: yup.date().required(),
     approvedById: yup.string().uuid().required(),
   })
 
