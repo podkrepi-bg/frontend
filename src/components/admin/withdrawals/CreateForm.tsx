@@ -7,6 +7,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
 import { Box, Button, Grid, Typography } from '@mui/material'
 
+import SelectDate from './custom/SelectDate'
 import { WithdrawalData, WithdrawalInput, WithdrawalResponse } from 'gql/withdrawals'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
@@ -57,6 +58,7 @@ export default function CreateForm() {
         otherwise: yup.number().positive().integer().required(),
       }),
       reason: yup.string().trim().min(1).max(300).required(),
+      targetDate: yup.date().required(),
       currency: yup.string().oneOf(Object.values(Currency)).required(),
       sourceVaultId: yup.string().uuid().required(),
       sourceCampaignId: yup.string().uuid().required(),
@@ -74,6 +76,7 @@ export default function CreateForm() {
     sourceCampaignId: '',
     bankAccountId: '',
     documentId: uuidv4(), //this will be the id of the uploaded doc when attachments are implemented
+    targetDate: '',
     approvedById: '',
   }
 
@@ -102,6 +105,7 @@ export default function CreateForm() {
       sourceCampaignId: values.sourceCampaignId,
       bankAccountId: values.bankAccountId,
       documentId: values.documentId,
+      targetDate: values.targetDate,
       approvedById: values.approvedById,
     }
     mutation.mutate(data)
@@ -181,6 +185,9 @@ export default function CreateForm() {
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="text" label={t('reason')} name="reason" autoComplete="reason" />
+          </Grid>
+          <Grid item xs={12}>
+            <SelectDate name="targetDate" />
           </Grid>
 
           <Grid item xs={12}>
