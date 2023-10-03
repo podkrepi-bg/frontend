@@ -100,9 +100,7 @@ Watch releases of this repository to be notified about future updates:
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-72-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-73-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -214,6 +212,7 @@ Thanks goes to these wonderful people:
     <tr>
       <td align="center" valign="top" width="10%"><a href="https://github.com/yyosifov"><img src="https://avatars.githubusercontent.com/u/2012493?v=4?s=100" width="100px;" alt="yyosifov"/><br /><sub><b>yyosifov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=yyosifov" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/dphilipov"><img src="https://avatars.githubusercontent.com/u/76788928?v=4?s=100" width="100px;" alt="Dimitar Filipov"/><br /><sub><b>Dimitar Filipov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=dphilipov" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/hiapetrov"><img src="https://avatars.githubusercontent.com/u/107921565?v=4?s=100" width="100px;" alt="Alexander"/><br /><sub><b>Alexander</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=hiapetrov" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
