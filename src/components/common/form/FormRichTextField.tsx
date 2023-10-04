@@ -34,7 +34,9 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
   const { t } = useTranslation()
   const [, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
-  const [useMdxEditor, setUseMdxEditor] = React.useState(true)
+  // disabling MDXEditor integration.
+  // The markdown syntax does not support requirements like image and text alignment, colors, etc.
+  const [useMdxEditor, setUseMdxEditor] = React.useState(false)
 
   return (
     <div>
@@ -47,6 +49,7 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
       <Field name={name}>
         {({ field }: { field: FieldInputProps<string> }) => (
           <StyledGrid>
+            {/*
             <EditorSwitch>
               <label>
                 <input
@@ -69,6 +72,7 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
                 {t('campaigns:campaign.rte.classic')}
               </label>
             </EditorSwitch>
+            */}
 
             {useMdxEditor ? (
               <>
