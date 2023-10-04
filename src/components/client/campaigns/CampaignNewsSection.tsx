@@ -163,7 +163,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   return (
     <Grid container item xs={12} spacing={1} id="news">
       <Grid container item flexDirection={'column'}>
-        <Typography component={'h3'} fontSize={25} color={theme.palette.common.black}>
+        <Typography component="h4" color={theme.palette.common.black} fontSize="2rem">
           {t('news')}
         </Typography>
         {canCreateArticle && (
