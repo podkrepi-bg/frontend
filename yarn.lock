@@ -8960,13 +8960,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-cookie@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "js-cookie@npm:2.2.1"
-  checksum: 9b1fb980a1c5e624fd4b28ea4867bb30c71e04c4484bb3a42766344c533faa684de9498e443425479ec68609e96e27b60614bfe354877c449c631529b6d932f2
-  languageName: node
-  linkType: hard
-
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -11377,7 +11370,6 @@ __metadata:
     quill-html-edit-button: ^2.2.12
     react: 18.2.0
     react-chartjs-2: ^5.2.0
-    react-cookie-consent: ^8.0.1
     react-dom: 18.2.0
     react-gtm-module: 2.0.11
     react-i18next: ^11.17.1
@@ -11828,17 +11820,6 @@ __metadata:
     chart.js: ^4.1.1
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: ace702185be1450e5888a8bcd8b5fc1995067e3b11d236764a67f5567a3d7c32ff16923b8d48d3d39bda6e45135da6c044c9b43fbe8e1978f95aca9d2c0ce348
-  languageName: node
-  linkType: hard
-
-"react-cookie-consent@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "react-cookie-consent@npm:8.0.1"
-  dependencies:
-    js-cookie: ^2.2.1
-  peerDependencies:
-    react: ">=16"
-  checksum: c99f3e40e3091c439956498158b5b8906cce170763836d6fade98a06ce667eca25aaf3bc407e10a6fb72fc44e5178a2ebf14cbbe4e1b5684a74b7d7f484bd359
   languageName: node
   linkType: hard
 
