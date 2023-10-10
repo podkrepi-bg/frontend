@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { CampaignResponse } from 'gql/campaigns'
 
 import { Button, CircularProgress, Grid, IconButton, Menu, Typography } from '@mui/material'
-import { AddLinkOutlined, Favorite, MarkEmailUnread } from '@mui/icons-material'
+import { AddLinkOutlined, Favorite } from '@mui/icons-material'
 import { lighten } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'

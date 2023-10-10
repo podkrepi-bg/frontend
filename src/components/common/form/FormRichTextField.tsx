@@ -25,10 +25,11 @@ const StyledGrid = styled('div')(() => ({
   },
 }))
 
-const EditorSwitch = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'flex-end',
-}))
+// disabled as QuillEditor is default for now.
+// const EditorSwitch = styled('div')(() => ({
+//   display: 'flex',
+//   justifyContent: 'flex-end',
+// }))
 
 export default function FormRichTextField({ name }: FormRichTextFieldProps) {
   const { t } = useTranslation()
@@ -36,7 +37,8 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   // disabling MDXEditor integration.
   // The markdown syntax does not support requirements like image and text alignment, colors, etc.
-  const [useMdxEditor, setUseMdxEditor] = React.useState(false)
+  //const [useMdxEditor, setUseMdxEditor] = React.useState(false)
+  const useMdxEditor = false
 
   return (
     <div>
