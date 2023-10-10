@@ -12,6 +12,9 @@ import { useFormikContext } from 'formik'
 import { OneTimeDonation } from 'gql/donations'
 import { RegisterFormData } from 'components/client/auth/register/RegisterForm'
 import { StepsContext } from './helpers/stepperContext'
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import AcceptTermsField from 'components/common/form/AcceptTermsField'
+import AcceptNewsLetterField from 'components/common/form/AcceptNewsletterField'
 
 export default function RegisterForm() {
   const { t } = useTranslation()
@@ -28,13 +31,18 @@ export default function RegisterForm() {
     confirmPassword: formik.values.confirmPassword as string,
     terms: formik.values.terms as boolean,
     gdpr: formik.values.gdpr as boolean,
+    newsletter: formik.values.newsletter as boolean
   }
   const onClick = async () => {
     try {
       setLoading(true)
-
       // Register in Keycloak
+
+      if(values.terms && values.gdpr) {
       await register(values)
+      } else { 
+        throw new Error("Terms or GDPR not accepted")
+      }
 
       // Authenticate
       const resp = await signIn<'credentials'>('credentials', {
@@ -42,6 +50,7 @@ export default function RegisterForm() {
         password: values.password,
         redirect: false,
       })
+    
       if (resp?.error) {
         throw new Error(resp.error)
       }
@@ -54,7 +63,7 @@ export default function RegisterForm() {
     } catch (error) {
       console.error(error)
       setLoading(false)
-      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
+      AlertStore.show(t('auth:alerts.register-error'), 'error')
     }
   }
 
@@ -92,6 +101,11 @@ export default function RegisterForm() {
             label="auth:account.confirm-password"
             autoComplete="new-password"
           />
+        </Grid>
+        <Grid item xs={12}>
+          <AcceptTermsField name="terms" />
+          <AcceptPrivacyPolicyField name="gdpr" />
+          <AcceptNewsLetterField name="newsletter" />
         </Grid>
         <Grid item xs={12}>
           <Button

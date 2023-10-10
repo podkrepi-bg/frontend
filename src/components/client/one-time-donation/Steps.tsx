@@ -45,7 +45,11 @@ const initialValues: OneTimeDonation = {
   registerLastName: '',
   registerFirstName: '',
   registerPassword: '',
+  confirmPassword: '',
   isRecurring: false,
+  terms: false,
+  gdpr: false,
+  newsletter:false
 }
 interface DonationStepperProps {
   onStepChange: () => void

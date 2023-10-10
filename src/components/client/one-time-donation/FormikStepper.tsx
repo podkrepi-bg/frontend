@@ -8,7 +8,7 @@ import { Box, Button, Grid, Step, StepLabel, Stepper, useMediaQuery } from '@mui
 import { StepsContext } from './helpers/stepperContext'
 import { OneTimeDonation } from 'gql/donations'
 import { useSession } from 'next-auth/react'
-
+ 
 const PREFIX = 'FormikStepper'
 
 const classes = {
@@ -90,7 +90,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
       }}
       validateOnMount
       validateOnBlur>
-      {({ isSubmitting, handleSubmit, isValid, values }) => (
+      {({ isSubmitting, handleSubmit, values }) => (
         <Form
           onSubmit={handleSubmit}
           style={{
@@ -131,7 +131,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
               </Grid>
               <Grid item xs={12} md={6}>
                 <LoadingButton
-                  disabled={!isValid || isSubmitting || hideNextButton(values.isAnonymous)}
+                  disabled={isSubmitting || hideNextButton(values.isAnonymous)}
                   fullWidth
                   type="submit"
                   variant="contained"
