@@ -143,7 +143,7 @@ export type OneTimeDonation = {
   confirmPassword?: string
   terms?: boolean
   gdpr?: boolean
-  newsletter?:boolean
+  newsletter?: boolean
 }
 
 export type DonationStep = {

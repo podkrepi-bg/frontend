@@ -18,26 +18,29 @@ export const validateFirst: yup.SchemaOf<FirstStep> = yup
     }),
   })
 
-export const validateSecond: yup.SchemaOf<SecondStep> = yup.object().defined().shape({
-  isAnonymous: yup.boolean().required(),
-  personsEmail: email.notRequired(),
-  personsFirstName: name.notRequired(),
-  personsLastName: name.notRequired(),
-  personsPhone: phone.notRequired(),
-  loginEmail: email.notRequired(),
-  loginPassword: password.notRequired(),
-  registerEmail: email.notRequired(),
-  registerFirstName: yup.string().notRequired(),
-  registerLastName: yup.string().notRequired(),
-  registerPassword: password.notRequired(),
-  confirmPassword: yup.string().oneOf(
-    [yup.ref('registerPassword')],
-    customValidators.confirmPassword
-  ).notRequired(),
-  terms: yup.boolean().oneOf([true], customValidators.terms).notRequired(),
-  gdpr: yup.boolean().oneOf([true], customValidators.gdpr).notRequired(),
-  newsletter:yup.boolean().notRequired()
-})
+export const validateSecond: yup.SchemaOf<SecondStep> = yup
+  .object()
+  .defined()
+  .shape({
+    isAnonymous: yup.boolean().required(),
+    personsEmail: email.notRequired(),
+    personsFirstName: name.notRequired(),
+    personsLastName: name.notRequired(),
+    personsPhone: phone.notRequired(),
+    loginEmail: email.notRequired(),
+    loginPassword: password.notRequired(),
+    registerEmail: email.notRequired(),
+    registerFirstName: yup.string().notRequired(),
+    registerLastName: yup.string().notRequired(),
+    registerPassword: password.notRequired(),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('registerPassword')], customValidators.confirmPassword)
+      .notRequired(),
+    terms: yup.boolean().oneOf([true], customValidators.terms).notRequired(),
+    gdpr: yup.boolean().oneOf([true], customValidators.gdpr).notRequired(),
+    newsletter: yup.boolean().notRequired(),
+  })
 
 export const validateThird: yup.SchemaOf<ThirdStep> = yup.object().defined().shape({
   message: yup.string().notRequired(),

@@ -49,7 +49,7 @@ const initialValues: OneTimeDonation = {
   isRecurring: false,
   terms: false,
   gdpr: false,
-  newsletter:false
+  newsletter: false,
 }
 interface DonationStepperProps {
   onStepChange: () => void

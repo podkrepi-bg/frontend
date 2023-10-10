@@ -8,7 +8,7 @@ import { Box, Button, Grid, Step, StepLabel, Stepper, useMediaQuery } from '@mui
 import { StepsContext } from './helpers/stepperContext'
 import { OneTimeDonation } from 'gql/donations'
 import { useSession } from 'next-auth/react'
- 
+
 const PREFIX = 'FormikStepper'
 
 const classes = {

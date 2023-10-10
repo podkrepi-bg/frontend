@@ -31,17 +31,17 @@ export default function RegisterForm() {
     confirmPassword: formik.values.confirmPassword as string,
     terms: formik.values.terms as boolean,
     gdpr: formik.values.gdpr as boolean,
-    newsletter: formik.values.newsletter as boolean
+    newsletter: formik.values.newsletter as boolean,
   }
   const onClick = async () => {
     try {
       setLoading(true)
       // Register in Keycloak
 
-      if(values.terms && values.gdpr) {
-      await register(values)
-      } else { 
-        throw new Error("Terms or GDPR not accepted")
+      if (values.terms && values.gdpr) {
+        await register(values)
+      } else {
+        throw new Error('Terms or GDPR not accepted')
       }
 
       // Authenticate
@@ -50,7 +50,7 @@ export default function RegisterForm() {
         password: values.password,
         redirect: false,
       })
-    
+
       if (resp?.error) {
         throw new Error(resp.error)
       }
