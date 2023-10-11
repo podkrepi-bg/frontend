@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Grid, Typography } from '@mui/material'
+import { Button, CircularProgress, FormHelperText, Grid, Typography } from '@mui/material'
 import React, { useContext, useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
@@ -38,10 +38,14 @@ export default function RegisterForm() {
       setLoading(true)
       // Register in Keycloak
 
-      if (values.terms && values.gdpr) {
+      if (values.terms && values.gdpr && values.password === values.confirmPassword) {
         await register(values)
+      } else if (!values.terms) {
+        throw new Error('Terms not accepted')
+      } else if (!values.gdpr) {
+        throw new Error('GDPR not accepted')
       } else {
-        throw new Error('Terms or GDPR not accepted')
+        throw new Error('Confirm password doesn`t match')
       }
 
       // Authenticate
@@ -101,10 +105,24 @@ export default function RegisterForm() {
             label="auth:account.confirm-password"
             autoComplete="new-password"
           />
+          {formik.values.registerPassword !== formik.values.confirmPassword &&
+            formik.touched.confirmPassword && (
+              <FormHelperText sx={{ color: 'red' }}>
+                {t('validation:password-match')}
+              </FormHelperText>
+            )}
         </Grid>
         <Grid item xs={12}>
           <AcceptTermsField name="terms" />
+          {!formik.values.terms && formik.touched.terms && (
+            <FormHelperText sx={{ color: 'red' }}>{t('validation:terms-of-use')}</FormHelperText>
+          )}
           <AcceptPrivacyPolicyField name="gdpr" />
+          {!formik.values.gdpr && formik.touched.gdpr && (
+            <FormHelperText sx={{ color: 'red' }}>
+              {t('validation:terms-of-service')}
+            </FormHelperText>
+          )}
           <AcceptNewsLetterField name="newsletter" />
         </Grid>
         <Grid item xs={12}>

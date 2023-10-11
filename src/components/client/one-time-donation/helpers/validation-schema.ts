@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { name, phone, email, password, customValidators } from 'common/form/validation'
+import { name, phone, email, password } from 'common/form/validation'
 import { FirstStep, SecondStep, ThirdStep } from 'gql/donations'
 
 export const validateFirst: yup.SchemaOf<FirstStep> = yup
@@ -18,29 +18,23 @@ export const validateFirst: yup.SchemaOf<FirstStep> = yup
     }),
   })
 
-export const validateSecond: yup.SchemaOf<SecondStep> = yup
-  .object()
-  .defined()
-  .shape({
-    isAnonymous: yup.boolean().required(),
-    personsEmail: email.notRequired(),
-    personsFirstName: name.notRequired(),
-    personsLastName: name.notRequired(),
-    personsPhone: phone.notRequired(),
-    loginEmail: email.notRequired(),
-    loginPassword: password.notRequired(),
-    registerEmail: email.notRequired(),
-    registerFirstName: yup.string().notRequired(),
-    registerLastName: yup.string().notRequired(),
-    registerPassword: password.notRequired(),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref('registerPassword')], customValidators.confirmPassword)
-      .notRequired(),
-    terms: yup.boolean().oneOf([true], customValidators.terms).notRequired(),
-    gdpr: yup.boolean().oneOf([true], customValidators.gdpr).notRequired(),
-    newsletter: yup.boolean().notRequired(),
-  })
+export const validateSecond: yup.SchemaOf<SecondStep> = yup.object().defined().shape({
+  isAnonymous: yup.boolean().required(),
+  personsEmail: email.notRequired(),
+  personsFirstName: name.notRequired(),
+  personsLastName: name.notRequired(),
+  personsPhone: phone.notRequired(),
+  loginEmail: email.notRequired(),
+  loginPassword: password.notRequired(),
+  registerEmail: email.notRequired(),
+  registerFirstName: yup.string().notRequired(),
+  registerLastName: yup.string().notRequired(),
+  registerPassword: password.notRequired(),
+  confirmPassword: yup.string().notRequired(),
+  terms: yup.boolean().notRequired(),
+  gdpr: yup.boolean().notRequired(),
+  newsletter: yup.boolean().notRequired(),
+})
 
 export const validateThird: yup.SchemaOf<ThirdStep> = yup.object().defined().shape({
   message: yup.string().notRequired(),

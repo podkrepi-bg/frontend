@@ -90,7 +90,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
       }}
       validateOnMount
       validateOnBlur>
-      {({ isSubmitting, handleSubmit, values }) => (
+      {({ isSubmitting, handleSubmit, isValid, values }) => (
         <Form
           onSubmit={handleSubmit}
           style={{
@@ -131,7 +131,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
               </Grid>
               <Grid item xs={12} md={6}>
                 <LoadingButton
-                  disabled={isSubmitting || hideNextButton(values.isAnonymous)}
+                  disabled={!isValid || isSubmitting || hideNextButton(values.isAnonymous)}
                   fullWidth
                   type="submit"
                   variant="contained"
