@@ -30,6 +30,10 @@ export const validateSecond: yup.SchemaOf<SecondStep> = yup.object().defined().s
   registerFirstName: yup.string().notRequired(),
   registerLastName: yup.string().notRequired(),
   registerPassword: password.notRequired(),
+  confirmPassword: yup.string().notRequired(),
+  terms: yup.boolean().notRequired(),
+  gdpr: yup.boolean().notRequired(),
+  newsletter: yup.boolean().notRequired(),
 })
 
 export const validateThird: yup.SchemaOf<ThirdStep> = yup.object().defined().shape({

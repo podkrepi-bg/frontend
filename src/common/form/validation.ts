@@ -44,6 +44,8 @@ export const customValidators = {
   phone: () => ({ key: 'validation:phone' }),
   name: () => ({ key: 'validation:invalid' }),
   paymentRef: () => ({ key: 'validation:payment-reference' }),
+  terms: () => ({ key: 'validation:terms-of-use' }),
+  gdpr: () => ({ key: 'validation:terms-of-service' }),
 }
 
 setLocale({
