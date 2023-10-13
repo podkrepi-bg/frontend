@@ -143,6 +143,7 @@ export type OneTimeDonation = {
   confirmPassword?: string
   terms?: boolean
   gdpr?: boolean
+  newsletter?: boolean
 }
 
 export type DonationStep = {
@@ -162,6 +163,9 @@ export type SecondStep = {
   personsLastName?: string
   personsPhone?: string
   personsEmail?: string
+  terms?: boolean
+  gdpr?: boolean
+  newsletter?: boolean
 }
 
 export type ThirdStep = {
