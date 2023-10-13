@@ -7,7 +7,12 @@ import {
   ThemeOptions,
 } from '@mui/material/styles'
 
+import { Commissioner } from 'next/font/google'
 import { Montserrat } from 'next/font/google'
+
+export const commissioner = Commissioner({
+  subsets: ['latin', 'cyrillic'],
+})
 
 export const montserrat = Montserrat({
   display: 'auto',
@@ -182,8 +187,16 @@ export const themeOptions: ThemeOptions = {
   },
 
   typography: {
-    fontFamily: montserrat.style.fontFamily,
-    h3: { color: colors.blue.dark },
+    fontFamily: commissioner.style.fontFamily,
+
+    h1: { fontFamily: montserrat.style.fontFamily },
+    h2: { fontFamily: montserrat.style.fontFamily },
+    h3: {
+      color: colors.blue.dark,
+      fontFamily: montserrat.style.fontFamily,
+    },
+    h4: { fontFamily: montserrat.style.fontFamily },
+    h5: { fontFamily: montserrat.style.fontFamily },
 
     body1: {
       fontSize: '0.875rem',
