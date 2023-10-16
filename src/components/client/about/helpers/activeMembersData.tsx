@@ -126,4 +126,16 @@ export const data: TeamData[] = [
     description: 'Кампании',
     linkedInProfile: 'https://www.linkedin.com/in/zdravka-gornachka-3a0b3510/',
   },
+  {
+    img: '/img/team-photos/PetyaDimitrova.png',
+    name: 'Петя Димитрова',
+    description: 'Маркетинг, Корпоративни дарения',
+    linkedInProfile: 'https://www.linkedin.com/in/petya-dimitrova-phd-59816a185/',
+  },
+  {
+    img: '/img/team-photos/MartaNeshova.png',
+    name: 'Марта Нешова',
+    description: 'Маркетинг, Корпоративни дарения',
+    linkedInProfile: 'https://www.linkedin.com/in/martaneshova/',
+  },
 ]
