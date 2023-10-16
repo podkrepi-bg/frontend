@@ -66,3 +66,36 @@ ul {
 .ql-bubble .ql-video {
   margin-inline: auto;
 }
+
+.consent_container {
+  border: 1px solid black;
+  background-color: white !important;
+}
+
+.consent_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+
+.consent_button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 30px 0px 30px;
+}
+
+.consent_button-accept {
+  background-color: white !important;
+  color: #32a9fe !important;
+  border: 1px solid #32a9fe !important;
+  border-radius: 5px !important;
+}
+
+.consent_button-decline {
+  background-color: white !important;
+  color: #32a9fe !important;
+  border: 1px solid #32a9fe !important;
+  border-radius: 5px !important;
+}

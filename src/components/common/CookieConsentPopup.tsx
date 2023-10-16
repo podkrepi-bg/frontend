@@ -1,5 +1,5 @@
 import CookieConsent from 'react-cookie-consent'
-import SubmitButton from './form/SubmitButton'
+import { useTranslation } from 'react-i18next'
 
 type CookieConsentPopupProps = {
   handleAcceptCookie: () => void
@@ -10,18 +10,21 @@ const CookieConsentPopup = ({
   handleAcceptCookie,
   handleDeclineCookie,
 }: CookieConsentPopupProps) => {
+  const { t } = useTranslation()
+
   return (
     <CookieConsent
       enableDeclineButton
-      // cookieName="PodkrepiConsent"
       onAccept={handleAcceptCookie}
       onDecline={handleDeclineCookie}
-      buttonText={<SubmitButton label="I understand" />}
-      declineButtonText={<SubmitButton label="Decline" color="error" />}
-      style={{ paddingRight: '30px' }}
-      buttonStyle={{ background: 'transparent' }}
-      declineButtonStyle={{ background: 'transparent' }}>
-      text for cookies
+      buttonText={t('cookieConsentButton')}
+      declineButtonText={t('cookieRejectButton')}
+      buttonWrapperClasses="consent_button-wrapper"
+      containerClasses="consent_container"
+      contentClasses="consent_content"
+      buttonClasses="consent_button-accept"
+      declineButtonClasses="consent_button-decline ">
+      {t('cookieConsent')}
     </CookieConsent>
   )
 }
