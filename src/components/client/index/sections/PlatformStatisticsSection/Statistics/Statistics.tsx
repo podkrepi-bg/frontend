@@ -25,7 +25,7 @@ export default function Statistics() {
 
   const donatedMoney = fromMoney(totalDonatedMoney?.total || 0)
   const unit = donatedMoney.toString().split('.')[0]
-  const fraction = donatedMoney.toString().split('.')[1]
+  const fraction = donatedMoney?.toFixed(2).toString().split('.')[1]
 
   const sections: { value?: number; message: string }[] = [
     {
