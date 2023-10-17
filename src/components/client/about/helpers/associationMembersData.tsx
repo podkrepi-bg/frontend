@@ -73,4 +73,9 @@ export const data: TeamData[] = [
     name: 'Александър Стоянов',
     linkedInProfile: 'https://www.linkedin.com/in/alexander-stoyanov-37a98b6/',
   },
+  {
+    img: '/img/team-photos/IvayloPhilipov.png',
+    name: 'Ивайло Филипов',
+    linkedInProfile: 'https://www.linkedin.com/in/phillipov',
+  },
 ]
