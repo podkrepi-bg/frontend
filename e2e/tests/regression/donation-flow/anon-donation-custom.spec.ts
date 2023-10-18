@@ -7,6 +7,7 @@ import { DonationPage } from '../../../pages/web-pages/campaigns/donation.page'
 import { bgDonationRegions } from '../../../data/enums/donation-regions.enum'
 import { StripeCheckoutPage } from '../../../pages/web-pages/external/stripe-checkout.page'
 import { anonDonationTestData } from '../../../data/support-page-tests.data'
+import { LanguagesEnum } from '../../../data/enums/languages.enum'
 
 // This spec contains E2E tests related to anonymous donation flow - custom amount
 // The tests are dependent, the whole describe should be runned
@@ -34,6 +35,7 @@ test.describe.serial(
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
+      await headerPage.changeLanguageToBe(LanguagesEnum.BG)
     })
 
     test.afterAll(async () => {
@@ -58,7 +60,7 @@ test.describe.serial(
         .soft(await donationPage.isSelectAmountStepActive(), 'Select Amount step is not active.')
         .toBeTruthy()
       await donationPage.selectRadioButtonByLabelText([otherAmountText])
-      await donationPage.fillOtherAmountInputField('7.50')
+      await donationPage.fillOtherAmountInputField('7,50')
       await donationPage.setDonationRegionFromTheDropdown(bgDonationRegions.EUROPE)
       await donationPage.selectCheckboxByLabelText([bgCardIncludeFeesText])
       // Expected pattern:
@@ -72,7 +74,7 @@ test.describe.serial(
     })
 
     test('The total charge, fee tax and donation amount are recalculated correctly when the donation amount is changed', async () => {
-      await donationPage.fillOtherAmountInputField('12.90')
+      await donationPage.fillOtherAmountInputField('12,90')
       // Expected pattern:
       // За вашия превод от {totalChargedAmountText} лв., таксата на Stripe ще е {feeAmountText} лв., а кампанията ще получи {donationAmountText} лв.
       const totalChargedAmountText = await donationPage.getTotalChargedAmountsAsText()
