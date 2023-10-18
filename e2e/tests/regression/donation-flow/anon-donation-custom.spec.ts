@@ -25,6 +25,8 @@ test.describe.serial(
     const otherAmountText = bgLocalizationOneTimeDonation['first-step'].other
     const bgCardIncludeFeesText = bgLocalizationOneTimeDonation['third-step']['card-include-fees']
 
+    test.use({ locale: 'bg-BG' }) //this is to ensure decimal separator is correctly expected
+
     test.beforeAll(async ({ browser }) => {
       page = await browser.newPage()
       homepage = new HomePage(page)
@@ -109,7 +111,7 @@ test.describe.serial(
       const actualStripeEmail = await stripeCheckoutPage.getReadonlyEmailText()
       expect
         .soft(stripeTotalAmount, 'The Stripe total donation amount is not correct.')
-        .toContain('13.56')
+        .toContain('13,56')
       expect(actualStripeEmail, 'The user e-mail is not sent correctly to Stripe.').toEqual(
         testEmail,
       )
