@@ -138,5 +138,9 @@
   },
   "browser": {
     "html-pdf": false
+  },
+  "resolutions": {
+    "postcss": "^8.4.31",
+    "zod": "^3.22.3"
   }
 }
