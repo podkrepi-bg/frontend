@@ -60,14 +60,14 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           <SumWrapper>
             <Sum>
               <SumNumber>
-                {i18n.language === 'bg'
+                {i18n?.language === 'bg'
                   ? reachedAmount.split(',')[0] + ' лв.'
                   : reachedAmount.split('.')[0]}
               </SumNumber>
             </Sum>
             <Sum>
               <SumNumber>
-                {i18n.language === 'bg'
+                {i18n?.language === 'bg'
                   ? targetAmount.split(',')[0] + ' лв.'
                   : targetAmount.split('.')[0]}
               </SumNumber>

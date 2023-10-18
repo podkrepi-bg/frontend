@@ -17,7 +17,7 @@ export default function FormDatePicker({ name, label }: { name: string; label: s
   const { setFieldValue } = useFormikContext()
   const { i18n } = useTranslation()
 
-  const dateViewFormat = getDateFormat(i18n.language)
+  const dateViewFormat = getDateFormat(i18n?.language)
 
   const updateValue = (newValue: Date | null) => {
     let formattedValue

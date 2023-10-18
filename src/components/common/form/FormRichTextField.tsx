@@ -8,7 +8,7 @@ import { TranslatableField } from 'common/form/validation'
 import theme from 'common/theme'
 import { styled } from '@mui/material/styles'
 
-import { ModernEditor } from './MDXEditor'
+//import { ModernEditor } from './MDXEditor'
 import { QuillEditor } from './QuillEditor'
 
 export type FormRichTextFieldProps = {
@@ -77,9 +77,7 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
             */}
 
             {useMdxEditor ? (
-              <>
-                <ModernEditor html={field.value} onChange={field.onChange(field.name)} />
-              </>
+              <>{/* <ModernEditor html={field.value} onChange={field.onChange(field.name)} /> */}</>
             ) : (
               <QuillEditor value={field.value} onChange={field.onChange(field.name)} />
             )}

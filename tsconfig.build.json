@@ -1,4 +1,7 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", ".next", "e2e"]
+  "exclude": ["node_modules", ".next", "e2e"],
+  "compilerOptions": {
+    "moduleResolution": "node"
+  }
 }

@@ -49,7 +49,7 @@ function CustomApp({
   useEffect(() => {
     // Init GTM
     initialize({
-      events: { user_lang: i18n.language },
+      events: { user_lang: i18n?.language },
     })
   }, [])
 
@@ -58,7 +58,7 @@ function CustomApp({
     const onRouteChange = (url: string) => {
       trackEvent({
         event: 'page_view',
-        user_lang: i18n.language,
+        user_lang: i18n?.language,
         page_title: document.title,
         page_pathname: url,
         page_location:
@@ -72,7 +72,7 @@ function CustomApp({
 
     router.events.on('routeChangeComplete', onRouteChange)
     return () => router.events.off('routeChangeComplete', onRouteChange)
-  }, [i18n.language])
+  }, [i18n?.language])
 
   const [queryClient] = useState(
     () =>

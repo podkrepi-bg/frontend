@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { MenuItem, TextField } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 

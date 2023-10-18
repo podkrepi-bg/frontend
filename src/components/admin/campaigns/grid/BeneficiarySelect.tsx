@@ -3,7 +3,7 @@ import { TranslatableField, translateError } from 'common/form/validation'
 import { useField } from 'formik'
 import { BeneficiaryListResponse } from 'gql/beneficiary'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { useBeneficiariesList } from 'service/beneficiary'
 
 export default function BeneficiarySelect({ name = 'beneficiaryId' }) {

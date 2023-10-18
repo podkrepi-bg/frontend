@@ -1,7 +1,7 @@
 import { Button, ButtonProps } from '@mui/material'
 import Link from 'components/common/Link'
 import { LinkProps } from 'next/link'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 type Props = ButtonProps & { href: LinkProps['href'] }

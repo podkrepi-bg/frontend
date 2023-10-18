@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
 

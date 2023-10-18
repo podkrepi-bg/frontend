@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
   readingTime?: number

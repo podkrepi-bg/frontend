@@ -269,25 +269,25 @@ export default function InlineDonation({ campaign }: Props) {
       <Grid className={classes.reachedAndTargetMoneyWrapper}>
         <Grid>
           <Typography component="span" className={classes.moneyUnit}>
-            {i18n.language === 'bg' ? reachedAmount.split(',')[0] : reachedAmount.split('.')[0]}
+            {i18n?.language === 'bg' ? reachedAmount.split(',')[0] : reachedAmount.split('.')[0]}
           </Typography>
           <Typography component="span" className={classes.moneyFraction}>
-            {i18n.language === 'bg'
+            {i18n?.language === 'bg'
               ? reachedAmount.split(',')[1].substring(0, 2)
               : reachedAmount.split('.')[1]}
           </Typography>
-          {i18n.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
+          {i18n?.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
         </Grid>
         <Grid>
           <Typography component="span" className={classes.moneyUnit}>
-            {i18n.language === 'bg' ? targetAmount.split(',')[0] : targetAmount.split('.')[0]}
+            {i18n?.language === 'bg' ? targetAmount.split(',')[0] : targetAmount.split('.')[0]}
           </Typography>
           <Typography component="span" className={classes.moneyFraction}>
-            {i18n.language === 'bg'
+            {i18n?.language === 'bg'
               ? targetAmount.split(',')[1].substring(0, 2)
               : targetAmount.split('.')[1]}
           </Typography>
-          {i18n.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
+          {i18n?.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
         </Grid>
       </Grid>
       <Grid pt={1}>

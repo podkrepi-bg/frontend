@@ -95,7 +95,7 @@ export default function CampaignNewsGrid() {
       width: 200,
       renderCell: (params: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(params.row.createdAt)}>
-          <Button color="inherit">{getRelativeDate(params.row.createdAt, i18n.language)}</Button>
+          <Button color="inherit">{getRelativeDate(params.row.createdAt, i18n?.language)}</Button>
         </Tooltip>
       ),
     },
@@ -110,7 +110,7 @@ export default function CampaignNewsGrid() {
         return (
           <Tooltip title={getExactDateTime(params.row.publishedAt)}>
             <Button color="inherit">
-              {getRelativeDate(params.row.publishedAt, i18n.language)}
+              {getRelativeDate(params.row.publishedAt, i18n?.language)}
             </Button>
           </Tooltip>
         )
@@ -126,7 +126,7 @@ export default function CampaignNewsGrid() {
         if (!params.row.editedAt) return ''
         return (
           <Tooltip title={getExactDateTime(params.row.editedAt)}>
-            <Button color="inherit">{getRelativeDate(params.row.editedAt, i18n.language)}</Button>
+            <Button color="inherit">{getRelativeDate(params.row.editedAt, i18n?.language)}</Button>
           </Tooltip>
         )
       },

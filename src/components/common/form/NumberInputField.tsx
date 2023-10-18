@@ -18,7 +18,7 @@ export default function NumberInputField({
 }: Props) {
   const { t, i18n } = useTranslation('one-time-donation')
   const [, meta, { setValue, setError }] = useField(name)
-  const decimalSeparator = (1.1).toLocaleString(i18n.lang).charAt(1)
+  const decimalSeparator = (1.1).toLocaleString(i18n.language).charAt(1)
 
   useEffect(() => {
     setValue(1)
@@ -30,7 +30,7 @@ export default function NumberInputField({
       type="number"
       value={meta.value === 1 ? '' : meta.value}
       label={t('first-step.amount')}
-      lang={i18n.language}
+      lang={i18n?.language}
       onKeyDown={(e) => {
         if (meta.error && e.key !== 'Backspace' && e.key !== 'Delete' && !isInteger(meta.value)) {
           e.preventDefault()

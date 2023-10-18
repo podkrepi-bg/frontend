@@ -10,7 +10,8 @@ export default function LocaleButton() {
     (locale: string) => (event: React.MouseEvent) => {
       event.preventDefault()
       // Same route different language
-      router.push(router.asPath, router.asPath, { locale })
+      const { pathname, asPath, query } = router
+      router.push({ pathname, query }, asPath, { locale })
     },
     [router.asPath],
   )
@@ -18,17 +19,14 @@ export default function LocaleButton() {
     return null
   }
 
-  if (router.locale === 'bg') {
-    return (
-      <Button variant="text" color="inherit" size="small" onClick={changeLang('en')}>
-        {t('EN')}
-      </Button>
-    )
-  }
-
   return (
-    <Button variant="text" color="inherit" size="small" onClick={changeLang('bg')}>
-      {t('BG')}
+    <Button
+      data-testid="locale-button"
+      variant="text"
+      color="inherit"
+      size="small"
+      onClick={changeLang(router.locale === 'bg' ? 'en' : 'bg')}>
+      {t(router.locale === 'bg' ? 'EN' : 'BG')}
     </Button>
   )
 }
