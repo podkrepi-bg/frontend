@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
@@ -41,10 +40,10 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   const campaignImagesUrl = campaignListPictureUrl(campaign)
 
-  const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
+  const reached = summary ? summary.reachedAmount + summary.guaranteedAmount : 0
+  const reachedAmount = moneyPublic(reached)
   const targetAmount = moneyPublic(campaign.targetAmount)
-  const reached = summary ? summary.reachedAmount : 0
-  const percentage = useMemo(() => (reached / target) * 100, [reached, target])
+  const percentage = (reached / target) * 100
 
   return (
     <Root data-testid={`campaign-card-${index}`}>

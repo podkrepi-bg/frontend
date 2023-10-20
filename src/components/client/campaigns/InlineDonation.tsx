@@ -246,9 +246,9 @@ export default function InlineDonation({ campaign }: Props) {
     state: campaignState,
     slug: campaignSlug,
   } = campaign
-  const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
+  const reached = summary ? summary.reachedAmount + summary.guaranteedAmount : 0
+  const reachedAmount = moneyPublic(reached)
   const targetAmount = moneyPublic(campaign.targetAmount)
-  const reached = summary?.reachedAmount ?? 0
   const donors = summary?.donors ?? 0
   const {
     data: { items: donations, total: all_rows } = { items: [] },
