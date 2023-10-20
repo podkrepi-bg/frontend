@@ -9,6 +9,7 @@ export enum DonationStatus {
   declined = 'declined',
   waiting = 'waiting',
   cancelled = 'cancelled',
+  guaranteed = 'guaranteed',
   succeeded = 'succeeded',
   deleted = 'deleted',
   refund = 'refund',
