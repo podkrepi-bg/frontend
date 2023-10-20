@@ -11,7 +11,7 @@ export type DonationWishResponse = {
   campaignId: UUID
   donationId?: UUID
   personId?: UUID
-  person?: { firstName: string; lastName: string }
+  person?: { firstName: string; lastName: string; company: { companyName: string } }
   donation?: { amount: number; currency: string }
   createdAt: DateTime
 }

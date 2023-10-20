@@ -93,7 +93,9 @@ export default function DonorsAndDonations({
               <Grid>
                 <Typography className={classes.donatorName}>
                   {person
-                    ? `${person.firstName} ${person.lastName}`
+                    ? person.company
+                      ? `${person.company.companyName}`
+                      : `${person.firstName} ${person.lastName}`
                     : t('campaigns:donations.anonymous')}
                 </Typography>
                 <Grid className={classes.donationQuantityAndTimeWrapper}>

@@ -171,7 +171,11 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
                         fontSize: theme.typography.pxToRem(16),
                         color: theme.palette.grey[800],
                       }}>
-                      {person ? person.firstName + ' ' + person.lastName : t('donations.anonymous')}
+                      {person
+                        ? person.company
+                          ? person.company.companyName
+                          : person.firstName + ' ' + person.lastName
+                        : t('donations.anonymous')}
                     </Typography>
                     <Stack direction="row">
                       {donation && (
