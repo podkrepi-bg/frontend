@@ -126,7 +126,7 @@ export default function FirstStep() {
           </Typography>
           <Divider />
           <Grid container alignItems="center" xs={12} mt={2} mb={2}>
-            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
+            <Grid my={1} pr={2} item justifyContent="flex-start" alignItems="center" xs={4}>
               <BankDetailsLabel>{t('third-step.owner_name')}</BankDetailsLabel>
             </Grid>
             <Grid my={1} item xs={5} justifyContent="flex-start">
@@ -186,7 +186,7 @@ export default function FirstStep() {
                 color="info"
               />
             </Grid>
-            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
+            <Grid my={1} pr={2} item justifyContent="flex-start" alignItems="center" xs={4}>
               <BankDetailsLabel>{t('third-step.reason-donation')}</BankDetailsLabel>
             </Grid>
             <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
@@ -205,7 +205,7 @@ export default function FirstStep() {
             </Grid>
           </Grid>
           <Divider />
-          <Typography>{t('third-step.message-warning')}</Typography>
+          <Typography mt={2}>{t('third-step.message-warning')}</Typography>
         </List>
       </Collapse>
       <Collapse unmountOnExit in={paymentField.value === 'card'} timeout="auto">
