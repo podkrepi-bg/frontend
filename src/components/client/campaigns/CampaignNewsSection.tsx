@@ -146,6 +146,10 @@ const StyledTimeline = styled(Timeline)(({ theme }) => ({
     fontStyle: 'normal',
     padding: 0,
   },
+
+  ['& .ql-container']: {
+    fontFamily: theme.typography.fontFamily,
+  },
 }))
 
 type Props = {
