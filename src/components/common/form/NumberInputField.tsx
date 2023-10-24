@@ -18,7 +18,6 @@ export default function NumberInputField({
 }: Props) {
   const { t, i18n } = useTranslation('one-time-donation')
   const [, meta, { setValue, setError }] = useField(name)
-  const decimalSeparator = (1.1).toLocaleString(i18n.language).charAt(1)
 
   useEffect(() => {
     setValue(1)
@@ -36,14 +35,15 @@ export default function NumberInputField({
           e.preventDefault()
           return
         }
-        if (decimalSeparator !== e.key && (e.key === '.' || e.key === ',')) {
+
+        //prevent decimal amounts
+        if (e.key === '.' || e.key === ',') {
           e.preventDefault()
           return
         }
 
         if (
           (e.key.charCodeAt(0) >= 48 && e.key.charCodeAt(0) <= 57) ||
-          (isInteger(meta.value) && e.key === decimalSeparator) ||
           (e.ctrlKey && e.key === 'v') ||
           (e.ctrlKey && e.key === 'c') ||
           (e.ctrlKey && e.key === 'a') ||
@@ -66,7 +66,10 @@ export default function NumberInputField({
       onPaste={async (e) => {
         e.preventDefault()
         const value = e.clipboardData.getData('Text')
+        if (value.includes('.') || value.includes(',')) return
+
         const transformedValue: string = value.replace(/ /g, '') as string
+
         if (!isNaN(Number(transformedValue))) {
           setValue(transformedValue)
           return
