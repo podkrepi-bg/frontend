@@ -5,7 +5,16 @@ import { useRouter } from 'next/router'
 
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Button, CircularProgress, Grid, IconButton, Menu, Typography } from '@mui/material'
+import {
+  Button,
+  Chip,
+  CircularProgress,
+  FormControl,
+  Grid,
+  IconButton,
+  Menu,
+  Typography,
+} from '@mui/material'
 import { AddLinkOutlined, Favorite, MarkEmailUnread } from '@mui/icons-material'
 import { lighten } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
@@ -25,6 +34,7 @@ import useMobile from 'common/hooks/useMobile'
 import LinkButton from '../../common/LinkButton'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
+import DonationWishes from './DonationWishes'
 import CustomListItem from 'components/common/navigation/CustomListItem'
 import { socialMedia } from './helpers/socialMedia'
 import { CampaignState } from './helpers/campaign.enums'
@@ -39,6 +49,9 @@ const classes = {
   moneyUnit: `${PREFIX}-moneyUnit`,
   moneyFraction: `${PREFIX}-moneyFraction`,
   donorsSharesCount: `${PREFIX}-donorsSharesCount`,
+  donorsWishesTabs: `${PREFIX}-donorsWishesTabs`,
+  donorsWishesTab: `${PREFIX}-donorsWishesTab`,
+  selected: `${PREFIX}-selected`,
   donationPriceList: `${PREFIX}-donationPriceList`,
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
@@ -96,6 +109,28 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     margin: theme.spacing(1.7, 0),
     fontSize: theme.typography.pxToRem(14),
     color: theme.palette.common.black,
+  },
+
+  [`& .${classes.donorsWishesTabs}`]: {
+    display: 'rowflex',
+    flexDirection: 'row',
+    width: 'fit-content',
+    border: '1px solid grey',
+    borderRadius: '60px',
+    margin: theme.spacing(1.7, 0),
+  },
+
+  [`& .${classes.donorsWishesTab}`]: {
+    textTransform: 'capitalize',
+    backgroundColor: '#EEEEEE',
+    padding: theme.spacing(0, 1.7),
+    paddingBottom: '2px',
+    borderRadius: '60px',
+    cursor: 'pointer',
+  },
+
+  [`& .${classes.selected}`]: {
+    backgroundColor: '#b1defe',
   },
 
   [`& .${classes.donationPriceList}`]: {
@@ -264,6 +299,39 @@ export default function InlineDonation({ campaign }: Props) {
 
   const handleClose = () => setAnchorEl(null)
 
+  const [selected, setSelected] = useState('donors')
+
+  const donorsDisplay = (
+    <>
+      <DonorsAndDonations donations={donations} />
+      {donations && donations.length !== 0 ? (
+        <Grid container className={classes.pagination}>
+          <Typography m={1}>{`${page * pageSize + 1}-${rowCount}  ${t(
+            'campaigns:of',
+          )}  ${all_rows}`}</Typography>
+          <IconButton
+            aria-label="back"
+            disabled={page == 0}
+            onClick={() => setPage((index) => index - 1)}>
+            <ArrowBackIosIcon fontSize="small" />
+          </IconButton>
+          <IconButton
+            aria-label="next"
+            disabled={rowCount == all_rows}
+            onClick={() => setPage((index) => index + 1)}>
+            <ArrowForwardIosIcon fontSize="small" />
+          </IconButton>
+        </Grid>
+      ) : null}
+    </>
+  )
+
+  const wishesDisplay = (
+    <>
+      <DonationWishes campaignId={campaign.id} />{' '}
+    </>
+  )
+
   return (
     <StyledGrid item xs={12} p={3} className={classes.inlineDonationWrapper}>
       <Grid className={classes.reachedAndTargetMoneyWrapper}>
@@ -364,29 +432,30 @@ export default function InlineDonation({ campaign }: Props) {
               <InfoOutlinedIcon className={classes.infoIcon} />
               <Typography>{t('campaign.noCommissionInfo')}</Typography>
             </Grid>
-            <Typography className={classes.donorsSharesCount}>
+            {/* <Typography className={classes.donorsSharesCount}>
               {t('campaign.donors')}: {donors}
-            </Typography>
-            <DonorsAndDonations donations={donations} />
-            {donations && donations.length !== 0 ? (
-              <Grid container className={classes.pagination}>
-                <Typography m={1}>{`${page * pageSize + 1}-${rowCount}  ${t(
-                  'campaigns:of',
-                )}  ${all_rows}`}</Typography>
-                <IconButton
-                  aria-label="back"
-                  disabled={page == 0}
-                  onClick={() => setPage((index) => index - 1)}>
-                  <ArrowBackIosIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  aria-label="next"
-                  disabled={rowCount == all_rows}
-                  onClick={() => setPage((index) => index + 1)}>
-                  <ArrowForwardIosIcon fontSize="small" />
-                </IconButton>
-              </Grid>
-            ) : null}
+            </Typography> */}
+
+            <FormControl className={classes.donorsWishesTabs}>
+              <Typography
+                className={[
+                  classes.donorsWishesTab,
+                  selected === 'donors' && classes.selected,
+                ].join(' ')}
+                onClick={() => setSelected('donors')}>{`${t(
+                'campaign.donors',
+              )} (${donors})`}</Typography>
+              <Typography
+                className={[
+                  classes.donorsWishesTab,
+                  selected === 'wishes' && classes.selected,
+                ].join(' ')}
+                onClick={() => setSelected('wishes')}>{`${t(
+                'campaign.wishes',
+              )} (${donors})`}</Typography>
+            </FormControl>
+
+            {selected === 'donors' ? donorsDisplay : wishesDisplay}
           </>
         ))}
       {mobile && (
