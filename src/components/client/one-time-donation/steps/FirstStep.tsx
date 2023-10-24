@@ -1,45 +1,35 @@
 import React, { useContext, useEffect } from 'react'
-import { styled } from '@mui/material/styles'
+import { useSession } from 'next-auth/react'
 import { Trans, useTranslation } from 'next-i18next'
+import getConfig from 'next/config'
+import dynamic from 'next/dynamic'
 import { useField, useFormikContext } from 'formik'
+import { OneTimeDonation } from 'gql/donations'
+import { CardRegion } from 'gql/donations.enums'
+
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { Box, Collapse, Divider, Fade, Grid, List, Typography } from '@mui/material'
 import EventRepeatIcon from '@mui/icons-material/EventRepeat'
+import { useMediaQuery } from '@mui/material'
+
 import theme from 'common/theme'
-import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { moneyPublic, moneyPublicDecimals2, toMoney } from 'common/util/money'
 import { BIC, ibanNumber } from 'common/iban'
+import { isAdmin } from 'common/util/roles'
+import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { CopyTextButton } from 'components/common/CopyTextButton'
-import { StepsContext } from '../helpers/stepperContext'
-import { useMediaQuery } from '@mui/material'
-import { OneTimeDonation } from 'gql/donations'
 import ExternalLink from 'components/common/ExternalLink'
-import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import CheckboxField from 'components/common/form/CheckboxField'
 import FormSelectField from 'components/common/form/FormSelectField'
-import { CardRegion } from 'gql/donations.enums'
-import { PayPalScriptProvider } from '@paypal/react-paypal-js'
-import { isAdmin } from 'common/util/roles'
-import { useSession } from 'next-auth/react'
-import getConfig from 'next/config'
-
-import dynamic from 'next/dynamic'
 import NumberInputField from 'components/common/form/NumberInputField'
+import { StepsContext } from '../helpers/stepperContext'
+import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
+
+import { BankDetailsLabel } from 'components/client/support-us-form/SupportUs.styled'
+
 const PaypalDonationButton = dynamic(() => import('../helpers/paypalDonationButton'), {
   ssr: false,
 })
-
-const PREFIX = 'FirstStep'
-
-const classes = {
-  divider: `${PREFIX}-divider`,
-}
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')(() => ({
-  [`& .${classes.divider}`]: {
-    border: `1px solid ${theme.palette.common.black}`,
-  },
-}))
 
 export default function FirstStep() {
   const { data: session } = useSession()
@@ -114,7 +104,7 @@ export default function FirstStep() {
   ])
 
   return (
-    <Root>
+    <Grid>
       <Typography variant="h4">{t('third-step.title')}</Typography>
       <Box marginTop={theme.spacing(4)}>
         <RadioButtonGroup
@@ -125,19 +115,19 @@ export default function FirstStep() {
       </Box>
       <Collapse unmountOnExit in={paymentField.value === 'bank'} timeout="auto">
         <List component="div" disablePadding>
-          <Typography marginTop={theme.spacing(4)} variant="h6">
+          <Typography variant="h6" mt={4} mb={1}>
             {t('third-step.bank-details')}
           </Typography>
           <Typography variant="body1" marginBottom={theme.spacing(1)}>
             {t('third-step.bank-instructions1')}
           </Typography>
-          <Typography variant="body1" marginBottom={theme.spacing(1)}>
+          <Typography variant="body1" mb={3}>
             {t('third-step.bank-instructions2')}
           </Typography>
-          <Divider className={classes.divider} />
-          <Grid container alignItems="center" xs={12}>
+          <Divider />
+          <Grid container alignItems="center" xs={12} mt={2} mb={2}>
             <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
-              <Typography paddingLeft={2}>{t('third-step.owner_name')}</Typography>
+              <BankDetailsLabel>{t('third-step.owner_name')}</BankDetailsLabel>
             </Grid>
             <Grid my={1} item xs={5} justifyContent="flex-start">
               <Typography>{t('third-step.owner_value')}</Typography>
@@ -152,7 +142,7 @@ export default function FirstStep() {
               />
             </Grid>
             <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
-              <Typography paddingLeft={2}>{t('third-step.bank_name')}</Typography>
+              <BankDetailsLabel>{t('third-step.bank_name')}</BankDetailsLabel>
             </Grid>
             <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
               <Typography>{t('third-step.bank_value')}</Typography>
@@ -167,7 +157,7 @@ export default function FirstStep() {
               />
             </Grid>
             <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
-              <Typography paddingLeft={2}>IBAN:</Typography>
+              <BankDetailsLabel>IBAN:</BankDetailsLabel>
             </Grid>
             <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
               <Typography>{ibanNumber}</Typography>
@@ -182,7 +172,7 @@ export default function FirstStep() {
               />
             </Grid>
             <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
-              <Typography paddingLeft={2}>BIC:</Typography>
+              <BankDetailsLabel>BIC:</BankDetailsLabel>
             </Grid>
             <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
               <Typography>{BIC}</Typography>
@@ -197,9 +187,7 @@ export default function FirstStep() {
               />
             </Grid>
             <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
-              <Typography paddingLeft={2} my={1}>
-                {t('third-step.reason-donation')}
-              </Typography>
+              <BankDetailsLabel>{t('third-step.reason-donation')}</BankDetailsLabel>
             </Grid>
             <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
               <Typography data-testid="payment-reference-field">
@@ -216,7 +204,7 @@ export default function FirstStep() {
               />
             </Grid>
           </Grid>
-          <Divider className={classes.divider} />
+          <Divider />
           <Typography>{t('third-step.message-warning')}</Typography>
         </List>
       </Collapse>
@@ -361,6 +349,6 @@ export default function FirstStep() {
           </Grid>
         </Grid>
       </Collapse>
-    </Root>
+    </Grid>
   )
 }
