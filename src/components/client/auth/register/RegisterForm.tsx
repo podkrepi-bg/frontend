@@ -19,6 +19,7 @@ import EmailField from 'components/common/form/EmailField'
 import AcceptNewsLetterField from 'components/common/form/AcceptNewsletterField'
 
 export type RegisterFormData = {
+  type: ProfileType
   firstName: string
   lastName: string
   email: string
@@ -29,10 +30,16 @@ export type RegisterFormData = {
   newsletter?: boolean
 }
 
+enum ProfileType {
+  INDIVIDUAL = 'individual',
+  CORPORATE = 'corporate',
+}
+
 const validationSchema: yup.SchemaOf<RegisterFormData> = yup
   .object()
   .defined()
   .shape({
+    type: yup.mixed<ProfileType>().required().oneOf(Object.values(ProfileType)),
     firstName: name.required(),
     lastName: name.required(),
     email: email.required(),
@@ -44,6 +51,7 @@ const validationSchema: yup.SchemaOf<RegisterFormData> = yup
   })
 
 const defaults: RegisterFormData = {
+  type: ProfileType.INDIVIDUAL,
   firstName: '',
   lastName: '',
   email: '',
