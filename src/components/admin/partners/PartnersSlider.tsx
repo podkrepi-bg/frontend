@@ -18,8 +18,8 @@ const PartnersSlider: FC<Props> = ({ children }: Props) => {
       }
       alt="next-arrow"
       src={'/img/partners/organizations/previousArrow.svg'}
-      width={20}
-      height={20}
+      width={26}
+      height={40}
     />
   )
 
@@ -32,8 +32,8 @@ const PartnersSlider: FC<Props> = ({ children }: Props) => {
       }
       alt="next-arrow"
       src={'/img/partners/organizations/nextArrow.svg'}
-      width={20}
-      height={20}
+      width={26}
+      height={40}
     />
   )
 
