@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Autocomplete, AutocompleteProps, TextField } from '@mui/material'
 import { PersonResponse } from 'gql/person'
 import { usePersonList } from 'common/hooks/person'

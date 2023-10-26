@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { SubscribeLinkWrapper } from './Footer.styled'
 import { useState } from 'react'
 import RenderSubscribeModal from 'components/client/notifications/GeneralSubscribeModal'

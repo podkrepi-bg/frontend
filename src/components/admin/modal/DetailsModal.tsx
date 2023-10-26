@@ -13,7 +13,7 @@ import {
 import React from 'react'
 import { observer } from 'mobx-react'
 import { DialogStore } from 'stores/DialogStore'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { formatDateString } from 'common/util/date'
 import { Check, Clear } from '@mui/icons-material'
 
@@ -47,7 +47,7 @@ function DetailsModal() {
                   <ListItem>
                     <ListItemText primary={row.row.person.email} secondary={row.row.person.phone} />
                   </ListItem>
-                  <ListItem>{formatDateString(row.row.createdAt, i18n.language)}</ListItem>
+                  <ListItem>{formatDateString(row.row.createdAt, i18n?.language)}</ListItem>
                   <ListItem>
                     <Typography variant="body2">{row.row.message || row.row.comment}</Typography>
                   </ListItem>

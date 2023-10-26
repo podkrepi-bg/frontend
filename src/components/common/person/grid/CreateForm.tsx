@@ -27,7 +27,6 @@ import { useCreateBeneficiary } from 'service/beneficiary'
 import OrganizerRelationSelect from 'components/admin/beneficiary/OrganizerRelationSelect'
 import CountrySelect from 'components/admin/countries/CountrySelect'
 import CitySelect from 'components/admin/cities/CitySelect'
-import { treeItemClasses } from '@mui/lab'
 
 const validationSchema = yup
   .object()

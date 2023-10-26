@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import { TFunction } from 'react-i18next'
+import { TFunction } from 'i18next'
 
 const { isAxiosError } = Axios
 export { isAxiosError }

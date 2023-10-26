@@ -11,7 +11,7 @@ import {
 import { ApiError } from 'next/dist/server/api-utils'
 import React from 'react'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { useSubscribeEmail, useUNsubscribeEmail } from 'service/notification'
 import { AlertStore } from 'stores/AlertStore'
 import { styled } from '@mui/material/styles'

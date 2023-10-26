@@ -11,8 +11,8 @@
     "test": "tests"
   },
   "dependencies": {
-    "@playwright/test": "1.30.0",
-    "playwright": "1.30.0"
+    "@playwright/test": "^1.38.1",
+    "playwright": "^1.38.1"
   },
   "keywords": [],
   "author": "",
