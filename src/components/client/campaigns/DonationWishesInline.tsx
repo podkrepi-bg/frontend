@@ -1,0 +1,127 @@
+import { useMemo } from 'react'
+
+import { useTranslation } from 'next-i18next'
+
+import { DonationWishPaginatedResponse } from 'gql/donationWish'
+
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import { Grid, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
+
+import theme from 'common/theme'
+import { formatDistanceStrict, parseISO } from 'date-fns'
+import { bg, enUS } from 'date-fns/locale'
+import { getExactDate } from 'common/util/date'
+
+const PREFIX = 'DonationsWishesInline'
+
+const classes = {
+  donationsWrapper: `${PREFIX}-donationsWrapper`,
+  donationItemWrapper: `${PREFIX}-donationItemWrapper`,
+  donationQuantityAndTimeWrapper: `${PREFIX}-donationQuantityAndTimeWrapper`,
+  separatorIcon: `${PREFIX}-separatorIcon`,
+  donatorName: `${PREFIX}-donatorName`,
+  donatorAvatar: `${PREFIX}-donatorAvatar`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.donationsWrapper}`]: {
+    maxHeight: 400,
+  },
+
+  [`& .${classes.donationItemWrapper}`]: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    alignItems: 'start',
+    marginBottom: theme.spacing(1.7),
+    maxHeight: 'fit-content',
+
+    '&:last-of-type': {
+      marginBottom: 0,
+    },
+  },
+
+  [`& .${classes.donationQuantityAndTimeWrapper}`]: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    color: '#909090',
+    alignItems: 'center',
+    lineHeight: '145%',
+
+    '& p': {
+      fontSize: theme.typography.pxToRem(12),
+    },
+  },
+
+  [`& .${classes.separatorIcon}`]: {
+    fontSize: theme.typography.pxToRem(21),
+    fontWeight: 200,
+  },
+
+  [`& .${classes.donatorName}`]: {
+    color: theme.palette.common.black,
+  },
+
+  [`& .${classes.donatorAvatar}`]: {
+    width: theme.spacing(5.25),
+    height: theme.spacing(5.25),
+  },
+}))
+
+export default function DonationsWishesInline({
+  wishList,
+}: {
+  wishList: DonationWishPaginatedResponse
+}) {
+  const { t, i18n } = useTranslation()
+  const all = false
+  const wishListToShow = useMemo(() => {
+    if (all) {
+      return wishList?.items
+    }
+    return wishList?.items?.slice(0, wishList?.totalCount)
+  }, [wishList?.items, all])
+
+  // console.log(wishListToShow)
+
+  return (
+    <Root>
+      <Grid item className={classes.donationsWrapper}>
+        {wishListToShow && wishListToShow.length !== 0 ? (
+          wishListToShow.map(({ person, createdAt, message }, key) => (
+            <Grid key={key} className={classes.donationItemWrapper}>
+              <AccountCircleIcon color="disabled" className={classes.donatorAvatar} />
+              <Grid>
+                <Grid className={classes.donationQuantityAndTimeWrapper}>
+                  <Typography className={classes.donatorName}>
+                    {person
+                      ? `${person?.firstName} ${person?.lastName}`
+                      : t('campaigns:donations.anonymous')}
+                  </Typography>
+                  <span className={classes.separatorIcon}>|</span>
+                  <Typography>
+                    {getExactDate(createdAt, i18n.language == 'bg' ? bg : enUS)}
+                  </Typography>
+                </Grid>
+                <Typography
+                  component="blockquote"
+                  sx={{
+                    fontSize: theme.typography.pxToRem(12),
+                    lineHeight: '160%',
+                    '&:before': { content: 'open-quote' },
+                    '&:after': { content: 'close-quote' },
+                  }}>
+                  {message}
+                </Typography>
+              </Grid>
+            </Grid>
+          ))
+        ) : (
+          <Typography sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
+            {t('campaigns:donations.none')}
+          </Typography>
+        )}
+      </Grid>
+    </Root>
+  )
+}

@@ -34,7 +34,7 @@ import useMobile from 'common/hooks/useMobile'
 import LinkButton from '../../common/LinkButton'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
-import DonationWishes from './DonationWishes'
+import DonationWishesInline from './DonationWishesInline'
 import CustomListItem from 'components/common/navigation/CustomListItem'
 import { socialMedia } from './helpers/socialMedia'
 import { CampaignState } from './helpers/campaign.enums'
@@ -326,9 +326,98 @@ export default function InlineDonation({ campaign }: Props) {
     </>
   )
 
+  const wishList = {
+    items: [
+      {
+        id: 'c7f50140-0f5e-4df0-8d4b-760e78655147',
+        message: '<3',
+        campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
+        personId: '0bb9f7f2-1cb8-4f13-bee3-0b1ddc096f57',
+        donationId: '80f1dce8-735c-4e5a-9ac8-6f4d3fedefd9',
+        createdAt: '2023-08-14T12:51:40.082Z',
+        updatedAt: '2023-08-14T12:51:40.082Z',
+        person: {
+          id: '0bb9f7f2-1cb8-4f13-bee3-0b1ddc096f57',
+          firstName: 'Евгения',
+          lastName: 'Врабчева',
+        },
+        donation: {
+          amount: 2000,
+          currency: 'BGN',
+        },
+      },
+      {
+        id: '5bec2524-593b-4bd5-ac5c-a988615db312',
+        message: 'Uspeh!\nПрекрасна инициатива!',
+        campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
+        personId: '8ff079dd-1895-4846-b53e-aefdb9f9deca',
+        donationId: 'a1bfc657-9fef-43a0-adc0-38ff47d1a053',
+        createdAt: '2023-07-20T17:18:39.760Z',
+        updatedAt: '2023-07-20T17:18:39.760Z',
+        person: {
+          id: '8ff079dd-1895-4846-b53e-aefdb9f9deca',
+          firstName: 'Бендис',
+          lastName: 'Йода',
+        },
+        donation: {
+          amount: 2420,
+          currency: 'BGN',
+        },
+      },
+      {
+        id: '387dc820-7d96-4b00-8255-ef0b37f493d2',
+        message: 'Традициите, културата, фолклор - това сме ние. Нека не го губим.',
+        campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
+        personId: null,
+        donationId: 'e2ec8d82-7292-448c-b9d4-ec3f958419cb',
+        createdAt: '2023-02-03T10:03:23.579Z',
+        updatedAt: '2023-02-03T10:03:23.579Z',
+        person: null,
+        donation: {
+          amount: 50000,
+          currency: 'BGN',
+        },
+      },
+      {
+        id: '8d4b43ba-9b0c-4671-aa40-3189cdbf50f7',
+        message: 'Успех, любима алтруистке! ',
+        campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
+        personId: null,
+        donationId: '555b0d97-a1f8-4d37-ab35-01916d998911',
+        createdAt: '2023-01-18T18:05:47.520Z',
+        updatedAt: '2023-01-18T18:05:47.520Z',
+        person: null,
+        donation: {
+          amount: 3000,
+          currency: 'BGN',
+        },
+      },
+    ],
+    totalCount: 4,
+  }
+
   const wishesDisplay = (
     <>
-      <DonationWishes campaignId={campaign.id} />{' '}
+      <DonationWishesInline wishList={wishList} />
+      {wishList?.items && wishList?.items?.length !== 0 ? (
+        <Grid container className={classes.pagination}>
+          <Typography m={1}>{`${page * wishList?.totalCount + 1}-${wishList?.totalCount}  ${t(
+            'campaigns:of',
+          )}  ${wishList?.items?.length}`}</Typography>
+          <IconButton
+            aria-label="back"
+            disabled={page == 0}
+            onClick={() => setPage((index) => index - 1)}>
+            <ArrowBackIosIcon fontSize="small" />
+          </IconButton>
+          <IconButton
+            aria-label="next"
+            disabled={wishList?.totalCount == wishList?.items?.length}
+            onClick={() => setPage((index) => index + 1)}>
+            <ArrowForwardIosIcon fontSize="small" />
+          </IconButton>
+        </Grid>
+      ) : null}
     </>
   )
 
@@ -432,10 +521,6 @@ export default function InlineDonation({ campaign }: Props) {
               <InfoOutlinedIcon className={classes.infoIcon} />
               <Typography>{t('campaign.noCommissionInfo')}</Typography>
             </Grid>
-            {/* <Typography className={classes.donorsSharesCount}>
-              {t('campaign.donors')}: {donors}
-            </Typography> */}
-
             <FormControl className={classes.donorsWishesTabs}>
               <Typography
                 className={[
@@ -450,9 +535,9 @@ export default function InlineDonation({ campaign }: Props) {
                   classes.donorsWishesTab,
                   selected === 'wishes' && classes.selected,
                 ].join(' ')}
-                onClick={() => setSelected('wishes')}>{`${t(
-                'campaign.wishes',
-              )} (${donors})`}</Typography>
+                onClick={() => setSelected('wishes')}>{`${t('campaign.wishes')} (${
+                wishList?.totalCount
+              })`}</Typography>
             </FormControl>
 
             {selected === 'donors' ? donorsDisplay : wishesDisplay}
