@@ -197,9 +197,9 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                         <Grid container item wrap="nowrap" gap={1}>
                           <AvTimerIcon color="action" />
                           <Typography className={classes.articlePublishedDate}>
-                            {`${formatDateString(article.publishedAt, i18n.language)} ${dateToTime(
+                            {`${formatDateString(article.publishedAt, i18n?.language)} ${dateToTime(
                               article.publishedAt,
-                              i18n.language,
+                              i18n?.language,
                             )}`}
                           </Typography>
                         </Grid>
@@ -226,9 +226,9 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                         <Grid container item gap={1} xs="auto">
                           <AvTimerIcon color="action" />
                           <Typography className={classes.articlePublishedDate}>
-                            {`${formatDateString(article.publishedAt, i18n.language)} ${dateToTime(
+                            {`${formatDateString(article.publishedAt, i18n?.language)} ${dateToTime(
                               article.publishedAt,
-                              i18n.language,
+                              i18n?.language,
                             )}`}
                           </Typography>
                         </Grid>

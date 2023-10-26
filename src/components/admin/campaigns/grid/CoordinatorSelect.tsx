@@ -4,7 +4,7 @@ import { useCoordinatorsList } from 'common/hooks/coordinators'
 import { useField } from 'formik'
 import { CoordinatorResponse } from 'gql/coordinators'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 export default function CoordinatorSelect({ name = 'coordinatorId' }) {
   const { t } = useTranslation()

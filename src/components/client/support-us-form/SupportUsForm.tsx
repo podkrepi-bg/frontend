@@ -90,7 +90,9 @@ export default function SupportUsForm() {
           />
         </Grid>
         <Grid my={1} item xs={4}>
-          <BankDetailsLabel my={1}>{t('third-step.reason-donation')}</BankDetailsLabel>
+          <BankDetailsLabel my={1} pr={2}>
+            {t('third-step.reason-donation')}
+          </BankDetailsLabel>
         </Grid>
         <Grid my={1} item xs={5}>
           <Typography>{bankAccountInfo.paymentReference}</Typography>

@@ -7,6 +7,7 @@ import { DonationPage } from '../../../pages/web-pages/campaigns/donation.page'
 import { bgDonationRegions } from '../../../data/enums/donation-regions.enum'
 import { StripeCheckoutPage } from '../../../pages/web-pages/external/stripe-checkout.page'
 import { anonDonationTestData } from '../../../data/support-page-tests.data'
+import { LanguagesEnum } from '../../../data/enums/languages.enum'
 
 // This spec contains E2E tests related to anonymous donation flow - custom amount
 // The tests are dependent, the whole describe should be runned
@@ -24,6 +25,8 @@ test.describe.serial(
     const otherAmountText = bgLocalizationOneTimeDonation['first-step'].other
     const bgCardIncludeFeesText = bgLocalizationOneTimeDonation['third-step']['card-include-fees']
 
+    test.use({ locale: 'bg-BG' }) //this is to ensure decimal separator is correctly expected
+
     test.beforeAll(async ({ browser }) => {
       page = await browser.newPage()
       homepage = new HomePage(page)
@@ -34,6 +37,7 @@ test.describe.serial(
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
+      await headerPage.changeLanguageToBe(LanguagesEnum.BG)
     })
 
     test.afterAll(async () => {
@@ -58,7 +62,7 @@ test.describe.serial(
         .soft(await donationPage.isSelectAmountStepActive(), 'Select Amount step is not active.')
         .toBeTruthy()
       await donationPage.selectRadioButtonByLabelText([otherAmountText])
-      await donationPage.fillOtherAmountInputField('7.50')
+      await donationPage.fillOtherAmountInputField('75')
       await donationPage.setDonationRegionFromTheDropdown(bgDonationRegions.EUROPE)
       await donationPage.selectCheckboxByLabelText([bgCardIncludeFeesText])
       // Expected pattern:
@@ -66,21 +70,21 @@ test.describe.serial(
       const totalChargedAmountText = await donationPage.getTotalChargedAmountsAsText()
       const feeAmountText = await donationPage.getFeeAmountsAsText()
       const donationAmountText = await donationPage.getDonationAmountsAsText()
-      expect.soft(totalChargedAmountText).toEqual('8,10 лв.')
-      expect.soft(feeAmountText).toEqual('0,60 лв.')
-      expect(donationAmountText).toEqual('7,50 лв.')
+      expect.soft(totalChargedAmountText).toEqual('76,42 лв.')
+      expect.soft(feeAmountText).toEqual('1,42 лв.')
+      expect(donationAmountText).toEqual('75,00 лв.')
     })
 
     test('The total charge, fee tax and donation amount are recalculated correctly when the donation amount is changed', async () => {
-      await donationPage.fillOtherAmountInputField('12.90')
+      await donationPage.fillOtherAmountInputField('120')
       // Expected pattern:
       // За вашия превод от {totalChargedAmountText} лв., таксата на Stripe ще е {feeAmountText} лв., а кампанията ще получи {donationAmountText} лв.
       const totalChargedAmountText = await donationPage.getTotalChargedAmountsAsText()
       const feeAmountText = await donationPage.getFeeAmountsAsText()
       const donationAmountText = await donationPage.getDonationAmountsAsText()
-      expect.soft(totalChargedAmountText).toEqual('13,56 лв.')
-      expect.soft(feeAmountText).toEqual('0,66 лв.')
-      expect(donationAmountText).toEqual('12,90 лв.')
+      expect.soft(totalChargedAmountText).toEqual('121,96 лв.')
+      expect.soft(feeAmountText).toEqual('1,96 лв.')
+      expect(donationAmountText).toEqual('120,00 лв.')
     })
 
     test('The user is able to fill in e-mail for anonymous donation', async () => {
@@ -107,7 +111,7 @@ test.describe.serial(
       const actualStripeEmail = await stripeCheckoutPage.getReadonlyEmailText()
       expect
         .soft(stripeTotalAmount, 'The Stripe total donation amount is not correct.')
-        .toContain('13.56')
+        .toContain('121,96')
       expect(actualStripeEmail, 'The user e-mail is not sent correctly to Stripe.').toEqual(
         testEmail,
       )

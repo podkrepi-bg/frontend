@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 import { formatDateString } from 'common/util/date'
 import AvTimerIcon from '@mui/icons-material/AvTimer'
 import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import Image from 'next/image'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
@@ -96,7 +96,7 @@ export default function SingleArticlePage({ slug }: Props) {
             <Grid container item gap={1} xs="auto">
               <AvTimerIcon color="primary" />
               <Typography className={classes.articlepublishedDate}>
-                {formatDateString(article.publishedAt, i18n.language)}
+                {formatDateString(article.publishedAt, i18n?.language)}
               </Typography>
             </Grid>
             <Grid container item gap={1} xs="auto" style={{ maxWidth: '100%' }} wrap="nowrap">

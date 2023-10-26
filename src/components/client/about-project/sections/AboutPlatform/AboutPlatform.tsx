@@ -19,7 +19,7 @@ export default function AboutPlatform() {
         {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
         <Image
           alt="Podkrepi infographic"
-          src={`/infographic-${i18n.language}-mobile.svg`}
+          src={`/infographic-${i18n?.language}-mobile.svg`}
           width={320}
           height={1002}
         />
@@ -28,7 +28,7 @@ export default function AboutPlatform() {
         {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
         <Image
           alt="Podkrepi infographic"
-          src={`/infographic-${i18n.language}.svg`}
+          src={`/infographic-${i18n?.language}.svg`}
           width={1096}
           height={1114.6}
         />

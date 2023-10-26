@@ -179,7 +179,7 @@ export default function MyCampaingsTable() {
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.startDate)}>
           <Button color="inherit">
-            {getRelativeDate(cellValues.row.startDate, i18n.language)}
+            {getRelativeDate(cellValues.row.startDate, i18n?.language)}
           </Button>
         </Tooltip>
       ),
@@ -192,7 +192,7 @@ export default function MyCampaingsTable() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.endDate)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, i18n.language)}</Button>
+          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, i18n?.language)}</Button>
         </Tooltip>
       ),
     },
@@ -205,7 +205,7 @@ export default function MyCampaingsTable() {
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.createdAt)}>
           <Button color="inherit">
-            {getRelativeDate(cellValues.row.createdAt, i18n.language)}
+            {getRelativeDate(cellValues.row.createdAt, i18n?.language)}
           </Button>
         </Tooltip>
       ),
@@ -219,7 +219,7 @@ export default function MyCampaingsTable() {
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.updatedAt)}>
           <Button color="inherit">
-            {getRelativeDate(cellValues.row.updatedAt, i18n.language)}
+            {getRelativeDate(cellValues.row.updatedAt, i18n?.language)}
           </Button>
         </Tooltip>
       ),

@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Typography } from '@mui/material'
 import Image from 'next/image'
 import { Fragment } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { givers } from './helpers/giversData'
 import { data } from './helpers/guarantsData'
 import { Description, StyledGrid, Subtitle, Title } from './Partners.styled'

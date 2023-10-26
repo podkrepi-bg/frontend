@@ -32,7 +32,7 @@ export default function DonationNotificationLayout({
         </Typography>
         <Typography color={grey[600]}>{`${money(amount as number, currency)}  |  ${dateToTime(
           createdAt,
-          i18n.language,
+          i18n?.language,
         )}`}</Typography>
       </Box>
     </Box>
