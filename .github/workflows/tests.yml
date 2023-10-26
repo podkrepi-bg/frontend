@@ -32,6 +32,7 @@ jobs:
           GHOST_API_URL: https://blog.podkrepi.bg
           GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
         with:
+          context: .
           push: false
           target: runner
           build-args: |

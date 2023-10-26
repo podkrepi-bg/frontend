@@ -4,7 +4,7 @@ import { useOrganizersList } from 'common/hooks/organizer'
 import { useField } from 'formik'
 import { OrganizerResponse } from 'gql/organizer'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 export default function OrganizerSelect({ name = 'organizerId', label = 'campaigns:organizer' }) {
   const { t } = useTranslation()

@@ -1,5 +1,5 @@
 import { setLocale, string } from 'yup'
-import { TFunction } from 'next-i18next'
+import { TFunction } from 'i18next'
 import * as yup from 'yup'
 export type TranslatableField =
   | (string | undefined)

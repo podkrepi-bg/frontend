@@ -4,7 +4,7 @@ import { useStores } from '../../../../common/hooks/useStores'
 import { observer } from 'mobx-react'
 import { DonationStatus, PaymentProvider } from 'gql/donations.enums'
 import { DateTimePicker, enUS, LocalizationProvider } from '@mui/x-date-pickers'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { bg } from 'date-fns/locale'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { fromMoney, toMoney } from 'common/util/money'
@@ -48,7 +48,7 @@ export default observer(function GridFilters() {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <LocalizationProvider
-        adapterLocale={i18n.language === 'bg' ? bg : enUS}
+        adapterLocale={i18n?.language === 'bg' ? bg : enUS}
         dateAdapter={AdapterDateFns}>
         <DateTimePicker
           label={t('donations:cta.from')}
