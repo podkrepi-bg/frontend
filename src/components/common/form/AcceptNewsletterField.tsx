@@ -6,12 +6,24 @@ export type AcceptNewsLetterFieldProps = {
   name: string
 }
 
-export default function AcceptNewsLetterField({ name }: AcceptNewsLetterFieldProps) {
+export function AcceptNewsLetterField({ name }: AcceptNewsLetterFieldProps) {
   const { t } = useTranslation()
   return (
     <CheckboxField
       name={name}
       label={<Typography variant="body2">{t('validation:agree-with-newsletter')}</Typography>}
+    />
+  )
+}
+
+export function AcceptNewsLetterFieldCampaign({ name }: AcceptNewsLetterFieldProps) {
+  const { t } = useTranslation()
+  return (
+    <CheckboxField
+      name={name}
+      label={
+        <Typography variant="body2">{t('validation:agree-with-newsletter-campaign')}</Typography>
+      }
     />
   )
 }

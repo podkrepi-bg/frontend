@@ -16,7 +16,7 @@ import PasswordField from 'components/common/form/PasswordField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import EmailField from 'components/common/form/EmailField'
-import AcceptNewsLetterField from 'components/common/form/AcceptNewsletterField'
+import { AcceptNewsLetterField } from 'components/common/form/AcceptNewsletterField'
 
 export type RegisterFormData = {
   firstName: string

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
@@ -27,6 +27,12 @@ import { useCanEditCampaign } from 'common/hooks/campaigns'
 import { moneyPublic } from 'common/util/money'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import CampaignPublicExpensesChart from './CampaignPublicExpensesChart'
+import EmailIcon from '@mui/icons-material/Email'
+import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
+{
+  /*  just to test the page. to be removed 
+// import SubscriptionPage from '../notifications/SubscriptionPage'*/
+}
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
@@ -38,6 +44,7 @@ const classes = {
   campaignTitle: `${PREFIX}-campaignTitle`,
   linkButton: `${PREFIX}-linkButton`,
   securityIcon: `${PREFIX}-securityIcon`,
+  subscribeLink: `${PREFIX}-subscribe`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -90,6 +97,18 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     width: theme.spacing(2.25),
     height: theme.spacing(2.75),
   },
+  [`& .${classes.subscribeLink}`]: {
+    fontWeight: 500,
+    fontSize: theme.typography.pxToRem(16.5),
+    textAlign: 'center',
+
+    '&:hover': {
+      textDecoration: 'underline',
+      transform: 'scale(1.01)',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+    },
+  },
 }))
 
 type Props = {
@@ -98,6 +117,7 @@ type Props = {
 
 export default function CampaignDetails({ campaign }: Props) {
   const { t } = useTranslation()
+  const [subscribeIsOpen, setSubscribeOpen] = useState(false)
   const sliderImages = campaignSliderUrls(campaign)
   const canEditCampaign = useCanEditCampaign(campaign.slug)
   const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
@@ -113,7 +133,24 @@ export default function CampaignDetails({ campaign }: Props) {
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
       <Grid container spacing={8}>
-        <Grid item xs={12}>
+        {subscribeIsOpen && (
+          <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
+        )}
+        <Grid item xs={12} display="flex" sx={{ mt: 1.5 }}>
+          <EmailIcon
+            color="primary"
+            fontSize="small"
+            sx={{ mr: 0.5 }}
+            onClick={() => setSubscribeOpen(true)}
+            cursor="pointer"
+          />
+          <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
+            {t('campaigns:cta.subscribe')}
+          </Typography>
+        </Grid>
+        {/* just to test the page. to be removed 
+        <SubscriptionPage email={"admin@abv.bg"} campaign={"odit-accusamus-quasi"} consent={"yes"} hash={"fdgfds"}/> */}
+        <Grid item xs={12} style={{ paddingTop: '20px' }}>
           <ReactQuill readOnly theme="bubble" value={campaign.description} />
         </Grid>
         <Grid item xs={12}>
@@ -122,10 +159,6 @@ export default function CampaignDetails({ campaign }: Props) {
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        <Grid item xs={12}>
-          <CampaignInfoOperator campaign={campaign} />
-        </Grid>
-        <CampaignInfoGraphics />
         {expensesList?.length || canEditCampaign ? (
           <Grid item xs={12} id="expenses">
             <Grid item xs={12}>
@@ -174,6 +207,25 @@ export default function CampaignDetails({ campaign }: Props) {
           ''
         )}
         <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
+        {subscribeIsOpen && (
+          <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
+        )}
+        <Grid item xs={12} display="flex">
+          <EmailIcon
+            color="primary"
+            fontSize="small"
+            sx={{ mr: 0.5 }}
+            onClick={() => setSubscribeOpen(true)}
+            cursor="pointer"
+          />
+          <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
+            {t('campaigns:cta.subscribe')}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <CampaignInfoOperator campaign={campaign} />
+        </Grid>
+        <CampaignInfoGraphics />
         <Grid item xs={12} id="wishes">
           <DonationWishes campaignId={campaign?.id} />
         </Grid>
