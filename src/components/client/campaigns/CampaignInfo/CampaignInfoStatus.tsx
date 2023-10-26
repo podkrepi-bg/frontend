@@ -17,7 +17,7 @@ type Props = {
 
 export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props) {
   const { t, i18n } = useTranslation()
-  const locale = i18n.language == 'bg' ? bg : enUS
+  const locale = i18n?.language == 'bg' ? bg : enUS
 
   return (
     <Grid>

@@ -64,7 +64,7 @@ export default function CompletedCampaignsSection() {
               </CompletedCampaignImage>
               <CompletedSumWrapper>
                 <Sum>
-                  {i18n.language === 'bg'
+                  {i18n?.language === 'bg'
                     ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
                     : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
                 </Sum>

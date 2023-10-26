@@ -237,7 +237,7 @@ export default function FirstStep() {
             options={
               oneTimePrices
                 .map((v) => ({
-                  label: moneyPublic(Number(v)),
+                  label: moneyPublic(Number(v), undefined, undefined, 0, 0), //show amounts as integer
                   value: String(Number(v)),
                 }))
                 .concat({

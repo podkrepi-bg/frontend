@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import { email } from 'common/form/validation'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiError } from 'next/dist/server/api-utils'

@@ -110,7 +110,7 @@ export default function MyCampaignNotificationsTable() {
       width: 250,
       renderCell: (cellValues: GridRenderCellParams) => (
         <ContentTypography fontWeight={500}>
-          {getRelativeDate(cellValues.row.campaign?.endDate, i18n.language)}
+          {getRelativeDate(cellValues.row.campaign?.endDate, i18n?.language)}
         </ContentTypography>
       ),
     },

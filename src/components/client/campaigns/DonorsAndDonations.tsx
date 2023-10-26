@@ -101,7 +101,7 @@ export default function DonorsAndDonations({
                   <span className={classes.separatorIcon}>|</span>
                   <Typography>
                     {formatDistanceStrict(parseISO(createdAt), new Date(), {
-                      locale: i18n.language == 'bg' ? bg : enUS,
+                      locale: i18n?.language == 'bg' ? bg : enUS,
                       addSuffix: true,
                     })}
                   </Typography>

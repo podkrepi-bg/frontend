@@ -4,7 +4,7 @@ import { TabList } from '@mui/lab'
 import Box from '@mui/material/Box'
 import { useRouter } from 'next/router'
 import { FaqCategory } from './contents/faq-categories.enum'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
   faqCategories: FaqCategory[]
