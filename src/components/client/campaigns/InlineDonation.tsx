@@ -7,6 +7,7 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import {
   Button,
+  Chip,
   CircularProgress,
   FormControl,
   Grid,
@@ -21,6 +22,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 import { baseUrl, routes } from 'common/routes'
@@ -39,6 +41,7 @@ import { socialMedia } from './helpers/socialMedia'
 import { CampaignState } from './helpers/campaign.enums'
 import { AlertStore } from 'stores/AlertStore'
 import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
+import { useDonationWishesList } from 'common/hooks/donationWish'
 
 const PREFIX = 'InlineDonation'
 
@@ -113,7 +116,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.donorsWishesTabs}`]: {
     display: 'rowflex',
     flexDirection: 'row',
-    width: 'fit-content',
+    width: '100%',
     border: '1px solid grey',
     borderRadius: '60px',
     margin: theme.spacing(1.7, 0),
@@ -121,9 +124,12 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
   [`& .${classes.donorsWishesTab}`]: {
     textTransform: 'capitalize',
-    backgroundColor: '#EEEEEE',
-    padding: theme.spacing(0, 1.7),
-    paddingBottom: '2px',
+    display: 'flex',
+    justifyContent: 'center',
+    width: '50%',
+    fontSize: '13px',
+    backgroundColor: 'transparant',
+    paddingBottom: theme.spacing(0.2),
     borderRadius: '60px',
     cursor: 'pointer',
   },
@@ -325,98 +331,124 @@ export default function InlineDonation({ campaign }: Props) {
     </>
   )
 
-  const wishList = {
-    items: [
-      {
-        id: 'c7f50140-0f5e-4df0-8d4b-760e78655147',
-        message: '<3',
-        campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
-        personId: '0bb9f7f2-1cb8-4f13-bee3-0b1ddc096f57',
-        donationId: '80f1dce8-735c-4e5a-9ac8-6f4d3fedefd9',
-        createdAt: '2023-08-14T12:51:40.082Z',
-        updatedAt: '2023-08-14T12:51:40.082Z',
-        person: {
-          id: '0bb9f7f2-1cb8-4f13-bee3-0b1ddc096f57',
-          firstName: 'Евгения',
-          lastName: 'Врабчева',
-        },
-        donation: {
-          amount: 2000,
-          currency: 'BGN',
-        },
-      },
-      {
-        id: '5bec2524-593b-4bd5-ac5c-a988615db312',
-        message: 'Uspeh!\nПрекрасна инициатива!',
-        campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
-        personId: '8ff079dd-1895-4846-b53e-aefdb9f9deca',
-        donationId: 'a1bfc657-9fef-43a0-adc0-38ff47d1a053',
-        createdAt: '2023-07-20T17:18:39.760Z',
-        updatedAt: '2023-07-20T17:18:39.760Z',
-        person: {
-          id: '8ff079dd-1895-4846-b53e-aefdb9f9deca',
-          firstName: 'Бендис',
-          lastName: 'Йода',
-        },
-        donation: {
-          amount: 2420,
-          currency: 'BGN',
-        },
-      },
-      {
-        id: '387dc820-7d96-4b00-8255-ef0b37f493d2',
-        message: 'Традициите, културата, фолклор - това сме ние. Нека не го губим.',
-        campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
-        personId: null,
-        donationId: 'e2ec8d82-7292-448c-b9d4-ec3f958419cb',
-        createdAt: '2023-02-03T10:03:23.579Z',
-        updatedAt: '2023-02-03T10:03:23.579Z',
-        person: null,
-        donation: {
-          amount: 50000,
-          currency: 'BGN',
-        },
-      },
-      {
-        id: '8d4b43ba-9b0c-4671-aa40-3189cdbf50f7',
-        message: 'Успех, любима алтруистке! ',
-        campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
-        personId: null,
-        donationId: '555b0d97-a1f8-4d37-ab35-01916d998911',
-        createdAt: '2023-01-18T18:05:47.520Z',
-        updatedAt: '2023-01-18T18:05:47.520Z',
-        person: null,
-        donation: {
-          amount: 3000,
-          currency: 'BGN',
-        },
-      },
-    ],
-    totalCount: 4,
-  }
+  // const wishList = {
+  //   items: [
+  //     {
+  //       id: 'c7f50140-0f5e-4df0-8d4b-760e78655147',
+  //       message: '<3',
+  //       campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
+  //       personId: '0bb9f7f2-1cb8-4f13-bee3-0b1ddc096f57',
+  //       donationId: '80f1dce8-735c-4e5a-9ac8-6f4d3fedefd9',
+  //       createdAt: '2023-08-14T12:51:40.082Z',
+  //       updatedAt: '2023-08-14T12:51:40.082Z',
+  //       person: {
+  //         id: '0bb9f7f2-1cb8-4f13-bee3-0b1ddc096f57',
+  //         firstName: 'Евгения',
+  //         lastName: 'Врабчева',
+  //       },
+  //       donation: {
+  //         amount: 2000,
+  //         currency: 'BGN',
+  //       },
+  //     },
+  //     {
+  //       id: '5bec2524-593b-4bd5-ac5c-a988615db312',
+  //       message: 'Uspeh!\nПрекрасна инициатива!',
+  //       campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
+  //       personId: '8ff079dd-1895-4846-b53e-aefdb9f9deca',
+  //       donationId: 'a1bfc657-9fef-43a0-adc0-38ff47d1a053',
+  //       createdAt: '2023-07-20T17:18:39.760Z',
+  //       updatedAt: '2023-07-20T17:18:39.760Z',
+  //       person: {
+  //         id: '8ff079dd-1895-4846-b53e-aefdb9f9deca',
+  //         firstName: 'Бендис',
+  //         lastName: 'Йода',
+  //       },
+  //       donation: {
+  //         amount: 2420,
+  //         currency: 'BGN',
+  //       },
+  //     },
+  //     {
+  //       id: '387dc820-7d96-4b00-8255-ef0b37f493d2',
+  //       message: 'Традициите, културата, фолклор - това сме ние. Нека не го губим.',
+  //       campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
+  //       personId: '8ff079dd-1895-4846-b53e-aefdb9f9deca',
+  //       donationId: 'e2ec8d82-7292-448c-b9d4-ec3f958419cb',
+  //       createdAt: '2023-02-03T10:03:23.579Z',
+  //       updatedAt: '2023-02-03T10:03:23.579Z',
+  //       person: {
+  //         id: '8ff079dd-1895-4846-b53e-aefdb9f9deca',
+  //         firstName: 'Бендис',
+  //         lastName: 'Йода',
+  //       },
+  //       donation: {
+  //         amount: 50000,
+  //         currency: 'BGN',
+  //       },
+  //     },
+  //     {
+  //       id: '8d4b43ba-9b0c-4671-aa40-3189cdbf50f7',
+  //       message: 'Успех, любима алтруистке! ',
+  //       campaignId: '0be9cf3f-d6b1-420d-ac9c-3bf91bbc1604',
+  //       personId: '8ff079dd-1895-4846-b53e-aefdb9f9deca',
+  //       donationId: '555b0d97-a1f8-4d37-ab35-01916d998911',
+  //       createdAt: '2023-01-18T18:05:47.520Z',
+  //       updatedAt: '2023-01-18T18:05:47.520Z',
+  //       person: {
+  //         id: '8ff079dd-1895-4846-b53e-aefdb9f9deca',
+  //         firstName: 'Бендис',
+  //         lastName: 'Йода',
+  //       },
+  //       donation: {
+  //         amount: 3000,
+  //         currency: 'BGN',
+  //       },
+  //     },
+  //   ],
+  //   totalCount: 4,
+  // }
+
+  const { data: wishList } = useDonationWishesList(
+    campaignId,
+    { pageIndex: 0, pageSize },
+    { sortBy: 'createdAt', sortOrder: 'desc' },
+    '',
+  )
 
   const wishesDisplay = (
     <>
-      <DonationWishesInline wishList={wishList} />
-      {wishList?.items && wishList?.items?.length !== 0 ? (
-        <Grid container className={classes.pagination}>
-          <Typography m={1}>{`${page * wishList?.totalCount + 1}-${wishList?.totalCount}  ${t(
-            'campaigns:of',
-          )}  ${wishList?.items?.length}`}</Typography>
-          <IconButton
-            aria-label="back"
-            disabled={page == 0}
-            onClick={() => setPage((index) => index - 1)}>
-            <ArrowBackIosIcon fontSize="small" />
-          </IconButton>
-          <IconButton
-            aria-label="next"
-            disabled={wishList?.totalCount == wishList?.items?.length}
-            onClick={() => setPage((index) => index + 1)}>
-            <ArrowForwardIosIcon fontSize="small" />
-          </IconButton>
-        </Grid>
-      ) : null}
+      {wishList && <DonationWishesInline wishList={wishList} />}
+      {wishList?.totalCount !== 0 && (
+        <Chip
+          label={t('campaigns:campaign.seeAll')}
+          deleteIcon={<ArrowForwardIcon />}
+          onDelete={() => {
+            return
+          }}
+          component="a"
+          href="#wishes"
+          clickable
+          size="medium"
+          sx={{
+            border: `2px solid ${theme.palette.primary.dark}`,
+            color: theme.palette.primary.dark,
+            backgroundColor: '#EEEEEE',
+            marginTop: theme.spacing(1.7),
+            padding: '0 4px',
+            '.MuiChip-label': {
+              paddingRight: theme.spacing(1.7),
+            },
+            '.MuiChip-deleteIcon': {
+              color: theme.palette.primary.dark,
+              ':hover': {
+                color: theme.palette.primary.dark,
+              },
+              fontSize: 'large',
+            },
+          }}
+        />
+      )}
     </>
   )
 

@@ -9,7 +9,6 @@ import { Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
-import { formatDistanceStrict, parseISO } from 'date-fns'
 import { bg, enUS } from 'date-fns/locale'
 import { getExactDate } from 'common/util/date'
 
@@ -60,6 +59,7 @@ const Root = styled('div')(({ theme }) => ({
 
   [`& .${classes.donatorName}`]: {
     color: theme.palette.common.black,
+    fontWeight: 500,
   },
 
   [`& .${classes.donatorAvatar}`]: {
@@ -70,19 +70,26 @@ const Root = styled('div')(({ theme }) => ({
 
 export default function DonationsWishesInline({
   wishList,
+  pageSize = 3,
 }: {
   wishList: DonationWishPaginatedResponse
+  pageSize?: number
 }) {
   const { t, i18n } = useTranslation()
-  const all = false
+
   const wishListToShow = useMemo(() => {
-    if (all) {
+    if (wishList?.items?.length <= pageSize) {
       return wishList?.items
     }
-    return wishList?.items?.slice(0, wishList?.totalCount)
-  }, [wishList?.items, all])
 
-  // console.log(wishListToShow)
+    const wishListSortByMsgLengthAndCreateDate = wishList?.items
+      ?.map((item) => ({ ...item, msgLength: item.message.length }))
+      ?.sort((a, b) => (a.msgLength > b.msgLength ? -1 : 1))
+      ?.slice(0, pageSize)
+      ?.sort((c, d) => (c.createdAt > d.createdAt ? -1 : 1))
+
+    return wishListSortByMsgLengthAndCreateDate
+  }, [wishList?.items])
 
   return (
     <Root>
@@ -99,7 +106,7 @@ export default function DonationsWishesInline({
                       : t('campaigns:donations.anonymous')}
                   </Typography>
                   <span className={classes.separatorIcon}>|</span>
-                  <Typography>
+                  <Typography className={classes.donatorName}>
                     {getExactDate(createdAt, i18n.language == 'bg' ? bg : enUS)}
                   </Typography>
                 </Grid>
@@ -118,7 +125,7 @@ export default function DonationsWishesInline({
           ))
         ) : (
           <Typography sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
-            {t('campaigns:donations.none')}
+            {t('campaigns:campaign.nowishes')}
           </Typography>
         )}
       </Grid>
