@@ -212,7 +212,8 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.infoIcon}`]: {
-    marginTop: `-${theme.spacing(0.25)}`,
+    marginTop: `${theme.spacing(0.125)}`,
+    marginRight: `${theme.spacing(0.25)}`,
     fontSize: theme.typography.pxToRem(16),
     color: '#6d6d6d',
   },
