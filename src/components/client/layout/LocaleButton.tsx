@@ -12,8 +12,13 @@ export default function LocaleButton() {
       // Same route different language
       const { pathname, asPath, query } = router
       router.push({ pathname, query }, asPath, { locale })
+      const date = new Date()
+      const expireMs = 100 * 365 * 24 * 60 * 60 * 1000 // 100 days
+      date.setTime(date.getTime() + expireMs)
+      document.cookie = `NEXT_LOCALE=${locale};expires=${date.toUTCString()};path=/`
+      router.push({ pathname, query }, asPath, { locale })
     },
-    [router.asPath],
+    [router.asPath, router.locale],
   )
   if (!router.locale) {
     return null
