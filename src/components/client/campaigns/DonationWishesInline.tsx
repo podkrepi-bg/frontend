@@ -83,8 +83,11 @@ export default function DonationsWishesInline({
     }
 
     const wishListSortByMsgLengthAndCreateDate = wishList?.items
-      ?.map((item) => ({ ...item, msgLength: item.message.length }))
-      ?.sort((a, b) => (a.msgLength > b.msgLength ? -1 : 1))
+      ?.sort((a, b) => b?.message?.length - a?.message?.length)
+      ?.slice(0, 5)
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
       ?.slice(0, pageSize)
       ?.sort((c, d) => (c.createdAt > d.createdAt ? -1 : 1))
 
