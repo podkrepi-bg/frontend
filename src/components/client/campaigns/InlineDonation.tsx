@@ -50,7 +50,6 @@ const classes = {
   reachedAndTargetMoneyWrapper: `${PREFIX}-reachedAndTargetMoneyWrapper`,
   moneyUnit: `${PREFIX}-moneyUnit`,
   moneyFraction: `${PREFIX}-moneyFraction`,
-  donorsSharesCount: `${PREFIX}-donorsSharesCount`,
   donorsWishesTabs: `${PREFIX}-donorsWishesTabs`,
   donorsWishesTab: `${PREFIX}-donorsWishesTab`,
   selected: `${PREFIX}-selected`,
@@ -104,13 +103,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     color: theme.palette.common.black,
     verticalAlign: 'top',
     margin: theme.spacing(0.25, 0, 0, 0.25),
-  },
-
-  [`& .${classes.donorsSharesCount}`]: {
-    textTransform: 'capitalize',
-    margin: theme.spacing(1.7, 0),
-    fontSize: theme.typography.pxToRem(14),
-    color: theme.palette.common.black,
   },
 
   [`& .${classes.donorsWishesTabs}`]: {
