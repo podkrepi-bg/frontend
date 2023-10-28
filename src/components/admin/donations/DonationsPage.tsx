@@ -5,8 +5,10 @@ import AdminLayout from 'components/common/navigation/AdminLayout'
 import Grid from './grid/Grid'
 import GridAppbar from './grid/GridAppbar'
 import GridFilters from './grid/GridFilters'
+import { RefundStoreImpl } from './store/RefundStore'
 
 export const ModalStore = new ModalStoreImpl()
+export const RefundStore = new RefundStoreImpl()
 
 export default function DocumentsPage() {
   const { t } = useTranslation()

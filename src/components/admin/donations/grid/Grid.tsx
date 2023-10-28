@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Box, Tooltip } from '@mui/material'
+import { Box, IconButton, Tooltip } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 import {
   DataGrid,
@@ -15,7 +15,7 @@ import { useDonationsList } from 'common/hooks/donation'
 
 import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
-import { ModalStore } from '../DonationsPage'
+import { ModalStore, RefundStore } from '../DonationsPage'
 import { getExactDateTime } from 'common/util/date'
 import { useRouter } from 'next/router'
 import { money } from 'common/util/money'
@@ -25,6 +25,8 @@ import theme from 'common/theme'
 import RenderEditPersonCell from './RenderEditPersonCell'
 import { useStores } from '../../../../common/hooks/useStores'
 import RenderEditBillingEmailCell from './RenderEditBillingEmailCell'
+import RestoreIcon from '@mui/icons-material/Restore'
+import RefundModal from '../modals/RefundModal'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -47,6 +49,7 @@ export default observer(function Grid() {
   const { t } = useTranslation()
   const router = useRouter()
   const { isDetailsOpen } = ModalStore
+  const { isRefundOpen } = RefundStore
   const campaignId = router.query.campaignId as string | undefined
 
   const {
@@ -136,7 +139,37 @@ export default observer(function Grid() {
     headerAlign: 'left',
   }
 
+  const { showRefund, setSelectedRecord } = RefundStore
+
+  function refundClickClickHandler(id: string) {
+    setSelectedRecord({ id })
+    showRefund()
+  }
+
   const columns: GridColDef[] = [
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      type: 'actions',
+      width: 120,
+      resizable: false,
+      renderCell: (params: GridRenderCellParams) => {
+        return params.row?.status === 'succeeded' ? (
+          <>
+            <Tooltip title={t('donations:refund.icon')}>
+              <IconButton
+                size="small"
+                color="primary"
+                onClick={() => refundClickClickHandler(params.row.id)}>
+                <RestoreIcon />
+              </IconButton>
+            </Tooltip>
+          </>
+        ) : (
+          ''
+        )
+      },
+    },
     {
       field: 'createdAt',
       headerName: t('donations:date'),
@@ -256,6 +289,7 @@ export default observer(function Grid() {
 
       {/* making sure we don't sent requests to the API when not needed */}
       {isDetailsOpen && <DetailsModal />}
+      {isRefundOpen && <RefundModal />}
       <DeleteModal />
     </>
   )
