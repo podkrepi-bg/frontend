@@ -141,7 +141,7 @@ export default observer(function Grid() {
 
   const { showRefund, setSelectedRecord } = RefundStore
 
-  function refundClickClickHandler(id: string) {
+  function refundClickHandler(id: string) {
     setSelectedRecord({ id })
     showRefund()
   }
@@ -160,7 +160,7 @@ export default observer(function Grid() {
               <IconButton
                 size="small"
                 color="primary"
-                onClick={() => refundClickClickHandler(params.row.id)}>
+                onClick={() => refundClickHandler(params.row.id)}>
                 <RestoreIcon />
               </IconButton>
             </Tooltip>
