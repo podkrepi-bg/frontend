@@ -173,7 +173,7 @@ export type ThirdStep = {
   message?: string
 }
 
-export type StripeRefundRespone = {
+export type StripeRefundResponse = {
   id: UUID
   object: string
   amount: number

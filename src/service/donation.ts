@@ -8,7 +8,7 @@ import {
   CheckoutSessionResponse,
   DonationBankInput,
   DonationResponse,
-  StripeRefundRespone,
+  StripeRefundResponse,
   UserDonationInput,
 } from 'gql/donations'
 import { apiClient } from 'service/apiClient'
@@ -71,7 +71,7 @@ export function useDeleteDonation(ids: string[]) {
 export const useRefundStripeDonation = () => {
   const { data: session } = useSession()
   return async (extPaymentId: string) => {
-    return await apiClient.post<StripeRefundRespone, AxiosResponse<StripeRefundRespone>>(
+    return await apiClient.post<StripeRefundResponse, AxiosResponse<StripeRefundResponse>>(
       endpoints.donation.refundStripePayment(extPaymentId).url,
       '',
       authConfig(session?.accessToken),
