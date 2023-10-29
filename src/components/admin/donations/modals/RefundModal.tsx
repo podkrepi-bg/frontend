@@ -70,7 +70,7 @@ export default observer(function RefundModal() {
             <CardContent>
               <Typography variant="body1">{t('refund.confirmation')}</Typography>
               <Typography variant="body1">
-                {t('refund.number')} {data?.id}
+                {t('refund.number')} {data?.extPaymentIntentId}
               </Typography>
               <Typography variant="body1">
                 {t('refund.amount')} {fromMoney(data?.amount as number)} {data?.currency}
