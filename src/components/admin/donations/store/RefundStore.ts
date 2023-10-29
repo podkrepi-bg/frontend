@@ -22,7 +22,6 @@ export class RefundStoreImpl {
   }
 
   showRefund = () => {
-    console.log('refund open')
     this.isRefundOpen = true
   }
 
