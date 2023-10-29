@@ -75,7 +75,9 @@ export default observer(function RefundModal() {
               <Typography variant="body1">
                 {t('refund.amount')} {fromMoney(data?.amount as number)} {data?.currency}
               </Typography>
-              <Typography variant="body1"> {t('refund.email')} {data?.billingEmail}
+              <Typography variant="body1">
+                {' '}
+                {t('refund.email')} {data?.billingEmail}
               </Typography>
               <Grid item xs={12} marginTop={3}>
                 <SubmitButton fullWidth label={t('refund.confirm-button')} loading={loading} />
