@@ -57,6 +57,11 @@ const Root = styled('div')(() => ({
       color: theme.palette.primary.light,
       borderBottom: `5px solid ${theme.palette.primary.light}`,
     },
+
+    '&[aria-selected="true"]': {
+      color: theme.palette.primary.light,
+      borderBottom: `5px solid ${theme.palette.primary.light}`,
+    },
   },
 }))
 
@@ -103,10 +108,12 @@ export default function CampaignFilter() {
         {Object.values(CampaignTypeCategory).map((category) => {
           const count =
             campaigns?.filter((campaign) => campaign.campaignType.category === category).length ?? 0
+          if (count === 0) return
           return (
             <IconButton
               key={category}
               disabled={count === 0}
+              aria-selected={selectedCategory === category}
               className={classes.filterButtons}
               onClick={() => setSelectedCategory(category)}>
               {categories[category].icon ?? <Category fontSize="small" />}
@@ -116,7 +123,10 @@ export default function CampaignFilter() {
             </IconButton>
           )
         })}
-        <IconButton className={classes.filterButtons} onClick={() => setSelectedCategory('ALL')}>
+        <IconButton
+          aria-selected={selectedCategory === 'ALL'}
+          className={classes.filterButtons}
+          onClick={() => setSelectedCategory('ALL')}>
           <FilterNone fontSize="small" />
           <Typography>
             {t(`campaigns:filters.all`)} ({campaigns?.length ?? 0})
