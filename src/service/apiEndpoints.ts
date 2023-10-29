@@ -93,6 +93,8 @@ export const endpoints = {
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
     createPaymentIntent: <Endpoint>{ url: '/donation/create-payment-intent', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
+    refundStripePayment: (id: string) =>
+      <Endpoint>{ url: `/donation/refund-stripe-payment/${id}`, method: 'POST' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
     donationsList: (
       campaignId?: string,
