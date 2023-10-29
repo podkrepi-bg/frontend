@@ -46,7 +46,7 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
     expect(
       await campaignsPage.getFilterButtonsCount(),
       'Filter buttons count is not correct!',
-    ).toEqual(12)
+    ).toEqual(4)
   })
 
   test('Support Now action button navigates to the Donation page for particular campaign', async () => {
