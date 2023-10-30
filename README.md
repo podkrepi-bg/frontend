@@ -100,7 +100,7 @@ Watch releases of this repository to be notified about future updates:
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-74-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-75-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -214,6 +214,7 @@ Thanks goes to these wonderful people:
       <td align="center" valign="top" width="10%"><a href="https://github.com/dphilipov"><img src="https://avatars.githubusercontent.com/u/76788928?v=4?s=100" width="100px;" alt="Dimitar Filipov"/><br /><sub><b>Dimitar Filipov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=dphilipov" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/hiapetrov"><img src="https://avatars.githubusercontent.com/u/107921565?v=4?s=100" width="100px;" alt="Alexander"/><br /><sub><b>Alexander</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=hiapetrov" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/RalitsaIlieva"><img src="https://avatars.githubusercontent.com/u/17964436?v=4?s=100" width="100px;" alt="RalitsaIlieva"/><br /><sub><b>RalitsaIlieva</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=RalitsaIlieva" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/kzhecheva"><img src="https://avatars.githubusercontent.com/u/60223025?v=4?s=100" width="100px;" alt="Kalina Zhecheva"/><br /><sub><b>Kalina Zhecheva</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=kzhecheva" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
