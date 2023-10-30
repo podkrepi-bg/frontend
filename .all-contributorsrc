@@ -803,6 +803,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "RalitsaIlieva",
+      "name": "RalitsaIlieva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17964436?v=4",
+      "profile": "https://github.com/RalitsaIlieva",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "kzhecheva",
+      "name": "Kalina Zhecheva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60223025?v=4",
+      "profile": "https://github.com/kzhecheva",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 10,

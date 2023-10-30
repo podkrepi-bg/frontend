@@ -37,7 +37,7 @@ type Props = {
 
 export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
   const { t, i18n } = useTranslation('campaigns')
-  const locale = i18n.language == 'bg' ? bg : enUS
+  const locale = i18n?.language == 'bg' ? bg : enUS
   const titleRef = useRef<HTMLElement>(null)
   const [pageIndex, setPageIndex] = useState<number>(0)
   const [searchValue, setSearchValue] = useState('')
@@ -95,9 +95,10 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
     <Grid2 container direction="column" rowGap={4}>
       <Grid2>
         <Typography
+          component="h4"
           sx={{
             color: theme.palette.common.black,
-            fontSize: theme.typography.pxToRem(25),
+            fontSize: '2rem',
             paddingBottom: '1rem',
           }}>
           {t('campaign.messages')}

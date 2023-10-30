@@ -1,7 +1,7 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { TranslatableField, translateError } from 'common/form/validation'
 import { useField } from 'formik'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { ArticleStatus } from './helpers/article-status.enum'
 
 export default function ArticleStatusSelect({ name = 'state' }) {

@@ -1,15 +1,12 @@
 import { Settings } from 'react-slick'
 
 export const settings: Settings = {
-  infinite: true,
-  speed: 500,
   slidesToShow: 4,
   slidesToScroll: 1,
   arrows: false,
   dots: true,
   lazyLoad: 'ondemand',
-  autoplay: true,
-  autoplaySpeed: 2000,
+  autoplay: false,
 
   responsive: [
     {

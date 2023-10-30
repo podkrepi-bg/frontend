@@ -89,7 +89,7 @@ export default function Layout({
             </>
           )}
           <meta property="og:type" content="article" />
-          <meta property="og:locale" content={i18n.language === 'bg' ? 'bg_BG' : 'en_US'} />
+          <meta property="og:locale" content={i18n?.language === 'bg' ? 'bg_BG' : 'en_US'} />
           {/* TODO: think of how to make campaign level localization */}
           <meta key="og:title" property="og:title" content={pageTitle} />
           <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage.src} />
@@ -106,8 +106,11 @@ export default function Layout({
         </Head>
         <Script async src="https://www.googleoptimize.com/optimize.js?id=OPT-W89QK8X" />
         <Box pt={4} pb={disableOffset ? 0 : 10} {...boxProps}>
-          <AppNavBar navMenuToggle={navMenuToggle} />
-          <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+          {!mobileOpen ? (
+            <AppNavBar navMenuToggle={navMenuToggle} />
+          ) : (
+            <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+          )}
           {!disableOffset && (
             <Box sx={(theme) => ({ ...theme.mixins.toolbar, mb: { xs: 0, md: 3, lg: 6 } })} />
           )}

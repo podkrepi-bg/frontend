@@ -24,6 +24,8 @@ import {
   globalSnackbarProps,
   globalSnackbarContentProps,
 } from 'components/client/layout/NotificationSnackBar/props/global'
+import { getCookieConsentValue, Cookies } from 'react-cookie-consent'
+import CookieConsentPopup from 'components/common/CookieConsentPopup'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -46,11 +48,24 @@ function CustomApp({
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
 
-  useEffect(() => {
-    // Init GTM
+  const handleAcceptCookie = () => {
     initialize({
       events: { user_lang: i18n.language },
     })
+  }
+
+  const handleDeclineCookie = () => {
+    Cookies.remove('_ga')
+    Cookies.remove('_gat')
+    Cookies.remove('_gid')
+  }
+
+  useEffect(() => {
+    const isConsent = getCookieConsentValue()
+    // Init GTM
+    if (isConsent === 'true') {
+      handleAcceptCookie()
+    }
   }, [])
 
   // Register route change complete event handlers
@@ -58,7 +73,7 @@ function CustomApp({
     const onRouteChange = (url: string) => {
       trackEvent({
         event: 'page_view',
-        user_lang: i18n.language,
+        user_lang: i18n?.language,
         page_title: document.title,
         page_pathname: url,
         page_location:
@@ -72,7 +87,7 @@ function CustomApp({
 
     router.events.on('routeChangeComplete', onRouteChange)
     return () => router.events.off('routeChangeComplete', onRouteChange)
-  }, [i18n.language])
+  }, [i18n?.language])
 
   const [queryClient] = useState(
     () =>
@@ -108,6 +123,10 @@ function CustomApp({
           </QueryClientProvider>
         </SessionProvider>
       </ThemeProvider>
+      <CookieConsentPopup
+        handleAcceptCookie={handleAcceptCookie}
+        handleDeclineCookie={handleDeclineCookie}
+      />
     </CacheProvider>
   )
 }

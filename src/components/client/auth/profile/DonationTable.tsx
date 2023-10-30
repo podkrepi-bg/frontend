@@ -63,7 +63,7 @@ function DonationTable({ donations }: DonationTableProps) {
     <Card sx={{ padding: theme.spacing(2), boxShadow: theme.shadows[0] }}>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
         <LocalizationProvider
-          adapterLocale={i18n.language === 'bg' ? bg : enUS}
+          adapterLocale={i18n?.language === 'bg' ? bg : enUS}
           dateAdapter={AdapterDateFns}>
           <Grid item xs={12} sm={3}>
             <DateTimePicker

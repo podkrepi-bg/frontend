@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { styled } from '@mui/material/styles'
 import { Box, Button, Card, Typography } from '@mui/material'
 import { getCurrentPerson } from 'common/util/useCurrentPerson'

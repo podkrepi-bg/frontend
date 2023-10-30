@@ -12,10 +12,13 @@ export const validateFirst: yup.SchemaOf<FirstStep> = yup
       // Here we should fetch the possible payments to put into the oneOf, but it's not that important
       then: yup.string().required(),
     }),
-    otherAmount: yup.number().when('amount', {
-      is: 'other',
-      then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
-    }),
+    otherAmount: yup
+      .number()
+      .integer()
+      .when('amount', {
+        is: 'other',
+        then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
+      }),
   })
 
 export const validateSecond: yup.SchemaOf<SecondStep> = yup.object().defined().shape({
@@ -30,6 +33,10 @@ export const validateSecond: yup.SchemaOf<SecondStep> = yup.object().defined().s
   registerFirstName: yup.string().notRequired(),
   registerLastName: yup.string().notRequired(),
   registerPassword: password.notRequired(),
+  confirmPassword: yup.string().notRequired(),
+  terms: yup.boolean().notRequired(),
+  gdpr: yup.boolean().notRequired(),
+  newsletter: yup.boolean().notRequired(),
 })
 
 export const validateThird: yup.SchemaOf<ThirdStep> = yup.object().defined().shape({

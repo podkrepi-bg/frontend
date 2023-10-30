@@ -146,6 +146,10 @@ const StyledTimeline = styled(Timeline)(({ theme }) => ({
     fontStyle: 'normal',
     padding: 0,
   },
+
+  ['& .ql-container']: {
+    fontFamily: theme.typography.fontFamily,
+  },
 }))
 
 type Props = {
@@ -163,7 +167,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   return (
     <Grid container item xs={12} spacing={1} id="news">
       <Grid container item flexDirection={'column'}>
-        <Typography component={'h3'} fontSize={25} color={theme.palette.common.black}>
+        <Typography component="h4" color={theme.palette.common.black} fontSize="2rem">
           {t('news')}
         </Typography>
         {canCreateArticle && (
@@ -193,9 +197,9 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                         <Grid container item wrap="nowrap" gap={1}>
                           <AvTimerIcon color="action" />
                           <Typography className={classes.articlePublishedDate}>
-                            {`${formatDateString(article.publishedAt, i18n.language)} ${dateToTime(
+                            {`${formatDateString(article.publishedAt, i18n?.language)} ${dateToTime(
                               article.publishedAt,
-                              i18n.language,
+                              i18n?.language,
                             )}`}
                           </Typography>
                         </Grid>
@@ -222,9 +226,9 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                         <Grid container item gap={1} xs="auto">
                           <AvTimerIcon color="action" />
                           <Typography className={classes.articlePublishedDate}>
-                            {`${formatDateString(article.publishedAt, i18n.language)} ${dateToTime(
+                            {`${formatDateString(article.publishedAt, i18n?.language)} ${dateToTime(
                               article.publishedAt,
-                              i18n.language,
+                              i18n?.language,
                             )}`}
                           </Typography>
                         </Grid>

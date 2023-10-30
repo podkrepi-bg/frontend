@@ -78,6 +78,9 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     paddingLeft: '0',
     paddingRight: '0',
   },
+  ['& .ql-container']: {
+    fontFamily: theme.typography.fontFamily,
+  },
 
   [`& .${classes.linkButton}`]: {
     fontSize: theme.typography.pxToRem(10),

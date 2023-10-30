@@ -11,8 +11,8 @@ import { Heading, InfoText } from 'components/client/index/IndexPage.styled'
 export default function HowWeWorkSection() {
   const { t, i18n } = useTranslation('index')
 
-  const mobileInfographicPath = `/infographic-${i18n.language}-mobile.svg`
-  const desktopInfographicPath = `/infographic-${i18n.language}.svg`
+  const mobileInfographicPath = `/infographic-${i18n?.language}-mobile.svg`
+  const desktopInfographicPath = `/infographic-${i18n?.language}.svg`
 
   return (
     <Root>

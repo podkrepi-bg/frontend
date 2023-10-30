@@ -86,7 +86,8 @@
   "finance-report-page": {
     "financeReport": "Finance reports for NPO Association Podkrepi.bg",
     "finance-report-2021": "Finance report for 2021:",
-    "finance-report-2022": "Finance report for 2022 January-June:",
+    "finance-report-2022-january-june": "Finance report for 2022 January-June:",
+    "finance-report-2022": "Finance report for 2022",
     "download-from-here": "Download from here"
   }
 }

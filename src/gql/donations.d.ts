@@ -39,6 +39,7 @@ export type DonationResponse = {
   updatedAt: DateTime
   currency: Currency
   amount: number
+  billingEmail?: string
   personId?: UUID
   person?: {
     id: string
@@ -143,6 +144,7 @@ export type OneTimeDonation = {
   confirmPassword?: string
   terms?: boolean
   gdpr?: boolean
+  newsletter?: boolean
 }
 
 export type DonationStep = {
@@ -162,11 +164,35 @@ export type SecondStep = {
   personsLastName?: string
   personsPhone?: string
   personsEmail?: string
+  terms?: boolean
+  gdpr?: boolean
+  newsletter?: boolean
 }
 
 export type ThirdStep = {
   message?: string
 }
+
+export type StripeRefundResponse = {
+  id: UUID
+  object: string
+  amount: number
+  balance_transaction: string
+  charge: string
+  created: number
+  currency: string
+  payment_intent: string
+  reason: string
+  receipt_number: string
+  source_transfer_reversal: string
+  status: DonationStatus
+  transfer_reversal: string
+}
+
+export type StripeRefundRequest = {
+  extPaymentIntentId: string
+}
+
 export type BankTransactionsFileFormData = {
   bankTransactionsFileId: string
 }

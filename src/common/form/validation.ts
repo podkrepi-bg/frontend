@@ -1,5 +1,5 @@
 import { setLocale, string } from 'yup'
-import { TFunction } from 'next-i18next'
+import { TFunction } from 'i18next'
 import * as yup from 'yup'
 export type TranslatableField =
   | (string | undefined)
@@ -44,6 +44,8 @@ export const customValidators = {
   phone: () => ({ key: 'validation:phone' }),
   name: () => ({ key: 'validation:invalid' }),
   paymentRef: () => ({ key: 'validation:payment-reference' }),
+  terms: () => ({ key: 'validation:terms-of-use' }),
+  gdpr: () => ({ key: 'validation:terms-of-service' }),
 }
 
 setLocale({
