@@ -172,7 +172,9 @@
     "tag": "Tag:",
     "date": "Date:",
     "news": "News",
-    "wishes": "Wishes"
+    "wishes": "Wishes",
+    "nowishes": "No wishes yet",
+    "seeAll": "Show all"
   },
   "info-graphics": {
     "donation-title": "100% of the donation goes to those in need",
