@@ -1,6 +1,8 @@
 import CookieConsent from 'react-cookie-consent'
 import { useTranslation } from 'react-i18next'
 
+import theme from 'common/theme'
+
 type CookieConsentPopupProps = {
   handleAcceptCookie: () => void
   handleDeclineCookie: () => void
@@ -14,28 +16,43 @@ const CookieConsentPopup = ({
 
   return (
     <CookieConsent
+      acceptOnScroll={true}
+      acceptOnScrollPercentage={50}
       enableDeclineButton
+      flipButtons
       onAccept={handleAcceptCookie}
       onDecline={handleDeclineCookie}
       buttonText={t('cookieConsentButton')}
       declineButtonText={t('cookieRejectButton')}
-      style={{ border: '1px solid black', backgroundColor: '#fff' }}
+      style={{
+        backgroundColor: '#EAF4FC',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        padding: theme.spacing(2.5),
+        gap: theme.spacing(2.5),
+      }}
       contentStyle={{
-        fontSize: '1rem',
-        color: '#000',
-        padding: '0.5rem',
+        fontSize: theme.typography.pxToRem(16),
+        color: theme.palette.common.black,
+        padding: theme.spacing(0, 2),
+        margin: 0,
+        maxWidth: theme.spacing(132.5),
       }}
       buttonStyle={{
-        backgroundColor: 'white',
-        color: '#32a9fe',
-        border: '1px solid #32a9fe',
-        borderRadius: '5px',
+        color: theme.palette.primary.main,
+        borderRadius: theme.borders.semiRound,
+        padding: theme.spacing(1.125, 1.5),
+        backgroundColor: theme.palette.common.white,
+        border: `1px solid ${theme.palette.primary.main}`,
+        margin: theme.spacing(0, 3.75),
       }}
       declineButtonStyle={{
-        backgroundColor: 'white',
-        color: '#32a9fe',
-        border: '1px solid #32a9fe',
-        borderRadius: '5px',
+        color: theme.palette.primary.main,
+        borderRadius: theme.borders.semiRound,
+        padding: theme.spacing(1, 1.5),
+        backgroundColor: theme.palette.common.white,
+        border: `1px solid ${theme.palette.primary.main}`,
+        margin: theme.spacing(0, 3.75, 0, 0),
       }}>
       {t('cookieConsent')}
     </CookieConsent>
