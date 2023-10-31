@@ -103,7 +103,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
         window.location.href = data.session.url
       }
     },
-    [mutation],
+    [mutation, session],
   )
 
   const onSubmit = async (
