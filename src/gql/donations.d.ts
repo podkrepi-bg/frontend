@@ -3,7 +3,7 @@ import { Stripe } from 'stripe'
 import { UUID } from './types'
 import * as yup from 'yup'
 import { PersonResponse } from './person'
-import { PaymentProvider, CardRegion } from './donations.enums'
+import { PaymentProvider, CardRegion, DonationType } from './donations.enums'
 
 export type DonationPrice = Stripe.Price
 
@@ -12,6 +12,7 @@ export type CheckoutSessionResponse = {
 }
 
 export type CheckoutSessionInput = {
+  type: DonationType
   mode: Stripe.Checkout.Session.Mode
   amount?: number
   campaignId: string

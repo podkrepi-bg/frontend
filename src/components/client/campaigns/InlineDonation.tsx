@@ -236,8 +236,8 @@ export default function InlineDonation({ campaign }: Props) {
   const [subscribeIsOpen, setSubscribeOpen] = useState(false)
   const active = status === 'copied' ? 'inherit' : 'primary'
   const [page, setPage] = useState<number>(0)
-  const pageSize = 5
-
+  const { mobile } = useMobile()
+  const pageSize = mobile ? 3 : 5
   const {
     id: campaignId,
     targetAmount: target,
@@ -255,7 +255,6 @@ export default function InlineDonation({ campaign }: Props) {
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
   } = useCampaignDonationHistory(campaignId, page, pageSize)
-  const { mobile } = useMobile()
   const [isOpen, setIsOpen] = useState(false)
   const rowCount = page * pageSize + donations.length
   const detailsShown = isOpen || !mobile

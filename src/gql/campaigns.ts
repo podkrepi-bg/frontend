@@ -196,6 +196,9 @@ export type CampaignDonation = {
       companyName: string
     }
   }
+  metadata: {
+    name: string
+  }
 }
 
 export type CampaignDonationHistoryResponse = {

@@ -1,5 +1,6 @@
 export enum DonationType {
   donation = 'donation',
+  corporate = 'corporate',
 }
 
 export enum DonationStatus {

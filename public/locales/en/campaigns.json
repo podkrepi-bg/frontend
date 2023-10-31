@@ -189,7 +189,8 @@
   "donations": {
     "anonymous": "Anonymous",
     "none": "No donations yet",
-    "lv": "lv."
+    "lv": "lv.",
+    "corporate-donor": "Corporate Donor"
   },
   "campaign-status": {
     "initial": "Initial",
