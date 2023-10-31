@@ -16,8 +16,6 @@ const CookieConsentPopup = ({
 
   return (
     <CookieConsent
-      acceptOnScroll={true}
-      acceptOnScrollPercentage={50}
       enableDeclineButton
       flipButtons
       onAccept={handleAcceptCookie}
