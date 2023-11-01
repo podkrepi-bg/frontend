@@ -45,7 +45,8 @@ const styles = `
 .st40{clip-path:url(#SVGID_13_);fill:#E53935;}
 .st41{clip-path:url(#SVGID_15_);fill:#FBC02D;}
 `
-function Google() {
+//eslint-disable-next-line
+function Google({ style }: any) {
   return (
     <SvgIcon
       id="Capa_1"
@@ -54,7 +55,8 @@ function Google() {
       viewBox="0 0 150 150"
       xmlSpace="preserve"
       xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink">
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      style={style}>
       <style type="text/css">{styles}</style>
       <g>
         <path

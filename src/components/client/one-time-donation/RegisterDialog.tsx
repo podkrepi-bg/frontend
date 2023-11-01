@@ -10,11 +10,11 @@ import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
 import { useFormikContext } from 'formik'
 import { OneTimeDonation } from 'gql/donations'
-import { RegisterFormData } from 'components/client/auth/register/RegisterForm'
 import { StepsContext } from './helpers/stepperContext'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import AcceptNewsLetterField from 'components/common/form/AcceptNewsletterField'
+import { AccountType, IndividualRegisterFormData } from 'gql/user-registration'
 
 export default function RegisterForm() {
   const { t } = useTranslation()
@@ -23,7 +23,8 @@ export default function RegisterForm() {
   const formik = useFormikContext<OneTimeDonation>()
   const { setStep } = useContext(StepsContext)
 
-  const values: RegisterFormData = {
+  const values: IndividualRegisterFormData = {
+    type: AccountType.INDIVIDUAL,
     firstName: formik.values.registerFirstName as string,
     lastName: formik.values.registerLastName as string,
     email: formik.values.registerEmail as string,

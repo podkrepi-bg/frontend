@@ -27,6 +27,7 @@ import { StepsContext } from './helpers/stepperContext'
 import { useDonationStepSession } from './helpers/donateSession'
 
 const initialValues: OneTimeDonation = {
+  type: DonationType.donation,
   message: '',
   isAnonymous: false,
   amount: '',

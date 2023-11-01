@@ -122,6 +122,7 @@ export type DonorsCountResult = {
 }
 
 export type OneTimeDonation = {
+  type: ProfileType
   message?: string
   isAnonymous: boolean
   isRecurring: boolean

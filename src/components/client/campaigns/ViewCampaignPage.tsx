@@ -11,7 +11,6 @@ import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import InlineDonation from './InlineDonation'
 import CampaignDetails from './CampaignDetails'
-import dynamic from 'next/dynamic'
 import NotFoundPage from 'pages/404'
 
 type Props = { slug: string }
