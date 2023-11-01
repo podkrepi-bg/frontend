@@ -42,7 +42,8 @@
     "continue-with": "Continue with",
     "changePassword": "Change your password",
     "forgottenPassword": "Forgotten password?",
-    "go-back": "Go back"
+    "go-back": "Go back",
+    "go-back-to-index": "Go back to index page"
   },
   "meta": {
     "title": "Podkrepi.bg"
@@ -97,6 +98,7 @@
     "targetCampaignId": "Target campaign"
   },
   "cta": {
+    "more-information": "More information",
     "read-more": "Read more",
     "see-profile": "See profile",
     "question": "Have a question?"

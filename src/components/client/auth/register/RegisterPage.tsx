@@ -69,7 +69,6 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
       }
       if (values.type === AccountType.CORPORATE && isRegistrationSuccessfull) {
         setLoading(false)
-        console.log(`here`)
         router.replace({ query: { ...router.query, type: values.type, success: true } })
         return
       }
@@ -125,9 +124,24 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
         </RadioGroup>
         {profileType === AccountType.INDIVIDUAL && (
           <>
-            <Typography sx={{ paddingTop: 1, px: 1 }}>
-              Регистриране на профил на физическо лице
-            </Typography>
+            <Typography sx={{ paddingTop: 1, px: 1 }}>{t('auth:register.individual')}</Typography>
+            <Tooltip title={t('auth:register.individual-subtitle')} sx={{ padding: 0 }}>
+              <Button
+                startIcon={<InfoIcon style={{ width: 20 }} />}
+                sx={{
+                  paddingTop: 0,
+                  textTransform: 'lowercase',
+                  textDecoration: 'underline',
+                  color: 'black',
+                  '&:hover': {
+                    backgroundColor: '#FFF',
+                    color: 'black',
+                    textDecoration: 'underline',
+                  },
+                }}>
+                {t('common:cta.more-information')}
+              </Button>
+            </Tooltip>
             <ProvidersList providers={providers} />
             <Divider
               sx={{
@@ -149,16 +163,13 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
         )}
         {profileType === AccountType.CORPORATE && (
           <>
-            <Typography sx={{ paddingTop: 1, px: 1 }}>
-              Регистриране на профил на юридическо лице
-            </Typography>
-            <Tooltip
-              title="Даренията от този профил ще са от името на организацията"
-              sx={{ padding: 0 }}>
+            <Typography sx={{ paddingTop: 1, px: 1 }}>{t('auth:register.corporate')}</Typography>
+            <Tooltip title={t('auth:register.corporate-subtitle')} sx={{ padding: 0 }}>
               <Button
                 startIcon={<InfoIcon style={{ width: 20 }} />}
                 sx={{
                   paddingTop: 0,
+                  marginBottom: 2,
                   textTransform: 'lowercase',
                   textDecoration: 'underline',
                   color: 'black',
@@ -168,7 +179,7 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
                     textDecoration: 'underline',
                   },
                 }}>
-                Повече информация
+                {t('common:cta.more-information')}
               </Button>
             </Tooltip>
             <CorporateRegisterForm onSubmit={onSubmit} loading={loading} />
