@@ -4,7 +4,6 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { AccountType } from 'gql/user-registration'
 import { routes } from 'common/routes'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import BackButton from 'components/common/navigation/BackButton'
 import LinkButton from 'components/common/LinkButton'
 
 type Props = {

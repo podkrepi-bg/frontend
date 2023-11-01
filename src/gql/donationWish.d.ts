@@ -1,3 +1,5 @@
+import { DonationType } from './donations.enums'
+
 export type DonationWishInput = {
   message: string
   campaignId: UUID
@@ -12,7 +14,7 @@ export type DonationWishResponse = {
   donationId?: UUID
   personId?: UUID
   person?: { firstName: string; lastName: string; company: { companyName: string } }
-  donation?: { amount: number; currency: string }
+  donation?: { amount: number; currency: string; type: DonationType; metadata: { name: string } }
   createdAt: DateTime
 }
 

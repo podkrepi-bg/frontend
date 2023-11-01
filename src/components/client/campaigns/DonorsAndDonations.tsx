@@ -34,7 +34,7 @@ const Root = styled('div')(({ theme }) => ({
     display: 'flex',
     gap: theme.spacing(1),
     alignItems: 'center',
-    marginBottom: theme.spacing(0.5),
+    marginBottom: theme.spacing(1),
     // maxHeight: theme.spacing(7),
 
     '&:last-of-type': {
@@ -87,7 +87,7 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
           donationsToShow.map(({ type, metadata, person, amount, createdAt, currency }, key) => (
             <Grid key={key} className={classes.donationItemWrapper}>
               <AccountCircleIcon
-                sx={{ position: 'relative', bottom: !metadata ? 0 : 8 }}
+                sx={{ position: 'relative', bottom: !metadata || !metadata.name ? 0 : 8 }}
                 color="disabled"
                 className={classes.donatorAvatar}
               />
@@ -101,7 +101,7 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
                 )}
                 {type === DonationType.corporate && (
                   <>
-                    {!metadata ? (
+                    {!metadata || !metadata.name ? (
                       <Typography className={classes.donatorName}>
                         {person && person.company
                           ? `${person.company.companyName}`
