@@ -45,7 +45,11 @@ export type DonationResponse = {
     id: string
     firstName: string
     lastName: string
+    company: {
+      companyName: string
+    }
   }
+  affiliate: { company: { companyName: true } }
   targetVault?: {
     id: string
     campaign?: {

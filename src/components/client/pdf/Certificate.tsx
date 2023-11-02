@@ -5,6 +5,7 @@ import { DonationResponse } from 'gql/donations'
 import { formatDateString } from 'common/util/date'
 import { money } from 'common/util/money'
 import theme from 'common/theme'
+import { DonationType } from 'gql/donations.enums'
 
 Font.register({
   family: 'Arial',
@@ -139,7 +140,11 @@ export default function Certificate({ donation }: Props) {
           <Text style={styles.text1}>С този сертификат Управителният съвет на</Text>
           <Text style={styles.text2}>Сдружение „Подкрепи БГ“ удостоверява, че:</Text>
           <Text style={styles.name}>
-            {donation.person?.firstName} {donation.person?.lastName}
+            {donation.type === DonationType.donation &&
+              `${donation.person?.firstName} ${donation.person?.lastName}`}
+            {donation.type === DonationType.corporate && donation.person
+              ? donation.person.company.companyName
+              : donation.affiliate.company.companyName}
           </Text>
         </View>
         <View style={{ marginTop: '10' }}>
