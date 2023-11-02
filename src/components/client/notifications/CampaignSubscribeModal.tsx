@@ -253,7 +253,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
               <CloseModalButton onClose={handleClose} />
               <React.Fragment>
                 <ThumbUpIcon sx={{ fontSize: '64px', color: '#03C03C' }} />
-                <DialogTitle {...({ component: 'div' } as any)}>
+                <DialogTitle>
                   <Typography
                     variant="h5"
                     style={{ textAlign: 'center', width: '100%', color: '#03C03C' }}>
