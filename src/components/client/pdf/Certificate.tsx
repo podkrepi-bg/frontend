@@ -124,6 +124,9 @@ type Props = {
   donation: DonationResponse
 }
 export default function Certificate({ donation }: Props) {
+  const companyName = donation.person?.company
+    ? donation.person.company.companyName
+    : donation.affiliate.company.companyName
   return (
     <Document title="Дарение">
       <Page size="LETTER" style={styles.page}>
@@ -142,9 +145,7 @@ export default function Certificate({ donation }: Props) {
           <Text style={styles.name}>
             {donation.type === DonationType.donation &&
               `${donation.person?.firstName} ${donation.person?.lastName}`}
-            {donation.type === DonationType.corporate && donation.person
-              ? donation.person.company.companyName
-              : donation.affiliate.company.companyName}
+            {donation.type === DonationType.corporate && companyName}
           </Text>
         </View>
         <View style={{ marginTop: '10' }}>
