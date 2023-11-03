@@ -20,6 +20,8 @@ export class HomePage extends BasePage {
   private readonly h6HeadingsSelector = '.MuiTypography-h6'
   private readonly h6FaqListHeadingItems = '.MuiListItemText-root h6'
   private readonly h6FaqListAnswerItems = '.MuiCollapse-entered h6.MuiTypography-root'
+  private readonly pSummaryDonorsButton = '[data-testid="summary-donors"]'
+  private readonly pSummaryWishesButton = '[data-testid="summary-wishes"]'
 
   // Pair values from the localization json file
   // How does Podkrepi work
@@ -93,6 +95,71 @@ export class HomePage extends BasePage {
     headingEn: string | null,
   ): Promise<boolean> {
     return this.isHeadingVisibleBySelector(this.h1HeadingsSelector, language, headingBg, headingEn)
+  }
+
+  /**
+   * Check if element is visible by CSS Selector and text with timeout
+   * @param {string} elementSelector
+   * @param {LanguagesEnum} language
+   * @param {string} headingBg
+   * @param {string | null} headingEn
+   */
+  async isElementVisibleBySelector(
+    elementSelector: string,
+    language: LanguagesEnum,
+    headingBg: string,
+    headingEn: string | null,
+  ): Promise<boolean> {
+    await this.waitForElementToBePresentedByLocator(this.page.locator(elementSelector).first())
+    if (language === LanguagesEnum.BG) {
+      return this.isElementVisibleBySelectorWithTimeout(elementSelector, {
+        toContainText: headingBg,
+      })
+    } else if (language === LanguagesEnum.EN) {
+      return this.isElementVisibleBySelectorWithTimeout(elementSelector, {
+        toContainText: headingEn || undefined,
+      })
+    } else {
+      throw new Error('Language not found!')
+    }
+  }
+
+  /**
+   * Check if Donors element is visible by text with timeout
+   * @param {LanguagesEnum} language
+   * @param {string} headingBg
+   * @param {string | null} headingEn
+   */
+  async isDonorsElementVisible(
+    language: LanguagesEnum,
+    headingBg: string,
+    headingEn: string | null,
+  ): Promise<boolean> {
+    return this.isElementVisibleBySelector(
+      this.pSummaryDonorsButton,
+      language,
+      headingBg,
+      headingEn,
+    )
+  }
+
+  /**
+   * Check if Wishes element is visible by text with timeout
+   * @param {LanguagesEnum} language
+   * @param {string} headingBg
+   * @param {string | null} headingEn
+   */
+  async isWishesElementVisible(
+    language: LanguagesEnum,
+    headingBg: string,
+    headingEn: string | null,
+  ): Promise<boolean> {
+    return this.isElementVisibleBySelector(
+      this.pSummaryWishesButton,
+      language,
+      headingBg,
+      headingEn,
+    )
   }
 
   /**
