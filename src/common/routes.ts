@@ -121,6 +121,7 @@ export const routes = {
     myCampaigns: '/profile/my-campaigns',
     recurringDonations: '/profile/recurring-donations',
     myNotifications: '/profile/my-notifications',
+    affiliateProgram: '/profile/affiliate-program',
   },
   register: '/register',
   aboutProject: '/about-project',

@@ -167,6 +167,22 @@ export default function PersonalInfoTab() {
             </Box>
           </Box>
           <Divider className={classes.divider} />
+          {person?.company && (
+            <>
+              <h2 className={classes.heading}>{t('profile:corporateInfo.index')}</h2>
+              <Box className={classes.infoFlex}>
+                <Box className={classes.boxInfo}>
+                  <p className={classes.bold}>{t('profile:corporateInfo.name')}</p>
+                  <p>{person?.company.companyName}</p>
+                </Box>
+                <Box className={classes.boxInfo}>
+                  <p className={classes.bold}>{t('profile:corporateInfo.number')}</p>
+                  <Typography>{person.company.companyNumber}</Typography>
+                </Box>
+              </Box>
+              <Divider className={classes.divider} />
+            </>
+          )}
           <h2 className={classes.heading}>{t('profile:personalInfo.personal')}</h2>
           <Box className={classes.infoFlex}>
             <Box className={classes.boxInfo}>

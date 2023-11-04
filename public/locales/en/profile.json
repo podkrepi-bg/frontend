@@ -1,5 +1,6 @@
 {
   "header": "Personal profile",
+  "corporate-header": "Corporate Profile",
   "personalInfo": {
     "index": "Personal information",
     "login": "Login information:",
@@ -12,8 +13,14 @@
     "noBirthday": "not available",
     "delete": "delete account/ profile"
   },
+  "corporateInfo": {
+    "index": "Corporate information",
+    "name": "Corporate name",
+    "number": "BULSTAT/EIK"
+  },
   "donations": {
     "index": "Donations",
+    "donor": "Donor",
     "helpThanks": "thank you for your help!",
     "donateNow": "Donate now",
     "totalDonations": "All donations",
@@ -28,6 +35,8 @@
     "type": "Type",
     "cause": "Cause",
     "amount": "Amount",
+    "cancelDonation": "Cancel donation",
+    "cancel": "Cancel",
     "certificate": "Certificate",
     "download": "Download",
     "lv": "lv",
@@ -36,7 +45,8 @@
       "initial": "initial",
       "waiting": "waiting",
       "succeeded": "succeeded",
-      "cancelled": "cancelled"
+      "cancelled": "cancelled",
+      "guaranteed": "guaranteed"
     }
   },
   "certificates-history": {
@@ -48,6 +58,33 @@
     "history": "Manage my campaigns",
     "noCampaigns": "You are not in organizer, coordinator or beneficiery role in any campaign",
     "donatedTo": "Campaigns I donated to"
+  },
+  "myNotifications": {
+    "index": "My notifications",
+    "status-title": "Notification subscription status",
+    "status-msg": "Your subscription status is",
+    "modal": {
+      "title-subscribe": "Subscribe for receiving notifications from Podkrepi.bg",
+      "title-unsubscribe": "Unsubscribe for receiving notifications from Podkrepi.bg",
+      "campaign-title-unsubscribe": "Unsubscribe from receiving notifications from this campaign",
+      "cta": "Confirm",
+      "subscribe-msg": "You've successfully subscribed for receiving notifications",
+      "unsubscribe-msg": "You've successfully unsubscribed for receiving notifications",
+      "campaign-unsubscribe-msg": "You've successfully unsubscribed from receiving notifications regarding this campaign"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Deactivated"
+    },
+    "cta": {
+      "activate": "Activate",
+      "deactivate": "Deactivate"
+    },
+    "campaign": {
+      "index": "Campaign notifications",
+      "noSubscriptions": "Към момента не сте се записали за получаване на известия по конкретни кампании",
+      "cta": "Unsubscribe"
+    }
   },
   "donationsContract": "Donation contract",
   "certificates": "Certificates",
@@ -78,5 +115,15 @@
     "saveAccount": "Save my account",
     "disableAccount": "Delete my account",
     "disabled": "Your account has been deleted."
+  },
+  "affiliate": {
+    "index": "Affiliate program",
+    "join": "Join the program",
+    "data-summary": "Affiliate program summary",
+    "guaranteedDonationsList": "List of guaranteed donations",
+    "code": "Code",
+    "status": "Status",
+    "guaranteedDonations": "Guaranteed donations(total)",
+    "guaranteedAmount": "Guaranteed amount(total)"
   }
 }

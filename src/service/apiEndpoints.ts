@@ -14,6 +14,12 @@ export const endpoints = {
     refresh: <Endpoint>{ url: '/refresh', method: 'POST' },
     providerLogin: <Endpoint>{ url: '/provider-login', method: 'POST' },
   },
+  affiliate: {
+    join: <Endpoint>{ url: '/affiliate/join', method: 'POST' },
+    getData: <Endpoint>{ url: '/affiliate/data', method: 'GET' },
+    cancelDonation: (affiliateCode: string, donationId: string) =>
+      <Endpoint>{ url: `/affiliate/${affiliateCode}/donations/${donationId}/cancel` },
+  },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
     listAdminCampaigns: <Endpoint>{ url: '/campaign/list-all', method: 'GET' },

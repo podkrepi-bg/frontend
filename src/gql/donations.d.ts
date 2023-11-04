@@ -41,14 +41,14 @@ export type DonationResponse = {
   currency: Currency
   amount: number
   personId?: UUID
-  person?: {
+  person: {
     id: string
     firstName: string
     lastName: string
     company: {
       companyName: string
     }
-  }
+  } | null
   affiliate: { company: { companyName: true } }
   targetVault?: {
     id: string

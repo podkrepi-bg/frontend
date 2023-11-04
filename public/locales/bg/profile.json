@@ -1,5 +1,6 @@
 {
   "header": "Личен профил",
+  "corporate-header": "Корпоративен профил",
   "campaigns": "Подкрепени кампании",
   "personalInfo": {
     "index": "Лична информация",
@@ -13,8 +14,14 @@
     "noBirthday": "не e наличен",
     "delete": "изтриване на акаунт/ профил"
   },
+  "corporateInfo": {
+    "index": "Корпоративни данни",
+    "name": "Име на компания",
+    "number": "БУЛСТАТ/ЕИК"
+  },
   "donations": {
     "index": "Дарения",
+    "donor": "Дарител",
     "helpThanks": "благодарим за помощта Ви!",
     "donateNow": "Подкрепи сега",
     "totalDonations": "Всички дарения",
@@ -33,6 +40,8 @@
     "sort": "Вид",
     "cause": "Кауза",
     "amount": "Сума",
+    "cancelDonation": "Откажи дарение",
+    "cancel": "Откажи",
     "certificate": "Сертификат",
     "download": "Свалете",
     "lv": "лв",
@@ -43,7 +52,8 @@
       "initial": "започнато",
       "waiting": "чакащо",
       "succeeded": "успешно",
-      "cancelled": "отменено"
+      "cancelled": "отменено",
+      "guaranteed": "гарантирано"
     }
   },
   "certificates-history": {
@@ -112,5 +122,15 @@
     "saveAccount": "Запази моя акаунт",
     "disableAccount": "Изтрий моя акаунт",
     "disabled": "Акаунтът Ви е изтрит."
+  },
+  "affiliate": {
+    "index": "Партньорска програма",
+    "join": "Включете се към програмата",
+    "data-summary": "Данни по партньорска програма",
+    "guaranteedDonationsList": "Списък с гарантирани дарения",
+    "code": "Код",
+    "status": "Статус",
+    "guaranteedDonations": "Гарантирани дарения(общо)",
+    "guaranteedAmount": "Гарантирана сума(общо)"
   }
 }

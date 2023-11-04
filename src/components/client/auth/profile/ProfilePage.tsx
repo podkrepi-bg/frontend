@@ -11,6 +11,7 @@ import {
   Assignment as CertificateIcon,
   AccountBalance as CampaignIcon,
   EventRepeat as RecurringDonationIcon,
+  AddBusiness as AffiliateProgramIcon,
 } from '@mui/icons-material'
 import { useSession } from 'next-auth/react'
 
@@ -52,7 +53,7 @@ export default function ProfilePage() {
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const currentTab = router.query.slug ?? ProfileTabs.donations
 
-  const { error: userError, isError } = getCurrentPerson(!!router.query?.register)
+  const { data: person, error: userError, isError } = getCurrentPerson(!!router.query?.register)
 
   const tab = useMemo<ProfileTab>(() => {
     return tabs.find((tab) => tab.slug === currentTab) ?? tabs[0]
@@ -87,7 +88,7 @@ export default function ProfilePage() {
             boxShadow: 3,
           }}>
           <h1 className={classes.h1} style={{ marginLeft: '20px' }}>
-            {t('profile:header')}
+            {!person?.user.company ? t('profile:header') : t('profile:corporate-header')}
           </h1>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab.slug} variant="scrollable" scrollButtons allowScrollButtonsMobile>
@@ -139,6 +140,16 @@ export default function ProfilePage() {
                 onClick={() => router.push(routes.profile.myNotifications)}
                 icon={matches ? <AccountBoxIcon /> : undefined}
               />
+              {person?.user.company && (
+                <Tab
+                  className={matches ? classes.tabMobile : ''}
+                  value={ProfileTabs.affiliateProgram}
+                  label={matches ? undefined : t('profile:affiliate.index')}
+                  aria-label={t('profile:affiliate.index')}
+                  onClick={() => router.push(routes.profile.affiliateProgram)}
+                  icon={matches ? <AffiliateProgramIcon /> : undefined}
+                />
+              )}
               {/* Currently we don't generate donation contract, when such document is generated we can either combine it with the certificate or unhide the contracts section. */}
               {/* <Tab
                 className={matches ? classes.tabMobile : ''}

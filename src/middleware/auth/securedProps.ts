@@ -51,6 +51,7 @@ export const securedPropsWithTranslation: (
     return response
   }
 
+//TODO: Now that secureAdminProps, is used for profile, rename it to prevent confusion
 export const securedAdminProps: (
   namespaces?: string[],
   resolveEndpoint?: (ctx: GetServerSidePropsContext) => string,
