@@ -47,7 +47,6 @@ export default observer(function Grid() {
   const { t } = useTranslation()
 
   const { isDetailsOpen } = ModalStore
-  const mutation = useChangeProfileStatus()
 
   const [paginationModel, setPaginationModel] = useState<PaginationData>({
     pageIndex: 0,
@@ -58,6 +57,8 @@ export default observer(function Grid() {
   const {
     data: { items, total: totalCount } = { items: [], total: 0 },
   }: UseQueryResult<PersonPaginatedResponse> = usePersonList(paginationModel, sortingModel)
+
+  const mutation = useChangeProfileStatus(paginationModel, sortingModel)
 
   const onProfileStatusChange = (keycloakId: string, enabled: boolean) => {
     const data: TActiveStatusMutationBody = {

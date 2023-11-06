@@ -42,7 +42,11 @@ export function useViewPersonByKeylockId(id: string) {
   )
 }
 
-export function useChangeProfileStatus() {
+export function useChangeProfileStatus(
+  paginationData?: PaginationData,
+  sort?: SortData,
+  searchData?: string,
+) {
   const queryClient = useQueryClient()
 
   return useMutation<
@@ -58,6 +62,7 @@ export function useChangeProfileStatus() {
         authConfig(session?.accessToken),
       )
     },
-    onSuccess: () => queryClient.invalidateQueries([endpoints.person.list().url]),
+    onSuccess: () =>
+      queryClient.invalidateQueries([endpoints.person.list(paginationData, sort, searchData).url]),
   })
 }
