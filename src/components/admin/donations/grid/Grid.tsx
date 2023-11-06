@@ -27,6 +27,7 @@ import { useStores } from '../../../../common/hooks/useStores'
 import RenderEditBillingEmailCell from './RenderEditBillingEmailCell'
 import RestoreIcon from '@mui/icons-material/Restore'
 import RefundModal from '../modals/RefundModal'
+import { DonationStatus, PaymentProvider } from '../../../../gql/donations.enums'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -154,7 +155,8 @@ export default observer(function Grid() {
       width: 120,
       resizable: false,
       renderCell: (params: GridRenderCellParams) => {
-        return params.row?.status === 'succeeded' ? (
+        return params.row?.status === DonationStatus.succeeded &&
+          params.row?.provider === PaymentProvider.stripe ? (
           <>
             <Tooltip title={t('donations:refund.icon')}>
               <IconButton
