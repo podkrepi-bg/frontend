@@ -155,7 +155,8 @@ export default observer(function Grid() {
       width: 120,
       resizable: false,
       renderCell: (params: GridRenderCellParams) => {
-        return params.row?.status === DonationStatus.succeeded && params.row?.provider === PaymentProvider.stripe ? (
+        return params.row?.status === DonationStatus.succeeded &&
+          params.row?.provider === PaymentProvider.stripe ? (
           <>
             <Tooltip title={t('donations:refund.icon')}>
               <IconButton
