@@ -19,12 +19,12 @@ export default function RegisterSuccess({ type }: Props) {
       <Grid container rowSpacing={2} justifyContent={'center'} textAlign="center">
         <Grid item xs={12}>
           <Typography variant="h4" fontSize={14}>
-            {t('auth:registration.success')}
+            {t('auth:register.success')}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography>
-            {type === AccountType.CORPORATE && t('auth:registration.corporate-subtitle-success')}
+            {type === AccountType.CORPORATE && t('auth:register.corporate-subtitle-success')}
           </Typography>
         </Grid>
       </Grid>

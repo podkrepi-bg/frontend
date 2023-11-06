@@ -43,7 +43,7 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
   const [loading, setLoading] = useState(false)
   const [profileType, setProfileType] = useState<AccountType>(AccountType.INDIVIDUAL)
 
-  const { mutateAsync: register, isSuccess: isRegistrationSuccessfull } = useRegister()
+  const { mutateAsync: register } = useRegister()
 
   if (router.query.success) {
     return (
@@ -62,12 +62,12 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
 
       // Register in Keycloak
       const registerResponse = await register(values)
-
+      console.log(registerResponse)
       if (registerResponse.data.data?.errorMessage) {
         AlertStore.show(t('auth:alerts.duplicate-email'), 'error')
         return
       }
-      if (values.type === AccountType.CORPORATE && isRegistrationSuccessfull) {
+      if (values.type === AccountType.CORPORATE && registerResponse.status === 201) {
         setLoading(false)
         router.replace({ query: { ...router.query, type: values.type, success: true } })
         return
