@@ -16,6 +16,7 @@ export type PersonResponse = {
   beneficiaries?: PersonBeneficiaryResponse[]
   coordinators?: PersonRoleResponse
   organizer?: PersonRoleResponse
+  profileEnabled: boolean
 }
 
 export type PersonRoleResponse = {
@@ -115,7 +116,7 @@ export type AdminPersonFormData = Pick<
 
 export type AdminPersonResponse = Pick<
   PersonResponse,
-  'id' | 'firstName' | 'lastName' | 'email' | 'phone'
+  'id' | 'firstName' | 'lastName' | 'email' | 'phone' | 'profileEnabled'
 >
 
 export type AdminCompanyFormData = Pick<
