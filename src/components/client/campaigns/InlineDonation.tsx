@@ -443,6 +443,7 @@ export default function InlineDonation({ campaign }: Props) {
                   classes.donorsWishesTab,
                   selected === 'donors' && classes.selected,
                 ].join(' ')}
+                data-testid="summary-donors"
                 onClick={() => setSelected('donors')}>{`${t(
                 'campaign.donors',
               )} (${donors})`}</Typography>
@@ -451,6 +452,7 @@ export default function InlineDonation({ campaign }: Props) {
                   classes.donorsWishesTab,
                   selected === 'wishes' && classes.selected,
                 ].join(' ')}
+                data-testid="summary-wishes"
                 onClick={() => setSelected('wishes')}>{`${t('campaign.wishes')} (${
                 wishList?.totalCount
               })`}</Typography>
