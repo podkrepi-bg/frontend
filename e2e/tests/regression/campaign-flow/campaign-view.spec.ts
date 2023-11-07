@@ -46,14 +46,14 @@ test.describe.serial(
     })
 
     test('Particular campaign summary contains Donors and Wishes sections', async () => {
-      await campaignsPage.isDonorsSectionVisible()
-      await campaignsPage.isWishesSectionVisible()
-
-      await campaignsPage.page.getByTestId('summary-wishes').click()
-      expect(campaignsPage.page.getByTestId('summary-wishes-wrapper')).toBeVisible()
+      expect(campaignsPage.page.getByTestId('summary-donors')).toBeVisible()
+      expect(campaignsPage.page.getByTestId('summary-wishes')).toBeVisible()
 
       await campaignsPage.page.getByTestId('summary-donors').click()
       expect(campaignsPage.page.getByTestId('summary-donors-wrapper')).toBeVisible()
+
+      await campaignsPage.page.getByTestId('summary-wishes').click()
+      expect(campaignsPage.page.getByTestId('summary-wishes-wrapper')).toBeVisible()
     })
   },
 )
