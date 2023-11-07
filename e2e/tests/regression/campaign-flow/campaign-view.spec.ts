@@ -49,17 +49,11 @@ test.describe.serial(
       await campaignsPage.isDonorsSectionVisible()
       await campaignsPage.isWishesSectionVisible()
 
-      await campaignsPage.clickDonationWishesButton()
-      expect(
-        await campaignsPage.checkSummaryWishesContainer(),
-        'The summary wishes container shows',
-      )
+      await campaignsPage.page.getByTestId('summary-wishes').click()
+      expect(campaignsPage.page.getByTestId('summary-wishes-wrapper')).toBeVisible()
 
-      await campaignsPage.clickDonationDonorsButton()
-      expect(
-        await campaignsPage.checkSummaryDonorsContainer(),
-        'The summary donors container shows',
-      )
+      await campaignsPage.page.getByTestId('summary-donors').click()
+      expect(campaignsPage.page.getByTestId('summary-donors-wrapper')).toBeVisible()
     })
   },
 )

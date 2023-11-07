@@ -24,14 +24,10 @@ export class CampaignsPage extends HomePage {
   private readonly enSupportNowActionButtonText = enLocalizationCampaigns.cta['support']
 
   // Summary donors and wishes sections
-  private readonly donationSummaryDonorsButton = `[data-testid="summary-donors"]`
-  private readonly donationSummaryWishesButton = `[data-testid="summary-wishes"]`
   private readonly bgDonorsButtonText = bgLocalizationCampaigns.campaign['donors']
   private readonly enDonorsButtonText = enLocalizationCampaigns.campaign['donors']
   private readonly bgWishesButtonText = bgLocalizationCampaigns.campaign['wishes']
   private readonly enWishesButtonText = enLocalizationCampaigns.campaign['wishes']
-  private readonly summaryDonorsList = '.DonorsAndDonations-donationsWrapper'
-  private readonly summaryWishesList = '.DonationsWishesInline-donationsWrapper'
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await this.page.waitForTimeout(1000)
@@ -117,34 +113,6 @@ export class CampaignsPage extends HomePage {
       .locator('../../..')
       .locator(this.cardActionButtons, { hasText: supportButtonText })
     await this.clickElementByLocator(cardActionButtonElement)
-  }
-
-  async checkSummaryWishesContainer(): Promise<void> {
-    await this.page.waitForTimeout(1000)
-    expect(
-      await this.isElementVisibleByLocatorWithTimeout(this.page.locator(this.summaryWishesList)),
-    ).toBeTruthy()
-  }
-
-  async checkSummaryDonorsContainer(): Promise<void> {
-    await this.page.waitForTimeout(1000)
-    expect(
-      await this.isElementVisibleByLocatorWithTimeout(this.page.locator(this.summaryDonorsList)),
-    ).toBeTruthy()
-  }
-
-  /**
-   * Click donation Wishes button into the donation summary container
-   */
-  async clickDonationWishesButton(): Promise<void> {
-    await this.clickElement(this.donationSummaryWishesButton)
-  }
-
-  /**
-   * Click donation Donors button into the donation summary container
-   */
-  async clickDonationDonorsButton(): Promise<void> {
-    await this.clickElement(this.donationSummaryDonorsButton)
   }
 
   /**
