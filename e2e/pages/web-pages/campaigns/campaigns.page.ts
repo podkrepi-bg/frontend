@@ -23,6 +23,12 @@ export class CampaignsPage extends HomePage {
   private readonly bgSupportNowActionButtonText = bgLocalizationCampaigns.cta['support']
   private readonly enSupportNowActionButtonText = enLocalizationCampaigns.cta['support']
 
+  // Summary donors and wishes sections
+  private readonly bgDonorsButtonText = bgLocalizationCampaigns.campaign['donors']
+  private readonly enDonorsButtonText = enLocalizationCampaigns.campaign['donors']
+  private readonly bgWishesButtonText = bgLocalizationCampaigns.campaign['wishes']
+  private readonly enWishesButtonText = enLocalizationCampaigns.campaign['wishes']
+
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await this.page.waitForTimeout(1000)
     await expect(this.page, 'The URL is not correct!').toHaveURL(
@@ -107,5 +113,21 @@ export class CampaignsPage extends HomePage {
       .locator('../../..')
       .locator(this.cardActionButtons, { hasText: supportButtonText })
     await this.clickElementByLocator(cardActionButtonElement)
+  }
+
+  /**
+   * Check if Donors section in campaing summary is visible on the Campaigns page
+   * @param {LanguagesEnum} language - the default value is BG
+   */
+  async isDonorsSectionVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
+    return this.isDonorsElementVisible(language, this.bgDonorsButtonText, this.enDonorsButtonText)
+  }
+
+  /**
+   * Check if Wishes section in campaing summary is visible on the Campaigns page
+   * @param {LanguagesEnum} language - the default value is BG
+   */
+  async isWishesSectionVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
+    return this.isWishesElementVisible(language, this.bgWishesButtonText, this.enWishesButtonText)
   }
 }
