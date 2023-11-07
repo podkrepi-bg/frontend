@@ -96,7 +96,7 @@ export default function DonationsWishesInline({
 
   return (
     <Root>
-      <Grid item className={classes.donationsWrapper}>
+      <Grid item className={classes.donationsWrapper} data-testid="summary-wishes-wrapper">
         {wishListToShow && wishListToShow.length !== 0 ? (
           wishListToShow.map(({ person, createdAt, message }, key) => (
             <Grid key={key} className={classes.donationItemWrapper}>

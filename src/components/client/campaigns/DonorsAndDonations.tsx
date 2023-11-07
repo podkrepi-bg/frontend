@@ -85,7 +85,7 @@ export default function DonorsAndDonations({
 
   return (
     <Root>
-      <Grid item className={classes.donationsWrapper}>
+      <Grid item className={classes.donationsWrapper} data-testid="summary-donors-wrapper">
         {donationsToShow && donationsToShow.length !== 0 ? (
           donationsToShow.map(({ person, amount, createdAt, currency }, key) => (
             <Grid key={key} className={classes.donationItemWrapper}>
