@@ -122,7 +122,13 @@
     "data-summary": "Affiliate program summary",
     "guaranteedDonationsList": "List of guaranteed donations",
     "code": "Code",
-    "status": "Status",
+    "status": {
+      "index": "Status",
+      "active": "Active",
+      "pending": "Pending",
+      "cancelled": "Cancelled",
+      "rejected": "Rejected"
+    },
     "guaranteedDonations": "Guaranteed donations(total)",
     "guaranteedAmount": "Guaranteed amount(total)"
   }

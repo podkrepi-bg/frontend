@@ -1,6 +1,6 @@
 import { DonationResponse } from './donations'
 
-enum AffilisteStatus {
+export enum AffiliateStatus {
   active = 'active',
   cancelled = 'cancelled',
   rejected = 'rejected',
@@ -9,7 +9,7 @@ enum AffilisteStatus {
 
 export type AffiliateResponse = {
   id: string
-  status: AffilisteStatus
+  status: AffiliateStatus
   affiliateCode: string
   companyId: string
 }
@@ -21,4 +21,16 @@ export type AffiliateWithDonationResponse = AffiliateResponse & {
 export type CancelAffiliateDonation = {
   donationId: string
   affiliateCode: string
+}
+
+export type AffiliatesAdminResponse = AffiliateResponse & {
+  company: {
+    companyName: string
+    companyNumber: string
+    person: {
+      firstName: string
+      lastName: string
+      email: string
+    }
+  }
 }

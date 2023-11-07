@@ -129,7 +129,13 @@
     "data-summary": "Данни по партньорска програма",
     "guaranteedDonationsList": "Списък с гарантирани дарения",
     "code": "Код",
-    "status": "Статус",
+    "status": {
+      "index": "Статус",
+      "active": "Активен",
+      "pending": "В изчакване",
+      "cancelled": "Отменен",
+      "rejected": "Отказан"
+    },
     "guaranteedDonations": "Гарантирани дарения(общо)",
     "guaranteedAmount": "Гарантирана сума(общо)"
   }

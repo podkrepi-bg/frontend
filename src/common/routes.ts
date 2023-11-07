@@ -133,6 +133,7 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    affiliates: '/admin/affiliates',
     bankaccounts: {
       index: '/admin/bankaccounts',
       add: '/admin/bankaccounts/add',

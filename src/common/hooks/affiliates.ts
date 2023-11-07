@@ -8,10 +8,22 @@ import { DonationResponse } from 'gql/donations'
 import { AxiosError, AxiosResponse } from 'axios'
 import {
   AffiliateResponse,
+  AffiliateStatus,
   AffiliateWithDonationResponse,
+  AffiliatesAdminResponse,
   CancelAffiliateDonation,
 } from 'gql/affiliate'
-import { cancelAffiliateDonation, joinAffiliateProgram } from 'service/affiliate'
+import {
+  cancelAffiliateDonation,
+  joinAffiliateProgram,
+  refreshAffiliateCode,
+  updateAffiliateStatus,
+} from 'service/affiliate'
+
+export type AffilliateStatusMutation = {
+  affiliateId: string
+  newStatus: AffiliateStatus
+}
 
 export function useGetAffiliateData() {
   const { data: session } = useSession()
@@ -44,6 +56,50 @@ export function useCancelGuaranteedDonationMutation() {
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       queryClient.invalidateQueries({ queryKey: [endpoints.affiliate.getData.url] })
+    },
+  })
+  return mutation
+}
+
+export function useGetAffiliates() {
+  const { data: session } = useSession()
+  return useQuery<AffiliatesAdminResponse[]>(
+    [endpoints.affiliate.getAffiliates.url],
+    authQueryFnFactory<AffiliatesAdminResponse[]>(session?.accessToken),
+  )
+}
+
+export function useRefresAffiliateCode() {
+  const { t } = useTranslation()
+  const queryClient = useQueryClient()
+  const mutation = useMutation<
+    AxiosResponse<AffiliateResponse>,
+    AxiosError<AffiliateResponse>,
+    string
+  >({
+    mutationFn: (affiliateId: string) => refreshAffiliateCode(affiliateId),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.message-sent'), 'success')
+      queryClient.invalidateQueries({ queryKey: [endpoints.affiliate.getAffiliates.url] })
+    },
+  })
+  return mutation
+}
+
+export function useChangeAffiliateStatus() {
+  const { t } = useTranslation()
+  const queryClient = useQueryClient()
+  const mutation = useMutation<
+    AxiosResponse<AffiliateResponse>,
+    AxiosError<AffiliateResponse>,
+    AffilliateStatusMutation
+  >({
+    mutationFn: (data) => updateAffiliateStatus(data),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.message-sent'), 'success')
+      queryClient.invalidateQueries({ queryKey: [endpoints.affiliate.getAffiliates.url] })
     },
   })
   return mutation

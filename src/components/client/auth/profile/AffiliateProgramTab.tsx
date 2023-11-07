@@ -173,7 +173,7 @@ export default function AffiliateProgramTab() {
           <Table aria-label="affiliate-summary">
             <TableHead>
               <TableRow>
-                <TableCell>{t('profile:affiliate.status')}</TableCell>
+                <TableCell>{t('profile:affiliate.status.index')}</TableCell>
                 <TableCell>{t('profile:affiliate.code')}</TableCell>
                 <TableCell>{t('profile:affiliate.guaranteedDonations')}</TableCell>
                 <TableCell>{t('profile:affiliate.guaranteedAmount')}</TableCell>
@@ -181,7 +181,7 @@ export default function AffiliateProgramTab() {
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell>{affiliate.status}</TableCell>
+                <TableCell>{t(`profile:affiliate.status.${affiliate.status}`)}</TableCell>
                 <TableCell>{affiliate.affiliateCode}</TableCell>
                 <TableCell>{affiliate.donations.length}</TableCell>
                 <TableCell>{money(totalSum ?? 0)}</TableCell>

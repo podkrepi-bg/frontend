@@ -22,6 +22,7 @@ import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred'
 
 import { routes } from 'common/routes'
 import BeneficiaryIcon from 'common/icons/Beneficiary'
+import HandshakeIcon from '@mui/icons-material/Handshake'
 
 export const menuPeople = [
   { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
@@ -96,4 +97,9 @@ export const adminCards = [
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
 
   { label: 'Злоупотреби', icon: ReportGmailerrorredIcon, href: routes.admin.irregularity.index },
+  {
+    label: 'Партньорска програма',
+    icon: HandshakeIcon,
+    href: routes.admin.affiliates,
+  },
 ]

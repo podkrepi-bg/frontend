@@ -16,9 +16,17 @@ export const endpoints = {
   },
   affiliate: {
     join: <Endpoint>{ url: '/affiliate/join', method: 'POST' },
+    getAffiliates: <Endpoint>{ url: '/affiliate/list-all', method: 'GET' },
     getData: <Endpoint>{ url: '/affiliate/data', method: 'GET' },
     cancelDonation: (affiliateCode: string, donationId: string) =>
-      <Endpoint>{ url: `/affiliate/${affiliateCode}/donations/${donationId}/cancel` },
+      <Endpoint>{
+        url: `/affiliate/${affiliateCode}/donations/${donationId}/cancel`,
+        method: 'PATCH',
+      },
+    refreshCode: (affiliateId: string) =>
+      <Endpoint>{ url: `/affiliate/${affiliateId}/code-refresh`, method: 'PATCH' },
+    updateStatus: (affiliateId: string) =>
+      <Endpoint>{ url: `/affiliate/${affiliateId}/status`, method: 'PATCH' },
   },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
