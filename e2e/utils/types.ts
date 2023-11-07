@@ -3,7 +3,6 @@ import { Locator } from '@playwright/test'
 export type LocatorOptions = Partial<{
   has?: Locator | undefined
   hasText?: string | RegExp | undefined
-  toContainText?: string
 }>
 
 export type ClickOptions = Partial<{

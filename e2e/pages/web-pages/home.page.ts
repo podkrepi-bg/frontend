@@ -96,33 +96,6 @@ export class HomePage extends BasePage {
   }
 
   /**
-   * Check if element is visible by CSS Selector and text with timeout
-   * @param {string} elementSelector
-   * @param {LanguagesEnum} language
-   * @param {string} headingBg
-   * @param {string | null} headingEn
-   */
-  async isElementVisibleBySelector(
-    elementSelector: string,
-    language: LanguagesEnum,
-    headingBg: string,
-    headingEn: string | null,
-  ): Promise<boolean> {
-    await this.waitForElementToBePresentedByLocator(this.page.locator(elementSelector).first())
-    if (language === LanguagesEnum.BG) {
-      return this.isElementVisibleBySelectorWithTimeout(elementSelector, {
-        toContainText: headingBg,
-      })
-    } else if (language === LanguagesEnum.EN) {
-      return this.isElementVisibleBySelectorWithTimeout(elementSelector, {
-        toContainText: headingEn || undefined,
-      })
-    } else {
-      throw new Error('Language not found!')
-    }
-  }
-
-  /**
    * Check if H4 heading is visible by text with timeout
    * @param {LanguagesEnum} language
    * @param {string} headingBg
