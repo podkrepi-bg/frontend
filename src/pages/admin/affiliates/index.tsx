@@ -1,4 +1,3 @@
-import BankTransactionsPage from 'components/admin/bank-transactions/BankTransactionsPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 import AffiliatesPage from 'components/admin/affiliates/AffiliatesPage'
