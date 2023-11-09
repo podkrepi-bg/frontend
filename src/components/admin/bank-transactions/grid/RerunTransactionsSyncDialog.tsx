@@ -11,10 +11,13 @@ import FormDatePicker from 'components/common/form/FormDatePicker'
 import { useMutation } from '@tanstack/react-query'
 import { AlertStore } from 'stores/AlertStore'
 
-const validationSchema: yup.SchemaOf<RerunTransactionsDatesInput> = yup.object().defined().shape({
-  startDate: yup.date().required(),
-  endDate: yup.date().required(),
-})
+const validationSchema: yup.SchemaOf<RerunTransactionsDatesInput> = yup
+  .object()
+  .defined()
+  .shape({
+    startDate: yup.date().required().min(new Date('2023, 07, 17')),
+    endDate: yup.date().required(),
+  })
 
 export default function RerunTransactionSyncModal({
   isOpen,
