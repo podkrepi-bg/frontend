@@ -80,7 +80,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install kustomize
-        uses: imranismail/setup-kustomize@v1
+        uses: imranismail/setup-kustomize@v2
 
       - name: Build development manifests
         run: kustomize build manifests/overlays/development > dev-manifests.yaml
