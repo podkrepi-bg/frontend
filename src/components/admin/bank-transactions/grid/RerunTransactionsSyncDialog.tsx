@@ -15,7 +15,7 @@ const validationSchema: yup.SchemaOf<RerunTransactionsDatesInput> = yup
   .object()
   .defined()
   .shape({
-    startDate: yup.date().required().min(new Date('2023, 07, 17')),
+    startDate: yup.date().required().min(new Date('2023, 07, 17')), //* start date minimum is set to 17/07/2023 because on this date  started auto-sync https://github.com/podkrepi-bg/frontend/issues/1649
     endDate: yup.date().required(),
   })
 

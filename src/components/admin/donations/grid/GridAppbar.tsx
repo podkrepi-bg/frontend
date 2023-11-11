@@ -77,6 +77,7 @@ export default function GridAppbar() {
       />
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          {/* button is disabled because we have a bug(conflicting bank donations) https://github.com/podkrepi-bg/frontend/issues/1649 */}
           <Button disabled>
             <Tooltip title={t('donations:form-heading-bank-transactions-file') || ''}>
               <Receipt
