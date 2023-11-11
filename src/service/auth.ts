@@ -50,6 +50,7 @@ export type ServerUser = ParsedToken & {
   picture?: string
   session_state: string
   'allowed-origins': string[]
+  selfReg?: boolean
   // access
   realm_access: { roles: RealmRole[] }
   resource_access: { account: { roles: ResourceRole[] } }
