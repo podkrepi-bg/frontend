@@ -35,10 +35,14 @@ export function useGetAffiliateData() {
 
 export function useJoinAffiliateProgramMutation() {
   const { t } = useTranslation()
+  const queryClient = useQueryClient()
   const mutation = useMutation<AxiosResponse<AffiliateResponse>>([endpoints.affiliate.join], {
     mutationFn: joinAffiliateProgram,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.message-sent'), 'success')
+      queryClient.invalidateQueries({ queryKey: [endpoints.affiliate.getData.url] })
+    },
   })
   return mutation
 }
