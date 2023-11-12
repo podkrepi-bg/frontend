@@ -3,16 +3,15 @@ import { useCallback, useEffect, useState } from 'react'
 type CopyStatus = 'inactive' | 'copied' | 'failed'
 
 export const useCopyToClipboard = (
-  text: string,
   notifyTimeout = 2500,
-): [CopyStatus, () => void] => {
+): [CopyStatus, (copyText: string) => void] => {
   const [copyStatus, setCopyStatus] = useState<CopyStatus>('inactive')
-  const copy = useCallback(() => {
-    navigator.clipboard.writeText(text).then(
+  const copy = useCallback((copyText: string) => {
+    navigator.clipboard.writeText(copyText).then(
       () => setCopyStatus('copied'),
       () => setCopyStatus('failed'),
     )
-  }, [text])
+  }, [])
 
   useEffect(() => {
     if (copyStatus === 'inactive') {

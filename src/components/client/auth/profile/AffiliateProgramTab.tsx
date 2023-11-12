@@ -22,6 +22,9 @@ import { money } from 'common/util/money'
 import { DonationResponse } from 'gql/donations'
 import { routes } from 'common/routes'
 import { CancelAffiliateDonation } from 'gql/affiliate'
+import ContentPasteIcon from '@mui/icons-material/ContentPaste'
+import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
+import { AlertStore } from 'stores/AlertStore'
 
 const PREFIX = 'AffiliateProgramTab'
 
@@ -69,6 +72,7 @@ export default function AffiliateProgramTab() {
   const { data: affiliate, isLoading, isSuccess, isError } = useGetAffiliateData()
   const joinMutation = useJoinAffiliateProgramMutation()
   const cancelDonationMutation = useCancelGuaranteedDonationMutation()
+  const [, copyUrl] = useCopyToClipboard(1000)
 
   const onAffilateJoinRequest = () => {
     joinMutation.mutate()
@@ -131,7 +135,7 @@ export default function AffiliateProgramTab() {
     {
       field: 'donor',
       headerName: t('profile:donations.donor'),
-      valueGetter(params) {
+      valueGetter(params: GridRenderCellParams) {
         return params.row.metadata?.name ?? params.row.affiliate.company.companyName
       },
       align: 'left',
@@ -171,7 +175,7 @@ export default function AffiliateProgramTab() {
         <Typography className={classes.h3} sx={{ py: 1 }}>
           {t('profile:affiliate.data-summary')}
         </Typography>
-        <TableContainer component={Paper} sx={{ maxWidth: 660 }}>
+        <TableContainer component={Paper} sx={{ maxWidth: 723 }}>
           <Table aria-label="affiliate-summary">
             <TableHead>
               <TableRow>
@@ -184,7 +188,19 @@ export default function AffiliateProgramTab() {
             <TableBody>
               <TableRow>
                 <TableCell>{t(`profile:affiliate.status.${affiliate.status}`)}</TableCell>
-                <TableCell>{affiliate.affiliateCode}</TableCell>
+                <TableCell>
+                  <Box flexDirection={'row'} sx={{ alignItems: 'center' }}>
+                    {affiliate.affiliateCode}
+                    <Button
+                      sx={{ padding: 0 }}
+                      onClick={() => {
+                        AlertStore.show(t('common:alerts.message-copy'), 'success')
+                        copyUrl(affiliate.affiliateCode)
+                      }}>
+                      <ContentPasteIcon />
+                    </Button>
+                  </Box>
+                </TableCell>
                 <TableCell>{affiliate.donations.length}</TableCell>
                 <TableCell>{money(totalSum ?? 0)}</TableCell>
               </TableRow>

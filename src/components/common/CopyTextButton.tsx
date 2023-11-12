@@ -12,13 +12,13 @@ export type CopyTextButtonProps = {
 
 export const CopyTextButton = ({ text, label, ...props }: CopyTextButtonProps) => {
   const { t } = useTranslation()
-  const [status, copyUrl] = useCopyToClipboard(text, 1000)
+  const [status, copyUrl] = useCopyToClipboard(1000)
   const active = status === 'copied' ? 'inherit' : 'primary'
   return (
     <Button
       onClick={() => {
         AlertStore.show(t('common:alerts.message-copy'), 'success')
-        copyUrl()
+        copyUrl(text)
       }}
       color={active}
       size="small"
