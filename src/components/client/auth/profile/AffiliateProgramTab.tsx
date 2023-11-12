@@ -75,9 +75,11 @@ export default function AffiliateProgramTab() {
   }
 
   const totalSum = useMemo(() => {
-    return affiliate?.donations.reduce((prev: number, curr: DonationResponse) => {
-      return (prev += curr.amount)
-    }, 0)
+    return (
+      affiliate?.donations?.reduce((prev: number, curr: DonationResponse) => {
+        return (prev += curr.amount)
+      }, 0) ?? 0
+    )
   }, [affiliate?.donations])
 
   const onGuaranteedDonationCancel = (affiliateCode: string, donationId: string) => {
