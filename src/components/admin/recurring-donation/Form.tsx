@@ -122,6 +122,7 @@ export default function EditForm() {
       company: data?.person?.company,
       newsletter: data?.person?.newsletter,
       emailConfirmed: data?.person?.emailConfirmed,
+      profileEnabled: data?.person?.profileEnabled,
     }
   }
 
