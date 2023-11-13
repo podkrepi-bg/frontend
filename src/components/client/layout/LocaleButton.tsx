@@ -10,25 +10,28 @@ export default function LocaleButton() {
     (locale: string) => (event: React.MouseEvent) => {
       event.preventDefault()
       // Same route different language
-      router.push(router.asPath, router.asPath, { locale })
+      const { pathname, asPath, query } = router
+      router.push({ pathname, query }, asPath, { locale })
+      const date = new Date()
+      const expireMs = 100 * 365 * 24 * 60 * 60 * 1000 // 100 days
+      date.setTime(date.getTime() + expireMs)
+      document.cookie = `NEXT_LOCALE=${locale};expires=${date.toUTCString()};path=/`
+      router.push({ pathname, query }, asPath, { locale })
     },
-    [router.asPath],
+    [router.asPath, router.locale],
   )
   if (!router.locale) {
     return null
   }
 
-  if (router.locale === 'bg') {
-    return (
-      <Button variant="text" color="inherit" size="small" onClick={changeLang('en')}>
-        {t('EN')}
-      </Button>
-    )
-  }
-
   return (
-    <Button variant="text" color="inherit" size="small" onClick={changeLang('bg')}>
-      {t('BG')}
+    <Button
+      data-testid="locale-button"
+      variant="text"
+      color="inherit"
+      size="small"
+      onClick={changeLang(router.locale === 'bg' ? 'en' : 'bg')}>
+      {t(router.locale === 'bg' ? 'EN' : 'BG')}
     </Button>
   )
 }

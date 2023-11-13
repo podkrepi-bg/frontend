@@ -812,6 +812,25 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "kzhecheva",
+      "name": "Kalina Zhecheva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60223025?v=4",
+      "profile": "https://github.com/kzhecheva",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "PetarDimitrov91",
+      "name": "Petar Dimitrov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79804094?v=4",
+      "profile": "https://github.com/PetarDimitrov91",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 10,

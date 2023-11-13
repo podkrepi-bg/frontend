@@ -82,7 +82,7 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
 
   return (
     <Root>
-      <Grid item className={classes.donationsWrapper}>
+      <Grid item className={classes.donationsWrapper} data-testid="summary-donors-wrapper">
         {donationsToShow && donationsToShow.length !== 0 ? (
           donationsToShow.map(({ type, metadata, person, amount, createdAt, currency }, key) => (
             <Grid key={key} className={classes.donationItemWrapper}>
@@ -142,7 +142,7 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
                   <span className={classes.separatorIcon}>|</span>
                   <Typography>
                     {formatDistanceStrict(parseISO(createdAt), new Date(), {
-                      locale: i18n.language == 'bg' ? bg : enUS,
+                      locale: i18n?.language == 'bg' ? bg : enUS,
                       addSuffix: true,
                     })}
                   </Typography>

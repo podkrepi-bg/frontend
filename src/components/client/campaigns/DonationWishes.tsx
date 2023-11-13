@@ -38,7 +38,7 @@ type Props = {
 
 export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
   const { t, i18n } = useTranslation('campaigns')
-  const locale = i18n.language == 'bg' ? bg : enUS
+  const locale = i18n?.language == 'bg' ? bg : enUS
   const titleRef = useRef<HTMLElement>(null)
   const [pageIndex, setPageIndex] = useState<number>(0)
   const [searchValue, setSearchValue] = useState('')

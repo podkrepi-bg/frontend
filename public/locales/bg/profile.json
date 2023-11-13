@@ -52,8 +52,11 @@
       "initial": "започнато",
       "waiting": "чакащо",
       "succeeded": "успешно",
+
+      "refund": "възстановено",
       "cancelled": "отменено",
       "guaranteed": "гарантирано"
+
     }
   },
   "certificates-history": {

@@ -41,7 +41,6 @@ export default function SecondStep() {
           variant="fullWidth"
           orientation={mobile ? 'vertical' : 'horizontal'}
           centered
-          value={value}
           onChange={handleChange}
           aria-label="personal info">
           <Tab label={t('second-step.login')} value="1" />

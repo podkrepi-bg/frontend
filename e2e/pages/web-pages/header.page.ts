@@ -50,6 +50,11 @@ export class HeaderPage extends BasePage {
     language: LanguagesEnum,
   ): Promise<void> {
     await this.waitForElementToBePresentedBySelector(this.toolbarCommonButtonsSelector)
+
+    //first switch to the desired language
+    await this.changeLanguageToBe(language)
+
+    //then find the item to click on
     if (language === LanguagesEnum.BG) {
       await this.clickElement(this.toolbarCommonButtonsSelector, { hasText: navTextBg })
     } else if (language === LanguagesEnum.EN) {
@@ -128,9 +133,10 @@ export class HeaderPage extends BasePage {
 
   /**
    * Click on the language header button to change the page language
-   * @param {LanguagesEnum} languageParam
+   * @param {LanguagesEnum} language
    */
-  async changeanguageHeaderButtonToBe(languageParam: LanguagesEnum): Promise<void> {
-    await this.clickHeaderNavLink(LanguagesEnum.BG, LanguagesEnum.EN, languageParam)
+  async changeLanguageToBe(language: LanguagesEnum): Promise<void> {
+    const localeButton = this.page.getByTestId('locale-button')
+    if ((await localeButton.innerText()) === language) await localeButton.click()
   }
 }

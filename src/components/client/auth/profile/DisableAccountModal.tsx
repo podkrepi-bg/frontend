@@ -93,7 +93,7 @@ function DisableAccountModal({
   const [loading, setLoading] = useState(false)
 
   const { data: session } = useSession()
-  const isAuthenticatedByGoogle = session?.user?.iss.includes('google')
+  const selfReg: boolean = session?.user?.selfReg ?? false
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
     mutationFn: disableCurrentPerson(),
@@ -173,30 +173,7 @@ function DisableAccountModal({
           {t('profile:disableModal.irreversibleAction')}
         </Typography>
         <br />
-        {isAuthenticatedByGoogle ? (
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <Button
-                fullWidth
-                variant="contained"
-                size="medium"
-                color="primary"
-                onClick={() => handleClose()}>
-                {t('profile:disableModal.saveAccount')}
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button
-                fullWidth
-                variant="contained"
-                size="medium"
-                color="error"
-                onClick={() => handleDisableUser()}>
-                {t('profile:disableModal.disableAccount')}
-              </Button>
-            </Grid>
-          </Grid>
-        ) : (
+        {selfReg ? (
           <GenericForm
             onSubmit={onSubmit}
             initialValues={{ password: '' }}
@@ -225,6 +202,29 @@ function DisableAccountModal({
               </Grid>
             </Grid>
           </GenericForm>
+        ) : (
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <Button
+                fullWidth
+                variant="contained"
+                size="medium"
+                color="primary"
+                onClick={() => handleClose()}>
+                {t('profile:disableModal.saveAccount')}
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                fullWidth
+                variant="contained"
+                size="medium"
+                color="error"
+                onClick={() => handleDisableUser()}>
+                {t('profile:disableModal.disableAccount')}
+              </Button>
+            </Grid>
+          </Grid>
         )}
       </Box>
     </StyledModal>
