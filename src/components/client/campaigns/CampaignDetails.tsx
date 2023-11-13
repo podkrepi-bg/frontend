@@ -7,7 +7,7 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import 'react-quill/dist/quill.bubble.css'
 
-import { Box, Divider, Grid, IconButton, Tooltip, Typography } from '@mui/material'
+import { Divider, Grid, IconButton, Tooltip, Typography } from '@mui/material'
 import SecurityIcon from '@mui/icons-material/Security'
 import { styled } from '@mui/material/styles'
 
@@ -210,16 +210,14 @@ const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) =>
       <Typography variant="h5" fontWeight={500}>
         Събрана сума: {moneyPublic(total)}
       </Typography>
-      <Box flexDirection={'row'} display={'flex'} alignItems={'center'}>
-        <Typography className={classes.financeSummary}>
-          Налични: {moneyPublic(campaign.summary.currentAmount)}
-        </Typography>
+      <Typography className={classes.financeSummary}>
+        Налични: {moneyPublic(campaign.summary.currentAmount)}
         <Tooltip enterTouchDelay={0} title="Средства налични по сметката на Podkrepi.bg">
           <IconButton size="small" color="primary">
             <InfoOutlined fontSize="small" />
           </IconButton>
         </Tooltip>
-      </Box>
+      </Typography>
       <Typography className={classes.financeSummary}>
         Гарантирани: {moneyPublic(campaign.summary.guaranteedAmount)}
         <Tooltip
