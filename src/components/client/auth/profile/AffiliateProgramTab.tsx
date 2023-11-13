@@ -34,6 +34,7 @@ const classes = {
   h1: `${PREFIX}-h1`,
   h2: `${PREFIX}-h2`,
   h3: `${PREFIX}-h3`,
+  affiliateSummary: `${PREFIX}-affiliateSummary`,
 }
 
 const Root = styled(Box)(({ theme }) => ({
@@ -64,6 +65,10 @@ const Root = styled(Box)(({ theme }) => ({
     paddingBottom: theme.spacing(3),
     marginTop: theme.spacing(3),
     boxShadow: theme.shadows[3],
+  },
+
+  [`& .${classes.affiliateSummary}`]: {
+    marginBottom: theme.spacing(2),
   },
 }))
 
@@ -109,7 +114,9 @@ export default function AffiliateProgramTab() {
   if (isSuccess && !affiliate) {
     return (
       <AffiliateContainer t={t}>
-        <Typography>{t('profile:affiliate.join')}</Typography>
+        <Typography className={classes.affiliateSummary}>
+          {t('profile:affiliate.summary')}
+        </Typography>
         <Button variant="outlined" onClick={onAffilateJoinRequest}>
           {t('profile:affiliate.join')}
         </Button>
@@ -191,14 +198,16 @@ export default function AffiliateProgramTab() {
                 <TableCell>
                   <Box flexDirection={'row'} sx={{ alignItems: 'center' }}>
                     {affiliate.affiliateCode}
-                    <Button
-                      sx={{ padding: 0 }}
-                      onClick={() => {
-                        AlertStore.show(t('common:alerts.message-copy'), 'success')
-                        copyUrl(affiliate.affiliateCode)
-                      }}>
-                      <ContentPasteIcon />
-                    </Button>
+                    {affiliate.affiliateCode !== null && (
+                      <Button
+                        sx={{ padding: 0 }}
+                        onClick={() => {
+                          AlertStore.show(t('common:alerts.message-copy'), 'success')
+                          copyUrl(affiliate.affiliateCode)
+                        }}>
+                        <ContentPasteIcon />
+                      </Button>
+                    )}
                   </Box>
                 </TableCell>
                 <TableCell>{affiliate.donations.length}</TableCell>
