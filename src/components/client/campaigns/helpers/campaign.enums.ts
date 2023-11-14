@@ -12,3 +12,9 @@ export enum CampaignState {
   error = 'error',
   deleted = 'deleted',
 }
+
+export enum StatisticsGroupBy {
+  DAY = 'day',
+  WEEK = 'week',
+  MONTH = 'month',
+}

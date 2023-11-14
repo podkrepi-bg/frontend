@@ -107,6 +107,9 @@ export const routes = {
         slug ? `/campaigns/${slug}/news?page=${page}` : `/campaigns/news?page=${page}`,
       newsAdminPanel: (slug: string) => `/campaigns/${slug}/news/admin-panel`,
     },
+    statistics: {
+      viewBySlug: (slug: string) => `/campaigns/${slug}/statistics`,
+    },
   },
   donation: {
     viewCertificate: (donationId: string) => `/api/pdf/certificate/${donationId}`,

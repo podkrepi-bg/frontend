@@ -188,6 +188,22 @@ export type CampaignDonation = {
   }
 }
 
+export type CampaignGroupedDonations = {
+  sum: number
+  count: number
+  date: string
+}
+
+export type CampaignUniqueDonations = {
+  amount: number
+  count: number
+}
+
+export type CampaignHourlyDonations = {
+  hour: number
+  count: number
+}
+
 export type CampaignDonationHistoryResponse = {
   items: CampaignDonation[]
   total: number
