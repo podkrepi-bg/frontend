@@ -18,10 +18,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import EmailField from 'components/common/form/EmailField'
 import { email } from 'common/form/validation'
-import {
-  AcceptNewsLetterField,
-  AcceptNewsLetterFieldCampaign,
-} from 'components/common/form/AcceptNewsletterField'
+import { AcceptNewsLetterFieldCampaign } from 'components/common/form/AcceptNewsletterField'
 import { getCurrentPerson } from 'common/util/useCurrentPerson'
 import { routes } from 'common/routes'
 
@@ -60,10 +57,6 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
   const { t } = useTranslation()
   const { status } = useSession()
   const [loading, setLoading] = useState(false)
-
-  // When the backend is ready this useState should be deleted
-
-  const [userEmail, setUserEmail] = useState('')
   const [isSuccess, setIsSuccess] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
   const router = useRouter()
@@ -73,45 +66,33 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
     AlertStore.show(error ? error : t('common:alerts.error'), 'error')
   }
 
-  // When the backend is ready this mutation should be in force
-
-  // const mutation = useMutation<
-  //   AxiosResponse<CampaignSubscribeResponse>,
-  //   AxiosError<ApiError>,
-  //   CampaignSubscribeInput
-  // >({
-  //   mutationFn: useSubscribeToCampaign(campaign.id),
-  //   onError: (error) => {
-  //     console.log(error.message)
-
-  //     handleError(error)},
-  //   onSuccess: () => {
-  //     AlertStore.show(t('common:alerts.message-sent'), 'success')
-
-  //     setIsSuccess(true)
-  //   },
-  // })
+  const mutation = useMutation<
+    AxiosResponse<CampaignSubscribeResponse>,
+    AxiosError<ApiError>,
+    CampaignSubscribeInput
+  >({
+    mutationFn: useSubscribeToCampaign(campaign.id),
+    onError: (error) => {
+      console.log(error.message)
+      handleError(error)
+    },
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.message-sent'), 'success')
+      setIsSuccess(true)
+    },
+  })
 
   const handleClose = () => {
     setOpen(false)
   }
 
-  // When the backend is ready this onSubmit function should be in force
-
-  // async function onSubmit(values: { email: string; consent: boolean }) {
-  //   setLoading(true)
-  //   try {
-  //     await mutation.mutateAsync(values)
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
-
-  // When the backend is ready this onSubmit function should be deleted
-
-  const onSubmit = (values: { email: string; consent: boolean }) => {
-    setUserEmail(values.email)
-    setIsSuccess(true)
+  async function onSubmit(values: { email: string; consent: boolean }) {
+    setLoading(true)
+    try {
+      await mutation.mutateAsync(values)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const NonAuthenticatedForm = () => {
@@ -155,12 +136,10 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
   const sendOnProfileEmail = (status: string) => {
     if (status !== 'authenticated') {
       router.push(routes.login)
+    } else {
+      onSubmit({ email: user?.user?.email || '', consent: user?.user?.newsletter || true })
+      handleClose()
     }
-
-    // When the backend is ready this onSubmit function should be with real email and consent taken from the form
-
-    onSubmit({ email: user?.user?.email || '', consent: user?.user?.newsletter || false })
-    handleClose()
   }
 
   if (!isGuest) {
@@ -264,7 +243,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
                   <Trans
                     t={t}
                     i18nKey="campaigns:subscribe.confirm-sent"
-                    values={{ email: userEmail }}></Trans>
+                    values={{ email: user?.user?.email }}></Trans>
                 </Typography>
               </React.Fragment>
             </DialogContent>

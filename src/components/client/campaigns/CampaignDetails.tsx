@@ -29,10 +29,6 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import CampaignPublicExpensesChart from './CampaignPublicExpensesChart'
 import EmailIcon from '@mui/icons-material/Email'
 import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
-{
-  /*  just to test the page. to be removed 
-// import SubscriptionPage from '../notifications/SubscriptionPage'*/
-}
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
@@ -151,8 +147,6 @@ export default function CampaignDetails({ campaign }: Props) {
             {t('campaigns:cta.subscribe')}
           </Typography>
         </Grid>
-        {/* just to test the page. to be removed 
-        <SubscriptionPage email={"admin@abv.bg"} campaign={"odit-accusamus-quasi"} consent={"yes"} hash={"fdgfds"}/> */}
         <Grid item xs={12} style={{ paddingTop: '20px' }}>
           <ReactQuill readOnly theme="bubble" value={campaign.description} />
         </Grid>
