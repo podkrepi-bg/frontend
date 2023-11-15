@@ -14,6 +14,20 @@ export const endpoints = {
     refresh: <Endpoint>{ url: '/refresh', method: 'POST' },
     providerLogin: <Endpoint>{ url: '/provider-login', method: 'POST' },
   },
+  affiliate: {
+    join: <Endpoint>{ url: '/affiliate/join', method: 'POST' },
+    getAffiliates: <Endpoint>{ url: '/affiliate/list-all', method: 'GET' },
+    getData: <Endpoint>{ url: '/affiliate/data', method: 'GET' },
+    cancelDonation: (affiliateCode: string, donationId: string) =>
+      <Endpoint>{
+        url: `/affiliate/${affiliateCode}/donations/${donationId}/cancel`,
+        method: 'PATCH',
+      },
+    refreshCode: (affiliateId: string) =>
+      <Endpoint>{ url: `/affiliate/${affiliateId}/code-refresh`, method: 'PATCH' },
+    updateStatus: (affiliateId: string) =>
+      <Endpoint>{ url: `/affiliate/${affiliateId}/status`, method: 'PATCH' },
+  },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
     listAdminCampaigns: <Endpoint>{ url: '/campaign/list-all', method: 'GET' },
@@ -286,6 +300,8 @@ export const endpoints = {
     me: <Endpoint>{ url: '/account/me', method: 'GET' },
     update: <Endpoint>{ url: '/account/me', method: 'PATCH' },
     updatePassword: <Endpoint>{ url: '/account/me/credentials', method: 'PATCH' },
+    updateProfileActiveStatus: (keycloakId: string) =>
+      <Endpoint>{ url: `/account/${keycloakId}/status`, method: 'PATCH' },
     forgottenPassword: <Endpoint>{ url: '/login/forgot-password', method: 'POST' },
     resetPassword: <Endpoint>{ url: '/login/reset-password', method: 'POST' },
     delete: <Endpoint>{ url: '/account/me', method: 'DELETE' },

@@ -2,10 +2,11 @@ import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Box, Avatar } from '@mui/material'
+import { Box, Avatar, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import {
   DataGrid,
+  GridCellParams,
   GridColDef,
   GridPaginationModel,
   GridRenderCellParams,
@@ -19,11 +20,16 @@ import GridActions from 'components/admin/GridActions'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import { ModalStore } from '../PersonGrid'
-import { usePersonList } from 'common/hooks/person'
+import {
+  TActiveStatusMutationBody,
+  useChangeProfileStatus,
+  usePersonList,
+} from 'common/hooks/person'
 import { routes } from 'common/routes'
 import theme from 'common/theme'
 import { PersonPaginatedResponse } from 'gql/person'
 import { PaginationData, SortData } from 'gql/types'
+import Switch from '@mui/material/Switch'
 
 const defaultSort: SortData = {
   sortBy: 'createdAt',
@@ -51,6 +57,16 @@ export default observer(function Grid() {
   const {
     data: { items, total: totalCount } = { items: [], total: 0 },
   }: UseQueryResult<PersonPaginatedResponse> = usePersonList(paginationModel, sortingModel)
+
+  const mutation = useChangeProfileStatus(paginationModel, sortingModel)
+
+  const onProfileStatusChange = (keycloakId: string, enabled: boolean) => {
+    const data: TActiveStatusMutationBody = {
+      keycloakId,
+      profileEnabled: enabled,
+    }
+    mutation.mutate(data)
+  }
 
   const handlePaginationModelChange = React.useCallback((paginationModel: GridPaginationModel) => {
     setPaginationModel({
@@ -106,6 +122,32 @@ export default observer(function Grid() {
     {
       field: 'id',
       headerName: 'ID',
+    },
+    {
+      field: 'type',
+      headerName: 'Тип',
+      width: 130,
+      valueGetter: (f) => {
+        return f.row.companyId ? 'корпоративен' : 'личен'
+      },
+    },
+    {
+      field: 'profileEnabled',
+      headerName: 'Активен',
+      width: 150,
+      renderCell: (params: GridCellParams) => {
+        return (
+          <>
+            <Switch
+              checked={params.row.profileEnabled}
+              onChange={() =>
+                onProfileStatusChange(params.row.keycloakId, !params.row.profileEnabled)
+              }
+            />
+            <Typography>{params.row.profileEnabled ? 'Активен ' : 'Неактивен'}</Typography>
+          </>
+        )
+      },
     },
     {
       field: 'name',

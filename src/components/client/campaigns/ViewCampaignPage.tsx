@@ -11,11 +11,9 @@ import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import InlineDonation from './InlineDonation'
 import CampaignDetails from './CampaignDetails'
-import dynamic from 'next/dynamic'
 import NotFoundPage from 'pages/404'
 
 type Props = { slug: string }
-const HotJar = dynamic(() => import('common/hotjar/HotJar'), { ssr: false })
 
 export default function ViewCampaignPage({ slug }: Props) {
   const { data, isLoading, isError } = useViewCampaign(slug)
@@ -29,7 +27,6 @@ export default function ViewCampaignPage({ slug }: Props) {
     )
   const { campaign } = data
   const ogImageUrl = campaignListPictureUrl(campaign)
-  const ShouldIncludeHotJar = slug === 'petar-v-cambridge' ? HotJar : () => null
 
   return (
     <Layout
@@ -37,7 +34,6 @@ export default function ViewCampaignPage({ slug }: Props) {
       ogImage={ogImageUrl}
       metaTitle={campaign.title}
       metaDescription={campaign.title}>
-      <ShouldIncludeHotJar />
       <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <CampaignDetails campaign={campaign} />
         {mobile || small ? (
@@ -45,7 +41,7 @@ export default function ViewCampaignPage({ slug }: Props) {
             item
             sx={{
               position: 'sticky',
-              top: 0,
+              top: 40,
               order: -1,
               marginTop: `-${theme.spacing(4)}`,
 

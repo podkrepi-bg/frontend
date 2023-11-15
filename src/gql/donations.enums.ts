@@ -1,5 +1,6 @@
 export enum DonationType {
   donation = 'donation',
+  corporate = 'corporate',
 }
 
 export enum DonationStatus {
@@ -9,6 +10,7 @@ export enum DonationStatus {
   declined = 'declined',
   waiting = 'waiting',
   cancelled = 'cancelled',
+  guaranteed = 'guaranteed',
   succeeded = 'succeeded',
   deleted = 'deleted',
   refund = 'refund',

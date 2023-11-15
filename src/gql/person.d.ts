@@ -1,5 +1,6 @@
 import { UUID } from './types'
 import { BeneficiaryFormData } from './beneficiary'
+import { CompanyResponse } from './company'
 
 export type PersonResponse = {
   id: string
@@ -15,6 +16,7 @@ export type PersonResponse = {
   beneficiaries?: PersonBeneficiaryResponse[]
   coordinators?: PersonRoleResponse
   organizer?: PersonRoleResponse
+  profileEnabled: boolean
 }
 
 export type PersonRoleResponse = {
@@ -68,7 +70,6 @@ export type Person = {
   lastName: string
   email: string
   phone: string
-  company: string
   createdAt: Date
   updatedAt: Date
   newsletter: boolean
@@ -79,6 +80,7 @@ export type Person = {
   keycloakId: string | null
   stripeCustomerId: string | null
   newsletter: boolean | null
+  company: CompanyResponse
 }
 
 export type UpdatePerson = Partial<
@@ -114,7 +116,7 @@ export type AdminPersonFormData = Pick<
 
 export type AdminPersonResponse = Pick<
   PersonResponse,
-  'id' | 'firstName' | 'lastName' | 'email' | 'phone'
+  'id' | 'firstName' | 'lastName' | 'email' | 'phone' | 'profileEnabled'
 >
 
 export type AdminCompanyFormData = Pick<

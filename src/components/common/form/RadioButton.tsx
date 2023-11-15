@@ -37,7 +37,10 @@ const StyledRadioButton = styled('div')(() => ({
 
   [`& .${classes.label}`]: {
     fontSize: 14,
-    marginLeft: theme.spacing(3),
+
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+    },
   },
 }))
 
@@ -55,7 +58,11 @@ function RadioButton({ checked, label, muiRadioButtonProps, value }: RadioButton
         value={value}
         className={`${classes.radioWrapper} ${checked ? classes.checked : null}`}
         sx={checked ? {} : undefined}
-        label={<Typography className={classes.label}>{label}</Typography>}
+        label={
+          <Typography className={classes.label} sx={{ wordBreak: 'break-word' }}>
+            {label}
+          </Typography>
+        }
         control={
           <Radio
             icon={<div className={classes.circle} />}

@@ -6,7 +6,7 @@ import { CircularProgress } from '@mui/material'
 import { AxiosError } from 'axios'
 import { FormikHelpers } from 'formik'
 
-import { CardRegion, PaymentProvider } from 'gql/donations.enums'
+import { CardRegion, DonationType, PaymentProvider } from 'gql/donations.enums'
 import { OneTimeDonation, DonationStep as StepType } from 'gql/donations'
 import { createDonationWish } from 'service/donationWish'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
@@ -27,6 +27,7 @@ import { StepsContext } from './helpers/stepperContext'
 import { useDonationStepSession } from './helpers/donateSession'
 
 const initialValues: OneTimeDonation = {
+  type: DonationType.donation,
   message: '',
   isAnonymous: false,
   amount: '',
@@ -76,6 +77,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
   const donate = React.useCallback(
     async (amount?: number, values?: OneTimeDonation) => {
       const { data } = await mutation.mutateAsync({
+        type: person?.company ? DonationType.corporate : DonationType.donation,
         mode: values?.isRecurring ? 'subscription' : 'payment',
         amount,
         campaignId: campaign.id,
@@ -102,7 +104,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
         window.location.href = data.session.url
       }
     },
-    [mutation],
+    [mutation, session, person],
   )
 
   const onSubmit = async (
