@@ -220,5 +220,25 @@
     "disabled": "Деактивирана",
     "error": "Грешна",
     "deleted": "Изтрита"
+  },
+  "campaignTypesFields": {
+    "treatment": "Лечение и рехабилитация",
+    "transplatation": "Трансплантация",
+    "cancer": "Рак",
+    "leukemia": "Левкемия",
+    "geneticDiseases": "Генетични заболявания",
+    "rehabilitation": "Рехабилитация",
+    "helping": "Помогни на нуждаещ се",
+    "kidsInRisk": "Деца в риск",
+    "thirdAge": "Трета възраст",
+    "homesForChildren": "Домове за деца",
+    "nursingHomes": "Старчески домове",
+    "betterSociety": "По-добро общество",
+    "education": "Обучение",
+    "culture": "Култура",
+    "nature": "Природа",
+    "human-rights": "Човешки права",
+    "animals": "Животни",
+    "disasters": "Бедствия"
   }
 }
