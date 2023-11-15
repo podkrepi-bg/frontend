@@ -121,6 +121,7 @@ export const routes = {
     myCampaigns: '/profile/my-campaigns',
     recurringDonations: '/profile/recurring-donations',
     myNotifications: '/profile/my-notifications',
+    affiliateProgram: '/profile/affiliate-program',
   },
   register: '/register',
   aboutProject: '/about-project',
@@ -132,6 +133,7 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    affiliates: '/admin/affiliates',
     bankaccounts: {
       index: '/admin/bankaccounts',
       add: '/admin/bankaccounts/add',

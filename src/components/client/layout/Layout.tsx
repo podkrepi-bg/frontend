@@ -115,7 +115,17 @@ export default function Layout({
             <Box sx={(theme) => ({ ...theme.mixins.toolbar, mb: { xs: 0, md: 3, lg: 6 } })} />
           )}
           {title && !disableOffset && (
-            <Typography paragraph variant="h2" component="h1" align="center" sx={{ p: 4 }}>
+            <Typography
+              paragraph
+              variant="h2"
+              component="h1"
+              align="center"
+              sx={{
+                py: 4,
+                wordBreak: 'break-word',
+                fontSize: { xs: 33, sm: '3.75rem' },
+                fontWeight: { xs: 350, sm: 0 },
+              }}>
               {title}
             </Typography>
           )}

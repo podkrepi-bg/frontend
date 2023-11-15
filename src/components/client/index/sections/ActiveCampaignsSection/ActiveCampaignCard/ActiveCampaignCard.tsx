@@ -29,9 +29,10 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { id, slug, title, summary, targetAmount: target } = campaign
   const campaignImagesUrl = campaignListPictureUrl(campaign)
 
-  const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
+  const reached = summary ? summary.reachedAmount + campaign.summary.guaranteedAmount : 0
+
+  const reachedAmount = moneyPublic(reached)
   const targetAmount = moneyPublic(campaign.targetAmount)
-  const reached = summary ? summary.reachedAmount : 0
 
   return (
     <Root data-testid={`completed-campaign-${index}`}>

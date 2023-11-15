@@ -39,9 +39,11 @@
     "login-with": "Вход с",
     "logout": "Изход",
     "register": "Регистрация",
+    "continue-with": "Продължете с",
     "changePassword": "Смяна на парола",
     "forgottenPassword": "Забравена парола?",
-    "go-back": "Назад"
+    "go-back": "Назад",
+    "go-back-to-index": "Обратно към начална страница"
   },
   "meta": {
     "title": "Подкрепи.бг"
@@ -99,6 +101,7 @@
     "email": "Имейл"
   },
   "cta": {
+    "more-information": "Повече информация",
     "read-more": "Прочетете още",
     "see-profile": "Вижте профил",
     "question": "Имате въпрос?"

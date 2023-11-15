@@ -220,7 +220,8 @@
   "donations": {
     "anonymous": "Анонимен",
     "none": "Няма направени дарения",
-    "lv": "лв."
+    "lv": "лв.",
+    "corporate-donor": "Корпоративен дарител"
   },
   "campaign-status": {
     "initial": "В начален етап",

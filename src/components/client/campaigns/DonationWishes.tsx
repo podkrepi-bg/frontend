@@ -24,6 +24,7 @@ import { getExactDate } from 'common/util/date'
 import theme from 'common/theme'
 import { SortData } from 'gql/types'
 import { debounce } from 'lodash'
+import { DonationType } from 'gql/donations.enums'
 
 type SortButton = {
   label: string
@@ -164,15 +165,54 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
                     />
                   </Grid>
                   <Stack direction="column">
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        fontWeight: 700,
-                        fontSize: theme.typography.pxToRem(16),
-                        color: theme.palette.grey[800],
-                      }}>
-                      {person ? person.firstName + ' ' + person.lastName : t('donations.anonymous')}
-                    </Typography>
+                    {donation?.type === DonationType.donation && (
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          fontWeight: 700,
+                          fontSize: theme.typography.pxToRem(16),
+                          color: theme.palette.grey[800],
+                        }}>
+                        {person
+                          ? `${person.firstName} ${person.lastName}`
+                          : t('campaigns:donations.anonymous')}
+                      </Typography>
+                    )}
+                    {donation?.type === DonationType.corporate && (
+                      <>
+                        {!donation?.metadata || !donation?.metadata.name ? (
+                          <Typography
+                            variant="caption"
+                            sx={{
+                              fontWeight: 700,
+                              fontSize: theme.typography.pxToRem(16),
+                              color: theme.palette.grey[800],
+                            }}>
+                            {person && person.company
+                              ? `${person.company.companyName}`
+                              : t('campaigns:donations.corporate-donor')}
+                          </Typography>
+                        ) : (
+                          <>
+                            <Typography
+                              variant="caption"
+                              sx={{
+                                fontWeight: 700,
+                                fontSize: theme.typography.pxToRem(16),
+                                color: theme.palette.grey[800],
+                              }}>
+                              {donation?.metadata.name}
+                            </Typography>
+                            <Typography sx={{ fontSize: 12 }}>
+                              {t('campaigns:campaign.from')}{' '}
+                              {person
+                                ? person.company.companyName
+                                : t('campaigns:donations.corporate-donor')}
+                            </Typography>
+                          </>
+                        )}
+                      </>
+                    )}
                     <Stack direction="row">
                       {donation && (
                         <Typography
