@@ -1,5 +1,6 @@
 import { Method } from 'axios'
 import { DonationStatus } from 'gql/donations.enums'
+import { StatisticsGroupBy } from 'components/client/campaigns/helpers/campaign.enums'
 import { FilterData, PaginationData, SortData } from 'gql/types'
 
 type Endpoint = {
@@ -99,6 +100,14 @@ export const endpoints = {
     createSupportRequest: <Endpoint>{ url: '/support/create-request', method: 'POST' },
     supportRequestList: <Endpoint>{ url: '/support/support-request/list', method: 'GET' },
     infoRequestList: <Endpoint>{ url: '/support/info-request/list', method: 'GET' },
+  },
+  statistics: {
+    getGroupedDonations: (id: string, groupBy: StatisticsGroupBy) =>
+      <Endpoint>{ url: `statistics/donations/${id}?groupBy=${groupBy}`, method: 'GET' },
+    getUniqueDonations: (id: string) =>
+      <Endpoint>{ url: `statistics/unique-donations/${id}`, method: 'GET' },
+    getHourlyDonations: (id: string) =>
+      <Endpoint>{ url: `statistics/hourly-donations/${id}`, method: 'GET' },
   },
   donation: {
     prices: <Endpoint>{ url: '/donation/prices', method: 'GET' },
