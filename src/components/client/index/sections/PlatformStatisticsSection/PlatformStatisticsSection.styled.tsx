@@ -1,4 +1,4 @@
-import { Typography, Grid } from '@mui/material'
+import { Button, Typography, Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
@@ -42,6 +42,7 @@ export const Subtitle = styled(Typography)(() => ({
   display: 'inline-block',
   fontSize: theme.typography.pxToRem(16),
   lineHeight: theme.spacing(3),
+  marginTop: theme.spacing(2),
 }))
 
 export const HelpThoseInNeedButton = styled(LinkButton)(() => ({
@@ -62,6 +63,43 @@ export const HelpThoseInNeedButton = styled(LinkButton)(() => ({
     backgroundColor: theme.palette.primary.main,
     boxShadow:
       '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
+  },
+
+  [theme.breakpoints.up('md')]: {
+    fontSize: theme.typography.pxToRem(17),
+    minWidth: theme.spacing(50),
+
+    '& span': {
+      display: 'inline-flex',
+    },
+  },
+}))
+
+export const SubscribeHeading = styled(Typography)(() => ({
+  fontWeight: 500,
+  fontSize: theme.typography.pxToRem(16.5),
+  textAlign: 'center',
+
+  '&:hover': {
+    textDecoration: 'underline',
+    transform: 'scale(1.01)',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+  },
+}))
+
+export const SubscribeButton = styled(Button)(() => ({
+  fontWeight: 600,
+  borderRadius: theme.borders.round,
+  backgroundColor: theme.palette.secondary.main,
+  minWidth: theme.spacing(3.75),
+  fontSize: theme.typography.pxToRem(15),
+  margin: theme.spacing(2, 0, 0, 'auto'),
+  boxShadow:
+    '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
+
+  '& span': {
+    display: 'none',
   },
 
   [theme.breakpoints.up('md')]: {

@@ -5,6 +5,7 @@ import ExternalLink from 'components/common/ExternalLink'
 import { useTranslation } from 'next-i18next'
 
 import { SocialIconsWrapper } from './Footer.styled'
+import Subscription from './Subscription'
 
 export const SocialIcons = () => {
   const { t } = useTranslation()
@@ -25,6 +26,7 @@ export const SocialIcons = () => {
         aria-label={t('components.footer.social.instagram')}>
         <Instagram />
       </ExternalLink>
+      <Subscription />
     </SocialIconsWrapper>
   )
 }

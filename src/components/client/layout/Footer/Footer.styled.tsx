@@ -75,3 +75,12 @@ export const SubscribeLinkWrapper = styled(Grid)(({ theme }) => ({
     transition: 'all 0.3s ease',
   },
 }))
+
+export const SubscriptionTitle = styled(Typography)(() => ({
+  '&:hover': {
+    textDecoration: 'underline',
+    transform: 'scale(1.01)',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+  },
+}))

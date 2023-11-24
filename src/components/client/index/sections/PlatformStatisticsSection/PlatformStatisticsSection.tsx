@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
-import ArrowForwardSharp from '@mui/icons-material/ArrowForwardSharp'
 import { Grid } from '@mui/material'
+import ArrowForwardSharp from '@mui/icons-material/ArrowForwardSharp'
+import EmailIcon from '@mui/icons-material/Email'
 
 import { routes } from 'common/routes'
 import Statistics from './Statistics/Statistics'
@@ -13,10 +14,14 @@ import {
   Root,
   SectionGridWrapper,
   Subtitle,
+  SubscribeButton,
+  SubscribeHeading,
 } from './PlatformStatisticsSection.styled'
+import RenderSubscribeModal from 'components/client/notifications/GeneralSubscribeModal'
 
 export default function PlatformStatisticsSection() {
-  const { t } = useTranslation('index')
+  const { t } = useTranslation()
+  const [subscribeIsOpen, setSubscribeOpen] = useState(false)
 
   return (
     <Root>
@@ -26,14 +31,34 @@ export default function PlatformStatisticsSection() {
             margin: '0 auto',
             maxWidth: theme.spacing(67),
           })}>
-          <Heading variant="h4">{t('platform-statistics.heading')}</Heading>
-          <Subtitle>{t('platform-statistics.text')}</Subtitle>
+          <Heading variant="h4">{t('index:platform-statistics.heading')}</Heading>
+          <Subtitle>{t('index:platform-statistics.text')}</Subtitle>
           <HelpThoseInNeedButton
             href={routes.campaigns.index}
             variant="contained"
             endIcon={<ArrowForwardSharp />}>
-            {t('platform-statistics.donate-to-those-in-need')}
+            {t('index:platform-statistics.donate-to-those-in-need')}
           </HelpThoseInNeedButton>
+          {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
+          <Grid item xs={12} display="flex" sx={{ mt: 1.5, mb: 0.5 }}>
+            <EmailIcon
+              color="primary"
+              fontSize="small"
+              sx={{ mr: 0.5 }}
+              onClick={() => setSubscribeOpen(true)}
+              cursor="pointer"
+            />
+            <SubscribeHeading onClick={() => setSubscribeOpen(true)}>
+              {t('campaigns:cta.subscribeGeneral')}
+            </SubscribeHeading>
+          </Grid>
+          <Subtitle>{t('campaigns:cta.subscribeGeneralSubtext')}</Subtitle>
+          <SubscribeButton
+            onClick={() => setSubscribeOpen(true)}
+            variant="contained"
+            endIcon={<ArrowForwardSharp />}>
+            {t('campaigns:cta.subscribeGeneralButton')}
+          </SubscribeButton>
         </Grid>
         <Statistics />
       </SectionGridWrapper>
