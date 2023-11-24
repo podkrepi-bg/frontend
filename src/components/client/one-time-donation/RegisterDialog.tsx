@@ -14,7 +14,7 @@ import { RegisterFormData } from 'components/client/auth/register/RegisterForm'
 import { StepsContext } from './helpers/stepperContext'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
-import AcceptNewsLetterField from 'components/common/form/AcceptNewsletterField'
+import { AcceptNewsLetterField } from 'components/common/form/AcceptNewsletterField'
 
 export default function RegisterForm() {
   const { t } = useTranslation()

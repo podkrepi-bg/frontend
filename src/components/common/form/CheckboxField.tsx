@@ -8,6 +8,7 @@ import { TranslatableField, translateError } from 'common/form/validation'
 
 export type CheckboxFieldProps = {
   name: string
+  sx?: object
   disabled?: boolean
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   label: string | number | React.ReactElement
@@ -15,6 +16,7 @@ export type CheckboxFieldProps = {
 }
 
 export default function CheckboxField({
+  sx,
   name,
   disabled,
   onChange: handleChange,
@@ -31,6 +33,7 @@ export default function CheckboxField({
           label={typeof label === 'string' ? `${t(label)}` : label}
           control={
             <Checkbox
+              sx={sx}
               color="primary"
               checked={Boolean(field.value)}
               disabled={disabled}
