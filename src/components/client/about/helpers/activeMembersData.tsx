@@ -138,4 +138,10 @@ export const data: TeamData[] = [
     description: 'Маркетинг, Корпоративни дарения',
     linkedInProfile: 'https://www.linkedin.com/in/martaneshova/',
   },
+  {
+    img: '/img/team-photos/MartinaMitz.png',
+    name: 'Мартина Миц',
+    description: 'Дизайн, UX',
+    linkedInProfile: 'https://www.linkedin.com/in/martina-mitz/',
+  },
 ]
