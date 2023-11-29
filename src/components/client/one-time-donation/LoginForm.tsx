@@ -14,6 +14,7 @@ import PasswordField from 'components/common/form/PasswordField'
 import LinkButton from 'components/common/LinkButton'
 import { StepsContext } from './helpers/stepperContext'
 import { AlertStore } from 'stores/AlertStore'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 const onGoogleLogin = () => signIn('google')
 
@@ -22,6 +23,7 @@ function LoginForm() {
   const [loading, setLoading] = useState(false)
   const { setStep } = useContext(StepsContext)
   const formik = useFormikContext<OneTimeDonation>()
+  const { refetch } = useCurrentPerson()
 
   const onClick = async () => {
     try {
@@ -36,6 +38,7 @@ function LoginForm() {
         throw new Error(resp.error)
       }
       if (resp?.ok) {
+        refetch()
         setLoading(false)
         formik.setFieldValue('isAnonymous', false)
         setStep(2)
