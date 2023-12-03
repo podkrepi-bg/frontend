@@ -11,6 +11,12 @@ export enum CampaignFileRole {
   organizerPhoto = 'organizerPhoto',
 }
 
+export type ImageSlider = {
+  id: string
+  src: string
+  fileName: string
+}
+
 export enum CampaignNewsFileRole {
   invoice = 'invoice',
   gallery = 'gallery',

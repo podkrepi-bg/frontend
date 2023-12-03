@@ -5,7 +5,6 @@ import { useTranslation } from 'next-i18next'
 
 import { useViewCampaign } from 'common/hooks/campaigns'
 import Layout from 'components/client/layout/Layout'
-import CenteredSpinner from 'components/common/CenteredSpinner'
 import NotFoundPage from 'pages/404'
 import CumulativeDonationsChart from './CampaignStatistics/CumulativeDonationsChart'
 import GroupedDonationsChart from './CampaignStatistics/GroupedDonationsChart'
@@ -19,13 +18,7 @@ type Props = { slug: string }
 export default function StatisticsPage({ slug }: Props) {
   const { t } = useTranslation()
   const { data: campaignResponse, isLoading, isError } = useViewCampaign(slug)
-  if (isLoading || !campaignResponse)
-    return (
-      <>
-        {/* {isLoading && <CenteredSpinner size={'2rem'} />} */}
-        {isError && <NotFoundPage />}
-      </>
-    )
+  if (isLoading || !campaignResponse) return <>{isError && <NotFoundPage />}</>
 
   const campaign = campaignResponse.campaign
   const campaignTitle = campaign.title

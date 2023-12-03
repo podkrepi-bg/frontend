@@ -28,6 +28,7 @@ import { sanitizeHTML } from 'common/util/htmlUtils'
 import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
 import { scrollToTop } from '../campaign-news/utils/scrollToTop'
 import { getArticleHeight } from '../campaign-news/utils/getArticleHeight'
+import withFullScreenSlider from 'components/common/withFullScreenSlider'
 
 const PREFIX = 'NewsTimeline'
 
@@ -160,6 +161,7 @@ type Props = {
 export default function CampaignNewsSection({ campaign, canCreateArticle }: Props) {
   const { t, i18n } = useTranslation('news')
   const { small }: { small: boolean } = useMobile()
+  const WithFullScreenSlider = withFullScreenSlider(Image)
 
   const INITIAL_HEIGHT_LIMIT = 200
   const [isExpanded, expandContent] = useShowMoreContent()
@@ -297,16 +299,20 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                             ))}
                           </Grid>
                           <Grid container item gap={1}>
-                            {images.map((file) => (
-                              <Grid item key={file.id}>
-                                <Image
-                                  src={file.imgSource}
-                                  width={164}
-                                  height={120}
-                                  alt={file.id}
-                                />
-                              </Grid>
-                            ))}
+                            {images.map((file, index) => {
+                              return (
+                                <Grid item key={file.id}>
+                                  <WithFullScreenSlider
+                                    images={images}
+                                    src={file.src}
+                                    width={164}
+                                    height={120}
+                                    alt={file.id}
+                                    index={index}
+                                  />
+                                </Grid>
+                              )
+                            })}
                           </Grid>
                         </Grid>
                       )}

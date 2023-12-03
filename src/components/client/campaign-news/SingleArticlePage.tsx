@@ -143,7 +143,7 @@ export default function SingleArticlePage({ slug }: Props) {
             <Grid container item gap={1} xs={'auto'} style={{ maxWidth: '100%' }}>
               {images.map((file) => (
                 <Grid item key={file.id}>
-                  <Image src={file.imgSource} width={220} height={120} alt={file.id} />
+                  <Image src={file.src} width={220} height={120} alt={file.id} />
                 </Grid>
               ))}
             </Grid>
