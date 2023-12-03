@@ -110,7 +110,7 @@ export type CampaignResponse = BaseCampaignResponse & {
     id: UUID
     person: { id: UUID; firstName: string; lastName: string; email: string }
   }
-  campaignFiles?: CampaignFile[]
+  campaignFiles: CampaignFile[] | []
   vaults?: VaultResponse[]
   defaultVault?: UUID
   campaignNews: CampaignNewsResponse[] | []

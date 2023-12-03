@@ -20,12 +20,14 @@ export function GetArticleDocuments(files: CampaignNewsFile[]) {
 }
 
 export function GetArticleGalleryPhotos(files: CampaignNewsFile[]) {
+  const fileExtensionRemoverRegex = /.\w*$/
   return files
     .filter((file) => file.role === CampaignFileRole.gallery)
     .map((file) => {
       return {
         id: file.id,
-        imgSource: `${publicRuntimeConfig.API_URL}/campaign-news-file/${file.id}`,
+        src: `${publicRuntimeConfig.API_URL}/campaign-news-file/${file.id}`,
+        fileName: file.filename.replace(fileExtensionRemoverRegex, ''),
       }
     })
 }
