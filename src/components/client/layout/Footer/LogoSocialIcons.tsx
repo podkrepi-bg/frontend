@@ -6,7 +6,6 @@ import { Grid } from '@mui/material'
 import { routes } from 'common/routes'
 import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
 import { SocialIcons } from './SocialIcons'
-// import { SubscribeBtn } from './SubscribeBtn'
 
 export const LogoSocialIcons = () => {
   const { locale } = useRouter()
@@ -20,8 +19,6 @@ export const LogoSocialIcons = () => {
         </Link>
       </Grid>
       <SocialIcons />
-      {/* Hide until notifications is ready */}
-      {/* <SubscribeBtn /> */}
     </Grid>
   )
 }

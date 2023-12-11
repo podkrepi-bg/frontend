@@ -136,7 +136,9 @@ export default function CampaignDetails({ campaign }: Props) {
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
       <Grid container spacing={8}>
-        {subscribeIsOpen && (
+        {/* The following should be uncommented when the backend is ready */}
+
+        {/* {subscribeIsOpen && (
           <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
         )}
         <Grid item xs={12} display="flex" sx={{ mt: 1.5 }}>
@@ -150,7 +152,7 @@ export default function CampaignDetails({ campaign }: Props) {
           <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
             {t('campaigns:cta.subscribe')}
           </Typography>
-        </Grid>
+        </Grid> */}
         {/* just to test the page. to be removed 
         <SubscriptionPage email={"admin@abv.bg"} campaign={"odit-accusamus-quasi"} consent={"yes"} hash={"fdgfds"}/> */}
         <Grid item xs={12} style={{ paddingTop: '20px' }}>
@@ -210,7 +212,9 @@ export default function CampaignDetails({ campaign }: Props) {
           ''
         )}
         <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
-        {subscribeIsOpen && (
+        {/* The following should be uncommented when the backend is ready */}
+
+        {/* {subscribeIsOpen && (
           <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
         )}
         <Grid item xs={12} display="flex">
@@ -224,7 +228,7 @@ export default function CampaignDetails({ campaign }: Props) {
           <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
             {t('campaigns:cta.subscribe')}
           </Typography>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <CampaignInfoOperator campaign={campaign} />
         </Grid>
