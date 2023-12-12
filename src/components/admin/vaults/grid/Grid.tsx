@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import {
+  DataGrid,
+  GridColDef,
+  GridRenderCellParams,
+  GridValueFormatterParams,
+} from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
@@ -17,7 +22,7 @@ import { money } from 'common/util/money'
 import theme from 'common/theme'
 
 export default observer(function Grid() {
-  const { t } = useTranslation('vaults')
+  const { t, i18n } = useTranslation('vaults')
   const { data }: UseQueryResult<VaultResponse[]> = useVaultsList()
   const { isDetailsOpen } = ModalStore
   const [paginationModel, setPaginationModel] = useState({
@@ -31,7 +36,7 @@ export default observer(function Grid() {
     headerAlign: 'left',
   }
 
-  const columns: GridColDef[] = [
+  const columns: GridColDef<VaultResponse>[] = [
     {
       field: 'actions',
       headerName: t('actions'),
@@ -78,7 +83,7 @@ export default observer(function Grid() {
       ),
     },
     {
-      field: 'reachedAmound',
+      field: 'reachedAmount',
       headerName: t('amount'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => (
@@ -86,14 +91,26 @@ export default observer(function Grid() {
       ),
     },
     {
+      field: 'withdrawnAmount',
+      headerName: t('Успешно преведени'),
+      ...commonProps,
+      renderCell: (params: GridRenderCellParams) => <>{money(params.row.withdrawnAmount)}</>,
+    },
+    {
       field: 'createdAt',
       headerName: t('createdAt'),
       ...commonProps,
+      valueFormatter(params: GridValueFormatterParams<Date>) {
+        return new Date(params.value).toLocaleDateString(i18n.language)
+      },
     },
     {
       field: 'updatedAt',
       headerName: t('updatedAt'),
       ...commonProps,
+      valueFormatter(params: GridValueFormatterParams<Date>) {
+        return new Date(params.value).toLocaleDateString(i18n.language)
+      },
     },
     {
       field: 'campaignId',
