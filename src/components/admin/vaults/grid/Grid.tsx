@@ -114,8 +114,9 @@ export default observer(function Grid() {
     },
     {
       field: 'campaignId',
-      headerName: t('campaignId'),
+      headerName: t('Кампания'),
       ...commonProps,
+      renderCell: (params: GridRenderCellParams) => <>{params.row.campaign.title}</>,
       width: 450,
     },
   ]
