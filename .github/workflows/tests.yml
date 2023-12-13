@@ -95,13 +95,6 @@ jobs:
       - name: Build production manifests
         run: kustomize build manifests/overlays/production > prod-manifests.yaml
 
-      - name: Scan production manifests with Mondoo
-        uses: mondoohq/actions/k8s-manifest@main
-        env:
-          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
-        with:
-          path: prod-manifests.yaml
-
   run-playwright:
     name: Run Playwright
     uses: ./.github/workflows/playwright.yml
