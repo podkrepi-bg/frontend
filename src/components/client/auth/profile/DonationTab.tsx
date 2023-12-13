@@ -94,7 +94,7 @@ export default function DonationTab() {
   const router = useRouter()
   const { t } = useTranslation()
 
-  const { data: user } = getCurrentPerson(!!router.query?.register)
+  const { data: person } = getCurrentPerson(!!router.query?.register)
 
   if (router.query?.register) {
     delete router.query.register
@@ -107,7 +107,11 @@ export default function DonationTab() {
     <Root>
       <Box className={classes.boxTitle}>
         <Typography className={classes.h3}>
-          {user?.user ? user.user.firstName + ' ' + user.user.lastName + ',' : ''}{' '}
+          {person
+            ? person.user.company
+              ? `${person.user.company.companyName}`
+              : `${person.user.firstName} ${person.user.lastName}`
+            : null}{' '}
           {t('profile:donations.helpThanks')}{' '}
           <VolunteerActivismIcon fontSize="inherit" color="primary" />
         </Typography>

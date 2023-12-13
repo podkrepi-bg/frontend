@@ -1,6 +1,6 @@
 import getConfig from 'next/config'
 import { CampaignFile, CampaignResponse } from 'gql/campaigns'
-import { CampaignFileRole } from 'components/common/campaign-file/roles'
+import { CampaignFileRole, ImageSlider } from 'components/common/campaign-file/roles'
 
 const { publicRuntimeConfig } = getConfig()
 
@@ -18,16 +18,21 @@ function findFileWithRole(campaign: CampaignResponse, role: CampaignFileRole) {
 /**
  * Finds all files with given role
  */
-function filterFilesWithRole(campaign: CampaignResponse, role: CampaignFileRole) {
-  return campaign?.campaignFiles?.filter((file) => file.role == role)
+function filterFilesWithRole(campaign: CampaignResponse, role: CampaignFileRole[]) {
+  return campaign.campaignFiles.filter((file) => role.includes(file.role))
 }
 
-export function campaignSliderUrls(campaign: CampaignResponse): string[] {
-  const files = filterFilesWithRole(campaign, CampaignFileRole.campaignPhoto)
-  if (files && files.length > 0) {
-    return files.map((file) => fileUrl(file))
-  }
-  return []
+export function campaignSliderUrls(campaign: CampaignResponse): ImageSlider[] {
+  const sliderImageRoles = [CampaignFileRole.campaignPhoto, CampaignFileRole.gallery]
+  const files = filterFilesWithRole(campaign, sliderImageRoles)
+  const fileExtensionRemoverRegex = /.\w*$/
+  return files.map((file) => {
+    return {
+      id: file.id,
+      src: `${publicRuntimeConfig.API_URL}/campaign-file/${file.id}`,
+      fileName: file.filename.replace(fileExtensionRemoverRegex, ''),
+    }
+  })
 }
 
 export function campaignListPictureUrl(campaign: CampaignResponse): string {

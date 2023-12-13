@@ -107,6 +107,9 @@ export const routes = {
         slug ? `/campaigns/${slug}/news?page=${page}` : `/campaigns/news?page=${page}`,
       newsAdminPanel: (slug: string) => `/campaigns/${slug}/news/admin-panel`,
     },
+    statistics: {
+      viewBySlug: (slug: string) => `/campaigns/${slug}/statistics`,
+    },
   },
   donation: {
     viewCertificate: (donationId: string) => `/api/pdf/certificate/${donationId}`,
@@ -121,6 +124,7 @@ export const routes = {
     myCampaigns: '/profile/my-campaigns',
     recurringDonations: '/profile/recurring-donations',
     myNotifications: '/profile/my-notifications',
+    affiliateProgram: '/profile/affiliate-program',
   },
   register: '/register',
   aboutProject: '/about-project',
@@ -132,6 +136,7 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    affiliates: '/admin/affiliates',
     bankaccounts: {
       index: '/admin/bankaccounts',
       add: '/admin/bankaccounts/add',

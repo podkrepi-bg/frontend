@@ -17,6 +17,8 @@ import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
 import { scrollToTop } from './utils/scrollToTop'
 import { getArticleHeight } from './utils/getArticleHeight'
 
+import withFullScreenSlider from 'components/common/withFullScreenSlider'
+
 const PREFIX = 'CampaignNewsSection'
 const classes = {
   defaultPadding: `${PREFIX}-defaultPadding`,
@@ -81,7 +83,7 @@ export default function CampaignNewsList({ articles }: Props) {
   const { t, i18n } = useTranslation('news')
   const INITIAL_HEIGHT_LIMIT = 400
   const [isExpanded, expandContent] = useShowMoreContent()
-
+  const WithFullScreenSlider = withFullScreenSlider(Image)
   return (
     <>
       {articles?.map((article, index: number) => {
@@ -154,13 +156,25 @@ export default function CampaignNewsList({ articles }: Props) {
                   </Grid>
                 </Grid>
                 {article.newsFiles.length > 0 && (
-                  <Grid container item gap={1} xs={'auto'} style={{ maxWidth: '100%' }}>
-                    {images.map((file) => (
-                      <Grid item key={file.id}>
-                        <Image src={file.imgSource} width={220} height={120} alt={file.id} />
-                      </Grid>
-                    ))}
-                  </Grid>
+                  <>
+                    <Grid container item gap={1} xs={'auto'} style={{ maxWidth: '100%' }}>
+                      {images.map((file, index) => {
+                        return (
+                          <Grid item key={file.id}>
+                            <WithFullScreenSlider
+                              images={images}
+                              src={file.src}
+                              width={220}
+                              height={140}
+                              alt={file.fileName}
+                              index={index}
+                              style={{ objectFit: 'scale-down' }}
+                            />
+                          </Grid>
+                        )
+                      })}
+                    </Grid>
+                  </>
                 )}
               </Grid>
               {getArticleHeight(article.id) > INITIAL_HEIGHT_LIMIT && (

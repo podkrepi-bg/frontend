@@ -138,4 +138,28 @@ export const data: TeamData[] = [
     description: 'Маркетинг, Корпоративни дарения',
     linkedInProfile: 'https://www.linkedin.com/in/martaneshova/',
   },
+  {
+    img: '/img/team-photos/MartinaMitz.png',
+    name: 'Мартина Миц',
+    description: 'Дизайн, UX',
+    linkedInProfile: 'https://www.linkedin.com/in/martina-mitz/',
+  },
+  {
+    img: '/img/team-photos/MihailVladov.png',
+    name: 'Михаил Владов',
+    description: 'Социални медии',
+    linkedInProfile: 'https://www.linkedin.com/in/mihail-vladov-268616172/',
+  },
+  {
+    img: '/img/team-photos/NinaKonova.jpg',
+    name: 'Нина Конова',
+    description: 'Социални медии',
+    linkedInProfile: 'https://www.linkedin.com/in/nina-konova-59589a14a/',
+  },
+  {
+    img: '/img/team-photos/TeodoraGeorgieva.jpg',
+    name: 'Теодора Георгиева',
+    description: 'Социални медии',
+    linkedInProfile: 'https://www.linkedin.com/in/teodorageorgieva/',
+  },
 ]

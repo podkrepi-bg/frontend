@@ -7,6 +7,7 @@ import { Box, Chip, Grid } from '@mui/material'
 
 import { getExactDate } from 'common/util/date'
 import theme from 'common/theme'
+import { routes } from 'common/routes'
 
 import { StatusText, StatusLabel, RowWrapper, InfoStatusWrapper } from './CampaignInfo.styled'
 
@@ -55,10 +56,22 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
           size="small"
           sx={{ backgroundColor: theme.palette.primary.light }}
         />
+        {!!campaign.summary.reachedAmount && (
+          <Chip
+            component="a"
+            label={t('campaigns:statistics.button')}
+            href={routes.campaigns.statistics.viewBySlug(campaign.slug)}
+            clickable
+            size="small"
+            sx={{ backgroundColor: theme.palette.primary.light }}
+          />
+        )}
       </Box>
       <InfoStatusWrapper>
         <Grid item xs={12} md={6}>
-          <StatusLabel>{campaign.campaignType.name}</StatusLabel>
+          <StatusLabel>
+            {t(`campaigns:campaignTypesFields.${campaign.campaignType.slug}`)}
+          </StatusLabel>
           <RowWrapper>
             <StatusLabel variant="body2">{t('campaigns:campaign.status')}</StatusLabel>
             <StatusText>{t(`campaigns:campaign-status.${campaign.state}`)}</StatusText>

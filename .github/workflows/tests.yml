@@ -20,12 +20,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Build
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         env:
           NODE_ENV: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -53,12 +53,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Build
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           push: false
           file: Dockerfile.maintenance
@@ -75,12 +75,12 @@ jobs:
     name: Scan k8s manifests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install kustomize
-        uses: imranismail/setup-kustomize@v1
+        uses: imranismail/setup-kustomize@v2
 
       - name: Build development manifests
         run: kustomize build manifests/overlays/development > dev-manifests.yaml

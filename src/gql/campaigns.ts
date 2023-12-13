@@ -87,7 +87,14 @@ export type CampaignResponse = BaseCampaignResponse & {
     category: CampaignTypeCategory
     slug: string
   }
-  summary: { reachedAmount: number; donors?: number }
+  summary: {
+    reachedAmount: number
+    donors?: number
+    guaranteedAmount: number
+    withdrawnAmount: number
+    blockedAmount: number
+    currentAmount: number
+  }
   beneficiary: {
     id: UUID
     type: BeneficiaryType
@@ -103,7 +110,7 @@ export type CampaignResponse = BaseCampaignResponse & {
     id: UUID
     person: { id: UUID; firstName: string; lastName: string; email: string }
   }
-  campaignFiles?: CampaignFile[]
+  campaignFiles: CampaignFile[] | []
   vaults?: VaultResponse[]
   defaultVault?: UUID
   campaignNews: CampaignNewsResponse[] | []
@@ -185,7 +192,29 @@ export type CampaignDonation = {
   person: {
     firstName: string
     lastName: string
+    company: {
+      companyName: string
+    }
   }
+  metadata: {
+    name: string
+  }
+}
+
+export type CampaignGroupedDonations = {
+  sum: number
+  count: number
+  date: string
+}
+
+export type CampaignUniqueDonations = {
+  amount: number
+  count: number
+}
+
+export type CampaignHourlyDonations = {
+  hour: number
+  count: number
 }
 
 export type CampaignDonationHistoryResponse = {

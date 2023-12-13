@@ -9,12 +9,16 @@ import {
   AdminCampaignResponse,
   AdminSingleCampaignResponse,
   CampaignDonationHistoryResponse,
+  CampaignGroupedDonations,
+  CampaignUniqueDonations,
+  CampaignHourlyDonations,
 } from 'gql/campaigns'
 import { DonationStatus } from 'gql/donations.enums'
 import { apiClient } from 'service/apiClient'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { isAdmin } from 'common/util/roles'
 import { AxiosError } from 'axios'
+import { StatisticsGroupBy } from 'components/client/campaigns/helpers/campaign.enums'
 
 // NOTE: shuffling the campaigns so that each gets its fair chance to be on top row
 export const campaignsOrderQueryFunction: QueryFunction<CampaignResponse[]> = async ({
@@ -107,6 +111,25 @@ export function useCampaignDetailsPage(id: string) {
     [endpoints.campaign.viewCampaignById(id).url],
     authQueryFnFactory<CampaignResponse>(session?.accessToken),
   )
+}
+
+export function useCampaignGroupedDonations(
+  campaignId: string,
+  groupBy: StatisticsGroupBy = StatisticsGroupBy.DAY,
+) {
+  return useQuery<CampaignGroupedDonations[]>([
+    endpoints.statistics.getGroupedDonations(campaignId, groupBy).url,
+  ])
+}
+export function useCampaignUniqueDonations(campaignId: string) {
+  return useQuery<CampaignUniqueDonations[]>([
+    endpoints.statistics.getUniqueDonations(campaignId).url,
+  ])
+}
+export function useCampaignHourlyDonations(campaignId: string) {
+  return useQuery<CampaignHourlyDonations[]>([
+    endpoints.statistics.getHourlyDonations(campaignId).url,
+  ])
 }
 
 export function useCampaignDonationHistory(

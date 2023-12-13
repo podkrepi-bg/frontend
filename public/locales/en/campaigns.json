@@ -40,6 +40,25 @@
   "deleteContent": "This action cannot be undone.",
   "deleteAllContent": "This action cannot be undone.",
   "actions": "Actions",
+  "statistics": {
+    "button": "Donation statistics",
+    "backButton": "Go back",
+    "cachedMessage": "Please note that the charts are using cached data!",
+    "cumulativeTitle": "Cumulative donations chart",
+    "cumulativeDesc": "Shows total donated amount to date",
+    "total": "Total",
+    "groupedTitle": "Grouped donations chart",
+    "groupedDesc": "Shows total donated amount per selected period",
+    "count": "Donations",
+    "groupBy": "Group by",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "uniqueTitle": "Unique donations chart",
+    "uniqueDesc": "Shows number of donations with the same unique amount",
+    "hourlyTitle": "Hourly donations chart",
+    "hourlyDesc": "Shows number of donations for each hour of the day"
+  },
   "alerts": {
     "selectRow": "Please select a row",
     "create": "Campaign created successfully",
@@ -213,7 +232,8 @@
   "donations": {
     "anonymous": "Anonymous",
     "none": "No donations yet",
-    "lv": "lv."
+    "lv": "lv.",
+    "corporate-donor": "Corporate Donor"
   },
   "campaign-status": {
     "initial": "Initial",
@@ -245,7 +265,7 @@
     "education": "Education",
     "culture": "Culture",
     "nature": "Nature",
-    "humanRights": "Human rights",
+    "human-rights": "Human rights",
     "animals": "Animals",
     "disasters": "Disasters"
   }

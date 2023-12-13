@@ -251,11 +251,12 @@ type Props = {
 export default function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation('campaigns')
   const { asPath } = useRouter()
-  const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
+  const [status, copyUrl] = useCopyToClipboard(1000)
+  const [subscribeIsOpen, setSubscribeOpen] = useState(false)
   const active = status === 'copied' ? 'inherit' : 'primary'
   const [page, setPage] = useState<number>(0)
-  const pageSize = 5
-
+  const { mobile } = useMobile()
+  const pageSize = mobile ? 3 : 5
   const {
     id: campaignId,
     targetAmount: target,
@@ -264,16 +265,15 @@ export default function InlineDonation({ campaign }: Props) {
     state: campaignState,
     slug: campaignSlug,
   } = campaign
-  const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
+  const reached = summary ? summary.reachedAmount + summary.guaranteedAmount : 0
+  const reachedAmount = moneyPublic(reached)
   const targetAmount = moneyPublic(campaign.targetAmount)
-  const reached = summary?.reachedAmount ?? 0
   const donors = summary?.donors ?? 0
   const {
     data: { items: donations, total: all_rows } = { items: [] },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
   } = useCampaignDonationHistory(campaignId, page, pageSize)
-  const { mobile } = useMobile()
   const [isOpen, setIsOpen] = useState(false)
   const rowCount = page * pageSize + donations.length
   const detailsShown = isOpen || !mobile
@@ -408,7 +408,7 @@ export default function InlineDonation({ campaign }: Props) {
             label="Копирайте връзка към кампанията"
             onClick={() => {
               AlertStore.show(t('common:alerts.message-copy'), 'success')
-              copyUrl()
+              copyUrl(baseUrl + asPath)
             }}
             color={active}
           />
@@ -442,6 +442,7 @@ export default function InlineDonation({ campaign }: Props) {
                   classes.donorsWishesTab,
                   selected === 'donors' && classes.selected,
                 ].join(' ')}
+                data-testid="summary-donors"
                 onClick={() => setSelected('donors')}>{`${t(
                 'campaign.donors',
               )} (${donors})`}</Typography>
@@ -450,6 +451,7 @@ export default function InlineDonation({ campaign }: Props) {
                   classes.donorsWishesTab,
                   selected === 'wishes' && classes.selected,
                 ].join(' ')}
+                data-testid="summary-wishes"
                 onClick={() => setSelected('wishes')}>{`${t('campaign.wishes')} (${
                 wishList?.totalCount
               })`}</Typography>

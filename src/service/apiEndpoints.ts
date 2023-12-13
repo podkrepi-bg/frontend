@@ -1,5 +1,6 @@
 import { Method } from 'axios'
 import { DonationStatus } from 'gql/donations.enums'
+import { StatisticsGroupBy } from 'components/client/campaigns/helpers/campaign.enums'
 import { FilterData, PaginationData, SortData } from 'gql/types'
 
 type Endpoint = {
@@ -13,6 +14,20 @@ export const endpoints = {
     register: <Endpoint>{ url: '/register', method: 'POST' },
     refresh: <Endpoint>{ url: '/refresh', method: 'POST' },
     providerLogin: <Endpoint>{ url: '/provider-login', method: 'POST' },
+  },
+  affiliate: {
+    join: <Endpoint>{ url: '/affiliate/join', method: 'POST' },
+    getAffiliates: <Endpoint>{ url: '/affiliate/list-all', method: 'GET' },
+    getData: <Endpoint>{ url: '/affiliate/data', method: 'GET' },
+    cancelDonation: (affiliateCode: string, donationId: string) =>
+      <Endpoint>{
+        url: `/affiliate/${affiliateCode}/donations/${donationId}/cancel`,
+        method: 'PATCH',
+      },
+    refreshCode: (affiliateId: string) =>
+      <Endpoint>{ url: `/affiliate/${affiliateId}/code-refresh`, method: 'PATCH' },
+    updateStatus: (affiliateId: string) =>
+      <Endpoint>{ url: `/affiliate/${affiliateId}/status`, method: 'PATCH' },
   },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
@@ -85,6 +100,14 @@ export const endpoints = {
     createSupportRequest: <Endpoint>{ url: '/support/create-request', method: 'POST' },
     supportRequestList: <Endpoint>{ url: '/support/support-request/list', method: 'GET' },
     infoRequestList: <Endpoint>{ url: '/support/info-request/list', method: 'GET' },
+  },
+  statistics: {
+    getGroupedDonations: (id: string, groupBy: StatisticsGroupBy) =>
+      <Endpoint>{ url: `statistics/donations/${id}?groupBy=${groupBy}`, method: 'GET' },
+    getUniqueDonations: (id: string) =>
+      <Endpoint>{ url: `statistics/unique-donations/${id}`, method: 'GET' },
+    getHourlyDonations: (id: string) =>
+      <Endpoint>{ url: `statistics/hourly-donations/${id}`, method: 'GET' },
   },
   donation: {
     prices: <Endpoint>{ url: '/donation/prices', method: 'GET' },
@@ -286,6 +309,8 @@ export const endpoints = {
     me: <Endpoint>{ url: '/account/me', method: 'GET' },
     update: <Endpoint>{ url: '/account/me', method: 'PATCH' },
     updatePassword: <Endpoint>{ url: '/account/me/credentials', method: 'PATCH' },
+    updateProfileActiveStatus: (keycloakId: string) =>
+      <Endpoint>{ url: `/account/${keycloakId}/status`, method: 'PATCH' },
     forgottenPassword: <Endpoint>{ url: '/login/forgot-password', method: 'POST' },
     resetPassword: <Endpoint>{ url: '/login/reset-password', method: 'POST' },
     delete: <Endpoint>{ url: '/account/me', method: 'DELETE' },

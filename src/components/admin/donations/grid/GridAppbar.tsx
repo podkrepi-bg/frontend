@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Box, TextField, Toolbar, Tooltip, Typography } from '@mui/material'
+import { Box, Button, TextField, Toolbar, Tooltip, Typography } from '@mui/material'
 import { Receipt, GetApp as DownloadFileIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
@@ -77,13 +77,16 @@ export default function GridAppbar() {
       />
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={t('donations:form-heading-bank-transactions-file') || ''}>
-            <Receipt
-              sx={addIconStyles}
-              fontSize="large"
-              onClick={() => router.push(routes.admin.donations.addBankTransactionsFile)}
-            />
-          </Tooltip>
+          {/* button is disabled because we have a bug(conflicting bank donations) https://github.com/podkrepi-bg/frontend/issues/1649 */}
+          <Button disabled>
+            <Tooltip title={t('donations:form-heading-bank-transactions-file') || ''}>
+              <Receipt
+                sx={addIconStyles}
+                fontSize="large"
+                onClick={() => router.push(routes.admin.donations.addBankTransactionsFile)}
+              />
+            </Tooltip>
+          </Button>
           <Tooltip title={t('donations:cta:download') || ''}>
             <DownloadFileIcon
               sx={addIconStyles}

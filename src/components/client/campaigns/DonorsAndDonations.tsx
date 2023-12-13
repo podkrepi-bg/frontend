@@ -12,6 +12,7 @@ import theme from 'common/theme'
 import { moneyPublic } from 'common/util/money'
 import { formatDistanceStrict, parseISO } from 'date-fns'
 import { bg, enUS } from 'date-fns/locale'
+import { DonationType } from 'gql/donations.enums'
 
 const PREFIX = 'DonorsAndDonations'
 
@@ -33,8 +34,8 @@ const Root = styled('div')(({ theme }) => ({
     display: 'flex',
     gap: theme.spacing(1),
     alignItems: 'center',
-    marginBottom: theme.spacing(1.7),
-    maxHeight: theme.spacing(4.5),
+    marginBottom: theme.spacing(1),
+    // maxHeight: theme.spacing(7),
 
     '&:last-of-type': {
       marginBottom: 0,
@@ -68,11 +69,7 @@ const Root = styled('div')(({ theme }) => ({
   },
 }))
 
-export default function DonorsAndDonations({
-  donations,
-}: {
-  donations: CampaignDonation[] | undefined
-}) {
+export default function DonorsAndDonations({ donations }: { donations: CampaignDonation[] }) {
   const { t, i18n } = useTranslation()
   const all = false
   const shownDonationsNumber = 5
@@ -85,17 +82,61 @@ export default function DonorsAndDonations({
 
   return (
     <Root>
-      <Grid item className={classes.donationsWrapper}>
+      <Grid item className={classes.donationsWrapper} data-testid="summary-donors-wrapper">
         {donationsToShow && donationsToShow.length !== 0 ? (
-          donationsToShow.map(({ person, amount, createdAt, currency }, key) => (
+          donationsToShow.map(({ type, metadata, person, amount, createdAt, currency }, key) => (
             <Grid key={key} className={classes.donationItemWrapper}>
-              <AccountCircleIcon color="disabled" className={classes.donatorAvatar} />
+              <AccountCircleIcon
+                sx={{ position: 'relative', bottom: !metadata || !metadata.name ? 0 : 8 }}
+                color="disabled"
+                className={classes.donatorAvatar}
+              />
               <Grid>
-                <Typography className={classes.donatorName}>
-                  {person
-                    ? `${person.firstName} ${person.lastName}`
-                    : t('campaigns:donations.anonymous')}
-                </Typography>
+                {type === DonationType.donation && (
+                  <Typography className={classes.donatorName}>
+                    {person
+                      ? `${person.firstName} ${person.lastName}`
+                      : t('campaigns:donations.anonymous')}
+                  </Typography>
+                )}
+                {type === DonationType.corporate && (
+                  <>
+                    {!metadata || !metadata.name ? (
+                      <Typography className={classes.donatorName}>
+                        {person && person.company
+                          ? `${person.company.companyName}`
+                          : t('campaigns:donations.corporate-donor')}
+                      </Typography>
+                    ) : (
+                      <>
+                        <Typography className={classes.donatorName}>{metadata.name}</Typography>
+                        <Typography sx={{ fontSize: 12 }}>
+                          {t('campaigns:campaign.from')}{' '}
+                          {person
+                            ? person.company.companyName
+                            : t('campaigns:donations.corporate-donor')}
+                        </Typography>
+                      </>
+                    )}
+                  </>
+                )}
+                {/* {!metadata && (
+                  <Typography className={classes.donatorName}>
+                    {person
+                      ? person.company
+                        ? `${person.company.companyName}`
+                        : `${person.firstName} ${person.lastName}`
+                      : t('campaigns:donations.anonymous')}
+                  </Typography>
+                )}
+                {metadata && person && (
+                  <>
+                    <Typography className={classes.donatorName}>{metadata.name}</Typography>
+                    <Typography sx={{ fontSize: 12 }}>
+                      {t('campaigns:campaign.from')} {person.company.companyName}
+                    </Typography>
+                  </>
+                )} */}
                 <Grid className={classes.donationQuantityAndTimeWrapper}>
                   <Typography>{moneyPublic(amount, currency)}</Typography>
                   <span className={classes.separatorIcon}>|</span>
