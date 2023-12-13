@@ -39,9 +39,7 @@ export default function PlatformStatisticsSection() {
             endIcon={<ArrowForwardSharp />}>
             {t('index:platform-statistics.donate-to-those-in-need')}
           </HelpThoseInNeedButton>
-          {/* The following should be uncommented when the backend is ready */}
-
-          {/* {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
+          {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
           <Grid item xs={12} display="flex" sx={{ mt: 1.5, mb: 0.5 }}>
             <EmailIcon
               color="primary"
@@ -54,13 +52,13 @@ export default function PlatformStatisticsSection() {
               {t('campaigns:cta.subscribeGeneral')}
             </SubscribeHeading>
           </Grid>
-           <Subtitle>{t('campaigns:cta.subscribeGeneralSubtext')}</Subtitle>
+          <Subtitle>{t('campaigns:cta.subscribeGeneralSubtext')}</Subtitle>
           <SubscribeButton
             onClick={() => setSubscribeOpen(true)}
             variant="contained"
             endIcon={<ArrowForwardSharp />}>
             {t('campaigns:cta.subscribeGeneralButton')}
-          </SubscribeButton> */}
+          </SubscribeButton>
         </Grid>
         <Statistics />
       </SectionGridWrapper>

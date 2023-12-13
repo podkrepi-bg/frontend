@@ -33,9 +33,7 @@ export default function IndexPage() {
       <PartnersSection />
       <TeamMembersSection />
       <JoinPodkrepiBgSection />
-      {/* The following should be uncommented when the backend is ready */}
-
-      {/* <SubscriptionSection /> */}
+      <SubscriptionSection />
       <FaqSection />
     </Layout>
   )

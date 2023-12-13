@@ -46,9 +46,7 @@ export default function TeamMembersSection() {
           <OutlinedButton href={routes.about} variant="outlined" endIcon={<ChevronRightIcon />}>
             {t('team-section.meet-our-team')}
           </OutlinedButton>
-          {/* The following should be uncommented when the backend is ready */}
-
-          {/* {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
+          {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
           <Grid item xs={12} display="flex" sx={{ mt: 7.5, mb: 0.5 }} justifyContent="center">
             <EmailIcon
               color="primary"
@@ -67,7 +65,7 @@ export default function TeamMembersSection() {
             variant="contained"
             endIcon={<ArrowForwardSharp />}>
             {t('campaigns:cta.subscribe-general-newsletter-button')}
-          </SubscribeButton> */}
+          </SubscribeButton>
         </Grid>
       </SectionGridWrapper>
     </Root>

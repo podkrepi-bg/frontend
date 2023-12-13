@@ -66,10 +66,6 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
   const { status } = useSession()
 
   const [loading, setLoading] = useState(false)
-
-  // When the backend is ready this useState should be deleted
-
-  const [userEmail, setUserEmail] = useState('')
   const [isSuccess, setIsSuccess] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
   const router = useRouter()
@@ -79,43 +75,33 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
     AlertStore.show(error ? error : t('common:alerts.error'), 'error')
   }
 
-  // When the backend is ready this mutation should be in force
+  const mutation = useMutation<
+    AxiosResponse<SendConfirmationEmailResponse>,
+    AxiosError<ApiError>,
+    SendConfirmationEmailInput
+  >({
+    mutationFn: useSendConfirmationEmail(),
+    onError: (error) => handleError(error),
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.message-sent'), 'success')
 
-  // const mutation = useMutation<
-  //   AxiosResponse<SendConfirmationEmailResponse>,
-  //   AxiosError<ApiError>,
-  //   SendConfirmationEmailInput
-  // >({
-  //   mutationFn: useSendConfirmationEmail(),
-  //   onError: (error) => handleError(error),
-  //   onSuccess: () => {
-  //     AlertStore.show(t('common:alerts.message-sent'), 'success')
-
-  //     setIsSuccess(true)
-  //   },
-  // })
+      setIsSuccess(true)
+    },
+  })
 
   const handleClose = () => {
     setOpen(false)
   }
 
-  // When the backend is ready this onSubmit function should be in force
-
-  // async function onSubmit(values: { email: string }) {
-  //   setLoading(true)
-  //   try {
-  //     await mutation.mutateAsync(values)
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
-
-  // When the backend is ready this onSubmit function should be deleted
-
-  const onSubmit = (values: { email: string; consent: boolean }) => {
-    setUserEmail(values.email)
-    setIsSuccess(true)
+  async function onSubmit(values: { email: string }) {
+    setLoading(true)
+    try {
+      await mutation.mutateAsync(values)
+    } finally {
+      setLoading(false)
+    }
   }
+
   const SubscribeForm = () => {
     return (
       <GenericForm
@@ -157,9 +143,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
     if (status !== 'authenticated') {
       router.push(routes.login)
     } else {
-      // When the backend is ready this onSubmit function should be with real email and consent taken from the form
-
-      onSubmit({ email: user?.user?.email || '', consent: user?.user?.newsletter || true })
+      onSubmit({ email: user?.user?.email || '' })
       handleClose()
     }
   }
@@ -264,7 +248,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
                   <Trans
                     t={t}
                     i18nKey="campaigns:subscribe.confirm-sent"
-                    values={{ email: userEmail }}></Trans>
+                    values={{ email: user?.user?.email }}></Trans>
                 </Typography>
               </React.Fragment>
             </DialogContent>

@@ -29,10 +29,6 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 import CampaignPublicExpensesChart from './CampaignPublicExpensesChart'
 import EmailIcon from '@mui/icons-material/Email'
 import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
-{
-  /*  just to test the page. to be removed 
-// import SubscriptionPage from '../notifications/SubscriptionPage'*/
-}
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
@@ -136,9 +132,7 @@ export default function CampaignDetails({ campaign }: Props) {
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
       <Grid container spacing={8}>
-        {/* The following should be uncommented when the backend is ready */}
-
-        {/* {subscribeIsOpen && (
+        {subscribeIsOpen && (
           <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
         )}
         <Grid item xs={12} display="flex" sx={{ mt: 1.5 }}>
@@ -152,9 +146,7 @@ export default function CampaignDetails({ campaign }: Props) {
           <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
             {t('campaigns:cta.subscribe')}
           </Typography>
-        </Grid> */}
-        {/* just to test the page. to be removed 
-        <SubscriptionPage email={"admin@abv.bg"} campaign={"odit-accusamus-quasi"} consent={"yes"} hash={"fdgfds"}/> */}
+        </Grid>
         <Grid item xs={12} style={{ paddingTop: '20px' }}>
           <ReactQuill readOnly theme="bubble" value={campaign.description} />
         </Grid>
@@ -212,9 +204,7 @@ export default function CampaignDetails({ campaign }: Props) {
           ''
         )}
         <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
-        {/* The following should be uncommented when the backend is ready */}
-
-        {/* {subscribeIsOpen && (
+        {subscribeIsOpen && (
           <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
         )}
         <Grid item xs={12} display="flex">
@@ -228,7 +218,7 @@ export default function CampaignDetails({ campaign }: Props) {
           <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
             {t('campaigns:cta.subscribe')}
           </Typography>
-        </Grid> */}
+        </Grid>
         <Grid item xs={12}>
           <CampaignInfoOperator campaign={campaign} />
         </Grid>
