@@ -203,7 +203,7 @@ type CampaignFinanceProps = Props & {
   expenses: number
 }
 const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) => {
-  const total = campaign.summary.guaranteedAmount + campaign.summary.reachedAmount
+  const total = (campaign.summary.guaranteedAmount ?? 0) + campaign.summary.reachedAmount
   const transferred = campaign.summary.blockedAmount + campaign.summary.withdrawnAmount
   return (
     <StyledGrid item>
@@ -219,7 +219,7 @@ const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) =>
         </Tooltip>
       </Typography>
       <Typography className={classes.financeSummary}>
-        Гарантирани: {moneyPublic(campaign.summary.guaranteedAmount)}
+        Гарантирани: {moneyPublic(campaign.summary.guaranteedAmount ?? 0)}
         <Tooltip
           enterTouchDelay={0}
           title={
