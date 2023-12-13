@@ -26,9 +26,7 @@ export const SocialIcons = () => {
         aria-label={t('components.footer.social.instagram')}>
         <Instagram />
       </ExternalLink>
-      {/* The following should be uncommented when the backend is ready */}
-
-      {/* <Subscription /> */}
+      <Subscription />
     </SocialIconsWrapper>
   )
 }
