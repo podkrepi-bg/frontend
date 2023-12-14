@@ -69,7 +69,9 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
       </Box>
       <InfoStatusWrapper>
         <Grid item xs={12} md={6}>
-          <StatusLabel>{campaign.campaignType.name}</StatusLabel>
+          <StatusLabel>
+            {t(`campaigns:campaignTypesFields.${campaign.campaignType.category}`)}
+          </StatusLabel>
           <RowWrapper>
             <StatusLabel variant="body2">{t('campaigns:campaign.status')}</StatusLabel>
             <StatusText>{t(`campaigns:campaign-status.${campaign.state}`)}</StatusText>
