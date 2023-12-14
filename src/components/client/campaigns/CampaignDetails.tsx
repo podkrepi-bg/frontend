@@ -155,22 +155,21 @@ export default function CampaignDetails({ campaign }: Props) {
             </Typography>
             <CampaignFinanceSummary campaign={campaign} expenses={totalExpenses ?? 0} />
           </Grid>
-          {expensesList?.length ||
-            (canEditCampaign && (
-              <>
-                <Grid item xs={12}>
-                  <CampaignPublicExpensesChart
-                    slug={campaign.slug}
-                    height={120}
-                    reachedAmount={campaign.summary.reachedAmount}
-                    currency={campaign.currency}
-                  />
-                </Grid>
-                <Grid item xs={12} mt={2}>
-                  <CampaignPublicExpensesGrid slug={campaign.slug} />
-                </Grid>
-              </>
-            ))}
+          {(expensesList?.length || canEditCampaign) && (
+            <>
+              <Grid item xs={12}>
+                <CampaignPublicExpensesChart
+                  slug={campaign.slug}
+                  height={120}
+                  reachedAmount={campaign.summary.reachedAmount}
+                  currency={campaign.currency}
+                />
+              </Grid>
+              <Grid item xs={12} mt={2}>
+                <CampaignPublicExpensesGrid slug={campaign.slug} />
+              </Grid>
+            </>
+          )}
         </Grid>
         <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
         <Grid item xs={12} id="wishes">
