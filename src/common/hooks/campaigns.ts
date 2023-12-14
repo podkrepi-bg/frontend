@@ -43,11 +43,11 @@ export const campaignsOrderQueryFunction: QueryFunction<CampaignResponse[]> = as
   return shuffledActiveCampaigns.concat(shuffledInactiveCampaigns)
 }
 
-export function useCampaignList() {
+export function useCampaignList(prefetched = false) {
   return useQuery<CampaignResponse[]>(
     [endpoints.campaign.listCampaigns.url],
     campaignsOrderQueryFunction,
-    { enabled: false },
+    { enabled: !prefetched },
   )
 }
 

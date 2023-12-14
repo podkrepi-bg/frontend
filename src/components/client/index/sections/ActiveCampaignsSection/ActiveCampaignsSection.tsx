@@ -14,7 +14,7 @@ import {
 
 export default function ActiveCampaignsSection() {
   const { t } = useTranslation('index')
-  const { data } = useCampaignList()
+  const { data } = useCampaignList(true)
   const activeCampaigns = data
     ?.filter((campaign) => campaign.state === CampaignState.active)
     .slice(0, 5)

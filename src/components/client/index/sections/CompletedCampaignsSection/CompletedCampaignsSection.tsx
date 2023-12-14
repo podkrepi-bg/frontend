@@ -30,7 +30,7 @@ import {
 
 export default function CompletedCampaignsSection() {
   const { t } = useTranslation('campaigns')
-  const { data } = useCampaignList()
+  const { data } = useCampaignList(true)
 
   const completedCampaigns = data?.filter(
     (campaign: CampaignResponse) =>
