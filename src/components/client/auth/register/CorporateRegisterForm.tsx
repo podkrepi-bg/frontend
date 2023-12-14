@@ -9,7 +9,7 @@ import PasswordField from 'components/common/form/PasswordField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import EmailField from 'components/common/form/EmailField'
-import AcceptNewsLetterField from 'components/common/form/AcceptNewsletterField'
+import { AcceptNewsLetterField } from 'components/common/form/AcceptNewsletterField'
 
 import { AccountType } from 'gql/user-registration'
 import { validateEIK13, validateEIK9 } from 'components/common/validations/EIKValidator'

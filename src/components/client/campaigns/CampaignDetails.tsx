@@ -7,7 +7,7 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import 'react-quill/dist/quill.bubble.css'
 
-import { Divider, Grid, IconButton, Tooltip, Typography } from '@mui/material'
+import { Divider, Grid, IconButton, Stack, Tooltip, Typography } from '@mui/material'
 import SecurityIcon from '@mui/icons-material/Security'
 import { styled } from '@mui/material/styles'
 
@@ -106,7 +106,8 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       transform: 'scale(1.01)',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-
+    },
+  },
   [`& .${classes.financeSummary}`]: {
     fontSize: `1.2rem`,
     [theme.breakpoints.up('sm')]: {
@@ -137,63 +138,33 @@ export default function CampaignDetails({ campaign }: Props) {
         campaign={campaign}
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
-      <Grid container spacing={8}>
-        {subscribeIsOpen && (
-          <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
-        )}
-        <Grid item xs={12} display="flex" sx={{ mt: 1.5 }}>
-          <EmailIcon
-            color="primary"
-            fontSize="small"
-            sx={{ mr: 0.5 }}
-            onClick={() => setSubscribeOpen(true)}
-            cursor="pointer"
-          />
-          <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
-            {t('campaigns:cta.subscribe')}
-          </Typography>
-        </Grid>
-        <Grid item xs={12} style={{ paddingTop: '20px' }}>
-          <ReactQuill readOnly theme="bubble" value={campaign.description} />
-        </Grid>
-        <Grid item xs={12}>
-          <CampaignImageSlider sliderImages={sliderImages} />
-        </Grid>
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
-        {expensesList?.length || canEditCampaign ? (
-          <Grid item xs={12} id="expenses">
-            <Grid item xs={12}>
-              <Typography variant="h4" component="h4" my={4}>
-                {t('campaigns:campaign.financial-report')} <Assessment />
-                {canEditCampaign ? (
-                  <Tooltip title={t('campaigns:cta.edit')}>
-                    <LinkButton
-                      href={routes.campaigns.viewExpenses(campaign.slug)}
-                      variant="contained"
-                      endIcon={<EditIcon />}
-                    />
-                  </Tooltip>
-                ) : (
-                  ''
-                )}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Stack direction="row" gap={1} alignItems="flex-start">
-                <ReceiptLongIcon />
-                <Stack direction="row" gap={1} flexWrap="wrap">
-                  <Typography noWrap>
-                    {t('expenses:reported')}: {moneyPublic(totalExpenses || 0, campaign.currency)}
-                  </Typography>
-                  <Typography noWrap>
-                    {t('expenses:donations')}:{' '}
-                    {moneyPublic(campaign.summary.reachedAmount, campaign.currency)}
-                  </Typography>
-                </Stack>
-              </Stack>
-            </Grid>
+      {subscribeIsOpen && (
+        <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
+      )}
+      <Grid item xs={12} display="flex" sx={{ mt: 1.5 }}>
+        <EmailIcon
+          color="primary"
+          fontSize="small"
+          sx={{ mr: 0.5 }}
+          onClick={() => setSubscribeOpen(true)}
+          cursor="pointer"
+        />
+        <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
+          {t('campaigns:cta.subscribe')}
+        </Typography>
+      </Grid>
+      <Grid item xs={12} style={{ paddingTop: '20px' }}>
+        <ReactQuill readOnly theme="bubble" value={campaign.description} />
+      </Grid>
+      <Grid item xs={12}>
+        <CampaignImageSlider sliderImages={sliderImages} />
+      </Grid>
+      <Grid item xs={12}>
+        <Divider />
+      </Grid>
+      {expensesList?.length ||
+        (canEditCampaign && (
+          <>
             <Grid item xs={12}>
               <CampaignPublicExpensesChart
                 slug={campaign.slug}
@@ -205,65 +176,47 @@ export default function CampaignDetails({ campaign }: Props) {
             <Grid item xs={12} mt={2}>
               <CampaignPublicExpensesGrid slug={campaign.slug} />
             </Grid>
-            <CampaignFinanceSummary campaign={campaign} expenses={totalExpenses ?? 0} />
-          </Grid>
-          {expensesList?.length ||
-            (canEditCampaign && (
-              <>
-                <Grid item xs={12}>
-                  <CampaignPublicExpensesChart
-                    slug={campaign.slug}
-                    height={120}
-                    reachedAmount={campaign.summary.reachedAmount}
-                    currency={campaign.currency}
-                  />
-                </Grid>
-                <Grid item xs={12} mt={2}>
-                  <CampaignPublicExpensesGrid slug={campaign.slug} />
-                </Grid>
-              </>
-            ))}
-        </Grid>
-        <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
-        {subscribeIsOpen && (
-          <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
-        )}
-        <Grid item xs={12} display="flex">
-          <EmailIcon
-            color="primary"
-            fontSize="small"
-            sx={{ mr: 0.5 }}
-            onClick={() => setSubscribeOpen(true)}
-            cursor="pointer"
-          />
-          <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
-            {t('campaigns:cta.subscribe')}
-          </Typography>
+          </>
+        ))}
+      <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
+      {subscribeIsOpen && (
+        <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
+      )}
+      <Grid item xs={12} display="flex" mt={2} mb={2}>
+        <EmailIcon
+          color="primary"
+          fontSize="small"
+          sx={{ mr: 0.5 }}
+          onClick={() => setSubscribeOpen(true)}
+          cursor="pointer"
+        />
+        <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
+          {t('campaigns:cta.subscribe')}
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <CampaignInfoOperator campaign={campaign} />
+      </Grid>
+      <CampaignInfoGraphics />
+      <Grid item xs={12} id="wishes">
+        <DonationWishes campaignId={campaign?.id} />
+      </Grid>
+      <Grid container item xs={12}>
+        <Grid item xs={12} mb={1}>
+          <LinkButton
+            startIcon={<SecurityIcon color="action" className={classes.securityIcon} />}
+            href={'/contact'}
+            className={classes.linkButton}>
+            {t('campaigns:campaign.feedback')}
+          </LinkButton>
         </Grid>
         <Grid item xs={12}>
-          <CampaignInfoOperator campaign={campaign} />
-        </Grid>
-        <CampaignInfoGraphics />
-        <Grid item xs={12} id="wishes">
-          <DonationWishes campaignId={campaign?.id} />
-        </Grid>
-        <Grid container item xs={12}>
-          <Grid item xs={12} mb={1}>
-            <LinkButton
-              startIcon={<SecurityIcon color="action" className={classes.securityIcon} />}
-              href={'/contact'}
-              className={classes.linkButton}>
-              {t('campaigns:campaign.feedback')}
-            </LinkButton>
-          </Grid>
-          <Grid item xs={12}>
-            <LinkButton
-              startIcon={<SecurityIcon color="action" className={classes.securityIcon} />}
-              href={`/campaigns/${campaign.slug}/irregularity`}
-              className={classes.linkButton}>
-              {t('campaigns:campaign.report-campaign')}
-            </LinkButton>
-          </Grid>
+          <LinkButton
+            startIcon={<SecurityIcon color="action" className={classes.securityIcon} />}
+            href={`/campaigns/${campaign.slug}/irregularity`}
+            className={classes.linkButton}>
+            {t('campaigns:campaign.report-campaign')}
+          </LinkButton>
         </Grid>
       </Grid>
     </StyledGrid>
