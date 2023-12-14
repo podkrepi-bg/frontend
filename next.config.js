@@ -53,8 +53,8 @@ const moduleExports = {
       },
       {
         source: '/robots.txt',
-        destination: '/api/robots'
-      }
+        destination: '/api/robots',
+      },
     ]
   },
   async redirects() {
