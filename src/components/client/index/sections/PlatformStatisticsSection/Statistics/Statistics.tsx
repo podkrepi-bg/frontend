@@ -18,7 +18,7 @@ import { Stack } from '@mui/material'
 
 export default function Statistics() {
   const { t } = useTranslation('index')
-  const { data: campaigns } = useCampaignList()
+  const { data: campaigns } = useCampaignList(true)
   const { data: totalDonations } = useCampaignDonationHistory(undefined, 0, 1) //ask only for 1 item to get the total count
   const { data: donorsCount } = useDonatedUsersCount()
   const { data: totalDonatedMoney } = getTotalDonatedMoney()
