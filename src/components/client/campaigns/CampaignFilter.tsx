@@ -79,7 +79,7 @@ const categories: {
 export default function CampaignFilter() {
   const { t } = useTranslation()
   const { mobile } = useMobile()
-  const { data: campaigns, isLoading } = useCampaignList()
+  const { data: campaigns, isLoading } = useCampaignList(true)
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL')
   // TODO: add filters&sorting of campaigns so people can select based on personal preferences
   const campaignToShow = useMemo<CampaignResponse[]>(() => {
