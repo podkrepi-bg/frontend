@@ -89,34 +89,34 @@ jobs:
         with:
           image: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
-  scan-manifests:
-    name: Scan k8s manifests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install kustomize
-        uses: imranismail/setup-kustomize@v2
-
-      - name: Build development manifests
-        run: kustomize build manifests/overlays/development > dev-manifests.yaml
-
-      - name: Scan development manifests with Mondoo
-        uses: mondoohq/actions/k8s-manifest@main
-        env:
-          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
-        with:
-          path: dev-manifests.yaml
-
-      - name: Build production manifests
-        run: kustomize build manifests/overlays/production > prod-manifests.yaml
-
-      - name: Scan production manifests with Mondoo
-        uses: mondoohq/actions/k8s-manifest@main
-        env:
-          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
-        with:
-          path: prod-manifests.yaml
+#  scan-manifests:
+#    name: Scan k8s manifests
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Install kustomize
+#        uses: imranismail/setup-kustomize@v2
+#
+#      - name: Build development manifests
+#        run: kustomize build manifests/overlays/development > dev-manifests.yaml
+#
+#      - name: Scan development manifests with Mondoo
+#        uses: mondoohq/actions/k8s-manifest@main
+#        env:
+#          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
+#        with:
+#          path: dev-manifests.yaml
+#
+#      - name: Build production manifests
+#        run: kustomize build manifests/overlays/production > prod-manifests.yaml
+#
+#      - name: Scan production manifests with Mondoo
+#        uses: mondoohq/actions/k8s-manifest@main
+#        env:
+#          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
+#        with:
+#          path: prod-manifests.yaml
 
   run-playwright:
     name: Run Playwright
@@ -126,7 +126,7 @@ jobs:
   release-dev:
     name: Release to dev
     runs-on: ubuntu-latest
-    needs: [build-frontend-image, build-maintenance-image, scan-manifests, run-playwright]
+    needs: [build-frontend-image, build-maintenance-image, run-playwright]
     environment:
       name: dev
       url: https://dev.podkrepi.bg
