@@ -30,27 +30,20 @@ const validationSchema: yup.SchemaOf<SubscribeToNotificationsInput> = yup.object
 const SubscriptionSection = () => {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
-
-  // When the backend is ready this useState should be deleted
-  const [userEmail, setUserEmail] = useState('')
   const [open, setOpen] = useState(false)
+  const [email, setEmail] = useState('');
 
-  //  async function onSubmit(values: { email: string }) {
-  //     setLoading(true)
-  //     try {
-  //       await mutation.mutateAsync(values);
-  //       setOpen(true);
-
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   }
-
-  //When the backend is checked this onSubmit should be replaced with the one above
-  const onSubmit = (values: { email: string; consent: boolean }) => {
-    setUserEmail(values.email)
-    setOpen(true)
+  async function onSubmit(values: { email: string }) {
+    setLoading(true)
+    setEmail(values.email)
+    try {
+      await mutation.mutateAsync(values)
+      setOpen(true)
+    } finally {
+      setLoading(false)
+    }
   }
+
   const onClose = () => {
     setOpen(false)
   }
@@ -141,7 +134,7 @@ const SubscriptionSection = () => {
                 <Trans
                   t={t}
                   i18nKey="campaigns:subscribe.confirm-sent"
-                  values={{ email: userEmail }}></Trans>
+                  values={{ email: email }}></Trans>
               </Typography>
             </>
           </DialogContent>

@@ -98,7 +98,6 @@ export default function SubscriptionPage(data: Props) {
 
   const handleError = (e: AxiosError<ApiError>) => {
     const error = e.response?.data?.message
-    console.log(error)
     setLoading(false)
     setIsSuccess(false)
   }

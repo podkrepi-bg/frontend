@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
-import { useTranslation, Trans } from 'react-i18next'
+import { Trans } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -19,7 +20,6 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import EmailField from 'components/common/form/EmailField'
 import { email } from 'common/form/validation'
 import { AcceptNewsLetterFieldCampaign } from 'components/common/form/AcceptNewsletterField'
-import { getCurrentPerson } from 'common/util/useCurrentPerson'
 import { routes } from 'common/routes'
 
 const PREFIX = 'CampaignSubscribeModal'
@@ -59,6 +59,8 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
   const [loading, setLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
+  const [email, setEmail] = useState('');
+  const [consent, setConsent] = useState(false);
   const router = useRouter()
 
   const handleError = (e: AxiosError<ApiError>) => {
@@ -90,6 +92,8 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
 
   async function onSubmit(values: { email: string; consent: boolean }) {
     setLoading(true)
+    setEmail(values.email)
+    setConsent(values.consent)
     try {
       await mutation.mutateAsync(values)
     } finally {
@@ -132,13 +136,11 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
     setIsGuest(true)
   }
 
-  const { data: user } = getCurrentPerson()
-
   const sendOnProfileEmail = (status: string) => {
     if (status !== 'authenticated') {
       router.push(routes.login)
     } else {
-      onSubmit({ email: user?.user?.email || '', consent: user?.user?.newsletter || true })
+      onSubmit({ email: email || '', consent: consent || true })
       handleClose()
     }
   }
@@ -243,7 +245,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
                   <Trans
                     t={t}
                     i18nKey="campaigns:subscribe.confirm-sent"
-                    values={{ email: user?.user?.email }}></Trans>
+                    values={{ email: email }}></Trans>
                 </Typography>
               </React.Fragment>
             </DialogContent>

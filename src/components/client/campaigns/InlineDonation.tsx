@@ -253,7 +253,6 @@ export default function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation('campaigns')
   const { asPath } = useRouter()
   const [status, copyUrl] = useCopyToClipboard(1000)
-  const [subscribeIsOpen, setSubscribeOpen] = useState(false)
   const active = status === 'copied' ? 'inherit' : 'primary'
   const [page, setPage] = useState<number>(0)
   const { mobile } = useMobile()

@@ -18,7 +18,6 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import EmailField from 'components/common/form/EmailField'
 import { email } from 'common/form/validation'
 import { AcceptNewsLetterField } from 'components/common/form/AcceptNewsletterField'
-import { getCurrentPerson } from 'common/util/useCurrentPerson'
 import { routes } from 'common/routes'
 
 import { useSendConfirmationEmail } from 'service/notification'
@@ -68,6 +67,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
   const [loading, setLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
+  const [email, setEmail] = useState('');
   const router = useRouter()
 
   const handleError = (e: AxiosError<ApiError>) => {
@@ -95,6 +95,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
 
   async function onSubmit(values: { email: string }) {
     setLoading(true)
+    setEmail(values.email)
     try {
       await mutation.mutateAsync(values)
     } finally {
@@ -137,13 +138,11 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
     setIsGuest(true)
   }
 
-  const { data: user } = getCurrentPerson()
-
   const sendOnProfileEmail = (status: string) => {
     if (status !== 'authenticated') {
       router.push(routes.login)
     } else {
-      onSubmit({ email: user?.user?.email || '' })
+      onSubmit({ email: email || '' })
       handleClose()
     }
   }
@@ -248,7 +247,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
                   <Trans
                     t={t}
                     i18nKey="campaigns:subscribe.confirm-sent"
-                    values={{ email: user?.user?.email }}></Trans>
+                    values={{ email: email }}></Trans>
                 </Typography>
               </React.Fragment>
             </DialogContent>

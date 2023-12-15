@@ -7,7 +7,7 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import 'react-quill/dist/quill.bubble.css'
 
-import { Divider, Grid, IconButton, Stack, Tooltip, Typography } from '@mui/material'
+import { Divider, Grid, IconButton, Tooltip, Typography } from '@mui/material'
 import SecurityIcon from '@mui/icons-material/Security'
 import { styled } from '@mui/material/styles'
 
@@ -163,61 +163,61 @@ export default function CampaignDetails({ campaign }: Props) {
         <Grid item xs={12}>
           <Divider />
         </Grid>
-          {expensesList?.length ||
-            (canEditCampaign && (
-              <>
-                <Grid item xs={12}>
-                  <CampaignPublicExpensesChart
-                    slug={campaign.slug}
-                    height={120}
-                    reachedAmount={campaign.summary.reachedAmount}
-                    currency={campaign.currency}
-                  />
-                </Grid>
-                <Grid item xs={12} mt={2}>
-                  <CampaignPublicExpensesGrid slug={campaign.slug} />
-                </Grid>
-              </>
-            ))}
-        </Grid>
-        <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
-        {subscribeIsOpen && (
-          <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
-        )}
-        <Grid item xs={12} display="flex">
-          <EmailIcon
-            color="primary"
-            fontSize="small"
-            sx={{ mr: 0.5 }}
-            onClick={() => setSubscribeOpen(true)}
-            cursor="pointer"
-          />
-          <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
-            {t('campaigns:cta.subscribe')}
-          </Typography>
-        </Grid>
+        {expensesList?.length ||
+          (canEditCampaign && (
+            <>
+              <Grid item xs={12}>
+                <CampaignPublicExpensesChart
+                  slug={campaign.slug}
+                  height={120}
+                  reachedAmount={campaign.summary.reachedAmount}
+                  currency={campaign.currency}
+                />
+              </Grid>
+              <Grid item xs={12} mt={2}>
+                <CampaignPublicExpensesGrid slug={campaign.slug} />
+              </Grid>
+            </>
+          ))}
+      </Grid>
+      <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
+      {subscribeIsOpen && (
+        <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
+      )}
+      <Grid item xs={12} display="flex" mt={2} mb={2}>
+        <EmailIcon
+          color="primary"
+          fontSize="small"
+          sx={{ mr: 0.5 }}
+          onClick={() => setSubscribeOpen(true)}
+          cursor="pointer"
+        />
+        <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
+          {t('campaigns:cta.subscribe')}
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <CampaignInfoOperator campaign={campaign} />
+      </Grid>
+      <CampaignInfoGraphics />
+      <Grid container item xs={12} spacing={4} id="expenses">
         <Grid item xs={12}>
-          <CampaignInfoOperator campaign={campaign} />
+          <Typography variant="h4" component="h4" my={4}>
+            {t('campaigns:campaign.financial-report')} <Assessment />
+            {canEditCampaign ? (
+              <Tooltip title={t('campaigns:cta.edit')}>
+                <LinkButton
+                  href={routes.campaigns.viewExpenses(campaign.slug)}
+                  variant="contained"
+                  endIcon={<EditIcon />}
+                />
+              </Tooltip>
+            ) : (
+              ''
+            )}
+          </Typography>
+          <CampaignFinanceSummary campaign={campaign} expenses={totalExpenses ?? 0} />
         </Grid>
-        <CampaignInfoGraphics />
-        <Grid container item xs={12} spacing={4} id="expenses">
-          <Grid item xs={12}>
-            <Typography variant="h4" component="h4" my={4}>
-              {t('campaigns:campaign.financial-report')} <Assessment />
-              {canEditCampaign ? (
-                <Tooltip title={t('campaigns:cta.edit')}>
-                  <LinkButton
-                    href={routes.campaigns.viewExpenses(campaign.slug)}
-                    variant="contained"
-                    endIcon={<EditIcon />}
-                  />
-                </Tooltip>
-              ) : (
-                ''
-              )}
-            </Typography>
-            <CampaignFinanceSummary campaign={campaign} expenses={totalExpenses ?? 0} />
-          </Grid>
         <Grid item xs={12} id="wishes">
           <DonationWishes campaignId={campaign?.id} />
         </Grid>
@@ -240,59 +240,59 @@ export default function CampaignDetails({ campaign }: Props) {
           </Grid>
         </Grid>
       </Grid>
-    </StyledGrid >
+    </StyledGrid>
   )
-  }
+}
 
-  type CampaignFinanceProps = Props & {
-    expenses: number
-  }
-  const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) => {
-    const total = campaign.summary.guaranteedAmount + campaign.summary.reachedAmount
-    const transferred = campaign.summary.blockedAmount + campaign.summary.withdrawnAmount
-    return (
-      <StyledGrid item>
-        <Typography variant="h5" fontWeight={500}>
-          Събрана сума: {moneyPublic(total)}
-        </Typography>
-        <Typography className={classes.financeSummary}>
-          Налични: {moneyPublic(campaign.summary.currentAmount)}
-          <Tooltip enterTouchDelay={0} title="Средства налични по сметката на Podkrepi.bg">
-            <IconButton size="small" color="primary">
-              <InfoOutlined fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </Typography>
-        <Typography className={classes.financeSummary}>
-          Гарантирани: {moneyPublic(campaign.summary.guaranteedAmount)}
-          <Tooltip
-            enterTouchDelay={0}
-            title={
-              'Дарения от служители или клиенти на компании, които имат вътрешни дарителски инициативи с партньорска интеграция към Подкрепи.бг. При такова дарение сумите се отразяват веднага в платформата като "гарантирани" от компанията и се превеждат веднъж в месеца като консолидирана сума към Подкрепи.бг с цел по-лесно управление'
-            }>
-            <IconButton size="small" color="primary">
-              <InfoOutlined fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </Typography>
-        <Typography className={classes.financeSummary} fontWeight={600}>
-          Преведени: {moneyPublic(transferred)}
-          <Tooltip
-            enterTouchDelay={0}
-            title="Средства преведени от сметката на Podkrepi.bg към организатора на кампанията">
-            <IconButton size="small" color="primary">
-              <InfoOutlined fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </Typography>
-        <Typography className={classes.financeSummary}>
-          Отчетени: {moneyPublic(expenses)}
-          <Tooltip enterTouchDelay={0} title="Отчетени разходи">
-            <IconButton size="small" color="primary">
-              <InfoOutlined fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </Typography>
-      </StyledGrid>
-    )
-  }
+type CampaignFinanceProps = Props & {
+  expenses: number
+}
+const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) => {
+  const total = campaign.summary.guaranteedAmount + campaign.summary.reachedAmount
+  const transferred = campaign.summary.blockedAmount + campaign.summary.withdrawnAmount
+  return (
+    <StyledGrid item>
+      <Typography variant="h5" fontWeight={500}>
+        Събрана сума: {moneyPublic(total)}
+      </Typography>
+      <Typography className={classes.financeSummary}>
+        Налични: {moneyPublic(campaign.summary.currentAmount)}
+        <Tooltip enterTouchDelay={0} title="Средства налични по сметката на Podkrepi.bg">
+          <IconButton size="small" color="primary">
+            <InfoOutlined fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      </Typography>
+      <Typography className={classes.financeSummary}>
+        Гарантирани: {moneyPublic(campaign.summary.guaranteedAmount)}
+        <Tooltip
+          enterTouchDelay={0}
+          title={
+            'Дарения от служители или клиенти на компании, които имат вътрешни дарителски инициативи с партньорска интеграция към Подкрепи.бг. При такова дарение сумите се отразяват веднага в платформата като "гарантирани" от компанията и се превеждат веднъж в месеца като консолидирана сума към Подкрепи.бг с цел по-лесно управление'
+          }>
+          <IconButton size="small" color="primary">
+            <InfoOutlined fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      </Typography>
+      <Typography className={classes.financeSummary} fontWeight={600}>
+        Преведени: {moneyPublic(transferred)}
+        <Tooltip
+          enterTouchDelay={0}
+          title="Средства преведени от сметката на Podkrepi.bg към организатора на кампанията">
+          <IconButton size="small" color="primary">
+            <InfoOutlined fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      </Typography>
+      <Typography className={classes.financeSummary}>
+        Отчетени: {moneyPublic(expenses)}
+        <Tooltip enterTouchDelay={0} title="Отчетени разходи">
+          <IconButton size="small" color="primary">
+            <InfoOutlined fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      </Typography>
+    </StyledGrid>
+  )
+}
