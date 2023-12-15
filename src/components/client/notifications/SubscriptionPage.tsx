@@ -96,7 +96,7 @@ export default function SubscriptionPage(data: Props) {
     callSubscribeApiRoute(payload).catch(() => console.log())
   }, [])
 
-  const handleError = () => {
+  const handleError = (e: AxiosError<ApiError>) => {
     setLoading(false)
     setIsSuccess(false)
   }
