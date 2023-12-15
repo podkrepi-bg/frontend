@@ -97,7 +97,6 @@ export default function SubscriptionPage(data: Props) {
   }, [])
 
   const handleError = (e: AxiosError<ApiError>) => {
-    const error = e.response?.data?.message
     setLoading(false)
     setIsSuccess(false)
   }
@@ -161,7 +160,7 @@ export default function SubscriptionPage(data: Props) {
                 <Trans
                   t={t}
                   i18nKey="notifications:subscribe.thank-you-msg-text"
-                  values={{ email: data.email }}></Trans>
+                  values={{ email: data.email }} />
               </Typography>
             </Grid>
             <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
@@ -183,7 +182,7 @@ export default function SubscriptionPage(data: Props) {
                   </Typography>
                 </DialogTitle>
                 <Typography>
-                  <Trans t={t} i18nKey="notifications:subscribe.subscription-fail-text"></Trans>
+                  <Trans t={t} i18nKey="notifications:subscribe.subscription-fail-text" />
                 </Typography>
               </Grid>
               <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">

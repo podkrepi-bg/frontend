@@ -134,7 +134,7 @@ const SubscriptionSection = () => {
                 <Trans
                   t={t}
                   i18nKey="campaigns:subscribe.confirm-sent"
-                  values={{ email: email }}></Trans>
+                  values={{ email: email }} />
               </Typography>
             </>
           </DialogContent>

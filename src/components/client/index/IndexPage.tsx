@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 
 import Layout from 'components/client/layout/Layout'

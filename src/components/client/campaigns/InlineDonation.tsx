@@ -41,7 +41,6 @@ import CustomListItem from 'components/common/navigation/CustomListItem'
 import { socialMedia } from './helpers/socialMedia'
 import { CampaignState } from './helpers/campaign.enums'
 import { AlertStore } from 'stores/AlertStore'
-import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
 import { useDonationWishesList } from 'common/hooks/donationWish'
 
 const PREFIX = 'InlineDonation'
