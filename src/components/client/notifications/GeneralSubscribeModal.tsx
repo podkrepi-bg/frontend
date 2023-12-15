@@ -67,7 +67,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
   const [loading, setLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('')
   const router = useRouter()
 
   const handleError = (e: AxiosError<ApiError>) => {

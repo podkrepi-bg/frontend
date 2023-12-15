@@ -31,7 +31,7 @@ const SubscriptionSection = () => {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('')
 
   async function onSubmit(values: { email: string }) {
     setLoading(true)

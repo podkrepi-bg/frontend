@@ -59,8 +59,8 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
   const [loading, setLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
-  const [email, setEmail] = useState('');
-  const [consent, setConsent] = useState(false);
+  const [email, setEmail] = useState('')
+  const [consent, setConsent] = useState(false)
   const router = useRouter()
 
   const handleError = (e: AxiosError<ApiError>) => {
