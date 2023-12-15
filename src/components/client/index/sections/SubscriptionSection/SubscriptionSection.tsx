@@ -131,10 +131,7 @@ const SubscriptionSection = () => {
                 </Typography>
               </DialogTitle>
               <Typography>
-                <Trans
-                  t={t}
-                  i18nKey="campaigns:subscribe.confirm-sent"
-                  values={{ email: email }} />
+                <Trans t={t} i18nKey="campaigns:subscribe.confirm-sent" values={{ email: email }} />
               </Typography>
             </>
           </DialogContent>

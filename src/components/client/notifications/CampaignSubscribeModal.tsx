@@ -245,7 +245,8 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
                   <Trans
                     t={t}
                     i18nKey="campaigns:subscribe.confirm-sent"
-                    values={{ email: email }} />
+                    values={{ email: email }}
+                  />
                 </Typography>
               </React.Fragment>
             </DialogContent>

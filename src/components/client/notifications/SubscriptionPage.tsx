@@ -96,7 +96,7 @@ export default function SubscriptionPage(data: Props) {
     callSubscribeApiRoute(payload).catch(() => console.log())
   }, [])
 
-  const handleError = (e: AxiosError<ApiError>) => {
+  const handleError = () => {
     setLoading(false)
     setIsSuccess(false)
   }
@@ -160,7 +160,8 @@ export default function SubscriptionPage(data: Props) {
                 <Trans
                   t={t}
                   i18nKey="notifications:subscribe.thank-you-msg-text"
-                  values={{ email: data.email }} />
+                  values={{ email: data.email }}
+                />
               </Typography>
             </Grid>
             <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
