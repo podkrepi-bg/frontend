@@ -163,59 +163,59 @@ export default function CampaignDetails({ campaign }: Props) {
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        {(expensesList?.length || canEditCampaign) && (
-          <>
-            <Grid item xs={12}>
-              <CampaignPublicExpensesChart
-                slug={campaign.slug}
-                height={120}
-                reachedAmount={campaign.summary.reachedAmount}
-                currency={campaign.currency}
-              />
-            </Grid>
-            <Grid item xs={12} mt={2}>
-              <CampaignPublicExpensesGrid slug={campaign.slug} />
-            </Grid>
-          </>
-        )}
-      </Grid>
-      <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
-      {subscribeIsOpen && (
-        <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
-      )}
-      <Grid item xs={12} display="flex" mt={2} mb={2}>
-        <EmailIcon
-          color="primary"
-          fontSize="small"
-          sx={{ mr: 0.5 }}
-          onClick={() => setSubscribeOpen(true)}
-          cursor="pointer"
-        />
-        <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
-          {t('campaigns:cta.subscribe')}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <CampaignInfoOperator campaign={campaign} />
-      </Grid>
-      <CampaignInfoGraphics />
-      <Grid container item xs={12} spacing={4} id="expenses">
         <Grid item xs={12}>
-          <Typography variant="h4" component="h4" my={4}>
-            {t('campaigns:campaign.financial-report')} <Assessment />
-            {canEditCampaign ? (
-              <Tooltip title={t('campaigns:cta.edit')}>
-                <LinkButton
-                  href={routes.campaigns.viewExpenses(campaign.slug)}
-                  variant="contained"
-                  endIcon={<EditIcon />}
+          <CampaignInfoOperator campaign={campaign} />
+        </Grid>
+        <CampaignInfoGraphics />
+        <Grid container item xs={12} spacing={4} id="expenses">
+          <Grid item xs={12}>
+            <Typography variant="h4" component="h4" my={4}>
+              {t('campaigns:campaign.financial-report')} <Assessment />
+              {canEditCampaign ? (
+                <Tooltip title={t('campaigns:cta.edit')}>
+                  <LinkButton
+                    href={routes.campaigns.viewExpenses(campaign.slug)}
+                    variant="contained"
+                    endIcon={<EditIcon />}
+                  />
+                </Tooltip>
+              ) : (
+                ''
+              )}
+            </Typography>
+            <CampaignFinanceSummary campaign={campaign} expenses={totalExpenses ?? 0} />
+          </Grid>
+          {(expensesList?.length || canEditCampaign) && (
+            <>
+              <Grid item xs={12}>
+                <CampaignPublicExpensesChart
+                  slug={campaign.slug}
+                  height={120}
+                  reachedAmount={campaign.summary.reachedAmount}
+                  currency={campaign.currency}
                 />
-              </Tooltip>
-            ) : (
-              ''
-            )}
+              </Grid>
+              <Grid item xs={12} mt={2}>
+                <CampaignPublicExpensesGrid slug={campaign.slug} />
+              </Grid>
+            </>
+          )}
+        </Grid>
+        <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
+        {subscribeIsOpen && (
+          <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
+        )}
+        <Grid item xs={12} display="flex" mt={2} mb={2}>
+          <EmailIcon
+            color="primary"
+            fontSize="small"
+            sx={{ mr: 0.5 }}
+            onClick={() => setSubscribeOpen(true)}
+            cursor="pointer"
+          />
+          <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
+            {t('campaigns:cta.subscribe')}
           </Typography>
-          <CampaignFinanceSummary campaign={campaign} expenses={totalExpenses ?? 0} />
         </Grid>
         <Grid item xs={12} id="wishes">
           <DonationWishes campaignId={campaign?.id} />
