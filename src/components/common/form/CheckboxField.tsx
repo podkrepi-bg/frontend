@@ -2,13 +2,21 @@ import { ChangeEvent } from 'react'
 
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
-import { Checkbox, FormControl, FormControlLabel, FormHelperText, Tooltip } from '@mui/material'
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Tooltip,
+  SxProps,
+  Theme,
+} from '@mui/material'
 
 import { TranslatableField, translateError } from 'common/form/validation'
 
 export type CheckboxFieldProps = {
   name: string
-  sx?: object
+  sx?: SxProps<Theme>
   disabled?: boolean
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   label: string | number | React.ReactElement
