@@ -24,7 +24,7 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   if (!donation) {
     res.status(404).json({ notFound: true })
   } else {
-    const pdfStream = await renderToStream(<Certificate donation={donation} />)
+    const pdfStream = await renderToStream(<Certificate donation={donation} user={jwt?.user} />)
     res.setHeader('Content-Type', 'application/pdf')
     pdfStream.pipe(res)
   }
