@@ -185,7 +185,7 @@ export type CampaignDonation = {
   extPaymentIntentId: UUID
   extPaymentMethodId: UUID
   createdAt: string
-  updatedAt: string | undefined
+  updatedAt: string
   amount: number
   currency: Currency
   personId: UUID

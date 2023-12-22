@@ -84,7 +84,7 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
     <Root>
       <Grid item className={classes.donationsWrapper} data-testid="summary-donors-wrapper">
         {donationsToShow && donationsToShow.length !== 0 ? (
-          donationsToShow.map(({ type, metadata, person, amount, createdAt, currency }, key) => (
+          donationsToShow.map(({ type, metadata, person, amount, updatedAt, currency }, key) => (
             <Grid key={key} className={classes.donationItemWrapper}>
               <AccountCircleIcon
                 sx={{ position: 'relative', bottom: !metadata || !metadata.name ? 0 : 8 }}
@@ -120,28 +120,11 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
                     )}
                   </>
                 )}
-                {/* {!metadata && (
-                  <Typography className={classes.donatorName}>
-                    {person
-                      ? person.company
-                        ? `${person.company.companyName}`
-                        : `${person.firstName} ${person.lastName}`
-                      : t('campaigns:donations.anonymous')}
-                  </Typography>
-                )}
-                {metadata && person && (
-                  <>
-                    <Typography className={classes.donatorName}>{metadata.name}</Typography>
-                    <Typography sx={{ fontSize: 12 }}>
-                      {t('campaigns:campaign.from')} {person.company.companyName}
-                    </Typography>
-                  </>
-                )} */}
                 <Grid className={classes.donationQuantityAndTimeWrapper}>
                   <Typography>{moneyPublic(amount, currency)}</Typography>
                   <span className={classes.separatorIcon}>|</span>
                   <Typography>
-                    {formatDistanceStrict(parseISO(createdAt), new Date(), {
+                    {formatDistanceStrict(parseISO(updatedAt), new Date(), {
                       locale: i18n?.language == 'bg' ? bg : enUS,
                       addSuffix: true,
                     })}
