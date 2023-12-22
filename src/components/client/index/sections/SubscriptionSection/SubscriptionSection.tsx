@@ -1,23 +1,20 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
-import { Trans } from 'react-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiError } from 'next/dist/server/api-utils'
 import { AlertStore } from 'stores/AlertStore'
-import GenericForm from 'components/common/form/GenericForm'
-import SubmitButton from 'components/common/form/SubmitButton'
-import EmailField from 'components/common/form/EmailField'
-import CloseModalButton from 'components/common/CloseModalButton'
 import { email } from 'common/form/validation'
 import { Heading } from '../../IndexPage.styled'
-import { InfoText, SubscribeGrid } from './SubscriptionSection.styled'
-import { Dialog, DialogContent, DialogTitle, Grid, Typography } from '@mui/material'
+import { InfoText } from './SubscriptionSection.styled'
+import { Grid } from '@mui/material'
 import ArrowForwardSharp from '@mui/icons-material/ArrowForwardSharp'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import { useSendConfirmationEmail } from 'service/notification'
 import { SendConfirmationEmailResponse, SendConfirmationEmailInput } from 'gql/notification'
+import EmailIcon from '@mui/icons-material/Email'
+import RenderSubscribeModal from 'components/client/notifications/GeneralSubscribeModal'
+import { SectionGridWrapper, SubscribeButton, SubscribeHeading, Subtitle } from '../PlatformStatisticsSection/PlatformStatisticsSection.styled'
 
 export type SubscribeToNotificationsInput = {
   email: string
@@ -32,6 +29,7 @@ const SubscriptionSection = () => {
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
+  const [subscribeIsOpen, setSubscribeOpen] = useState(false)
 
   async function onSubmit(values: { email: string }) {
     setLoading(true)
@@ -66,78 +64,39 @@ const SubscriptionSection = () => {
   })
 
   return (
-    <>
-      <Heading variant="h4">{t('index:subscription-section.heading')}</Heading>
-      <InfoText maxWidth="lg">{t('index:subscription-section.content')}</InfoText>
-      <GenericForm
-        onSubmit={onSubmit}
-        initialValues={{ email: '', consent: true }}
-        validationSchema={validationSchema}>
-        <SubscribeGrid container spacing={{ xs: 2 }}>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            sx={(theme) => ({
-              textAlign: 'end',
-              [theme.breakpoints.down(768)]: { textAlign: 'center' },
-            })}>
-            <EmailField
-              label={t('auth:fields.email')}
-              name="email"
-              sx={{ width: '70%', lineHeight: '2' }}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            sx={(theme) => ({
-              textAlign: 'center',
-              [theme.breakpoints.up('md')]: {
-                textAlign: 'start',
-              },
-            })}>
-            <SubmitButton
-              sx={(theme) => ({
-                width: '50%',
-                backgroundColor: theme.palette.primary.light,
-                boxShadow:
-                  '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
-              })}
-              label="campaigns:subscribe.subscribe-button"
-              loading={loading}
-              endIcon={<ArrowForwardSharp />}
-            />
-          </Grid>
-        </SubscribeGrid>
-      </GenericForm>
-      {open && (
-        <Dialog
-          open={open}
-          onClose={onClose}
-          sx={{ scroll: 'none' }}
-          fullWidth={true}
-          maxWidth={'sm'}>
-          <DialogContent style={{ textAlign: 'center', fontSize: 20, fontWeight: 600 }}>
-            <CloseModalButton onClose={onClose} />
-            <>
-              <ThumbUpIcon sx={{ fontSize: '64px', color: '#03C03C' }} />
-              <DialogTitle>
-                <Typography
-                  variant="h5"
-                  style={{ textAlign: 'center', width: '100%', color: '#03C03C' }}>
-                  {t('campaigns:subscribe.confirm-subscribe')}
-                </Typography>
-              </DialogTitle>
-              <Typography>
-                <Trans t={t} i18nKey="campaigns:subscribe.confirm-sent" values={{ email: email }} />
-              </Typography>
-            </>
-          </DialogContent>
-        </Dialog>
-      )}
-    </>
+    <SectionGridWrapper sx={(theme) => ({
+      marginBottom: theme.spacing(5),
+    })}>
+      <Grid
+        sx={(theme) => ({
+          margin: '0 auto',
+          maxWidth: theme.spacing(95),
+          textAlign: "center"
+        })}>
+        <Heading variant="h4">{t('index:subscription-section.heading')}</Heading>
+        <InfoText maxWidth="lg">{t('index:subscription-section.content')}</InfoText>
+        {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
+        <Grid item xs={12} display="flex" mb={0.5} justifyContent="center">
+          <EmailIcon
+            color="primary"
+            fontSize="small"
+            sx={{ mr: 0.5 }}
+            onClick={() => setSubscribeOpen(true)}
+            cursor="pointer"
+          />
+          <SubscribeHeading onClick={() => setSubscribeOpen(true)}>
+            {t('campaigns:cta.subscribe-monthly-newsletter')}
+          </SubscribeHeading>
+        </Grid>
+        <Subtitle>{t('campaigns:cta.subscribe-general-monthly-newsletter')}</Subtitle>
+        <SubscribeButton
+          onClick={() => setSubscribeOpen(true)}
+          variant="contained"
+          endIcon={<ArrowForwardSharp />}>
+          {t('campaigns:cta.subscribe-general-newsletter-button')}
+        </SubscribeButton>
+      </Grid>
+    </ SectionGridWrapper>
   )
 }
 
