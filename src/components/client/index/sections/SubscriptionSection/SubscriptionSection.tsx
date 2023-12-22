@@ -14,7 +14,12 @@ import { useSendConfirmationEmail } from 'service/notification'
 import { SendConfirmationEmailResponse, SendConfirmationEmailInput } from 'gql/notification'
 import EmailIcon from '@mui/icons-material/Email'
 import RenderSubscribeModal from 'components/client/notifications/GeneralSubscribeModal'
-import { SectionGridWrapper, SubscribeButton, SubscribeHeading, Subtitle } from '../PlatformStatisticsSection/PlatformStatisticsSection.styled'
+import {
+  SectionGridWrapper,
+  SubscribeButton,
+  SubscribeHeading,
+  Subtitle,
+} from '../PlatformStatisticsSection/PlatformStatisticsSection.styled'
 
 export type SubscribeToNotificationsInput = {
   email: string
@@ -64,14 +69,15 @@ const SubscriptionSection = () => {
   })
 
   return (
-    <SectionGridWrapper sx={(theme) => ({
-      marginBottom: theme.spacing(5),
-    })}>
+    <SectionGridWrapper
+      sx={(theme) => ({
+        marginBottom: theme.spacing(5),
+      })}>
       <Grid
         sx={(theme) => ({
           margin: '0 auto',
           maxWidth: theme.spacing(95),
-          textAlign: "center"
+          textAlign: 'center',
         })}>
         <Heading variant="h4">{t('index:subscription-section.heading')}</Heading>
         <InfoText maxWidth="lg">{t('index:subscription-section.content')}</InfoText>
@@ -96,7 +102,7 @@ const SubscriptionSection = () => {
           {t('campaigns:cta.subscribe-general-newsletter-button')}
         </SubscribeButton>
       </Grid>
-    </ SectionGridWrapper>
+    </SectionGridWrapper>
   )
 }
 
