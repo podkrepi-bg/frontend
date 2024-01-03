@@ -335,7 +335,7 @@ export default function InlineDonation({ campaign }: Props) {
       {wishList && <DonationWishesInline wishList={wishList} />}
       {wishList?.totalCount !== 0 && (
         <Chip
-          label={t('campaigns:campaign.seeAll')}
+          label={t('campaigns:cta.see-all')}
           deleteIcon={<ArrowForwardIcon />}
           onDelete={() => {
             return
