@@ -13,7 +13,7 @@ import { OneTimeDonation } from 'gql/donations'
 import { StepsContext } from './helpers/stepperContext'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
-import AcceptNewsLetterField from 'components/common/form/AcceptNewsletterField'
+import { AcceptNewsLetterField } from 'components/common/form/AcceptNewsletterField'
 import { AccountType, IndividualRegisterFormData } from 'gql/user-registration'
 
 export default function RegisterForm() {

@@ -1,22 +1,29 @@
+import React, { useState } from 'react'
 import * as yup from 'yup'
-import { email } from 'common/form/validation'
+import { Trans } from 'react-i18next'
 import { useTranslation } from 'next-i18next'
-import { useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { useSession } from 'next-auth/react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiError } from 'next/dist/server/api-utils'
+import { useRouter } from 'next/router'
 import { AlertStore } from 'stores/AlertStore'
-import { useMutation } from '@tanstack/react-query'
-import { Dialog, DialogContent, DialogTitle, Grid } from '@mui/material'
+import { Dialog, DialogContent, DialogTitle, Grid, Typography } from '@mui/material'
+import EmailIcon from '@mui/icons-material/Email'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import { styled } from '@mui/material/styles'
 import CloseModalButton from 'components/common/CloseModalButton'
 import GenericForm from 'components/common/form/GenericForm'
-import { styled } from '@mui/material/styles'
 import SubmitButton from 'components/common/form/SubmitButton'
 import EmailField from 'components/common/form/EmailField'
+import { email } from 'common/form/validation'
+import { AcceptNewsLetterField } from 'components/common/form/AcceptNewsletterField'
+import { routes } from 'common/routes'
+
 import { useSendConfirmationEmail } from 'service/notification'
 import { SendConfirmationEmailResponse, SendConfirmationEmailInput } from 'gql/notification'
-import React from 'react'
 
-const PREFIX = 'SubscribeModal'
+const PREFIX = 'GeneralSubscribeModal'
 
 const classes = {
   subscribeBtn: `${PREFIX}-subscribe`,
@@ -25,7 +32,7 @@ const classes = {
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.subscribeBtn}`]: {
     fontSize: theme.typography.pxToRem(16),
-    background: `${theme.palette.secondary.main}`,
+    background: `${theme.palette.primary}`,
 
     '&:hover': {
       background: theme.palette.primary.main,
@@ -42,17 +49,26 @@ interface ModalProps {
 
 export type SubscribeToNotificationsInput = {
   email: string
+  consent: boolean
 }
 
-const validationSchema: yup.SchemaOf<SubscribeToNotificationsInput> = yup.object().defined().shape({
-  email: email.required(),
-})
+const validationSchema: yup.SchemaOf<SubscribeToNotificationsInput> = yup
+  .object()
+  .defined()
+  .shape({
+    email: email.required(),
+    consent: yup.bool().required().oneOf([true], 'validation:newsletter'),
+  })
 
 export default function RenderSubscribeModal({ setOpen }: ModalProps) {
   const { t } = useTranslation()
+  const { status } = useSession()
 
   const [loading, setLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [isGuest, setIsGuest] = useState(false)
+  const [email, setEmail] = useState('')
+  const router = useRouter()
 
   const handleError = (e: AxiosError<ApiError>) => {
     const error = e.response?.data?.message
@@ -79,6 +95,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
 
   async function onSubmit(values: { email: string }) {
     setLoading(true)
+    setEmail(values.email)
     try {
       await mutation.mutateAsync(values)
     } finally {
@@ -86,21 +103,29 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
     }
   }
 
-  function SubscribeForm() {
+  const SubscribeForm = () => {
     return (
       <GenericForm
         onSubmit={onSubmit}
-        initialValues={{ email: '' }}
+        initialValues={{ email: '', consent: false }}
         validationSchema={validationSchema}>
         <StyledGrid container spacing={2}>
           <Grid item xs={12}>
-            <EmailField label="common:fields.email" name="email" />
+            <Typography variant="subtitle2">
+              {t('campaigns:subscribe.subscribe-subtitle')}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="center">
+            <EmailField label="auth:fields.email-descriptive" name="email" sx={{ width: '70%' }} />
           </Grid>
           <Grid item xs={12}>
+            <AcceptNewsLetterField name="consent" />
+          </Grid>
+          <Grid item xs={12} textAlign="center">
             <SubmitButton
-              fullWidth
+              sx={{ width: '40%' }}
               className={classes.subscribeBtn}
-              label="components.footer.subscribe"
+              label="campaigns:subscribe.subscribe-button"
               loading={loading}
             />
           </Grid>
@@ -109,34 +134,127 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
     )
   }
 
-  return (
-    <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
-      <DialogContent
-        style={{
-          overflow: 'hidden',
-          padding: '4rem',
-          paddingTop: '1rem',
-          width: '100%',
-        }}>
-        <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+  const openAsGuest = () => {
+    setIsGuest(true)
+  }
+
+  const sendOnProfileEmail = (status: string) => {
+    if (status !== 'authenticated') {
+      router.push(routes.login)
+    } else {
+      onSubmit({ email: email || '' })
+      handleClose()
+    }
+  }
+
+  if (!isGuest) {
+    return (
+      <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
+        <DialogContent
+          style={{
+            overflow: 'hidden',
+            padding: '3rem',
+            paddingTop: '1rem',
+            width: '100%',
+            display: 'grid',
+            justifyItems: 'center',
+          }}>
           <CloseModalButton onClose={handleClose} />
-        </Grid>
-        {!isSuccess ? (
           <React.Fragment>
+            <EmailIcon color="primary" sx={{ fontSize: '64px' }} />
             <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
               {t('campaigns:subscribe.subscribe-title')}
             </DialogTitle>
             <Grid container direction="column" component="section">
-              <SubscribeForm />
+              <StyledGrid container spacing={2}>
+                <Grid item xs={12}>
+                  <Typography variant="subtitle2" textAlign="center">
+                    {status !== 'authenticated'
+                      ? t('campaigns:subscribe.subscribe-text-nonLoggedUser-general')
+                      : t('campaigns:subscribe.subscribe-text-loggedUser')}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} display="flex" justifyContent="space-evenly">
+                  <SubmitButton
+                    type="button"
+                    sx={{ width: '40%' }}
+                    className={classes.subscribeBtn}
+                    label={
+                      status !== 'authenticated'
+                        ? 'auth:cta.login'
+                        : 'campaigns:subscribe.profile-button'
+                    }
+                    loading={loading}
+                    onClick={() => sendOnProfileEmail(status)}
+                  />
+                  <SubmitButton
+                    type="button"
+                    sx={{ width: '40%' }}
+                    variant="outlined"
+                    className={classes.subscribeBtn}
+                    label={
+                      status !== 'authenticated'
+                        ? 'auth:cta.guest'
+                        : 'campaigns:subscribe.another-button'
+                    }
+                    loading={loading}
+                    onClick={() => openAsGuest()}
+                  />
+                </Grid>
+              </StyledGrid>
             </Grid>
           </React.Fragment>
-        ) : (
-          <DialogContent
-            style={{ textAlign: 'center', fontSize: 20, fontWeight: 600, paddingBottom: 6 }}>
-            {t('campaigns:subscribe.confirm-sent').split('{{email}}')}
-          </DialogContent>
-        )}
-      </DialogContent>
-    </Dialog>
-  )
+        </DialogContent>
+      </Dialog>
+    )
+  } else {
+    return (
+      <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
+        <DialogContent
+          style={{
+            overflow: 'hidden',
+            padding: '3rem',
+            paddingTop: '1rem',
+            width: '100%',
+            display: 'grid',
+            justifyItems: 'center',
+          }}>
+          <CloseModalButton onClose={handleClose} />
+          {!isSuccess ? (
+            <React.Fragment>
+              <EmailIcon color="primary" sx={{ fontSize: '64px' }} />
+              <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
+                {t('campaigns:subscribe.subscribe-title')}
+              </DialogTitle>
+              <Grid container direction="column" component="section" sx={{ textAlign: 'center' }}>
+                <SubscribeForm />
+              </Grid>
+            </React.Fragment>
+          ) : (
+            <DialogContent
+              style={{ textAlign: 'center', fontSize: 20, fontWeight: 600, paddingBottom: 6 }}>
+              <CloseModalButton onClose={handleClose} />
+              <React.Fragment>
+                <ThumbUpIcon sx={{ fontSize: '64px', color: '#03C03C' }} />
+                <DialogTitle>
+                  <Typography
+                    variant="h5"
+                    style={{ textAlign: 'center', width: '100%', color: '#03C03C' }}>
+                    {t('campaigns:subscribe.confirm-subscribe')}
+                  </Typography>
+                </DialogTitle>
+                <Typography>
+                  <Trans
+                    t={t}
+                    i18nKey="campaigns:subscribe.confirm-sent"
+                    values={{ email: email }}
+                  />
+                </Typography>
+              </React.Fragment>
+            </DialogContent>
+          )}
+        </DialogContent>
+      </Dialog>
+    )
+  }
 }

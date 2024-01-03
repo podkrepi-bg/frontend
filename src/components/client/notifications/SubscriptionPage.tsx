@@ -1,8 +1,10 @@
-import { useTranslation } from 'next-i18next'
+import { useTranslation, Trans } from 'react-i18next'
 import Layout from '../layout/Layout'
 import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
 import { useRouter } from 'next/router'
-import { Button, DialogContent, Grid } from '@mui/material'
+import { Button, DialogTitle, Grid, Typography } from '@mui/material'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import AnnouncementIcon from '@mui/icons-material/Announcement'
 import { styled } from '@mui/material/styles'
 import LinkButton from 'components/common/LinkButton'
 import React, { useEffect, useState } from 'react'
@@ -95,8 +97,6 @@ export default function SubscriptionPage(data: Props) {
   }, [])
 
   const handleError = (e: AxiosError<ApiError>) => {
-    const error = e.response?.data?.message
-    console.log(error)
     setLoading(false)
     setIsSuccess(false)
   }
@@ -147,26 +147,44 @@ export default function SubscriptionPage(data: Props) {
         </Grid>
         {isSuccess ? (
           <React.Fragment>
-            <Grid item mt={5}>
-              <DialogContent
-                style={{ textAlign: 'center', fontSize: 23, fontWeight: 600, paddingBottom: 6 }}>
-                {t('notifications:subscribe.thank-you-msg')}
-              </DialogContent>
+            <Grid item mt={5} display="flex" direction="column" alignItems="center">
+              <ThumbUpIcon sx={{ fontSize: '64px', color: '#03C03C' }} />
+              <DialogTitle>
+                <Typography
+                  variant="h5"
+                  style={{ textAlign: 'center', width: '100%', color: '#03C03C' }}>
+                  {t('notifications:subscribe.thank-you-msg-heading')}
+                </Typography>
+              </DialogTitle>
+              <Typography>
+                <Trans
+                  t={t}
+                  i18nKey="notifications:subscribe.thank-you-msg-text"
+                  values={{ email: data.email }}
+                />
+              </Typography>
             </Grid>
             <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
               <LinkButton className={classes.siteBtn} href="/">
                 {t('notifications:subscribe.cta')}
               </LinkButton>
-            </StyledGrid>{' '}
+            </StyledGrid>
           </React.Fragment>
         ) : (
           <React.Fragment>
             <React.Fragment>
-              <Grid item mt={5}>
-                <DialogContent
-                  style={{ textAlign: 'center', fontSize: 23, fontWeight: 600, paddingBottom: 6 }}>
-                  {t('notifications:subscribe.subscription-fail')}
-                </DialogContent>
+              <Grid item mt={5} display="flex" direction="column" alignItems="center">
+                <AnnouncementIcon sx={{ fontSize: '64px', color: '#FF007F' }} />
+                <DialogTitle>
+                  <Typography
+                    variant="h5"
+                    style={{ textAlign: 'center', width: '100%', color: '#FF007F' }}>
+                    {t('notifications:subscribe.subscription-fail-heading')}
+                  </Typography>
+                </DialogTitle>
+                <Typography>
+                  <Trans t={t} i18nKey="notifications:subscribe.subscription-fail-text" />
+                </Typography>
               </Grid>
               <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
                 <Button className={classes.siteBtn} onClick={() => router.reload()}>

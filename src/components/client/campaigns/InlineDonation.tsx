@@ -36,11 +36,11 @@ import LinkButton from '../../common/LinkButton'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
 import DonationWishesInline from './DonationWishesInline'
+
 import CustomListItem from 'components/common/navigation/CustomListItem'
 import { socialMedia } from './helpers/socialMedia'
 import { CampaignState } from './helpers/campaign.enums'
 import { AlertStore } from 'stores/AlertStore'
-import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
 import { useDonationWishesList } from 'common/hooks/donationWish'
 
 const PREFIX = 'InlineDonation'
@@ -66,7 +66,6 @@ const classes = {
   campaignInfoKey: `${PREFIX}-campaignInfoKey`,
   campaignInfoValue: `${PREFIX}-campaignInfoValue`,
   pagination: `${PREFIX}-pagination`,
-  subscribeLink: `${PREFIX}-subscribe`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -243,19 +242,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       fontSize: theme.typography.pxToRem(15),
     },
   },
-
-  [`& .${classes.subscribeLink}`]: {
-    fontWeight: 500,
-    fontSize: theme.typography.pxToRem(16.5),
-    textAlign: 'center',
-
-    '&:hover': {
-      textDecoration: 'underline',
-      transform: 'scale(1.01)',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
-    },
-  },
 }))
 
 type Props = {
@@ -266,7 +252,6 @@ export default function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation('campaigns')
   const { asPath } = useRouter()
   const [status, copyUrl] = useCopyToClipboard(1000)
-  const [subscribeIsOpen, setSubscribeOpen] = useState(false)
   const active = status === 'copied' ? 'inherit' : 'primary'
   const [page, setPage] = useState<number>(0)
   const { mobile } = useMobile()
@@ -439,22 +424,6 @@ export default function InlineDonation({ campaign }: Props) {
           </LinkButton>
         </Grid>
       </Grid>
-      {subscribeIsOpen && (
-        <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
-      )}
-      {/* Hide until notifications is ready */}
-      {/* <Grid
-        item
-        textAlign="center"
-        mt={1.8}
-        display="flex"
-        justifyContent="space-around"
-        paddingX={4}>
-        <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
-          {t('campaigns:cta.subscribe')}
-        </Typography>
-        <MarkEmailUnread onClick={() => setSubscribeOpen(true)} cursor="pointer" />
-      </Grid> */}
       {detailsShown &&
         (donationHistoryError ? (
           'Error fetching donation history'
