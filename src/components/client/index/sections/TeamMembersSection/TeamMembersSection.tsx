@@ -15,21 +15,21 @@ export default function TeamMembersSection() {
 
   return (
     <Root>
-          <Heading variant="h4">{t('team-section.heading')}</Heading>
-          <InfoText maxWidth="lg">{t('team-section.content')}</InfoText>
-          <Box>
-            <Image
-              alt="Team image"
-              src={teamImagePath}
-              style={{ maxWidth: '100%', height: 'auto', objectFit: 'contain' }}
-              width={1095}
-              height={150}
-            />
-          </Box>
-          {/* A11Y TODO: Translate alt text */}
-          <OutlinedButton href={routes.about} variant="outlined" endIcon={<ChevronRightIcon />}>
-            {t('team-section.meet-our-team')}
-          </OutlinedButton>
+      <Heading variant="h4">{t('team-section.heading')}</Heading>
+      <InfoText maxWidth="lg">{t('team-section.content')}</InfoText>
+      <Box>
+        <Image
+          alt="Team image"
+          src={teamImagePath}
+          style={{ maxWidth: '100%', height: 'auto', objectFit: 'contain' }}
+          width={1095}
+          height={150}
+        />
+      </Box>
+      {/* A11Y TODO: Translate alt text */}
+      <OutlinedButton href={routes.about} variant="outlined" endIcon={<ChevronRightIcon />}>
+        {t('team-section.meet-our-team')}
+      </OutlinedButton>
     </Root>
   )
 }
