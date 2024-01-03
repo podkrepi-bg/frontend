@@ -15,12 +15,6 @@ export default function TeamMembersSection() {
 
   return (
     <Root>
-      <SectionGridWrapper>
-        <Grid
-          sx={(theme) => ({
-            margin: '0 auto',
-            maxWidth: theme.spacing(95),
-          })}>
           <Heading variant="h4">{t('team-section.heading')}</Heading>
           <InfoText maxWidth="lg">{t('team-section.content')}</InfoText>
           <Box>
@@ -36,8 +30,6 @@ export default function TeamMembersSection() {
           <OutlinedButton href={routes.about} variant="outlined" endIcon={<ChevronRightIcon />}>
             {t('team-section.meet-our-team')}
           </OutlinedButton>
-        </Grid>
-      </SectionGridWrapper>
     </Root>
   )
 }
