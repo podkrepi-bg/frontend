@@ -42,7 +42,6 @@ export const Subtitle = styled(Typography)(() => ({
   display: 'inline-block',
   fontSize: theme.typography.pxToRem(16),
   lineHeight: theme.spacing(3),
-  marginTop: theme.spacing(2),
 }))
 
 export const HelpThoseInNeedButton = styled(LinkButton)(() => ({
@@ -79,13 +78,6 @@ export const SubscribeHeading = styled(Typography)(() => ({
   fontWeight: 500,
   fontSize: theme.typography.pxToRem(16.5),
   textAlign: 'center',
-
-  '&:hover': {
-    textDecoration: 'underline',
-    transform: 'scale(1.01)',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-  },
 }))
 
 export const SubscribeButton = styled(Button)(() => ({
