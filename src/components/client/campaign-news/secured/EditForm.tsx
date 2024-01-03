@@ -237,7 +237,7 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
               }}
             />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <FormTextField
               type="text"
               label="news:article.source-link.label"
@@ -254,7 +254,7 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
                 ),
               }}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={4}>
             {isAdmin && <ArticleStatusSelect />}
           </Grid>
