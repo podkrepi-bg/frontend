@@ -27,10 +27,10 @@ export const Fraction = styled(Typography)(() => ({
   fontWeight: 'bold',
   lineHeight: 1,
   fontSize: theme.typography.pxToRem(20),
-  marginTop: theme.spacing(0.7),
+  marginTop: theme.spacing(1),
 
   [theme.breakpoints.up('md')]: {
-    marginTop: theme.spacing(1.6),
+    marginTop: theme.spacing(1.87),
   },
 }))
 
