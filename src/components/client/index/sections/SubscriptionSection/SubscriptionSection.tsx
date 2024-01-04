@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Heading } from '../../IndexPage.styled'
-import { InfoText } from './SubscriptionSection.styled'
+
 import { Grid } from '@mui/material'
 import ArrowForwardSharp from '@mui/icons-material/ArrowForwardSharp'
 import EmailIcon from '@mui/icons-material/Email'
+
 import RenderSubscribeModal from 'components/client/notifications/GeneralSubscribeModal'
+import theme from 'common/theme'
+
+import { Heading } from '../../IndexPage.styled'
+import { Root, InfoText } from './SubscriptionSection.styled'
 import {
-  SectionGridWrapper,
   SubscribeButton,
   SubscribeHeading,
   Subtitle,
@@ -22,20 +25,16 @@ const SubscriptionSection = () => {
   const [subscribeIsOpen, setSubscribeOpen] = useState(false)
 
   return (
-    <SectionGridWrapper
-      sx={(theme) => ({
-        marginBottom: theme.spacing(5),
-      })}>
+    <Root>
       <Grid
-        sx={(theme) => ({
+        sx={{
           margin: '0 auto',
-          maxWidth: theme.spacing(95),
           textAlign: 'center',
-        })}>
+        }}>
         <Heading variant="h4">{t('index:subscription-section.heading')}</Heading>
-        <InfoText>{t('index:subscription-section.content')}</InfoText>
+        <InfoText sx={{ marginBottom: theme.spacing(3), padding: 0 }}>{t('index:subscription-section.content')}</InfoText>
         {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
-        <Grid item xs={12} display="flex" mb={0.5} justifyContent="center">
+        <Grid item xs={12} mb={0.5} sx={{ display: 'flex', justifyContent: 'center', paddingTop: theme.spacing(2) }}>
           <EmailIcon
             color="primary"
             fontSize="small"
@@ -47,7 +46,7 @@ const SubscriptionSection = () => {
             {t('campaigns:cta.subscribe-monthly-newsletter')}
           </SubscribeHeading>
         </Grid>
-        <Subtitle>{t('campaigns:cta.subscribe-general-monthly-newsletter')}</Subtitle>
+        <Subtitle sx={{ display: 'block', padding: theme.spacing(1.25) }}>{t('campaigns:cta.subscribe-general-monthly-newsletter')}</Subtitle>
         <SubscribeButton
           onClick={() => setSubscribeOpen(true)}
           variant="contained"
@@ -55,7 +54,7 @@ const SubscriptionSection = () => {
           {t('campaigns:cta.subscribe-general-newsletter-button')}
         </SubscribeButton>
       </Grid>
-    </SectionGridWrapper>
+    </Root>
   )
 }
 
