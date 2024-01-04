@@ -49,8 +49,7 @@ const SubscriptionSection = () => {
         <Subtitle sx={{ display: 'block', padding: theme.spacing(1.25) }}>{t('campaigns:cta.subscribe-general-monthly-newsletter')}</Subtitle>
         <SubscribeButton
           onClick={() => setSubscribeOpen(true)}
-          variant="contained"
-          endIcon={<ArrowForwardSharp />}>
+          variant="contained">
           {t('campaigns:cta.subscribe-general-newsletter-button')}
         </SubscribeButton>
       </Grid>
