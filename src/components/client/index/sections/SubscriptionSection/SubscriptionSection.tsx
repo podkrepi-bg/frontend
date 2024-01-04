@@ -32,9 +32,15 @@ const SubscriptionSection = () => {
           textAlign: 'center',
         }}>
         <Heading variant="h4">{t('index:subscription-section.heading')}</Heading>
-        <InfoText sx={{ marginBottom: theme.spacing(3), padding: 0 }}>{t('index:subscription-section.content')}</InfoText>
+        <InfoText sx={{ marginBottom: theme.spacing(3), padding: 0 }}>
+          {t('index:subscription-section.content')}
+        </InfoText>
         {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
-        <Grid item xs={12} mb={0.5} sx={{ display: 'flex', justifyContent: 'center', paddingTop: theme.spacing(2) }}>
+        <Grid
+          item
+          xs={12}
+          mb={0.5}
+          sx={{ display: 'flex', justifyContent: 'center', paddingTop: theme.spacing(2) }}>
           <EmailIcon
             color="primary"
             fontSize="small"
@@ -46,10 +52,10 @@ const SubscriptionSection = () => {
             {t('campaigns:cta.subscribe-monthly-newsletter')}
           </SubscribeHeading>
         </Grid>
-        <Subtitle sx={{ display: 'block', padding: theme.spacing(1.25) }}>{t('campaigns:cta.subscribe-general-monthly-newsletter')}</Subtitle>
-        <SubscribeButton
-          onClick={() => setSubscribeOpen(true)}
-          variant="contained">
+        <Subtitle sx={{ display: 'block', padding: theme.spacing(1.25) }}>
+          {t('campaigns:cta.subscribe-general-monthly-newsletter')}
+        </Subtitle>
+        <SubscribeButton onClick={() => setSubscribeOpen(true)} variant="contained">
           {t('campaigns:cta.subscribe-general-newsletter-button')}
         </SubscribeButton>
       </Grid>
