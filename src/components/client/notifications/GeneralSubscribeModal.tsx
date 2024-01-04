@@ -62,7 +62,7 @@ const validationSchema: yup.SchemaOf<SubscribeToNotificationsInput> = yup
 
 export default function RenderSubscribeModal({ setOpen }: ModalProps) {
   const { t } = useTranslation()
-  const { status } = useSession()
+  const { status, data } = useSession()
 
   const [loading, setLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -139,10 +139,11 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
   }
 
   const sendOnProfileEmail = (status: string) => {
+    const userData = data?.user
     if (status !== 'authenticated') {
       router.push(routes.login)
     } else {
-      onSubmit({ email: email || '' })
+      onSubmit({ email: userData?.email || '' })
       handleClose()
     }
   }

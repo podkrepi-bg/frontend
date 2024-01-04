@@ -97,8 +97,16 @@ export default function SubscriptionPage(data: Props) {
   }, [])
 
   const handleError = (e: AxiosError<ApiError>) => {
+    const error = e.response?.data?.message
+    AlertStore.show(error ? error : t('common:alerts.error'), 'error')
     setLoading(false)
     setIsSuccess(false)
+  }
+
+  const handleSuccess = () => {
+    AlertStore.show(t('common:alerts.message-sent'), 'success')
+    setIsSuccess(true)
+    setLoading(false)
   }
 
   const mutation = useMutation<
@@ -108,11 +116,7 @@ export default function SubscriptionPage(data: Props) {
   >({
     mutationFn: useSubscribePublicEmail(),
     onError: (error) => handleError(error),
-    onSuccess: () => {
-      AlertStore.show(t('common:alerts.message-sent'), 'success')
-      setIsSuccess(true)
-      setLoading(false)
-    },
+    onSuccess: () => handleSuccess,
   })
 
   async function callSubscribeApiRoute(values: {
