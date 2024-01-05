@@ -106,6 +106,30 @@ export function QuillEditor({ value, onChange }: QuillEditorProps) {
     }
   }
 
+  function handleVideoInsert() {
+    let videoUrl = prompt('Enter the URL of the video:') // for a better UX find a way to use the Quill Tooltip or a Modal box
+    if (!videoUrl) return
+
+    const editor = reactQuillRef.current?.getEditor()
+    if (!editor) return
+
+    const unprivilegedEditor = reactQuillRef.current?.makeUnprivilegedEditor(editor)
+    if (unprivilegedEditor) {
+      //check if the link is from google drive and if so, change the link to a direct link
+      const isYoutubeLink = videoUrl.match(
+        /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/,
+      )
+      //if video is from youtube, use youtube embed URL
+      if (isYoutubeLink) {
+        const videoId = isYoutubeLink[3]
+        videoUrl = 'https://youtube.com/embed/' + videoId
+      }
+
+      const range = unprivilegedEditor.getSelection(true)
+      editor.insertEmbed(range.index, 'video', videoUrl)
+    }
+  }
+
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -120,7 +144,7 @@ export function QuillEditor({ value, onChange }: QuillEditorProps) {
           ['link', 'video', 'image'],
           ['clean'],
         ],
-        handlers: { image: handleImageUrlInsert },
+        handlers: { image: handleImageUrlInsert, video: handleVideoInsert },
       },
       clipboard: {
         // toggle to add extra line breaks when pasting HTML:
