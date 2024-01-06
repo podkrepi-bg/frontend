@@ -55,7 +55,7 @@ const validationSchema: yup.SchemaOf<SubscribeToNotificationsInput> = yup
 
 export default function RenderCampaignSubscribeModal({ campaign, setOpen }: ModalProps) {
   const { t } = useTranslation()
-  const { status } = useSession()
+  const { status, data } = useSession()
   const [loading, setLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [isGuest, setIsGuest] = useState(false)
@@ -75,13 +75,10 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
   >({
     mutationFn: useSubscribeToCampaign(campaign.id),
     onError: (error) => {
-      console.log(error.message)
-
       handleError(error)
     },
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
-
       setIsSuccess(true)
     },
   })
@@ -137,10 +134,11 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
   }
 
   const sendOnProfileEmail = (status: string) => {
+    const userData = data?.user
     if (status !== 'authenticated') {
       router.push(routes.login)
     } else {
-      onSubmit({ email: email || '', consent: consent || true })
+      onSubmit({ email: userData?.email || '', consent: consent || true })
       handleClose()
     }
   }

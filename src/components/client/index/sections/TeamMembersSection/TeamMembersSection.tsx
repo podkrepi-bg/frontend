@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { Box, Grid } from '@mui/material'
+import { Box } from '@mui/material'
 import { routes } from 'common/routes'
 
 import { Heading, InfoText, OutlinedButton } from '../../IndexPage.styled'
 import { Root } from './TeamMembersSection.styled'
-import { SectionGridWrapper } from '../PlatformStatisticsSection/PlatformStatisticsSection.styled'
 
 export default function TeamMembersSection() {
   const { t } = useTranslation('index')
