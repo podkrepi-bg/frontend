@@ -3,6 +3,13 @@ import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
 
+export const Root = styled('section')(() => ({
+  maxWidth: theme.spacing(150),
+  margin: '0 auto',
+  padding: theme.spacing(0, 3),
+  marginBottom: theme.spacing(13),
+}))
+
 export const InfoText = styled(Typography)(() => ({
   textAlign: 'center',
   fontSize: theme.typography.pxToRem(16),
