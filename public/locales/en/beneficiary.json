@@ -10,7 +10,6 @@
     "not-person": "Not a person",
     "not-company": "Not a company",
     "city": "City",
-    "coordinatorRelation": "Coordinator relation",
     "organizerRelation": "Organizer relation",
     "type": "Beneficiary type",
     "description": "Description",
@@ -36,11 +35,9 @@
       },
       "person-select": "Select person or",
       "company-select": "Select company or",
-      "organizer-select": "Select organizer or",
       "create-new": "create new",
       "person-label": "Person",
       "company-label": "Company",
-      "organizer-label": "Organizer"
     }
   },
   "actions": "Actions",

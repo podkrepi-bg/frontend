@@ -10,7 +10,6 @@
     "not-person": "Не е личност",
     "not-company": "Не е компания",
     "city": "Град",
-    "coordinatorRelation": "Отношения с координатор",
     "organizerRelation": "Отношения с организатор",
     "type": "Тип на бенефициента",
     "description": "Описание",
@@ -36,11 +35,9 @@
       },
       "person-select": "Изберете потребител или",
       "company-select": "Изберете ЮЛНЦ или",
-      "organizer-select": "Изберете организатор или",
       "create-new": "създайте нов",
       "person-label": "Потребител",
       "company-label": "ЮЛНЦ",
-      "organizer-label": "Организатор"
     }
   },
   "actions": "Действия",
