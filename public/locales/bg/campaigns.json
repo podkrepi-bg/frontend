@@ -143,36 +143,9 @@
       "noResults": "Не са открити резултати"
     },
     "gallery": "Галерия",
-    "report-irregularity": "Сигнализирай за злоупотреба",
     "financial-report": "Финансови отчети",
     "report-campaign": "Докладвайте кампанията",
     "feedback": "Обратна връзка",
-    "images": {
-      "add": "Добави снимки",
-      "add-more": "Добави още",
-      "adding-more": "Добавяне на още снимки",
-      "drop-paste-import-files": "Пуснете снимки тук или изберете от следните източници:",
-      "my-device": "Компютър",
-      "back": "Назад",
-      "edit": "Редактирай",
-      "editing": "Редактиране",
-      "import-from": "Добавяне от външен източник",
-      "close": "Затвори",
-      "cancel": "Откажи",
-      "remove": "Премахни",
-      "save": "Запази",
-      "files-selected": "Избрани снимки",
-      "uploading": "Качване...",
-      "complete": "Завършено",
-      "upload-file": "Качи %{smart_count} снимка",
-      "upload-multiple": "Качи %{smart_count} снимки",
-      "x-time-left": "%{time} оставащо време",
-      "upload-failed": "Неуспешно качване",
-      "pause": "Прекъсни",
-      "paused": "Прекъснато",
-      "resume": "Продължи",
-      "retry": "Опитай пак"
-    },
     "beneficiary": {
       "name": "Бенефициент",
       "label": "Бенефициент:",
@@ -181,19 +154,15 @@
     },
     "coordinator": {
       "name": "Координатор:",
-      "add": "Добавете координатор",
-      "create": "Създате координатор"
+      "add": "Добавете координатор"
     },
     "organizer": {
-      "name": "Организатор:",
-      "add": "Добавете организатор",
-      "create": "Създайте организатор"
+      "name": "Организатор:"
     },
     "image-of": "Изображение на",
     "podkrepi-bg-operator": "Подкрепи.бг Оператор:",
     "have-a-question": "Имате въпрос?",
     "btn-connect": "Пишете ни",
-    "write-to-coordinator": "Пишете на Координатор",
     "description": "Описание",
     "start-date": "Начална дата:",
     "end-date": "Крайна дата:",

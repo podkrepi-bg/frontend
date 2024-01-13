@@ -133,36 +133,9 @@
     "profile": "Profile:",
     "status": "Status:",
     "gallery": "Gallery",
-    "report-irregularity": "Report irregularity",
     "financial-report": "Financial report",
     "report-campaign": "Report the campaign",
     "feedback": "Feedback",
-    "images": {
-      "add": "Add image",
-      "add-more": "Add more",
-      "adding-more": "Adding more images",
-      "drop-paste-import-files": "Drop files here or import from:",
-      "my-device": "Device",
-      "back": "Back",
-      "edit": "Edit",
-      "editing": "Editing",
-      "import-from": "Importing from external source",
-      "close": "Close",
-      "cancel": "Cancel",
-      "remove": "Remove",
-      "save": "Save",
-      "files-selected": "Selected images",
-      "uploading": "Uploading...",
-      "complete": "Complete",
-      "upload-file": "Upload %{smart_count} image",
-      "upload-multiple": "Upload %{smart_count} images",
-      "x-time-left": "%{time} time remaining",
-      "upload-failed": "Upload failed",
-      "pause": "Pause",
-      "paused": "Paused",
-      "resume": "Resume",
-      "retry": "Retry"
-    },
     "rte": {
       "modern": "New (beta)",
       "classic": "Classic"
@@ -179,15 +152,12 @@
       "create": "Create coordinator"
     },
     "organizer": {
-      "name": "Organizer:",
-      "add": "Add organizer",
-      "create": "Create organizer"
+      "name": "Organizer:"
     },
     "image-of": "Image of",
     "podkrepi-bg-operator": "Podkrepi.bg Operator:",
     "have-a-question": "Have a question?",
     "btn-connect": "Write to us",
-    "write-to-coordinator": "Write to Coordinator",
     "description": "Description",
     "start-date": "Start date:",
     "end-date": "End date:",
