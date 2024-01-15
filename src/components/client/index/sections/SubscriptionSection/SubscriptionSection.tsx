@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
 import { Grid } from '@mui/material'
-import ArrowForwardSharp from '@mui/icons-material/ArrowForwardSharp'
 import EmailIcon from '@mui/icons-material/Email'
 
 import RenderSubscribeModal from 'components/client/notifications/GeneralSubscribeModal'
