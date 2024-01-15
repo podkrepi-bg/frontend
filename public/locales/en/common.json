@@ -33,7 +33,6 @@
     "donate": "Donate",
     "donation-menu": "Campaigns",
     "blog": "Blog",
-    "support_us_button": "Support us",
     "profile": "Profile",
     "login": "Login",
     "login-with": "Login with",
@@ -60,13 +59,13 @@
   "link": "Link",
   "components": {
     "footer": {
+      "subscribe": "Subscribe for notifications",
       "donatе": "Donate",
       "about-us": "About us",
       "resources": "Resources",
       "others": "Others",
       "all-campaigns": "All campaigns",
       "who-are-we": "Who are we?",
-      "suggest-campaign": "Suggest a campaign",
       "about-project": "About the project",
       "support-us": "Support us",
       "become-a-volunteer": "Become a volunteer",
@@ -94,14 +93,13 @@
   "fields": {
     "currency": "Currency",
     "personId": "Person",
+    "campaignId": "Campaign",
     "sourceCampaignId": "Source campaign",
-    "targetCampaignId": "Target campaign"
+    "targetCampaignId": "Target campaign",
+    "email": "Email"
   },
   "cta": {
-    "more-information": "More information",
-    "read-more": "Read more",
-    "see-profile": "See profile",
-    "question": "Have a question?"
+    "more-information": "More information"
   },
   "cookieConsent": "Podkrepi.bg doesn't use cookies, except the third-party cookies required for the analytics components Google Analytics and HotJar. Accepting the cookies will help us improve your user experience.",
   "cookieConsentButton": "Accept",

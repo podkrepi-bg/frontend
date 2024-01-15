@@ -33,7 +33,6 @@
     "donate": "Дарете",
     "donation-menu": "Кампании",
     "blog": "Блог",
-    "support_us_button": "Подкрепете ни",
     "profile": "Моят профил",
     "login": "Вход",
     "login-with": "Вход с",
@@ -66,7 +65,6 @@
       "resources": "Ресурси",
       "others": "Други",
       "all-campaigns": "Всички кампании",
-      "suggest-campaign": "Предложете кампания",
       "who-are-we": "Кои сме ние?",
       "about-project": "За проекта",
       "support-us": "Подкрепете ни",
@@ -101,10 +99,7 @@
     "email": "Имейл"
   },
   "cta": {
-    "more-information": "Повече информация",
-    "read-more": "Прочетете още",
-    "see-profile": "Вижте профил",
-    "question": "Имате въпрос?"
+    "more-information": "Повече информация"
   },
   "cookieConsent": "Подкрепи.бг не използва бисквитки, освен тези от трети страни, нужни за аналитичните компоненти Google Analytics и HotJar. Приемането на бисквитките ще ни помогне да подобрим вашето потребителско преживяване.",
   "cookieConsentButton": "Приемам",

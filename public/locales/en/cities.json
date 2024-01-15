@@ -11,14 +11,11 @@
   "campaignId": "Campaign ID",
   "deleteTitle": "Are you sure?",
   "deleteContent": "This action will delete this item permanently!",
-  "deleteAllContent": "This action will delete selected items permanently!",
   "actions": "Actions",
   "alerts": {
-    "selectRow": "Please choose a row",
     "create": "City has been created successfully!",
     "edit": "City has been edited successfully!",
     "delete": "City has been deleted successfully!",
-    "deleteAll": "City have been deleted successfully!",
     "error": "An error has occured! Please try again later."
   },
   "cta": {
@@ -26,7 +23,6 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "delete": "Delete",
-    "deleteSelected": "Delete selected rows",
     "edit": "Edit",
     "details": "Details",
     "submit": "Submit"
