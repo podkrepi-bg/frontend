@@ -14,8 +14,8 @@ import { observer } from 'mobx-react'
 import { useDonationsList } from 'common/hooks/donation'
 
 import DetailsModal from '../modals/DetailsModal'
-import DeleteModal from '../modals/DeleteModal'
-import { ModalStore, RefundStore } from '../DonationsPage'
+import InvalidateModal from '../modals/InvalidateModal'
+import { ModalStore, RefundStore, InvalidateStore } from '../DonationsPage'
 import { getExactDateTime } from 'common/util/date'
 import { useRouter } from 'next/router'
 import { money } from 'common/util/money'
@@ -26,8 +26,11 @@ import RenderEditPersonCell from './RenderEditPersonCell'
 import { useStores } from '../../../../common/hooks/useStores'
 import RenderEditBillingEmailCell from './RenderEditBillingEmailCell'
 import RestoreIcon from '@mui/icons-material/Restore'
+import CancelIcon from '@mui/icons-material/Cancel'
 import RefundModal from '../modals/RefundModal'
 import { DonationStatus, PaymentProvider } from '../../../../gql/donations.enums'
+import { useSession } from 'next-auth/react'
+
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -51,8 +54,16 @@ export default observer(function Grid() {
   const router = useRouter()
   const { isDetailsOpen } = ModalStore
   const { isRefundOpen } = RefundStore
+  const {
+    isDeleteOpen,
+    setSelectedRecord: setInvalidateRecord,
+    showDelete: showInvalidate,
+  } = InvalidateStore
   const campaignId = router.query.campaignId as string | undefined
-
+  const { data: session } = useSession()
+  const canEditFinancials = session?.user?.realm_access?.roles.includes(
+    'account-edit-financials-requests',
+  )
   const {
     data: { items: donations, total: allDonationsCount } = { items: [], total: 0 },
     // error: donationHistoryError,
@@ -147,6 +158,11 @@ export default observer(function Grid() {
     showRefund()
   }
 
+  function invalidateClickHandler(id: string) {
+    setInvalidateRecord({ id, name: '' })
+    showInvalidate()
+  }
+
   const columns: GridColDef[] = [
     {
       field: 'actions',
@@ -155,7 +171,8 @@ export default observer(function Grid() {
       width: 120,
       resizable: false,
       renderCell: (params: GridRenderCellParams) => {
-        return params.row?.status === DonationStatus.succeeded &&
+        return canEditFinancials &&
+          params.row?.status === DonationStatus.succeeded &&
           params.row?.provider === PaymentProvider.stripe ? (
           <>
             <Tooltip title={t('donations:refund.icon')}>
@@ -164,6 +181,14 @@ export default observer(function Grid() {
                 color="primary"
                 onClick={() => refundClickHandler(params.row.id)}>
                 <RestoreIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={t('donations:invalidate.icon')}>
+              <IconButton
+                size="small"
+                color="primary"
+                onClick={() => invalidateClickHandler(params.row.id)}>
+                <CancelIcon />
               </IconButton>
             </Tooltip>
           </>
@@ -292,7 +317,7 @@ export default observer(function Grid() {
       {/* making sure we don't sent requests to the API when not needed */}
       {isDetailsOpen && <DetailsModal />}
       {isRefundOpen && <RefundModal />}
-      <DeleteModal />
+      {isDeleteOpen && <InvalidateModal onUpdate={refetch} />}
     </>
   )
 })
