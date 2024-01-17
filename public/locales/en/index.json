@@ -1,10 +1,6 @@
 {
   "title": "Podkrepi.bg - a transparent online donation platform",
   "metaDescription": "Podkrepi.bg is a transparent online donation platform created by a team of volunteers from the Podkrepi BG organization.",
-  "activity-section": {
-    "heading": "What do we do?",
-    "content": "Podkrepi.bg is an association of professionals united by the idea of creating a free and completely transparent online donation platform, which can be used freely by citizens and organizations."
-  },
   "team-section": {
     "heading": "Who is behind Podkrepi.bg?",
     "content": "Podkrepi.bg is a community of specialists in the field of programming, law, marketing, design, medicine, finance, social entrepreneurship and others. We are united by the goal of creating a sustainable and transparent donation platform that supports causes and people in need, while promoting and restoring trust in donations in Bulgaria.",
@@ -13,23 +9,6 @@
   "subscription-section": {
     "heading": "You want to know about our future achievements?",
     "content": "Subscribe for our newsletter we will infrom you about the most important from the life of Podkrepi.bg. Every month you will receive email from us in which we will share with you the most important things about the campaigns that we have and their organizers and beneficiaries. You will receive news for our partners, volunteers and donors in your email box. If this sounds good for you, subscribe as you fill in your email here:"
-  },
-  "support-us-section": {
-    "heading": "Support us as:",
-    "financial-support": "- a benefactor",
-    "labour-support": "- a volunteer",
-    "media-support": "- media",
-    "become-a-partner": "- a partner",
-    "click-here-button": "Join us"
-  },
-  "mission-vision-goals-section": {
-    "mission-title": "Mission",
-    "mission-text": "To create a completely transparent online donation platform, supported by donations and membership fees to our association, and not % commission from the companies.",
-    "vision-title": "Vision",
-    "vision-text": "To improve the donation culture in Bulgaria drastically by increasing transparency and trust in donation campaigns and platforms.",
-    "goals-title": "Goals",
-    "goals-text-trust": "- To restore trust in donation.",
-    "goals-text-open-source": "- To create an open-source platform which reduces the chances of misuse."
   },
   "campaign": {
     "see-all": "See all"

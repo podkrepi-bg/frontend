@@ -1,6 +1,8 @@
 {
   "news": "News",
   "read-more": "Read more",
+  "form-heading": "Create new article",
+  "edit-form-heading": "Edit article",
   "read-less": "Read less",
   "see-all-news": "See all news",
   "news-not-found": "No news articles were found for this campaign",
@@ -21,7 +23,6 @@
       "warning": "Editing this field is going to change the link to the news article, and make the current one invalid",
       "placeholder": "The default value is the same as  'Article title'"
     },
-    "select-campaign": "Select campaign",
     "source-link": {
       "label": "Link to source",
       "field-description": "This field is only necessary if the article is taken from another source.\nLeave empty if you are the author of this article"
