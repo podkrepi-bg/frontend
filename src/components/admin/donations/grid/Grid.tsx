@@ -31,7 +31,6 @@ import RefundModal from '../modals/RefundModal'
 import { DonationStatus, PaymentProvider } from '../../../../gql/donations.enums'
 import { useSession } from 'next-auth/react'
 
-
 interface RenderCellProps {
   params: GridRenderCellParams
 }
