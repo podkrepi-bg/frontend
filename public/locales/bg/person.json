@@ -1,6 +1,5 @@
 {
   "personSelect": "Изберете потребител",
-  "emptySelectItem": "Не е избран",
   "selectDialog": {
     "notSelected": "Не сте избрали потребител",
     "select": "Избиране",
@@ -29,6 +28,7 @@
     "fields": {
       "actions": "Действия",
       "name": "Име",
+      "create-heading": "Създай нов потребител",
       "first-name": "Име",
       "last-name": "Фамилия",
       "email": "Имейл",

@@ -10,15 +10,12 @@
     "info-start": "When donating without registration we won't be able to send you back a donation certificate or a list of your donations. If you still want to receive a certificate, please share at least your email - it will not be visible in the platform.",
     "firstName": "First name",
     "lastName": "Last name",
-    "phone": "Telephone",
-    "info-end": "Your data would not be shared with anyone",
-    "want-anonymous-donation": "I want to donate anonymously!"
+    "phone": "Telephone"
   },
   "first-step": {
     "wish": "Would you like to wish something to the beneficiary?",
     "message": "Your wish",
     "check-box-label": "Anonymous donation",
-    "info-anonymous": "Anonymous donation means that the organisator and beneficiery would not be aware of your identity",
     "amount": "How much would you like to donate?",
     "other": "Other amount",
     "BGN": "BGN",
@@ -87,7 +84,6 @@
     "btn-back-to-campaign": "See the campaign"
   },
   "errors-fields": {
-    "checkbox-anonymous": "Please select an option for anonymous donation or donation without registering if you would like to continue!",
     "bank-payment": "We are sorry for the inconvenience, but you can currently donate only through a bank transfer",
     "amount": "Please select the amount you would like to donate!",
     "other-amount": "The minimum amount you can donate with a card is BGN 1."
