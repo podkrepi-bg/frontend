@@ -22,6 +22,7 @@
     "edit": "Recurring donation edited successfully",
     "delete": "Recurring donation deleted successfully",
     "cancel": "Recurring donation cancelled successfully",
+    "cancel-confirm": "Are you sure you want to cancel the donation?",
     "error": "Error while processing your request. Please try again later."
   },
   "statuses": {

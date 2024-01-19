@@ -1,6 +1,7 @@
 {
   "header": "Personal profile",
   "corporate-header": "Corporate Profile",
+  "campaigns": "Supported campaigns",
   "personalInfo": {
     "index": "Personal information",
     "login": "Login information:",
@@ -21,30 +22,37 @@
   "donations": {
     "index": "Donations",
     "donor": "Donor",
-    "helpThanks": "thank you for your help!",
+    "helpThanks": "Thank you for your help!",
     "donateNow": "Donate now",
     "totalDonations": "All donations",
     "recurringDonations": "Monthly donations",
     "cardDonations": "Donations with card",
     "bankDonations": "Donations by bank",
+    "onlineDonations": "Online donations",
+    "noDonations": "No donations have been made.",
+    "historyDonations": "Donations history",
     "monthly": "Monthly",
     "oneTime": "One time",
     "fromDate": "From",
     "toDate": "To",
     "date": "Date",
     "type": "Type",
+    "sort": "Sort",
     "cause": "Cause",
     "amount": "Amount",
     "cancelDonation": "Cancel donation",
     "cancel": "Cancel",
     "certificate": "Certificate",
     "download": "Download",
+    "bank": "Bank",
+    "card": "Card",
     "lv": "lv",
     "status": {
       "header": "Status",
       "initial": "initial",
       "waiting": "waiting",
       "succeeded": "succeeded",
+      "refund": "refunded",
       "cancelled": "cancelled",
       "guaranteed": "guaranteed"
     }
@@ -68,9 +76,9 @@
       "title-unsubscribe": "Unsubscribe for receiving notifications from Podkrepi.bg",
       "campaign-title-unsubscribe": "Unsubscribe from receiving notifications from this campaign",
       "cta": "Confirm",
-      "subscribe-msg": "You've successfully subscribed for receiving notifications",
-      "unsubscribe-msg": "You've successfully unsubscribed for receiving notifications",
-      "campaign-unsubscribe-msg": "You've successfully unsubscribed from receiving notifications regarding this campaign"
+      "subscribe-msg": "You've successfully subscribed for receiving notifications.",
+      "unsubscribe-msg": "You've successfully unsubscribed for receiving notifications.",
+      "campaign-unsubscribe-msg": "You've successfully unsubscribed from receiving notifications regarding this campaign."
     },
     "status": {
       "active": "Active",
@@ -117,6 +125,7 @@
     "disabled": "Your account has been deleted."
   },
   "affiliate": {
+    "summary": "By joining the partner program of Podkrepi.bg, you get access to our Corporate Donations service, through which your employees or customers can donate with donations \"guaranteed\" by your company.",
     "index": "Affiliate program",
     "join": "Join the program",
     "data-summary": "Affiliate program summary",
