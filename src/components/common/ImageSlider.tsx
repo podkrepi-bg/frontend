@@ -4,16 +4,19 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Image from 'next/image'
 import { styled } from '@mui/material/styles'
-import { Modal, Typography } from '@mui/material'
+import { IconButton, Modal, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import theme from 'common/theme'
 import { ImageSlider } from 'components/common/campaign-file/roles'
-import withFullScreenSlider from './withFullScreenSlider'
+import Gallery from './Gallery'
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
 
+const PREFIX = 'ImageSlider'
 const classes = {
-  container: 'container',
-  slider: 'slider',
-  carouselFullScreen: 'carouselFullScreen',
+  container: `${PREFIX}-container`,
+  slider: `${PREFIX}-slider`,
+  carouselFullScreen: `${PREFIX}-fullScreen`,
+  minimizeFullScreenBtn: `${PREFIX}-minimizeFullScreenBtn`,
 }
 
 const Root = styled('div')(() => ({
@@ -30,7 +33,7 @@ const Root = styled('div')(() => ({
       zIndex: 3,
     },
     '& .slick-next': {
-      right: theme.spacing(3.5),
+      right: theme.spacing(4),
       zIndex: 3,
     },
     '& .slick-next::before, .slick-prev::before': {
@@ -49,19 +52,16 @@ const Root = styled('div')(() => ({
     },
   },
   [`& .${classes.carouselFullScreen}`]: {
-    maxWidth: '100%',
-    maxHeight: '100%',
+    width: '100vw',
     '& .slick-prev': {
-      left: theme.spacing(1),
-      zIndex: 3,
+      left: '5vw',
     },
     '& .slick-slide': {
       position: 'relative',
     },
 
     '& .slick-next': {
-      right: theme.spacing(3.5),
-      zIndex: 3,
+      right: '5vw',
     },
 
     '& .slick-track img': {
@@ -70,18 +70,15 @@ const Root = styled('div')(() => ({
     },
 
     '& .slick-track': {
-      aspectRatio: 20,
-      minHeight: 350,
+      height: '42vh',
       [theme.breakpoints.up(600)]: {
-        aspectRatio: 45,
+        height: '80vh',
       },
       [theme.breakpoints.up(800)]: {
-        minHeight: 370,
-        aspectRatio: 49,
+        height: '88vh',
       },
       [theme.breakpoints.up(1024)]: {
-        minHeight: 540,
-        aspectRatio: 34,
+        height: '90vh',
       },
     },
 
@@ -98,6 +95,18 @@ const Root = styled('div')(() => ({
     '& .slick-dots li button:before': {
       fontSize: theme.spacing(1),
       color: theme.palette.primary.main,
+    },
+  },
+  [`& .${classes.minimizeFullScreenBtn}`]: {
+    position: 'absolute',
+    color: 'white',
+    right: 0,
+    top: 0,
+    cursor: 'pointer',
+    zIndex: 9999,
+
+    ['svg']: {
+      fontSize: 50,
     },
   },
 }))
@@ -123,9 +132,8 @@ const settings: Settings = {
   ],
 }
 
-export default function CampaignImageSlider({ sliderImages }: Props) {
+export function ImageSlider({ sliderImages }: Props) {
   const { t } = useTranslation()
-  const WithFullScreenSlider = withFullScreenSlider(Image)
   if (sliderImages.length === 0) {
     return null
   }
@@ -150,21 +158,20 @@ export default function CampaignImageSlider({ sliderImages }: Props) {
       <Typography variant="h4" sx={{ my: theme.spacing(3), fontWeight: '500' }}>
         {t('campaigns:campaign.gallery')}
       </Typography>
-      <Slider {...settings} className={classes.slider}>
-        {sliderImages.map((image, index) => (
-          <div key={index}>
-            <WithFullScreenSlider
-              images={sliderImages}
+      <Gallery images={sliderImages}>
+        <Slider {...settings} className={classes.slider}>
+          {sliderImages.map((image, index) => (
+            <Image
               src={image.src}
               alt={image.fileName}
               height={300}
               width={500}
               style={{ objectFit: 'contain' }}
-              index={index}
+              key={index}
             />
-          </div>
-        ))}
-      </Slider>
+          ))}
+        </Slider>
+      </Gallery>
     </Root>
   )
 }
@@ -197,12 +204,22 @@ export const FullScreenImageSlider = ({
       open={onOpen}
       onClose={onClose}
       sx={{
+        width: '100vw',
+        height: '100vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0,0,0,0.8)',
+        cursor: 'grab',
       }}>
-      <Root style={{ width: 1000, maxWidth: '100%' }}>
+      <Root>
+        <IconButton
+          size="large"
+          onClick={onClose}
+          className={classes.minimizeFullScreenBtn}
+          aria-label="minimize gallery">
+          <FullscreenExitIcon />
+        </IconButton>
         <Slider {...newSettings} className={classes.carouselFullScreen} ref={sliderRef}>
           {sliderImages.map((image, index) => (
             <div key={index} style={{ position: 'relative', maxWidth: '100%' }}>
