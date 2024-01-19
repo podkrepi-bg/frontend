@@ -7,24 +7,19 @@
       "first-subtitle": "Включете се в организацията като:",
       "fields": {
         "benefactor": {
-          "title": "Дарител",
-          "description": "Дарител..."
+          "title": "Дарител"
         },
         "partner": {
-          "title": "Партньор",
-          "description": "Партньор..."
+          "title": "Партньор"
         },
         "volunteer": {
-          "title": "Доброволец",
-          "description": "Доброволец..."
+          "title": "Доброволец"
         },
         "associationMember": {
-          "title": "Член на сдружението",
-          "description": "Член на сдружението..."
+          "title": "Член на сдружението"
         },
         "company": {
-          "title": "Компания",
-          "description": "Компания..."
+          "title": "Компания"
         }
       }
     },
@@ -45,7 +40,6 @@
       },
       "volunteer": {
         "title": "Доброволец",
-        "label": "Моля, изберете област",
         "marketing": "Маркетинг",
         "backend": "Backend",
         "frontend": "Frontend",

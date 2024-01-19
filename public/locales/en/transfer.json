@@ -35,7 +35,8 @@
     "delete": "Delete",
     "edit": "Edit",
     "details": "Details",
-    "submit": "Submit"
+    "submit": "Submit",
+    "close": "Close"
   },
   "fields": {
     "approvedById": "Approved by",
