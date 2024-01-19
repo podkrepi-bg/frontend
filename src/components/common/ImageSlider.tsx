@@ -202,6 +202,7 @@ export const FullScreenImageSlider = ({
   return (
     <Modal
       open={onOpen}
+      hideBackdrop
       onClose={onClose}
       sx={{
         width: '100vw',
@@ -209,7 +210,7 @@ export const FullScreenImageSlider = ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.8)',
+        backgroundColor: 'rgba(0,0,0,0.9)',
         cursor: 'grab',
       }}>
       <Root>
