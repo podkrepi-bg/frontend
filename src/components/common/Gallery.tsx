@@ -42,11 +42,20 @@ export default function Gallery({ children, images }: ChildComponentProps) {
 
     //if childrenCount === 1, assume the child is a component such as slider or gallery grid, and the list of images are nested.
     return React.Children.map(children, (child) => {
+      //In some situations the child could be a single JSX.Element containing an image, thus child.props.children is an object rather than array
+      if (images.length === 1) {
+        return React.cloneElement(child, {
+          style: { cursor: 'pointer' },
+          onClick: () => onOpenFullScreenSlider(0),
+        })
+      }
+
       const modifiedNestedChild = child.props.children.map((elem: JSX.Element, index: number) => {
         return React.cloneElement(elem, {
           onClick: () => onOpenFullScreenSlider(index),
         })
       })
+
       return React.cloneElement(child, { style: { cursor: 'pointer' } }, modifiedNestedChild)
     })
   }, [])
