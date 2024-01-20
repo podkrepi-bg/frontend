@@ -17,7 +17,7 @@ import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
 import { scrollToTop } from './utils/scrollToTop'
 import { getArticleHeight } from './utils/getArticleHeight'
 
-import withFullScreenSlider from 'components/common/withFullScreenSlider'
+import Gallery from 'components/common/Gallery'
 
 const PREFIX = 'CampaignNewsSection'
 const classes = {
@@ -83,7 +83,6 @@ export default function CampaignNewsList({ articles }: Props) {
   const { t, i18n } = useTranslation('news')
   const INITIAL_HEIGHT_LIMIT = 400
   const [isExpanded, expandContent] = useShowMoreContent()
-  const WithFullScreenSlider = withFullScreenSlider(Image)
   return (
     <>
       {articles?.map((article, index: number) => {
@@ -158,21 +157,21 @@ export default function CampaignNewsList({ articles }: Props) {
                 {article.newsFiles.length > 0 && (
                   <>
                     <Grid container item gap={1} xs={'auto'} style={{ maxWidth: '100%' }}>
-                      {images.map((file, index) => {
-                        return (
-                          <Grid item key={file.id}>
-                            <WithFullScreenSlider
-                              images={images}
-                              src={file.src}
-                              width={220}
-                              height={140}
-                              alt={file.fileName}
-                              index={index}
-                              style={{ objectFit: 'scale-down' }}
-                            />
-                          </Grid>
-                        )
-                      })}
+                      <Gallery images={images}>
+                        {images.map((file) => {
+                          return (
+                            <Grid item key={file.id}>
+                              <Image
+                                src={file.src}
+                                width={220}
+                                height={140}
+                                alt={file.fileName}
+                                style={{ objectFit: 'scale-down' }}
+                              />
+                            </Grid>
+                          )
+                        })}
+                      </Gallery>
                     </Grid>
                   </>
                 )}
