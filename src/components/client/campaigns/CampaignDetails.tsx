@@ -12,7 +12,7 @@ import SecurityIcon from '@mui/icons-material/Security'
 import { styled } from '@mui/material/styles'
 
 import DonationWishes from './DonationWishes'
-import CampaignImageSlider from 'components/common/CampaignImageSlider'
+import { ImageSlider } from 'components/common/ImageSlider'
 import CampaignInfo from './CampaignInfo/CampaignInfo'
 import CampaignInfoGraphics from './CampaignInfoGraphics'
 import CampaignInfoOperator from './CampaignInfoOperator'
@@ -158,7 +158,7 @@ export default function CampaignDetails({ campaign }: Props) {
           <ReactQuill readOnly theme="bubble" value={campaign.description} />
         </Grid>
         <Grid item xs={12}>
-          <CampaignImageSlider sliderImages={sliderImages} />
+          <ImageSlider sliderImages={sliderImages} />
         </Grid>
         <Grid item xs={12}>
           <Divider />
