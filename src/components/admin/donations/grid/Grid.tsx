@@ -170,18 +170,22 @@ export default observer(function Grid() {
       width: 120,
       resizable: false,
       renderCell: (params: GridRenderCellParams) => {
-        return canEditFinancials &&
-          params.row?.status === DonationStatus.succeeded &&
-          params.row?.provider === PaymentProvider.stripe ? (
+        if (!canEditFinancials || params.row?.status !== DonationStatus.succeeded) {
+          return ''
+        }
+
+        return (
           <>
-            <Tooltip title={t('donations:refund.icon')}>
-              <IconButton
-                size="small"
-                color="primary"
-                onClick={() => refundClickHandler(params.row.id)}>
-                <RestoreIcon />
-              </IconButton>
-            </Tooltip>
+            {params.row.provider === PaymentProvider.stripe && (
+              <Tooltip title={t('donations:refund.icon')}>
+                <IconButton
+                  size="small"
+                  color="primary"
+                  onClick={() => refundClickHandler(params.row.id)}>
+                  <RestoreIcon />
+                </IconButton>
+              </Tooltip>
+            )}
             <Tooltip title={t('donations:invalidate.icon')}>
               <IconButton
                 size="small"
@@ -191,8 +195,6 @@ export default observer(function Grid() {
               </IconButton>
             </Tooltip>
           </>
-        ) : (
-          ''
         )
       },
     },
