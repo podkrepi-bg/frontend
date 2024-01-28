@@ -118,6 +118,8 @@ export const endpoints = {
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     refundStripePayment: (id: string) =>
       <Endpoint>{ url: `/donation/refund-stripe-payment/${id}`, method: 'POST' },
+    invalidateStripePayment: (id: string) =>
+      <Endpoint>{ url: `/donation/${id}/invalidate`, method: 'PATCH' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
     donationsList: (
       campaignId?: string,
