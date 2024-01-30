@@ -5,7 +5,13 @@ import ContactPage from 'components/client/contact/ContactPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth', 'validation', 'contact', 'campaigns'])),
+    ...(await serverSideTranslations(locale ?? 'bg', [
+      'common',
+      'auth',
+      'validation',
+      'contact',
+      'campaigns',
+    ])),
   },
 })
 
