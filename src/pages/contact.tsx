@@ -10,7 +10,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
       'auth',
       'validation',
       'contact',
-      'campaigns',
     ])),
   },
 })
