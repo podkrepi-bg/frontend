@@ -42,14 +42,14 @@ export default function PlatformStatisticsSection() {
           {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
           <Grid item xs={12} display="flex" sx={{ mt: 3.5, mb: 0.5 }}>
             <EmailIcon color="primary" fontSize="small" sx={{ mr: 0.5 }} cursor="pointer" />
-            <SubscribeHeading>{t('campaigns:cta.subscribeGeneral')}</SubscribeHeading>
+            <SubscribeHeading>{t('common:notifications.subscribeGeneral')}</SubscribeHeading>
           </Grid>
-          <Subtitle>{t('campaigns:cta.subscribeGeneralSubtext')}</Subtitle>
+          <Subtitle>{t('common:notifications.subscribeGeneralSubtext')}</Subtitle>
           <SubscribeButton
             onClick={() => setSubscribeOpen(true)}
             variant="contained"
             endIcon={<ArrowForwardSharp />}>
-            {t('campaigns:cta.subscribeGeneralButton')}
+            {t('common:notifications.subscribeGeneralButton')}
           </SubscribeButton>
         </Grid>
         <Statistics />

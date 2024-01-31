@@ -48,14 +48,14 @@ const SubscriptionSection = () => {
             cursor="pointer"
           />
           <SubscribeHeading onClick={() => setSubscribeOpen(true)}>
-            {t('campaigns:cta.subscribe-monthly-newsletter')}
+            {t('common:notifications.subscribe-monthly-newsletter')}
           </SubscribeHeading>
         </Grid>
         <Subtitle sx={{ display: 'block', padding: theme.spacing(1.25) }}>
-          {t('campaigns:cta.subscribe-general-monthly-newsletter')}
+          {t('common:notifications.subscribe-general-monthly-newsletter')}
         </Subtitle>
         <SubscribeButton onClick={() => setSubscribeOpen(true)} variant="contained">
-          {t('campaigns:cta.subscribe-general-newsletter-button')}
+          {t('common:notifications.subscribe-general-newsletter-button')}
         </SubscribeButton>
       </Grid>
     </Root>
