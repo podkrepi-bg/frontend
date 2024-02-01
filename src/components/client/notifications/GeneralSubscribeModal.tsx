@@ -125,7 +125,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
             <SubmitButton
               sx={{ width: '40%' }}
               className={classes.subscribeBtn}
-              label="common:notifications.subscribe-button"
+              label="common:notifications.cta.subscribe-button"
               loading={loading}
             />
           </Grid>
@@ -182,8 +182,8 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
                     className={classes.subscribeBtn}
                     label={
                       status !== 'authenticated'
-                        ? 'auth:cta.login'
-                        : 'common:notifications.profile-button'
+                        ? 'common:notifications.cta.login'
+                        : 'common:notifications.cta.profile-button'
                     }
                     loading={loading}
                     onClick={() => sendOnProfileEmail(status)}
@@ -195,8 +195,8 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
                     className={classes.subscribeBtn}
                     label={
                       status !== 'authenticated'
-                        ? 'auth:cta.guest'
-                        : 'common:notifications.another-button'
+                        ? 'common:notifications.cta.guest'
+                        : 'common:notifications.cta.another-button'
                     }
                     loading={loading}
                     onClick={() => openAsGuest()}
