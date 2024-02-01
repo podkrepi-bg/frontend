@@ -107,7 +107,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
         <StyledGrid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="subtitle2">
-              {t('campaigns:subscribe.subscribe-campaign-subtTitle')}
+              {t('common:notifications.subscribe-campaign-subtTitle')}
             </Typography>
           </Grid>
           <Grid item xs={12} textAlign="center">
@@ -120,7 +120,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
             <SubmitButton
               sx={{ width: '40%' }}
               className={classes.subscribeBtn}
-              label="campaigns:subscribe.subscribe-button"
+              label="common:notifications.subscribe-button"
               loading={loading}
             />
           </Grid>
@@ -159,15 +159,15 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
           <React.Fragment>
             <EmailIcon color="primary" sx={{ fontSize: '64px' }} />
             <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
-              {t('campaigns:subscribe.subscribe-campaign-title')}
+              {t('common:notifications.subscribe-campaign-title')}
             </DialogTitle>
             <Grid container direction="column" component="section">
               <StyledGrid container spacing={2}>
                 <Grid item xs={12}>
                   <Typography variant="subtitle2" textAlign="center">
                     {status !== 'authenticated'
-                      ? t('campaigns:subscribe.subscribe-text-nonLoggedUser')
-                      : t('campaigns:subscribe.subscribe-text-loggedUser')}
+                      ? t('common:notifications.subscribe-text-nonLoggedUser')
+                      : t('common:notifications.subscribe-text-loggedUser')}
                   </Typography>
                 </Grid>
                 <Grid item xs={12} display="flex" justifyContent="space-evenly">
@@ -178,7 +178,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
                     label={
                       status !== 'authenticated'
                         ? 'auth:cta.login'
-                        : 'campaigns:subscribe.profile-button'
+                        : 'common:notifications.profile-button'
                     }
                     loading={loading}
                     onClick={() => sendOnProfileEmail(status)}
@@ -191,7 +191,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
                     label={
                       status !== 'authenticated'
                         ? 'auth:cta.guest'
-                        : 'campaigns:subscribe.another-button'
+                        : 'common:notifications.another-button'
                     }
                     loading={loading}
                     onClick={() => openAsGuest()}
@@ -220,7 +220,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
             <React.Fragment>
               <EmailIcon color="primary" sx={{ fontSize: '64px' }} />
               <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
-                {t('campaigns:subscribe.subscribe-campaign-title')}
+                {t('common:notifications.subscribe-campaign-title')}
               </DialogTitle>
               <Grid container direction="column" component="section" sx={{ textAlign: 'center' }}>
                 <NonAuthenticatedForm />
@@ -236,13 +236,13 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
                   <Typography
                     variant="h5"
                     style={{ textAlign: 'center', width: '100%', color: '#03C03C' }}>
-                    {t('campaigns:subscribe.confirm-subscribe')}
+                    {t('common:notifications.confirm-subscribe')}
                   </Typography>
                 </DialogTitle>
                 <Typography>
                   <Trans
                     t={t}
-                    i18nKey="campaigns:subscribe.confirm-sent"
+                    i18nKey="common:notifications.confirm-sent"
                     values={{ email: email }}
                   />
                 </Typography>

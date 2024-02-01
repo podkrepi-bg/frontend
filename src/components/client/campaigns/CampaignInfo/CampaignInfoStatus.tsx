@@ -87,7 +87,7 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
             <StatusText>
               {campaign.endDate
                 ? getExactDate(campaign.endDate, locale)
-                : t('campaigns:campaign.indefinite')}
+                : t('campaigns:indefinite')}
             </StatusText>
           </RowWrapper>
         </Grid>
