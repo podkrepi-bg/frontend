@@ -214,7 +214,7 @@ export default function CampaignDetails({ campaign }: Props) {
             cursor="pointer"
           />
           <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
-            {t('campaigns:cta.subscribe')}
+            {t('common:notifications.subscribe')}
           </Typography>
         </Grid>
         <Grid item xs={12} id="wishes">
