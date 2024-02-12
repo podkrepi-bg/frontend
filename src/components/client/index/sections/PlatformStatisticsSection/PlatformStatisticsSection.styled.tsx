@@ -77,7 +77,7 @@ export const HelpThoseInNeedButton = styled(LinkButton)(() => ({
 export const SubscribeHeading = styled(Typography)(() => ({
   fontWeight: 500,
   fontSize: theme.typography.pxToRem(16.5),
-  textAlign: 'center',
+  marginBottom: theme.spacing(2),
 }))
 
 export const SubscribeButton = styled(Button)(() => ({

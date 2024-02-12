@@ -62,7 +62,7 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
 
       // Register in Keycloak
       const registerResponse = await register(values)
-      console.log(registerResponse)
+
       if (registerResponse.data.data?.errorMessage) {
         AlertStore.show(t('auth:alerts.duplicate-email'), 'error')
         return
