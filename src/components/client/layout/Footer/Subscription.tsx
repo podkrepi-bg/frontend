@@ -22,7 +22,7 @@ export default function Subscription() {
         cursor="pointer"
       />
       <SubscriptionTitle onClick={() => setSubscribeOpen(true)}>
-        {t('campaigns:cta.subscribeFooter')}
+        {t('common:components.footer.subscribe')}
       </SubscriptionTitle>
     </Grid>
   )

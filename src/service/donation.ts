@@ -78,6 +78,16 @@ export const useRefundStripeDonation = () => {
     )
   }
 }
+export const useInvalidateStripeDonation = () => {
+  const { data: session } = useSession()
+  return async (extPaymentId: string) => {
+    return await apiClient.patch(
+      endpoints.donation.invalidateStripePayment(extPaymentId).url,
+      '',
+      authConfig(session?.accessToken),
+    )
+  }
+}
 
 export const useUploadBankTransactionsFiles = () => {
   const { data: session } = useSession()

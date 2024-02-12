@@ -7,7 +7,7 @@
       "who-are-we": "Who are we?",
       "support_us": "Support us",
       "support-us": "Join us",
-      "reports": "Reports",
+      "reports": "Annual Reports",
       "contacts": "Contacts",
       "partners": "Partners"
     },
@@ -69,7 +69,7 @@
       "about-project": "About the project",
       "support-us": "Support us",
       "become-a-volunteer": "Become a volunteer",
-      "reports": "Reports",
+      "reports": "Anual Reports",
       "contact": "Contact",
       "faq": "Frequently asked questions",
       "privacy-policy": "Privacy Policy",
@@ -101,6 +101,33 @@
   "cta": {
     "more-information": "More information"
   },
+  "notifications": {
+    "cta": {
+      "login": "Login",
+      "guest": "As guest",
+      "subscribe-button": "Subscribe me",
+      "profile-button": "On the profile one",
+      "another-button": "On another one"
+    },
+    "subscribe": "Subscribe for email notifications for the campaign",
+    "subscribeFooter": "Subscribe for the newsletter",
+    "subscribeGeneral": "Subscribe for email notifications from Podkrepi.bg",
+    "subscribe-monthly-newsletter": "Monthly newsletter of Podkrepi.bg",
+    "subscribeGeneralSubtext": "Receive our monthly newsletter which will inform you about the most interesting news from Podkrepi.bg!!",
+    "subscribe-general-monthly-newsletter": "Receive our monthly newsletter so that you are aware of the most interesting news from Podkrepi.bg!",
+    "subscribeGeneralButton": "Subscribe for news",
+    "subscribe-general-newsletter-button": "Subscribe",
+    "confirm-sent": "Please, <bold>activate</bold> your subscription from the email that we sent to {{email}}",
+    "confirm-subscribe": "You subscribed successfully",
+    "subscribe-title": "Subscribe for news from Podkrepi.bg",
+    "subscribe-campaign-title": "Subscribe for news about the campaign",
+    "subscribe-text-nonLoggedUser": "Please, proceed as a guest and write down your email, on which you want to receive notifications for this campaign or you can log in. If you log in with your and password you will be able to manage your subscription from your Personal profile",
+    "subscribe-text-nonLoggedUser-general": "Please, proceed as a guest and write down your email, on which you want to receive notifications from us or you can log in. If you log in with your and password you will be able to manage your subscription from your Personal profile",
+    "subscribe-text-loggedUser": "Please, choose if you want to receive the news about the campaign on your profile email or on another one:",
+    "subscribe-subtitle": "I want to receive news and notifications from Podkrepi.bg on this email:",
+    "subscribe-campaign-subtTitle": "I want to receive news about the campaign on this email:"
+  },
+
   "cookieConsent": "Podkrepi.bg doesn't use cookies, except the third-party cookies required for the analytics components Google Analytics and HotJar. Accepting the cookies will help us improve your user experience.",
   "cookieConsentButton": "Accept",
   "cookieRejectButton": "Reject"
