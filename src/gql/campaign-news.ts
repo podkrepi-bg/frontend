@@ -16,6 +16,9 @@ type BaseCampaignNewsResponse = {
   editedAt: Date | undefined
   description: string
   newsFiles: CampaignNewsFile[] | []
+  campaignType: {
+    name: string
+  }
 }
 
 export type AdminCampaignNewsResponse = BaseCampaignNewsResponse & {
@@ -26,9 +29,13 @@ export type AdminCampaignNewsResponse = BaseCampaignNewsResponse & {
 
 export type CampaignNewsResponse = Omit<BaseCampaignNewsResponse, '|createdAt|editedAt'> & {
   campaign: {
+    id: string
     title: string
     state: string
     slug: string
+    campaignType: {
+      category: string
+    }
   }
 }
 

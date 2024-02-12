@@ -84,7 +84,6 @@ export const SubscribeButton = styled(Button)(() => ({
   fontWeight: 600,
   borderRadius: theme.borders.round,
   backgroundColor: theme.palette.secondary.main,
-  minWidth: theme.spacing(3.75),
   fontSize: theme.typography.pxToRem(15),
   margin: theme.spacing(2, 0, 0, 'auto'),
   boxShadow:
@@ -96,7 +95,7 @@ export const SubscribeButton = styled(Button)(() => ({
 
   [theme.breakpoints.up('md')]: {
     fontSize: theme.typography.pxToRem(17),
-    minWidth: theme.spacing(50),
+    minWidth: theme.spacing(40),
 
     '& span': {
       display: 'inline-flex',

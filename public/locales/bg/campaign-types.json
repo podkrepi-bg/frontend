@@ -3,7 +3,7 @@
   "allCampaignTypes": "Всички типове кампании",
   "grid": {
     "name": "Име",
-    "category": "Категория",
+    "category": "Категория: ",
     "description": "Описание",
     "no-parent": "Няма категория",
     "no-description": "Няма описание"
