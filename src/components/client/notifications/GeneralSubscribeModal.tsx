@@ -22,6 +22,7 @@ import { routes } from 'common/routes'
 
 import { useSendConfirmationEmail } from 'service/notification'
 import { SendConfirmationEmailResponse, SendConfirmationEmailInput } from 'gql/notification'
+import theme from 'common/theme'
 
 const PREFIX = 'GeneralSubscribeModal'
 
@@ -175,10 +176,23 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
                       : t('common:notifications.subscribe-text-loggedUser')}
                   </Typography>
                 </Grid>
-                <Grid item xs={12} display="flex" justifyContent="space-evenly">
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                    flexFlow: 'column',
+                    gap: theme.spacing(2),
+                    alignItems: 'center',
+
+                    [theme.breakpoints.up('sm')]: {
+                      flexFlow: 'row',
+                    },
+                  }}>
                   <SubmitButton
                     type="button"
-                    sx={{ width: '40%' }}
+                    sx={{ minWidth: theme.spacing(25) }}
                     className={classes.subscribeBtn}
                     label={
                       status !== 'authenticated'
@@ -190,7 +204,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
                   />
                   <SubmitButton
                     type="button"
-                    sx={{ width: '40%' }}
+                    sx={{ minWidth: theme.spacing(25) }}
                     variant="outlined"
                     className={classes.subscribeBtn}
                     label={
