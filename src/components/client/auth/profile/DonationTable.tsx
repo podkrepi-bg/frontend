@@ -25,6 +25,7 @@ import { money } from 'common/util/money'
 import { UserDonation } from 'gql/donations'
 import { routes } from 'common/routes'
 import { getExactDateTime } from 'common/util/date'
+import { PaymentStatus } from 'gql/donations.enums'
 
 export type DonationTableProps = {
   donations: UserDonation[] | undefined
@@ -102,8 +103,10 @@ function DonationTable({ donations }: DonationTableProps) {
               {filteredDonations.map((donation, index) => (
                 <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell>{getExactDateTime(donation.createdAt)}</TableCell>
-                  <TableCell>{`${t('profile:donations.status.' + donation.status)}`}</TableCell>
-                  <TableCell>{donation.provider}</TableCell>
+                  <TableCell>{`${t(
+                    'profile:donations.status.' + donation.payment.status,
+                  )}`}</TableCell>
+                  <TableCell>{donation.payment.provider}</TableCell>
                   <TableCell>
                     <Link
                       target="_blank"
@@ -117,12 +120,12 @@ function DonationTable({ donations }: DonationTableProps) {
                   <TableCell>
                     <Button
                       variant="outlined"
-                      disabled={donation.status !== 'succeeded'}
+                      disabled={donation.payment.status !== PaymentStatus.succeeded}
                       endIcon={<ArrowForwardIcon />}>
                       <Link
                         sx={{
                           color:
-                            donation.status !== 'succeeded'
+                            donation.status !== PaymentStatus.succeeded
                               ? 'inherit'
                               : theme.palette.primary.main,
                         }}

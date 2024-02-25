@@ -3,7 +3,7 @@ export enum DonationType {
   corporate = 'corporate',
 }
 
-export enum DonationStatus {
+export enum PaymentStatus {
   initial = 'initial',
   invalid = 'invalid',
   incomplete = 'incomplete',
@@ -15,6 +15,12 @@ export enum DonationStatus {
   deleted = 'deleted',
   refund = 'refund',
   paymentRequested = 'paymentRequested',
+}
+
+export enum PaymentType {
+  single = 'single',
+  category = 'category',
+  benevity = 'benevity',
 }
 
 export enum PaymentProvider {

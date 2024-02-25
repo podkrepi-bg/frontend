@@ -3,7 +3,13 @@ import { Stripe } from 'stripe'
 import { UUID } from './types'
 import * as yup from 'yup'
 import { PersonResponse } from './person'
-import { PaymentProvider, CardRegion, DonationType } from './donations.enums'
+import {
+  PaymentProvider,
+  CardRegion,
+  DonationType,
+  PaymentStatus,
+  PaymentType,
+} from './donations.enums'
 
 export type DonationPrice = Stripe.Price
 
@@ -27,20 +33,34 @@ export type CheckoutSessionInput = {
   message?: string
 }
 
+export type TPaymentResponse = {
+  id: UUID
+  type: PaymentType
+  status: PaymentStatus
+  provider: PaymentProvider
+  extCustomerId: string
+  amount: number
+  currency: Currency
+  extPaymentIntentId: string
+  extPaymentMethodId: string
+  billingName: string
+  billingEmail: string
+  updatedAt: Date
+  createdAt: Date
+}
+
+export type PaymentWithDonations = TPaymentResponse & {
+  donations: DonationResponse[]
+}
+
 export type DonationResponse = {
   id: UUID
   type: DonationType
-  status: DonationStatus
-  provider: PaymentProvider
+  paymentId: UUID
   targetVaultId: UUID
-  extCustomerId: string
-  extPaymentIntentId: string
-  extPaymentMethodId: string
   createdAt: DateTime
   updatedAt: DateTime
-  currency: Currency
   amount: number
-  billingEmail?: string
   personId?: UUID
   person: {
     id: string
@@ -50,7 +70,6 @@ export type DonationResponse = {
       companyName: string
     }
   } | null
-  affiliate: { company: { companyName: true } }
   targetVault?: {
     id: string
     campaign?: {
@@ -111,6 +130,7 @@ export type UserDonation = {
   status: string
   type: string
   personId: UUID
+  payment: PaymentsResponse
 }
 
 export type UserDonationResult = {
@@ -191,7 +211,7 @@ export type StripeRefundResponse = {
   reason: string
   receipt_number: string
   source_transfer_reversal: string
-  status: DonationStatus
+  status: PaymentStatus
   transfer_reversal: string
 }
 
@@ -217,4 +237,13 @@ export type BankImportResult = {
   currency: string
   createdAt: Date
   extPaymentIntentId: string
+}
+
+export type PaymentsWithDonationCountResponse = TPaymentResponse & {
+  _count: number
+}
+
+export type PaymentAdminResponse = {
+  items: PaymentAdminResponse[]
+  total: number
 }

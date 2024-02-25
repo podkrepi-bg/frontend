@@ -8,24 +8,20 @@ import { useTranslation } from 'next-i18next'
 import { DonationResponse } from 'gql/donations'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
+import { useDeleteDonation } from 'service/donation'
 import { routes } from 'common/routes'
 import DeleteDialog from 'components/admin/DeleteDialog'
-import { useInvalidateStripeDonation } from 'service/donation'
 
-import { InvalidateStore } from '../DonationsPage'
+import { ModalStore } from '../PaymentsPage'
 
-type Props = {
-  onUpdate: () => void
-}
-
-export default observer(function InvalidateModal({ onUpdate }: Props) {
+export default observer(function DeleteModal() {
   const router = useRouter()
-  const { hideDelete, selectedRecord } = InvalidateStore
+  const { hideDelete, selectedRecord } = ModalStore
   const { t } = useTranslation()
 
-  const mutationFn = useInvalidateStripeDonation()
+  const mutationFn = useDeleteDonation([selectedRecord.id])
 
-  const invalidateMutation = useMutation<
+  const deleteMutation = useMutation<
     AxiosResponse<DonationResponse>,
     AxiosError<ApiErrors>,
     string
@@ -34,15 +30,14 @@ export default observer(function InvalidateModal({ onUpdate }: Props) {
     onError: () => AlertStore.show(t('donations:alerts:error'), 'error'),
     onSuccess: () => {
       hideDelete()
-      AlertStore.show(t('donations:alerts:invalidate'), 'success')
+      AlertStore.show(t('donations:alerts:delete'), 'success')
       router.push(routes.admin.donations.index)
-      onUpdate()
     },
   })
 
-  function invalidateHandler() {
-    invalidateMutation.mutate(selectedRecord.id)
+  function deleteHandler() {
+    deleteMutation.mutate(selectedRecord.id)
   }
 
-  return <DeleteDialog modalStore={InvalidateStore} deleteHandler={invalidateHandler} />
+  return <DeleteDialog modalStore={ModalStore} deleteHandler={deleteHandler} />
 })

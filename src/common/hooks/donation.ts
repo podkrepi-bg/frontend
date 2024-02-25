@@ -12,6 +12,8 @@ import {
   CheckoutSessionResponse,
   DonationResponse,
   DonorsCountResult,
+  PaymentAdminResponse,
+  TPaymentResponse,
   TotalDonatedMoneyResponse,
   UserDonationResult,
 } from 'gql/donations'
@@ -41,14 +43,38 @@ export function useDonationSession() {
 }
 
 export function useDonationsList(
-  id?: string,
+  paymentId?: string,
+  campaignId?: string,
   paginationData?: PaginationData,
   filterData?: FilterData,
   searchData?: string,
 ) {
   const { data: session } = useSession()
   return useQuery<CampaignDonationHistoryResponse>(
-    [endpoints.donation.donationsList(id, paginationData, filterData, searchData).url],
+    [
+      endpoints.donation.donationsList(
+        paymentId,
+        campaignId,
+        paginationData,
+        filterData,
+        searchData,
+      ).url,
+    ],
+    {
+      queryFn: authQueryFnFactory(session?.accessToken),
+    },
+  )
+}
+
+export function usePaymentsList(
+  paymentId?: string,
+  paginationData?: PaginationData,
+  filterData?: FilterData,
+  searchData?: string,
+) {
+  const { data: session } = useSession()
+  return useQuery<PaymentAdminResponse>(
+    [endpoints.payments.list(paymentId, paginationData, filterData, searchData).url],
     {
       queryFn: authQueryFnFactory(session?.accessToken),
     },
@@ -63,8 +89,8 @@ export async function prefetchDonationsList(client: QueryClient) {
   await client.prefetchQuery<DonationResponse[]>([endpoints.donation.donationsList().url])
 }
 
-export function useDonation(id: string) {
-  return useQuery<DonationResponse>([endpoints.donation.getDonation(id).url])
+export function useGetPayment(id: string) {
+  return useQuery<TPaymentResponse>([endpoints.payments.getPayment(id).url])
 }
 
 export async function prefetchDonationById(client: QueryClient, id: string) {

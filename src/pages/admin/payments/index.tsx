@@ -1,10 +1,10 @@
-import DonationsPage from 'components/admin/donations/DonationsPage'
+import PaymentsPage from 'components/admin/payments/PaymentsPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'admin', 'donations', 'validation'],
-  () => endpoints.donation.donationsList(undefined, undefined, { pageIndex: 0, pageSize: 20 }).url,
+  () => endpoints.payments.list(undefined, { pageIndex: 0, pageSize: 20 }).url,
 )
 
-export default DonationsPage
+export default PaymentsPage

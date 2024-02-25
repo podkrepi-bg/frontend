@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Box, Tooltip } from '@mui/material'
+import { Box, IconButton, Tooltip } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 import {
   DataGrid,
@@ -11,17 +11,24 @@ import {
 } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
-import { useDonationsList } from 'common/hooks/donation'
+import { usePaymentsList } from 'common/hooks/donation'
 
+import DetailsModal from '../modals/DetailsModal'
+import InvalidateModal from '../modals/InvalidateModal'
+import { ModalStore, RefundStore, InvalidateStore } from '../PaymentsPage'
 import { getExactDateTime } from 'common/util/date'
 import { useRouter } from 'next/router'
 import { money } from 'common/util/money'
-import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 import { usePersonList } from 'common/hooks/person'
 import theme from 'common/theme'
-import RenderEditPersonCell from './RenderEditPersonCell'
 import { useStores } from '../../../../common/hooks/useStores'
-
+import RenderEditBillingEmailCell from './RenderEditBillingEmailCell'
+import RestoreIcon from '@mui/icons-material/Restore'
+import CancelIcon from '@mui/icons-material/Cancel'
+import RefundModal from '../modals/RefundModal'
+import { PaymentStatus, PaymentProvider } from '../../../../gql/donations.enums'
+import { useSession } from 'next-auth/react'
+import { PaymentAdminResponse } from 'gql/donations'
 import Link from 'next/link'
 
 interface RenderCellProps {
@@ -44,18 +51,25 @@ export default observer(function Grid() {
   const [focusedRowId, setFocusedRowId] = useState(null as string | null)
   const { t } = useTranslation()
   const router = useRouter()
-
-  const campaignId = router.query.campaignId as string | undefined
-  const paymentId = router.query.paymentId as string | undefined
-
+  const { isDetailsOpen } = ModalStore
+  const { isRefundOpen } = RefundStore
   const {
-    data: { items: donations, total: allDonationsCount } = { items: [], total: 0 },
+    isDeleteOpen,
+    setSelectedRecord: setInvalidateRecord,
+    showDelete: showInvalidate,
+  } = InvalidateStore
+  const paymentId = router.query.paymentId as string | undefined
+  const { data: session } = useSession()
+  const canEditFinancials = session?.user?.realm_access?.roles.includes(
+    'account-edit-financials-requests',
+  )
+  const {
+    data: { items: payments, total: paymentsCount } = { items: [], total: 0 },
     // error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
     refetch,
-  }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(
+  }: UseQueryResult<PaymentAdminResponse> = usePaymentsList(
     paymentId,
-    campaignId,
     { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
     donationStore.donationFilters,
     donationStore.donationSearch ?? '',
@@ -63,18 +77,11 @@ export default observer(function Grid() {
 
   const { data: { items: personList } = { items: [] } } = usePersonList()
 
-  const RenderVaultCell = ({ params }: RenderCellProps) => {
-    return <>{params.row.targetVault.name}</>
-  }
-
-  const RenderPersonCell = ({ params }: RenderCellProps) => {
-    const { firstName, lastName } = params.row.person
-      ? params.row.person
-      : { firstName: 'Anonymous', lastName: 'Donor' }
+  const RenderBillingEmaiCell = ({ params }: RenderCellProps) => {
     return (
       <>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-          {firstName + ' ' + lastName}
+          {params.row.billingEmail}
           {params.isEditable ? (
             <Tooltip title={t('donations:cta.edit')}>
               <Edit
@@ -108,15 +115,51 @@ export default observer(function Grid() {
     headerAlign: 'left',
   }
 
-  const columns: GridColDef[] = [
+  const { showRefund, setSelectedRecord } = RefundStore
+
+  function refundClickHandler(id: string) {
+    setSelectedRecord({ id })
+    showRefund()
+  }
+
+  function invalidateClickHandler(id: string) {
+    setInvalidateRecord({ id, name: '' })
+    showInvalidate()
+  }
+
+  const columns: GridColDef<PaymentAdminResponse>[] = [
     {
-      field: 'paymentId',
-      //TODO:Ttranslate
-      headerName: 'Плащане номер',
-      width: 300,
+      field: 'actions',
+      headerName: 'Actions',
+      type: 'actions',
+      width: 120,
+      resizable: false,
       renderCell: (params: GridRenderCellParams) => {
+        if (!canEditFinancials || params.row?.status !== PaymentStatus.succeeded) {
+          return ''
+        }
+
         return (
-          <Link href={`/admin/payments?id=${params.row.paymentId}`}>{params.row.paymentId}</Link>
+          <>
+            {params.row.provider === PaymentProvider.stripe && (
+              <Tooltip title={t('donations:refund.icon')}>
+                <IconButton
+                  size="small"
+                  color="primary"
+                  onClick={() => refundClickHandler(params.row.id)}>
+                  <RestoreIcon />
+                </IconButton>
+              </Tooltip>
+            )}
+            <Tooltip title={t('donations:invalidate.icon')}>
+              <IconButton
+                size="small"
+                color="primary"
+                onClick={() => invalidateClickHandler(params.row.id)}>
+                <CancelIcon />
+              </IconButton>
+            </Tooltip>
+          </>
         )
       },
     },
@@ -128,6 +171,10 @@ export default observer(function Grid() {
       renderCell: (params: GridRenderCellParams) => {
         return getExactDateTime(params?.row.createdAt)
       },
+    },
+    {
+      field: 'status',
+      headerName: t('donations:status'),
     },
     {
       field: 'amount',
@@ -143,16 +190,23 @@ export default observer(function Grid() {
       width: 100,
     },
     {
-      field: 'person',
-      headerName: t('donations:person'),
-      ...commonProps,
+      field: 'billingName',
+      headerName: 'Billing Name',
+      width: 250,
+    },
+    {
+      field: 'billingEmail',
+      headerName: 'Billing Email',
+      width: 300,
       editable: true,
-      width: 280,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderPersonCell params={params} />
+        return <RenderBillingEmaiCell params={params} />
       },
+
       renderEditCell: (params: GridRenderEditCellParams) => {
-        return <RenderEditPersonCell params={params} personList={personList} onUpdate={refetch} />
+        return (
+          <RenderEditBillingEmailCell params={params} personList={personList} onUpdate={refetch} />
+        )
       },
     },
     {
@@ -165,13 +219,21 @@ export default observer(function Grid() {
       headerName: t('donations:type'),
     },
     {
-      field: 'targetVaultId',
-      headerName: t('donations:vault'),
+      field: 'provider',
+      headerName: t('donations:provider'),
       ...commonProps,
-      width: 250,
-      renderCell: (params: GridRenderCellParams) => {
-        return <RenderVaultCell params={params} />
-      },
+      width: 200,
+    },
+    {
+      field: 'donations',
+      headerName: t('Дарения\n брой'),
+      ...commonProps,
+      width: 200,
+      renderCell: (params: GridRenderCellParams) => (
+        <Link href={`/admin/donations?paymentId=${params.row.id}`}>
+          {params.row._count.donations}
+        </Link>
+      ),
     },
   ]
 
@@ -190,7 +252,7 @@ export default observer(function Grid() {
             overflowX: 'hidden',
             borderRadius: '0 0 13px 13px',
           }}
-          rows={donations || []}
+          rows={payments || []}
           columns={columns}
           columnVisibilityModel={{
             id: false,
@@ -201,13 +263,16 @@ export default observer(function Grid() {
           pagination
           loading={isDonationHistoryLoading}
           paginationMode="server"
-          rowCount={allDonationsCount}
+          rowCount={paymentsCount}
           disableRowSelectionOnClick
           isCellEditable={() => true}
         />
       </Box>
 
       {/* making sure we don't sent requests to the API when not needed */}
+      {isDetailsOpen && <DetailsModal />}
+      {isRefundOpen && <RefundModal />}
+      {isDeleteOpen && <InvalidateModal onUpdate={refetch} />}
     </>
   )
 })

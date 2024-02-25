@@ -54,7 +54,8 @@
       "succeeded": "succeeded",
       "refund": "refunded",
       "cancelled": "cancelled",
-      "guaranteed": "guaranteed"
+      "guaranteed": "guaranteed",
+      "declined": "declined"
     }
   },
   "certificates-history": {

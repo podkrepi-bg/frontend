@@ -13,7 +13,7 @@ import {
   CampaignUniqueDonations,
   CampaignHourlyDonations,
 } from 'gql/campaigns'
-import { DonationStatus } from 'gql/donations.enums'
+import { PaymentStatus } from 'gql/donations.enums'
 import { apiClient } from 'service/apiClient'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { isAdmin } from 'common/util/roles'
@@ -138,7 +138,7 @@ export function useCampaignDonationHistory(
   pagesize?: number,
 ) {
   return useQuery<CampaignDonationHistoryResponse>([
-    endpoints.donation.getDonations(DonationStatus.succeeded, campaignId, pageindex, pagesize).url,
+    endpoints.donation.getDonations(PaymentStatus.succeeded, campaignId, pageindex, pagesize).url,
   ])
 }
 

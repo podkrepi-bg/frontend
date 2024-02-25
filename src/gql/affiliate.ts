@@ -1,4 +1,5 @@
-import { DonationResponse } from './donations'
+import type { CompanyResponse } from './company'
+import type { PaymentWithDonations } from './donations'
 
 export enum AffiliateStatus {
   active = 'active',
@@ -12,10 +13,11 @@ export type AffiliateResponse = {
   status: AffiliateStatus
   affiliateCode: string
   companyId: string
+  company: CompanyResponse
 }
 
 export type AffiliateWithDonationResponse = AffiliateResponse & {
-  donations: DonationResponse[]
+  payments: PaymentWithDonations[]
 }
 
 export type CancelAffiliateDonation = {

@@ -11,7 +11,7 @@ export type SortData = {
 }
 
 export type FilterData = {
-  status: DonationStatus
+  status: PaymentStatus
   paymentProvider: PaymentProvider
   date: { from: Date | null; to: Date | null }
   minAmount: number

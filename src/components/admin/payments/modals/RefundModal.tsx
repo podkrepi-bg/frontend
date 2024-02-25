@@ -6,18 +6,18 @@ import { useRefundStripeDonation } from 'service/donation'
 import { AlertStore } from 'stores/AlertStore'
 import { UseQueryResult, useMutation } from '@tanstack/react-query'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { DonationResponse, StripeRefundRequest } from 'gql/donations'
+import { StripeRefundRequest, TPaymentResponse } from 'gql/donations'
 import CloseModalButton from 'components/common/CloseModalButton'
-import { useDonation } from 'common/hooks/donation'
+import { useGetPayment } from 'common/hooks/donation'
 import { observer } from 'mobx-react'
-import { RefundStore } from '../DonationsPage'
+import { RefundStore } from '../PaymentsPage'
 import GenericForm from 'components/common/form/GenericForm'
 import { fromMoney } from 'common/util/money'
 
 export default observer(function RefundModal() {
   const { t } = useTranslation('donations')
   const { isRefundOpen, hideRefund, selectedRecord } = RefundStore
-  const { data }: UseQueryResult<DonationResponse> = useDonation(selectedRecord.id)
+  const { data }: UseQueryResult<TPaymentResponse> = useGetPayment(selectedRecord.id)
 
   const initialValues: StripeRefundRequest = {
     extPaymentIntentId: '',
