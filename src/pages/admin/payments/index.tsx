@@ -4,7 +4,7 @@ import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'admin', 'donations', 'validation'],
-  () => endpoints.payments.list(undefined, { pageIndex: 0, pageSize: 20 }).url,
+  () => endpoints.payments.list(undefined, undefined, { pageIndex: 0, pageSize: 20 }).url,
 )
 
 export default PaymentsPage

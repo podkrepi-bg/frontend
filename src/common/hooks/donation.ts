@@ -68,13 +68,14 @@ export function useDonationsList(
 
 export function usePaymentsList(
   paymentId?: string,
+  campaignId?: string,
   paginationData?: PaginationData,
   filterData?: FilterData,
   searchData?: string,
 ) {
   const { data: session } = useSession()
   return useQuery<PaymentAdminResponse>(
-    [endpoints.payments.list(paymentId, paginationData, filterData, searchData).url],
+    [endpoints.payments.list(paymentId, campaignId, paginationData, filterData, searchData).url],
     {
       queryFn: authQueryFnFactory(session?.accessToken),
     },

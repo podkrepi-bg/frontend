@@ -15,7 +15,7 @@ import { CampaignTypeCategory } from 'components/common/campaign-types/categorie
 
 type Props = {
   name?: string
-  isDisabled: boolean
+  isDisabled?: boolean
 }
 
 export default function CampaignDropdownSelector({

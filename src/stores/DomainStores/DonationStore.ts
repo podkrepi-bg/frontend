@@ -28,15 +28,19 @@ export class DonationStore {
     sortBy: '',
   }
   donationSearch: string | undefined = undefined
+  campaignId: string | undefined = undefined
 
   constructor() {
     makeObservable(this, {
       donationFilters: observable,
       donationSearch: observable,
+      campaignId: observable,
       setDonationFilters: action,
       getDonationFilters: computed,
       setDonationSearch: action,
       getDonationSearch: computed,
+      setCampaignId: action,
+      getCampaignId: computed,
     })
   }
 
@@ -59,6 +63,10 @@ export class DonationStore {
     this.donationSearch = value
   }
 
+  setCampaignId(value: string | undefined) {
+    this.campaignId = value
+  }
+
   get getDonations() {
     return this.donations
   }
@@ -69,5 +77,9 @@ export class DonationStore {
 
   get getDonationSearch() {
     return this.donationSearch
+  }
+
+  get getCampaignId() {
+    return this.campaignId
   }
 }

@@ -112,16 +112,19 @@ export const endpoints = {
   payments: {
     list: (
       paymentId?: string,
+      campaignId?: string,
       paginationData?: PaginationData,
       filterData?: FilterData,
       searchData?: string,
     ) => {
       const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
-      const { status, paymentProvider, date, minAmount, maxAmount } =
+      const { status, paymentProvider, date, minAmount, maxAmount, sortBy } =
         (filterData as FilterData) || {}
       const { from, to } = date || {}
+
       const urlParams = new URLSearchParams({
         paymentId: `${paymentId ?? ''}`,
+        campaignId: `${campaignId ?? ''}`,
         pageIndex: `${pageIndex}`,
         pageSize: `${pageSize}`,
         status: status,
@@ -129,6 +132,7 @@ export const endpoints = {
         from: `${from}`,
         to: `${to}`,
         search: `${searchData}`,
+        sortBy: `${sortBy}`,
         minAmount: `${minAmount ?? ''}`,
         maxAmount: `${maxAmount ?? ''}`,
       })
@@ -161,7 +165,7 @@ export const endpoints = {
       searchData?: string,
     ) => {
       const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
-      const { status, paymentProvider, date, minAmount, maxAmount } =
+      const { status, paymentProvider, date, minAmount, maxAmount, sortBy } =
         (filterData as FilterData) || {}
       const { from, to } = date || {}
 
@@ -175,6 +179,7 @@ export const endpoints = {
         from: `${from}`,
         to: `${to}`,
         search: `${searchData}`,
+        sortBy: `${sortBy}`,
         minAmount: `${minAmount ?? ''}`,
         maxAmount: `${maxAmount ?? ''}`,
       })

@@ -16,7 +16,7 @@ export default function DocumentsPage() {
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('donations:donations')}>
+      <AdminContainer title={t('donations:payments')}>
         <GridAppbar />
         <GridFilters />
         <Grid />

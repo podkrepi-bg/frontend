@@ -25,7 +25,6 @@ export default observer(function GridFilters() {
   }
 
   const paymentProviderMenuItems = Object.values(PaymentProvider)
-
   const handleChange = (
     filterName: string,
     filterValue: string | number | null | { from: Date; to: Date },
@@ -84,6 +83,12 @@ export default observer(function GridFilters() {
         }}
         variant="outlined"
         size="small"
+      />
+      <Filter
+        value={donationStore.donationFilters.status}
+        options={donationStatusOptions}
+        onChange={handleChange}
+        menuItems={donationStatusMenuItems}
       />
       <Filter
         value={donationStore.donationFilters.status}

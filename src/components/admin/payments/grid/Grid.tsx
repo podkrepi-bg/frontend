@@ -70,6 +70,7 @@ export default observer(function Grid() {
     refetch,
   }: UseQueryResult<PaymentAdminResponse> = usePaymentsList(
     paymentId,
+    donationStore.getCampaignId ?? '',
     { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
     donationStore.donationFilters,
     donationStore.donationSearch ?? '',

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Box, Button, TextField, Toolbar, Tooltip, Typography } from '@mui/material'
+import { Box, Button, TextField, Toolbar, Tooltip } from '@mui/material'
 import { Receipt, GetApp as DownloadFileIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
@@ -63,9 +63,6 @@ export default function GridAppbar() {
         justifyContent: 'space-between',
         height: '72px',
       }}>
-      <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
-        <Typography>{t('donations:all')}</Typography>
-      </Box>
       <TextField
         label="Search"
         type="search"
