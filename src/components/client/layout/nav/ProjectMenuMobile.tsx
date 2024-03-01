@@ -27,11 +27,12 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
     fontWeight: 500,
     minHeight: theme.spacing(8),
     padding: theme.spacing(0, 1),
+    fontSize: theme.typography.pxToRem(16),
   },
 
   [`& .${classes.menuItem}`]: {
     justifyContent: 'start',
-    fontWeight: 300,
+    fontWeight: 400,
     color: theme.palette.common.black,
   },
 
