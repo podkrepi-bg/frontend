@@ -43,6 +43,7 @@ export const menuCampaings = [
 ]
 
 export const menuPayments = [
+  { label: 'Плащания', icon: PaymentsIcon, href: routes.admin.payments.index },
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Подсметки', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
@@ -72,8 +73,8 @@ export const items = [
 export const adminCards = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
   { label: 'Новини', icon: ArticleOutlined, href: routes.admin.news.index },
-  { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Плащания', icon: PaymentsIcon, href: routes.admin.payments.index },
+  { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
   { label: 'Организатори', icon: Group, href: routes.admin.organizers.index },
