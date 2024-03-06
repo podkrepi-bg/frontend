@@ -294,6 +294,9 @@ export default function FirstStep() {
                       totalAmount: moneyPublicDecimals2(amountWithFees.value),
                     }}
                   />
+                  <ExternalLink href="https://stripe.com/en-bg/pricing">
+                    https://stripe.com/en-bg/pricing
+                  </ExternalLink>
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="h5" my={2} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -311,6 +314,9 @@ export default function FirstStep() {
                     label={
                       <Typography variant="body2">
                         {t('third-step.recurring-donation-info')}
+                        <ExternalLink href="https://podkrepi.bg/profile/recurring-donations">
+                          https://podkrepi.bg/profile/recurring-donations
+                        </ExternalLink>
                       </Typography>
                     }
                   />
