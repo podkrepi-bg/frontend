@@ -33,7 +33,7 @@ export default function CampaignsList({ campaignToShow }: Props) {
         marginLeft: `-${theme.spacing(2.75)}`,
       })}>
       {campaigns?.map((campaign, index) => (
-        <Grid key={index} item xs={12} sm={6} lg={3}>
+        <Grid key={campaign.id} item xs={12} sm={6} lg={3}>
           <Box
             sx={{
               textAlign: 'center',

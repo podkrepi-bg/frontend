@@ -10,19 +10,23 @@ import { CampaignResponse } from 'gql/campaigns'
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()
-  await client.prefetchQuery<CampaignResponse[]>(
-    [endpoints.campaign.listCampaigns.url],
-    campaignsOrderQueryFunction,
-  )
-  await prefetchCampaignTypesList(client)
+  const result = await Promise.allSettled([
+    await client.prefetchQuery<CampaignResponse[]>(
+      [endpoints.campaign.listCampaigns.url],
+      campaignsOrderQueryFunction,
+    ),
+    prefetchCampaignTypesList(client),
+    await serverSideTranslations(params.locale ?? 'bg', [
+      'common',
+      'auth',
+      'validation',
+      'campaigns',
+    ]),
+  ])
+  const ssrTranslations = result[2].status === 'fulfilled' ? result[2].value : null
   return {
     props: {
-      ...(await serverSideTranslations(params.locale ?? 'bg', [
-        'common',
-        'auth',
-        'validation',
-        'campaigns',
-      ])),
+      ...ssrTranslations,
       dehydratedState: dehydrate(client),
     },
   }
