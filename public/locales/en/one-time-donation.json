@@ -50,8 +50,8 @@
     "title": "How would you like to pay",
     "card": "Card",
     "card-include-fees": "I want to cover transaction fees for card issued in:",
-    "card-fees": "For donations by card we use the services of Stripe and for every transfer they charge a fee depending on region of your card issuer. To orient you about the net donation, after you choose the desired amount, we will show you the calculated fee below. More details for Stripe fees can be found here: ",
-    "card-calculated-fees": "For your transfer of <strong>{{totalAmount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the campaign will receive <strong>{{amount}}</strong>",
+    "card-fees": "For donations by card we use the services of Stripe and for every transfer they charge a fee depending on region of your card issuer. To orient you about the net donation, after you choose the desired amount, we will show you the calculated fee below.",
+    "card-calculated-fees": "For your transfer of <strong>{{totalAmount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the campaign will receive <strong>{{amount}}</strong>. <br> <i>Additional information regarding Stripe's fees can be found at: <stripeLink>https://stripe.com/en-bg/pricing</stripeLink></i>",
     "card-region": {
       "title": "region",
       "EU": "Europe",
@@ -70,7 +70,7 @@
     "reason-donation": "Payment reference:",
     "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign.",
     "recurring-donation-title": "Monthly donation",
-    "recurring-donation-info": "Donate the same amount every month until the end of the campaign! Cancel anytime in your profile!"
+    "recurring-donation-info": "Donate the same amount every month until the end of the campaign! Cancel anytime in your <profileLink>profile</profileLink>!"
   },
   "alerts": {
     "success": "Donation was processed successfully!",

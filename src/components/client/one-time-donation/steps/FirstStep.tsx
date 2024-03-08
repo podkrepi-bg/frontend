@@ -26,6 +26,7 @@ import { StepsContext } from '../helpers/stepperContext'
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 
 import { BankDetailsLabel } from 'components/client/support-us-form/SupportUs.styled'
+import Link from 'next/link'
 
 const PaypalDonationButton = dynamic(() => import('../helpers/paypalDonationButton'), {
   ssr: false,
@@ -211,9 +212,6 @@ export default function FirstStep() {
       <Collapse unmountOnExit in={paymentField.value === 'card'} timeout="auto">
         <Typography paragraph={true} variant="body2" sx={{ marginTop: theme.spacing(2) }}>
           {t('third-step.card-fees')}
-          <ExternalLink href="https://stripe.com/en-bg/pricing">
-            https://stripe.com/en-bg/pricing
-          </ExternalLink>
         </Typography>
 
         <Typography variant="h4" sx={{ marginTop: theme.spacing(3) }}>
@@ -284,7 +282,7 @@ export default function FirstStep() {
                     ]}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sx={{ mt: 1 }}>
                   <Trans
                     t={t}
                     i18nKey="third-step.card-calculated-fees"
@@ -293,10 +291,10 @@ export default function FirstStep() {
                       fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
                       totalAmount: moneyPublicDecimals2(amountWithFees.value),
                     }}
+                    components={{
+                      stripeLink: <ExternalLink href="https://stripe.com/en-bg/pricing" />,
+                    }}
                   />
-                  <ExternalLink href="https://stripe.com/en-bg/pricing">
-                    https://stripe.com/en-bg/pricing
-                  </ExternalLink>
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="h5" my={2} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -312,12 +310,19 @@ export default function FirstStep() {
                   <CheckboxField
                     name="isRecurring"
                     label={
-                      <Typography variant="body2">
-                        {t('third-step.recurring-donation-info')}
-                        <ExternalLink href="https://podkrepi.bg/profile/recurring-donations">
-                          https://podkrepi.bg/profile/recurring-donations
-                        </ExternalLink>
-                      </Typography>
+                      <Trans
+                        t={t}
+                        i18nKey={'third-step.recurring-donation-info'}
+                        components={{
+                          profileLink: (
+                            <Link
+                              style={{ color: theme.palette.primary.light }}
+                              href="https://podkrepi.bg/profile/recurring-donations"
+                              prefetch={false}
+                            />
+                          ),
+                        }}
+                      />
                     }
                   />
                 </Grid>
