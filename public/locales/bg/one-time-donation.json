@@ -51,7 +51,7 @@
     "card": "Карта",
     "card-include-fees": "Искам да покрия банкова такса за карта издадена в регион:",
     "card-fees": "Даренията, платени с карта се обработват през системата на Stripe и за всеки трансфер Stripe удържат такса. Моля, изберете сумата, която желаете да преведете и по-надолу ще видите изчислена конкретната такса.",
-    "card-calculated-fees": "За вашия превод от <strong>{{totalAmount}}</strong>, Stripe ще удържи <strong>{{fees}}</strong> и по кампанията като дарение ще се отразят <strong>{{amount}}</strong>.<br><i>Повече информация за таксите на Stripe може да намерите на: <stripeLink>https://stripe.com/en-bg/pricing</stripeLink></i>",
+    "card-calculated-fees": "За вашия превод от <strong>{{totalAmount}}</strong>, Stripe ще удържи <strong>{{fees}}</strong> и по кампанията като дарение ще се отразят <strong>{{amount}}</strong>. Повече информация за таксите на Stripe може да намерите на: <stripeLink>https://stripe.com/en-bg/pricing</stripeLink>",
     "card-region": {
       "title": "регион",
       "EU": "Европа",

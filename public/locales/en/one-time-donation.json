@@ -51,7 +51,7 @@
     "card": "Card",
     "card-include-fees": "I want to cover transaction fees for card issued in:",
     "card-fees": "For donations by card we use the services of Stripe and for every transfer they charge a fee depending on region of your card issuer. To orient you about the net donation, after you choose the desired amount, we will show you the calculated fee below.",
-    "card-calculated-fees": "For your transfer of <strong>{{totalAmount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the campaign will receive <strong>{{amount}}</strong>. <br> <i>Additional information regarding Stripe's fees can be found at: <stripeLink>https://stripe.com/en-bg/pricing</stripeLink></i>",
+    "card-calculated-fees": "For your transfer of <strong>{{totalAmount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the campaign will receive <strong>{{amount}}</strong>. Additional information regarding Stripe's fees can be found at: <stripeLink>https://stripe.com/en-bg/pricing</stripeLink>",
     "card-region": {
       "title": "region",
       "EU": "Europe",
