@@ -116,7 +116,7 @@ export default function SubscriptionPage(data: Props) {
   >({
     mutationFn: useSubscribePublicEmail(),
     onError: (error) => handleError(error),
-    onSuccess: () => handleSuccess,
+    onSuccess: () => handleSuccess(),
   })
 
   async function callSubscribeApiRoute(values: {
