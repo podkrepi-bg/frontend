@@ -4,6 +4,8 @@
   "edit-form-heading": "Edit donation",
   "all": "All donations",
   "donations": "Donations",
+  "payments": "Payments",
+  "payments-all": "Payments made to campaigns",
   "type": "Type",
   "status": "Status",
   "provider": "Payment system",

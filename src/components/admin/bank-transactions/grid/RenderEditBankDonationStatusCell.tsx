@@ -43,9 +43,9 @@ const validationSchema: yup.SchemaOf<UpdateBankTransactionCodeInput> = yup
 
 export default function RenderBankDonationStatusCell({ params }: RenderCellProps) {
   const { t } = useTranslation()
-  const donationStatus = params.row.bankDonationStatus ? params.row.bankDonationStatus : ''
+  const PaymentStatus = params.row.bankDonationStatus ? params.row.bankDonationStatus : ''
   const showEdit = [BankDonationStatus.unrecognized, BankDonationStatus.importFailed].includes(
-    donationStatus,
+    PaymentStatus,
   )
 
   const [isOpen, setOpen] = useState(false)
@@ -141,7 +141,7 @@ export default function RenderBankDonationStatusCell({ params }: RenderCellProps
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '95%' }}>
-        {donationStatus}
+        {PaymentStatus}
         {showEdit ? (
           <Tooltip title={t('bank-transactions:cta.edit')}>
             <Edit sx={addIconStyles} color="action" fontSize="medium" onClick={handleOpen} />

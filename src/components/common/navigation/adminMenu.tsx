@@ -23,6 +23,7 @@ import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred'
 import { routes } from 'common/routes'
 import BeneficiaryIcon from 'common/icons/Beneficiary'
 import HandshakeIcon from '@mui/icons-material/Handshake'
+import PaymentsIcon from '@mui/icons-material/Payments'
 
 export const menuPeople = [
   { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
@@ -42,6 +43,7 @@ export const menuCampaings = [
 ]
 
 export const menuPayments = [
+  { label: 'Плащания', icon: PaymentsIcon, href: routes.admin.payments.index },
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Подсметки', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
@@ -71,6 +73,7 @@ export const items = [
 export const adminCards = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
   { label: 'Новини', icon: ArticleOutlined, href: routes.admin.news.index },
+  { label: 'Плащания', icon: PaymentsIcon, href: routes.admin.payments.index },
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },

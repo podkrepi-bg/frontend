@@ -1,7 +1,19 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Box, Button, TextField, Toolbar, Tooltip } from '@mui/material'
-import { Receipt, GetApp as DownloadFileIcon } from '@mui/icons-material'
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material'
+import { Receipt, GetApp as DownloadFileIcon, Close } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
 import { useMutation } from '@tanstack/react-query'
@@ -11,7 +23,9 @@ import { downloadFile } from '../../../../common/util/downloadFile'
 import { useMemo, useState } from 'react'
 import { useStores } from 'common/hooks/useStores'
 import theme from 'common/theme'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
+
+import { useCampaignList } from 'common/hooks/campaigns'
 
 const addIconStyles = {
   background: theme.palette.primary.light,
@@ -34,6 +48,8 @@ export default function GridAppbar() {
     },
   })
   const [searchValue, setSearchValue] = useState('')
+  const [selectedCampaign, setSelectedCampaign] = useState<string | undefined>('')
+  const { data: campaigns } = useCampaignList()
 
   const debounceSearch = useMemo(
     () =>
@@ -54,6 +70,15 @@ export default function GridAppbar() {
     debounceSearch(searchText)
   }
 
+  const handleCampaignFilter = (event: SelectChangeEvent) => {
+    donationStore.setCampaignId(event.target.value)
+    setSelectedCampaign(event.target.value)
+  }
+  const clearFilter = () => {
+    donationStore.setCampaignId(undefined)
+    setSelectedCampaign(undefined)
+  }
+
   return (
     <Toolbar
       sx={{
@@ -63,15 +88,47 @@ export default function GridAppbar() {
         justifyContent: 'space-between',
         height: '72px',
       }}>
-      <TextField
-        label="Search"
-        type="search"
-        variant="outlined"
-        size="small"
-        value={searchValue}
-        onChange={handleSearch}
-        sx={{ minWidth: 250 }}
-      />
+      <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
+        <Typography>{t('donations:payments-all')}</Typography>
+      </Box>
+
+      <Box display={'flex'} gap={2}>
+        <TextField
+          label="Търсене по име/емайл"
+          type="search"
+          variant="outlined"
+          size="small"
+          value={searchValue}
+          onChange={handleSearch}
+          sx={{ minWidth: 250 }}
+        />
+        <FormControl fullWidth size="small">
+          <InputLabel id="select-campaign">Намиране по кампания</InputLabel>
+          <Select
+            label={'Намиране по кампания'}
+            labelId={'select-campaign'}
+            variant="outlined"
+            startAdornment={
+              selectedCampaign ? (
+                <Close
+                  sx={{ cursor: 'pointer', color: theme.palette.primary.dark }}
+                  fontSize="small"
+                  onClick={clearFilter}
+                />
+              ) : null
+            }
+            onChange={handleCampaignFilter}
+            size="small"
+            sx={{ minWidth: 250 }}
+            value={selectedCampaign}>
+            {campaigns?.map((campaign) => (
+              <MenuItem key={campaign.id} value={campaign.id}>
+                {campaign.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           {/* button is disabled because we have a bug(conflicting bank donations) https://github.com/podkrepi-bg/frontend/issues/1649 */}

@@ -54,7 +54,8 @@
       "succeeded": "успешно",
       "refund": "възстановено",
       "cancelled": "отменено",
-      "guaranteed": "гарантирано"
+      "guaranteed": "гарантирано",
+      "declined": "отказано"
     }
   },
   "certificates-history": {

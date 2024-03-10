@@ -240,6 +240,9 @@ export const routes = {
       view: (id: string) => `/admin/users/${id}`,
       edit: (id: string) => `/admin/users/${id}/edit`,
     },
+    payments: {
+      index: '/admin/payments',
+    },
     company: {
       create: '/admin/companies/create',
     },

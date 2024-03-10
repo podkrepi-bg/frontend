@@ -13,7 +13,7 @@ import { useRouter } from 'next/router'
 import { ProfileTabs } from './tabs'
 import ProfileTab from './ProfileTab'
 import DonationTable from './DonationTable'
-import { DonationStatus, PaymentProvider } from 'gql/donations.enums'
+import { PaymentStatus, PaymentProvider } from 'gql/donations.enums'
 import { RecurringDonationStatus } from 'gql/recurring-donation-status.d'
 import { RecurringDonationResponse } from 'gql/recurring-donation'
 import MyRecurringCampaignsTable from './MyRecurringCampaignsTable'
@@ -154,8 +154,8 @@ export default function DonationTab() {
                 userDonations.donations
                   .filter(
                     (a) =>
-                      a.provider === PaymentProvider.stripe &&
-                      a.status === DonationStatus.succeeded,
+                      a.payment.provider === PaymentProvider.stripe &&
+                      a.payment.status === PaymentStatus.succeeded,
                   )
                   .reduce((a, b) => a + b.amount, 0),
               )}
@@ -168,7 +168,8 @@ export default function DonationTab() {
                 userDonations.donations
                   .filter(
                     (a) =>
-                      a.provider === PaymentProvider.bank && a.status === DonationStatus.succeeded,
+                      a.payment.provider === PaymentProvider.bank &&
+                      a.payment.status === PaymentStatus.succeeded,
                   )
                   .reduce((a, b) => a + b.amount, 0),
               )}

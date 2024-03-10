@@ -19,9 +19,9 @@ import Table from '@mui/material/Table'
 import Paper from '@mui/material/Paper'
 import TableCell from '@mui/material/TableCell'
 import { money } from 'common/util/money'
-import { DonationResponse } from 'gql/donations'
+import { DonationResponse, TPaymentResponse } from 'gql/donations'
 import { routes } from 'common/routes'
-import { CancelAffiliateDonation } from 'gql/affiliate'
+import { AffiliateWithDonationResponse, CancelAffiliateDonation } from 'gql/affiliate'
 import ContentPasteIcon from '@mui/icons-material/ContentPaste'
 import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
 import { AlertStore } from 'stores/AlertStore'
@@ -72,25 +72,86 @@ const Root = styled(Box)(({ theme }) => ({
   },
 }))
 
-export default function AffiliateProgramTab() {
-  const { t } = useTranslation('')
-  const { data: affiliate, isLoading, isSuccess, isError } = useGetAffiliateData()
-  const joinMutation = useJoinAffiliateProgramMutation()
-  const cancelDonationMutation = useCancelGuaranteedDonationMutation()
+type Props = {
+  t: TFunction
+  children: React.ReactNode
+}
+
+function AffiliateTabContainer({ t, children }: Props) {
+  return (
+    <Root>
+      <Box className={classes.boxTitle}>
+        <Typography className={classes.h3}>{t('profile:affiliate.index')}</Typography>
+      </Box>
+      <ProfileTab name={ProfileTabs.affiliateProgram}>{children}</ProfileTab>
+    </Root>
+  )
+}
+
+type AffiliateSummaryProps = {
+  affiliate: AffiliateWithDonationResponse
+}
+
+function AffiliateSummaryTable({ affiliate }: AffiliateSummaryProps) {
+  const { t } = useTranslation()
   const [, copyUrl] = useCopyToClipboard(1000)
-
-  const onAffilateJoinRequest = () => {
-    joinMutation.mutate()
-  }
-
-  const totalSum = useMemo(() => {
+  const totalSum = useMemo<number>(() => {
     return (
-      affiliate?.donations?.reduce((prev: number, curr: DonationResponse) => {
+      affiliate?.payments?.reduce((prev: number, curr: TPaymentResponse) => {
         return (prev += curr.amount)
       }, 0) ?? 0
     )
-  }, [affiliate?.donations])
+  }, [affiliate?.payments])
 
+  return (
+    <Box sx={{ marginBottom: 10 }}>
+      <Typography className={classes.h3} sx={{ py: 1 }}>
+        {t('profile:affiliate.data-summary')}
+      </Typography>
+      <TableContainer component={Paper} sx={{ maxWidth: 723 }}>
+        <Table aria-label="affiliate-summary">
+          <TableHead>
+            <TableRow>
+              <TableCell>{t('profile:affiliate.status.index')}</TableCell>
+              <TableCell>{t('profile:affiliate.code')}</TableCell>
+              <TableCell>{t('profile:affiliate.guaranteedDonations')}</TableCell>
+              <TableCell>{t('profile:affiliate.guaranteedAmount')}</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>{t(`profile:affiliate.status.${affiliate.status}`)}</TableCell>
+              <TableCell>
+                <Box flexDirection={'row'} sx={{ alignItems: 'center' }}>
+                  {affiliate.affiliateCode}
+                  {affiliate.affiliateCode !== null && (
+                    <Button
+                      sx={{ padding: 0 }}
+                      onClick={() => {
+                        AlertStore.show(t('common:alerts.message-copy'), 'success')
+                        copyUrl(affiliate.affiliateCode)
+                      }}>
+                      <ContentPasteIcon />
+                    </Button>
+                  )}
+                </Box>
+              </TableCell>
+              <TableCell>{affiliate.payments.length}</TableCell>
+              <TableCell>{money(totalSum ?? 0)}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
+  )
+}
+
+type GuaranteedDonationsTableProps = {
+  affiliate: AffiliateWithDonationResponse
+}
+
+function GuaranteedDonationsTable({ affiliate }: GuaranteedDonationsTableProps) {
+  const cancelDonationMutation = useCancelGuaranteedDonationMutation()
   const onGuaranteedDonationCancel = (affiliateCode: string, donationId: string) => {
     const data: CancelAffiliateDonation = {
       affiliateCode,
@@ -98,33 +159,8 @@ export default function AffiliateProgramTab() {
     }
     cancelDonationMutation.mutate(data)
   }
-
-  if (isError) {
-    return <Typography>{t('common:alerts.error')}</Typography>
-  }
-
-  if (isLoading) {
-    return (
-      <AffiliateContainer t={t}>
-        <CircularProgress />
-      </AffiliateContainer>
-    )
-  }
-
-  if (isSuccess && !affiliate) {
-    return (
-      <AffiliateContainer t={t}>
-        <Typography className={classes.affiliateSummary}>
-          {t('profile:affiliate.summary')}
-        </Typography>
-        <Button variant="outlined" onClick={onAffilateJoinRequest}>
-          {t('profile:affiliate.join')}
-        </Button>
-      </AffiliateContainer>
-    )
-  }
-
-  const columns: GridColDef[] = [
+  const { t } = useTranslation('')
+  const columns: GridColDef<DonationResponse>[] = [
     {
       field: 'id',
       headerName: 'id',
@@ -143,7 +179,7 @@ export default function AffiliateProgramTab() {
       field: 'donor',
       headerName: t('profile:donations.donor'),
       valueGetter(params: GridRenderCellParams) {
-        return params.row.metadata?.name ?? params.row.affiliate.company.companyName
+        return params.row.metadata?.name ?? affiliate.company.companyName
       },
       align: 'left',
       width: 200,
@@ -165,7 +201,9 @@ export default function AffiliateProgramTab() {
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Button
-            onClick={() => onGuaranteedDonationCancel(affiliate.affiliateCode, params.row.id)}
+            onClick={() =>
+              onGuaranteedDonationCancel(affiliate.affiliateCode, params.row.paymentId)
+            }
             sx={{ color: theme.typography.subtitle1 }}>
             {t('profile:donations.cancel')}
           </Button>
@@ -177,84 +215,69 @@ export default function AffiliateProgramTab() {
   ]
 
   return (
-    <AffiliateContainer t={t}>
-      <Box sx={{ marginBottom: 10 }}>
-        <Typography className={classes.h3} sx={{ py: 1 }}>
-          {t('profile:affiliate.data-summary')}
-        </Typography>
-        <TableContainer component={Paper} sx={{ maxWidth: 723 }}>
-          <Table aria-label="affiliate-summary">
-            <TableHead>
-              <TableRow>
-                <TableCell>{t('profile:affiliate.status.index')}</TableCell>
-                <TableCell>{t('profile:affiliate.code')}</TableCell>
-                <TableCell>{t('profile:affiliate.guaranteedDonations')}</TableCell>
-                <TableCell>{t('profile:affiliate.guaranteedAmount')}</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell>{t(`profile:affiliate.status.${affiliate.status}`)}</TableCell>
-                <TableCell>
-                  <Box flexDirection={'row'} sx={{ alignItems: 'center' }}>
-                    {affiliate.affiliateCode}
-                    {affiliate.affiliateCode !== null && (
-                      <Button
-                        sx={{ padding: 0 }}
-                        onClick={() => {
-                          AlertStore.show(t('common:alerts.message-copy'), 'success')
-                          copyUrl(affiliate.affiliateCode)
-                        }}>
-                        <ContentPasteIcon />
-                      </Button>
-                    )}
-                  </Box>
-                </TableCell>
-                <TableCell>{affiliate.donations.length}</TableCell>
-                <TableCell>{money(totalSum ?? 0)}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
-      <Box>
-        <Typography className={classes.h3} sx={{ py: 1 }}>
-          {t('profile:affiliate.guaranteedDonationsList')}
-        </Typography>
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
-          columnVisibilityModel={{ id: false }}
-          rows={affiliate.donations || []}
-          columns={columns}
-          initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
-          editMode="row"
-          autoHeight
-        />
-      </Box>
-    </AffiliateContainer>
+    <Box>
+      <Typography className={classes.h3} sx={{ py: 1 }}>
+        {t('profile:affiliate.guaranteedDonationsList')}
+      </Typography>
+      <DataGrid
+        style={{
+          background: theme.palette.common.white,
+          border: 'none',
+          width: 'calc(100% - 48px)',
+          left: '24px',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          borderRadius: '0 0 13px 13px',
+        }}
+        columnVisibilityModel={{ id: false }}
+        rows={affiliate.payments.flatMap((e) => e.donations) || []}
+        columns={columns}
+        initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
+        editMode="row"
+        autoHeight
+      />
+    </Box>
   )
 }
 
-type Props = {
-  t: TFunction
-  children: React.ReactNode
-}
+export default function AffiliateProgramTab() {
+  const { t } = useTranslation('')
+  const { data: affiliate, isLoading, isSuccess, isError } = useGetAffiliateData()
+  const joinMutation = useJoinAffiliateProgramMutation()
 
-function AffiliateContainer({ t, children }: Props) {
+  const onAffilateJoinRequest = (): void => {
+    joinMutation.mutate()
+  }
+
+  if (isError) {
+    return <Typography>{t('common:alerts.error')}</Typography>
+  }
+
+  if (isLoading) {
+    return (
+      <AffiliateTabContainer t={t}>
+        <CircularProgress />
+      </AffiliateTabContainer>
+    )
+  }
+
+  if (isSuccess && !affiliate) {
+    return (
+      <AffiliateTabContainer t={t}>
+        <Typography className={classes.affiliateSummary}>
+          {t('profile:affiliate.summary')}
+        </Typography>
+        <Button variant="outlined" onClick={onAffilateJoinRequest}>
+          {t('profile:affiliate.join')}
+        </Button>
+      </AffiliateTabContainer>
+    )
+  }
+
   return (
-    <Root>
-      <Box className={classes.boxTitle}>
-        <Typography className={classes.h3}>{t('profile:affiliate.index')}</Typography>
-      </Box>
-      <ProfileTab name={ProfileTabs.affiliateProgram}>{children}</ProfileTab>
-    </Root>
+    <AffiliateTabContainer t={t}>
+      <AffiliateSummaryTable affiliate={affiliate} />
+      <GuaranteedDonationsTable affiliate={affiliate} />
+    </AffiliateTabContainer>
   )
 }
