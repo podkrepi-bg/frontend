@@ -7,6 +7,7 @@ import { CampaignState } from 'components/client/campaigns/helpers/campaign.enum
 import { BeneficiaryType } from '../components/admin/beneficiary/BeneficiaryTypes'
 import { VaultResponse } from './vault'
 import { CampaignNewsResponse } from './campaign-news'
+import { TPaymentResponse } from './donations'
 
 export type CampaignType = {
   id: UUID
@@ -178,12 +179,8 @@ export type CampaignUploadImage = {
 export type CampaignDonation = {
   id: UUID
   type: string
-  status: string
-  provider: PaymentProvider
+  payment: TPaymentResponse
   targetVaultId: UUID
-  extCustomerId: UUID
-  extPaymentIntentId: UUID
-  extPaymentMethodId: UUID
   createdAt: string
   updatedAt: string
   amount: number

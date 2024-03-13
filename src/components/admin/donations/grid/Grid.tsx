@@ -113,11 +113,52 @@ export default observer(function Grid() {
       field: 'paymentId',
       //TODO:Ttranslate
       headerName: 'Плащане номер',
-      width: 300,
+      width: 150,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Link href={`/admin/payments?id=${params.row.paymentId}`}>{params.row.paymentId}</Link>
         )
+      },
+    },
+    {
+      field: 'payment.status',
+      //TODO:Ttranslate
+      headerName: 'Статус на плащане',
+      renderCell(params) {
+        return params.row.payment.status
+      },
+    },
+    {
+      field: 'payment.provider',
+      //TODO:Ttranslate
+      headerName: 'Разплащателна система',
+      renderCell(params) {
+        return params.row.payment.provider
+      },
+    },
+    {
+      field: 'amount',
+      headerName: t('donations:amount'),
+      renderCell: (params: GridRenderCellParams) => {
+        return <RenderMoneyCell params={params} />
+      },
+    },
+    {
+      field: 'payment.billingName',
+      //TODO:Ttranslate
+      headerName: 'billingName',
+      width: 250,
+      renderCell(params) {
+        return params.row.payment.billingName
+      },
+    },
+    {
+      field: 'payment.billingEmail',
+      //TODO:Ttranslate
+      headerName: 'billingEmail',
+      width: 300,
+      renderCell(params) {
+        return params.row.payment.billingEmail
       },
     },
     {
@@ -130,17 +171,13 @@ export default observer(function Grid() {
       },
     },
     {
-      field: 'amount',
-      headerName: t('donations:amount'),
-      renderCell: (params: GridRenderCellParams) => {
-        return <RenderMoneyCell params={params} />
-      },
-    },
-    {
       field: 'currency',
       headerName: t('donations:currency'),
       ...commonProps,
       width: 100,
+      renderCell(params) {
+        return params.row.payment.currency
+      },
     },
     {
       field: 'person',
