@@ -22,5 +22,6 @@
   "newsletter": "Please give your consent",
   "unique-field-violation": "The field `{1}` with this value already exists in the platform.",
   "payment-reference": "Invalid payment code format",
-  "eik-invalid": "Invalid EIK"
+  "eik-invalid": "Invalid EIK",
+  "help-us-improve": "Do you want to help us improve the platform? We want to hear from you? Please spare 30 mins to help us improve podkrepi.bg"
 }

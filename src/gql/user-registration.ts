@@ -12,7 +12,8 @@ export type IndividualRegisterFormData = {
   confirmPassword: string
   terms: boolean
   gdpr: boolean
-  newsletter?: boolean
+  newsletter?: boolean,
+  helpUsImprove?: boolean,
 }
 
 export type CorporateRegisterFormData = IndividualRegisterFormData & {
