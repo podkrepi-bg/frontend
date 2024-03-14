@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { UseQueryResult } from '@tanstack/react-query'
+import { UseQueryResult, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Box, Tooltip } from '@mui/material'
-import { Edit } from '@mui/icons-material'
+import { Box, IconButton, Tooltip } from '@mui/material'
+
+import { Autorenew, Edit } from '@mui/icons-material'
 import {
   DataGrid,
   GridColDef,
@@ -23,6 +24,11 @@ import RenderEditPersonCell from './RenderEditPersonCell'
 import { useStores } from '../../../../common/hooks/useStores'
 
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
+import { endpoints } from 'service/apiEndpoints'
+import { apiClient } from 'service/apiClient'
+import { authConfig } from 'service/restRequests'
+import { AlertStore } from 'stores/AlertStore'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -36,6 +42,7 @@ const addIconStyles = {
 }
 export default observer(function Grid() {
   const { donationStore } = useStores()
+  const queryClient = useQueryClient()
 
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 10,
@@ -48,9 +55,48 @@ export default observer(function Grid() {
   const campaignId = router.query.campaignId as string | undefined
   const paymentId = router.query.paymentId as string | undefined
 
+  const syncMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return await apiClient.patch(
+        endpoints.donation.synchronizeWithPayment(id).url,
+        null,
+        authConfig(session?.accessToken),
+      )
+    },
+    onError: () => {
+      AlertStore.show(t('common:alerts.error'), 'error')
+      queryClient.invalidateQueries([
+        endpoints.donation.donationsList(
+          paymentId,
+          campaignId,
+          { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
+          donationStore.donationFilters,
+          donationStore.donationSearch ?? '',
+        ).url,
+      ])
+    },
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.message-sent'), 'success')
+      queryClient.invalidateQueries([
+        endpoints.donation.donationsList(
+          paymentId,
+          campaignId,
+          { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
+          donationStore.donationFilters,
+          donationStore.donationSearch ?? '',
+        ).url,
+      ])
+    },
+  })
+  const { data: session } = useSession()
+
+  const canEditFinancials = session?.user?.realm_access?.roles.includes(
+    'account-edit-financials-requests',
+  )
+
   const {
     data: { items: donations, total: allDonationsCount } = { items: [], total: 0 },
-    // error: donationHistoryError,
+    error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
     refetch,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(
@@ -110,14 +156,80 @@ export default observer(function Grid() {
 
   const columns: GridColDef[] = [
     {
+      field: 'actions',
+      headerName: 'Actions',
+      type: 'actions',
+      width: 120,
+      resizable: false,
+      renderCell: (params: GridRenderCellParams) => {
+        if (!canEditFinancials) {
+          return ''
+        }
+
+        return (
+          <>
+            <Tooltip title={t('Синхронизиране на дарение с плащане')}>
+              <IconButton
+                size="small"
+                color="primary"
+                onClick={() => syncMutation.mutate(params.row.id)}>
+                <Autorenew color="primary" />
+              </IconButton>
+            </Tooltip>
+          </>
+        )
+      },
+    },
+    {
       field: 'paymentId',
       //TODO:Ttranslate
       headerName: 'Плащане номер',
-      width: 300,
+      width: 150,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Link href={`/admin/payments?id=${params.row.paymentId}`}>{params.row.paymentId}</Link>
         )
+      },
+    },
+    {
+      field: 'payment.status',
+      //TODO:Ttranslate
+      headerName: 'Статус на плащане',
+      renderCell(params) {
+        return params.row.payment?.status
+      },
+    },
+    {
+      field: 'payment.provider',
+      //TODO:Ttranslate
+      headerName: 'Разплащателна система',
+      renderCell(params) {
+        return params.row.payment?.provider
+      },
+    },
+    {
+      field: 'amount',
+      headerName: t('donations:amount'),
+      renderCell: (params: GridRenderCellParams) => {
+        return <RenderMoneyCell params={params} />
+      },
+    },
+    {
+      field: 'payment.billingName',
+      //TODO:Ttranslate
+      headerName: 'billingName',
+      width: 250,
+      renderCell(params) {
+        return params.row.payment?.billingName
+      },
+    },
+    {
+      field: 'payment.billingEmail',
+      //TODO:Ttranslate
+      headerName: 'billingEmail',
+      width: 300,
+      renderCell(params) {
+        return params.row.payment?.billingEmail
       },
     },
     {
@@ -130,17 +242,13 @@ export default observer(function Grid() {
       },
     },
     {
-      field: 'amount',
-      headerName: t('donations:amount'),
-      renderCell: (params: GridRenderCellParams) => {
-        return <RenderMoneyCell params={params} />
-      },
-    },
-    {
       field: 'currency',
       headerName: t('donations:currency'),
       ...commonProps,
       width: 100,
+      renderCell(params) {
+        return params.row.payment?.currency
+      },
     },
     {
       field: 'person',

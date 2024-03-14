@@ -152,6 +152,8 @@ export const endpoints = {
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
     createPaymentIntent: <Endpoint>{ url: '/donation/create-payment-intent', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
+    synchronizeWithPayment: (id: string) =>
+      <Endpoint>{ url: `/donation/${id}/sync-with-payment`, method: 'PATCH' },
     refundStripePayment: (id: string) =>
       <Endpoint>{ url: `/donation/refund-stripe-payment/${id}`, method: 'POST' },
     invalidateStripePayment: (id: string) =>
