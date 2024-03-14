@@ -165,10 +165,14 @@ export default observer(function Grid() {
       },
     },
     {
+      field: 'type',
+      headerName: t('donations:type'),
+    },
+    {
       field: 'createdAt',
       headerName: t('donations:date'),
       ...commonProps,
-      width: 250,
+      width: 200,
       renderCell: (params: GridRenderCellParams) => {
         return getExactDateTime(params?.row.createdAt)
       },
@@ -176,6 +180,17 @@ export default observer(function Grid() {
     {
       field: 'status',
       headerName: t('donations:status'),
+    },
+    {
+      field: 'id',
+      headerName: 'ID',
+      width: 320,
+    },
+    {
+      field: 'provider',
+      headerName: t('donations:provider'),
+      ...commonProps,
+      width: 100,
     },
     {
       field: 'amount',
@@ -209,21 +224,6 @@ export default observer(function Grid() {
           <RenderEditBillingEmailCell params={params} personList={personList} onUpdate={refetch} />
         )
       },
-    },
-    {
-      field: 'id',
-      headerName: 'ID',
-      width: 320,
-    },
-    {
-      field: 'type',
-      headerName: t('donations:type'),
-    },
-    {
-      field: 'provider',
-      headerName: t('donations:provider'),
-      ...commonProps,
-      width: 200,
     },
     {
       field: 'donations',
