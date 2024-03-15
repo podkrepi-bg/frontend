@@ -91,7 +91,7 @@ export default observer(function GridFilters() {
         menuItems={donationStatusMenuItems}
       />
       <Filter
-        value={donationStore.donationFilters.provider}
+        value={donationStore.donationFilters.paymentProvider}
         options={paymentProviderOptions}
         onChange={handleChange}
         menuItems={paymentProviderMenuItems}
