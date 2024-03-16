@@ -92,7 +92,7 @@ export const allPartners = [
     image: '/img/partners/kotaOne.svg',
     website: partnerUrls.kotaOne,
   },
-{
+  {
     name: 'darik',
     image: '/img/partners/darik.svg',
     website: partnerUrls.darik,
@@ -116,5 +116,25 @@ export const allPartners = [
     name: 'crossroadsBulgaria',
     image: '/img/partners/crossRoads.svg',
     website: partnerUrls.crossroadsBulgaria,
+  },
+  {
+    name: 'crossroadsBulgaria',
+    image: '/img/partners/estProduction.svg',
+    website: partnerUrls.estProduction,
+  },
+  {
+    name: 'tv1',
+    image: '/img/partners/tv1.svg',
+    website: partnerUrls.tv1,
+  },
+  {
+    name: 'ideaComm',
+    image: '/img/partners/ideaComm.svg',
+    website: partnerUrls.ideaComm,
+  },
+  {
+    name: 'irisSolutions',
+    image: '/img/partners/irisSolutions.svg',
+    website: partnerUrls.irisSolutions,
   },
 ]

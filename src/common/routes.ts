@@ -40,9 +40,6 @@ export const socialUrls = {
 }
 
 export const partnerUrls = {
-  superHosting: 'https://www.superhosting.bg/',
-  kotaOne: 'https://kota.one/',
-  darik: 'https://dariknews.bg/',
   mediaPartners: ['https://dariknews.bg/', 'https://tv1.bg/', 'https://ideacomm.bg'],
   techPartners: [
     'https://softuni.bg/',
@@ -52,6 +49,13 @@ export const partnerUrls = {
   ],
   marketingPartners: ['https://crossroadsbulgaria.com/'],
   videoPartners: ['https://kota.one/', 'https://estproduction.com/'],
+  superHosting: 'https://www.superhosting.bg/',
+  kotaOne: 'https://kota.one/',
+  darik: 'https://dariknews.bg/',
+  estProduction: 'https://estproduction.com/',
+  tv1: 'https://tv1.bg/',
+  ideaComm: 'https://ideacomm.bg',
+  irisSolutions: 'https://www.irisbgsf.com/',
   puls: 'https://pulsfoundation.org/bg/',
   yanika: 'https://www.yanikabg.com/',
   parakids: 'https://parakids.org/',
