@@ -4,7 +4,7 @@ import ExternalLink from 'components/common/ExternalLink'
 import { Fragment } from 'react'
 import { useTranslation } from 'next-i18next'
 import useMobile from '../../../common/hooks/useMobile'
-import { organizations, partners, techAndMarketingPartners } from './helpers/partnersData'
+import { organizations, partners, mediaTechMarketingPartners } from './helpers/partnersData'
 import { SectionTitle, StyledGrid } from './Partners.styled'
 import PartnersSlider from './PartnersSlider'
 
@@ -34,7 +34,7 @@ const PartnersContent = () => {
             </StyledGrid>
           ))}
 
-          {techAndMarketingPartners.map((el) => (
+          {mediaTechMarketingPartners.map((el) => (
             <Fragment key={el.title}>
               <Grid item xs={12} paddingTop={8}>
                 <SectionTitle>{t(el.title)}</SectionTitle>

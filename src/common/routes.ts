@@ -43,6 +43,10 @@ export const partnerUrls = {
   superHosting: 'https://www.superhosting.bg/',
   kotaOne: 'https://kota.one/',
   darik: 'https://dariknews.bg/',
+  mediaPartners: [
+    'https://dariknews.bg/',
+    'https://tv1.bg/',
+  ],
   techPartners: [
     'https://softuni.bg/',
     'https://mentormate.com/',
