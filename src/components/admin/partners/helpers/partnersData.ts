@@ -47,7 +47,7 @@ export const techAndMarketingPartners: TechAndMarketingPartners[] = [
   },
   {
     title: 'partners:sections.marketing',
-    items: ['allChannels', 'brainDonors', 'crossRoads'],
+    items: ['crossRoads'],
     websites: partnerUrls.marketingPartners,
   },
 ]
@@ -113,16 +113,6 @@ export const allPartners = [
     name: '88studiodesign',
     image: '/img/partners/eightyEight.svg',
     website: partnerUrls.eightyEight,
-  },
-  {
-    name: 'allChannels',
-    image: '/img/partners/allChannels.svg',
-    website: partnerUrls.allChannels,
-  },
-  {
-    name: 'brainDonors',
-    image: '/img/partners/brainDonors.svg',
-    website: partnerUrls.brainDonors,
   },
   {
     name: 'crossroadsBulgaria',

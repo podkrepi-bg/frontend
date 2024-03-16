@@ -49,8 +49,6 @@ export const partnerUrls = {
     'https://www.88studiodesign.com/',
   ],
   marketingPartners: [
-    'https://www.all-channels.com/',
-    'https://www.braindonors.agency/',
     'https://crossroadsbulgaria.com/',
   ],
   puls: 'https://pulsfoundation.org/bg/',
@@ -63,8 +61,6 @@ export const partnerUrls = {
   softuni: 'https://softuni.bg/',
   mentormate: 'https://mentormate.com/',
   eightyEight: 'https://www.88studiodesign.com/',
-  allChannels: 'https://www.all-channels.com/',
-  brainDonors: 'https://www.braindonors.agency/',
   crossroadsBulgaria: 'https://crossroadsbulgaria.com/',
 }
 
