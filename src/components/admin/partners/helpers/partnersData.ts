@@ -7,7 +7,7 @@ type Partners = {
   website: string
 }
 
-type TechMarketingMediaPartners = {
+type MainPartners = {
   title: string
   items: string[]
   websites: string[]
@@ -25,29 +25,28 @@ export const partners: Partners[] = [
     image: '/img/partners/superhosting.svg',
     website: partnerUrls.superHosting,
   },
-  {
-    title: 'partners:sections.video',
-    name: 'kotaOne',
-    image: '/img/partners/kotaOne.svg',
-    website: partnerUrls.kotaOne,
-  },
 ]
 
-export const mediaTechMarketingPartners: TechMarketingMediaPartners[] = [
+export const mainPartners: MainPartners[] = [
   {
     title: 'partners:sections.media',
-    items: ['darik', 'tv1'],
+    items: ['darik', 'tv1', 'ideaComm'],
     websites: partnerUrls.mediaPartners,
   },
   {
     title: 'partners:sections.tech',
-    items: ['softuni', 'mentormate', 'eightyEight'],
+    items: ['softuni', 'mentormate', 'eightyEight', 'irisSolutions'],
     websites: partnerUrls.techPartners,
   },
   {
     title: 'partners:sections.marketing',
     items: ['crossRoads'],
     websites: partnerUrls.marketingPartners,
+  },
+  {
+    title: 'partners:sections.video',
+    items: ['kotaOne', 'estProduction'],
+    websites: partnerUrls.videoPartners,
   },
 ]
 
