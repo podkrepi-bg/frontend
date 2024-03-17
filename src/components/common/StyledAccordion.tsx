@@ -4,7 +4,7 @@ const PREFIX = 'MenuMobile'
 
 export const classes = {
   accordionWrapper: `${PREFIX}-accordionWrapper`,
-  accordionSummary: `${PREFIX}-accordionSummary`,
+accordionSummary: `${PREFIX}-accordionSummary`,
   menuItem: `${PREFIX}-menuItem`,
 }
 

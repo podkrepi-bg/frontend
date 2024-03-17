@@ -15,6 +15,8 @@ import { SubscribePublicEmailInput, SubscribePublicEmailResponse } from 'gql/not
 import { ApiError } from 'next/dist/server/api-utils'
 import { useSubscribePublicEmail } from 'service/notification'
 
+import theme from 'common/theme'
+
 type Props = {
   hash: string | null
   email: string | null
