@@ -33,7 +33,7 @@ const StyledLayout = styled(Layout)({
   [`& .${classes.h1}`]: {
     fontStyle: 'normal',
     fontWeight: 500,
-    fontSize: '45px',
+    fontSize: theme.typography.pxToRem(45),
     lineHeight: '112px',
     letterSpacing: '-1.5px',
     color: theme.palette.common.black,

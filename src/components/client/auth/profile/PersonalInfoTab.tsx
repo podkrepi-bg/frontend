@@ -44,7 +44,7 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.heading}`]: {
     fontStyle: 'normal',
     fontWeight: 400,
-    fontSize: '24px',
+    fontSize: theme.typography.pxToRem(24),
     lineHeight: '123.5%',
     letterSpacing: '0.25px',
     color: theme.palette.common.black,
@@ -57,7 +57,7 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.graySpan}`]: {
     fontStyle: 'normal',
     fontWeight: '400',
-    fontSize: '18px',
+    fontSize: theme.typography.pxToRem(18),
     lineHeight: '133.4%',
     color: '#909090',
   },
@@ -65,14 +65,14 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.h5}`]: {
     fontStyle: 'normal',
     fontWeight: '600',
-    fontSize: '22px',
+    fontSize: theme.typography.pxToRem(22),
     lineHeight: '133.4%',
   },
 
   [`& .${classes.h3}`]: {
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '25px',
+    fontSize: theme.typography.pxToRem(25),
     lineHeight: '116.7%',
     margin: '0',
   },

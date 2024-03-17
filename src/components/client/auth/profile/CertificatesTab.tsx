@@ -19,14 +19,14 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.h3}`]: {
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '25px',
+    fontSize: theme.typography.pxToRem(25),
     lineHeight: '116.7%',
     margin: '0',
   },
   [`& .${classes.thinFont}`]: {
     fontStyle: 'normal',
     fontWeight: 400,
-    fontSize: '24px',
+    fontSize: theme.typography.pxToRem(24),
     lineHeight: '123.5%',
     letterSpacing: '0.25px',
     color: theme.palette.common.black,
@@ -35,7 +35,7 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.smallText}`]: {
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '15px',
+    fontSize: theme.typography.pxToRem(15),
     lineHeight: '160%',
     letterSpacing: '0.15px',
   },
