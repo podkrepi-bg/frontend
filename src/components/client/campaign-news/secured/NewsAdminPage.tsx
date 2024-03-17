@@ -25,7 +25,7 @@ const classes = {
 const Root = styled(Layout)({
   [`& .${classes.gridColumn}`]: {
     '& .MuiDataGrid-columnHeaderTitle': {
-      fontSize: '15px',
+      fontSize: theme.typography.pxToRem(15),
       fontWeight: '700',
     },
   },

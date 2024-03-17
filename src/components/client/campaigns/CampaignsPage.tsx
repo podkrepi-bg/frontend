@@ -30,7 +30,7 @@ const Root = styled(Layout)(({ theme }) => ({
     fontWeight: '500',
     color: '#2196F3',
     fontStyle: 'normal',
-    fontSize: '45px',
+    fontSize: theme.typography.pxToRem(45),
     lineHeight: '45px',
     alignItems: 'center',
     textAlign: 'center',
@@ -42,7 +42,7 @@ const Root = styled(Layout)(({ theme }) => ({
     marginTop: theme.spacing(3),
     fontStyle: 'normal',
     fontWeight: '400',
-    fontSize: '16px',
+    fontSize: theme.typography.pxToRem(16),
     lineHeight: '175 %',
     textAlign: 'center',
     letterSpacing: '0.15px',
@@ -52,7 +52,7 @@ const Root = styled(Layout)(({ theme }) => ({
     marginBottom: theme.spacing(3),
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '25px',
+    fontSize: theme.typography.pxToRem(25),
     lineHeight: '120%',
     textAlign: 'center',
     color: '#2196F3',
@@ -66,7 +66,7 @@ const Root = styled(Layout)(({ theme }) => ({
   },
 
   [`& .${classes.arrowIcon}`]: {
-    fontSize: theme.spacing(8),
+    fontSize: theme.typography.pxToRem(48),
   },
 }))
 

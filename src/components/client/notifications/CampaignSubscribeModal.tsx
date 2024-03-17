@@ -231,7 +231,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
               style={{ textAlign: 'center', fontSize: 20, fontWeight: 600, paddingBottom: 6 }}>
               <CloseModalButton onClose={handleClose} />
               <React.Fragment>
-                <ThumbUpIcon sx={{ fontSize: '64px', color: '#03C03C' }} />
+                <ThumbUpIcon sx={{ fontSize: theme.typography.pxToRem(64), color: '#03C03C' }} />
                 <DialogTitle>
                   <Typography
                     variant="h5"

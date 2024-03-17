@@ -5,7 +5,7 @@ type RemarkProps = {
 }
 
 const textStyles = {
-  fontSize: '13px',
+  fontSize: theme.typography.pxToRem(13),
   marginTop: '100px',
 }
 

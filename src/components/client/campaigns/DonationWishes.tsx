@@ -99,7 +99,7 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
           component="h4"
           sx={{
             color: theme.palette.common.black,
-            fontSize: '2rem',
+            fontSize: theme.typography.pxToRem(32),
             paddingBottom: '1rem',
           }}>
           {t('campaign.messages')}

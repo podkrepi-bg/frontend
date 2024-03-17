@@ -1,6 +1,9 @@
 import { Typography, Box, Toolbar } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home'
 import { IconButton } from '@mui/material'
+
+import theme from 'common/theme'
+
 type Props = {
   title: string
 }
@@ -24,7 +27,7 @@ export default function AppBarMenu({ title }: Props) {
         <IconButton>
           <HomeIcon color="action" />
         </IconButton>
-        <Typography fontSize={'18px'} sx={{ px: 0.5, height: '20px' }}>
+        <Typography fontSize={theme.typography.pxToRem(18)} sx={{ px: 0.5, height: '20px' }}>
           /
         </Typography>
         <IconButton sx={{ borderRadius: '25px' }}>
