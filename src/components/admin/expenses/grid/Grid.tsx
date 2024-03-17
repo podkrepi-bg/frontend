@@ -14,6 +14,8 @@ import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import { moneyPublic } from 'common/util/money'
 
+import theme from 'common/theme'
+
 const PREFIX = 'Grid'
 
 const classes = {
