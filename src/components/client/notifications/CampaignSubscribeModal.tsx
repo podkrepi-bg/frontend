@@ -218,7 +218,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
           <CloseModalButton onClose={handleClose} />
           {!isSuccess ? (
             <React.Fragment>
-              <EmailIcon color="primary" sx={{ fontSize: '64px' }} />
+              <EmailIcon color="primary" sx={{ fontSize: theme.typography.pxToRem(64) }} />
               <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
                 {t('common:notifications.subscribe-campaign-title')}
               </DialogTitle>

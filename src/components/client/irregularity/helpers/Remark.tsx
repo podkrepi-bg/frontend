@@ -1,5 +1,7 @@
 import { Grid, Typography } from '@mui/material'
 
+import theme from 'common/theme'
+
 type RemarkProps = {
   text: string
 }

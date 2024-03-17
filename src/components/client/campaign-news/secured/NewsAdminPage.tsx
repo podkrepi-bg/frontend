@@ -14,6 +14,8 @@ import { routes } from 'common/routes'
 import AddIcon from '@mui/icons-material/Add'
 import Link from 'next/link'
 
+import theme from 'common/theme'
+
 const PREFIX = 'NewsAdminPage'
 
 const classes = {
