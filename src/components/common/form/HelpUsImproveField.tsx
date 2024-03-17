@@ -1,8 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { Typography } from '@mui/material'
 
-// import { routes } from 'common/routes'
-// import ExternalLink from 'components/common/ExternalLink'
 import CheckboxField from 'components/common/form/CheckboxField'
 
 export type HelpUsImproveFieldProps = {
@@ -17,9 +15,6 @@ export default function HelpUsImproveField({ name }: HelpUsImproveFieldProps) {
       label={
         <Typography variant="body2">
           {t('validation:help-us-improve')}{' '}
-          {/* <ExternalLink href={routes.helpUsImprove}>
-            {t('validation:help-us-improve')}
-          </ExternalLink> */}
         </Typography>
       }
     />
