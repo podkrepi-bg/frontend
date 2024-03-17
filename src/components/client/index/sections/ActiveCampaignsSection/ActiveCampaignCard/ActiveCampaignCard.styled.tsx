@@ -42,7 +42,7 @@ export const StyledContent = styled(CardContent)(() => ({
   '&:last-child': { paddingBottom: 0 },
 }))
 
-export const CampaignTitle = styled('h6')(() => ({
+export const CampaignTitle = styled('h3')(() => ({
   fontSize: theme.typography.pxToRem(16),
   color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
