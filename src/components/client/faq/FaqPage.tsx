@@ -13,8 +13,8 @@ import {
   DONATION_QUESTIONS,
   COMMON_QUESTIONS,
   CAMPAIGN_QUESTIONS,
-  ATTRACTING_DONATORS_QUESTIONS,
-  PARTNERSHIPS_QUESTIONS,
+  // ATTRACTING_DONATORS_QUESTIONS,
+  // PARTNERSHIPS_QUESTIONS,
 } from './contents'
 import { FaqCategory } from './contents/faq-categories.enum'
 import { ContentType } from './contents/content-type'
@@ -26,8 +26,8 @@ const FAQ_PAGE_QUESTIONS: Record<string, ContentType[]> = {
   [FaqCategory.Common]: COMMON_QUESTIONS,
   [FaqCategory.Campaigns]: CAMPAIGN_QUESTIONS,
   [FaqCategory.Donations]: DONATION_QUESTIONS,
-  [FaqCategory.AttractDonators]: ATTRACTING_DONATORS_QUESTIONS,
-  [FaqCategory.CorporatePartnership]: PARTNERSHIPS_QUESTIONS,
+  // [FaqCategory.AttractDonators]: ATTRACTING_DONATORS_QUESTIONS,
+  // [FaqCategory.CorporatePartnership]: PARTNERSHIPS_QUESTIONS,
 }
 
 type Props = {
