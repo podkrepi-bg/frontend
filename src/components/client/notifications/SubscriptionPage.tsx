@@ -178,7 +178,9 @@ export default function SubscriptionPage(data: Props) {
           <React.Fragment>
             <React.Fragment>
               <Grid item mt={5} display="flex" direction="column" alignItems="center">
-                <AnnouncementIcon sx={{ fontSize: theme.typography.pxToRem(64), color: '#FF007F' }} />
+                <AnnouncementIcon
+                  sx={{ fontSize: theme.typography.pxToRem(64), color: '#FF007F' }}
+                />
                 <DialogTitle>
                   <Typography
                     variant="h5"

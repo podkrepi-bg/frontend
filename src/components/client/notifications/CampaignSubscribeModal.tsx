@@ -22,6 +22,8 @@ import { email } from 'common/form/validation'
 import { AcceptNewsLetterFieldCampaign } from 'components/common/form/AcceptNewsletterField'
 import { routes } from 'common/routes'
 
+import theme from 'common/theme'
+
 const PREFIX = 'CampaignSubscribeModal'
 
 const classes = {

@@ -163,7 +163,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
           }}>
           <CloseModalButton onClose={handleClose} />
           <React.Fragment>
-            <EmailIcon color="primary" sx={{ fontSize: theme.typography.pxToRem(64), }} />
+            <EmailIcon color="primary" sx={{ fontSize: theme.typography.pxToRem(64) }} />
             <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
               {t('common:notifications.subscribe-title')}
             </DialogTitle>
@@ -237,7 +237,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
           <CloseModalButton onClose={handleClose} />
           {!isSuccess ? (
             <React.Fragment>
-              <EmailIcon color="primary" sx={{ fontSize: theme.typography.pxToRem(64), }} />
+              <EmailIcon color="primary" sx={{ fontSize: theme.typography.pxToRem(64) }} />
               <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
                 {t('common:notifications.subscribe-title')}
               </DialogTitle>
