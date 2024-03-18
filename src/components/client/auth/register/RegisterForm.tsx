@@ -88,7 +88,7 @@ export default function RegisterForm({ onSubmit, loading }: RegisterFormProps) {
           <AcceptTermsField name="terms" />
           <AcceptPrivacyPolicyField name="gdpr" />
           <AcceptNewsLetterField name="newsletter" />
-          <HelpUsImproveField name='helpUsImprove' />
+          <HelpUsImproveField name="helpUsImprove" />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.register" loading={loading} />

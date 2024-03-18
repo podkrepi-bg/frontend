@@ -12,11 +12,7 @@ export default function HelpUsImproveField({ name }: HelpUsImproveFieldProps) {
   return (
     <CheckboxField
       name={name}
-      label={
-        <Typography variant="body2">
-          {t('validation:help-us-improve')}{' '}
-        </Typography>
-      }
+      label={<Typography variant="body2">{t('validation:help-us-improve')} </Typography>}
     />
   )
 }
