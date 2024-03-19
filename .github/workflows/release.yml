@@ -89,7 +89,7 @@ jobs:
         with:
           image: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
- scan-manifests:
+  scan-manifests:
    name: Scan k8s manifests
    runs-on: ubuntu-latest
    steps:
@@ -126,7 +126,7 @@ jobs:
   release-dev:
     name: Release to dev
     runs-on: ubuntu-latest
-    needs: [build-frontend-image, build-maintenance-image, run-playwright]
+    needs: [build-frontend-image, build-maintenance-image, scan-manifests, run-playwright]
     environment:
       name: dev
       url: https://dev.podkrepi.bg
