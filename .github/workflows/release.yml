@@ -89,7 +89,7 @@ jobs:
         with:
           image: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
- scan-manifests:
+  scan-manifests:
    name: Scan k8s manifests
    runs-on: ubuntu-latest
    steps:
