@@ -13,6 +13,7 @@ export type IndividualRegisterFormData = {
   terms: boolean
   gdpr: boolean
   newsletter?: boolean
+  helpUsImprove?: boolean
 }
 
 export type CorporateRegisterFormData = IndividualRegisterFormData & {

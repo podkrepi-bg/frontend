@@ -14,6 +14,7 @@ import { AcceptNewsLetterField } from 'components/common/form/AcceptNewsletterFi
 import { AccountType } from 'gql/user-registration'
 import { validateEIK13, validateEIK9 } from 'components/common/validations/EIKValidator'
 import { CorporateRegisterFormData } from 'gql/user-registration'
+import HelpUsImproveField from 'components/common/form/HelpUsImproveField'
 
 const validationSchema: yup.SchemaOf<CorporateRegisterFormData> = yup
   .object()
@@ -39,6 +40,7 @@ const validationSchema: yup.SchemaOf<CorporateRegisterFormData> = yup
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
     newsletter: yup.bool().required().oneOf([true, false]),
+    helpUsImprove: yup.bool().required().oneOf([true, false]),
   })
 
 export type RegisterFormProps = {
@@ -59,6 +61,7 @@ export default function CorporateRegisterForm({ onSubmit, loading }: RegisterFor
     terms: false,
     gdpr: false,
     newsletter: false,
+    helpUsImprove: false,
   }
   return (
     <GenericForm
@@ -115,6 +118,7 @@ export default function CorporateRegisterForm({ onSubmit, loading }: RegisterFor
           <AcceptTermsField name="terms" />
           <AcceptPrivacyPolicyField name="gdpr" />
           <AcceptNewsLetterField name="newsletter" />
+          <HelpUsImproveField name="helpUsImprove" />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.register" loading={loading} />
