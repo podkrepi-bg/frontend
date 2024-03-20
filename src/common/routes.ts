@@ -40,19 +40,22 @@ export const socialUrls = {
 }
 
 export const partnerUrls = {
-  superHosting: 'https://www.superhosting.bg/',
-  kotaOne: 'https://kota.one/',
-  darik: 'https://dariknews.bg/',
+  mediaPartners: ['https://dariknews.bg/', 'https://tv1.bg/', 'https://ideacomm.bg'],
   techPartners: [
     'https://softuni.bg/',
     'https://mentormate.com/',
     'https://www.88studiodesign.com/',
+    'https://www.irisbgsf.com/',
   ],
-  marketingPartners: [
-    'https://www.all-channels.com/',
-    'https://www.braindonors.agency/',
-    'https://crossroadsbulgaria.com/',
-  ],
+  marketingPartners: ['https://crossroadsbulgaria.com/'],
+  videoPartners: ['https://kota.one/', 'https://estproduction.com/'],
+  superHosting: 'https://www.superhosting.bg/',
+  kotaOne: 'https://kota.one/',
+  darik: 'https://dariknews.bg/',
+  estProduction: 'https://estproduction.com/',
+  tv1: 'https://tv1.bg/',
+  ideaComm: 'https://ideacomm.bg',
+  irisSolutions: 'https://www.irisbgsf.com/',
   puls: 'https://pulsfoundation.org/bg/',
   yanika: 'https://www.yanikabg.com/',
   parakids: 'https://parakids.org/',
@@ -63,8 +66,6 @@ export const partnerUrls = {
   softuni: 'https://softuni.bg/',
   mentormate: 'https://mentormate.com/',
   eightyEight: 'https://www.88studiodesign.com/',
-  allChannels: 'https://www.all-channels.com/',
-  brainDonors: 'https://www.braindonors.agency/',
   crossroadsBulgaria: 'https://crossroadsbulgaria.com/',
 }
 

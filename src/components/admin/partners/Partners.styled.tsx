@@ -8,7 +8,7 @@ import theme from '../../../common/theme'
 export const SectionTitle = styled(Typography)(() => ({
   fontSize: theme.typography.pxToRem(24),
   textAlign: 'center',
-  paddingBottom: theme.spacing(11.5),
+  paddingBottom: theme.spacing(5),
 }))
 
 export const StyledGrid = styled(Grid)(() => ({

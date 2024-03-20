@@ -7,7 +7,7 @@ type Partners = {
   website: string
 }
 
-type TechAndMarketingPartners = {
+type MainPartners = {
   title: string
   items: string[]
   websites: string[]
@@ -25,30 +25,28 @@ export const partners: Partners[] = [
     image: '/img/partners/superhosting.svg',
     website: partnerUrls.superHosting,
   },
-  {
-    title: 'partners:sections.video',
-    name: 'kotaOne',
-    image: '/img/partners/kotaOne.svg',
-    website: partnerUrls.kotaOne,
-  },
-  {
-    title: 'partners:sections.media',
-    name: 'darik',
-    image: '/img/partners/darik.svg',
-    website: partnerUrls.darik,
-  },
 ]
 
-export const techAndMarketingPartners: TechAndMarketingPartners[] = [
+export const mainPartners: MainPartners[] = [
+  {
+    title: 'partners:sections.media',
+    items: ['darik', 'tv1', 'ideaComm'],
+    websites: partnerUrls.mediaPartners,
+  },
   {
     title: 'partners:sections.tech',
-    items: ['softuni', 'mentormate', 'eightyEight'],
+    items: ['softuni', 'mentormate', 'eightyEight', 'irisSolutions'],
     websites: partnerUrls.techPartners,
   },
   {
     title: 'partners:sections.marketing',
-    items: ['allChannels', 'brainDonors', 'crossRoads'],
+    items: ['crossRoads'],
     websites: partnerUrls.marketingPartners,
+  },
+  {
+    title: 'partners:sections.video',
+    items: ['kotaOne', 'estProduction'],
+    websites: partnerUrls.videoPartners,
   },
 ]
 
@@ -115,18 +113,28 @@ export const allPartners = [
     website: partnerUrls.eightyEight,
   },
   {
-    name: 'allChannels',
-    image: '/img/partners/allChannels.svg',
-    website: partnerUrls.allChannels,
-  },
-  {
-    name: 'brainDonors',
-    image: '/img/partners/brainDonors.svg',
-    website: partnerUrls.brainDonors,
-  },
-  {
     name: 'crossroadsBulgaria',
     image: '/img/partners/crossRoads.svg',
     website: partnerUrls.crossroadsBulgaria,
+  },
+  {
+    name: 'estProduction',
+    image: '/img/partners/estProduction.svg',
+    website: partnerUrls.estProduction,
+  },
+  {
+    name: 'tv1',
+    image: '/img/partners/tv1.svg',
+    website: partnerUrls.tv1,
+  },
+  {
+    name: 'ideaComm',
+    image: '/img/partners/ideaComm.svg',
+    website: partnerUrls.ideaComm,
+  },
+  {
+    name: 'irisSolutions',
+    image: '/img/partners/irisSolutions.svg',
+    website: partnerUrls.irisSolutions,
   },
 ]
