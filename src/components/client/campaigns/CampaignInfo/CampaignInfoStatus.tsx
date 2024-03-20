@@ -27,6 +27,7 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
         sx={{
           display: 'flex',
           gap: theme.spacing(1),
+          flexWrap: 'wrap',
           margin: theme.spacing(3, 0, 6),
           alignItems: 'center',
         }}>
