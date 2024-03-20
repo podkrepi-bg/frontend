@@ -13,6 +13,8 @@ import FileList from '../helpers/FileList'
 import { NotifierTypes } from '../helpers/irregularity.types'
 import IrregularityReasonSelect from '../helpers/IrregularityReasonSelect'
 
+import theme from 'common/theme'
+
 const CssTextField = styled(FormTextField)({
   '& label': {
     marginLeft: '8px',
@@ -42,7 +44,9 @@ export default function Info({ files, setFiles }: Props) {
       <Subtitle label={t('steps.info.subtitle')} />
       <Grid container item>
         <Grid item xs={12}>
-          <Typography sx={{ fontSize: '18px' }}>{t('steps.info.is-donor')}</Typography>
+          <Typography sx={{ fontSize: theme.typography.pxToRem(18) }}>
+            {t('steps.info.is-donor')}
+          </Typography>
         </Grid>
         <Grid container item xs={12}>
           <FormControl sx={{ width: '40%', marginTop: '20px' }}>
@@ -75,7 +79,7 @@ export default function Info({ files, setFiles }: Props) {
       </Grid>
       <Grid container item>
         <Grid item xs={12}>
-          <Typography sx={{ fontSize: '18px', marginBottom: '20px' }}>
+          <Typography sx={{ fontSize: theme.typography.pxToRem(18), marginBottom: '20px' }}>
             {t('reason.title')}
           </Typography>
         </Grid>
@@ -85,7 +89,9 @@ export default function Info({ files, setFiles }: Props) {
       </Grid>
       <Grid container item>
         <Grid item xs={12}>
-          <Typography sx={{ fontSize: '18px' }}>{t('steps.info.content')}</Typography>
+          <Typography sx={{ fontSize: theme.typography.pxToRem(18) }}>
+            {t('steps.info.content')}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <CssTextField label="" type="text" multiline rows={6} name="info.description" />
@@ -93,7 +99,9 @@ export default function Info({ files, setFiles }: Props) {
       </Grid>
       <Grid container item>
         <Grid item xs={12}>
-          <Typography sx={{ fontSize: '18px' }}>{t('steps.info.files')}</Typography>
+          <Typography sx={{ fontSize: theme.typography.pxToRem(18) }}>
+            {t('steps.info.files')}
+          </Typography>
         </Grid>
         <Grid container justifyContent="center" mt={2}>
           <FileUpload
@@ -113,22 +121,22 @@ export default function Info({ files, setFiles }: Props) {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <Typography sx={{ fontSize: '15px', textAlign: 'justify' }}>
+        <Typography sx={{ fontSize: theme.typography.pxToRem(15), textAlign: 'justify' }}>
           {t('steps.info.priority-message')}
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography sx={{ fontSize: '15px', textAlign: 'justify' }}>
+        <Typography sx={{ fontSize: theme.typography.pxToRem(15), textAlign: 'justify' }}>
           {t('steps.info.share-message')}
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography sx={{ fontSize: '15px', textAlign: 'justify' }}>
+        <Typography sx={{ fontSize: theme.typography.pxToRem(15), textAlign: 'justify' }}>
           {t('steps.info.thanks-message')}
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography sx={{ fontSize: '15px', textAlign: 'justify' }}>
+        <Typography sx={{ fontSize: theme.typography.pxToRem(15), textAlign: 'justify' }}>
           {t('steps.info.sign')}
         </Typography>
       </Grid>

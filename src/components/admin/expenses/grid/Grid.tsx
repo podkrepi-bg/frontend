@@ -14,6 +14,8 @@ import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import { moneyPublic } from 'common/util/money'
 
+import theme from 'common/theme'
+
 const PREFIX = 'Grid'
 
 const classes = {
@@ -33,11 +35,11 @@ const Root = styled('div')({
       marginTop: '30px',
       marginRight: '40px',
     },
-    fontSize: '12px',
+    fontSize: theme.typography.pxToRem(12),
   },
   [`& .${classes.gridColumn}`]: {
     '& .MuiDataGrid-columnHeaderTitle': {
-      fontSize: '14px',
+      fontSize: theme.typography.pxToRem(14),
       fontWeight: '700',
     },
   },

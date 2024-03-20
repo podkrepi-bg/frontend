@@ -20,7 +20,7 @@ import LoopIcon from '@mui/icons-material/Loop'
 const addIconStyles = {
   color: '#4ac3ff',
   background: 'transperent',
-  fontSize: '40px',
+  fontSize: theme.typography.pxToRem(40),
   cursor: 'pointer',
   padding: 0.7,
 }

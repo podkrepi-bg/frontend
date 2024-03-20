@@ -22,6 +22,8 @@ import { email } from 'common/form/validation'
 import { AcceptNewsLetterFieldCampaign } from 'components/common/form/AcceptNewsletterField'
 import { routes } from 'common/routes'
 
+import theme from 'common/theme'
+
 const PREFIX = 'CampaignSubscribeModal'
 
 const classes = {
@@ -218,7 +220,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
           <CloseModalButton onClose={handleClose} />
           {!isSuccess ? (
             <React.Fragment>
-              <EmailIcon color="primary" sx={{ fontSize: '64px' }} />
+              <EmailIcon color="primary" sx={{ fontSize: theme.typography.pxToRem(64) }} />
               <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
                 {t('common:notifications.subscribe-campaign-title')}
               </DialogTitle>
@@ -231,7 +233,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
               style={{ textAlign: 'center', fontSize: 20, fontWeight: 600, paddingBottom: 6 }}>
               <CloseModalButton onClose={handleClose} />
               <React.Fragment>
-                <ThumbUpIcon sx={{ fontSize: '64px', color: '#03C03C' }} />
+                <ThumbUpIcon sx={{ fontSize: theme.typography.pxToRem(64), color: '#03C03C' }} />
                 <DialogTitle>
                   <Typography
                     variant="h5"

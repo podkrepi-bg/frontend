@@ -1,8 +1,9 @@
 import { Box } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
-import theme from 'common/theme'
 import LinkButton from 'components/common/LinkButton'
+
+import theme from 'common/theme'
 
 export const AuthLinksWrapper = styled(Box)(() => ({
   display: 'flex',

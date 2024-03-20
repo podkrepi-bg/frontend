@@ -56,25 +56,25 @@ export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
   },
 
   ['.ql-editor, .ql-size-small']: {
-    fontSize: '.75em',
+    fontSize: theme.typography.pxToRem(12),
   },
 
   ['.ql-editor, .ql-size-large']: {
-    fontSize: '1.5em',
+    fontSize: theme.typography.pxToRem(24),
   },
 
   ['.ql-editor, .ql-size-huge']: {
-    fontSize: '2.5em',
+    fontSize: theme.typography.pxToRem(40),
   },
 
   ['.ql-bubble, ql-editor h1']: {
     position: 'relative',
     width: '100%',
-    fontSize: '1em',
+    fontSize: theme.typography.pxToRem(16),
   },
 
   ['.ql-bubble, ql-editor h2']: {
-    fontSize: '1.5em',
+    fontSize: theme.typography.pxToRem(24),
   },
 
   ['.ql-bubble .ql-editor a ']: {

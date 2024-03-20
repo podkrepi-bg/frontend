@@ -14,6 +14,8 @@ import { routes } from 'common/routes'
 import AddIcon from '@mui/icons-material/Add'
 import Link from 'next/link'
 
+import theme from 'common/theme'
+
 const PREFIX = 'NewsAdminPage'
 
 const classes = {
@@ -25,7 +27,7 @@ const classes = {
 const Root = styled(Layout)({
   [`& .${classes.gridColumn}`]: {
     '& .MuiDataGrid-columnHeaderTitle': {
-      fontSize: '15px',
+      fontSize: theme.typography.pxToRem(15),
       fontWeight: '700',
     },
   },

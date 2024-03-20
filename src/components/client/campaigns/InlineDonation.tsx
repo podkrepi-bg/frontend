@@ -118,7 +118,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     display: 'flex',
     justifyContent: 'center',
     width: '50%',
-    fontSize: '13px',
+    fontSize: theme.typography.pxToRem(13),
     backgroundColor: 'transparant',
     paddingBottom: theme.spacing(0.2),
     borderRadius: '60px',

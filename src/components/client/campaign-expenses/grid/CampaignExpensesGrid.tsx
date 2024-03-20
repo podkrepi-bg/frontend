@@ -14,6 +14,8 @@ import { useCampaignExpensesList } from 'common/hooks/expenses'
 import { moneyPublic } from 'common/util/money'
 import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
 
+import theme from 'common/theme'
+
 const PREFIX = 'Grid'
 
 type Props = { slug: string }
@@ -37,11 +39,11 @@ const Root = styled('div')({
       marginTop: '30px',
       marginRight: '40px',
     },
-    fontSize: '12px',
+    fontSize: theme.typography.pxToRem(12),
   },
   [`& .${classes.gridColumn}`]: {
     '& .MuiDataGrid-columnHeaderTitle': {
-      fontSize: '14px',
+      fontSize: theme.typography.pxToRem(14),
       fontWeight: '700',
     },
   },
