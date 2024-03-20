@@ -25,8 +25,9 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
       <Box
         component="span"
         sx={{
-          display: 'flex',
+          display: 'block',
           gap: theme.spacing(1),
+          flexWrap: 'wrap',
           margin: theme.spacing(3, 0, 6),
           alignItems: 'center',
         }}>
