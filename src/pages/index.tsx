@@ -9,6 +9,7 @@ import { CampaignResponse } from 'gql/campaigns'
 import { endpoints } from 'service/apiEndpoints'
 
 import { authOptions } from './api/auth/[...nextauth]'
+import CreatePaymentDialog from 'components/admin/donations/dialogs/CreatePaymentDialog'
 
 export const getServerSideProps: GetServerSideProps<{
   session: Session | null
@@ -37,4 +38,4 @@ export const getServerSideProps: GetServerSideProps<{
   }
 }
 
-export default IndexPage
+export default CreatePaymentDialog
