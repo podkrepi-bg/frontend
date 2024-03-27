@@ -13,6 +13,8 @@ import {
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { TranslatableField, translateError } from 'common/form/validation'
+import { UseMutationResult, useMutation } from '@tanstack/react-query'
+import StripeCreatePaymentDialog from './stripe/StripeCreatePaymentDialog'
 
 const stripeInputValidation = yup.object({
   extPaymentIntentId: yup.string().required().matches(/^pi_/, 'Невалиден номер на Страйп'),
@@ -85,7 +87,7 @@ function PaymentTypeSelectDialog() {
     </>
   )
 }
-
+// const stripeMutation = useMutation()
 function BenevityManualImport() {
   const { t } = useTranslation('')
   const [field, meta] = useField('transactionId')
@@ -113,17 +115,23 @@ type Steps<T> = {
   [key in SelectedPaymentSource]: {
     component: React.JSX.Element
     validation?: yup.SchemaOf<T>
+    mutation?: UseMutationResult<unknown, unknown, void, unknown>
   }[]
 }
 
 function CreatePaymentDialog() {
-  const { isImportModalOpen, hideImportModal, paymentSource, importType, step } = CreatePaymentStore
+  const { isImportModalOpen, hideImportModal, paymentSource, importType, step, setStep } =
+    CreatePaymentStore
 
   const steps: Steps<Validation> = {
     none: [{ component: <PaymentTypeSelectDialog /> }],
     stripe: [
       {
         component: <StripeInputDialog />,
+        validation: stripeInputValidation,
+      },
+      {
+        component: <StripeCreatePaymentDialog />,
         validation: stripeInputValidation,
       },
     ],
@@ -147,7 +155,7 @@ function CreatePaymentDialog() {
           <Formik
             validateOnBlur
             onSubmit={(values, helpers) => {
-              console.log(values, helpers)
+              setStep(step + 1)
             }}
             initialValues={{}}
             validationSchema={steps[paymentSource][step].validation}>

@@ -31,6 +31,7 @@ export const getServerSideProps: GetServerSideProps<{
         'campaigns',
         'validation',
         'auth',
+        'profile',
       ])),
       session,
       dehydratedState: dehydrate(client),

@@ -144,6 +144,12 @@ export const endpoints = {
     getPayment: (id: string) => {
       return <Endpoint>{ url: `/donation/payments/${id}`, method: 'GET' }
     },
+    referenceStripeWithInternal: (id: string) => {
+      return <Endpoint>{ url: `/donation/stripe/${id}`, method: 'GET' }
+    },
+    synchronizeWithStripe: (id: string) => {
+      return <Endpoint>{ url: `/donation/${id}/synchronize-with-stripe`, method: 'PATCH' }
+    },
   },
   donation: {
     prices: <Endpoint>{ url: '/donation/prices', method: 'GET' },
