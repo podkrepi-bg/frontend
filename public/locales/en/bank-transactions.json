@@ -1,27 +1,26 @@
 {
-    "all": "All bank transactions",
-    "bank-transactions": "Bank transactions",
-    "transaction-date": "Transaction date",
-    "amount": "Amount",
-    "currency": "Currency",
-    "donation-status": "Donation status",
-    "id": "Trnsaction ID",
-    "bank-name": "Bank name",
+  "all": "All bank transactions",
+  "bank-transactions": "Bank transactions",
+  "transaction-date": "Transaction date",
+  "amount": "Amount",
+  "currency": "Currency",
+  "donation-status": "Donation status",
+  "id": "Trnsaction ID",
+  "bank-name": "Bank name",
+  "type": "Type",
+  "description": "Description",
+  "cta": {
+    "download": "Download",
+    "status": "Donation status",
     "type": "Type",
-    "description": "Description",
-    "cta": {
-      "download": "Download",
-      "status": "Donation status",
-      "type": "Type",
-      "from": "From",
-      "to": "To",
-      "apply-ref-heading": "Apply ref heading",
-      "apply-ref": "Apply ref",
-      "edit": "Edit",
-      "start-sync": "Start sync"
-    },
-    "matched-ref": "Matched ref",
-    "payment-ref": "Payment ref",
-    "rerun-dates": "Repeat bank sync"
-  }
-  
+    "from": "From",
+    "to": "To",
+    "apply-ref-heading": "Apply ref heading",
+    "apply-ref": "Apply ref",
+    "edit": "Edit",
+    "start-sync": "Start sync"
+  },
+  "matched-ref": "Matched ref",
+  "payment-ref": "Payment ref",
+  "rerun-dates": "Repeat bank sync"
+}
