@@ -162,4 +162,10 @@ export const data: TeamData[] = [
     description: 'Социални медии',
     linkedInProfile: 'https://www.linkedin.com/in/teodorageorgieva/',
   },
+  {
+    img: '/img/team-photos/MarkMarkov.jpg',
+    name: 'Марк Марков',
+    description: 'Продуктов дизайн',
+    linkedInProfile: 'https://www.linkedin.com/in/digitallymarked',
+  },
 ]
