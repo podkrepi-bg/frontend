@@ -23,5 +23,5 @@
   "unique-field-violation": "The field `{1}` with this value already exists in the platform.",
   "payment-reference": "Invalid payment code format",
   "eik-invalid": "Invalid EIK",
-  "help-us-improve": "Do you want to help us improve the platform? We want to hear from you? Please spare 30 minutes to help us improve Podkrepi.bg"
+  "help-us-improve": "I agree to be contacted to help improve the platform."
 }
