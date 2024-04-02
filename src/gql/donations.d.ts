@@ -40,6 +40,7 @@ export type TPaymentResponse = {
   provider: PaymentProvider
   extCustomerId: string
   amount: number
+  chargedAmount: number
   currency: Currency
   extPaymentIntentId: string
   extPaymentMethodId: string

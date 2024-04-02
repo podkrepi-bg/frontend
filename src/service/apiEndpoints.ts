@@ -148,7 +148,7 @@ export const endpoints = {
       return <Endpoint>{ url: `/donation/stripe/${id}`, method: 'GET' }
     },
     synchronizeWithStripe: (id: string) => {
-      return <Endpoint>{ url: `/donation/${id}/synchronize-with-stripe`, method: 'PATCH' }
+      return <Endpoint>{ url: `/donation/${id}/synch-with-stripe`, method: 'PATCH' }
     },
   },
   donation: {

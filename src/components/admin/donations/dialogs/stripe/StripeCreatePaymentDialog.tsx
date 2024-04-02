@@ -11,14 +11,16 @@ import {
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { AxiosResponse } from 'axios'
 import { money } from 'common/util/money'
+import { stripeFeeCalculator } from 'components/client/one-time-donation/helpers/stripe-fee-calculator'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 import { useField } from 'formik'
 import { TPaymentResponse } from 'gql/donations'
-import { PaymentStatus } from 'gql/donations.enums'
+import { CardRegion, PaymentStatus } from 'gql/donations.enums'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
+import Stripe from 'stripe'
 
 type Reference = {
   netAmount: number
@@ -26,8 +28,9 @@ type Reference = {
 }
 
 type GetStripeChargeResponse = {
-  stripe: Reference
-  internal: Reference
+  stripe: Stripe.Charge
+  internal?: TPaymentResponse
+  region: CardRegion
 }
 
 function useGetStripeChargeFromPID(stripeId: string) {
@@ -41,10 +44,8 @@ type SynchronizeStripeWithInternalProps = {
   id: string
 }
 
-type SynchronizeWithStripeInput = {
+type SynchronizeWithStripeInput = GetStripeChargeResponse & {
   id: string
-  stripe: Reference
-  internal: Reference
 }
 
 function synchronizeWithStrip(data: any) {
@@ -92,14 +93,35 @@ function SynchronizeStripeWithInternal({ data, id }: SynchronizeStripeWithIntern
             <TableCell>Вътрещна база данни</TableCell>
           </TableHead>
           <TableRow>
-            <TableCell>Сума</TableCell>
-            <TableCell>{money(data.stripe.netAmount)}</TableCell>
-            <TableCell>{money(data.internal.netAmount)}</TableCell>
+            <TableCell>Статус</TableCell>
+            <TableCell>
+              {t(
+                'profile:donations.status.' + data.stripe.refunded ? 'refund' : data.stripe.status,
+              )}
+            </TableCell>
+            <TableCell>{t('profile:donations.status.' + data.internal?.status)}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Статус</TableCell>
-            <TableCell>{t('profile:donations.status.' + data.stripe.status)}</TableCell>
-            <TableCell>{t('profile:donations.status.' + data.internal.status)}</TableCell>
+            <TableCell>Сума(бруто)</TableCell>
+            <TableCell>{money(data.stripe.amount)}</TableCell>
+            <TableCell>{money(data.internal?.chargedAmount ?? 0)}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Сума(нето)</TableCell>
+            <TableCell>
+              {money(data.stripe.amount - stripeFeeCalculator(data.stripe.amount, data.region))}
+            </TableCell>
+            <TableCell>{money(data.internal?.amount ?? 0)}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Дарител(име)</TableCell>
+            <TableCell>{data.stripe.billing_details.name}</TableCell>
+            <TableCell>{data.internal?.billingName ?? 'N/A'}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Дарител(име)</TableCell>
+            <TableCell>{data.stripe.billing_details.email}</TableCell>
+            <TableCell>{data.internal?.billingEmail ?? 'N/A'}</TableCell>
           </TableRow>
         </TableContainer>
       </Grid>

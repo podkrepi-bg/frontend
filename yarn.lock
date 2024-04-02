@@ -3660,10 +3660,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stripe/stripe-js@npm:^1.46.0":
-  version: 1.54.1
-  resolution: "@stripe/stripe-js@npm:1.54.1"
-  checksum: eb54054edea3d3f9a8c18e8442cc05b46f7afbe5bd85863121737f268875d30aab6de16ee84d467853ad9d983bf69f922f45daeee6f13134ca138f7e862c9eb4
+"@stripe/stripe-js@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@stripe/stripe-js@npm:3.1.0"
+  checksum: a32e5d3d6cd7bd7130e0d2f15312bdae83f568125407e461c033d726c44503bd00aabe8d6d593a6329d4a10b8a325440ce947cec21b685f260ee3f01f4597ec8
   languageName: node
   linkType: hard
 
@@ -11756,7 +11756,7 @@ __metadata:
     "@react-pdf/renderer": ^3.1.3
     "@sentry/nextjs": ^7.80.0
     "@stripe/react-stripe-js": ^1.16.1
-    "@stripe/stripe-js": ^1.46.0
+    "@stripe/stripe-js": ^3.1.0
     "@tanstack/react-query": ^4.16.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
