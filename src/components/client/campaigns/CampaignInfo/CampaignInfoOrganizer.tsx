@@ -17,12 +17,16 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
   const { t } = useTranslation()
   const organizerAvatarSource = organizerCampaignPictureUrl(campaign)
 
+  const organizerName = campaign.organizer?.person.company
+    ? campaign.organizer.person.company.companyName
+    : `${campaign.organizer?.person.firstName} ${campaign.organizer?.person.lastName}`
+
   return (
     <BeneficiaryOrganizerRoot>
       <Grid>
         <Label variant="subtitle2">{t('campaigns:campaign.organizer.name')}</Label>
         <Typography variant="subtitle2" component="p">
-          {campaign.organizer?.person.firstName || ''} {campaign.organizer?.person.lastName || ''}
+          {organizerName}
         </Typography>
         <EmailButton
           startIcon={<EmailIcon color="action" />}
@@ -37,9 +41,7 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
       </Grid>
       <Avatar
         src={organizerAvatarSource}
-        alt={`${t('campaign.image-of')}  ${campaign.organizer?.person.firstName} ${
-          campaign.organizer?.person.lastName
-        }`}
+        alt={`${t('campaign.image-of')}  ${organizerName}`}
         width={100}
         height={100}
       />

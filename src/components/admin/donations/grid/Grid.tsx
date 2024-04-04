@@ -96,7 +96,6 @@ export default observer(function Grid() {
 
   const {
     data: { items: donations, total: allDonationsCount } = { items: [], total: 0 },
-    error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
     refetch,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(

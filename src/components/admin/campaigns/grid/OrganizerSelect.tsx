@@ -34,12 +34,16 @@ export default function OrganizerSelect({ name = 'organizerId', label = 'campaig
         options={data || []}
         getOptionLabel={(option: OrganizerResponse) => {
           if (!option.person) return ''
-          return `${option.person.firstName} ${option.person.lastName}`
+          return option.person.company
+            ? option.person.company.companyName
+            : `${option.person.firstName} ${option.person.lastName}`
         }}
         renderInput={(params) => <TextField {...params} label={t(label)} />}
         renderOption={(params, option: OrganizerResponse) => (
           <Box component="li" {...params} key={option.id}>
-            {`${option.person.firstName} ${option.person.lastName}`}
+            {option.person.company
+              ? option.person.company.companyName
+              : `${option.person.firstName} ${option.person.lastName}`}
           </Box>
         )}
         isOptionEqualToValue={(option, value) =>

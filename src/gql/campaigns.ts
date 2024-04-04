@@ -99,16 +99,33 @@ export type CampaignResponse = BaseCampaignResponse & {
     id: UUID
     type: BeneficiaryType
     publicData: string
-    person: { id: UUID; firstName: string; lastName: string }
+    person: {
+      id: UUID
+      firstName: string
+      lastName: string
+      company: { id: string; companyName: string }
+    }
     company: { id: UUID; companyName: string }
   }
   coordinator: {
     id: UUID
-    person: { id: UUID; firstName: string; lastName: string; email: string }
+    person: {
+      id: UUID
+      firstName: string
+      lastName: string
+      email: string
+      company: { id: string; companyName: string }
+    }
   }
   organizer?: {
     id: UUID
-    person: { id: UUID; firstName: string; lastName: string; email: string }
+    person: {
+      id: UUID
+      firstName: string
+      lastName: string
+      email: string
+      company: { id: string; companyName: string }
+    }
   }
   campaignFiles: CampaignFile[] | []
   vaults?: VaultResponse[]

@@ -44,7 +44,9 @@ export default observer(function Grid() {
       editable: false,
       width: 400,
       valueGetter: (f) => {
-        return `${f.row.person.firstName} ${f.row.person.lastName}`
+        return f.row.person.company
+          ? f.row.person.company.companyName
+          : `${f.row.person.firstName} ${f.row.person.lastName}`
       },
     },
     {
