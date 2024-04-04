@@ -65,13 +65,13 @@ export function BenevityCSVParser(csvString: string): TBenevityCSVParser {
       return camelCase(header)
     },
     complete: (result: Papa.ParseResult<TBenevityDonation>) => {
-      const test = result.data.map((result) => {
+      const donationsWithCalculation = result.data.map((result) => {
         result['totalFee'] = result.merchantFee + result.causeSupportFee
         result['totalAmount'] = result.totalDonationToBeAcknowledged + result.matchAmount
         return result
       })
 
-      benevityObj.donations = test
+      benevityObj.donations = donationsWithCalculation
     },
   })
   return benevityObj

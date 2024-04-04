@@ -247,6 +247,7 @@ export const endpoints = {
     editPaymentRef: (id: string) =>
       <Endpoint>{ url: `/bank-transaction/${id}/edit-ref`, method: 'PUT' },
     rerunDates: <Endpoint>{ url: '/bank-transaction/rerun-dates', method: 'POST' },
+    getTransaction: (id: string) => <Endpoint>{ url: `/bank-transaction/${id}`, method: 'GET' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },

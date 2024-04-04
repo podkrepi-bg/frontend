@@ -28,14 +28,9 @@ import { observer } from 'mobx-react'
 import { BenevityCSVParser, TBenevityCSVParser } from 'common/util/benevityCSVParser'
 
 import SubmitButton from 'components/common/form/SubmitButton'
-import { Field, FieldArray, FieldProps, Form, Formik, useField, useFormikContext } from 'formik'
+import { FieldArray, Form, Formik, useField, useFormikContext } from 'formik'
 import { TranslatableField, translateError } from 'common/form/validation'
 import EditIcon from '@mui/icons-material/Edit'
-
-type TModalSettings = {
-  onClose: () => void
-  onUpload: (data: TBenevityCSVParser) => void
-}
 
 function BenevityImportDialog() {
   const { t } = useTranslation()
@@ -66,9 +61,10 @@ function BenevityImportDialog() {
 }
 
 export function FileImportDialog() {
-  const { isImportModalOpen, importType, setBenevityData } = CreatePaymentStore
+  const { setBenevityData } = CreatePaymentStore
   const [isDragging, setIsDragging] = useState(false)
   const inputFile = useRef<HTMLInputElement | null>(null)
+  const [field, meta, { setValue }] = useField('benevityData')
 
   const onDragOver = (event: React.DragEvent) => {
     event.preventDefault()
@@ -90,6 +86,7 @@ export function FileImportDialog() {
       const csvToJSON = BenevityCSVParser(fileReader.result as string)
       if (!csvToJSON) throw new Error('Something went wrong')
       setBenevityData(csvToJSON)
+      setValue(csvToJSON.disbursementId)
     }
   }
   const onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -158,7 +155,7 @@ export function FileImportDialog() {
   )
 }
 
-const BenevityInput = ({ name }: { name: string }) => {
+const BenevityInput = ({ name, currency }: { name: string; currency?: string }) => {
   const { t } = useTranslation()
   const [editable, setEditable] = useState(false)
   const [field, meta] = useField(name)
@@ -206,6 +203,7 @@ const BenevityInput = ({ name }: { name: string }) => {
         },
         endAdornment: (
           <>
+            {currency && <span>{currency}</span>}
             <IconButton size="small" onClick={toggleEdit} sx={{ color: 'primary.light' }}>
               <EditIcon />
             </IconButton>
@@ -272,7 +270,10 @@ const DonationsTable = () => {
                         <BenevityInput name={`donations[${index}].projectRemoteId`} />
                       </TableCell>
                       <TableCell>
-                        <BenevityInput name={`donations[${index}].totalAmount`} />
+                        <BenevityInput
+                          name={`donations[${index}].totalAmount`}
+                          currency={donation.currency}
+                        />
                       </TableCell>
                       <TableCell>
                         &#8776;{(donation.totalAmount * exchangeRate).toFixed(2)} BGN
@@ -318,47 +319,41 @@ export function DonationImportSummary() {
   benevityData['exchangeRate'] = benevityData.transactionAmount / benevityData.netTotalPayment
 
   const onSubmit = (data: any) => {
-    console.log(data.donations)
+    console.log(data)
   }
 
   return (
-    <Dialog open maxWidth={false}>
-      <Formik initialValues={benevityData} onSubmit={onSubmit}>
-        <Form>
-          <Grid container sx={{ padding: 2 }} xs={12} gap={2}>
-            <Grid container item direction={'column'}>
-              <Grid item display={'flex'} gap={1} alignItems={'center'}>
-                <Typography fontSize={17}>Получени средства(BGN):</Typography>
-                <BenevityInput name="transactionAmount" />
-              </Grid>
-              <Grid item display={'flex'} gap={1} alignItems={'center'}>
-                <Typography fontSize={17}>Превод валута:</Typography>
-                <BenevityInput name="currency" />
-              </Grid>
-              <Grid item display={'flex'} gap={1} alignItems={'center'}>
-                <Typography fontSize={17}>Изпратени средства(Нето):</Typography>
-                <BenevityInput name="netTotalPayment" />
-              </Grid>
-              <ExchangeRate />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography fontSize={17} sx={{ marginTop: 5 }}>
-                Дарения по кампании:
-              </Typography>
-              <DonationsTable />
-            </Grid>
-            <Grid container item gap={2} direction={'column'} alignItems={'center'}>
-              <Grid container item sx={{ width: '40%' }} gap={2}>
-                <SubmitButton fullWidth label="campaigns:cta.submit" type="submit" />
-                <Button fullWidth onClick={() => hideImportModal()}>
-                  Отказ
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Form>
-      </Formik>
-    </Dialog>
+    <Grid container sx={{ padding: 2 }} xs={12} gap={2}>
+      <Grid container item direction={'column'}>
+        <Grid item display={'flex'} gap={1} alignItems={'center'}>
+          <Typography fontSize={17}>Получени средства(BGN):</Typography>
+          <BenevityInput name="transactionAmount" />
+        </Grid>
+        <Grid item display={'flex'} gap={1} alignItems={'center'}>
+          <Typography fontSize={17}>Превод валута:</Typography>
+          <BenevityInput name="currency" />
+        </Grid>
+        <Grid item display={'flex'} gap={1} alignItems={'center'}>
+          <Typography fontSize={17}>Изпратени средства(Нето):</Typography>
+          <BenevityInput name="netTotalPayment" />
+        </Grid>
+        <ExchangeRate />
+      </Grid>
+      <Grid item xs={12}>
+        <Typography fontSize={17} sx={{ marginTop: 5 }}>
+          Дарения по кампании:
+        </Typography>
+        <DonationsTable />
+      </Grid>
+      <Grid container item gap={2} direction={'column'} alignItems={'center'}>
+        <Grid container item sx={{ width: '40%' }} gap={2}>
+          <SubmitButton fullWidth label="campaigns:cta.submit" type="submit" />
+          <Button fullWidth onClick={() => hideImportModal()}>
+            Отказ
+          </Button>
+        </Grid>
+      </Grid>
+    </Grid>
   )
 }
 
