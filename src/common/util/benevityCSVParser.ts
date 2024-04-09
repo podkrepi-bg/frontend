@@ -6,9 +6,10 @@ import Papa from 'papaparse'
  * @param csvString CSV string to serialize
  * @returns
  */
+
 export function BenevityCSVParser(csvString: string): TBenevityCSVParser {
   const benevityObj = {} as TBenevityCSVParser
-  benevityObj.donations = []
+  benevityObj.donations = [] as TBenevityDonation[]
 
   const EXPECTED_CSV_SECTIONS = 4
   const SECTION_DELIMETER = '#-------------------------------------------,'
@@ -32,22 +33,21 @@ export function BenevityCSVParser(csvString: string): TBenevityCSVParser {
   }
 
   const donationSummary = csvArr[1].concat(csvArr[3])
-  Papa.parse<TBenevityCSVParser>(donationSummary, {
-    skipEmptyLines: true,
-    step(row: Papa.ParseStepResult<unknown>) {
-      const [key, value] = row.data as [string, string]
+  Papa.parse<Record<keyof TBenevityCSVParser, TBenevityCSVParser[keyof TBenevityCSVParser]>>(
+    donationSummary,
+    {
+      skipEmptyLines: true,
+      dynamicTyping: true,
+      step(row: Papa.ParseStepResult<unknown>) {
+        const [key, value] = row.data as [string, string | number]
 
-      if (!key || !value) return
-      const transformedKey = camelCase(key) as keyof TBenevityCSVParser
-      ;(benevityObj[transformedKey] as TBenevityCSVParser[typeof transformedKey]) =
-        value as TBenevityCSVParser[typeof transformedKey]
-      return benevityObj
+        if (!key || !value) return
+        const transformedKey = camelCase(key) as keyof TBenevityCSVParser
+
+        ;(benevityObj[transformedKey] as TBenevityCSVParser[typeof transformedKey]) = value
+      },
     },
-    // complete(results: Papa.ParseResult<TBenevityCSVParser>) {
-    //   console.log(results)
-    //   return results
-    // },
-  })
+  )
 
   const projectsSummary = csvArr[2]
   Papa.parse(projectsSummary, {
@@ -66,8 +66,9 @@ export function BenevityCSVParser(csvString: string): TBenevityCSVParser {
     },
     complete: (result: Papa.ParseResult<TBenevityDonation>) => {
       const donationsWithCalculation = result.data.map((result) => {
-        result['totalFee'] = result.merchantFee + result.causeSupportFee
-        result['totalAmount'] = result.totalDonationToBeAcknowledged + result.matchAmount
+        const totalFee = result.merchantFee + result.causeSupportFee
+        result['totalFee'] = totalFee
+        result['totalAmount'] = result.totalDonationToBeAcknowledged + result.matchAmount - totalFee
         return result
       })
 
@@ -86,6 +87,7 @@ export type TBenevityCSVParser = {
   disbursementId: string
   totalDonationsGross: string
   checkFee: string
+  note: string
   netTotalPayment: number
   transactionAmount: number
   exchangeRate: number

@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   CardContent,
+  CircularProgress,
   Dialog,
   Grid,
   IconButton,
@@ -21,16 +22,32 @@ import {
   CreatePaymentStore,
   TImportType,
   benevityDonationInitialValues,
+  benevityInitialValues,
 } from '../store/BenevityImportStore'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 import { observer } from 'mobx-react'
-import { BenevityCSVParser, TBenevityCSVParser } from 'common/util/benevityCSVParser'
+import {
+  BenevityCSVParser,
+  TBenevityCSVParser,
+  TBenevityDonation,
+} from 'common/util/benevityCSVParser'
 
 import SubmitButton from 'components/common/form/SubmitButton'
 import { FieldArray, Form, Formik, useField, useFormikContext } from 'formik'
 import { TranslatableField, translateError } from 'common/form/validation'
 import EditIcon from '@mui/icons-material/Edit'
+import { useQuery } from '@tanstack/react-query'
+import { endpoints } from 'service/apiEndpoints'
+import { useSession } from 'next-auth/react'
+import { authQueryFnFactory } from 'service/restRequests'
+import { BankTransactionsInput } from 'gql/bank-transactions'
+import * as yup from 'yup'
+import { fromMoney, moneyPublic } from 'common/util/money'
+import { useCampaignList } from 'common/hooks/campaigns'
+import { v5 as uuidv5 } from 'uuid'
+import { BenevityRequest } from 'components/admin/donations/dialogs/CreatePaymentDialog'
+import { Delete } from '@mui/icons-material'
 
 function BenevityImportDialog() {
   const { t } = useTranslation()
@@ -64,6 +81,7 @@ export function FileImportDialog() {
   const { setBenevityData } = CreatePaymentStore
   const [isDragging, setIsDragging] = useState(false)
   const inputFile = useRef<HTMLInputElement | null>(null)
+  const submitButtonRef = useRef<HTMLButtonElement | null>(null)
   const [field, meta, { setValue }] = useField('benevityData')
 
   const onDragOver = (event: React.DragEvent) => {
@@ -86,7 +104,7 @@ export function FileImportDialog() {
       const csvToJSON = BenevityCSVParser(fileReader.result as string)
       if (!csvToJSON) throw new Error('Something went wrong')
       setBenevityData(csvToJSON)
-      setValue(csvToJSON.disbursementId)
+      setValue(csvToJSON)
     }
   }
   const onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -108,7 +126,8 @@ export function FileImportDialog() {
       if (!fileReader.result) return
       const csvToJSON = BenevityCSVParser(fileReader.result as string)
       if (!csvToJSON) throw new Error('Something went wrong')
-      setBenevityData(csvToJSON)
+      setValue(csvToJSON)
+      submitButtonRef.current?.click()
     }
   }
 
@@ -151,16 +170,26 @@ export function FileImportDialog() {
         accept=".csv"
         onChange={onChange}
       />
+      <button type="submit" id="file" ref={submitButtonRef} style={{ display: 'none' }} />
     </>
   )
 }
 
-const BenevityInput = ({ name, currency }: { name: string; currency?: string }) => {
+const BenevityInput = ({
+  name,
+  currency,
+  canEdit = false,
+}: {
+  name: string
+  currency?: string
+  canEdit?: boolean
+}) => {
   const { t } = useTranslation()
   const [editable, setEditable] = useState(false)
-  const [field, meta] = useField(name)
-
+  const [field, meta, { setValue }] = useField(name)
+  const { setFieldValue, values } = useFormikContext()
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
+
   const ref = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -179,6 +208,7 @@ const BenevityInput = ({ name, currency }: { name: string; currency?: string }) 
     formikBlur(e)
     toggleEdit()
   }
+
   return (
     <TextField
       helperText={helperText}
@@ -204,9 +234,11 @@ const BenevityInput = ({ name, currency }: { name: string; currency?: string }) 
         endAdornment: (
           <>
             {currency && <span>{currency}</span>}
-            <IconButton size="small" onClick={toggleEdit} sx={{ color: 'primary.light' }}>
-              <EditIcon />
-            </IconButton>
+            {canEdit && (
+              <IconButton size="small" onClick={toggleEdit} sx={{ color: 'primary.light' }}>
+                <EditIcon />
+              </IconButton>
+            )}
           </>
         ),
       }}
@@ -214,130 +246,216 @@ const BenevityInput = ({ name, currency }: { name: string; currency?: string }) 
   )
 }
 
-const ExchangeRate = () => {
-  const { values } = useFormikContext<TBenevityCSVParser>()
+type BenevityDonation = Pick<
+  TBenevityDonation,
+  'email' | 'donorFirstName' | 'donorLastName' | 'totalAmount' | 'projectRemoteId' | 'transactionId'
+>
 
-  return <Typography fontSize={17}>Курс: {values.exchangeRate.toFixed(5)}</Typography>
+type BenevityImportInput = {
+  amount: number
+  extPaymentIntentId: string
+  exchangeRate: number
+  currency: string
+  benevityData: TBenevityCSVParser
+}
+
+const benevityDonationValidationObject: yup.SchemaOf<BenevityDonation> = yup.object().shape({
+  transactionId: yup.string().required(),
+  email: yup.string().required(),
+  donorFirstName: yup.string().required(),
+  donorLastName: yup.string().required(),
+  totalAmount: yup.number().required(),
+  projectRemoteId: yup.string().required(),
+})
+
+export const benevityValidation: yup.SchemaOf<BenevityRequest> = yup
+  .object()
+  .defined()
+  .shape({
+    amount: yup.number().required(),
+    extPaymentIntentId: yup.string().required(),
+    exchangeRate: yup.number().required(),
+    benevityData: yup
+      .object()
+      .defined()
+      .shape({
+        donations: yup.array().of(benevityDonationValidationObject).optional(),
+      }),
+  })
+
+const ExchangeRate = ({ exchangeRate }: { exchangeRate: number }) => {
+  return <Typography fontSize={17}>Курс: {exchangeRate.toFixed(2)}</Typography>
 }
 
 const DonationsTable = () => {
-  const { values } = useFormikContext<TBenevityCSVParser>()
+  const { values, setFieldValue } = useFormikContext<BenevityImportInput>()
   const [showAddButton, setShowAddButton] = useState(false)
-  const exchangeRate = values.transactionAmount / values.netTotalPayment || 0
+  const { data: campaigns } = useCampaignList()
+  const exchangeRate = values.exchangeRate
   return (
     <FieldArray
-      name="donations"
+      name="benevityData.donations"
       render={(arrayHelper) => (
-        <>
-          <TableContainer
-            sx={{
-              maxHeight: 300,
-              overflow: 'scroll',
-              '&::-webkit-scrollbar': {
-                width: '0.3em',
-              },
-              '&::-webkit-scrollbar-thumb': {
-                backgroundColor: '#4AC3FFBB',
-              },
-            }}>
-            <Table
-              stickyHeader
-              onMouseEnter={() => setShowAddButton(true)}
-              onMouseLeave={() => setShowAddButton(false)}>
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID на транзакция</TableCell>
-                  <TableCell>Кампания</TableCell>
-                  <TableCell>Project Remote Id</TableCell>
-                  <TableCell>Дарение(орг. валута)</TableCell>
-                  <TableCell>Дарение(BGN)</TableCell>
-                  <TableCell>Дарител име</TableCell>
-                  <TableCell sx={{ flex: 1 }}>Дарител фамилия</TableCell>
-                  <TableCell>Дарител емайл</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {values.donations.map((donation, index) => {
-                  return (
-                    <TableRow key={`${index}`}>
-                      <TableCell>
-                        <BenevityInput name={`donations[${index}].transactionId`} />
-                      </TableCell>
-                      <TableCell>
-                        <BenevityInput name={`donations[${index}].project`} />
-                      </TableCell>
-                      <TableCell>
-                        <BenevityInput name={`donations[${index}].projectRemoteId`} />
-                      </TableCell>
-                      <TableCell>
-                        <BenevityInput
-                          name={`donations[${index}].totalAmount`}
-                          currency={donation.currency}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        &#8776;{(donation.totalAmount * exchangeRate).toFixed(2)} BGN
-                      </TableCell>
-                      <TableCell>
-                        <BenevityInput name={`donations[${index}].donorFirstName`} />
-                      </TableCell>
-                      <TableCell>
-                        <BenevityInput name={`donations[${index}].donorLastName`} />
-                      </TableCell>
-                      <TableCell>
-                        <BenevityInput name={`donations[${index}].email`} />
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-                {showAddButton && (
-                  <TableRow sx={{ width: '100%', padding: 0 }}>
-                    <TableCell colSpan={8} padding="checkbox">
-                      <Box display={'flex'} justifyContent={'center'}>
-                        <IconButton
-                          size="large"
-                          onClick={() => arrayHelper.push(benevityDonationInitialValues)}>
-                          <AddCircleIcon />
-                          <Typography fontSize={16}>Добави ново дарение</Typography>
-                        </IconButton>
-                      </Box>
+        <TableContainer
+          sx={{
+            maxHeight: 300,
+            maxWidth: 1400,
+            '&::-webkit-scrollbar': {
+              width: '0.3em',
+              height: '0.7em',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#4AC3FFBB',
+            },
+            overflow: 'auto',
+          }}>
+          <Table
+            stickyHeader
+            onMouseEnter={() => setShowAddButton(true)}
+            onMouseLeave={() => setShowAddButton(false)}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Действия</TableCell>
+                <TableCell>ID на транзакция</TableCell>
+                <TableCell>Кампания</TableCell>
+                <TableCell>Project Remote Id</TableCell>
+                <TableCell>Дарение(орг. валута)</TableCell>
+                <TableCell>Дарение(BGN)</TableCell>
+                <TableCell>Дарител име</TableCell>
+                <TableCell>Дарител фамилия</TableCell>
+                <TableCell>Дарител емайл</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {values.benevityData?.donations?.map((donation, index) => {
+                return (
+                  <TableRow key={`${index}`}>
+                    <TableCell>
+                      <IconButton onClick={() => arrayHelper.remove(index)}>
+                        <Delete fontSize="small" sx={{ color: '#FF3632' }} />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell>
+                      <BenevityInput
+                        name={`benevityData.donations[${index}].transactionId`}
+                        canEdit={true}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <BenevityInput
+                        name={`benevityData.donations[${index}].project`}
+                        canEdit={true}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <BenevityInput
+                        name={`benevityData.donations[${index}].projectRemoteId`}
+                        canEdit={true}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <BenevityInput
+                        name={`benevityData.donations[${index}].totalAmount`}
+                        currency={donation.currency}
+                        canEdit={true}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      &#8776;{(donation.totalAmount * exchangeRate).toFixed(2)} BGN
+                    </TableCell>
+                    <TableCell>
+                      <BenevityInput
+                        name={`benevityData.donations[${index}].donorFirstName`}
+                        canEdit={true}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <BenevityInput
+                        name={`benevityData.donations[${index}].donorLastName`}
+                        canEdit={true}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <BenevityInput
+                        name={`benevityData.donations[${index}].email`}
+                        canEdit={true}
+                      />
                     </TableCell>
                   </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </>
+                )
+              })}
+
+              <TableRow sx={{ width: '100%', padding: 0, position: 'relative' }}>
+                <TableCell colSpan={8} padding="checkbox">
+                  <Box display={'flex'} justifyContent={'center'}>
+                    <IconButton
+                      size="large"
+                      onClick={() => arrayHelper.push(benevityDonationInitialValues)}>
+                      <AddCircleIcon />
+                      <Typography fontSize={16}>Добави ново дарение</Typography>
+                    </IconButton>
+                  </Box>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
     />
   )
 }
 
-export function DonationImportSummary() {
-  const { benevityData, selectedRecord, hideImportModal } = CreatePaymentStore
-  benevityData['transactionAmount'] = Number(selectedRecord.id.substring(59, 66) ?? 0)
-  benevityData['exchangeRate'] = benevityData.transactionAmount / benevityData.netTotalPayment
+function useFindBankTransaction(id: string) {
+  const { data: session } = useSession()
+  return useQuery<BankTransactionsInput>(
+    [endpoints.bankTransactions.getTransactionById(id).url],
+    authQueryFnFactory<BankTransactionsInput>(session?.accessToken),
+  )
+}
 
-  const onSubmit = (data: any) => {
-    console.log(data)
-  }
+export function DonationImportSummary() {
+  const { hideImportModal } = CreatePaymentStore
+  const { values, setFieldValue } = useFormikContext<BenevityImportInput>()
+  const { data, isLoading, isError } = useFindBankTransaction(
+    values.extPaymentIntentId ?? values.benevityData?.disbursementId,
+  )
+  useEffect(() => {
+    if (!data) return
+    setFieldValue('amount', fromMoney(data.amount ?? 0))
+    setFieldValue('extPaymentIntentId', data.id)
+    setFieldValue('currency', values.benevityData?.currency)
+    if (!values.benevityData) {
+      setFieldValue('benevityData', benevityInitialValues)
+    }
+  }, [data])
+
+  useEffect(() => {
+    setFieldValue('exchangeRate', values.amount / values.benevityData?.netTotalPayment)
+  }, [values.amount, values.benevityData?.netTotalPayment])
+
+  if (isLoading) return <CircularProgress />
+  if (isError) return
 
   return (
     <Grid container sx={{ padding: 2 }} xs={12} gap={2}>
       <Grid container item direction={'column'}>
         <Grid item display={'flex'} gap={1} alignItems={'center'}>
           <Typography fontSize={17}>Получени средства(BGN):</Typography>
-          <BenevityInput name="transactionAmount" />
+          <BenevityInput name="amount" currency={data.currency} />
         </Grid>
         <Grid item display={'flex'} gap={1} alignItems={'center'}>
           <Typography fontSize={17}>Превод валута:</Typography>
-          <BenevityInput name="currency" />
+          <BenevityInput name="currency" canEdit={true} />
         </Grid>
         <Grid item display={'flex'} gap={1} alignItems={'center'}>
           <Typography fontSize={17}>Изпратени средства(Нето):</Typography>
-          <BenevityInput name="netTotalPayment" />
+          <BenevityInput
+            name="benevityData.netTotalPayment"
+            currency={values.currency}
+            canEdit={true}
+          />
         </Grid>
-        <ExchangeRate />
+        <ExchangeRate exchangeRate={values.exchangeRate} />
       </Grid>
       <Grid item xs={12}>
         <Typography fontSize={17} sx={{ marginTop: 5 }}>

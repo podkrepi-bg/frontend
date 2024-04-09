@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardContent, Dialog, TextField, Typography } from '@mui/material'
 import BenevityImportDialog, {
   DonationImportSummary,
+  benevityValidation,
 } from 'components/admin/bank-transactions/modals/BenevityImportDialog'
 import { Form, Formik, useField, useFormikContext } from 'formik'
 import React from 'react'
@@ -15,6 +16,11 @@ import { observer } from 'mobx-react'
 import { TranslatableField, translateError } from 'common/form/validation'
 import { UseMutationResult, useMutation } from '@tanstack/react-query'
 import StripeCreatePaymentDialog from './stripe/StripeCreatePaymentDialog'
+import { AxiosResponse } from 'axios'
+import { TPaymentResponse } from 'gql/donations'
+import { endpoints } from 'service/apiEndpoints'
+import { apiClient } from 'service/apiClient'
+import { TBenevityCSVParser } from 'common/util/benevityCSVParser'
 
 const stripeInputValidation = yup.object({
   extPaymentIntentId: yup.string().required().matches(/^pi_/, 'Невалиден номер на Страйп'),
@@ -104,24 +110,40 @@ function BenevityManualImport() {
           error={Boolean(meta.error) && Boolean(meta.touched)}
           helperText={helperText}
         />
-        <Button type="button">Търсене на запис</Button>
+        <Button type="submit">Търсене на запис</Button>
       </Box>
     </>
   )
 }
 
-type Validation = yup.InferType<typeof stripeInputValidation | typeof benevityInputValidation>
+export type BenevityRequest = {
+  amount: number
+  extPaymentIntentId: string
+  exchangeRate: number
+  benevityData: Pick<TBenevityCSVParser, 'donations'>
+}
+
+type Validation = yup.InferType<
+  typeof stripeInputValidation | typeof benevityValidation | typeof benevityInputValidation
+>
+
 type Steps<T> = {
   [key in SelectedPaymentSource]: {
     component: React.JSX.Element
-    validation?: yup.SchemaOf<T>
-    mutation?: UseMutationResult<unknown, unknown, void, unknown>
+    validation?: yup.SchemaOf<T> | null
+    mutation?: UseMutationResult<AxiosResponse<TPaymentResponse>, unknown, BenevityRequest>
   }[]
 }
 
 function CreatePaymentDialog() {
   const { isImportModalOpen, hideImportModal, paymentSource, importType, step, setStep } =
     CreatePaymentStore
+
+  const benevityMutation = useMutation<AxiosResponse<TPaymentResponse>, unknown, BenevityRequest>({
+    mutationFn: async (data) => {
+      return await apiClient.post(endpoints.payments.createFromBeneivty.url, data)
+    },
+  })
 
   const steps: Steps<Validation> = {
     none: [{ component: <PaymentTypeSelectDialog /> }],
@@ -138,24 +160,32 @@ function CreatePaymentDialog() {
     benevity: [
       {
         component: <BenevityImportDialog />,
+        validation: null,
       },
       {
         component: importType === 'file' ? <FileImportDialog /> : <BenevityManualImport />,
-        validation: importType === 'file' ? undefined : benevityInputValidation,
+        validation: importType === 'file' ? null : benevityInputValidation,
       },
       {
         component: <DonationImportSummary />,
+        validation: benevityValidation,
+        mutation: benevityMutation,
       },
     ],
   }
   return (
-    <Dialog open={isImportModalOpen} onClose={hideImportModal} maxWidth="lg">
-      <Card sx={{ display: 'flex', flexGrow: 1, maxWidth: '100%' }}>
+    <Dialog open={isImportModalOpen} onClose={hideImportModal} maxWidth={false}>
+      <Card sx={{ display: 'flex' }}>
         <CardContent>
           <Formik
             validateOnBlur
-            onSubmit={(values, helpers) => {
-              setStep(step + 1)
+            onSubmit={async (values, helpers) => {
+              if (step < steps[paymentSource].length - 1) {
+                setStep(step + 1)
+              }
+              if (step === steps[paymentSource].length - 1) {
+                steps[paymentSource][step].mutation?.mutate(values as BenevityRequest)
+              }
             }}
             initialValues={{}}
             validationSchema={steps[paymentSource][step].validation}>

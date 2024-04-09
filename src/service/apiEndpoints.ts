@@ -147,9 +147,11 @@ export const endpoints = {
     referenceStripeWithInternal: (id: string) => {
       return <Endpoint>{ url: `/donation/stripe/${id}`, method: 'GET' }
     },
-    synchronizeWithStripe: (id: string) => {
-      return <Endpoint>{ url: `/donation/${id}/synch-with-stripe`, method: 'PATCH' }
+    synchronizeWithStripe: <Endpoint>{
+      url: `/donation/create-update-stripe-payment`,
+      method: 'PUT',
     },
+    createFromBeneivty: <Endpoint>{ url: `/donation/import/benevity`, method: 'POST' },
   },
   donation: {
     prices: <Endpoint>{ url: '/donation/prices', method: 'GET' },
@@ -247,7 +249,7 @@ export const endpoints = {
     editPaymentRef: (id: string) =>
       <Endpoint>{ url: `/bank-transaction/${id}/edit-ref`, method: 'PUT' },
     rerunDates: <Endpoint>{ url: '/bank-transaction/rerun-dates', method: 'POST' },
-    getTransaction: (id: string) => <Endpoint>{ url: `/bank-transaction/${id}`, method: 'GET' },
+    getTransactionById: (id: string) => <Endpoint>{ url: `/bank-transaction/${id}`, method: 'GET' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
