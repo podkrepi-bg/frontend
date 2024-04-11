@@ -3,7 +3,7 @@ import { ClickOptions, LocatorOptions } from '../../utils/types'
 
 // Here we define all base methods, which are inherited into the other pages
 export class BasePage {
-  protected page: Page
+  public page: Page
 
   constructor(page: Page) {
     this.page = page

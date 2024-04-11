@@ -41,7 +41,7 @@ const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
   amount: yup.number().positive('Amount must be a positive number.').required(),
   reason: yup.string().trim().min(1).max(300).required(),
   documentId: yup.string().uuid().notRequired().nullable(),
-  targetDate: yup.date().min(new Date(), 'Date is invalid.').notRequired().nullable(),
+  targetDate: yup.date().required(),
   approvedById: yup.string().uuid().notRequired().nullable(),
   sourceVaultId: yup.string().uuid().required(),
   sourceCampaignId: yup.string().uuid().required(),
@@ -97,7 +97,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
       amount: toMoney(values.amount),
       reason: values.reason,
       documentId: values.documentId ? values.documentId : null,
-      targetDate: values.targetDate ? new Date(values.targetDate) : null,
+      targetDate: values.targetDate,
       approvedById: values.approvedById ? values.approvedById : null,
       sourceCampaignId: values.sourceCampaignId,
       sourceVaultId: values.sourceVaultId,
@@ -130,7 +130,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
             <FormTextField disabled type="number" label={t('amount')} name="amount" />
           </Grid>
           <Grid item xs={12}>
-            <SelectDate label={t('targetDate')} name="targetDate" />
+            <SelectDate name="targetDate" />
           </Grid>
 
           <Grid item xs={12}>

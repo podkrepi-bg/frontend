@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 import { BeneficiaryListResponse } from 'gql/beneficiary'
 import GridActions from 'components/admin/GridActions'
 import { useBeneficiariesList } from 'service/beneficiary'
@@ -49,9 +50,12 @@ const DisplayBeneficiaryType = ({ params }: BeneficiaryCellProps) => {
 }
 
 export default observer(function Grid() {
-  const [pageSize, setPageSize] = useState(5)
   const { selectedRecord } = ModalStore
   const { t } = useTranslation()
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 5,
+    page: 0,
+  })
 
   const { data }: UseQueryResult<BeneficiaryListResponse[]> = useBeneficiariesList()
 
@@ -60,7 +64,7 @@ export default observer(function Grid() {
     width: 250,
     headerAlign: 'left',
   }
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       headerName: t('beneficiary:actions'),
@@ -118,7 +122,7 @@ export default observer(function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',
@@ -130,10 +134,10 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          disableSelectionOnClick
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          disableRowSelectionOnClick
         />
       </Box>
       {selectedRecord.id && <DetailsModal />}

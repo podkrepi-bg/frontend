@@ -6,6 +6,7 @@ import { Box, Divider, Link, Typography } from '@mui/material'
 
 import { formatDateString } from 'common/util/date'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
+import theme from 'common/theme'
 
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
@@ -35,7 +36,7 @@ const classes = {
 
 const Root = styled('div')(({ theme }) => ({
   [`& .${classes.editSpan}`]: {
-    color: '#294E85',
+    color: theme.palette.primary.dark,
   },
 
   [`& .${classes.editIcon}`]: { position: 'relative', top: '7px' },
@@ -43,10 +44,10 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.heading}`]: {
     fontStyle: 'normal',
     fontWeight: 400,
-    fontSize: '24px',
+    fontSize: theme.typography.pxToRem(24),
     lineHeight: '123.5%',
     letterSpacing: '0.25px',
-    color: '#000000',
+    color: theme.palette.common.black,
   },
 
   [`& .${classes.bold}`]: {
@@ -56,7 +57,7 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.graySpan}`]: {
     fontStyle: 'normal',
     fontWeight: '400',
-    fontSize: '18px',
+    fontSize: theme.typography.pxToRem(18),
     lineHeight: '133.4%',
     color: '#909090',
   },
@@ -64,19 +65,19 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.h5}`]: {
     fontStyle: 'normal',
     fontWeight: '600',
-    fontSize: '22px',
+    fontSize: theme.typography.pxToRem(22),
     lineHeight: '133.4%',
   },
 
   [`& .${classes.h3}`]: {
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '25px',
+    fontSize: theme.typography.pxToRem(25),
     lineHeight: '116.7%',
     margin: '0',
   },
   [`& .${classes.boxTitle}`]: {
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.common.white,
     padding: theme.spacing(3, 7),
     paddingBottom: theme.spacing(3),
     marginTop: theme.spacing(3),
@@ -166,6 +167,22 @@ export default function PersonalInfoTab() {
             </Box>
           </Box>
           <Divider className={classes.divider} />
+          {person?.company && (
+            <>
+              <h2 className={classes.heading}>{t('profile:corporateInfo.index')}</h2>
+              <Box className={classes.infoFlex}>
+                <Box className={classes.boxInfo}>
+                  <p className={classes.bold}>{t('profile:corporateInfo.name')}</p>
+                  <p>{person?.company.companyName}</p>
+                </Box>
+                <Box className={classes.boxInfo}>
+                  <p className={classes.bold}>{t('profile:corporateInfo.number')}</p>
+                  <Typography>{person.company.companyNumber}</Typography>
+                </Box>
+              </Box>
+              <Divider className={classes.divider} />
+            </>
+          )}
           <h2 className={classes.heading}>{t('profile:personalInfo.personal')}</h2>
           <Box className={classes.infoFlex}>
             <Box className={classes.boxInfo}>
@@ -186,7 +203,7 @@ export default function PersonalInfoTab() {
               <p className={classes.bold}>{t('profile:personalInfo.birthday')}</p>
               <Typography sx={{ color: person?.birthday ? undefined : '#F22727' }}>
                 {person?.birthday
-                  ? formatDateString(person?.birthday, i18n.language)
+                  ? formatDateString(person?.birthday, i18n?.language)
                   : t('profile:personalInfo.noBirthday')}
               </Typography>
               <Box className={classes.editBox}>
@@ -200,7 +217,7 @@ export default function PersonalInfoTab() {
           <Divider className={classes.divider} />
           <Link
             href="#"
-            sx={{ color: '#294E85', float: 'right' }}
+            sx={{ color: theme.palette.primary.dark, float: 'right' }}
             onClick={() => setIsDisableAccountModalOpen(true)}>
             {t('profile:personalInfo.delete')}
           </Link>

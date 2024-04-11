@@ -4,7 +4,6 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TextField,
   Grid,
   Table,
   TableRow,
@@ -26,6 +25,7 @@ import { money } from 'common/util/money'
 import { UserDonation } from 'gql/donations'
 import { routes } from 'common/routes'
 import { getExactDateTime } from 'common/util/date'
+import { PaymentStatus } from 'gql/donations.enums'
 
 export type DonationTableProps = {
   donations: UserDonation[] | undefined
@@ -64,14 +64,14 @@ function DonationTable({ donations }: DonationTableProps) {
     <Card sx={{ padding: theme.spacing(2), boxShadow: theme.shadows[0] }}>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
         <LocalizationProvider
-          adapterLocale={i18n.language === 'bg' ? bg : enUS}
+          adapterLocale={i18n?.language === 'bg' ? bg : enUS}
           dateAdapter={AdapterDateFns}>
           <Grid item xs={12} sm={3}>
             <DateTimePicker
               label={t('profile:donations.fromDate')}
               value={fromDate}
               onChange={setFromDate}
-              renderInput={(params) => <TextField size="small" {...params} />}
+              slotProps={{ textField: { size: 'small' } }}
             />
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -79,14 +79,16 @@ function DonationTable({ donations }: DonationTableProps) {
               label={t('profile:donations.toDate')}
               value={toDate}
               onChange={setToDate}
-              renderInput={(params) => <TextField size="small" {...params} />}
+              slotProps={{ textField: { size: 'small' } }}
             />
           </Grid>
         </LocalizationProvider>
       </Grid>
       {filteredDonations?.length ? (
         <TableContainer>
-          <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
+          <Table
+            sx={{ minWidth: 650, backgroundColor: theme.palette.common.white }}
+            aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>{t('profile:donations.date')}</TableCell>
@@ -101,8 +103,10 @@ function DonationTable({ donations }: DonationTableProps) {
               {filteredDonations.map((donation, index) => (
                 <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell>{getExactDateTime(donation.createdAt)}</TableCell>
-                  <TableCell>{`${t('profile:donations.status.' + donation.status)}`}</TableCell>
-                  <TableCell>{donation.provider}</TableCell>
+                  <TableCell>{`${t(
+                    'profile:donations.status.' + donation.payment.status,
+                  )}`}</TableCell>
+                  <TableCell>{donation.payment.provider}</TableCell>
                   <TableCell>
                     <Link
                       target="_blank"
@@ -116,10 +120,15 @@ function DonationTable({ donations }: DonationTableProps) {
                   <TableCell>
                     <Button
                       variant="outlined"
-                      disabled={donation.status !== 'succeeded'}
+                      disabled={donation.payment.status !== PaymentStatus.succeeded}
                       endIcon={<ArrowForwardIcon />}>
                       <Link
-                        sx={{ color: donation.status !== 'succeeded' ? 'inherit' : '#32A9FE' }}
+                        sx={{
+                          color:
+                            donation.status !== PaymentStatus.succeeded
+                              ? 'inherit'
+                              : theme.palette.primary.main,
+                        }}
                         target="_blank"
                         href={routes.donation.viewCertificate(donation.id)}>
                         {t('profile:donations.download')}

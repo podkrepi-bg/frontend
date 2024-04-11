@@ -14,7 +14,7 @@ export default function CampaignTypesPage() {
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('all')}>
+      <AdminContainer title={t('campaignTypes')}>
         <GridAppbar />
         <Grid />
       </AdminContainer>

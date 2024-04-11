@@ -14,12 +14,12 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.h3}`]: {
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '25px',
+    fontSize: theme.typography.pxToRem(25),
     lineHeight: '116.7%',
     margin: '0',
   },
   [`& .${classes.boxTitle}`]: {
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.common.white,
     padding: theme.spacing(3, 7),
     paddingBottom: theme.spacing(3),
     marginTop: theme.spacing(3),

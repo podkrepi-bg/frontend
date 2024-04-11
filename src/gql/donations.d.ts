@@ -3,7 +3,13 @@ import { Stripe } from 'stripe'
 import { UUID } from './types'
 import * as yup from 'yup'
 import { PersonResponse } from './person'
-import { PaymentProvider, CardRegion } from './donations.enums'
+import {
+  PaymentProvider,
+  CardRegion,
+  DonationType,
+  PaymentStatus,
+  PaymentType,
+} from './donations.enums'
 
 export type DonationPrice = Stripe.Price
 
@@ -12,6 +18,7 @@ export type CheckoutSessionResponse = {
 }
 
 export type CheckoutSessionInput = {
+  type: DonationType
   mode: Stripe.Checkout.Session.Mode
   amount?: number
   campaignId: string
@@ -26,57 +33,43 @@ export type CheckoutSessionInput = {
   message?: string
 }
 
-export type StripePaymentInput = {
-  setupIntentId: Stripe.SetupIntent['id']
-  firstName: string | null
-  lastName: string | null
-  phone: string | null
-  personEmail: string
-  isAnonymous: boolean
-  amount: number
-}
-
-export type SubscriptionPaymentInput = {
-  campaignId: string
+export type TPaymentResponse = {
+  id: UUID
+  type: PaymentType
+  status: PaymentStatus
+  provider: PaymentProvider
+  extCustomerId: string
   amount: number
   currency: Currency
-  email: string
+  extPaymentIntentId: string
+  extPaymentMethodId: string
+  billingName: string
+  billingEmail: string
+  updatedAt: Date
+  createdAt: Date
 }
 
-export type UpdatePaymentIntentInput = {
-  id: string
-  payload: Stripe.PaymentIntentUpdateParams
-}
-
-export type UpdateSetupIntentInput = {
-  id: string
-  payload: Stripe.SetupIntentUpdateParams
-}
-
-export type CancelPaymentIntentInput = {
-  id: string
-  payload: Stripe.PaymentIntentCancelParams
+export type PaymentWithDonations = TPaymentResponse & {
+  donations: DonationResponse[]
 }
 
 export type DonationResponse = {
   id: UUID
   type: DonationType
-  status: DonationStatus
-  provider: PaymentProvider
+  paymentId: UUID
   targetVaultId: UUID
-  extCustomerId: string
-  extPaymentIntentId: string
-  extPaymentMethodId: string
   createdAt: DateTime
   updatedAt: DateTime
-  currency: Currency
   amount: number
   personId?: UUID
-  person?: {
+  person: {
     id: string
     firstName: string
     lastName: string
-  }
+    company: {
+      companyName: string
+    }
+  } | null
   targetVault?: {
     id: string
     campaign?: {
@@ -106,6 +99,7 @@ export type DonationInput = {
 }
 export type UserDonationInput = DonationInput & {
   targetPersonId?: UUID
+  billingEmail?: string
 }
 
 export type DonationBankInput = {
@@ -136,6 +130,7 @@ export type UserDonation = {
   status: string
   type: string
   personId: UUID
+  payment: PaymentsResponse
 }
 
 export type UserDonationResult = {
@@ -143,7 +138,16 @@ export type UserDonationResult = {
   total: number
 }
 
+export type TotalDonatedMoneyResponse = {
+  total: number
+}
+
+export type DonorsCountResult = {
+  count: number
+}
+
 export type OneTimeDonation = {
+  type: ProfileType
   message?: string
   isAnonymous: boolean
   isRecurring: boolean
@@ -166,6 +170,7 @@ export type OneTimeDonation = {
   confirmPassword?: string
   terms?: boolean
   gdpr?: boolean
+  newsletter?: boolean
 }
 
 export type DonationStep = {
@@ -185,11 +190,35 @@ export type SecondStep = {
   personsLastName?: string
   personsPhone?: string
   personsEmail?: string
+  terms?: boolean
+  gdpr?: boolean
+  newsletter?: boolean
 }
 
 export type ThirdStep = {
   message?: string
 }
+
+export type StripeRefundResponse = {
+  id: UUID
+  object: string
+  amount: number
+  balance_transaction: string
+  charge: string
+  created: number
+  currency: string
+  payment_intent: string
+  reason: string
+  receipt_number: string
+  source_transfer_reversal: string
+  status: PaymentStatus
+  transfer_reversal: string
+}
+
+export type StripeRefundRequest = {
+  extPaymentIntentId: string
+}
+
 export type BankTransactionsFileFormData = {
   bankTransactionsFileId: string
 }
@@ -208,4 +237,13 @@ export type BankImportResult = {
   currency: string
   createdAt: Date
   extPaymentIntentId: string
+}
+
+export type PaymentsWithDonationCountResponse = TPaymentResponse & {
+  _count: number
+}
+
+export type PaymentAdminResponse = {
+  items: PaymentAdminResponse[]
+  total: number
 }

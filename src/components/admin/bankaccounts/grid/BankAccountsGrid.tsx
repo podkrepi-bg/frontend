@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { GridColumns, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
+import { GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 import { BankAccountResponse } from 'gql/bankaccounts'
 import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import GridActions from 'components/admin/GridActions'
@@ -19,21 +20,12 @@ export default observer(function BankAccountsGrid() {
   const { t } = useTranslation('bankaccounts')
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
   const { isDetailsOpen } = ModalStore
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
 
-  const columns: GridColumns = [
-    { ...commonProps, headerName: t('status'), field: 'status' },
-    { ...commonProps, headerName: t('ibanNumber'), field: 'ibanNumber', width: 220 },
-    { ...commonProps, headerName: t('accountHolderName'), field: 'accountHolderName', flex: 1 },
-    { ...commonProps, headerName: t('AccountHolderType'), field: 'AccountHolderType' },
-    { ...commonProps, headerName: t('bankName'), field: 'bankName', flex: 1 },
-    { ...commonProps, headerName: t('bankIdCode'), field: 'bankIdCode' },
-    { ...commonProps, headerName: t('fingerprint'), field: 'fingerprint' },
-    {
-      ...commonProps,
-      headerName: t('withdrawals'),
-      field: 'withdrawals',
-      renderCell: renderCellWithdraws,
-    },
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       headerName: t('actions'),
@@ -54,13 +46,26 @@ export default observer(function BankAccountsGrid() {
         )
       },
     },
+    { ...commonProps, headerName: t('status'), field: 'status' },
+    { ...commonProps, headerName: t('ibanNumber'), field: 'ibanNumber', width: 220 },
+    { ...commonProps, headerName: t('accountHolderName'), field: 'accountHolderName', flex: 1 },
+    { ...commonProps, headerName: t('AccountHolderType'), field: 'AccountHolderType' },
+    { ...commonProps, headerName: t('bankName'), field: 'bankName', flex: 1 },
+    { ...commonProps, headerName: t('bankIdCode'), field: 'bankIdCode' },
+    { ...commonProps, headerName: t('fingerprint'), field: 'fingerprint' },
+    {
+      ...commonProps,
+      headerName: t('withdrawals'),
+      field: 'withdrawals',
+      renderCell: renderCellWithdraws,
+    },
   ]
 
   return (
     <>
       <DataGrid
         style={{
-          background: 'white',
+          background: theme.palette.common.white,
           position: 'absolute',
           height: 'calc(100vh - 300px)',
           border: 'none',
@@ -72,11 +77,10 @@ export default observer(function BankAccountsGrid() {
         }}
         rows={data || []}
         columns={columns}
-        rowsPerPageOptions={[5, 10]}
-        pageSize={10}
-        autoHeight
-        autoPageSize
-        disableSelectionOnClick
+        pageSizeOptions={[5, 10]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        disableRowSelectionOnClick
       />
 
       {/* making sure we don't sent requests to the API when not needed */}

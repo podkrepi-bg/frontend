@@ -1,5 +1,7 @@
 {
   "header": "Personal profile",
+  "corporate-header": "Corporate Profile",
+  "campaigns": "Supported campaigns",
   "personalInfo": {
     "index": "Personal information",
     "login": "Login information:",
@@ -12,31 +14,48 @@
     "noBirthday": "not available",
     "delete": "delete account/ profile"
   },
+  "corporateInfo": {
+    "index": "Corporate information",
+    "name": "Corporate name",
+    "number": "BULSTAT/EIK"
+  },
   "donations": {
     "index": "Donations",
-    "helpThanks": "thank you for your help!",
+    "donor": "Donor",
+    "helpThanks": "Thank you for your help!",
     "donateNow": "Donate now",
     "totalDonations": "All donations",
-    "recurringDonations": "Recurring donations",
+    "recurringDonations": "Monthly donations",
     "cardDonations": "Donations with card",
     "bankDonations": "Donations by bank",
+    "onlineDonations": "Online donations",
+    "noDonations": "No donations have been made.",
+    "historyDonations": "Donations history",
     "monthly": "Monthly",
     "oneTime": "One time",
     "fromDate": "From",
     "toDate": "To",
     "date": "Date",
     "type": "Type",
+    "sort": "Sort",
     "cause": "Cause",
     "amount": "Amount",
+    "cancelDonation": "Cancel donation",
+    "cancel": "Cancel",
     "certificate": "Certificate",
     "download": "Download",
+    "bank": "Bank",
+    "card": "Card",
     "lv": "lv",
     "status": {
       "header": "Status",
       "initial": "initial",
       "waiting": "waiting",
       "succeeded": "succeeded",
-      "cancelled": "cancelled"
+      "refund": "refunded",
+      "cancelled": "cancelled",
+      "guaranteed": "guaranteed",
+      "declined": "declined"
     }
   },
   "certificates-history": {
@@ -48,6 +67,33 @@
     "history": "Manage my campaigns",
     "noCampaigns": "You are not in organizer, coordinator or beneficiery role in any campaign",
     "donatedTo": "Campaigns I donated to"
+  },
+  "myNotifications": {
+    "index": "My notifications",
+    "status-title": "Notification subscription status",
+    "status-msg": "Your subscription status is",
+    "modal": {
+      "title-subscribe": "Subscribe for receiving notifications from Podkrepi.bg",
+      "title-unsubscribe": "Unsubscribe for receiving notifications from Podkrepi.bg",
+      "campaign-title-unsubscribe": "Unsubscribe from receiving notifications from this campaign",
+      "cta": "Confirm",
+      "subscribe-msg": "You've successfully subscribed for receiving notifications.",
+      "unsubscribe-msg": "You've successfully unsubscribed for receiving notifications.",
+      "campaign-unsubscribe-msg": "You've successfully unsubscribed from receiving notifications regarding this campaign."
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Deactivated"
+    },
+    "cta": {
+      "activate": "Activate",
+      "deactivate": "Deactivate"
+    },
+    "campaign": {
+      "index": "Campaign notifications",
+      "noSubscriptions": "Към момента не сте се записали за получаване на известия по конкретни кампании",
+      "cta": "Unsubscribe"
+    }
   },
   "donationsContract": "Donation contract",
   "certificates": "Certificates",
@@ -78,5 +124,22 @@
     "saveAccount": "Save my account",
     "disableAccount": "Delete my account",
     "disabled": "Your account has been deleted."
+  },
+  "affiliate": {
+    "summary": "By joining the partner program of Podkrepi.bg, you get access to our Corporate Donations service, through which your employees or customers can donate with donations \"guaranteed\" by your company.",
+    "index": "Affiliate program",
+    "join": "Join the program",
+    "data-summary": "Affiliate program summary",
+    "guaranteedDonationsList": "List of guaranteed donations",
+    "code": "Code",
+    "status": {
+      "index": "Status",
+      "active": "Active",
+      "pending": "Pending",
+      "cancelled": "Cancelled",
+      "rejected": "Rejected"
+    },
+    "guaranteedDonations": "Guaranteed donations(total)",
+    "guaranteedAmount": "Guaranteed amount(total)"
   }
 }

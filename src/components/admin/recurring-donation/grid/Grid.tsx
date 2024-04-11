@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { IconButton, Tooltip, Box } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { RecurringDonationResponse } from 'gql/recurring-donation'
 import { useAllRecurringDonations } from 'common/hooks/recurringDonation'
@@ -20,11 +20,15 @@ import { authConfig } from 'service/restRequests'
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import EditIcon from '@mui/icons-material/Edit'
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 
 export default function Grid() {
   const { t } = useTranslation('recurring-donation')
   const { data }: UseQueryResult<RecurringDonationResponse[]> = useAllRecurringDonations()
-  const [pageSize, setPageSize] = useState(5)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
   const { data: session } = useSession()
   const router = useRouter()
 
@@ -58,44 +62,7 @@ export default function Grid() {
     router.push(routes.admin.recurringDonation.edit(id))
   }
 
-  const columns: GridColumns = [
-    {
-      field: 'status',
-      headerName: t('recurring-donation:status'),
-      flex: 1.5,
-      ...commonProps,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <>{t('statuses.' + cellValues.row.status)}</>
-      ),
-    },
-    {
-      field: 'amount',
-      headerName: t('amount'),
-      flex: 1.5,
-      ...commonProps,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <>{money(cellValues.row.amount, cellValues.row.currency)}</>
-      ),
-    },
-
-    {
-      field: 'personName',
-      headerName: t('person'),
-      ...commonProps,
-      width: 300,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <>{cellValues.row.person?.firstName + ' ' + cellValues.row.person?.lastName}</>
-      ),
-    },
-    {
-      field: 'campaignTitle',
-      headerName: t('campaign'),
-      ...commonProps,
-      width: 300,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <>{cellValues.row.sourceVault.campaign.title}</>
-      ),
-    },
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       headerName: t('actions'),
@@ -125,6 +92,42 @@ export default function Grid() {
         )
       },
     },
+    {
+      field: 'status',
+      headerName: t('recurring-donation:status'),
+      flex: 1.5,
+      ...commonProps,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{t('statuses.' + cellValues.row.status)}</>
+      ),
+    },
+    {
+      field: 'amount',
+      headerName: t('amount'),
+      flex: 1.5,
+      ...commonProps,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{money(cellValues.row.amount, cellValues.row.currency)}</>
+      ),
+    },
+    {
+      field: 'personName',
+      headerName: t('person'),
+      ...commonProps,
+      width: 300,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{cellValues.row.person?.firstName + ' ' + cellValues.row.person?.lastName}</>
+      ),
+    },
+    {
+      field: 'campaignTitle',
+      headerName: t('campaign'),
+      ...commonProps,
+      width: 300,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{cellValues.row.sourceVault.campaign.title}</>
+      ),
+    },
   ]
 
   return (
@@ -132,7 +135,7 @@ export default function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',
@@ -144,10 +147,10 @@ export default function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          disableSelectionOnClick
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          disableRowSelectionOnClick
         />
       </Box>
       <DetailsModal />

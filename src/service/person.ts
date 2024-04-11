@@ -7,15 +7,6 @@ import { useQuery } from '@tanstack/react-query'
 import { apiClient } from './apiClient'
 import { AxiosResponse } from 'axios'
 
-export const usePeopleList = () => {
-  const { data: session } = useSession()
-
-  return useQuery(
-    [endpoints.person.list.url],
-    authQueryFnFactory<PersonResponse[]>(session?.accessToken),
-  )
-}
-
 export const useViewPerson = (id: string) => {
   const { data: session } = useSession()
 

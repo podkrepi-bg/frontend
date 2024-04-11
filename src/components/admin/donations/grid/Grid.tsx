@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { UseQueryResult } from '@tanstack/react-query'
+import { UseQueryResult, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Box, Tooltip } from '@mui/material'
-import { Edit } from '@mui/icons-material'
+import { Box, IconButton, Tooltip } from '@mui/material'
+
+import { Autorenew, Edit } from '@mui/icons-material'
 import {
   DataGrid,
-  GridCellModes,
   GridColDef,
-  GridColumns,
   GridRenderCellParams,
   GridRenderEditCellParams,
 } from '@mui/x-data-grid'
@@ -15,23 +14,27 @@ import { observer } from 'mobx-react'
 
 import { useDonationsList } from 'common/hooks/donation'
 
-import DetailsModal from '../modals/DetailsModal'
-import DeleteModal from '../modals/DeleteModal'
-import { ModalStore } from '../DonationsPage'
 import { getExactDateTime } from 'common/util/date'
 import { useRouter } from 'next/router'
 import { money } from 'common/util/money'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
-import { PersonResponse } from 'gql/person'
 import { usePersonList } from 'common/hooks/person'
+import theme from 'common/theme'
 import RenderEditPersonCell from './RenderEditPersonCell'
 import { useStores } from '../../../../common/hooks/useStores'
+
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
+import { endpoints } from 'service/apiEndpoints'
+import { apiClient } from 'service/apiClient'
+import { authConfig } from 'service/restRequests'
+import { AlertStore } from 'stores/AlertStore'
 
 interface RenderCellProps {
   params: GridRenderCellParams
 }
 const addIconStyles = {
-  background: '#4ac3ff',
+  background: theme.palette.primary.light,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 0.7,
@@ -39,29 +42,72 @@ const addIconStyles = {
 }
 export default observer(function Grid() {
   const { donationStore } = useStores()
-  const [paginationData, setPaginationData] = useState({
-    pageIndex: 0,
-    pageSize: 20,
+  const queryClient = useQueryClient()
+
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
   })
   const [focusedRowId, setFocusedRowId] = useState(null as string | null)
   const { t } = useTranslation()
   const router = useRouter()
-  const { isDetailsOpen } = ModalStore
+
   const campaignId = router.query.campaignId as string | undefined
+  const paymentId = router.query.paymentId as string | undefined
+
+  const syncMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return await apiClient.patch(
+        endpoints.donation.synchronizeWithPayment(id).url,
+        null,
+        authConfig(session?.accessToken),
+      )
+    },
+    onError: () => {
+      AlertStore.show(t('common:alerts.error'), 'error')
+      queryClient.invalidateQueries([
+        endpoints.donation.donationsList(
+          paymentId,
+          campaignId,
+          { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
+          donationStore.donationFilters,
+          donationStore.donationSearch ?? '',
+        ).url,
+      ])
+    },
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.message-sent'), 'success')
+      queryClient.invalidateQueries([
+        endpoints.donation.donationsList(
+          paymentId,
+          campaignId,
+          { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
+          donationStore.donationFilters,
+          donationStore.donationSearch ?? '',
+        ).url,
+      ])
+    },
+  })
+  const { data: session } = useSession()
+
+  const canEditFinancials = session?.user?.realm_access?.roles.includes(
+    'account-edit-financials-requests',
+  )
 
   const {
-    data: { items: donations, total: all_rows } = { items: [], total: 0 },
+    data: { items: donations, total: allDonationsCount } = { items: [], total: 0 },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
     refetch,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(
+    paymentId,
     campaignId,
-    paginationData,
+    { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
     donationStore.donationFilters,
-    donationStore.donationSearch,
+    donationStore.donationSearch ?? '',
   )
 
-  const { data }: UseQueryResult<PersonResponse[]> = usePersonList()
+  const { data: { items: personList } = { items: [] } } = usePersonList()
 
   const RenderVaultCell = ({ params }: RenderCellProps) => {
     return <>{params.row.targetVault.name}</>
@@ -83,9 +129,9 @@ export default observer(function Grid() {
                 fontSize="medium"
                 onClick={() => {
                   if (focusedRowId) {
-                    params.api.setCellMode(focusedRowId, params.field, GridCellModes.View)
+                    params.api.startCellEditMode({ id: params.row.id, field: params.field })
                   }
-                  params.api.setCellMode(params.row.id, params.field, GridCellModes.Edit)
+                  params.api.getCellMode(params.row.id, params.field)
                   setFocusedRowId(params.row.id)
                 }}
               />
@@ -108,7 +154,84 @@ export default observer(function Grid() {
     headerAlign: 'left',
   }
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      type: 'actions',
+      width: 120,
+      resizable: false,
+      renderCell: (params: GridRenderCellParams) => {
+        if (!canEditFinancials) {
+          return ''
+        }
+
+        return (
+          <>
+            <Tooltip title={t('Синхронизиране на дарение с плащане')}>
+              <IconButton
+                size="small"
+                color="primary"
+                onClick={() => syncMutation.mutate(params.row.id)}>
+                <Autorenew color="primary" />
+              </IconButton>
+            </Tooltip>
+          </>
+        )
+      },
+    },
+    {
+      field: 'paymentId',
+      //TODO:Ttranslate
+      headerName: 'Плащане номер',
+      width: 150,
+      renderCell: (params: GridRenderCellParams) => {
+        return (
+          <Link href={`/admin/payments?id=${params.row.paymentId}`}>{params.row.paymentId}</Link>
+        )
+      },
+    },
+    {
+      field: 'payment.status',
+      //TODO:Ttranslate
+      headerName: 'Статус на плащане',
+      renderCell(params) {
+        return params.row.payment?.status
+      },
+    },
+    {
+      field: 'payment.provider',
+      //TODO:Ttranslate
+      headerName: 'Разплащателна система',
+      renderCell(params) {
+        return params.row.payment?.provider
+      },
+    },
+    {
+      field: 'amount',
+      headerName: t('donations:amount'),
+      renderCell: (params: GridRenderCellParams) => {
+        return <RenderMoneyCell params={params} />
+      },
+    },
+    {
+      field: 'payment.billingName',
+      //TODO:Ttranslate
+      headerName: 'billingName',
+      width: 250,
+      renderCell(params) {
+        return params.row.payment?.billingName
+      },
+    },
+    {
+      field: 'payment.billingEmail',
+      //TODO:Ttranslate
+      headerName: 'billingEmail',
+      width: 300,
+      renderCell(params) {
+        return params.row.payment?.billingEmail
+      },
+    },
     {
       field: 'createdAt',
       headerName: t('donations:date'),
@@ -119,21 +242,13 @@ export default observer(function Grid() {
       },
     },
     {
-      field: 'status',
-      headerName: t('donations:status'),
-    },
-    {
-      field: 'amount',
-      headerName: t('donations:amount'),
-      renderCell: (params: GridRenderCellParams) => {
-        return <RenderMoneyCell params={params} />
-      },
-    },
-    {
       field: 'currency',
       headerName: t('donations:currency'),
       ...commonProps,
       width: 100,
+      renderCell(params) {
+        return params.row.payment?.currency
+      },
     },
     {
       field: 'person',
@@ -145,33 +260,17 @@ export default observer(function Grid() {
         return <RenderPersonCell params={params} />
       },
       renderEditCell: (params: GridRenderEditCellParams) => {
-        return <RenderEditPersonCell params={params} personList={data} onUpdate={refetch} />
+        return <RenderEditPersonCell params={params} personList={personList} onUpdate={refetch} />
       },
-    },
-    {
-      field: 'billingName',
-      headerName: 'Billing Name',
-      width: 250,
-    },
-    {
-      field: 'billingEmail',
-      headerName: 'Billing Email',
-      width: 250,
     },
     {
       field: 'id',
       headerName: 'ID',
-      hide: true,
+      width: 320,
     },
     {
       field: 'type',
       headerName: t('donations:type'),
-    },
-    {
-      field: 'provider',
-      headerName: t('donations:provider'),
-      ...commonProps,
-      width: 250,
     },
     {
       field: 'targetVaultId',
@@ -189,7 +288,7 @@ export default observer(function Grid() {
       <Box sx={{ mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',
@@ -201,24 +300,22 @@ export default observer(function Grid() {
           }}
           rows={donations || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10, 20]}
-          pageSize={paginationData.pageSize}
+          columnVisibilityModel={{
+            id: false,
+          }}
+          pageSizeOptions={[5, 10, 20]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           pagination
           loading={isDonationHistoryLoading}
-          error={donationHistoryError}
-          page={paginationData.pageIndex}
-          onPageChange={(pageIndex) => setPaginationData({ ...paginationData, pageIndex })}
-          onPageSizeChange={(pageSize) => setPaginationData({ ...paginationData, pageSize })}
           paginationMode="server"
-          rowCount={all_rows}
-          disableSelectionOnClick
+          rowCount={allDonationsCount}
+          disableRowSelectionOnClick
           isCellEditable={() => true}
         />
       </Box>
 
       {/* making sure we don't sent requests to the API when not needed */}
-      {isDetailsOpen && <DetailsModal />}
-      <DeleteModal />
     </>
   )
 })

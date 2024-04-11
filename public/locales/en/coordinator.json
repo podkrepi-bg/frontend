@@ -1,9 +1,14 @@
 {
+  "coordinators": "Coordinators",
+  "allCoordinators": "All coordinators",
   "headings": {
     "info": "Information"
   },
   "fields": {
-    "name": "Name"
+    "actions": "Actions",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone"
   },
   "btns": {
     "add": "Add",

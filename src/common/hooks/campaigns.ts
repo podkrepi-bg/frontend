@@ -9,9 +9,16 @@ import {
   AdminCampaignResponse,
   AdminSingleCampaignResponse,
   CampaignDonationHistoryResponse,
+  CampaignGroupedDonations,
+  CampaignUniqueDonations,
+  CampaignHourlyDonations,
 } from 'gql/campaigns'
-import { DonationStatus } from 'gql/donations.enums'
+import { PaymentStatus } from 'gql/donations.enums'
 import { apiClient } from 'service/apiClient'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
+import { isAdmin } from 'common/util/roles'
+import { AxiosError } from 'axios'
+import { StatisticsGroupBy } from 'components/client/campaigns/helpers/campaign.enums'
 
 // NOTE: shuffling the campaigns so that each gets its fair chance to be on top row
 export const campaignsOrderQueryFunction: QueryFunction<CampaignResponse[]> = async ({
@@ -36,14 +43,11 @@ export const campaignsOrderQueryFunction: QueryFunction<CampaignResponse[]> = as
   return shuffledActiveCampaigns.concat(shuffledInactiveCampaigns)
 }
 
-export function useCampaignList() {
+export function useCampaignList(prefetched = false) {
   return useQuery<CampaignResponse[]>(
     [endpoints.campaign.listCampaigns.url],
     campaignsOrderQueryFunction,
-    {
-      // Add 15 minutes of cache time
-      staleTime: 1000 * 60 * 15,
-    },
+    { enabled: !prefetched },
   )
 }
 
@@ -58,7 +62,7 @@ export function useCampaignAdminList() {
 export const useGetUserCampaigns = () => {
   const { data: session } = useSession()
   return useQuery<AdminCampaignResponse[]>(
-    [endpoints.campaign.getUserDonatedToCampaigns.url],
+    [endpoints.campaign.getUserCampaigns.url],
     authQueryFnFactory<AdminCampaignResponse[]>(session?.accessToken),
   )
 }
@@ -75,7 +79,15 @@ export function useCampaignTypesList() {
 }
 
 export function useViewCampaign(slug: string) {
-  return useQuery<{ campaign: CampaignResponse }>([endpoints.campaign.viewCampaign(slug).url])
+  return useQuery<{ campaign: CampaignResponse }, AxiosError>(
+    [endpoints.campaign.viewCampaign(slug).url],
+    {
+      retry(failureCount, error) {
+        if (error.isAxiosError && error.response?.status === 404) return false
+        return true
+      },
+    },
+  )
 }
 
 export function useViewCampaignById(id: string) {
@@ -101,12 +113,53 @@ export function useCampaignDetailsPage(id: string) {
   )
 }
 
-export function useCampaignDonationHistory(
+export function useCampaignGroupedDonations(
   campaignId: string,
+  groupBy: StatisticsGroupBy = StatisticsGroupBy.DAY,
+) {
+  return useQuery<CampaignGroupedDonations[]>([
+    endpoints.statistics.getGroupedDonations(campaignId, groupBy).url,
+  ])
+}
+export function useCampaignUniqueDonations(campaignId: string) {
+  return useQuery<CampaignUniqueDonations[]>([
+    endpoints.statistics.getUniqueDonations(campaignId).url,
+  ])
+}
+export function useCampaignHourlyDonations(campaignId: string) {
+  return useQuery<CampaignHourlyDonations[]>([
+    endpoints.statistics.getHourlyDonations(campaignId).url,
+  ])
+}
+
+export function useCampaignDonationHistory(
+  campaignId?: string,
   pageindex?: number,
   pagesize?: number,
 ) {
   return useQuery<CampaignDonationHistoryResponse>([
-    endpoints.donation.getDonations(campaignId, DonationStatus.succeeded, pageindex, pagesize).url,
+    endpoints.donation.getDonations(PaymentStatus.succeeded, campaignId, pageindex, pagesize).url,
   ])
+}
+
+export function useCanEditCampaign(slug: string) {
+  const { data: session } = useSession()
+
+  const { data: userData } = useCurrentPerson()
+  const { data: campaignData } = useViewCampaign(slug)
+
+  if (!session || !session.user) {
+    return false
+  }
+
+  if (!userData || !campaignData || !userData.user) {
+    return false
+  }
+
+  const canEdit =
+    userData.user.id === campaignData.campaign.organizer?.person.id ||
+    session?.user?.realm_access?.roles?.includes('podkrepi-admin') ||
+    isAdmin(session)
+
+  return canEdit
 }

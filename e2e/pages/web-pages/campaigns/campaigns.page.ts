@@ -20,8 +20,14 @@ export class CampaignsPage extends HomePage {
   private readonly enMainCampaignsHeading = enLocalizationCampaigns.campaigns
   private readonly bgSupportCauseTodayHeading = bgLocalizationCampaigns.cta['support-cause-today']
   private readonly enSupportCauseTodayHeading = enLocalizationCampaigns.cta['support-cause-today']
-  private readonly bgSupportNowActionButtonText = bgLocalizationCampaigns.cta['support-now']
-  private readonly enSupportNowActionButtonText = enLocalizationCampaigns.cta['support-now']
+  private readonly bgSupportNowActionButtonText = bgLocalizationCampaigns.cta['support']
+  private readonly enSupportNowActionButtonText = enLocalizationCampaigns.cta['support']
+
+  // Summary donors and wishes sections
+  private readonly bgDonorsButtonText = bgLocalizationCampaigns.campaign['donors']
+  private readonly enDonorsButtonText = enLocalizationCampaigns.campaign['donors']
+  private readonly bgWishesButtonText = bgLocalizationCampaigns.campaign['wishes']
+  private readonly enWishesButtonText = enLocalizationCampaigns.campaign['wishes']
 
   /**
    * Ovverride the method from the BasePage and add the specific selector for the Campaigns page as default
@@ -110,5 +116,21 @@ export class CampaignsPage extends HomePage {
       .locator('../../..')
       .locator(this.cardActionButtons, { hasText: supportButtonText })
     await this.clickElementByLocator(cardActionButtonElement)
+  }
+
+  /**
+   * Check if Donors section in campaing summary is visible on the Campaigns page
+   * @param {LanguagesEnum} language - the default value is BG
+   */
+  async isDonorsSectionVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
+    return this.isDonorsElementVisible(language, this.bgDonorsButtonText, this.enDonorsButtonText)
+  }
+
+  /**
+   * Check if Wishes section in campaing summary is visible on the Campaigns page
+   * @param {LanguagesEnum} language - the default value is BG
+   */
+  async isWishesSectionVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
+    return this.isWishesElementVisible(language, this.bgWishesButtonText, this.enWishesButtonText)
   }
 }

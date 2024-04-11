@@ -1,4 +1,5 @@
 name: Release
+run-name: Releasing ${{ github.event.release.tag_name }}
 
 on:
   workflow_dispatch:
@@ -17,17 +18,17 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Login to GitHub Packages Docker Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           push: true
           file: Dockerfile.maintenance
@@ -47,10 +48,10 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Login to GitHub Packages Docker Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -65,7 +66,7 @@ jobs:
         run: echo "VERSION=master-$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         env:
           NODE_ENV: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -89,33 +90,33 @@ jobs:
           image: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
   scan-manifests:
-    name: Scan k8s manifests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+   name: Scan k8s manifests
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v4
 
-      - name: Install kustomize
-        uses: imranismail/setup-kustomize@v1
+     - name: Install kustomize
+       uses: imranismail/setup-kustomize@v2
 
-      - name: Build development manifests
-        run: kustomize build manifests/overlays/development > dev-manifests.yaml
+     - name: Build development manifests
+       run: kustomize build manifests/overlays/development > dev-manifests.yaml
 
-      - name: Scan development manifests with Mondoo
-        uses: mondoohq/actions/k8s-manifest@main
-        env:
-          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
-        with:
-          path: dev-manifests.yaml
+     - name: Scan development manifests with Mondoo
+       uses: mondoohq/actions/k8s-manifest@main
+       env:
+         MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
+       with:
+         path: dev-manifests.yaml
 
-      - name: Build production manifests
-        run: kustomize build manifests/overlays/production > prod-manifests.yaml
+     - name: Build production manifests
+       run: kustomize build manifests/overlays/production > prod-manifests.yaml
 
-      - name: Scan production manifests with Mondoo
-        uses: mondoohq/actions/k8s-manifest@main
-        env:
-          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
-        with:
-          path: prod-manifests.yaml
+     - name: Scan production manifests with Mondoo
+       uses: mondoohq/actions/k8s-manifest@main
+       env:
+         MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
+       with:
+         path: prod-manifests.yaml
 
   run-playwright:
     name: Run Playwright
@@ -130,10 +131,10 @@ jobs:
       name: dev
       url: https://dev.podkrepi.bg
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@v4
 
       - name: Install kustomize
         uses: imranismail/setup-kustomize@v2
@@ -150,7 +151,7 @@ jobs:
         working-directory: manifests/overlays/development
         run: |
           kustomize edit set image ghcr.io/podkrepi-bg/frontend=ghcr.io/podkrepi-bg/frontend:$VERSION
-          kustomize edit set annotation app.komodor.com/app.ref:$GITHUB_SHA 
+          kustomize edit set annotation app.komodor.com/app.ref:$GITHUB_SHA
 
       - name: Set kubeconfig
         run: echo ${{ secrets.K8S_DEV_CONFIG }} | base64 -d > config.yaml
@@ -174,7 +175,7 @@ jobs:
       contents: write
     steps:
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
 
@@ -187,10 +188,10 @@ jobs:
       name: prod
       url: https://podkrepi.bg
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@v4
 
       - name: Install kustomize
         uses: imranismail/setup-kustomize@v2
@@ -202,7 +203,7 @@ jobs:
         working-directory: manifests/overlays/production
         run: |
           kustomize edit set image ghcr.io/podkrepi-bg/frontend=ghcr.io/podkrepi-bg/frontend:$VERSION
-          kustomize edit set annotation app.komodor.com/app.ref:$GITHUB_SHA 
+          kustomize edit set annotation app.komodor.com/app.ref:$GITHUB_SHA
 
       - name: Set kubeconfig
         run: echo ${{ secrets.K8S_CONFIG }} | base64 -d > config.yaml

@@ -43,8 +43,8 @@ export enum IrregularityReason {
 export type PersonFormData = {
   firstName: string
   lastName: string
-  email: string
-  phone: string | undefined
+  email?: string
+  phone?: string
 }
 
 export type InfoFormData = {

@@ -28,6 +28,7 @@ module.exports = {
     'sentry.client.config.js',
     'sentry.server.config.js',
     'next-sitemap.config.js',
+    'e2e/*',
   ],
   rules: {
     'react/display-name': 'off',

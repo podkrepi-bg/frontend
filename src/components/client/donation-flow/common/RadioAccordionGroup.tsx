@@ -38,7 +38,7 @@ export const DisabledRadioAccordionItem = styled(BaseRadioAccordionItem)(() => (
   borderColor: `${theme.palette.grey[500]} !important`,
 }))
 
-interface RadioAccordionItemProps extends BoxProps {
+interface RadioAccordionItemProps extends Omit<BoxProps, 'content'> {
   control: React.ReactNode
   icon?: React.ReactNode
   content?: React.ReactNode

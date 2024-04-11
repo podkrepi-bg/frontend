@@ -2,20 +2,24 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { DocumentResponse } from 'gql/document'
 import GridActions from 'components/admin/GridActions'
 import { useDocumentsList } from 'common/hooks/documents'
+import theme from 'common/theme'
 
 import { ModalStore } from '../DocumentsPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
 export default observer(function Grid() {
-  const [pageSize, setPageSize] = useState(5)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
   const { t } = useTranslation()
   const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
   const { isDetailsOpen } = ModalStore
@@ -26,7 +30,24 @@ export default observer(function Grid() {
     headerAlign: 'left',
   }
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
+    {
+      field: 'actions',
+      headerName: t('documents:actions'),
+      width: 120,
+      type: 'actions',
+      headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => {
+        return (
+          <GridActions
+            modalStore={ModalStore}
+            id={cellValues.row.id}
+            name={cellValues.row.name}
+            editLink={routes.admin.documents.edit(cellValues.row.id)}
+          />
+        )
+      },
+    },
     {
       field: 'type',
       headerName: t('documents:type'),
@@ -58,23 +79,6 @@ export default observer(function Grid() {
       ...commonProps,
       flex: 1,
     },
-    {
-      field: 'actions',
-      headerName: t('documents:actions'),
-      width: 120,
-      type: 'actions',
-      headerAlign: 'left',
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={cellValues.row.id}
-            name={cellValues.row.name}
-            editLink={routes.admin.documents.edit(cellValues.row.id)}
-          />
-        )
-      },
-    },
   ]
 
   return (
@@ -82,7 +86,7 @@ export default observer(function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',
@@ -94,12 +98,12 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           autoHeight
           autoPageSize
-          disableSelectionOnClick
+          disableRowSelectionOnClick
         />
       </Box>
 

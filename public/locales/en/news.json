@@ -1,0 +1,36 @@
+{
+  "news": "News",
+  "read-more": "Read more",
+  "form-heading": "Create new article",
+  "edit-form-heading": "Edit article",
+  "read-less": "Read less",
+  "see-all-news": "See all news",
+  "news-not-found": "No news articles were found for this campaign",
+  "write-new-article": "Write an article",
+  "status": {
+    "draft": "Draft",
+    "published": "Published"
+  },
+  "article": {
+    "title": "Title",
+    "author": "Author",
+    "createdAt": "Created at",
+    "publishedAt": "Published at",
+    "lastEdit": "Last edited at",
+    "status": "Status",
+    "slug": {
+      "name": "Short name of the article",
+      "warning": "Editing this field is going to change the link to the news article, and make the current one invalid",
+      "placeholder": "The default value is the same as  'Article title'"
+    },
+    "source-link": {
+      "label": "Link to source",
+      "field-description": "This field is only necessary if the article is taken from another source.\nLeave empty if you are the author of this article"
+    },
+    "actions": {
+      "header": "Actions",
+      "no-access": "No access to this action\nPlease contact campaign's coordinator",
+      "deleted-successfully": "The article was successfully deleted"
+    }
+  }
+}

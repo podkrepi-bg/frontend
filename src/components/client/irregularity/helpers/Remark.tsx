@@ -1,11 +1,13 @@
 import { Grid, Typography } from '@mui/material'
 
+import theme from 'common/theme'
+
 type RemarkProps = {
   text: string
 }
 
 const textStyles = {
-  fontSize: '13px',
+  fontSize: theme.typography.pxToRem(13),
   marginTop: '100px',
 }
 

@@ -1,45 +1,35 @@
 {
-  "podkrepi": "Podkrepi.bg",
-  "title": "a transparent online donation platform",
-  "title2": "Podkrepi.bg - a transparent online donation platform",
+  "title": "Podkrepi.bg - a transparent online donation platform",
   "metaDescription": "Podkrepi.bg is a transparent online donation platform created by a team of volunteers from the Podkrepi BG organization.",
-  "activity-section": {
-    "heading": "What do we do?",
-    "content": "Podkrepi.bg is an association of professionals united by the idea of creating a free and completely transparent online donation platform, which can be used freely by citizens and organizations."
-  },
   "team-section": {
     "heading": "Who is behind Podkrepi.bg?",
     "content": "Podkrepi.bg is a community of specialists in the field of programming, law, marketing, design, medicine, finance, social entrepreneurship and others. We are united by the goal of creating a sustainable and transparent donation platform that supports causes and people in need, while promoting and restoring trust in donations in Bulgaria.",
     "meet-our-team": "Meet our team"
   },
-  "support-us-section": {
-    "heading": "Support us as:",
-    "financial-support": "- a benefactor",
-    "labour-support": "- a volunteer",
-    "media-support": "- media",
-    "become-a-partner": "- a partner",
-    "click-here-button": "Join us"
-  },
-  "mission-vision-goals-section": {
-    "mission-title": "Mission",
-    "mission-text": "To create a completely transparent online donation platform, supported by donations and membership fees to our association, and not % commission from the companies.",
-    "vision-title": "Vision",
-    "vision-text": "To improve the donation culture in Bulgaria drastically by increasing transparency and trust in donation campaigns and platforms.",
-    "goals-title": "Goals",
-    "goals-text-trust": "- To restore trust in donation.",
-    "goals-text-open-source": "- To create an open-source platform which reduces the chances of misuse."
+  "subscription-section": {
+    "heading": "You want to know about our future achievements?",
+    "content": "Subscribe for our newsletter we will infrom you about the most important from the life of Podkrepi.bg. Every month you will receive email from us in which we will share with you the most important things about the campaigns that we have and their organizers and beneficiaries. You will receive news for our partners, volunteers and donors in your email box. If this sounds good for you, subscribe as you fill in your email here:"
   },
   "campaign": {
-    "see-all": "See all",
-    "urgent-campaigns": "Urgent campaigns"
+    "see-all": "See all"
   },
   "how-we-work": {
     "heading": "How does Pordkprepi.bg work?",
     "text": "We have built a process of creating campaigns that ensures maximum security for donor funds and at the same time - attention and support to the needs of beneficiaries."
   },
+  "platform-statistics": {
+    "heading": "What we achieved so far?",
+    "text": "We thoroughly examine each campaign before it becomes active on our platform, paying out every last lev of the funds collected without withholding a penny for our efforts. We believed that, by doing so, we earn your trust and make donations in Bulgaria a transperant initiative.",
+    "donate-to-those-in-need": "Help those in need",
+    "campaigns": "campaings",
+    "donations": "donations",
+    "donated-users": "donors",
+    "donated-leva": "donated leva"
+  },
+  "media-heading": "Media",
   "join-podkrepi-bg-section": {
     "heading": "Join Podkrepi.bg",
-    "text": "To join the team of volunteers, fill in the application form with your details and we will contact you.",
     "become-volunteer": "Become a volunteer"
-  }
+  },
+  "partners-heading": "Partners"
 }

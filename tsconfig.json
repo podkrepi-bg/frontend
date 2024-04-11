@@ -13,7 +13,7 @@
     "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -29,5 +29,5 @@
     "outDir": ".next"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", ".next"]
+  "exclude": ["node_modules", ".next", "e2e"]
 }

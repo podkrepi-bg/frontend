@@ -2,7 +2,7 @@
   "fields": {
     "name": "Име",
     "country-code": "Код",
-    "action": "Действие"
+    "action": "Действия"
   },
   "alerts": {
     "new-row": {
@@ -41,8 +41,6 @@
   "description": "Всички държави",
   "tooltips": {
     "add": "Добави",
-    "view": "Преглед",
-    "edit": "Редактирай",
     "delete": "Изтрий"
   },
   "country": "Държава",

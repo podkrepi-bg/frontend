@@ -1,10 +1,10 @@
 name: Bug Report
 description: Create a bug report
-labels: ['type: bug', 'template: bug']
+labels: ['type: bug']
 body:
   - type: dropdown
     attributes:
-      label: Which area(s) of Podkrepi.bg are affected? (leave empty if unsure)
+      label: Which area(s) of Podkrepi.bg are affected?
       multiple: true
       options:
         - 'Desktop layout'
@@ -12,13 +12,14 @@ body:
         - 'Images'
         - 'Campaigns'
         - 'Donations'
-        - 'Contacts'
+        - 'User Management'
         - 'Blog'
         - 'SEO & Metadata'
         - 'Administration'
         - 'Authentication'
         - 'Translations (i18n)'
         - 'TypeScript'
+        - 'Other'
   - type: textarea
     attributes:
       label: Describe the Bug

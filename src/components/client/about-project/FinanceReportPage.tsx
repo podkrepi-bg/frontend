@@ -23,11 +23,20 @@ export default function FinanceReportPage() {
         </LinkButton>
       </Container>
       <Container>
-        <Typography>{t('finance-report-page.finance-report-2022')}</Typography>
+        <Typography>{t('finance-report-page.finance-report-2022-january-june')}</Typography>
         <LinkButton
           locale={false} // shows BG translation of finance report only for now
           endIcon={<FileDownloadIcon />}
           href="/finance-reports/Podkrepi.bg_Financial_Report_062022.pdf">
+          {t('finance-report-page.download-from-here')}
+        </LinkButton>
+      </Container>
+      <Container>
+        <Typography>{t('finance-report-page.finance-report-2022')}</Typography>
+        <LinkButton
+          locale={false} // shows BG translation of finance report only for now
+          endIcon={<FileDownloadIcon />}
+          href="/finance-reports/Podkrepi.bg_Financial_Report_2022.pdf">
           {t('finance-report-page.download-from-here')}
         </LinkButton>
       </Container>

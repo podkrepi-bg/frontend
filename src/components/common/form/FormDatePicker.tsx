@@ -1,4 +1,3 @@
-import { TextField } from '@mui/material'
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { format } from 'date-fns'
@@ -18,13 +17,17 @@ export default function FormDatePicker({ name, label }: { name: string; label: s
   const { setFieldValue } = useFormikContext()
   const { i18n } = useTranslation()
 
-  const dateViewFormat = getDateFormat(i18n.language)
-  const mask = dateViewFormat.replace(new RegExp(/[^./]/g), '_')
+  const dateViewFormat = getDateFormat(i18n?.language)
 
-  const updateValue = (newValue: Date) => {
+  const updateValue = (newValue: Date | null) => {
     let formattedValue
     try {
-      formattedValue = format(newValue, DATE_VALUE_FORMAT)
+      if (newValue && newValue.getFullYear() < 1900) {
+        // Fix a bug that appears while we type the year
+        // it considers 0020 as a valid year
+        throw new Error('Invalid year')
+      }
+      formattedValue = newValue ? format(newValue, DATE_VALUE_FORMAT) : null
     } catch {
       formattedValue = field.value
     } finally {
@@ -35,12 +38,11 @@ export default function FormDatePicker({ name, label }: { name: string; label: s
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
-        mask={mask}
-        inputFormat={dateViewFormat}
+        format={dateViewFormat}
         label={label}
-        value={field.value}
+        value={new Date(field?.value)}
         onChange={(newValue) => updateValue(newValue)}
-        renderInput={(params) => <TextField size="small" {...params} />}
+        slotProps={{ textField: { size: 'small' } }}
       />
     </LocalizationProvider>
   )

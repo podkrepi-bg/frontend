@@ -15,6 +15,11 @@ export const staticUrls = {
   github:
     'https://github.com/podkrepi-bg/frontend#--%D0%B4%D0%B0%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%81%D0%BA%D0%B0-%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-%D0%BF%D0%BE%D0%B4%D0%BA%D1%80%D0%B5%D0%BF%D0%B8%D0%B1%D0%B3',
   figma: 'https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=3904%3A13406',
+  swagger: 'https://podkrepi.bg/swagger',
+  licenses: 'https://creativecommons.org/licenses/by-nc/4.0/',
+  commercialPurposes: 'https://creativecommons.org/licenses/by-nc/4.0/#commercial_purposes',
+  technologicalMeasures:
+    'https://creativecommons.org/licenses/by-nc-sa/4.0/#technological_measures',
   projectDocs: 'https://docs.podkrepi.bg/',
   howToContribute:
     'https://docs.podkrepi.bg/general/communication/faq#kak-da-se-vkliucha-v-organizaciata',
@@ -35,19 +40,22 @@ export const socialUrls = {
 }
 
 export const partnerUrls = {
-  superHosting: 'https://www.superhosting.bg/',
-  rinkoff: 'https://www.linkedin.com/company/rinkoff/about/',
-  darik: 'https://dariknews.bg/',
+  mediaPartners: ['https://dariknews.bg/', 'https://tv1.bg/', 'https://ideacomm.bg'],
   techPartners: [
     'https://softuni.bg/',
     'https://mentormate.com/',
     'https://www.88studiodesign.com/',
+    'https://www.irisbgsf.com/',
   ],
-  marketingPartners: [
-    'https://www.all-channels.com/',
-    'https://www.braindonors.agency/',
-    'https://crossroadsbulgaria.com/',
-  ],
+  marketingPartners: ['https://crossroadsbulgaria.com/'],
+  videoPartners: ['https://kota.one/', 'https://estproduction.com/'],
+  superHosting: 'https://www.superhosting.bg/',
+  kotaOne: 'https://kota.one/',
+  darik: 'https://dariknews.bg/',
+  estProduction: 'https://estproduction.com/',
+  tv1: 'https://tv1.bg/',
+  ideaComm: 'https://ideacomm.bg',
+  irisSolutions: 'https://www.irisbgsf.com/',
   puls: 'https://pulsfoundation.org/bg/',
   yanika: 'https://www.yanikabg.com/',
   parakids: 'https://parakids.org/',
@@ -55,6 +63,10 @@ export const partnerUrls = {
   bear: 'https://plushenomeche.org/',
   visuallyImpairedChildren: 'http://www.suunzvarna.com/',
   gorata: 'https://gorata.bg/',
+  softuni: 'https://softuni.bg/',
+  mentormate: 'https://mentormate.com/',
+  eightyEight: 'https://www.88studiodesign.com/',
+  crossroadsBulgaria: 'https://crossroadsbulgaria.com/',
 }
 
 export const routes = {
@@ -79,13 +91,31 @@ export const routes = {
     index: '/campaigns',
     create: '/campaigns/create',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
-    donation: (slug: string) => `/campaigns/donation/${slug}`,
-    finalizeDonation: `api/donation/finalize`,
-    donationStatus: (slug: string) => `/campaigns/donation/${slug}/status`,
+    viewExpenses: (slug: string) => `/campaigns/${slug}/expenses`,
+    oneTimeDonation: (slug: string) => `/campaigns/donation/${slug}`,
+    expenses: {
+      create: (slug: string) => `/campaigns/${slug}/expenses/create`,
+      edit: (slug: string, id: string) => `/campaigns/${slug}/expenses/${id}`,
+      downloadFile: (id: string) => `/expenses/download-files/${id}`,
+    },
+    news: {
+      index: '/campaigns/news',
+      create: (slug: string) => `/campaigns/${slug}/news/create`,
+      edit: (slug: string) => `/campaigns/${slug}/news/edit`,
+      viewSingleArticle: (slug: string) => `/news/${slug}`,
+      listNewsForCampaign: (slug: string) => `/campaigns/${slug}/news`,
+      listNewsPaginated: (page: number, slug: string | null) =>
+        slug ? `/campaigns/${slug}/news?page=${page}` : `/campaigns/news?page=${page}`,
+      newsAdminPanel: (slug: string) => `/campaigns/${slug}/news/admin-panel`,
+    },
+    statistics: {
+      viewBySlug: (slug: string) => `/campaigns/${slug}/statistics`,
+    },
   },
   donation: {
     viewCertificate: (donationId: string) => `/api/pdf/certificate/${donationId}`,
   },
+
   profile: {
     index: '/profile/donations',
     donations: '/profile/donations',
@@ -93,6 +123,9 @@ export const routes = {
     certificates: '/profile/certificates',
     contractDonation: '/profile/contract-donation',
     myCampaigns: '/profile/my-campaigns',
+    recurringDonations: '/profile/recurring-donations',
+    myNotifications: '/profile/my-notifications',
+    affiliateProgram: '/profile/affiliate-program',
   },
   register: '/register',
   aboutProject: '/about-project',
@@ -104,10 +137,14 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    affiliates: '/admin/affiliates',
     bankaccounts: {
       index: '/admin/bankaccounts',
       add: '/admin/bankaccounts/add',
       edit: (id: string | number) => `/admin/bankaccounts/edit/${id}`,
+    },
+    bankTransactions: {
+      index: '/admin/bank-transactions',
     },
     cities: {
       home: '/admin/cities',
@@ -120,6 +157,12 @@ export const routes = {
       create: '/admin/campaigns/create',
       viewCampaignBySlug: (slug: string) => `/admin/campaigns/${slug}`,
       edit: (id: string) => `/admin/campaigns/edit/${id}`,
+    },
+    news: {
+      index: '/admin/campaign-news',
+      create: '/admin/campaign-news/create',
+      viewArticleBySlug: (slug: string) => `admin/campaign-news/${slug}`,
+      edit: (id: string) => `/admin/campaign-news/edit/${id}`,
     },
     withdrawals: {
       index: '/admin/withdrawals',
@@ -193,10 +236,13 @@ export const routes = {
       view: (id: string) => `/admin/organizers/${id}`,
     },
     person: {
-      index: '/admin/persons',
-      create: '/admin/persons/create',
-      view: (id: string) => `/admin/persons/${id}`,
-      edit: (id: string) => `/admin/persons/${id}/edit`,
+      index: '/admin/users',
+      create: '/admin/users/create',
+      view: (id: string) => `/admin/users/${id}`,
+      edit: (id: string) => `/admin/users/${id}/edit`,
+    },
+    payments: {
+      index: '/admin/payments',
     },
     company: {
       create: '/admin/companies/create',

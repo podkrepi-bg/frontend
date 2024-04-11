@@ -7,14 +7,15 @@
       "who-are-we": "Who are we?",
       "support_us": "Support us",
       "support-us": "Join us",
-      "reports": "Reports",
+      "reports": "Annual Reports",
       "contacts": "Contacts",
-      "partners": "Партньори"
+      "partners": "Partners"
     },
     "campaigns": {
       "index": "Campaigns",
       "all-campaigns": "All campaigns",
       "create": "Suggest a campaign",
+      "news": "News",
       "faq": "Frequently asked questions"
     },
     "admin": {
@@ -32,15 +33,16 @@
     "donate": "Donate",
     "donation-menu": "Campaigns",
     "blog": "Blog",
-    "support_us_button": "Support us",
     "profile": "Profile",
     "login": "Login",
     "login-with": "Login with",
     "logout": "Logout",
     "register": "Signup",
+    "continue-with": "Continue with",
     "changePassword": "Change your password",
     "forgottenPassword": "Forgotten password?",
-    "go-back": "Go back"
+    "go-back": "Go back",
+    "go-back-to-index": "Go back to index page"
   },
   "meta": {
     "title": "Podkrepi.bg"
@@ -57,22 +59,22 @@
   "link": "Link",
   "components": {
     "footer": {
+      "subscribe": "Subscribe for notifications",
       "donatе": "Donate",
       "about-us": "About us",
       "resources": "Resources",
       "others": "Others",
       "all-campaigns": "All campaigns",
       "who-are-we": "Who are we?",
-      "suggest-campaign": "Suggest a campaign",
       "about-project": "About the project",
       "support-us": "Support us",
       "become-a-volunteer": "Become a volunteer",
-      "reports": "Reports",
+      "reports": "Annual Reports",
       "contact": "Contact",
       "faq": "Frequently asked questions",
       "privacy-policy": "Privacy Policy",
       "terms-of-service": "Terms of Service",
-      "copyrights": "Podkrepi.bg ©2023 All rights reserved.",
+      "copyrights": "Podkrepi.bg ©2024 All rights reserved.",
       "hosting-partner": "Hosting partner:",
       "partners": "Partners",
       "social": {
@@ -95,13 +97,42 @@
   "fields": {
     "currency": "Currency",
     "personId": "Person",
+    "campaignId": "Campaign",
     "sourceCampaignId": "Source campaign",
-    "targetCampaignId": "Target campaign"
+    "targetCampaignId": "Target campaign",
+    "email": "Email"
   },
   "cta": {
-    "read-more": "Read more",
-    "see-profile": "See profile",
-    "question": "Have a question?",
-    "share": "Share"
-  }
+    "more-information": "More information"
+  },
+  "notifications": {
+    "cta": {
+      "login": "Login",
+      "guest": "As guest",
+      "subscribe-button": "Subscribe me",
+      "profile-button": "On the profile one",
+      "another-button": "On another one"
+    },
+    "subscribe": "Subscribe for email notifications for the campaign",
+    "subscribeFooter": "Subscribe for the newsletter",
+    "subscribeGeneral": "Subscribe for email notifications from Podkrepi.bg",
+    "subscribe-monthly-newsletter": "Monthly newsletter of Podkrepi.bg",
+    "subscribeGeneralSubtext": "Receive our monthly newsletter which will inform you about the most interesting news from Podkrepi.bg!!",
+    "subscribe-general-monthly-newsletter": "Receive our monthly newsletter so that you are aware of the most interesting news from Podkrepi.bg!",
+    "subscribeGeneralButton": "Subscribe for news",
+    "subscribe-general-newsletter-button": "Subscribe",
+    "confirm-sent": "Please, <bold>activate</bold> your subscription from the email that we sent to {{email}}",
+    "confirm-subscribe": "You subscribed successfully",
+    "subscribe-title": "Subscribe for news from Podkrepi.bg",
+    "subscribe-campaign-title": "Subscribe for news about the campaign",
+    "subscribe-text-nonLoggedUser": "Please, proceed as a guest and write down your email, on which you want to receive notifications for this campaign or you can log in. If you log in with your and password you will be able to manage your subscription from your Personal profile",
+    "subscribe-text-nonLoggedUser-general": "Please, proceed as a guest and write down your email, on which you want to receive notifications from us or you can log in. If you log in with your and password you will be able to manage your subscription from your Personal profile",
+    "subscribe-text-loggedUser": "Please, choose if you want to receive the news about the campaign on your profile email or on another one:",
+    "subscribe-subtitle": "I want to receive news and notifications from Podkrepi.bg on this email:",
+    "subscribe-campaign-subtTitle": "I want to receive news about the campaign on this email:"
+  },
+
+  "cookieConsent": "Podkrepi.bg doesn't use cookies, except the third-party cookies required for the analytics components Google Analytics and HotJar. Accepting the cookies will help us improve your user experience.",
+  "cookieConsentButton": "Accept",
+  "cookieRejectButton": "Reject"
 }

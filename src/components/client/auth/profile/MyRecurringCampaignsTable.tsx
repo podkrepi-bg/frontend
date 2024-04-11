@@ -6,9 +6,10 @@ import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { IconButton, Tooltip, Box } from '@mui/material'
 import { money } from 'common/util/money'
+import theme from 'common/theme'
 
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 
@@ -49,7 +50,7 @@ export default function MyRecurringCampaignsTable() {
     flex: 1,
     headerAlign: 'left',
   }
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'campaignTitle',
       headerName: t('campaigns:sourceCampaign'),
@@ -123,7 +124,7 @@ export default function MyRecurringCampaignsTable() {
       {recurringDonations && recurringDonations.length !== 0 ? (
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             border: 'none',
             width: 'calc(100% - 48px)',
             left: '24px',
@@ -133,10 +134,9 @@ export default function MyRecurringCampaignsTable() {
           }}
           rows={recurringDonations || []}
           columns={columns}
-          pageSize={5}
+          initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
           editMode="row"
           autoHeight
-          autoPageSize
         />
       ) : (
         <Box sx={{ fontSize: 20 }}>{t('profile:donations.recurringDonations')}</Box>

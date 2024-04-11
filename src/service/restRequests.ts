@@ -12,11 +12,8 @@ const {
 export async function fetchSession(): Promise<Session | null> {
   const res = await apiClient.get('/api/auth/session', { baseURL: APP_URL })
   const session = res.data
-  console.log('Fetching session from /api/auth/session')
 
-  console.log(session)
   if (Object.keys(session).length) {
-    console.log('Fetching session successful.')
     return session
   }
   console.warn('Fetching session returned null.')

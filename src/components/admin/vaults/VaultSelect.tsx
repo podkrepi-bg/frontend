@@ -1,9 +1,10 @@
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { FormControl, MenuItem, TextFieldProps } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import FormTextField from 'components/common/form/FormTextField'
 import { VaultResponse } from 'gql/vault'
+import { WithdrawalInput } from 'gql/withdrawals'
 
 export type SetFieldValueType = (field: string, value: unknown, shouldValidate?: boolean) => void
 
@@ -24,7 +25,7 @@ export default function VaultSelect({
   const { t } = useTranslation('vaults')
 
   const [field, meta] = useField(name)
-  const { setFieldValue } = useFormikContext()
+  const { values, setFieldValue } = useFormikContext<WithdrawalInput>()
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setFieldValue(name, event.target.value)
@@ -50,11 +51,13 @@ export default function VaultSelect({
         <MenuItem value="" disabled>
           {t(`fields.${name}`)}
         </MenuItem>
-        {vaults?.map((value, index) => (
-          <MenuItem key={index} value={value.id}>
-            {value.name}
-          </MenuItem>
-        ))}
+        {vaults
+          ?.filter((vault) => vault.campaignId === values.sourceCampaignId)
+          .map((value, index) => (
+            <MenuItem key={index} value={value.id}>
+              {value.name}
+            </MenuItem>
+          ))}
       </FormTextField>
     </FormControl>
   )

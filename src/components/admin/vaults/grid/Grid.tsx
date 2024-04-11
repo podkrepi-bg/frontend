@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import {
+  DataGrid,
+  GridColDef,
+  GridRenderCellParams,
+  GridValueFormatterParams,
+} from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
@@ -14,12 +19,16 @@ import { ModalStore } from '../VaultsPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import { money } from 'common/util/money'
+import theme from 'common/theme'
 
 export default observer(function Grid() {
-  const { t } = useTranslation('vaults')
+  const { t, i18n } = useTranslation('vaults')
   const { data }: UseQueryResult<VaultResponse[]> = useVaultsList()
   const { isDetailsOpen } = ModalStore
-  const [pageSize, setPageSize] = useState(5)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -27,7 +36,7 @@ export default observer(function Grid() {
     headerAlign: 'left',
   }
 
-  const columns: GridColumns = [
+  const columns: GridColDef<VaultResponse>[] = [
     {
       field: 'actions',
       headerName: t('actions'),
@@ -74,7 +83,7 @@ export default observer(function Grid() {
       ),
     },
     {
-      field: 'reachedAmound',
+      field: 'reachedAmount',
       headerName: t('amount'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => (
@@ -82,19 +91,32 @@ export default observer(function Grid() {
       ),
     },
     {
+      field: 'withdrawnAmount',
+      headerName: t('Успешно преведени'),
+      ...commonProps,
+      renderCell: (params: GridRenderCellParams) => <>{money(params.row.withdrawnAmount)}</>,
+    },
+    {
       field: 'createdAt',
       headerName: t('createdAt'),
       ...commonProps,
+      valueFormatter(params: GridValueFormatterParams<Date>) {
+        return new Date(params.value).toLocaleDateString(i18n.language)
+      },
     },
     {
       field: 'updatedAt',
       headerName: t('updatedAt'),
       ...commonProps,
+      valueFormatter(params: GridValueFormatterParams<Date>) {
+        return new Date(params.value).toLocaleDateString(i18n.language)
+      },
     },
     {
       field: 'campaignId',
-      headerName: t('campaignId'),
+      headerName: t('Кампания'),
       ...commonProps,
+      renderCell: (params: GridRenderCellParams) => <>{params.row.campaign.title}</>,
       width: 450,
     },
   ]
@@ -104,7 +126,7 @@ export default observer(function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',
@@ -116,10 +138,10 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          disableSelectionOnClick
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          disableRowSelectionOnClick
         />
       </Box>
 

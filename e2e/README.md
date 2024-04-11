@@ -8,6 +8,14 @@
 
 E2e tests are automated and running on every PR in Github Actions. [Link to the workflow](https://github.com/podkrepi-bg/frontend/blob/29b49f438541fa9254829a494e388202034b274d/.github/workflows/playwright.yml)
 
+### Run all test suites
+
+```shell
+yarn test:e2e
+```
+
+### For more options:
+
 ```shell
 $ yarn test:e2e --help
 
@@ -37,12 +45,6 @@ Options:
 -u, --update-snapshots       Update snapshots with actual results (default: only create missing snapshots)
 -x                           Stop after the first failure
 -h, --help                   display help for command
-```
-
-### Run all test suites
-
-```shell
-yarn test:e2e
 ```
 
 ### Run test suites in headed mode with enabled debug

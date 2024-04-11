@@ -1,4 +1,6 @@
 {
+  "completed-campaigns": "Completed campaigns",
+  "successfull-label": "Successful",
   "of": "of",
   "subtitle": "Help a person in need",
   "form-heading": "Create new campaign",
@@ -36,14 +38,30 @@
   "campaignId": "Campaign ID",
   "deleteTitle": "Are you sure you want to delete this campaign?",
   "deleteContent": "This action cannot be undone.",
-  "deleteAllContent": "This action cannot be undone.",
   "actions": "Actions",
+  "statistics": {
+    "button": "Donation statistics",
+    "backButton": "Go back",
+    "cachedMessage": "Please note that the charts are using cached data!",
+    "cumulativeTitle": "Cumulative donations chart",
+    "cumulativeDesc": "Shows total donated amount to date",
+    "total": "Total",
+    "groupedTitle": "Grouped donations chart",
+    "groupedDesc": "Shows total donated amount per selected period",
+    "count": "Donations",
+    "groupBy": "Group by",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "uniqueTitle": "Unique donations chart",
+    "uniqueDesc": "Shows number of donations with the same unique amount",
+    "hourlyTitle": "Hourly donations chart",
+    "hourlyDesc": "Shows number of donations for each hour of the day"
+  },
   "alerts": {
-    "selectRow": "Please select a row",
     "create": "Campaign created successfully",
     "edit": "Campaign edited successfully",
     "delete": "Campaign deleted successfully",
-    "deleteAll": "All withdrawals deleted successfully",
     "error": "An error occurred. Please try again later.",
     "deletedFile": "File deleted successfully"
   },
@@ -58,92 +76,80 @@
     "support-now": "Support now",
     "see-all": "See all",
     "see-less": "See less",
-    "see-top-10": "See TOP 10",
     "see-more": "See more",
     "donor": "Donor",
     "add": "Add",
     "confirm": "Confirm",
     "cancel": "Cancel",
     "delete": "Delete",
-    "deleteSelected": "Delete selected rows",
     "edit": "Edit",
     "details": "Details about the Campaign",
     "add-files": "Add files",
     "attached-files": "Attached files",
-    "download": "Download"
+    "download": "Download",
+    "allow-donation-on-complete": "Allow donations after the amount is reached"
   },
   "campaign": {
     "subheading": "Your support for the world matters. All supporters through Podkrepi.bg are our partners in supporting the community campaign. As a generous benefactor, you become an important partner in supporting a campaign regarding someone's health or the success of a cause that is close to your heart.",
-    "subheading-bold": "Even the slightest help can be the engine of great change",
-    "subheading-bold-secondary": "Together we support and encourage the donation and volunteer culture in Bulgaria!",
     "title": "Campaign name",
+    "notify": "Send a notification to all subscribers",
+    "slug": {
+      "name": "Short name of the campaign",
+      "warning": "Editing this field will modify the campaign link and make the current one invalid.",
+      "placeholder": "The default value is the same as 'Campaign Name'."
+    },
+    "rte": {
+      "modern": "New (beta)",
+      "classic": "Classic"
+    },
     "amount": "Target amount",
     "type": "Campaign type",
     "state": "Campaign state",
-    "reached": "reached",
-    "target": "target",
     "from": "from",
-    "noCommissionInfo": "Podkrepi.bg works with 0% commission. Only bank charges are paid, which are explicitly mentioned before you make your donation.",
+    "noCommissionInfo": "Podkrepi.bg works with 0% commission. Only expressly mentioned bank charges are possible.",
     "donors": "donors",
     "documents": "documents",
     "guarantor": "guarantor",
     "others": "others",
-    "messages": "Messages:",
+    "messages": "The campaign was supported by",
     "profile": "Profile:",
     "status": "Status:",
+    "sort": {
+      "title": "Sort by:",
+      "date": "Date",
+      "amount": "Amount",
+      "search": "Search...",
+      "noResults": "No messages found"
+    },
     "gallery": "Gallery",
+    "financial-report": "Financial report",
     "report-campaign": "Report the campaign",
     "feedback": "Feedback",
-    "images": {
-      "add": "Add image",
-      "add-more": "Add more",
-      "adding-more": "Adding more images",
-      "drop-paste-import-files": "Drop files here or import from:",
-      "my-device": "Device",
-      "back": "Back",
-      "edit": "Edit",
-      "editing": "Editing",
-      "import-from": "Importing from external source",
-      "close": "Close",
-      "cancel": "Cancel",
-      "remove": "Remove",
-      "save": "Save",
-      "files-selected": "Selected images",
-      "uploading": "Uploading...",
-      "complete": "Complete",
-      "upload-file": "Upload %{smart_count} image",
-      "upload-multiple": "Upload %{smart_count} images",
-      "x-time-left": "%{time} time remaining",
-      "upload-failed": "Upload failed",
-      "pause": "Pause",
-      "paused": "Paused",
-      "resume": "Resume",
-      "retry": "Retry"
-    },
     "beneficiary": {
       "name": "Beneficiary",
+      "label": "Beneficiary:",
       "add": "Add beneficiary",
       "create": "Create beneficiary"
     },
     "coordinator": {
       "name": "Coordinator:",
-      "add": "Add coordinator",
-      "create": "Create coordinator"
+      "add": "Add coordinator"
     },
     "organizer": {
-      "name": "Organizer:",
-      "add": "Add organizer",
-      "create": "Create organizer"
+      "name": "Organizer:"
     },
+    "image-of": "Image of",
     "podkrepi-bg-operator": "Podkrepi.bg Operator:",
     "have-a-question": "Have a question?",
     "btn-connect": "Write to us",
-    "write-to-coordinator": "Write to Coordinator",
     "description": "Description",
     "start-date": "Start date:",
     "end-date": "End date:",
     "tag": "Tag:",
-    "date": "Date:"
+    "date": "Date:",
+    "news": "News",
+    "wishes": "Wishes",
+    "nowishes": "No wishes yet"
   },
   "info-graphics": {
     "donation-title": "100% of the donation goes to those in need",
@@ -172,7 +178,8 @@
   "donations": {
     "anonymous": "Anonymous",
     "none": "No donations yet",
-    "lv": "lv"
+    "lv": "lv.",
+    "corporate-donor": "Corporate Donor"
   },
   "campaign-status": {
     "initial": "Initial",
@@ -187,5 +194,18 @@
     "disabled": "Disabled",
     "error": "Error",
     "deleted": "Deleted"
+  },
+  "campaignTypesFields": {
+    "medical": "Treatment and rehabilitation",
+    "events": "Culture",
+    "education": "Education",
+    "animals": "Animals",
+    "charity": "Better society",
+    "sport": "Sport",
+    "disasters": "Disasters",
+    "environment": "Environment",
+    "nature": "Nature",
+    "art": "Art",
+    "others": "others"
   }
 }

@@ -11,13 +11,20 @@ import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import InlineDonation from './InlineDonation'
 import CampaignDetails from './CampaignDetails'
+import NotFoundPage from 'pages/404'
 
 type Props = { slug: string }
 
 export default function ViewCampaignPage({ slug }: Props) {
-  const { data, isLoading } = useViewCampaign(slug)
+  const { data, isLoading, isError } = useViewCampaign(slug)
   const { mobile, small } = useMobile()
-  if (isLoading || !data) return <CenteredSpinner size="2rem" />
+  if (isLoading || !data)
+    return (
+      <>
+        {isLoading && <CenteredSpinner size={'2rem'} />}
+        {isError && <NotFoundPage />}
+      </>
+    )
   const { campaign } = data
   const ogImageUrl = campaignListPictureUrl(campaign)
 
@@ -34,7 +41,7 @@ export default function ViewCampaignPage({ slug }: Props) {
             item
             sx={{
               position: 'sticky',
-              top: 0,
+              top: 40,
               order: -1,
               marginTop: `-${theme.spacing(4)}`,
 

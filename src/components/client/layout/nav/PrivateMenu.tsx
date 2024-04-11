@@ -76,7 +76,7 @@ export default function PrivateMenu() {
               bgcolor: theme.palette.success.light,
               height: theme.spacing(4.5),
               width: theme.spacing(4.5),
-              fontSize: '1rem',
+              fontSize: theme.typography.pxToRem(16),
             }}>
             {lettersAvatar}
           </Avatar>

@@ -22,6 +22,10 @@ const validationSchema: yup.SchemaOf<PersonFormData> = yup.object().defined().sh
   companyNumber: yup.string(),
   legalPersonName: name,
   address: yup.string(),
+  // Roles
+  isBeneficiary: yup.bool().notRequired(),
+  isCoordinator: yup.bool().notRequired(),
+  isOrganizer: yup.bool().notRequired(),
 })
 
 const defaults: PersonFormData = {

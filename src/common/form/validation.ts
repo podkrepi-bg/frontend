@@ -1,5 +1,5 @@
 import { setLocale, string } from 'yup'
-import { TFunction } from 'next-i18next'
+import { TFunction } from 'i18next'
 import * as yup from 'yup'
 export type TranslatableField =
   | (string | undefined)
@@ -43,6 +43,9 @@ export const customValidators = {
   confirmPassword: () => ({ key: 'validation:password-match' }),
   phone: () => ({ key: 'validation:phone' }),
   name: () => ({ key: 'validation:invalid' }),
+  paymentRef: () => ({ key: 'validation:payment-reference' }),
+  terms: () => ({ key: 'validation:terms-of-use' }),
+  gdpr: () => ({ key: 'validation:terms-of-service' }),
 }
 
 setLocale({
@@ -73,7 +76,7 @@ export const companyName = string().trim().min(2).max(50)
 // according to password policy in Keycloak- 1 uppercase, 1 digit, 1 special character, min 8 characters
 export const loginPassword = string().trim()
 export const passwordRegex =
-  /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_.?'"+=-])[A-Za-z\d!@#$%^&*_.?'"+=-]{8,30}$/
+  /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%:;~|(){}<>`,/\\^&*_.?'"+=-])[A-Za-z\d!@#$%:;~|(){}<>`,/\\^&*_.?'"+=-]{8,30}$/
 export const password = string()
   .trim()
   .min(8, customValidators.passwordMin)
@@ -84,3 +87,10 @@ export const confirmPassword = string().oneOf(
   [yup.ref('password')],
   customValidators.confirmPassword,
 )
+
+export const paymentRefRegex = /\b[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}\b/g
+export const paymentRef = string()
+  .trim()
+  .matches(paymentRefRegex, customValidators.paymentRef)
+  .min(14)
+  .max(14)

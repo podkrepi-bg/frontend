@@ -1,28 +1,60 @@
 import { UUID } from './types'
+import { BeneficiaryFormData } from './beneficiary'
+import { CompanyResponse } from './company'
 
 export type PersonResponse = {
   id: string
   firstName: string
   lastName: string
-  email: string
-  phone: string
+  email?: string
+  phone?: string
   address: string
   company: string
   createdAt: string
   newsletter: boolean
   emailConfirmed: boolean
+  beneficiaries?: PersonBeneficiaryResponse[]
+  coordinators?: PersonRoleResponse
+  organizer?: PersonRoleResponse
+  profileEnabled: boolean
+}
+
+export type PersonRoleResponse = {
+  id: string
+  _count?: {
+    campaigns: number
+  }
+}
+
+export type PersonBeneficiaryResponse = {
+  id: string
+  countryCode: string
+  cityId: string
+  description?: string
+  organizerRelation?: PersonRelation
+  _count?: {
+    campaigns: number
+  }
+}
+
+export type PersonPaginatedResponse = {
+  items: PersonResponse[]
+  total: number
 }
 
 export type PersonFormData = {
   firstName: string
   lastName: string
-  email: string
+  email?: string
   phone?: string
   legalEntity: boolean
   companyName?: string
   companyNumber?: string
   legalPersonName?: string
   address?: string
+  isBeneficiary?: boolean
+  isCoordinator?: boolean
+  isOrganizer?: boolean
 }
 
 export type CreateBeneficiaryInput = {
@@ -38,7 +70,6 @@ export type Person = {
   lastName: string
   email: string
   phone: string
-  company: string
   createdAt: Date
   updatedAt: Date
   newsletter: boolean
@@ -48,6 +79,8 @@ export type Person = {
   personalNumber: string | null
   keycloakId: string | null
   stripeCustomerId: string | null
+  newsletter: boolean | null
+  company: CompanyResponse
 }
 
 export type UpdatePerson = Partial<
@@ -75,11 +108,15 @@ export type UpdateUserAccount = {
   password: string
 }
 
-export type AdminPersonFormData = Pick<PersonFormData, 'firstName' | 'lastName' | 'email' | 'phone'>
+export type AdminPersonFormData = Pick<
+  PersonFormData,
+  'firstName' | 'lastName' | 'email' | 'phone' | 'isBeneficiary' | 'isCoordinator' | 'isOrganizer'
+> &
+  Pick<BeneficiaryFormData, 'countryCode' | 'cityId' | 'description' | 'organizerRelation'>
 
 export type AdminPersonResponse = Pick<
   PersonResponse,
-  'id' | 'firstName' | 'lastName' | 'email' | 'phone'
+  'id' | 'firstName' | 'lastName' | 'email' | 'phone' | 'profileEnabled'
 >
 
 export type AdminCompanyFormData = Pick<

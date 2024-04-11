@@ -4,11 +4,12 @@ import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 
 import { Box } from '@mui/material'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { useIrregularityList } from 'common/hooks/irregularity'
 
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 import GridActions from 'components/admin/GridActions'
 
 import DeleteModal from './DeleteModal'
@@ -23,13 +24,32 @@ export default observer(function Grid() {
 
   const { isDetailsOpen } = ModalStore
 
-  const [pageSize, setPageSize] = useState(5)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'id',
       headerName: 'ID',
-      hide: true,
+    },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: t('admin.fields.actions'),
+      width: 120,
+      align: 'center',
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            modalStore={ModalStore}
+            id={params.row.id}
+            name={params.row.id}
+            editLink={routes.admin.irregularity.view(params.row.id)}
+          />
+        )
+      },
     },
     {
       field: 'status',
@@ -99,23 +119,6 @@ export default observer(function Grid() {
       width: 150,
       valueGetter: (f) => f.row.person.phone,
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: t('admin.fields.actions'),
-      width: 200,
-      align: 'center',
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={params.row.id}
-            name={params.row.id}
-            editLink={routes.admin.irregularity.view(params.row.id)}
-          />
-        )
-      },
-    },
   ]
 
   return (
@@ -123,7 +126,7 @@ export default observer(function Grid() {
       <Box>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',
@@ -135,11 +138,13 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          columnVisibilityModel={{
+            id: false,
+          }}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           autoHeight
-          disableSelectionOnClick
+          disableRowSelectionOnClick
         />
       </Box>
 

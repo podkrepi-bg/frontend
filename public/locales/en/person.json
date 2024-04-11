@@ -1,6 +1,5 @@
 {
   "personSelect": "Person Select",
-  "emptySelectItem": "Not selected",
   "selectDialog": {
     "notSelected": "You haven't chosen a person",
     "select": "Select",
@@ -33,7 +32,20 @@
       "first-name": "First name",
       "last-name": "Last name",
       "email": "Email",
-      "phone": "phone"
+      "phone": "Phone",
+      "createdAt": "Date of creation",
+      "email-confirmed": "Email confirmed",
+      "newsletter": "Newsletter",
+      "company": "Company",
+      "address": "Address",
+      "organizer": "Organizer",
+      "coordinator": "Coordinator",
+      "beneficiary": "Beneficiary",
+      "organizerRelation": "Organizer relation",
+      "countryCode": "Country code",
+      "city": "City",
+      "description": "Description",
+      "disabled-tooltip": "Cannot remove role because the user is {{role}} in {{campaigns}} campaigns"
     },
     "cta": {
       "create": "Create",

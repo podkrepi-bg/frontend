@@ -4,9 +4,10 @@ import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 import { Add as AddIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 
 const addIconStyles = {
-  background: '#4ac3ff',
+  background: theme.palette.primary.light,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 1.2,
@@ -19,14 +20,14 @@ export default function GridAppbar() {
   return (
     <Toolbar
       sx={{
-        background: 'white',
+        background: theme.palette.common.white,
         borderTop: '1px solid lightgrey',
         display: 'flex',
         justifyContent: 'space-between',
         height: '72px',
       }}>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
-        <Typography>{t('campaign-types:all')}</Typography>
+        <Typography>{t('campaign-types:allCampaignTypes')}</Typography>
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>

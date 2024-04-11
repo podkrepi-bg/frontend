@@ -7,15 +7,17 @@ import {
   EventNote as EventNoteIcon,
 } from '@mui/icons-material'
 
+import theme from 'common/theme'
+
 const addIconStyles = {
-  background: '#4ac3ff',
+  background: theme.palette.primary.light,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 1.2,
   boxShadow: 3,
 }
 const iconStyles = {
-  background: 'white',
+  background: theme.palette.common.white,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 0.5,
@@ -26,7 +28,7 @@ export default function SupportersBottomAppBar() {
   return (
     <Toolbar
       sx={{
-        background: 'white',
+        background: theme.palette.common.white,
         borderTop: '1px solid lightgrey',
         display: 'flex',
         justifyContent: 'space-between',

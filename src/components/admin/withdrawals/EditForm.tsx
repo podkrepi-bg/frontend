@@ -33,19 +33,28 @@ import { Currency } from 'gql/currency'
 import { fromMoney, toMoney } from 'common/util/money'
 import { useVaultsList } from 'common/hooks/vaults'
 import FormSelectField from 'components/common/form/FormSelectField'
+import SelectDate from './custom/SelectDate'
+
+const dateParser = (date: Date | undefined) => {
+  if (date) {
+    return date.toString().slice(0, 10)
+  }
+  return undefined
+}
 
 const validationSchema: yup.SchemaOf<WithdrawalData> = yup
   .object()
   .defined()
   .shape({
     status: yup.string().trim().min(1).max(10).required(),
-    amount: yup.number().positive().integer().required(),
+    amount: yup.number().positive().required(),
     reason: yup.string().trim().min(1).max(300).required(),
     currency: yup.string().oneOf(Object.values(Currency)).required(),
     sourceVaultId: yup.string().uuid().required(),
     sourceCampaignId: yup.string().uuid().required(),
     bankAccountId: yup.string().uuid().required(),
     documentId: yup.string().uuid().required(),
+    targetDate: yup.date().required(),
     approvedById: yup.string().uuid().required(),
   })
 
@@ -71,6 +80,7 @@ export default function EditForm() {
     bankAccountId: data?.bankAccountId,
     documentId: data?.documentId,
     approvedById: data?.approvedById,
+    targetDate: dateParser(data?.targetDate) || '',
   }
 
   const mutation = useMutation<
@@ -95,6 +105,7 @@ export default function EditForm() {
       reason: values.reason,
       sourceVaultId: values.sourceVaultId,
       sourceCampaignId: values.sourceCampaignId,
+      targetDate: values.targetDate,
       bankAccountId: values.bankAccountId,
       documentId: values.documentId,
       approvedById: values.approvedById,
@@ -157,6 +168,9 @@ export default function EditForm() {
           </Grid>
           <Grid item xs={12}>
             <BankAccountSelect disabled={initialValues.status === WithdrawalStatus.succeeded} />
+          </Grid>
+          <Grid item xs={12}>
+            <SelectDate name="targetDate" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField

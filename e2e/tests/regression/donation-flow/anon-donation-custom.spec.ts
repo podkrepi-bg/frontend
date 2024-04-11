@@ -3,13 +3,14 @@ import { HeaderPage } from '../../../pages/web-pages/header.page'
 import { HomePage } from '../../../pages/web-pages/home.page'
 import { CampaignsPage } from '../../../pages/web-pages/campaigns/campaigns.page'
 import { DonationPage } from '../../../pages/web-pages/donation/donation.page'
-import { DonationRegions } from '../../../data/enums/donation-regions.enum'
+import { LanguagesEnum } from '../../../data/enums/languages.enum'
 import { bgLocalizationDonationFlow } from '../../../data/localization'
 import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
-} from 'components/client/donation-flow/helpers/types'
+} from '../../../../src/components/client/donation-flow/helpers/types'
 import { DonationStatusPage } from '../../../pages/web-pages/donation/donation-status.page'
+import { DonationRegions } from '../../../data/enums/donation-regions.enum'
 
 // This spec contains E2E tests related to anonymous donation flow - custom amount
 // The tests are dependent, the whole describe should be runned
@@ -27,6 +28,8 @@ test.describe.serial(
     const bgCardIncludeFeesText =
       bgLocalizationDonationFlow.step['payment-method'].field['include-fees'].label
 
+    test.use({ locale: 'bg-BG' }) //this is to ensure decimal separator is correctly expected
+
     test.beforeAll(async ({ browser }) => {
       page = await browser.newPage()
       homepage = new HomePage(page)
@@ -37,6 +40,7 @@ test.describe.serial(
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
+      await headerPage.changeLanguageToBe(LanguagesEnum.BG)
     })
 
     test.afterAll(async () => {

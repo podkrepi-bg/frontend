@@ -6,8 +6,8 @@ import { useMutation } from '@tanstack/react-query'
 import {
   BankImportResult,
   DonationBankInput,
-  DonationInput,
   DonationResponse,
+  StripeRefundResponse,
   UserDonationInput,
   SubscriptionPaymentInput,
   UpdateSetupIntentInput,
@@ -16,6 +16,8 @@ import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
 import { UploadBankTransactionsFiles } from 'components/admin/bank-transactions-file/types'
+
+import { FilterData } from 'gql/types'
 
 export function useCreatePaymentIntent() {
   //Create payment intent useing the react-query mutation
@@ -57,17 +59,6 @@ export function useCreateSubscriptionPayment() {
   })
 }
 
-export function useCreateDonation() {
-  const { data: session } = useSession()
-  return async (data: DonationInput) => {
-    return await apiClient.post<DonationResponse, AxiosResponse<DonationResponse>>(
-      endpoints.donation.createDonation.url,
-      data,
-      authConfig(session?.accessToken),
-    )
-  }
-}
-
 export function useCreateBankDonation() {
   // const { data: session } = useSession()
   return async (data: DonationBankInput) => {
@@ -100,6 +91,27 @@ export function useDeleteDonation(ids: string[]) {
   }
 }
 
+export const useRefundStripeDonation = () => {
+  const { data: session } = useSession()
+  return async (extPaymentId: string) => {
+    return await apiClient.post<StripeRefundResponse, AxiosResponse<StripeRefundResponse>>(
+      endpoints.donation.refundStripePayment(extPaymentId).url,
+      '',
+      authConfig(session?.accessToken),
+    )
+  }
+}
+export const useInvalidateStripeDonation = () => {
+  const { data: session } = useSession()
+  return async (extPaymentId: string) => {
+    return await apiClient.patch(
+      endpoints.donation.invalidateStripePayment(extPaymentId).url,
+      '',
+      authConfig(session?.accessToken),
+    )
+  }
+}
+
 export const useUploadBankTransactionsFiles = () => {
   const { data: session } = useSession()
   return async ({
@@ -127,10 +139,10 @@ export const useUploadBankTransactionsFiles = () => {
   }
 }
 
-export const useExportToExcel = () => {
+export const useExportToExcel = (filterData?: FilterData, searchData?: string) => {
   const { data: session } = useSession()
   return async () => {
-    return await apiClient(endpoints.donation.exportToExcel.url, {
+    return await apiClient(endpoints.donation.exportToExcel(filterData, searchData).url, {
       ...authConfig(session?.accessToken),
       responseType: 'blob',
     })

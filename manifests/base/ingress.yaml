@@ -4,6 +4,7 @@ metadata:
   name: web
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: '8k'
+    nginx.ingress.kubernetes.io/proxy-body-size: '10M'
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
   rules:

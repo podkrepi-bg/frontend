@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import AddIcon from '@mui/icons-material/Add'
 import React, { useMemo, useState } from 'react'
 import { Box, Button, Toolbar, Tooltip, Typography } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
 import { money } from 'common/util/money'
@@ -11,6 +11,7 @@ import { AdminCampaignResponse } from 'gql/campaigns'
 import Link from 'components/common/Link'
 import { useCampaignAdminList } from 'common/hooks/campaigns'
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
+import theme from 'common/theme'
 
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
@@ -67,13 +68,18 @@ export default function CampaignGrid() {
   const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 20,
+    page: 0,
+  })
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 100,
     headerAlign: 'left',
   }
-  const columns: GridColumns = [
+
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       headerName: t('campaigns:actions'),
@@ -151,6 +157,7 @@ export default function CampaignGrid() {
       ...commonProps,
       align: 'left',
       width: 250,
+      valueGetter: ({ value }) => value && t('campaigns:campaignTypesFields.' + value.name),
       renderCell: (cellValues: GridRenderCellParams) => <>{cellValues.row.campaignType.name}</>,
     },
     {
@@ -220,7 +227,7 @@ export default function CampaignGrid() {
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.startDate)}>
           <Button color="inherit">
-            {getRelativeDate(cellValues.row.startDate, i18n.language)}
+            {getRelativeDate(cellValues.row.startDate, i18n?.language)}
           </Button>
         </Tooltip>
       ),
@@ -233,7 +240,7 @@ export default function CampaignGrid() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.endDate)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, i18n.language)}</Button>
+          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, i18n?.language)}</Button>
         </Tooltip>
       ),
     },
@@ -246,7 +253,7 @@ export default function CampaignGrid() {
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.createdAt)}>
           <Button color="inherit">
-            {getRelativeDate(cellValues.row.createdAt, i18n.language)}
+            {getRelativeDate(cellValues.row.createdAt, i18n?.language)}
           </Button>
         </Tooltip>
       ),
@@ -260,7 +267,7 @@ export default function CampaignGrid() {
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.updatedAt)}>
           <Button color="inherit">
-            {getRelativeDate(cellValues.row.updatedAt, i18n.language)}
+            {getRelativeDate(cellValues.row.updatedAt, i18n?.language)}
           </Button>
         </Tooltip>
       ),
@@ -278,7 +285,7 @@ export default function CampaignGrid() {
     <>
       <Toolbar
         sx={{
-          background: 'white',
+          background: theme.palette.common.white,
           borderTop: '1px solid lightgrey',
           display: 'flex',
           justifyContent: 'space-between',
@@ -292,7 +299,7 @@ export default function CampaignGrid() {
       </Toolbar>
       <DataGrid
         style={{
-          background: 'white',
+          background: theme.palette.common.white,
           position: 'absolute',
           height: 'calc(100vh - 300px)',
           border: 'none',
@@ -304,8 +311,10 @@ export default function CampaignGrid() {
         }}
         rows={data || []}
         columns={columns}
-        pageSize={10}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
         editMode="row"
+        pageSizeOptions={[20, 50, 100]}
       />
       <Box>
         {selectedCampaign && (

@@ -13,7 +13,7 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.boxContainer}`]: {
     padding: theme.spacing(5, 7),
     marginTop: theme.spacing(0.5),
-    backgroundColor: 'white ',
+    backgroundColor: theme.palette.common.white,
     boxShadow: theme.shadows[3],
     borderRadius: '0px 0px 25px 25px',
     [theme.breakpoints.down('sm')]: {

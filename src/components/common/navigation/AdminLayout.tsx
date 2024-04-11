@@ -11,8 +11,11 @@ import { items } from './adminMenu'
 import HoverMenu from './HoverMenu'
 import PanelFooter from './PanelFooter'
 import CustomListItem from './CustomListItem'
-import { AdminAppBar } from './AdminAppBar'
 import AdminMenu from 'components/client/layout/nav/AdminMenu'
+import Link from 'next/link'
+import { routes } from 'common/routes'
+import PictureLogo from '/public/android-chrome-192x192.png'
+import Image from 'next/image'
 
 const PREFIX = 'AdminLayout'
 const drawerWidth = 200
@@ -32,7 +35,6 @@ const StyledBox = styled(Box)({
   [`& .${classes.appbarHeader}`]: {
     width: `calc(100% - ${drawerWidth}px)`,
     height: 64,
-    marginLeft: '6rem',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -67,6 +69,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
+
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }))
@@ -114,17 +117,20 @@ export default function AdminLayout({ children }: Props) {
   const toggleMenu = useCallback(() => setOpen((open) => !open), [])
   return (
     <StyledBox className={classes.wrapper}>
-      <AdminAppBar isOpen={open}>
-        <Box className={classes.appbarHeader}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <IconButton>
-              <Notifications color="info" />
-            </IconButton>
-            <AdminMenu />
-          </Box>
-        </Box>
-      </AdminAppBar>
       <Drawer variant="permanent" open={open} theme={theme}>
+        <Box
+          sx={{
+            display: 'flex',
+            position: 'absolute',
+            left: 5,
+            top: 9,
+            padding: theme.spacing(0, 1),
+          }}>
+          <Link href={routes.admin.index} passHref>
+            {/* A11Y TODO: Translate alt text */}
+            <Image src={PictureLogo} width={40} height={40} alt={'logo'} />
+          </Link>
+        </Box>
         <DrawerHeader />
         <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
           {items.map(({ items, menu, icon }, index) => (
@@ -140,14 +146,25 @@ export default function AdminLayout({ children }: Props) {
       </Drawer>
 
       <Box component="main" sx={{ flexGrow: 1 }}>
-        <DrawerHeader />
+        <DrawerHeader>
+          <Box className={classes.appbarHeader}>
+            <Box sx={{ display: 'flex', alignItems: 'center', paddingRight: 15 }}>
+              <IconButton>
+                <Notifications color="info" />
+              </IconButton>
+              <AdminMenu />
+            </Box>
+          </Box>
+        </DrawerHeader>
         {children}
       </Box>
       <PanelFooter>
-        <Button sx={{ color: 'white' }}>
+        <Button sx={{ color: theme.palette.common.white }}>
           <GppGood />
         </Button>
-        <Typography color="white">{'Вие сте логнат като администратор'}</Typography>
+        <Typography color={theme.palette.common.white}>
+          {'Вие сте логнат като администратор'}
+        </Typography>
       </PanelFooter>
       <Snackbar />
     </StyledBox>

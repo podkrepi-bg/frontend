@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Box, TextField, Toolbar, Tooltip, Typography } from '@mui/material'
-import { Add as AddIcon, Receipt, GetApp as DownloadFileIcon } from '@mui/icons-material'
+import { Box, Button, TextField, Toolbar, Tooltip, Typography } from '@mui/material'
+import { Receipt, GetApp as DownloadFileIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
 import { useMutation } from '@tanstack/react-query'
@@ -10,10 +10,11 @@ import { AlertStore } from 'stores/AlertStore'
 import { downloadFile } from '../../../../common/util/downloadFile'
 import { useMemo, useState } from 'react'
 import { useStores } from 'common/hooks/useStores'
+import theme from 'common/theme'
 import { debounce } from 'lodash'
 
 const addIconStyles = {
-  background: '#4ac3ff',
+  background: theme.palette.primary.light,
   borderRadius: '50%',
   cursor: 'pointer',
   padding: 1.2,
@@ -25,7 +26,7 @@ export default function GridAppbar() {
   const { donationStore } = useStores()
   const { t } = useTranslation()
   const exportToExcel = useMutation({
-    mutationFn: useExportToExcel(),
+    mutationFn: useExportToExcel(donationStore.donationFilters, donationStore.donationSearch),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: ({ data }) => {
       downloadFile('Donations.xlsx', data)
@@ -56,7 +57,7 @@ export default function GridAppbar() {
   return (
     <Toolbar
       sx={{
-        background: 'white',
+        background: theme.palette.common.white,
         borderTop: '1px solid lightgrey',
         display: 'flex',
         justifyContent: 'space-between',
@@ -76,20 +77,16 @@ export default function GridAppbar() {
       />
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={t('donations:form-heading-bank-transactions-file') || ''}>
-            <Receipt
-              sx={addIconStyles}
-              fontSize="large"
-              onClick={() => router.push(routes.admin.donations.addBankTransactionsFile)}
-            />
-          </Tooltip>
-          <Tooltip title={t('donations:cta:add') || ''}>
-            <AddIcon
-              sx={addIconStyles}
-              fontSize="large"
-              onClick={() => router.push(routes.admin.donations.create)}
-            />
-          </Tooltip>
+          {/* button is disabled because we have a bug(conflicting bank donations) https://github.com/podkrepi-bg/frontend/issues/1649 */}
+          <Button disabled>
+            <Tooltip title={t('donations:form-heading-bank-transactions-file') || ''}>
+              <Receipt
+                sx={addIconStyles}
+                fontSize="large"
+                onClick={() => router.push(routes.admin.donations.addBankTransactionsFile)}
+              />
+            </Tooltip>
+          </Button>
           <Tooltip title={t('donations:cta:download') || ''}>
             <DownloadFileIcon
               sx={addIconStyles}

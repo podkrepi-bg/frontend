@@ -39,9 +39,4 @@ export const rightColumnLabels = [
     href: staticUrls.projectDocs,
   },
   { label: 'documentation-technical', href: staticUrls.devDocs },
-  // Currently the architecture map is not available
-  // {
-  //   label: 'high-level-map',
-  //   href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
-  // },
 ]

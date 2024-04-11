@@ -12,7 +12,7 @@ import { ModalStore } from '../ExpensesPage'
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
   const { data }: UseQueryResult<ExpenseResponse> = useViewExpense(selectedRecord.id)
-  const { data: personList } = usePersonList()
+  const { data: { items: personList } = { items: [] } } = usePersonList()
   const approvedBy = personList?.find((person) => person.id == data?.approvedById)
 
   const { t } = useTranslation('')
@@ -24,7 +24,6 @@ export default observer(function DetailsModal() {
     { name: t('common:fields.currency'), value: data?.currency },
     { name: t('expenses:fields.amount'), value: data?.amount },
     { name: t('expenses:fields.vaultId'), value: data?.vaultId },
-    { name: t('expenses:fields.deleted'), value: data?.deleted?.toString() },
     { name: t('expenses:fields.description'), value: data?.description },
     { name: t('expenses:fields.documentId'), value: data?.documentId },
     {

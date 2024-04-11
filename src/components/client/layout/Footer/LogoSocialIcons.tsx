@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Grid } from '@mui/material'
 
 import { routes } from 'common/routes'

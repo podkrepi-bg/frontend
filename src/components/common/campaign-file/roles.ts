@@ -3,11 +3,24 @@ export enum CampaignFileRole {
   coordinator = 'coordinator',
   campaignPhoto = 'campaignPhoto',
   invoice = 'invoice',
+  gallery = 'gallery',
   document = 'document',
   profilePhoto = 'profilePhoto',
   campaignListPhoto = 'campaignListPhoto',
   beneficiaryPhoto = 'beneficiaryPhoto',
   organizerPhoto = 'organizerPhoto',
+}
+
+export type ImageSlider = {
+  id: string
+  src: string
+  fileName: string
+}
+
+export enum CampaignNewsFileRole {
+  invoice = 'invoice',
+  gallery = 'gallery',
+  document = 'document',
 }
 
 export type FileRole = {
@@ -17,6 +30,12 @@ export type FileRole = {
 
 export type UploadCampaignFiles = {
   campaignId: string
+  files: File[]
+  roles: FileRole[]
+}
+
+export type UploadCampaignNewsFiles = {
+  articleId: string
   files: File[]
   roles: FileRole[]
 }

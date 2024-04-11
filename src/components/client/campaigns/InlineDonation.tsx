@@ -1,11 +1,20 @@
 import { useState } from 'react'
 
-import { useTranslation } from 'next-i18next'
+import { i18n, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Button, CircularProgress, Grid, IconButton, Menu, Typography } from '@mui/material'
+import {
+  Button,
+  Chip,
+  CircularProgress,
+  FormControl,
+  Grid,
+  IconButton,
+  Menu,
+  Typography,
+} from '@mui/material'
 import { AddLinkOutlined, Favorite } from '@mui/icons-material'
 import { lighten } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
@@ -13,29 +22,37 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 import { baseUrl, routes } from 'common/routes'
 import { moneyPublic } from 'common/util/money'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
+
 import theme from 'common/theme'
 import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
 import useMobile from 'common/hooks/useMobile'
 import LinkButton from '../../common/LinkButton'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
+import DonationWishesInline from './DonationWishesInline'
+
 import CustomListItem from 'components/common/navigation/CustomListItem'
 import { socialMedia } from './helpers/socialMedia'
 import { CampaignState } from './helpers/campaign.enums'
 import { AlertStore } from 'stores/AlertStore'
+import { useDonationWishesList } from 'common/hooks/donationWish'
 
 const PREFIX = 'InlineDonation'
 
 const classes = {
   inlineDonationWrapper: `${PREFIX}-inlineDonationWrapper`,
   reachedAndTargetMoneyWrapper: `${PREFIX}-reachedAndTargetMoneyWrapper`,
-  reachedAndTargetMoney: `${PREFIX}-reachedAndTargetMoney`,
-  donorsSharesCount: `${PREFIX}-donorsSharesCount`,
+  moneyUnit: `${PREFIX}-moneyUnit`,
+  moneyFraction: `${PREFIX}-moneyFraction`,
+  donorsWishesTabs: `${PREFIX}-donorsWishesTabs`,
+  donorsWishesTab: `${PREFIX}-donorsWishesTab`,
+  selected: `${PREFIX}-selected`,
   donationPriceList: `${PREFIX}-donationPriceList`,
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
@@ -71,19 +88,45 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.reachedAndTargetMoneyWrapper}`]: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: theme.spacing(0, 1.75),
   },
 
-  [`& .${classes.reachedAndTargetMoney}`]: {
+  [`& .${classes.moneyUnit}`]: {
     fontSize: theme.typography.pxToRem(16),
     color: theme.palette.common.black,
+    fontWeight: 500,
   },
 
-  [`& .${classes.donorsSharesCount}`]: {
-    textTransform: 'capitalize',
-    margin: theme.spacing(1.7, 0),
-    fontSize: theme.typography.pxToRem(14),
+  [`& .${classes.moneyFraction}`]: {
+    display: 'inline-flex',
+    fontSize: theme.typography.pxToRem(11),
     color: theme.palette.common.black,
+    verticalAlign: 'top',
+    margin: theme.spacing(0.25, 0, 0, 0.25),
+  },
+
+  [`& .${classes.donorsWishesTabs}`]: {
+    display: 'rowflex',
+    flexDirection: 'row',
+    width: '100%',
+    border: '1px solid grey',
+    borderRadius: '60px',
+    margin: theme.spacing(1.7, 0),
+  },
+
+  [`& .${classes.donorsWishesTab}`]: {
+    textTransform: 'capitalize',
+    display: 'flex',
+    justifyContent: 'center',
+    width: '50%',
+    fontSize: theme.typography.pxToRem(13),
+    backgroundColor: 'transparant',
+    paddingBottom: theme.spacing(0.2),
+    borderRadius: '60px',
+    cursor: 'pointer',
+  },
+
+  [`& .${classes.selected}`]: {
+    backgroundColor: '#b1defe',
   },
 
   [`& .${classes.donationPriceList}`]: {
@@ -160,7 +203,8 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.infoIcon}`]: {
-    marginTop: `-${theme.spacing(0.25)}`,
+    marginTop: `${theme.spacing(0.125)}`,
+    marginRight: `${theme.spacing(0.25)}`,
     fontSize: theme.typography.pxToRem(16),
     color: '#6d6d6d',
   },
@@ -207,29 +251,28 @@ type Props = {
 export default function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation('campaigns')
   const { asPath } = useRouter()
-  const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
+  const [status, copyUrl] = useCopyToClipboard(1000)
   const active = status === 'copied' ? 'inherit' : 'primary'
   const [page, setPage] = useState<number>(0)
-  const pageSize = 5
-
+  const { mobile } = useMobile()
+  const pageSize = mobile ? 3 : 5
   const {
     id: campaignId,
     targetAmount: target,
     summary,
-    currency,
     allowDonationOnComplete,
     state: campaignState,
     slug: campaignSlug,
   } = campaign
-
-  const reached = summary?.reachedAmount ?? 0
+  const reached = summary ? summary.reachedAmount + (summary.guaranteedAmount ?? 0) : 0
+  const reachedAmount = moneyPublic(reached)
+  const targetAmount = moneyPublic(campaign.targetAmount)
   const donors = summary?.donors ?? 0
   const {
     data: { items: donations, total: all_rows } = { items: [] },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
   } = useCampaignDonationHistory(campaignId, page, pageSize)
-  const { mobile } = useMobile()
   const [isOpen, setIsOpen] = useState(false)
   const rowCount = page * pageSize + donations.length
   const detailsShown = isOpen || !mobile
@@ -238,36 +281,103 @@ export default function InlineDonation({ campaign }: Props) {
 
   const handleClose = () => setAnchorEl(null)
 
+  const [selected, setSelected] = useState('donors')
+
+  const donorsDisplay = (
+    <>
+      <DonorsAndDonations donations={donations} />
+      {donations && donations.length !== 0 ? (
+        <Grid container className={classes.pagination}>
+          <Typography m={1}>{`${page * pageSize + 1}-${rowCount}  ${t(
+            'campaigns:of',
+          )}  ${all_rows}`}</Typography>
+          <IconButton
+            aria-label="back"
+            disabled={page == 0}
+            onClick={() => setPage((index) => index - 1)}>
+            <ArrowBackIosIcon fontSize="small" />
+          </IconButton>
+          <IconButton
+            aria-label="next"
+            disabled={rowCount == all_rows}
+            onClick={() => setPage((index) => index + 1)}>
+            <ArrowForwardIosIcon fontSize="small" />
+          </IconButton>
+        </Grid>
+      ) : null}
+    </>
+  )
+
+  const { data: wishList } = useDonationWishesList(
+    campaignId,
+    { pageIndex: 0, pageSize },
+    { sortBy: 'createdAt', sortOrder: 'desc' },
+    '',
+  )
+
+  const wishesDisplay = (
+    <>
+      {wishList && <DonationWishesInline wishList={wishList} />}
+      {wishList?.totalCount !== 0 && (
+        <Chip
+          label={t('campaigns:cta.see-all')}
+          deleteIcon={<ArrowForwardIcon />}
+          onDelete={() => {
+            return
+          }}
+          component="a"
+          href="#wishes"
+          clickable
+          size="medium"
+          sx={{
+            border: `2px solid ${theme.palette.primary.dark}`,
+            color: theme.palette.primary.dark,
+            backgroundColor: '#EEEEEE',
+            marginTop: theme.spacing(1.7),
+            padding: '0 4px',
+            '.MuiChip-label': {
+              paddingRight: theme.spacing(1.7),
+            },
+            '.MuiChip-deleteIcon': {
+              color: theme.palette.primary.dark,
+              ':hover': {
+                color: theme.palette.primary.dark,
+              },
+              fontSize: 'large',
+            },
+          }}
+        />
+      )}
+    </>
+  )
+
   return (
     <StyledGrid item xs={12} p={3} className={classes.inlineDonationWrapper}>
-      {/* //TODO */}
-      {/* <Grid className={classes.campaignInfoWrapper}>
-         <Grid>
-          <Typography className={classes.campaignInfoKey}>{t('campaign.documents')}:</Typography>
-          <Typography className={classes.campaignInfoKey}>{t('campaign.guarantor')}:</Typography>
-          <Typography className={classes.campaignInfoKey}>{t('campaign.others')}:</Typography>
+      <Grid className={classes.reachedAndTargetMoneyWrapper}>
+        <Grid>
+          <Typography component="span" className={classes.moneyUnit}>
+            {i18n?.language === 'bg' ? reachedAmount.split(',')[0] : reachedAmount.split('.')[0]}
+          </Typography>
+          <Typography component="span" className={classes.moneyFraction}>
+            {i18n?.language === 'bg'
+              ? reachedAmount.split(',')[1].substring(0, 2)
+              : reachedAmount.split('.')[1]}
+          </Typography>
+          {i18n?.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
         </Grid>
         <Grid>
-          <ExternalLink href={''}>
-            <Typography className={classes.campaignInfoValue}>documents</Typography>
-          </ExternalLink>
-          <ExternalLink href={''}>
-            <Typography className={classes.campaignInfoValue}>guarant</Typography>
-          </ExternalLink>
-          <ExternalLink href={''}>
-            <Typography className={classes.campaignInfoValue}>others</Typography>
-          </ExternalLink>
+          <Typography component="span" className={classes.moneyUnit}>
+            {i18n?.language === 'bg' ? targetAmount.split(',')[0] : targetAmount.split('.')[0]}
+          </Typography>
+          <Typography component="span" className={classes.moneyFraction}>
+            {i18n?.language === 'bg'
+              ? targetAmount.split(',')[1].substring(0, 2)
+              : targetAmount.split('.')[1]}
+          </Typography>
+          {i18n?.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
         </Grid>
-      </Grid> */}
-      <Grid className={classes.reachedAndTargetMoneyWrapper}>
-        <Typography component="span" className={classes.reachedAndTargetMoney}>
-          {moneyPublic(reached, currency)}
-        </Typography>
-        <Typography component="span" className={classes.reachedAndTargetMoney}>
-          {moneyPublic(target, currency)}
-        </Typography>
       </Grid>
-      <Grid>
+      <Grid pt={1}>
         <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
       </Grid>
       <Grid container gap={2} className={classes.buttonContainer}>
@@ -297,7 +407,7 @@ export default function InlineDonation({ campaign }: Props) {
             label="Копирайте връзка към кампанията"
             onClick={() => {
               AlertStore.show(t('common:alerts.message-copy'), 'success')
-              copyUrl()
+              copyUrl(baseUrl + asPath)
             }}
             color={active}
           />
@@ -325,29 +435,28 @@ export default function InlineDonation({ campaign }: Props) {
               <InfoOutlinedIcon className={classes.infoIcon} />
               <Typography>{t('campaign.noCommissionInfo')}</Typography>
             </Grid>
-            <Typography className={classes.donorsSharesCount}>
-              {t('campaign.donors')}: {donors}
-            </Typography>
-            <DonorsAndDonations donations={donations} />
-            {donations && donations.length !== 0 ? (
-              <Grid container className={classes.pagination}>
-                <Typography m={1}>{`${page * pageSize + 1}-${rowCount}  ${t(
-                  'campaigns:of',
-                )}  ${all_rows}`}</Typography>
-                <IconButton
-                  aria-label="back"
-                  disabled={page == 0}
-                  onClick={() => setPage((index) => index - 1)}>
-                  <ArrowBackIosIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  aria-label="next"
-                  disabled={rowCount == all_rows}
-                  onClick={() => setPage((index) => index + 1)}>
-                  <ArrowForwardIosIcon fontSize="small" />
-                </IconButton>
-              </Grid>
-            ) : null}
+            <FormControl className={classes.donorsWishesTabs}>
+              <Typography
+                className={[
+                  classes.donorsWishesTab,
+                  selected === 'donors' && classes.selected,
+                ].join(' ')}
+                data-testid="summary-donors"
+                onClick={() => setSelected('donors')}>{`${t(
+                'campaign.donors',
+              )} (${donors})`}</Typography>
+              <Typography
+                className={[
+                  classes.donorsWishesTab,
+                  selected === 'wishes' && classes.selected,
+                ].join(' ')}
+                data-testid="summary-wishes"
+                onClick={() => setSelected('wishes')}>{`${t('campaign.wishes')} (${
+                wishList?.totalCount
+              })`}</Typography>
+            </FormControl>
+
+            {selected === 'donors' ? donorsDisplay : wishesDisplay}
           </>
         ))}
       {mobile && (

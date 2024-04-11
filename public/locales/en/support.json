@@ -7,24 +7,19 @@
       "first-subtitle": "Join the organization as:",
       "fields": {
         "benefactor": {
-          "title": "Benefactor",
-          "description": "Benefactor..."
+          "title": "Benefactor"
         },
         "partner": {
-          "title": "Partner",
-          "description": "Partner..."
+          "title": "Partner"
         },
         "volunteer": {
-          "title": "Volunteer",
-          "description": "Volunteer..."
+          "title": "Volunteer"
         },
         "associationMember": {
-          "title": "Association member",
-          "description": "Association member..."
+          "title": "Association member"
         },
         "company": {
-          "title": "Company",
-          "description": "Company..."
+          "title": "Company"
         }
       }
     },
@@ -45,7 +40,6 @@
       },
       "volunteer": {
         "title": "Volunteer",
-        "label": "Please choose area",
         "marketing": "Marketing",
         "backend": "Backend",
         "frontend": "Frontend",
@@ -91,7 +85,8 @@
     },
     "thank-you": {
       "title": "Thank you",
-      "content": "Thanks for joining the supporters!"
+      "content": "Thanks for joining the supporters!",
+      "await-instructions": "Expect to be contacted by a Podkrepi.bg representative at the specified email address."
     }
   },
   "cta": {

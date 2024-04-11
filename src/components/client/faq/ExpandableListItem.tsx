@@ -9,7 +9,8 @@ type Props = {
   content: JSX.Element
 }
 
-const withAccentColor = (open: boolean) => (open ? theme.palette.primary.main : 'black')
+const withAccentColor = (open: boolean) =>
+  open ? theme.palette.primary.main : theme.palette.common.black
 
 const ExpandableListItem = ({ header, content }: Props) => {
   const [open, setOpen] = useState(false)

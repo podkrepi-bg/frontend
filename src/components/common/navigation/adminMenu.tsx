@@ -12,6 +12,8 @@ import {
   MoveUp,
   VolunteerActivism,
   DisplaySettings,
+  RequestQuote,
+  ArticleOutlined,
 } from '@mui/icons-material'
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
@@ -20,10 +22,12 @@ import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred'
 
 import { routes } from 'common/routes'
 import BeneficiaryIcon from 'common/icons/Beneficiary'
+import HandshakeIcon from '@mui/icons-material/Handshake'
+import PaymentsIcon from '@mui/icons-material/Payments'
 
 export const menuPeople = [
   { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
-  { label: 'Бенефактори', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
+  { label: 'Дарители', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
   { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
   { label: 'Потребители', icon: Group, href: routes.admin.person.index },
@@ -33,17 +37,19 @@ export const menuPeople = [
 ]
 export const menuCampaings = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
+  { label: 'Новини', icon: ArticleOutlined, href: routes.admin.news.index },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
   { label: 'Злоупотреби', icon: ReportGmailerrorredIcon, href: routes.admin.irregularity.index },
 ]
 
 export const menuPayments = [
+  { label: 'Плащания', icon: PaymentsIcon, href: routes.admin.payments.index },
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
-  { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
+  { label: 'Подсметки', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
   { label: 'Преводи', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
-  { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
+  { label: 'Финансови отчети', icon: Paid, href: routes.admin.expenses.index },
   {
     label: 'Повтарящи се дарения',
     icon: VolunteerActivism,
@@ -66,15 +72,18 @@ export const items = [
 
 export const adminCards = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
+  { label: 'Новини', icon: ArticleOutlined, href: routes.admin.news.index },
+  { label: 'Плащания', icon: PaymentsIcon, href: routes.admin.payments.index },
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
   { label: 'Организатори', icon: Group, href: routes.admin.organizers.index },
   { label: 'ЮЛНЦ', icon: Group, href: routes.admin.company.create },
   { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
+  { label: 'Банкови транзакции', icon: RequestQuote, href: routes.admin.bankTransactions.index },
   { label: 'Преводи', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
-  { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
-  { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
+  { label: 'Финансови отчети', icon: Paid, href: routes.admin.expenses.index },
+  { label: 'Подсметки', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
   {
     label: 'Повтарящо се дарение',
@@ -85,10 +94,15 @@ export const adminCards = [
   { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
   { label: 'Потребители', icon: Group, href: routes.admin.person.index },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
-  { label: 'Бенефактори', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
+  { label: 'Дарители', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
   { label: 'Типове кампании', icon: Class, href: routes.admin.campaignTypes.index },
   { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
 
   { label: 'Злоупотреби', icon: ReportGmailerrorredIcon, href: routes.admin.irregularity.index },
+  {
+    label: 'Партньорска програма',
+    icon: HandshakeIcon,
+    href: routes.admin.affiliates,
+  },
 ]

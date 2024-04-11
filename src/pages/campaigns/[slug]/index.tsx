@@ -7,22 +7,25 @@ import { endpoints } from 'service/apiEndpoints'
 import { CampaignResponse } from 'gql/campaigns'
 import { queryFnFactory } from 'service/restRequests'
 
-export const getServerSideProps: GetServerSideProps = async ({ query, locale }) => {
-  const { slug } = query
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { slug } = context.query
   const client = new QueryClient()
   await client.prefetchQuery<CampaignResponse>(
     [endpoints.campaign.viewCampaign(slug as string).url],
     queryFnFactory<CampaignResponse>(),
   )
+
   return {
     props: {
       slug,
-      ...(await serverSideTranslations(locale ?? 'bg', [
+      ...(await serverSideTranslations(context.locale ?? 'bg', [
         'common',
         'auth',
         'validation',
         'campaigns',
         'irregularity',
+        'expenses',
+        'news',
       ])),
       dehydratedState: dehydrate(client),
     },

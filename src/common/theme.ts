@@ -7,16 +7,18 @@ import {
   ThemeOptions,
 } from '@mui/material/styles'
 
-import { Montserrat } from '@next/font/google'
+import { Commissioner } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
+
+export const commissioner = Commissioner({
+  subsets: ['latin', 'cyrillic'],
+})
 
 export const montserrat = Montserrat({
   display: 'auto',
   subsets: ['latin', 'cyrillic'],
 })
 
-// Instead of exporting `colors` variable use theme:
-// import theme from 'common/theme'
-// <meta name="theme-color" content={theme.palette.primary.main} />
 const colors = {
   blue: {
     light: '#4AC3FF',
@@ -42,6 +44,7 @@ const borders = {
   light: colors.blue.main,
   round: '60px',
   semiRound: '20px',
+  input: 'rgba(0, 0, 0, 0.23)',
 }
 
 export const themeOptions: ThemeOptions = {
@@ -184,8 +187,16 @@ export const themeOptions: ThemeOptions = {
   },
 
   typography: {
-    fontFamily: montserrat.style.fontFamily,
-    h3: { color: colors.blue.dark },
+    fontFamily: commissioner.style.fontFamily,
+
+    h1: { fontFamily: montserrat.style.fontFamily },
+    h2: { fontFamily: montserrat.style.fontFamily },
+    h3: {
+      color: colors.blue.dark,
+      fontFamily: montserrat.style.fontFamily,
+    },
+    h4: { fontFamily: montserrat.style.fontFamily },
+    h5: { fontFamily: montserrat.style.fontFamily },
 
     body1: {
       fontSize: '0.875rem',
@@ -195,7 +206,7 @@ export const themeOptions: ThemeOptions = {
     button: { textTransform: 'initial' },
   },
 }
-// https://material-ui.com/customization/default-theme/#default-theme
+
 const theme: Theme = createTheme(themeOptions)
 const materialTheme = responsiveFontSizes(theme)
 const podkrepiTheme = {

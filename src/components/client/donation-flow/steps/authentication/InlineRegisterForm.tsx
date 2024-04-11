@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { Button, CircularProgress, Grid } from '@mui/material'
+import React, { useContext, useState } from 'react'
 import { useFormikContext } from 'formik'
 import * as yup from 'yup'
+import { Button, CircularProgress, FormHelperText, Grid, Typography } from '@mui/material'
 import { signIn } from 'next-auth/react'
 import { useTranslation } from 'react-i18next'
 
@@ -11,13 +11,14 @@ import { AlertStore } from 'stores/AlertStore'
 import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
-import { RegisterFormData } from 'components/client/auth/register/RegisterForm'
+
 import {
   DonationFormAuthState,
   DonationFormData,
 } from 'components/client/donation-flow/helpers/types'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import { AccountType, IndividualRegisterFormData } from 'gql/user-registration'
 
 export const initialRegisterFormValues = {
   registerEmail: '',
@@ -66,7 +67,8 @@ export default function InlineRegisterForm() {
   const { mutateAsync: register } = useRegister()
   const formik = useFormikContext<DonationFormData>()
 
-  const values: RegisterFormData = {
+  const values: IndividualRegisterFormData = {
+    type: AccountType.INDIVIDUAL,
     firstName: formik.values.registerFirstName as string,
     lastName: formik.values.registerLastName as string,
     email: formik.values.registerEmail as string,
@@ -79,9 +81,17 @@ export default function InlineRegisterForm() {
   const onClick = async () => {
     try {
       setLoading(true)
-
       // Register in Keycloak
-      await register(values)
+
+      if (values.terms && values.gdpr && values.password === values.confirmPassword) {
+        await register(values)
+      } else if (!values.terms) {
+        throw new Error('Terms not accepted')
+      } else if (!values.gdpr) {
+        throw new Error('GDPR not accepted')
+      } else {
+        throw new Error('Confirm password doesn`t match')
+      }
 
       // Authenticate
       const resp = await signIn<'credentials'>('credentials', {
@@ -89,6 +99,7 @@ export default function InlineRegisterForm() {
         password: values.password,
         redirect: false,
       })
+
       if (resp?.error) {
         throw new Error(resp.error)
       }
@@ -100,7 +111,7 @@ export default function InlineRegisterForm() {
     } catch (error) {
       console.error(error)
       setLoading(false)
-      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
+      AlertStore.show(t('auth:alerts.register-error'), 'error')
     }
   }
 
@@ -135,6 +146,24 @@ export default function InlineRegisterForm() {
             label="auth:account.confirm-password"
             autoComplete="new-password"
           />
+          {formik.values.registerPassword !== formik.values.registerConfirmPassword &&
+            formik.touched.registerConfirmPassword && (
+              <FormHelperText sx={{ color: 'red' }}>
+                {t('validation:password-match')}
+              </FormHelperText>
+            )}
+        </Grid>
+        <Grid item xs={12}>
+          <AcceptTermsField name="terms" />
+          {!formik.values.registerTerms && formik.touched.registerTerms && (
+            <FormHelperText sx={{ color: 'red' }}>{t('validation:terms-of-use')}</FormHelperText>
+          )}
+          <AcceptPrivacyPolicyField name="gdpr" />
+          {!formik.values.registerGdpr && formik.touched.registerGdpr && (
+            <FormHelperText sx={{ color: 'red' }}>
+              {t('validation:terms-of-service')}
+            </FormHelperText>
+          )}
         </Grid>
         <Grid item xs={12}>
           <AcceptTermsField name="registerTerms" />

@@ -2,7 +2,7 @@ import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/
 import { TranslatableField, translateError } from 'common/form/validation'
 import { useCampaignTypesList } from 'common/hooks/campaigns'
 import { useField } from 'formik'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
   const { t } = useTranslation()

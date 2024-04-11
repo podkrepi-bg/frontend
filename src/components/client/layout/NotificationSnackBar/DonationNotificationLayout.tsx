@@ -2,6 +2,7 @@ import { Avatar, Box, Typography } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import { dateToTime } from 'common/util/date'
 import { money } from 'common/util/money'
+import { useTranslation } from 'next-i18next'
 
 export type NotificationLayoutData = {
   createdAt: string
@@ -20,6 +21,7 @@ export default function DonationNotificationLayout({
   data: NotificationLayoutData | undefined
 }) {
   const { person, createdAt, currency, amount } = data || {}
+  const { i18n } = useTranslation()
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', maxHeight: '50px' }}>
@@ -30,6 +32,7 @@ export default function DonationNotificationLayout({
         </Typography>
         <Typography color={grey[600]}>{`${money(amount as number, currency)}  |  ${dateToTime(
           createdAt,
+          i18n?.language,
         )}`}</Typography>
       </Box>
     </Box>

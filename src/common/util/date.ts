@@ -76,13 +76,13 @@ export const getExactDate = (value: Date | string | number | undefined, locale?:
   return format(date, formatDate, { locale })
 }
 
-export const dateToTime = (dateString: string | undefined) => {
+export const dateToTime = (dateString: string | Date | undefined, locale: string) => {
   if (!dateString) {
     return
   }
 
   const date = new Date(dateString)
-  const localTime = date.toLocaleTimeString()
+  const localTime = date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })
 
   return localTime
 }

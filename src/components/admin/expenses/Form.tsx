@@ -84,11 +84,13 @@ export default function Form() {
     status: data?.status || ExpenseStatus.pending,
     currency: data?.currency || Currency.BGN,
     amount: data?.amount || 0,
+    money: 0,
     vaultId: data?.vaultId || '',
     deleted: data?.deleted || false,
     description: data?.description || '',
     documentId: data?.documentId || '',
     approvedById: data?.approvedById || '',
+    spentAt: '',
   }
 
   const mutationFn = id ? useEditExpense(id) : useCreateExpense()

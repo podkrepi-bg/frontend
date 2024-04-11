@@ -1,28 +1,79 @@
 import { useSession } from 'next-auth/react'
-import { QueryClient, useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'next-i18next'
+import { AxiosError, AxiosResponse } from 'axios'
+import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
 
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
-import { DonationPrice, DonationResponse, UserDonationResult } from 'gql/donations'
+import {
+  CheckoutSessionInput,
+  CheckoutSessionResponse,
+  DonationResponse,
+  DonorsCountResult,
+  PaymentAdminResponse,
+  TPaymentResponse,
+  TotalDonatedMoneyResponse,
+  UserDonationResult,
+} from 'gql/donations'
+import { createCheckoutSession } from 'service/donation'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 import { FilterData, PaginationData } from 'gql/types'
 
-export function usePriceList() {
-  return useQuery<DonationPrice[]>([endpoints.donation.prices.url])
-}
-export function useSinglePriceList() {
-  return useQuery<DonationPrice[]>([endpoints.donation.singlePrices.url])
+export function useDonationSession() {
+  const { t } = useTranslation()
+  const mutation = useMutation<
+    AxiosResponse<CheckoutSessionResponse>,
+    AxiosError<ApiErrors>,
+    CheckoutSessionInput
+  >({
+    mutationFn: createCheckoutSession,
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+    retry(failureCount) {
+      if (failureCount < 4) {
+        return true
+      }
+      return false
+    },
+    retryDelay: 1000,
+  })
+  return mutation
 }
 
 export function useDonationsList(
-  id?: string,
+  paymentId?: string,
+  campaignId?: string,
   paginationData?: PaginationData,
   filterData?: FilterData,
   searchData?: string,
 ) {
   const { data: session } = useSession()
   return useQuery<CampaignDonationHistoryResponse>(
-    [endpoints.donation.donationsList(id, paginationData, filterData, searchData).url],
+    [
+      endpoints.donation.donationsList(
+        paymentId,
+        campaignId,
+        paginationData,
+        filterData,
+        searchData,
+      ).url,
+    ],
+    {
+      queryFn: authQueryFnFactory(session?.accessToken),
+    },
+  )
+}
+
+export function usePaymentsList(
+  paymentId?: string,
+  campaignId?: string,
+  paginationData?: PaginationData,
+  filterData?: FilterData,
+  searchData?: string,
+) {
+  const { data: session } = useSession()
+  return useQuery<PaymentAdminResponse>(
+    [endpoints.payments.list(paymentId, campaignId, paginationData, filterData, searchData).url],
     {
       queryFn: authQueryFnFactory(session?.accessToken),
     },
@@ -37,8 +88,11 @@ export async function prefetchDonationsList(client: QueryClient) {
   await client.prefetchQuery<DonationResponse[]>([endpoints.donation.donationsList().url])
 }
 
-export function useDonation(id: string) {
-  return useQuery<DonationResponse>([endpoints.donation.getDonation(id).url])
+export function useGetPayment(id: string) {
+  const { data: session } = useSession()
+  return useQuery<TPaymentResponse>([endpoints.payments.getPayment(id).url], {
+    queryFn: authQueryFnFactory(session?.accessToken),
+  })
 }
 
 export async function prefetchDonationById(client: QueryClient, id: string) {
@@ -49,4 +103,12 @@ export function useUserDonations() {
   return useQuery<UserDonationResult>([endpoints.donation.userDonations.url], {
     queryFn: authQueryFnFactory(session?.accessToken),
   })
+}
+
+export function getTotalDonatedMoney() {
+  return useQuery<TotalDonatedMoneyResponse>([endpoints.donation.getTotalDonatedMoney.url])
+}
+
+export function useDonatedUsersCount() {
+  return useQuery<DonorsCountResult>([endpoints.donation.getDonorsCount.url])
 }

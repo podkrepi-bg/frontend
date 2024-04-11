@@ -1,14 +1,7 @@
 import * as yup from 'yup'
 import { Grid } from '@mui/material'
-import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import { signIn } from 'next-auth/react'
-import { useTranslation } from 'next-i18next'
-
-import { routes } from 'common/routes'
+import React from 'react'
 import { email, password, name, confirmPassword } from 'common/form/validation'
-import { useRegister } from 'service/auth'
-import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
@@ -16,21 +9,17 @@ import PasswordField from 'components/common/form/PasswordField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import EmailField from 'components/common/form/EmailField'
+import { AcceptNewsLetterField } from 'components/common/form/AcceptNewsletterField'
 
-export type RegisterFormData = {
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  confirmPassword: string
-  terms: boolean
-  gdpr: boolean
-}
+import { AccountType } from 'gql/user-registration'
+import { IndividualRegisterFormData } from 'gql/user-registration'
+import HelpUsImproveField from 'components/common/form/HelpUsImproveField'
 
-const validationSchema: yup.SchemaOf<RegisterFormData> = yup
+const validationSchema: yup.SchemaOf<IndividualRegisterFormData> = yup
   .object()
   .defined()
   .shape({
+    type: yup.mixed<AccountType>().required().oneOf(Object.values(AccountType)),
     firstName: name.required(),
     lastName: name.required(),
     email: email.required(),
@@ -38,60 +27,28 @@ const validationSchema: yup.SchemaOf<RegisterFormData> = yup
     confirmPassword: confirmPassword.required('validation:password-match'),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
+    newsletter: yup.bool().required().oneOf([true, false]),
+    helpUsImprove: yup.bool().required().oneOf([true, false]),
   })
 
-const defaults: RegisterFormData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  terms: false,
-  gdpr: false,
+export type RegisterFormProps = {
+  onSubmit: (values: IndividualRegisterFormData) => Promise<void>
+  loading: boolean
 }
-export type RegisterFormProps = { initialValues?: RegisterFormData }
 
-export default function RegisterForm({ initialValues = defaults }: RegisterFormProps) {
-  const router = useRouter()
-  const { t } = useTranslation()
-  const [loading, setLoading] = useState(false)
-  const { mutateAsync: register } = useRegister()
-  const onSubmit = async (values: RegisterFormData) => {
-    try {
-      setLoading(true)
-      values.firstName = values.firstName.trim()
-      values.lastName = values.lastName.trim()
-      values.email = values.email.trim()
-
-      // Register in Keycloak
-      const registerResponse = await register(values)
-
-      if (registerResponse.data.data?.errorMessage) {
-        AlertStore.show(t('auth:alerts.duplicate-email'), 'error')
-        return
-      }
-
-      // Authenticate
-      const resp = await signIn<'credentials'>('credentials', {
-        email: values.email,
-        password: values.password,
-        redirect: false,
-      })
-      if (resp?.error) {
-        throw new Error(resp.error)
-      }
-      if (resp?.ok) {
-        AlertStore.show(t('auth:alerts.welcome'), 'success')
-        await router.push(routes.profile.index)
-      }
-    } catch (error) {
-      console.error(error)
-      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
-    } finally {
-      setLoading(false)
-    }
+export default function RegisterForm({ onSubmit, loading }: RegisterFormProps) {
+  const initialValues: IndividualRegisterFormData = {
+    type: AccountType.INDIVIDUAL,
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    terms: false,
+    gdpr: false,
+    newsletter: false,
+    helpUsImprove: false,
   }
-
   return (
     <GenericForm
       onSubmit={onSubmit}
@@ -130,6 +87,8 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
         <Grid item xs={12}>
           <AcceptTermsField name="terms" />
           <AcceptPrivacyPolicyField name="gdpr" />
+          <AcceptNewsLetterField name="newsletter" />
+          <HelpUsImproveField name="helpUsImprove" />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.register" loading={loading} />

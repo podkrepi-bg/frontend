@@ -11,6 +11,7 @@ export type VaultResponse = {
   campaign: Campaign
   createdAt: Date
   updatedAt: Date | null
+  withDrawnAmount: number
 }
 
 export type VaultInput = {

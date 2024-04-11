@@ -10,13 +10,13 @@ jobs:
     name: Run Playwright
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           path: './frontend'
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: podkrepi-bg/api
           ref: master
@@ -29,7 +29,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -49,7 +49,7 @@ jobs:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
         run: docker compose up -d stripe-webhook
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -114,21 +114,21 @@ jobs:
         working-directory: ./frontend
         run: yarn run test:e2e
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
           path: ./frontend/e2e/test-results/
           retention-days: 14
           
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
           path: ./frontend/e2e/e2e-reports/
           retention-days: 14
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: logs

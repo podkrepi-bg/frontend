@@ -19,10 +19,6 @@ const classes = {
 }
 
 const Root = styled(Layout)(({ theme }) => ({
-  [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(12),
-  },
-
   [theme.breakpoints.up(2000)]: {
     maxWidth: theme.spacing(165),
     paddingTop: theme.spacing(4),
@@ -34,7 +30,7 @@ const Root = styled(Layout)(({ theme }) => ({
     fontWeight: '500',
     color: '#2196F3',
     fontStyle: 'normal',
-    fontSize: '45px',
+    fontSize: theme.typography.pxToRem(45),
     lineHeight: '45px',
     alignItems: 'center',
     textAlign: 'center',
@@ -46,7 +42,7 @@ const Root = styled(Layout)(({ theme }) => ({
     marginTop: theme.spacing(3),
     fontStyle: 'normal',
     fontWeight: '400',
-    fontSize: '16px',
+    fontSize: theme.typography.pxToRem(16),
     lineHeight: '175 %',
     textAlign: 'center',
     letterSpacing: '0.15px',
@@ -56,7 +52,7 @@ const Root = styled(Layout)(({ theme }) => ({
     marginBottom: theme.spacing(3),
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '25px',
+    fontSize: theme.typography.pxToRem(25),
     lineHeight: '120%',
     textAlign: 'center',
     color: '#2196F3',
@@ -70,7 +66,7 @@ const Root = styled(Layout)(({ theme }) => ({
   },
 
   [`& .${classes.arrowIcon}`]: {
-    fontSize: theme.spacing(8),
+    fontSize: theme.typography.pxToRem(48),
   },
 }))
 
@@ -80,10 +76,10 @@ export default function CampaignsPage() {
   return (
     <Root maxWidth={false}>
       <Grid>
-        <Typography variant="h1" component="p" className={classes.title}>
+        <Typography variant="h1" component="h1" className={classes.title}>
           {t('campaigns:campaigns')}
         </Typography>
-        <Typography variant="h6" component="p" className={classes.support}>
+        <Typography variant="h6" component="h2" className={classes.support}>
           {t('campaigns:cta.support-cause-today')}
         </Typography>
         <CampaignFilter />

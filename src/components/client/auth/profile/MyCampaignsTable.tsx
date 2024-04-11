@@ -1,11 +1,12 @@
 import { useTranslation } from 'next-i18next'
 import { useState, useMemo } from 'react'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { Tooltip, Button, Box, Typography } from '@mui/material'
 
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
 import { money } from 'common/util/money'
 import { useGetUserCampaigns } from 'common/hooks/campaigns'
+import theme from 'common/theme'
 import Link from 'components/common/Link'
 import GridActions from 'components/admin/campaigns/grid/GridActions'
 import {
@@ -42,7 +43,7 @@ export default function MyCampaingsTable() {
     width: 100,
     headerAlign: 'left',
   }
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       headerName: t('campaigns:actions'),
@@ -178,7 +179,7 @@ export default function MyCampaingsTable() {
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.startDate)}>
           <Button color="inherit">
-            {getRelativeDate(cellValues.row.startDate, i18n.language)}
+            {getRelativeDate(cellValues.row.startDate, i18n?.language)}
           </Button>
         </Tooltip>
       ),
@@ -191,7 +192,7 @@ export default function MyCampaingsTable() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.endDate)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, i18n.language)}</Button>
+          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, i18n?.language)}</Button>
         </Tooltip>
       ),
     },
@@ -204,7 +205,7 @@ export default function MyCampaingsTable() {
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.createdAt)}>
           <Button color="inherit">
-            {getRelativeDate(cellValues.row.createdAt, i18n.language)}
+            {getRelativeDate(cellValues.row.createdAt, i18n?.language)}
           </Button>
         </Tooltip>
       ),
@@ -218,7 +219,7 @@ export default function MyCampaingsTable() {
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.updatedAt)}>
           <Button color="inherit">
-            {getRelativeDate(cellValues.row.updatedAt, i18n.language)}
+            {getRelativeDate(cellValues.row.updatedAt, i18n?.language)}
           </Button>
         </Tooltip>
       ),
@@ -241,7 +242,7 @@ export default function MyCampaingsTable() {
           <ProfileTab name={ProfileTabs.myCampaigns}>
             <DataGrid
               style={{
-                background: 'white',
+                background: theme.palette.common.white,
                 border: 'none',
                 width: 'calc(100% - 48px)',
                 left: '24px',
@@ -251,10 +252,9 @@ export default function MyCampaingsTable() {
               }}
               rows={campaigns || []}
               columns={columns}
-              pageSize={5}
+              initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
               editMode="row"
               autoHeight
-              autoPageSize
             />
           </ProfileTab>
         </>

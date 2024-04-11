@@ -41,7 +41,7 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.errorText}`]: {
     color: theme.palette.error.main,
     fontWeight: 400,
-    fontSize: '0.75rem',
+    fontSize: theme.typography.pxToRem(12),
     lineHeight: 1.66,
     letterSpacing: '0.03333em',
     textAlign: 'left',
@@ -52,7 +52,7 @@ const Root = styled('div')(({ theme }) => ({
   },
   [`& .${classes.placeholderText}`]: {
     color: 'rgba(0, 0, 0, 0.6)',
-    fontSize: '1rem',
+    fontSize: theme.typography.pxToRem(16),
     lineHeight: '1.4375em',
     letterSpacing: '0.01071em',
     fontWeight: 400,

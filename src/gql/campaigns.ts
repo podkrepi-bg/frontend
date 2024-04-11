@@ -2,10 +2,11 @@ import { UUID } from './types'
 import type { CampaignFileRole } from 'components/common/campaign-file/roles'
 import type { CampaignTypeCategory } from 'components/common/campaign-types/categories'
 import { Currency } from './currency'
-import { PaymentProvider } from './donations.enums'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 import { BeneficiaryType } from '../components/admin/beneficiary/BeneficiaryTypes'
 import { VaultResponse } from './vault'
+import { CampaignNewsResponse } from './campaign-news'
+import { TPaymentResponse } from './donations'
 
 export type CampaignType = {
   id: UUID
@@ -86,7 +87,14 @@ export type CampaignResponse = BaseCampaignResponse & {
     category: CampaignTypeCategory
     slug: string
   }
-  summary: { reachedAmount: number; donors?: number }
+  summary: {
+    reachedAmount: number
+    donors?: number
+    guaranteedAmount: number
+    withdrawnAmount: number
+    blockedAmount: number
+    currentAmount: number
+  }
   beneficiary: {
     id: UUID
     type: BeneficiaryType
@@ -102,9 +110,10 @@ export type CampaignResponse = BaseCampaignResponse & {
     id: UUID
     person: { id: UUID; firstName: string; lastName: string; email: string }
   }
-  campaignFiles?: CampaignFile[]
+  campaignFiles: CampaignFile[] | []
   vaults?: VaultResponse[]
   defaultVault?: UUID
+  campaignNews: CampaignNewsResponse[] | []
 }
 
 export type CampaignCreateFormData = {
@@ -169,24 +178,52 @@ export type CampaignUploadImage = {
 export type CampaignDonation = {
   id: UUID
   type: string
-  status: string
-  provider: PaymentProvider
+  payment: TPaymentResponse
   targetVaultId: UUID
-  extCustomerId: UUID
-  extPaymentIntentId: UUID
-  extPaymentMethodId: UUID
   createdAt: string
-  updatedAt: string | undefined
+  updatedAt: string
   amount: number
   currency: Currency
   personId: UUID
   person: {
     firstName: string
     lastName: string
+    company: {
+      companyName: string
+    }
   }
+  metadata: {
+    name: string
+  }
+}
+
+export type CampaignGroupedDonations = {
+  sum: number
+  count: number
+  date: string
+}
+
+export type CampaignUniqueDonations = {
+  amount: number
+  count: number
+}
+
+export type CampaignHourlyDonations = {
+  hour: number
+  count: number
 }
 
 export type CampaignDonationHistoryResponse = {
   items: CampaignDonation[]
   total: number
+}
+
+export type CampaignSubscribeInput = {
+  email: string
+  consent: boolean
+}
+
+export type CampaignSubscribeResponse = {
+  email: string
+  subscribed: boolean
 }

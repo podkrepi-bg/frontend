@@ -2,18 +2,45 @@
   "fields-error": {
     "amount-unavailable": "Insufficient stock in the vault!"
   },
+  "errors": {
+    "no-default-vault": "No default vault found!"
+  },
   "fields": {
     "type": "Type",
     "status": "Status",
     "amount": "Amount",
     "vault": "Vault",
+    "sourceVault": "From sub account",
+    "targetVault": "To sub account",
     "deleted": "Deleted",
     "description": "Description",
     "documentId": "Document Id",
     "approvedById": "Approved by (Id)",
     "approvedBy": "Approved by",
+    "approved": "Approved",
     "action": "Action",
-    "empty": "Empty"
+    "empty": "Empty",
+    "date": "Date",
+    "attached-files": "Attached files",
+    "files": "Files"
+  },
+  "field-types": {
+    "none": "none",
+    "internal": "Internal",
+    "operating": "Operating",
+    "administrative": "Administrative",
+    "medical": "Medical",
+    "services": "Services",
+    "groceries": "Groceries",
+    "transport": "Transport",
+    "accommodation": "Accommodation",
+    "shipping": "Shipping",
+    "utility": "Utility",
+    "rental": "Rental",
+    "legal": "Legal",
+    "bank": "Bank",
+    "advertising": "Advertising",
+    "other": "Other"
   },
   "alerts": {
     "new-row": {
@@ -33,7 +60,10 @@
       "question": "Are you sure you want to delete multiple expenses",
       "error": "Error occurred trying to delete multiple expenses.",
       "success": "Expenses were deleted successfully!!"
-    }
+    },
+    "delete": "Deleted expense",
+    "no-files-uploaded": "No files uploaded",
+    "file-too-big": "File too big"
   },
   "btns": {
     "add": "Add",
@@ -50,10 +80,15 @@
     "info": "Expense information"
   },
   "description": "All expenses",
+  "reported": "Total reported",
+  "donations": "Total donations",
+  "uploaded-files": "Uploaded files",
+  "new-files": "New files",
+  "add-documents": "Add documents",
+  "deleteTitle": "Delete expense file?",
   "tooltips": {
     "add": "Add",
-    "view": "View",
-    "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "download": "Download"
   }
 }

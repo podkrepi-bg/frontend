@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { useCountriesList } from 'common/hooks/countries'
+import theme from 'common/theme'
 import GridActions from 'components/admin/GridActions'
 
 import { ModalStore } from '../CountriesPage'
@@ -22,35 +23,24 @@ const classes = {
 const Root = styled('div')({
   [`& .${classes.gridColumn}`]: {
     '& .MuiDataGrid-columnHeaderTitle': {
-      fontSize: '14px',
+      fontSize: theme.typography.pxToRem(14),
       fontWeight: '700',
     },
   },
 })
 
 export default observer(function Grid() {
-  const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation('countries')
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
 
   const { data } = useCountriesList()
   const { isDetailsOpen } = ModalStore
 
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
-    {
-      field: 'name',
-      headerName: t('fields.name'),
-      valueGetter: (p) => p.row.name,
-      headerClassName: classes.gridColumn,
-      flex: 1,
-    },
-    {
-      field: 'countryCode',
-      headerName: t('fields.country-code'),
-      valueGetter: (p) => p.row.countryCode,
-      headerClassName: classes.gridColumn,
-      flex: 1,
-    },
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
     {
       field: 'actions',
       headerName: t('fields.action'),
@@ -67,6 +57,20 @@ export default observer(function Grid() {
       type: 'actions',
       headerClassName: classes.gridColumn,
     },
+    {
+      field: 'name',
+      headerName: t('fields.name'),
+      valueGetter: (p) => p.row.name,
+      headerClassName: classes.gridColumn,
+      flex: 1,
+    },
+    {
+      field: 'countryCode',
+      headerName: t('fields.country-code'),
+      valueGetter: (p) => p.row.countryCode,
+      headerClassName: classes.gridColumn,
+      flex: 1,
+    },
   ]
 
   return (
@@ -74,7 +78,7 @@ export default observer(function Grid() {
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
-            background: 'white',
+            background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
             border: 'none',
@@ -86,10 +90,13 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          disableSelectionOnClick
+          columnVisibilityModel={{
+            id: false,
+          }}
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          disableRowSelectionOnClick
         />
       </Box>
       {isDetailsOpen && <DetailsModal />}

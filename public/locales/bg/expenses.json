@@ -1,21 +1,46 @@
 {
   "fields-error": {
-    "amount-unavailable": "Недостатъчна наличност в трезора!"
+    "amount-unavailable": "Недостатъчна наличност в подсметката!"
+  },
+  "errors": {
+    "no-default-vault": "Не е избрана подсметка по подразбиране!"
   },
   "fields": {
     "type": "Тип",
     "status": "Статус",
     "amount": "Стойност",
-    "vault": "Трезор",
-    "sourceVault": "От трезор",
-    "targetVault": "Към трезор",
+    "vault": "Подсметка",
+    "sourceVault": "От подсметка",
+    "targetVault": "Към подсметка",
     "deleted": "Изтрит",
     "description": "Описание",
     "documentId": "Документ Id",
     "approvedById": "Одобрен от (Id)",
     "approvedBy": "Одобрен от",
-    "action": "Действие",
-    "empty": "Празно"
+    "approved": "Одобрен",
+    "action": "Действия",
+    "empty": "Празно",
+    "date": "Дата",
+    "attached-files": "Прикачени файлове",
+    "files": "Файлове"
+  },
+  "field-types": {
+    "none": "Няма",
+    "internal": "Вътрешен",
+    "operating": "Оперативен",
+    "administrative": "Административен",
+    "medical": "Медицински",
+    "services": "Услуги",
+    "groceries": "Хранителни",
+    "transport": "Транспорт",
+    "accommodation": "Жилищни",
+    "shipping": "Доставки",
+    "utility": "Комунални",
+    "rental": "Наеми",
+    "legal": "Юридически",
+    "bank": "Банкови",
+    "advertising": "Рекламни",
+    "other": "Други"
   },
   "alerts": {
     "new-row": {
@@ -35,7 +60,10 @@
       "question": "Желаете ли да изтриете избраните разходи",
       "error": "Възникна грешка при опит за изтриване на разходи.",
       "success": "Разходите са изтрити успешно!"
-    }
+    },
+    "delete": "Изтрит разход",
+    "no-files-uploaded": "Няма прикачени файлове!",
+    "file-too-big": "Файлът е твърде голям"
   },
   "btns": {
     "add": "Добави",
@@ -48,14 +76,19 @@
   "headings": {
     "add": "Добави разход",
     "edit": "Редактирай разход",
-    "expenses": "Разходи",
+    "expenses": "Финансови отчети",
     "info": "Информация за разход"
   },
   "description": "Всички разходи",
+  "reported": "Общо отчетени разходи",
+  "donations": "Общо събрани дарения",
+  "uploaded-files": "Прикачени файлове",
+  "new-files": "Нови файлове",
+  "add-documents": "Добави документи",
+  "deleteTitle": "Сигурни ли сте, че искате да изтриете файла?",
   "tooltips": {
     "add": "Добави",
-    "view": "Преглед",
-    "edit": "Редактирай",
-    "delete": "Изтрий"
+    "delete": "Изтрий",
+    "download": "Свали"
   }
 }

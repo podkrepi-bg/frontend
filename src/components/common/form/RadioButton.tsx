@@ -38,13 +38,10 @@ const StyledRadioButton = styled('div')(() => ({
 
   [`& .${classes.label}`]: {
     fontSize: 14,
-    marginLeft: theme.spacing(3),
-  },
 
-  [`& .${classes.disabled}`]: {
-    color: theme.palette.text.disabled,
-    background: theme.palette.background.default,
-    border: `1px solid ${theme.palette.background.default}`,
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+    },
   },
 }))
 
@@ -88,61 +85,42 @@ type RadioButtonProps = {
   muiRadioButtonProps?: Partial<RadioProps>
 }
 
-const selectedCheckStyles = {
-  width: 30,
-  height: 30,
-  border: `1px solid ${theme.palette.primary.main}`,
-  backgroundColor: theme.palette.primary.main,
-  borderRadius: theme.borders.round,
-  color: theme.palette.common.white,
-}
-const disabledCheckStlyes = {
-  width: 30,
-  height: 30,
-  border: `1px solid ${theme.palette.grey[500]}`,
-  backgroundColor: theme.palette.grey[300],
-  borderRadius: theme.borders.round,
-  color: theme.palette.text.disabled,
-}
-function RadioButton({
-  checked,
-  label,
-  muiRadioButtonProps,
-  value,
-  disabled,
-  loading,
-}: RadioButtonProps) {
+function RadioButton({ checked, label, muiRadioButtonProps, value }: RadioButtonProps) {
   return (
     <StyledRadioButton>
-      {loading ? (
-        <Skeleton
-          variant="rectangular"
-          sx={{
-            borderRadius: theme.borders.round,
-          }}
-          width="100%"
-          height={60}
-        />
-      ) : (
-        <StyledRadioWrapper
-          value={value}
-          disabled={disabled}
-          checked={checked}
-          label={<StyledLabel>{label}</StyledLabel>}
-          control={
-            <Radio
-              icon={<StyledCircle aria-disabled={disabled} aria-checked={checked} />}
-              checkedIcon={
-                <Check
-                  color={disabled ? 'disabled' : 'primary'}
-                  sx={disabled ? disabledCheckStlyes : selectedCheckStyles}
-                />
-              }
-              {...muiRadioButtonProps}
-            />
-          }
-        />
-      )}
+      <FormControlLabel
+        value={value}
+        className={`${classes.radioWrapper} ${checked ? classes.checked : null}`}
+        sx={checked ? {} : undefined}
+        label={
+          <Typography className={classes.label} sx={{ wordBreak: 'break-word' }}>
+            {label}
+          </Typography>
+        }
+        control={
+          <Radio
+            icon={<div className={classes.circle} />}
+            checkedIcon={
+              <Check
+                color="primary"
+                sx={
+                  checked
+                    ? {
+                        width: 30,
+                        height: 30,
+                        border: `1px solid ${theme.palette.primary.main}`,
+                        backgroundColor: theme.palette.primary.main,
+                        borderRadius: theme.borders.round,
+                        color: theme.palette.common.white,
+                      }
+                    : undefined
+                }
+              />
+            }
+            {...muiRadioButtonProps}
+          />
+        }
+      />
     </StyledRadioButton>
   )
 }

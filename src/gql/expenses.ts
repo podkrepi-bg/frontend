@@ -6,11 +6,14 @@ export type ExpenseInput = {
   status: ExpenseStatus | string
   currency: Currency | string
   amount: number
+  money: number
   vaultId: UUID
   deleted: boolean
   description?: string
   documentId?: UUID | null
   approvedById?: UUID | null
+  approved?: boolean
+  spentAt: string
 }
 
 export type ExpenseResponse = {
@@ -24,6 +27,8 @@ export type ExpenseResponse = {
   description?: string
   documentId?: UUID | null
   approvedById?: UUID | null
+  spentAt: string
+  expenseFiles: ExpenseFile[]
 }
 
 export enum ExpenseType {
@@ -49,4 +54,14 @@ export enum ExpenseStatus {
   pending = 'pending',
   approved = 'approved',
   canceled = 'canceled',
+}
+
+export type ExpenseFile = {
+  id: UUID
+  filename: string
+}
+
+export type UploadExpenseFile = {
+  files: File[]
+  expenseId: UUID
 }

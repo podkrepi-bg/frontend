@@ -16,7 +16,7 @@ export default observer(function DetailsModal() {
 
   const dataConverted = [
     { name: 'ID', value: `${data?.id}` },
-    { name: t('admin.fields.name'), value: `${data?.firstName} + ' ' + ${data?.lastName}` },
+    { name: t('admin.fields.name'), value: `${data?.firstName + ' ' + data?.lastName}` },
     { name: t('admin.fields.email'), value: `${data?.email}` },
     { name: t('admin.fields.createdAt'), value: `${data?.createdAt}` },
     //{ name: t('updatedAt'), value: `${data?.updatedAt}` },

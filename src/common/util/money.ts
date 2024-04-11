@@ -21,7 +21,7 @@ export const moneyPublic = (
   maximumFractionDigits = 2,
   minimumFractionDigits = 2,
 ) => {
-  if (!i18n?.language || i18n.language === 'bg' || i18n.language === 'bg-BG') {
+  if (!i18n?.language || i18n?.language === 'bg' || i18n?.language === 'bg-BG') {
     const amount = new Intl.NumberFormat('bg-BG', {
       style: 'decimal',
       maximumFractionDigits,
@@ -36,7 +36,7 @@ export const moneyPublic = (
     }
     return `${amount} лв.`
   }
-  return new Intl.NumberFormat(i18n.language, {
+  return new Intl.NumberFormat(i18n?.language, {
     style: 'currency',
     currency,
     maximumFractionDigits,

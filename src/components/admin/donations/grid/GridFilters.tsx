@@ -2,11 +2,12 @@ import { Box, TextField } from '@mui/material'
 import Filter from './Filter'
 import { useStores } from '../../../../common/hooks/useStores'
 import { observer } from 'mobx-react'
-import { DonationStatus, DonationType } from 'gql/donations.enums'
+import { PaymentStatus, PaymentProvider } from 'gql/donations.enums'
 import { DateTimePicker, enUS, LocalizationProvider } from '@mui/x-date-pickers'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { bg } from 'date-fns/locale'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { fromMoney, toMoney } from 'common/util/money'
 
 export default observer(function GridFilters() {
   const { donationStore } = useStores()
@@ -16,18 +17,18 @@ export default observer(function GridFilters() {
     label: 'donations:cta.status',
   }
 
-  const donationStatusMenuItems = Object.values(DonationStatus)
+  const donationStatusMenuItems = Object.values(PaymentStatus)
 
-  const donationTypeOptions = {
-    name: 'type',
-    label: 'donations:cta.type',
+  const paymentProviderOptions = {
+    name: 'paymentProvider',
+    label: 'donations:cta.provider',
   }
 
-  const donationTypeMenuItems = Object.values(DonationType)
+  const paymentProviderMenuItems = Object.values(PaymentProvider)
 
   const handleChange = (
     filterName: string,
-    filterValue: string | null | { from: Date; to: Date },
+    filterValue: string | number | null | { from: Date; to: Date },
   ) => {
     donationStore.setDonationFilters(filterName, filterValue)
   }
@@ -47,23 +48,43 @@ export default observer(function GridFilters() {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <LocalizationProvider
-        adapterLocale={i18n.language === 'bg' ? bg : enUS}
+        adapterLocale={i18n?.language === 'bg' ? bg : enUS}
         dateAdapter={AdapterDateFns}>
         <DateTimePicker
           label={t('donations:cta.from')}
           value={donationStore.donationFilters.date?.from || null}
           onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'from')}
-          renderInput={(params) => <TextField size="small" sx={{ marginRight: 1 }} {...params} />}
+          slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
           maxDate={donationStore.donationFilters.date?.to}
         />
         <DateTimePicker
           label={t('donations:cta.to')}
           value={donationStore.donationFilters.date?.to || null}
           onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'to')}
-          renderInput={(params) => <TextField size="small" sx={{ marginRight: 1 }} {...params} />}
+          slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
           minDate={donationStore.donationFilters.date?.from}
         />
       </LocalizationProvider>
+      <TextField
+        label={t('donations:cta.minAmount')}
+        type="number"
+        value={fromMoney(donationStore.donationFilters.minAmount) || null}
+        onChange={(event) => {
+          handleChange('minAmount', event.target.value ? toMoney(Number(event.target.value)) : null)
+        }}
+        variant="outlined"
+        size="small"
+      />
+      <TextField
+        label={t('donations:cta.maxAmount')}
+        type="number"
+        value={fromMoney(donationStore.donationFilters.maxAmount) || null}
+        onChange={(event) => {
+          handleChange('maxAmount', event.target.value ? toMoney(Number(event.target.value)) : null)
+        }}
+        variant="outlined"
+        size="small"
+      />
       <Filter
         value={donationStore.donationFilters.status}
         options={donationStatusOptions}
@@ -71,10 +92,16 @@ export default observer(function GridFilters() {
         menuItems={donationStatusMenuItems}
       />
       <Filter
-        value={donationStore.donationFilters.type}
-        options={donationTypeOptions}
+        value={donationStore.donationFilters.paymentProvider}
+        options={paymentProviderOptions}
         onChange={handleChange}
-        menuItems={donationTypeMenuItems}
+        menuItems={paymentProviderMenuItems}
+      />
+      <Filter
+        value={donationStore.donationFilters.sortBy}
+        options={{ name: 'sortBy', label: 'donations:cta.sortBy' }}
+        onChange={handleChange}
+        menuItems={['createdAt', 'amount']}
       />
     </Box>
   )

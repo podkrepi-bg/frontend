@@ -1,6 +1,8 @@
-<h1><p align="center">
-  Дарителска Платформа Подкрепи.бг
-</p></h1>
+<h1>
+<p align="center">
+  Open-source Charity Platform Podkrepi.bg
+</p>
+</h1>
 <p align="center">
   <a href="https://podkrepi.bg/" target="blank"><img src="https://podkrepi.bg/podkrepi-bg-logo-en.svg" width="320" alt="Podkrepi.bg logo" /></a>
 </p>
@@ -98,7 +100,7 @@ Watch releases of this repository to be notified about future updates:
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-67-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-77-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -203,6 +205,18 @@ Thanks goes to these wonderful people:
       <td align="center" valign="top" width="10%"><a href="https://github.com/sashko9807"><img src="https://avatars.githubusercontent.com/u/27433690?v=4?s=100" width="100px;" alt="Aleksandar Petkov"/><br /><sub><b>Aleksandar Petkov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=sashko9807" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/pulls?q=is%3Apr+reviewed-by%3Asashko9807" title="Reviewed Pull Requests">👀</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/BogoCvetkov"><img src="https://avatars.githubusercontent.com/u/78339364?v=4?s=100" width="100px;" alt="Bogomil Tsvetkov"/><br /><sub><b>Bogomil Tsvetkov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=BogoCvetkov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=BogoCvetkov" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/dzhaniivanov"><img src="https://avatars.githubusercontent.com/u/68897146?v=4?s=100" width="100px;" alt="Dzhani Ivanov"/><br /><sub><b>Dzhani Ivanov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=dzhaniivanov" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/mm-hstefanova"><img src="https://avatars.githubusercontent.com/u/91142791?v=4?s=100" width="100px;" alt="mm-hstefanova"/><br /><sub><b>mm-hstefanova</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=mm-hstefanova" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/yg1y"><img src="https://avatars.githubusercontent.com/u/139345579?v=4?s=100" width="100px;" alt="yg1y"/><br /><sub><b>yg1y</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=yg1y" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=yg1y" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/tongo-angelov"><img src="https://avatars.githubusercontent.com/u/123360440?v=4?s=100" width="100px;" alt="Anton Angelov"/><br /><sub><b>Anton Angelov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=tongo-angelov" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/yyosifov"><img src="https://avatars.githubusercontent.com/u/2012493?v=4?s=100" width="100px;" alt="yyosifov"/><br /><sub><b>yyosifov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=yyosifov" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/dphilipov"><img src="https://avatars.githubusercontent.com/u/76788928?v=4?s=100" width="100px;" alt="Dimitar Filipov"/><br /><sub><b>Dimitar Filipov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=dphilipov" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/hiapetrov"><img src="https://avatars.githubusercontent.com/u/107921565?v=4?s=100" width="100px;" alt="Alexander"/><br /><sub><b>Alexander</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=hiapetrov" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/RalitsaIlieva"><img src="https://avatars.githubusercontent.com/u/17964436?v=4?s=100" width="100px;" alt="RalitsaIlieva"/><br /><sub><b>RalitsaIlieva</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=RalitsaIlieva" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/kzhecheva"><img src="https://avatars.githubusercontent.com/u/60223025?v=4?s=100" width="100px;" alt="Kalina Zhecheva"/><br /><sub><b>Kalina Zhecheva</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=kzhecheva" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=kzhecheva" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/PetarDimitrov91"><img src="https://avatars.githubusercontent.com/u/79804094?v=4?s=100" width="100px;" alt="Petar Dimitrov"/><br /><sub><b>Petar Dimitrov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=PetarDimitrov91" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/kdachev97"><img src="https://avatars.githubusercontent.com/u/149360576?v=4?s=100" width="100px;" alt="Krum Dachev"/><br /><sub><b>Krum Dachev</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=kdachev97" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

@@ -9,6 +9,7 @@ export type WithdrawalResponse = {
   amount: number
   reason: string
   documentId: UUID
+  targetDate: Date
   approvedBy: Person
   bankAccount: Record<string, unknown>
   sourceCampaign: Record<string, unknown>
@@ -21,6 +22,7 @@ export type WithdrawalResponse2 = {
   amount: number
   reason: string
   documentId: UUID
+  targetDate: Date
   approvedBy: string
   bankAccount: string
   sourceCampaign: string
@@ -33,6 +35,7 @@ export type WithdrawalInput = {
   amountAvailable: number
   reason: string | undefined
   documentId?: UUID | undefined
+  targetDate: Date | string
   approvedById?: UUID | undefined
   bankAccountId?: UUID | undefined
   sourceCampaignId?: UUID | undefined
@@ -45,6 +48,7 @@ export type WithdrawalData = {
   amount: number | undefined
   reason: string | undefined
   documentId?: string | undefined
+  targetDate: Date | string
   approvedById?: string | undefined
   bankAccountId?: string | undefined
   sourceCampaignId?: string | undefined
@@ -58,6 +62,7 @@ export type WithdrawalEditResponse = {
   amount: number
   reason: string
   documentId: UUID
+  targetDate: Date
   approvedById: UUID
   bankAccountId: UUID
   sourceCampaignId: UUID
