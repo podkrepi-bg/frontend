@@ -10,6 +10,7 @@ import {
   Tooltip,
   SxProps,
   Theme,
+  CheckboxProps,
 } from '@mui/material'
 
 import { TranslatableField, translateError } from 'common/form/validation'
@@ -21,6 +22,7 @@ export type CheckboxFieldProps = {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   label: string | number | React.ReactElement
   disabledTooltip?: string
+  checkboxProps?: CheckboxProps
 }
 
 export default function CheckboxField({
@@ -30,6 +32,7 @@ export default function CheckboxField({
   onChange: handleChange,
   label,
   disabledTooltip,
+  checkboxProps,
 }: CheckboxFieldProps) {
   const { t } = useTranslation()
   const [field, meta] = useField(name)
@@ -46,6 +49,7 @@ export default function CheckboxField({
               checked={Boolean(field.value)}
               disabled={disabled}
               {...field}
+              {...checkboxProps}
               onChange={(e) => {
                 field.onChange(e)
                 if (handleChange) handleChange(e)

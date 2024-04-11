@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
@@ -225,7 +225,10 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       <StepSplitter />
       <Grid2 spacing={2} container>
         <Grid2 xs={12} md={6}>
-          <LinkCard href={routes.campaigns.donation(slug)} text={t('status.fail.link.retry')} />
+          <LinkCard
+            href={routes.campaigns.oneTimeDonation(slug)}
+            text={t('status.fail.link.retry')}
+          />
         </Grid2>
         <Grid2 xs={12} md={6}>
           <LinkCard

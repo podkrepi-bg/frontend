@@ -40,6 +40,7 @@ import { useDonationFlow } from './contexts/DonationFlowProvider'
 import AlertsColumn from './alerts/AlertsColumn'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 import { DonationFormAuthState, DonationFormPaymentMethod, DonationFormData } from './helpers/types'
+import { DonationType } from 'gql/donations.enums'
 
 const initialGeneralFormValues = {
   payment: null,
@@ -152,6 +153,7 @@ export function DonationFlowForm() {
             id: setupIntent.id,
             payload: {
               metadata: {
+                type: DonationType.donation,
                 campaignId: campaign.id,
                 amount: values.finalAmount,
                 currency: campaign.currency,
