@@ -7,6 +7,8 @@ import theme from 'common/theme'
 import { moneyPublicDecimals2 } from 'common/util/money'
 import { stripeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { CardRegion } from 'gql/donations.enums'
+import { useFormikContext } from 'formik'
+import { DonationFormData } from '../helpers/types'
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   fontSize: theme.typography.pxToRem(16),
@@ -22,8 +24,11 @@ function PaymentSummaryAlert({
   boxProps?: BoxProps
 }) {
   const { t } = useTranslation('donation-flow')
+  const formik = useFormikContext<DonationFormData>()
   const feeAmount =
-    donationAmount !== 0 ? stripeFeeCalculator(donationAmount, CardRegion.EU) : donationAmount
+    donationAmount !== 0
+      ? stripeFeeCalculator(donationAmount, formik.values.cardRegion as CardRegion)
+      : donationAmount
 
   return (
     <Box
