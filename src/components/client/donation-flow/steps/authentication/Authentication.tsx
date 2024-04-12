@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Box, Typography, Alert, useMediaQuery } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'

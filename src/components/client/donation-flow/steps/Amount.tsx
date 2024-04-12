@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
