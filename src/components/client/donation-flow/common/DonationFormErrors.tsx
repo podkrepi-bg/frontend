@@ -3,19 +3,12 @@ import { Grid, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { FormikErrors } from 'formik'
 import { DonationFormData } from '../helpers/types'
-import { ids } from './DonationFormSections'
+import { ids, DonationFormSections } from './DonationFormSections'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 
 type DonationFormErrorProps = {
   errors: FormikErrors<DonationFormData>
   show: boolean
-}
-
-type DonationFormSections = {
-  finalAmount: 'select-amount'
-  payment: 'select-payment-method'
-  authentication: 'select-authentication-method'
-  isRecurring: 'select-recurring-payment'
 }
 
 export default function DonationFormErrors({ errors, show }: DonationFormErrorProps) {

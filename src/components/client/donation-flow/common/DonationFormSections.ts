@@ -1,6 +1,6 @@
 //Map formik field names to HTML ids.
 
-type DonationFormSections = {
+export type DonationFormSections = {
   finalAmount: 'select-donation-amount'
   amountChosen: 'select-donation-amount'
   payment: 'select-payment-method'
