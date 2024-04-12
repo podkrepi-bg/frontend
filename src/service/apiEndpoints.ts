@@ -150,7 +150,7 @@ export const endpoints = {
     singlePrices: <Endpoint>{ url: '/stripe/prices/single', method: 'GET' },
     recurringPrices: <Endpoint>{ url: '/stripe/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/stripe/create-checkout-session', method: 'POST' },
-    createSubscriptionPayment: <Endpoint>{ url: '/donation/subscription', method: 'POST' },
+    createSubscriptionPayment: <Endpoint>{ url: '/stripe/create-subscription', method: 'POST' },
     createPaymentIntent: <Endpoint>{ url: '/stripe/payment-intent', method: 'POST' },
     createSetupIntent: <Endpoint>{ url: '/stripe/setup-intent', method: 'POST' },
     finalizeSetupIntent: (id: string) =>

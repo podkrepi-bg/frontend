@@ -25,7 +25,7 @@ import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { useUpdateSetupIntent } from 'service/donation'
+import { useCreateSubscriptionPayment, useUpdateSetupIntent } from 'service/donation'
 
 import StepSplitter from './common/StepSplitter'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
@@ -39,10 +39,19 @@ import {
 import { useDonationFlow } from './contexts/DonationFlowProvider'
 import AlertsColumn from './alerts/AlertsColumn'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
-import { DonationFormAuthState, DonationFormPaymentMethod, DonationFormData } from './helpers/types'
+import {
+  DonationFormAuthState,
+  DonationFormPaymentMethod,
+  DonationFormData,
+  PaymentMode,
+} from './helpers/types'
 import { DonationType } from 'gql/donations.enums'
+import PaymentModeSelect from './steps/PaymentModeSelect'
+import { Currency } from 'gql/currency'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 const initialGeneralFormValues = {
+  mode: null,
   payment: null,
   authentication: null,
   isAnonymous: false,
@@ -57,6 +66,7 @@ const initialValues: DonationFormData = {
 }
 
 const generalValidation = {
+  mode: yup.string().oneOf(['one-time', 'subscription']).required() as yup.SchemaOf<PaymentMode>,
   payment: yup
     .string()
     .oneOf(Object.values(DonationFormPaymentMethod))
@@ -102,11 +112,13 @@ export function DonationFlowForm() {
   const stripe = useStripe()
   const elements = useElements()
   const router = useRouter()
+  const createSubscriptionPaymentMutation = useCreateSubscriptionPayment()
   const updateSetupIntentMutation = useUpdateSetupIntent()
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
   const [submitPaymentLoading, setSubmitPaymentLoading] = React.useState(false)
+  const { data: { user: person } = { user: null } } = useCurrentPerson()
 
   return (
     <Formik
@@ -149,11 +161,32 @@ export function DonationFlowForm() {
 
         // Update the setup intent with the latest calculated amount
         try {
+          elements.submit()
+          if (values.mode === 'subscription') {
+            const paymentIntent = await createSubscriptionPaymentMutation.mutateAsync({
+              type: person?.company ? DonationType.corporate : DonationType.donation,
+              amount: values.finalAmount,
+              campaignId: campaign.id,
+              currency: campaign.currency as Currency,
+            })
+            const redirectUrl = `${window.location.origin}/${routes.campaigns.donationStatus(
+              campaign.slug,
+            )}?subscription=true`
+
+            const { error } = await stripe.confirmPayment({
+              elements,
+              confirmParams: {
+                return_url: redirectUrl,
+              },
+              clientSecret: paymentIntent.data.client_secret as string,
+            })
+            return
+          }
           await updateSetupIntentMutation.mutateAsync({
             id: setupIntent.id,
             payload: {
               metadata: {
-                type: DonationType.donation,
+                type: person?.company ? DonationType.corporate : DonationType.donation,
                 campaignId: campaign.id,
                 amount: values.finalAmount,
                 currency: campaign.currency,
@@ -230,13 +263,15 @@ export function DonationFlowForm() {
               <Box mb={2}>
                 <StepSplitter content="1" active={Boolean(values.amountChosen)} />
                 <Amount disabled={values.payment === DonationFormPaymentMethod.BANK} />
+                <StepSplitter content="2" active={Boolean(values.mode)} />
+                <PaymentModeSelect />
                 <StepSplitter
-                  content="2"
+                  content="3"
                   active={Boolean(values.amountChosen) && Boolean(values.payment)}
                 />
                 <PaymentMethod sectionRef={paymentMethodSectionRef} />
                 <StepSplitter
-                  content="3"
+                  content="4"
                   active={
                     Boolean(values.amountChosen) &&
                     Boolean(values.payment) &&
@@ -288,7 +323,7 @@ export function DonationFlowForm() {
               />
               <PersistFormikValues
                 hashInitials={true}
-                ignoreValues={['authentication', 'isRecurring']}
+                ignoreValues={['authentication']}
                 debounce={3000}
                 storage="sessionStorage"
                 name="donation-form"

@@ -24,10 +24,11 @@ export type StripePaymentInput = {
 }
 
 export type SubscriptionPaymentInput = {
+  type: DonationType
   campaignId: string
   amount: number
   currency: Currency
-  email: string
+  email?: string
 }
 
 export type UpdatePaymentIntentInput = {

@@ -24,6 +24,7 @@ export enum DonationFormPaymentStatus {
   REQUIRES_CONFIRMATION = 'requires_confirmation',
 }
 
+export type PaymentMode = 'one-time' | 'subscription'
 export type DonationFormData = {
   //Common fields
   isAnonymous: boolean
@@ -31,7 +32,7 @@ export type DonationFormData = {
   payment: DonationFormPaymentMethod | null
   privacy: boolean
   //Card fields
-  isRecurring: boolean
+  mode: PaymentMode | null
   cardRegion?: CardRegion
   cardIncludeFees?: boolean
   finalAmount?: number

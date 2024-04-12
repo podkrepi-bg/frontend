@@ -78,7 +78,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       },
     },
   )
-  const { payment_intent_client_secret, bank_payment } = router.query
+  const { payment_intent_client_secret, bank_payment, subscription } = router.query
 
   const confirmPaymentIntentStatus = async () => {
     if (!stripe || !payment_intent_client_secret) {
@@ -107,7 +107,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   }
 
   useEffect(() => {
-    if (bank_payment === 'true') {
+    if (bank_payment === 'true' || subscription === 'true') {
       // If we are redirected on that page means that the payment is a bank payment and we can clear the form state
       sessionStorage.removeItem('donation-form')
       setStatus(DonationFormPaymentStatus.SUCCEEDED)

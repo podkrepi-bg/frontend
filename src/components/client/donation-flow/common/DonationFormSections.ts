@@ -5,7 +5,7 @@ type DonationFormSections = {
   amountChosen: 'select-donation-amount'
   payment: 'select-payment-method'
   authentication: 'select-authentication-method'
-  isRecurring: 'select-recurring-payment'
+  mode: 'select-recurring-payment'
 }
 
 export const ids: DonationFormSections = {
@@ -13,5 +13,5 @@ export const ids: DonationFormSections = {
   amountChosen: 'select-donation-amount',
   payment: 'select-payment-method',
   authentication: 'select-authentication-method',
-  isRecurring: 'select-recurring-payment',
+  mode: 'select-recurring-payment',
 }

@@ -14,7 +14,6 @@ import FormTextField from 'components/common/form/FormTextField'
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { DonationFormData } from '../helpers/types'
 import { useSession } from 'next-auth/react'
-import CheckboxField from 'components/common/form/CheckboxField'
 
 export const initialAmountFormValues = {
   amountChosen: '',
@@ -22,7 +21,6 @@ export const initialAmountFormValues = {
   otherAmount: 0,
   cardIncludeFees: false,
   cardRegion: CardRegion.EU,
-  isRecurring: false,
 }
 
 export const amountValidation = {
@@ -50,7 +48,6 @@ export const amountValidation = {
       is: 'card',
       then: yup.string().oneOf(Object.values(CardRegion)).required(),
     }) as yup.SchemaOf<CardRegion>,
-  isRecurring: yup.boolean().required(),
 }
 
 export default function Amount({
@@ -91,12 +88,6 @@ export default function Amount({
     formik.values.cardIncludeFees,
     formik.values.cardRegion,
   ])
-
-  useEffect(() => {
-    if (formik.values.isRecurring) {
-      formik.setFieldValue('payment', 'card')
-    }
-  }, [formik.values.isRecurring])
 
   return (
     <Box ref={sectionRef} component="section" id="select-amount">
@@ -149,19 +140,6 @@ export default function Amount({
             />
           </Grid>
         </Collapse>
-        {/* TODO: Recurring donation should be added in the future */}
-        {/* Take a look at https://github.com/podkrepi-bg/frontend/issues/1308 */}
-        <Box sx={{ mt: 4 }}>
-          <Typography variant="h5" sx={{ marginTop: theme.spacing(3) }}>
-            <CheckboxField
-              name="isRecurring"
-              label={<Typography variant="body2">{t('third-step.recurring-donation')}</Typography>}
-              checkboxProps={{
-                disabled: status !== 'authenticated',
-              }}
-            />
-          </Typography>
-        </Box>
       </Box>
     </Box>
   )
