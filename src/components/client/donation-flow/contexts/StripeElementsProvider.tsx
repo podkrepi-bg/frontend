@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Appearance } from '@stripe/stripe-js'
+import { Appearance, StripeElementLocale } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
 import theme from 'common/theme'
@@ -48,7 +48,7 @@ export function StripeElementsProvider({ children }: PropsWithChildren) {
         options={{
           clientSecret: setupIntent.client_secret || undefined,
           appearance,
-          locale: i18n.language,
+          locale: i18n.language as StripeElementLocale,
         }}>
         {children}
       </Elements>

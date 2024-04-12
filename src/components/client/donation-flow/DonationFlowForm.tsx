@@ -56,6 +56,8 @@ const initialGeneralFormValues = {
   authentication: null,
   isAnonymous: false,
   privacy: false,
+  billingName: '',
+  billingEmail: '',
 }
 
 const initialValues: DonationFormData = {
@@ -67,6 +69,8 @@ const initialValues: DonationFormData = {
 
 const generalValidation = {
   mode: yup.string().oneOf(['one-time', 'subscription']).required() as yup.SchemaOf<PaymentMode>,
+  billingName: yup.string().required(),
+  billingEmail: yup.string().required(),
   payment: yup
     .string()
     .oneOf(Object.values(DonationFormPaymentMethod))
@@ -177,6 +181,9 @@ export function DonationFlowForm() {
               elements,
               confirmParams: {
                 return_url: redirectUrl,
+                payment_method_data: {
+                  billing_details: { name: values.billingName, email: values.billingEmail },
+                },
               },
               clientSecret: paymentIntent.data.client_secret as string,
             })
@@ -217,6 +224,9 @@ export function DonationFlowForm() {
           elements,
           confirmParams: {
             return_url: redirectUrl.toString(),
+            payment_method_data: {
+              billing_details: { name: values.billingName, email: values.billingEmail },
+            },
           },
         })
         setSubmitPaymentLoading(false)

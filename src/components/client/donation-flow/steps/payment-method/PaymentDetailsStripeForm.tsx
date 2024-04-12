@@ -1,29 +1,95 @@
 import { useSession } from 'next-auth/react'
 import { LinkAuthenticationElement, PaymentElement } from '@stripe/react-stripe-js'
-import { Box, BoxProps } from '@mui/material'
+import { Box, BoxProps, TextField, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { useField, useFormikContext } from 'formik'
+
+import { DonationFormData } from '../../helpers/types'
+import { styled } from '@mui/material/styles'
 
 export type PaymentDetailsStripeFormProps = {
   containerProps?: BoxProps
 }
+
+const BillingNameField = styled(TextField)(({ theme }) => ({
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: '#e0e0e0',
+    },
+    '&:hover fieldset': {
+      borderColor: '#e0e0e0',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: theme.palette.primary.main,
+    },
+  },
+
+  input: {
+    '&::placeholder': {
+      opacity: 0.7,
+    },
+    height: 10,
+  },
+}))
+
 export default function PaymentDetailsStripeForm({
   containerProps,
 }: PaymentDetailsStripeFormProps) {
   const { data: session } = useSession()
-  const [email, setEmail] = useState<string>(session?.user?.email || '')
+  const [isLoading, setIsloading] = useState(true)
+  const formik = useFormikContext<DonationFormData>()
+  const [billingName] = useField('billingName')
+
   useEffect(() => {
-    setEmail(session?.user?.email || '')
-  }, [session])
+    formik.setFieldValue('billingEmail', session?.user?.email || '')
+  }, [session, isLoading])
+
   return (
-    <Box data-testid="stripe-payment-form" {...containerProps}>
+    <Box
+      data-testid="stripe-payment-form"
+      {...containerProps}
+      display={'flex'}
+      flexDirection={'column'}
+      gap={2}>
       <LinkAuthenticationElement
+        onChange={(e) => formik.setFieldValue('billingEmail', e.value.email)}
         options={{
           defaultValues: {
-            email,
+            email: formik.values.billingEmail,
           },
         }}
       />
-      <PaymentElement />
+      <Box
+        display={'flex'}
+        flexDirection={'column'}
+        gap={0.2}
+        sx={{
+          opacity: isLoading ? 0 : 1,
+          transition: 'opacity 0.6s ease-out',
+        }}>
+        <Typography component={'label'} fontSize={'0.875rem'} fontWeight={350} color={'black'}>
+          Име на картодържател
+        </Typography>
+        <BillingNameField
+          fullWidth
+          {...billingName}
+          id="card-holder-name"
+          variant="outlined"
+          placeholder="Име на картодържателя"
+        />
+      </Box>
+      <PaymentElement
+        onReady={() => setIsloading(false)}
+        options={{
+          defaultValues: { billingDetails: { name: '' } },
+          fields: {
+            billingDetails: {
+              name: 'auto',
+              email: 'auto',
+            },
+          },
+        }}
+      />
     </Box>
   )
 }
