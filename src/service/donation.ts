@@ -21,6 +21,7 @@ import { useMutation } from '@tanstack/react-query'
 import { FilterData } from 'gql/types'
 import { PaymentMode } from 'components/client/donation-flow/helpers/types'
 import { Session } from 'next-auth'
+import { StripeElement } from '@stripe/stripe-js'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
@@ -70,7 +71,7 @@ export async function createIntentFromSetup(
   setupIntentId: string,
   mode: PaymentMode,
   session: Session | null,
-) {
+): Promise<AxiosResponse<Stripe.PaymentIntent>> {
   return await apiClient.post<PaymentMode, AxiosResponse<Stripe.PaymentIntent>, AxiosError<Error>>(
     mode === 'one-time'
       ? endpoints.donation.createPaymentIntentFromSetup(setupIntentId).url
