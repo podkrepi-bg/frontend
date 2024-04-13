@@ -16,7 +16,6 @@ import {
 } from '@mui/material'
 import { Email } from '@mui/icons-material'
 
-import { stripe } from 'service/stripeClient'
 import { routes } from 'common/routes'
 
 import { useViewCampaign } from 'common/hooks/campaigns'
@@ -35,8 +34,8 @@ import { AlertStore } from 'stores/AlertStore'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { CampaignResponse } from 'gql/campaigns'
 import FailGraphic from './icons/FailGraphic'
-import { StripeError } from '@stripe/stripe-js'
-
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
 function LinkCard({ href, text }: { href: string; text: string }) {
   return (
     <Card sx={{ backgroundColor: '#eee' }}>
@@ -56,14 +55,18 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   const { data } = useViewCampaign(slug)
   //This query needs to be prefetched in the pages folder
   //otherwise on the first render the data will be undefined
-  const campaign = data?.campaign as CampaignResponse
-  const [status, setStatus] = useState<DonationFormPaymentStatus | null>(null)
-  const [error, setError] = useState<StripeError | null>(null)
-  const [disableWishForm, setDisableWishForm] = useState<boolean>(false)
   const router = useRouter()
+  const { payment_intent_client_secret, p_status, p_error } = router.query
+  const campaign = data?.campaign as CampaignResponse
+  const [status, setStatus] = useState<DonationFormPaymentStatus | null>(
+    p_status as DonationFormPaymentStatus,
+  )
+  const [error, setError] = useState<string | undefined>(p_error as string)
+  const [disableWishForm, setDisableWishForm] = useState<boolean>(false)
   const formikRef = useRef<FormikProps<{ wish: string }> | null>(null)
   const session = useSession()
   const { data: { user: person } = { user: null } } = useCurrentPerson()
+
   const { mutate: createDonationWishMutate, isLoading: isWishSendLoading } = useMutation(
     createDonationWish,
     {
@@ -78,42 +81,12 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       },
     },
   )
-  const { payment_intent_client_secret, bank_payment, subscription } = router.query
 
-  const confirmPaymentIntentStatus = async () => {
-    if (!stripe || !payment_intent_client_secret) {
-      throw new Error('Stripe is not loaded or you were not redirected from Stripe')
-    }
-    let { paymentIntent, error } = await stripe.retrievePaymentIntent(
-      payment_intent_client_secret as string,
-    )
-    if (paymentIntent?.status === DonationFormPaymentStatus.REQUIRES_ACTION) {
-      const paymentIntentResAfterConfirm = await stripe?.confirmCardPayment(
-        payment_intent_client_secret as string,
-      )
-      paymentIntent = paymentIntentResAfterConfirm?.paymentIntent
-      error = paymentIntentResAfterConfirm?.error
-    }
-    if (!paymentIntent || paymentIntent.status === DonationFormPaymentStatus.REQUIRES_PAYMENT) {
-      setError(error || null)
-      setStatus(DonationFormPaymentStatus.REQUIRES_PAYMENT)
-      return
-    }
-    if (paymentIntent?.status === DonationFormPaymentStatus.SUCCEEDED) {
+  useEffect(() => {
+    if (p_status === DonationFormPaymentStatus.SUCCEEDED) {
       // If the status is succeeded we can clear the form state
       sessionStorage.removeItem('donation-form')
     }
-    setStatus(paymentIntent?.status as DonationFormPaymentStatus)
-  }
-
-  useEffect(() => {
-    if (bank_payment === 'true' || subscription === 'true') {
-      // If we are redirected on that page means that the payment is a bank payment and we can clear the form state
-      sessionStorage.removeItem('donation-form')
-      setStatus(DonationFormPaymentStatus.SUCCEEDED)
-      return
-    }
-    confirmPaymentIntentStatus()
   }, [])
 
   const Success = () => (
@@ -181,7 +154,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
           <Typography mb={1}>{t('status.success.share.description')}!</Typography>
         </Box>
         <SocialShareListButton
-          url={`${window.location.host}${routes.campaigns.viewCampaignBySlug(slug)}`}
+          url={`${publicRuntimeConfig.APP_URL}${routes.campaigns.viewCampaignBySlug(slug)}`}
         />
       </Stack>
       <StepSplitter />
@@ -220,7 +193,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
         }}
       />
       <Typography color={theme.palette.error.dark} mb={1}>
-        {error?.message}
+        {error}
       </Typography>
       <StepSplitter />
       <Grid2 spacing={2} container>
@@ -241,11 +214,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   )
 
   const StatusToRender = () =>
-    status === DonationFormPaymentStatus.SUCCEEDED ? (
-      <Success />
-    ) : status === DonationFormPaymentStatus.REQUIRES_PAYMENT ? (
-      <Fail />
-    ) : null
+    status === DonationFormPaymentStatus.SUCCEEDED ? <Success /> : error ? <Fail /> : null
 
   return (
     <DonationFlowLayout campaign={campaign}>

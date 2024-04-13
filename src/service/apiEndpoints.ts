@@ -153,8 +153,10 @@ export const endpoints = {
     createSubscriptionPayment: <Endpoint>{ url: '/stripe/create-subscription', method: 'POST' },
     createPaymentIntent: <Endpoint>{ url: '/stripe/payment-intent', method: 'POST' },
     createSetupIntent: <Endpoint>{ url: '/stripe/setup-intent', method: 'POST' },
-    finalizeSetupIntent: (id: string) =>
-      <Endpoint>{ url: `/stripe/setup-intent/${id}/finalize`, method: 'POST' },
+    createPaymentIntentFromSetup: (id: string) =>
+      <Endpoint>{ url: `/stripe/setup-intent/${id}/payment-intent`, method: 'POST' },
+    createSubscriptionFromSetup: (id: string) =>
+      <Endpoint>{ url: `/stripe/setup-intent/${id}/subscription`, method: 'POST' },
     updateSetupIntent: (id: string) =>
       <Endpoint>{ url: `/stripe/setup-intent/${id}`, method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },

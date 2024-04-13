@@ -25,7 +25,11 @@ import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { useCreateSubscriptionPayment, useUpdateSetupIntent } from 'service/donation'
+import {
+  createIntentFromSetup,
+  useCreateSubscriptionPayment,
+  useUpdateSetupIntent,
+} from 'service/donation'
 
 import StepSplitter from './common/StepSplitter'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
@@ -44,6 +48,7 @@ import {
   DonationFormPaymentMethod,
   DonationFormData,
   PaymentMode,
+  DonationFormPaymentStatus,
 } from './helpers/types'
 import { DonationType } from 'gql/donations.enums'
 import PaymentModeSelect from './steps/PaymentModeSelect'
@@ -165,30 +170,6 @@ export function DonationFlowForm() {
 
         // Update the setup intent with the latest calculated amount
         try {
-          elements.submit()
-          if (values.mode === 'subscription') {
-            const paymentIntent = await createSubscriptionPaymentMutation.mutateAsync({
-              type: person?.company ? DonationType.corporate : DonationType.donation,
-              amount: values.finalAmount,
-              campaignId: campaign.id,
-              currency: campaign.currency as Currency,
-            })
-            const redirectUrl = `${window.location.origin}/${routes.campaigns.donationStatus(
-              campaign.slug,
-            )}?subscription=true`
-
-            const { error } = await stripe.confirmPayment({
-              elements,
-              confirmParams: {
-                return_url: redirectUrl,
-                payment_method_data: {
-                  billing_details: { name: values.billingName, email: values.billingEmail },
-                },
-              },
-              clientSecret: paymentIntent.data.client_secret as string,
-            })
-            return
-          }
           await updateSetupIntentMutation.mutateAsync({
             id: setupIntent.id,
             payload: {
@@ -214,26 +195,43 @@ export function DonationFlowForm() {
         }
 
         // Confirm the payment
-        const redirectUrl = new URL(
-          `${window.location.origin}/${routes.campaigns.finalizeDonation}`,
-        )
-        redirectUrl.search = new URLSearchParams({
-          campaignSlug: campaign.slug,
-        }).toString()
-        const { error } = await stripe.confirmSetup({
+        const { error: intentError } = await stripe.confirmSetup({
           elements,
           confirmParams: {
-            return_url: redirectUrl.toString(),
+            return_url: `${window.location.origin}/${routes.campaigns.donationStatus(
+              campaign.slug,
+            )}`,
             payment_method_data: {
               billing_details: { name: values.billingName, email: values.billingEmail },
             },
           },
+          redirect: 'if_required',
         })
-        setSubmitPaymentLoading(false)
-        if (error) {
-          setPaymentError(error)
+        if (intentError) {
+          setSubmitPaymentLoading(false)
           return
         }
+        const payment = await createIntentFromSetup(
+          setupIntent.id,
+          values.mode as PaymentMode,
+          session,
+        )
+
+        if (payment instanceof Error) {
+          router.push(
+            `${window.location.origin}/${routes.campaigns.donationStatus(campaign.slug)}?p_error=${
+              payment.message
+            }`,
+          )
+          setSubmitPaymentLoading(false)
+          return
+        }
+
+        router.push(
+          `${window.location.origin}/${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
+            payment.data.status
+          }`,
+        )
       }}
       validateOnMount
       validateOnBlur>
