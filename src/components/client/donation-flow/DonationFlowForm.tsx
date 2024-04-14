@@ -52,10 +52,9 @@ import {
 } from './helpers/types'
 import { DonationType } from 'gql/donations.enums'
 import PaymentModeSelect from './steps/PaymentModeSelect'
-import { Currency } from 'gql/currency'
+
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
-import Stripe from 'stripe'
-import { AxiosError, AxiosResponse } from 'axios'
+import { confirmStripePayment } from './helpers/confirmStripeDonation'
 
 const initialGeneralFormValues = {
   mode: null,
@@ -103,7 +102,7 @@ export const validationSchema: yup.SchemaOf<DonationFormData> = yup
 export function DonationFlowForm() {
   const formikRef = useRef<FormikProps<DonationFormData> | null>(null)
   const { t } = useTranslation('donation-flow')
-  const { data: session } = useSession({
+  const { data: session, update } = useSession({
     required: false,
     onUnauthenticated: () => {
       formikRef.current?.setFieldValue('authentication', null)
@@ -187,6 +186,13 @@ export function DonationFlowForm() {
               },
             },
           })
+          // Confirm the payment
+          await confirmStripePayment(setupIntent, elements, stripe, campaign, values, session)
+          router.push(
+            `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
+              DonationFormPaymentStatus.SUCCEEDED
+            }`,
+          )
         } catch (error) {
           setSubmitPaymentLoading(false)
           setPaymentError({
@@ -197,44 +203,6 @@ export function DonationFlowForm() {
         }
 
         // Confirm the payment
-        try {
-          const { error: intentError } = await stripe.confirmSetup({
-            elements,
-            confirmParams: {
-              return_url: `${window.location.origin}/${routes.campaigns.donationStatus(
-                campaign.slug,
-              )}`,
-              payment_method_data: {
-                billing_details: { name: values.billingName, email: values.billingEmail },
-              },
-            },
-            redirect: 'if_required',
-          })
-          if (intentError) {
-            setSubmitPaymentLoading(false)
-            return
-          }
-          const payment = await createIntentFromSetup(
-            setupIntent.id,
-            values.mode as PaymentMode,
-            session,
-          )
-
-          if (payment.data.status === DonationFormPaymentStatus.REQUIRES_ACTION) {
-            const { error } = await stripe.confirmCardPayment(payment.data.client_secret as string)
-          }
-          router.push(
-            `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
-              DonationFormPaymentStatus.SUCCEEDED
-            }`,
-          )
-        } catch (err) {
-          setPaymentError({
-            type: 'invalid_request_error',
-            message: t('step.summary.alerts.error'),
-          })
-          setSubmitPaymentLoading(false)
-        }
       }}
       validateOnMount
       validateOnBlur>
