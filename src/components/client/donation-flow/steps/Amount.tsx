@@ -14,6 +14,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { DonationFormData } from '../helpers/types'
 import { useSession } from 'next-auth/react'
+import { ids } from '../common/DonationFormSections'
 
 export const initialAmountFormValues = {
   amountChosen: '',
@@ -90,7 +91,7 @@ export default function Amount({
   ])
 
   return (
-    <Box ref={sectionRef} component="section" id="select-amount">
+    <Box ref={sectionRef} component="section" id={ids['finalAmount']}>
       <Typography variant="h5" my={3}>
         {t('step.amount.title')}?
       </Typography>

@@ -14,6 +14,7 @@ import theme from 'common/theme'
 import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import InlineLoginForm from './InlineLoginForm'
 import InlineRegisterForm from './InlineRegisterForm'
+import { ids } from '../../common/DonationFormSections'
 
 export default function Authentication({
   sectionRef,
@@ -104,7 +105,7 @@ export default function Authentication({
   ]
 
   return (
-    <Box ref={sectionRef} component="section" id="select-authentication">
+    <Box ref={sectionRef} component="section" id={ids['authentication']}>
       <Typography mb={3} variant="h5">
         {t('step.authentication.title')}?
       </Typography>

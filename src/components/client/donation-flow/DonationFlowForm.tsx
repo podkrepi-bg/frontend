@@ -57,6 +57,7 @@ import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { confirmStripePayment } from './helpers/confirmStripeDonation'
 
 import { StripeError } from '@stripe/stripe-js'
+import DonationFormErrors from './common/DonationFormErrors'
 
 const initialGeneralFormValues = {
   mode: null,
@@ -76,16 +77,28 @@ const initialValues: DonationFormData = {
 }
 
 const generalValidation = {
-  mode: yup.string().oneOf(['one-time', 'subscription']).required() as yup.SchemaOf<PaymentMode>,
-  billingName: yup.string().required(),
-  billingEmail: yup.string().required(),
+  mode: yup
+    .string()
+    .oneOf(['one-time', 'subscription'], 'donation-flow:step.payment-mode.error')
+    .nullable()
+    .required() as yup.SchemaOf<PaymentMode>,
   payment: yup
     .string()
-    .oneOf(Object.values(DonationFormPaymentMethod))
+    .oneOf(Object.values(DonationFormPaymentMethod), 'donation-flow:step.payment-method.error')
+    .nullable()
     .required() as yup.SchemaOf<DonationFormPaymentMethod>,
+  billingName: yup.string().when('payment', {
+    is: 'card',
+    then: yup.string().required('donation-flow:step.payment-method.field.card-data.errors.name'),
+  }),
+  billingEmail: yup.string().when('payment', {
+    is: 'card',
+    then: yup.string().required('donation-flow:step.payment-method.field.card-data.errors.email'),
+  }),
   authentication: yup
     .string()
-    .oneOf(Object.values(DonationFormAuthState))
+    .oneOf(Object.values(DonationFormAuthState), 'donation-flow:step.authentication.error')
+    .nullable()
     .required() as yup.SchemaOf<DonationFormAuthState>,
   isAnonymous: yup.boolean().required(),
   privacy: yup.bool().required().isTrue('donation-flow:step.summary.field.privacy.error'),
@@ -218,7 +231,7 @@ export function DonationFlowForm() {
       }}
       validateOnMount
       validateOnBlur>
-      {({ handleSubmit, values, isValid }) => (
+      {({ handleSubmit, values, isValid, errors, submitCount }) => (
         <Grid2 spacing={4} container>
           <Grid2 sm={12} md={8}>
             <Form
@@ -298,7 +311,7 @@ export function DonationFlowForm() {
                   }}
                 />
               </Hidden>
-
+              <DonationFormErrors errors={errors} show={submitCount > 1} />
               <Stack direction={'column'}>
                 {paymentError ? (
                   <Alert sx={{ fontSize: theme.typography.fontSize, mb: 1 }} severity="error">
@@ -307,7 +320,7 @@ export function DonationFlowForm() {
                 ) : null}
               </Stack>
               <SubmitButton
-                disabled={submitPaymentLoading || !isValid}
+                disabled={submitPaymentLoading}
                 loading={submitPaymentLoading}
                 label={t('action.submit')}
                 fullWidth

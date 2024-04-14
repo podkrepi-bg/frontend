@@ -28,8 +28,17 @@
         }
       }
     },
+    "payment-mode": {
+      "title": "How often would you want to donate",
+      "error": "Please select, how often would you want to donate",
+      "fields": {
+        "one-time": "One time",
+        "monthly": "Monthly"
+      }
+    },
     "payment-method": {
       "title": "How would you like to pay",
+      "error": "Please select payment method",
       "field": {
         "method": {
           "card": "Card",
@@ -40,6 +49,13 @@
         "tax-box": {
           "label": "I want to cover transaction fees for card issued in",
           "error": "You have to select a region"
+        },
+        "card-data": {
+          "name-label": "Cardholder name",
+          "error": {
+            "email": "Please enter your email",
+            "name": "Please enter your name"
+          }
         },
         "card-region": {
           "title": "Region",
@@ -76,6 +92,7 @@
     },
     "authentication": {
       "title": "How would you like to continue",
+      "error": "Please select authentication method",
       "logged-as": "You are logged in as",
       "login": {
         "label": "Log in"

@@ -39,8 +39,8 @@ export type DonationFormData = {
   amountChosen?: string
   otherAmount?: number
   //Login fields
-  billingEmail: string
-  billingName: string
+  billingEmail?: string
+  billingName?: string
   loginEmail?: string
   loginPassword?: string
   //Register fields

@@ -6,6 +6,7 @@ import { useField, useFormikContext } from 'formik'
 
 import { DonationFormData } from '../../helpers/types'
 import { styled } from '@mui/material/styles'
+import { useTranslation } from 'next-i18next'
 
 export type PaymentDetailsStripeFormProps = {
   containerProps?: BoxProps
@@ -39,7 +40,7 @@ export default function PaymentDetailsStripeForm({
   const [isLoading, setIsloading] = useState(true)
   const formik = useFormikContext<DonationFormData>()
   const [billingName] = useField('billingName')
-
+  const { t } = useTranslation()
   useEffect(() => {
     formik.setFieldValue('billingEmail', session?.user?.email || '')
   }, [session, isLoading])
@@ -52,10 +53,11 @@ export default function PaymentDetailsStripeForm({
       flexDirection={'column'}
       gap={2}>
       <LinkAuthenticationElement
+        id="billingEmail"
         onChange={(e) => formik.setFieldValue('billingEmail', e.value.email)}
         options={{
           defaultValues: {
-            email: formik.values.billingEmail,
+            email: formik.values.billingEmail ?? session?.user?.email ?? '',
           },
         }}
       />
@@ -68,14 +70,14 @@ export default function PaymentDetailsStripeForm({
           transition: 'opacity 0.6s ease-out',
         }}>
         <Typography component={'label'} fontSize={'0.875rem'} fontWeight={350} color={'black'}>
-          Име на картодържател
+          {t('donation-flow:step.payment-method.field.card-data.name-label')}
         </Typography>
         <BillingNameField
           fullWidth
           {...billingName}
-          id="card-holder-name"
+          id="billingName"
           variant="outlined"
-          placeholder="Име на картодържателя"
+          placeholder={t('donation-flow:step.payment-method.field.card-data.name-label')}
         />
       </Box>
       <PaymentElement
