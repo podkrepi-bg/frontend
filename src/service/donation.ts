@@ -47,11 +47,15 @@ export function useUpdateSetupIntent() {
   //Create payment intent useing the react-query mutation
   const { data: session } = useSession()
   return useMutation({
-    mutationFn: async ({ id, payload }: UpdateSetupIntentInput) => {
+    mutationFn: async ({ id, idempotencyKey, payload }: UpdateSetupIntentInput) => {
       return await apiClient.post<
         Stripe.SetupIntentUpdateParams,
         AxiosResponse<Stripe.SetupIntent>
-      >(endpoints.donation.updateSetupIntent(id).url, payload, authConfig(session?.accessToken))
+      >(
+        endpoints.donation.updateSetupIntent(id, idempotencyKey).url,
+        payload,
+        authConfig(session?.accessToken),
+      )
     },
   })
 }
@@ -69,13 +73,14 @@ export function useCreateSubscriptionPayment() {
 
 export async function createIntentFromSetup(
   setupIntentId: string,
+  idempotencyKey: string,
   mode: PaymentMode,
   session: Session | null,
 ): Promise<AxiosResponse<Stripe.PaymentIntent>> {
   return await apiClient.post<PaymentMode, AxiosResponse<Stripe.PaymentIntent>, AxiosError<Error>>(
     mode === 'one-time'
-      ? endpoints.donation.createPaymentIntentFromSetup(setupIntentId).url
-      : endpoints.donation.createSubscriptionFromSetup(setupIntentId).url,
+      ? endpoints.donation.createPaymentIntentFromSetup(setupIntentId, idempotencyKey).url
+      : endpoints.donation.createSubscriptionFromSetup(setupIntentId, idempotencyKey).url,
     undefined,
     authConfig(session?.accessToken),
   )

@@ -118,7 +118,7 @@ export function DonationFlowForm() {
     formikRef.current?.setFieldValue('email', '')
     formikRef.current?.setFieldValue('isAnonymous', true)
   }, [session])
-  const { campaign, setupIntent, paymentError, setPaymentError } = useDonationFlow()
+  const { campaign, setupIntent, paymentError, setPaymentError, idempotencyKey } = useDonationFlow()
   const stripe = useStripe()
   const elements = useElements()
   const router = useRouter()
@@ -173,6 +173,7 @@ export function DonationFlowForm() {
         try {
           await updateSetupIntentMutation.mutateAsync({
             id: setupIntent.id,
+            idempotencyKey,
             payload: {
               metadata: {
                 type: person?.company ? DonationType.corporate : DonationType.donation,
@@ -187,7 +188,15 @@ export function DonationFlowForm() {
             },
           })
           // Confirm the payment
-          await confirmStripePayment(setupIntent, elements, stripe, campaign, values, session)
+          await confirmStripePayment(
+            setupIntent,
+            elements,
+            stripe,
+            campaign,
+            values,
+            session,
+            idempotencyKey,
+          )
           router.push(
             `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
               DonationFormPaymentStatus.SUCCEEDED

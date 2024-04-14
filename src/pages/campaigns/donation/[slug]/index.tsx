@@ -22,16 +22,20 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
     queryFnFactory<Stripe.Price[]>(),
   )
 
+  //Generate idempotencyKey to prevent duplicate creation of resources in stripe
+  const idempotencyKey = crypto.randomUUID()
+
   //create and prefetch the payment intent
   const { data: setupIntent } = await apiClient.post<
     Stripe.SetupIntentCreateParams,
     AxiosResponse<Stripe.SetupIntentCreateParams>
-  >(endpoints.donation.createSetupIntent.url)
+  >(endpoints.donation.createSetupIntent.url, idempotencyKey)
 
   return {
     props: {
       slug,
       setupIntent,
+      idempotencyKey,
       dehydratedState: dehydrate(client),
       ...(await serverSideTranslations(ctx.locale ?? 'bg', [
         'common',
