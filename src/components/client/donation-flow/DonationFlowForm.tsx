@@ -56,6 +56,8 @@ import PaymentModeSelect from './steps/PaymentModeSelect'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { confirmStripePayment } from './helpers/confirmStripeDonation'
 
+import { StripeError } from '@stripe/stripe-js'
+
 const initialGeneralFormValues = {
   mode: null,
   payment: null,
@@ -206,8 +208,9 @@ export function DonationFlowForm() {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
-            message: t('step.summary.alerts.error'),
+            message: (error as StripeError).message ?? t('step.summary.alerts.error'),
           })
+
           return
         }
 

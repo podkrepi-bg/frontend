@@ -26,7 +26,7 @@ export async function confirmStripePayment(
     redirect: 'if_required',
   })
   if (intentError) {
-    throw new Error(intentError.message)
+    throw intentError
   }
   const payment = await createIntentFromSetup(
     setupIntent.id,
@@ -37,6 +37,6 @@ export async function confirmStripePayment(
 
   if (payment.data.status === DonationFormPaymentStatus.REQUIRES_ACTION) {
     const { error } = await stripe.confirmCardPayment(payment.data.client_secret as string)
-    if (error) throw new Error(error.message)
+    if (error) throw error
   }
 }
