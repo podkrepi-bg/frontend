@@ -23,7 +23,7 @@ export default function Authentication({
   const { t } = useTranslation('donation-flow')
   const { data: session } = useSession()
   const {
-    values: { authentication },
+    values: { authentication, mode },
     setFieldValue,
   } = useFormikContext<DonationFormData>()
 
@@ -84,7 +84,7 @@ export default function Authentication({
     {
       value: DonationFormAuthState.NOREGISTER,
       label: t('step.authentication.noregister.label'),
-      disabled: Boolean(session?.user),
+      disabled: Boolean(session?.user || mode === 'subscription'),
       content: (
         <Box>
           {showNoRegisterAlert && (

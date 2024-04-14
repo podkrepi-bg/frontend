@@ -5,7 +5,11 @@ import { Alert, Box, Collapse, Typography, useMediaQuery } from '@mui/material'
 import { useField } from 'formik'
 
 import theme from 'common/theme'
-import { DonationFormPaymentMethod } from 'components/client/donation-flow/helpers/types'
+import {
+  DonationFormData,
+  DonationFormPaymentMethod,
+  PaymentMode,
+} from 'components/client/donation-flow/helpers/types'
 
 import { TaxesCheckbox } from './TaxesCheckbox'
 import RadioCardGroup from '../../common/RadioCardGroup'
@@ -23,17 +27,20 @@ export default function PaymentMethod({
   const { t } = useTranslation('donation-flow')
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
+  const [mode] = useField<PaymentMode>('mode')
   const { status } = useSession()
   const options = [
     {
       value: 'card',
       label: t('step.payment-method.field.method.card'),
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
+      disabled: false,
     },
     {
       value: 'bank',
       label: t('step.payment-method.field.method.bank'),
       icon: <BankIcon sx={{ width: 80, height: 80 }} />,
+      disabled: mode.value === 'subscription',
     },
   ]
   const cardAlertDescription = t('step.payment-method.alert.card-fee')
