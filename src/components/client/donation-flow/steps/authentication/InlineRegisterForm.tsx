@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useFormikContext } from 'formik'
 import * as yup from 'yup'
-import { Button, CircularProgress, FormHelperText, Grid, Typography } from '@mui/material'
+import { Button, CircularProgress, FormHelperText, Grid } from '@mui/material'
 import { signIn } from 'next-auth/react'
 import { useTranslation } from 'react-i18next'
 
@@ -19,6 +19,7 @@ import {
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import { AccountType, IndividualRegisterFormData } from 'gql/user-registration'
+import { ids } from '../../common/DonationFormSections'
 
 export const initialRegisterFormValues = {
   registerEmail: '',
@@ -117,7 +118,7 @@ export default function InlineRegisterForm() {
 
   return (
     <>
-      <Grid container p={2} spacing={3} borderRadius={5}>
+      <Grid container p={2} spacing={3} borderRadius={5} id={ids['registerEmail']}>
         <Grid item xs={12} sm={6}>
           <FormTextField
             type="text"

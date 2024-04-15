@@ -32,6 +32,7 @@ interface StyledRadioCardItemProps extends CardProps {
   disabled?: boolean
   loading?: boolean
   selected?: boolean
+  error?: boolean
 }
 
 function RadioCardItem({
@@ -40,10 +41,12 @@ function RadioCardItem({
   selected,
   disabled,
   loading,
+  error,
   ...rest
 }: StyledRadioCardItemProps) {
   const selectedStyles = {
     backgroundColor: selected ? lighten(theme.palette.primary.light, 0.7) : 'inherit',
+    borderColor: error ? theme.palette.error.main : 'inherit',
   }
   const disabledStyles = {
     opacity: 0.7,
@@ -83,6 +86,7 @@ export interface RadioCardGroupProps extends RadioGroupProps {
   name: string
   columns: 1 | 2 | 3 | 4 | 6 | 12
   loading?: boolean
+  error?: boolean
 }
 
 /**
@@ -103,29 +107,36 @@ export interface RadioCardGroupProps extends RadioGroupProps {
  * icon: <MoneyIcon />,
  * },
  */
-function RadioCardGroup({ options, name, columns, loading }: RadioCardGroupProps) {
+function RadioCardGroup({ options, name, columns, loading, error }: RadioCardGroupProps) {
   const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
+  const showError =
+    typeof error !== undefined ? Boolean(error) : Boolean(meta.error) && Boolean(meta.touched)
+
   return (
-    <FormControl
-      fullWidth
-      required
-      component="fieldset"
-      error={Boolean(meta.error) && Boolean(meta.touched)}>
+    <FormControl fullWidth required component="fieldset" error={showError}>
       <RadioGroup value={field.value} onChange={handleChange}>
         <Grid columnSpacing={3} container>
           {options.map((option) => (
             <Grid item xs={12} sm={12 / columns} key={option.value}>
               <RadioCardItem
                 onClick={() => setValue(option.value)}
+                style={{
+                  border: `1px solid ${
+                    showError ? theme.palette.error.main : theme.palette.common.black
+                  }`,
+                }}
                 control={
                   <FormControlLabel
                     value={option.value}
                     disableTypography
                     disabled={option.disabled}
-                    sx={{ margin: 0, ...theme.typography.h6 }}
+                    sx={{
+                      margin: 0,
+                      ...theme.typography.h6,
+                    }}
                     control={
                       <Radio
                         disabled={option.disabled}

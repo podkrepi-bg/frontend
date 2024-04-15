@@ -67,6 +67,9 @@ export const themeOptions: ThemeOptions = {
       light: colors.blue.mainDark,
       dark: darken(colors.blue.dark, 0.2),
     },
+    error: {
+      main: '#D32F2F',
+    },
   },
   shape: {
     borderRadius: 3,

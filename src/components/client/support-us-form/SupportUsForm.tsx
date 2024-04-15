@@ -7,11 +7,6 @@ import { ibanNumber, BIC } from 'common/iban'
 
 import { BankDetailsLabel } from './SupportUs.styled'
 
-const PREFIX = 'SupportUs'
-const classes = {
-  divider: `${PREFIX}-divider`,
-}
-
 export default function SupportUsForm() {
   const { t } = useTranslation('donation-flow')
 

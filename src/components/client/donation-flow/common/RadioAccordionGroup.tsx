@@ -91,6 +91,10 @@ export interface RadioAccordionGroupProps extends RadioGroupProps {
    * This is used to link the radio group to the form.
    */
   name: string
+  /**
+   * Whether the field has an error
+   */
+  error?: boolean
 }
 
 /**
@@ -113,23 +117,22 @@ export interface RadioAccordionGroupProps extends RadioGroupProps {
  * }]
 
  */
-function RadioAccordionGroup({ options, name, sx, ...rest }: RadioAccordionGroupProps) {
+function RadioAccordionGroup({ options, name, sx, error, ...rest }: RadioAccordionGroupProps) {
   const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
 
+  const showError =
+    typeof error !== undefined ? error : Boolean(meta.error) && Boolean(meta.touched)
+
   return (
-    <FormControl
-      fullWidth
-      required
-      component="fieldset"
-      error={Boolean(meta.error) && Boolean(meta.touched)}>
+    <FormControl fullWidth required component="fieldset" error={showError}>
       <RadioGroup
         value={field.value}
         onChange={handleChange}
         sx={{
-          border: `1px solid ${theme.borders.dark}`,
+          border: `1px solid ${showError ? theme.palette.error.main : theme.borders.dark}`,
           borderRadius: theme.borders.semiRound,
           ...sx,
         }}

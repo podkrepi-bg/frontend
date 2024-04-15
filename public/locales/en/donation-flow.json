@@ -2,7 +2,8 @@
   "general": {
     "BGN": "BGN",
     "error": {
-      "email": "You have to enter a valid email"
+      "email": "You have to enter a valid email",
+      "select-field": "Please make your decision"
     }
   },
   "cancel-dialog": {
@@ -24,7 +25,10 @@
         },
         "other-amount": {
           "label": "Other amount",
-          "error": "You have to enter a valid amount"
+          "error": "You have to enter a valid amount",
+          "currency": "BGN",
+          "only-number": "This field can contain only numbers.",
+          "transaction-limit": "Donation can't exceed the sum of {{limit}}"
         }
       }
     },

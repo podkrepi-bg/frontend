@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
-import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
+import { useMediaQuery, Collapse, Grid, Typography } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import { CardRegion } from 'gql/donations.enums'
@@ -9,12 +9,13 @@ import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
 import { moneyPublic, toMoney } from 'common/util/money'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
-import FormTextField from 'components/common/form/FormTextField'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { DonationFormData } from '../helpers/types'
 import { useSession } from 'next-auth/react'
 import { ids } from '../common/DonationFormSections'
+import { DonationFormSectionErrorText } from '../common/DonationFormErrors'
+import NumberInputField from 'components/common/form/NumberInputField'
 
 export const initialAmountFormValues = {
   amountChosen: '',
@@ -51,13 +52,12 @@ export const amountValidation = {
     }) as yup.SchemaOf<CardRegion>,
 }
 
-export default function Amount({
-  disabled,
-  sectionRef,
-}: {
+type SelectDonationAmountProps = {
   disabled?: boolean
   sectionRef?: React.MutableRefObject<HTMLDivElement | null>
-}) {
+  error: boolean
+}
+export default function Amount({ disabled, sectionRef, error }: SelectDonationAmountProps) {
   const formik = useFormikContext<DonationFormData>()
   const [{ value }] = useField('amountChosen')
   const { t } = useTranslation('donation-flow')
@@ -91,13 +91,20 @@ export default function Amount({
   ])
 
   return (
-    <Box ref={sectionRef} component="section" id={ids['finalAmount']}>
+    <Grid
+      container
+      ref={sectionRef}
+      component="section"
+      id={ids['finalAmount']}
+      direction={'column'}>
       <Typography variant="h5" my={3}>
         {t('step.amount.title')}?
       </Typography>
-      <Box>
+      <Grid container item gap={2}>
+        {error && <DonationFormSectionErrorText message={t('general.error.select-field')} />}
         <RadioButtonGroup
           loading={status === 'loading'}
+          error={error}
           disabled={disabled}
           name="amountChosen"
           options={
@@ -110,38 +117,39 @@ export default function Amount({
               .concat({ label: t('step.amount.field.other-amount.label'), value: 'other' }) || []
           }
         />
-        <Collapse unmountOnExit in={value === 'other'} timeout="auto">
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            //Since we can't put the otherAmount field in the same grid as the radio buttons
-            //if the amount of prices are not even and there is empty space to the right, we need to float it to the right
-            style={
-              !mobile && Number(prices?.length) % 2 === 0
-                ? {
-                    float: 'right',
-                    marginTop: -50,
-                    width: '49%',
-                  }
-                : { marginTop: theme.spacing(2), width: mobile ? '100%' : '49%' }
-            }>
-            <FormTextField
-              name="otherAmount"
-              type="number"
-              label={t('step.amount.field.other-amount.label')}
-              InputProps={{
-                style: { fontSize: 14, padding: 7 },
-                endAdornment: (
-                  <InputAdornment variant="filled" position="end">
-                    {t('general.BGN')}
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Grid>
-        </Collapse>
-      </Box>
-    </Box>
+      </Grid>
+      <Collapse unmountOnExit in={value === 'other'} timeout="auto">
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          //Since we can't put the otherAmount field in the same grid as the radio buttons
+          //if the amount of prices are not even and there is empty space to the right, we need to float it to the right
+          style={
+            !mobile && Number(prices?.length) % 2 === 0
+              ? {
+                  float: 'right',
+                  marginTop: -50,
+                  width: '100%',
+                }
+              : { marginTop: theme.spacing(2), width: mobile ? '100%' : '49%' }
+          }>
+          {/* <FormTextField
+            name="otherAmount"
+            type="text"
+            label={t('step.amount.field.other-amount.label')}
+            InputProps={{
+              style: { fontSize: 14, padding: 7 },
+              endAdornment: (
+                <InputAdornment variant="filled" position="end">
+                  {t('general.BGN')}
+                </InputAdornment>
+              ),
+            }}
+          /> */}
+          <NumberInputField />
+        </Grid>
+      </Collapse>
+    </Grid>
   )
 }

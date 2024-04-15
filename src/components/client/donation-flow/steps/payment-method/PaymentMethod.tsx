@@ -1,12 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { useSession } from 'next-auth/react'
-import { Alert, Box, Collapse, Typography, useMediaQuery } from '@mui/material'
+import { Alert, Box, Collapse, Grid, Typography, useMediaQuery } from '@mui/material'
 import { useField } from 'formik'
 
 import theme from 'common/theme'
 import {
-  DonationFormData,
   DonationFormPaymentMethod,
   PaymentMode,
 } from 'components/client/donation-flow/helpers/types'
@@ -18,11 +17,14 @@ import CardIcon from '../../icons/CardIcon'
 import BankIcon from '../../icons/BankIcon'
 import PaymentDetailsStripeForm from './PaymentDetailsStripeForm'
 import BankPayment from './BankPayment'
+import { DonationFormSectionErrorText } from '../../common/DonationFormErrors'
 
 export default function PaymentMethod({
   sectionRef,
+  error,
 }: {
   sectionRef: React.MutableRefObject<HTMLDivElement | null>
+  error?: boolean
 }) {
   const { t } = useTranslation('donation-flow')
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
@@ -85,10 +87,18 @@ export default function PaymentMethod({
     },
   ]
   return (
-    <Box ref={sectionRef} component="section" id="select-payment-method">
+    <Grid
+      container
+      direction="column"
+      ref={sectionRef}
+      component="section"
+      id="select-payment-method"
+      flexDirection={'column'}
+      gap={2}>
       <Typography mb={3} variant="h5">
         {t('step.payment-method.title')}?
       </Typography>
+      {error && <DonationFormSectionErrorText message={t('general.error.select-field')} />}
       {isSmall ? (
         <RadioAccordionGroup name="payment" options={mobileOptions} />
       ) : (
@@ -97,6 +107,7 @@ export default function PaymentMethod({
             loading={status === 'loading'}
             columns={2}
             name="payment"
+            error={error}
             options={options}
           />
           <Collapse unmountOnExit in={payment.value === DonationFormPaymentMethod.CARD}>
@@ -108,6 +119,6 @@ export default function PaymentMethod({
           </Collapse>
         </>
       )}
-    </Box>
+    </Grid>
   )
 }

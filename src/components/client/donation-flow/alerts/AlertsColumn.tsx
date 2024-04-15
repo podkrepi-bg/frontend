@@ -10,6 +10,7 @@ import {
 } from '../helpers/types'
 import { useElements } from '@stripe/react-stripe-js'
 import { AuthenticateAlertContent } from './AlertsContent'
+import { ids } from '../common/DonationFormSections'
 
 function AlertsColumn({
   sectionsRefArray,
@@ -34,7 +35,7 @@ function AlertsColumn({
     setUpdatedRefArray([...sectionsRefArray])
   })
   const alerts: { [key: string]: AlertProps } = {
-    'select-payment-method': {
+    [ids['payment']]: {
       color: 'info',
       children: <Typography>{payment && paymentMethodAlertMap[payment]}</Typography>,
       icon: false,
@@ -42,7 +43,7 @@ function AlertsColumn({
         display: payment ? 'flex' : 'none',
       },
     },
-    'select-authentication': {
+    [ids['authentication']]: {
       color: 'info',
       children: <AuthenticateAlertContent />,
       icon: false,

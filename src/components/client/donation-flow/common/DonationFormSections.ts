@@ -6,6 +6,13 @@ export type DonationFormSections = {
   payment: 'select-payment-method'
   authentication: 'select-authentication-method'
   mode: 'select-recurring-payment'
+  loginEmail: 'authentication-login'
+  loginPassword: 'authentication-login'
+  registerEmail: 'authentication-register'
+  registerPassword: 'authentication-register'
+  registerFirstName: 'authentication-register'
+  registerLastName: 'authentication-register'
+  registerConfirmPassword: 'authentication-register'
 }
 
 export const ids: DonationFormSections = {
@@ -14,4 +21,11 @@ export const ids: DonationFormSections = {
   payment: 'select-payment-method',
   authentication: 'select-authentication-method',
   mode: 'select-recurring-payment',
+  loginEmail: 'authentication-login',
+  loginPassword: 'authentication-login',
+  registerEmail: 'authentication-register',
+  registerPassword: 'authentication-register',
+  registerFirstName: 'authentication-register',
+  registerLastName: 'authentication-register',
+  registerConfirmPassword: 'authentication-register',
 }

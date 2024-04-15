@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Typography, Alert, useMediaQuery } from '@mui/material'
+import { Box, Typography, Alert, useMediaQuery, Grid } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
 
@@ -15,11 +15,14 @@ import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import InlineLoginForm from './InlineLoginForm'
 import InlineRegisterForm from './InlineRegisterForm'
 import { ids } from '../../common/DonationFormSections'
+import { DonationFormSectionErrorText } from '../../common/DonationFormErrors'
 
 export default function Authentication({
   sectionRef,
+  error,
 }: {
   sectionRef: React.MutableRefObject<HTMLDivElement | null>
+  error?: boolean
 }) {
   const { t } = useTranslation('donation-flow')
   const { data: session } = useSession()
@@ -105,7 +108,12 @@ export default function Authentication({
   ]
 
   return (
-    <Box ref={sectionRef} component="section" id={ids['authentication']}>
+    <Grid
+      container
+      direction="column"
+      ref={sectionRef}
+      component="section"
+      id={ids['authentication']}>
       <Typography mb={3} variant="h5">
         {t('step.authentication.title')}?
       </Typography>
@@ -114,14 +122,16 @@ export default function Authentication({
           {t('step.authentication.logged-as')} {session?.user?.email}
         </Alert>
       ) : (
-        <>
+        <Grid container item gap={2}>
+          {error && <DonationFormSectionErrorText message={t('general.error.select-field')} />}
           <RadioAccordionGroup
+            error={error}
             sx={{ marginBottom: theme.spacing(2) }}
             name="authentication"
             options={options}
           />
-        </>
+        </Grid>
       )}
-    </Box>
+    </Grid>
   )
 }

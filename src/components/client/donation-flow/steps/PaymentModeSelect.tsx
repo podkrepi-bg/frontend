@@ -6,15 +6,19 @@ import { ids } from '../common/DonationFormSections'
 import { DonationFormData, PaymentMode } from '../helpers/types'
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
+import { DonationFormSectionErrorText } from '../common/DonationFormErrors'
 
 type PaymentModeOptions = {
   label: string
   value: PaymentMode
 }
 
-export default function PaymentMode() {
+type PaymentModeSelectProps = {
+  error: boolean
+}
+export default function PaymentMode({ error }: PaymentModeSelectProps) {
   const formik = useFormikContext<DonationFormData>()
-  const { t } = useTranslation()
+  const { t } = useTranslation('donation-flow')
   const options: PaymentModeOptions[] = [
     {
       label: t('donation-flow:step.payment-mode.fields.one-time'),
@@ -35,8 +39,9 @@ export default function PaymentMode() {
       <Grid item>
         <Typography variant="h5">{t('donation-flow:step.payment-mode.title')}</Typography>
       </Grid>
-      <Grid item md={6}>
-        <RadioButtonGroup name="mode" columns={1} options={options} />
+      <Grid container item md={6} gap={3}>
+        {error && <DonationFormSectionErrorText message={t('general.error.select-field')} />}
+        <RadioButtonGroup name="mode" columns={1} options={options} error={error} />
       </Grid>
     </Grid>
   )

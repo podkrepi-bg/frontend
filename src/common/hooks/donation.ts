@@ -1,8 +1,5 @@
 import { useSession } from 'next-auth/react'
 import { QueryClient, useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
-import { AxiosError, AxiosResponse } from 'axios'
-
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 import {

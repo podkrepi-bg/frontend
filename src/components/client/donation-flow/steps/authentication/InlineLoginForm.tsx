@@ -16,6 +16,7 @@ import {
 } from 'components/client/donation-flow/helpers/types'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
+import { ids } from '../../common/DonationFormSections'
 
 export const initialLoginFormValues = {
   loginEmail: '',
@@ -38,7 +39,7 @@ function InlineLoginForm() {
   const { values, setFieldValue } = useFormikContext<DonationFormData>()
   const { campaign } = useDonationFlow()
   const onGoogleLogin = () => {
-    signIn('google', { callbackUrl: routes.campaigns.donation(campaign.slug) })
+    signIn('google', { callbackUrl: routes.campaigns.oneTimeDonation(campaign.slug) })
   }
 
   const onClick = async () => {
@@ -64,7 +65,7 @@ function InlineLoginForm() {
     }
   }
   return (
-    <Grid p={2} container rowSpacing={3}>
+    <Grid p={2} container rowSpacing={3} id={ids['loginEmail']}>
       <Grid item xs={12}>
         <EmailField name="loginEmail" label="Email" fullWidth />
       </Grid>

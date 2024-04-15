@@ -1,6 +1,6 @@
 import { Check } from '@mui/icons-material'
 import { styled, lighten } from '@mui/material/styles'
-import { FormControlLabel, Radio, Typography, RadioProps, Skeleton } from '@mui/material'
+import { FormControlLabel, Radio, Typography, RadioProps } from '@mui/material'
 import theme from 'common/theme'
 import React from 'react'
 
@@ -13,12 +13,18 @@ const classes = {
   checkedCircle: `${PREFIX}-checkedCircle`,
   label: `${PREFIX}-label`,
   disabled: `${PREFIX}-disabled`,
+  error: `${PREFIX}-error`,
+  checkIcon: `${PREFIX}-checkIcon`,
 }
 
-const StyledRadioButton = styled('div')(() => ({
+type StyledRadioWrapperProps = {
+  error: boolean
+}
+
+const StyledRadioButton = styled('div')<StyledRadioWrapperProps>(({ error }) => ({
   [`& .${classes.radioWrapper}`]: {
     borderRadius: theme.borders.round,
-    border: `1px solid ${theme.borders.dark}`,
+    border: `1px solid ${error ? theme.palette.error.main : theme.borders.dark}`,
     padding: 0,
     width: '100%',
     margin: '0 auto',
@@ -32,8 +38,17 @@ const StyledRadioButton = styled('div')(() => ({
   [`& .${classes.circle}`]: {
     width: 30,
     height: 30,
-    border: `1px solid ${theme.palette.primary.dark}`,
+    border: `1px solid ${error ? theme.palette.error.main : theme.palette.primary.dark}`,
     borderRadius: theme.borders.round,
+  },
+
+  [`& .${classes.checkIcon}`]: {
+    width: 30,
+    height: 30,
+    border: `1px solid ${error ? theme.palette.error.main : theme.palette.primary.main}`,
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: theme.borders.round,
+    color: theme.palette.common.white,
   },
 
   [`& .${classes.label}`]: {
@@ -45,37 +60,6 @@ const StyledRadioButton = styled('div')(() => ({
   },
 }))
 
-//Write these styles with the new styled API
-
-const StyledRadioWrapper = styled(FormControlLabel)(({ checked, disabled }) => ({
-  borderRadius: theme.borders.round,
-  padding: 0,
-  width: '100%',
-  margin: '0 auto',
-  background: disabled
-    ? theme.palette.grey[300]
-    : checked
-    ? lighten(theme.palette.primary.main, 0.8)
-    : 'transparent',
-  border: `1px solid ${
-    checked ? theme.borders.light : disabled ? theme.palette.grey[500] : theme.borders.dark
-  }`,
-}))
-
-const StyledCircle = styled('div')((props) => ({
-  width: 30,
-  height: 30,
-  border: `1px solid ${
-    props['aria-disabled'] ? theme.palette.grey[500] : theme.palette.primary.dark
-  }`,
-  borderRadius: theme.borders.round,
-}))
-
-const StyledLabel = styled(Typography)(({ theme }) => ({
-  fontSize: 14,
-  marginLeft: theme.spacing(3),
-}))
-
 type RadioButtonProps = {
   checked: boolean
   label: string
@@ -83,11 +67,12 @@ type RadioButtonProps = {
   disabled?: boolean
   loading?: boolean
   muiRadioButtonProps?: Partial<RadioProps>
+  error: boolean
 }
 
-function RadioButton({ checked, label, muiRadioButtonProps, value }: RadioButtonProps) {
+function RadioButton({ checked, label, muiRadioButtonProps, value, error }: RadioButtonProps) {
   return (
-    <StyledRadioButton>
+    <StyledRadioButton error={error}>
       <FormControlLabel
         value={value}
         className={`${classes.radioWrapper} ${checked ? classes.checked : null}`}
@@ -99,23 +84,9 @@ function RadioButton({ checked, label, muiRadioButtonProps, value }: RadioButton
         }
         control={
           <Radio
-            icon={<div className={classes.circle} />}
+            icon={<div className={`${classes.circle}`} />}
             checkedIcon={
-              <Check
-                color="primary"
-                sx={
-                  checked
-                    ? {
-                        width: 30,
-                        height: 30,
-                        border: `1px solid ${theme.palette.primary.main}`,
-                        backgroundColor: theme.palette.primary.main,
-                        borderRadius: theme.borders.round,
-                        color: theme.palette.common.white,
-                      }
-                    : undefined
-                }
-              />
+              <Check color="primary" className={checked ? classes.checkIcon : undefined} />
             }
             {...muiRadioButtonProps}
           />

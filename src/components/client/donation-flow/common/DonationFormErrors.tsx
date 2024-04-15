@@ -5,13 +5,28 @@ import { FormikErrors } from 'formik'
 import { DonationFormData } from '../helpers/types'
 import { ids, DonationFormSections } from './DonationFormSections'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import { ErrorTwoTone } from '@mui/icons-material'
 
 type DonationFormErrorProps = {
   errors: FormikErrors<DonationFormData>
   show: boolean
 }
 
-export default function DonationFormErrors({ errors, show }: DonationFormErrorProps) {
+type DonationFormSectionErrorTextProps = {
+  message: string
+}
+export function DonationFormSectionErrorText({ message }: DonationFormSectionErrorTextProps) {
+  return (
+    <Grid container item gap={1}>
+      <ErrorTwoTone color="error" />
+      <Typography variant="subtitle2" color="error.main">
+        {message}
+      </Typography>
+    </Grid>
+  )
+}
+
+export function DonationFormErrorList({ errors, show }: DonationFormErrorProps) {
   const { t } = useTranslation()
 
   return (
