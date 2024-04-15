@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -79,13 +79,6 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       },
     },
   )
-
-  useEffect(() => {
-    if (p_status === DonationFormPaymentStatus.SUCCEEDED) {
-      // If the status is succeeded we can clear the form state
-      sessionStorage.removeItem('donation-form')
-    }
-  }, [])
 
   const Success = () => (
     <Box>

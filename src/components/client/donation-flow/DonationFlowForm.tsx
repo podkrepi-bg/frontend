@@ -149,9 +149,11 @@ export function DonationFlowForm() {
         isAnonymous: session?.user ? false : true,
       }}
       validationSchema={validationSchema}
-      onSubmit={async (values) => {
+      onSubmit={async (values, helpers) => {
         setSubmitPaymentLoading(true)
         if (values.payment === DonationFormPaymentMethod.BANK) {
+          helpers.resetForm()
+          sessionStorage.removeItem('donation-form')
           return router.push(
             `${routes.campaigns.donationStatus(campaign.slug)}?${new URLSearchParams({
               bank_payment: 'true',
@@ -198,7 +200,7 @@ export function DonationFlowForm() {
             },
           })
           // Confirm the payment
-          await confirmStripePayment(
+          const payment = await confirmStripePayment(
             updatedIntent.data,
             elements,
             stripe,
@@ -207,12 +209,16 @@ export function DonationFlowForm() {
             session,
             idempotencyKey,
           )
-          router.push(
-            `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
-              DonationFormPaymentStatus.SUCCEEDED
-            }`,
-          )
+          if (payment.status === DonationFormPaymentStatus.SUCCEEDED) {
+            sessionStorage.removeItem('donation-form')
+            router.push(
+              `${window.location.origin}${routes.campaigns.donationStatus(
+                campaign.slug,
+              )}?p_status=${DonationFormPaymentStatus.SUCCEEDED}`,
+            )
+          }
         } catch (error) {
+          helpers.resetForm()
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',

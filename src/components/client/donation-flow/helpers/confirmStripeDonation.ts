@@ -14,7 +14,7 @@ export async function confirmStripePayment(
   values: DonationFormData,
   session: Session | null,
   idempotencyKey: string,
-): Promise<void> {
+): Promise<StripeJS.PaymentIntent> {
   if (setupIntent.status !== DonationFormPaymentStatus.SUCCEEDED) {
     const { error: intentError } = await stripe.confirmSetup({
       elements,
@@ -40,5 +40,7 @@ export async function confirmStripePayment(
   if (payment.data.status === DonationFormPaymentStatus.REQUIRES_ACTION) {
     const { error } = await stripe.confirmCardPayment(payment.data.client_secret as string)
     if (error) throw error
+    sessionStorage.removeItem('donation-form')
   }
+  return payment.data
 }
