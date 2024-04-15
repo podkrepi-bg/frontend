@@ -181,7 +181,7 @@ export function DonationFlowForm() {
 
         // Update the setup intent with the latest calculated amount
         try {
-          await updateSetupIntentMutation.mutateAsync({
+          const updatedIntent = await updateSetupIntentMutation.mutateAsync({
             id: setupIntent.id,
             idempotencyKey,
             payload: {
@@ -199,7 +199,7 @@ export function DonationFlowForm() {
           })
           // Confirm the payment
           await confirmStripePayment(
-            setupIntent,
+            updatedIntent.data,
             elements,
             stripe,
             campaign,

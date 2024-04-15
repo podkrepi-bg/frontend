@@ -15,18 +15,20 @@ export async function confirmStripePayment(
   session: Session | null,
   idempotencyKey: string,
 ): Promise<void> {
-  const { error: intentError } = await stripe.confirmSetup({
-    elements,
-    confirmParams: {
-      return_url: `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}`,
-      payment_method_data: {
-        billing_details: { name: values.billingName, email: values.billingEmail },
+  if (setupIntent.status !== DonationFormPaymentStatus.SUCCEEDED) {
+    const { error: intentError } = await stripe.confirmSetup({
+      elements,
+      confirmParams: {
+        return_url: `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}`,
+        payment_method_data: {
+          billing_details: { name: values.billingName, email: values.billingEmail },
+        },
       },
-    },
-    redirect: 'if_required',
-  })
-  if (intentError) {
-    throw intentError
+      redirect: 'if_required',
+    })
+    if (intentError) {
+      throw intentError
+    }
   }
   const payment = await createIntentFromSetup(
     setupIntent.id,
