@@ -40,7 +40,7 @@ function AlertsColumn({
       children: <Typography>{payment && paymentMethodAlertMap[payment]}</Typography>,
       icon: false,
       sx: {
-        display: payment ? { md: 'flex' } : 'none',
+        display: payment ? 'flex' : 'none',
       },
     },
     [ids['authentication']]: {
@@ -51,7 +51,7 @@ function AlertsColumn({
         display:
           authentication === DonationFormAuthState.AUTHENTICATED || authentication === null
             ? 'none'
-            : { md: 'flex' },
+            : 'flex',
       },
     },
   }

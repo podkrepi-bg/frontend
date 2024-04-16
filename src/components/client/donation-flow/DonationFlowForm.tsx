@@ -286,7 +286,7 @@ export function DonationFlowForm() {
                     error={Boolean(errors.payment) && submitCount > 0}
                   />
                 </Grid2>
-                <Grid2 container md={4}>
+                <Grid2 container md={4} display={{ xs: 'none', md: 'flex' }}>
                   <AlertsColumn sectionsRefArray={[paymentMethodSectionRef]} />
                 </Grid2>
               </Grid2>
@@ -303,7 +303,7 @@ export function DonationFlowForm() {
                   />
                   <StepSplitter />
                 </Grid2>
-                <Grid2 container md={4}>
+                <Grid2 container md={4} display={{ xs: 'none', md: 'flex' }}>
                   <AlertsColumn sectionsRefArray={[authenticationSectionRef]} />
                 </Grid2>
               </Grid2>
@@ -343,7 +343,7 @@ export function DonationFlowForm() {
                 <Grid2 container md={4} display={{ xs: 'none', md: 'flex' }}>
                   <PaymentSummaryAlert
                     donationAmount={Number(values.finalAmount)}
-                    sx={{ minWidth: 345 }}
+                    sx={{ minWidth: 345, maxHeight: 175 }}
                   />
                 </Grid2>
               </Grid2>
