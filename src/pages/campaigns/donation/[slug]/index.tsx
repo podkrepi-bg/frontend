@@ -26,11 +26,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
   const idempotencyKey = crypto.randomUUID()
 
   //create and prefetch the payment intent
-  // const { data: setupIntent } = await apiClient.post<
-  //   Stripe.SetupIntentCreateParams,
-  //   AxiosResponse<Stripe.SetupIntentCreateParams>
-  // >(endpoints.donation.createSetupIntent.url, idempotencyKey)
-  const setupIntent = {}
+  const { data: setupIntent } = await apiClient.post<
+    Stripe.SetupIntentCreateParams,
+    AxiosResponse<Stripe.SetupIntentCreateParams>
+  >(endpoints.donation.createSetupIntent.url, idempotencyKey)
 
   return {
     props: {
