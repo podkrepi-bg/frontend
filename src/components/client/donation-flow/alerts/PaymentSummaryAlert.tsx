@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { Info } from '@mui/icons-material'
-import { BoxProps, IconButton, Tooltip, Typography } from '@mui/material'
+import { BoxProps, IconButton, Theme, Tooltip, Typography } from '@mui/material'
 import { styled } from '@mui/styles'
 import theme from 'common/theme'
 import { moneyPublicDecimals2 } from 'common/util/money'
@@ -60,7 +60,51 @@ function PaymentSummaryAlert({
         <Grid2 container direction={'row'} justifyContent={'space-between'}>
           <Typography fontSize={theme.typography.pxToRem(22)} fontWeight={600}>
             {t('step.summary.transaction.title')}
-            <Tooltip title={t('step.summary.transaction.description')}>
+            <Tooltip
+              title={t('step.summary.transaction.description')}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: 'offset',
+                    options: {
+                      offset: [20, 10],
+                    },
+                  },
+                ],
+              }}
+              componentsProps={{
+                tooltip: {
+                  sx: (theme) => ({
+                    backgroundColor: '#CBE9FE',
+                    color: theme.palette.text.primary,
+                    border: '1px solid #32A9FE',
+                    fontSize: (theme as Theme).typography.pxToRem(16),
+                    lineHeight: '24px',
+                    fontStyle: 'italic',
+                    letterSpacing: '0.15px',
+                    fontWeight: 400,
+                    borderRadius: 6,
+                    maxWidth: 297,
+                    padding: theme.spacing(1.5),
+                    fontFamily: (theme as Theme).typography.fontFamily,
+                  }),
+                },
+                arrow: {
+                  sx(theme) {
+                    return {
+                      color: '#CBE9FE',
+                      fontSize: 50,
+                      zIndex: 999,
+                      '&:before': {
+                        border: '1px solid #32A9FE',
+                      },
+                    }
+                  },
+                },
+              }}
+              arrow
+              placement="top"
+              sx={{ '& .MuiTooltip-arrow': { fontSize: 'large' } }}>
               <IconButton sx={{ padding: '5px', height: 30, width: 30 }}>
                 <Info sx={{ height: 20, width: 20 }} />
               </IconButton>
