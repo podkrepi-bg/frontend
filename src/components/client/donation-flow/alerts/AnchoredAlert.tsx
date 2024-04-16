@@ -12,7 +12,7 @@ export const AnchoredAlert = (props: AnchoredAlertProps) => {
       sx={{
         position: 'absolute',
         // calculates the top based on the offset of the amount section + the amount heading's margin + the amount headings's padding
-        top: `calc(${sectionRef?.current?.offsetTop}px + ${theme.spacing(4)} + 1.5rem)`,
+        top: `calc(${sectionRef?.current?.offsetTop}px)`,
         overflow: 'auto',
         maxWidth: `300px`,
         ...sx,

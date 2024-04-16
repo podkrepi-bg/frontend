@@ -47,7 +47,6 @@ const StyledBeneficiaryAvatar = styled(Image)(({ theme }) => ({
 
 const StyledStepsWrapper = styled(Grid2)(() => ({
   width: '100%',
-  maxWidth: '960px',
 }))
 
 function DonationFlowLayout({
@@ -62,9 +61,7 @@ function DonationFlowLayout({
       <Grid2
         container
         component="section"
-        maxWidth="lg"
         justifyContent="center"
-        m="0 auto"
         marginTop={theme.spacing(matches ? 20 : 25)}>
         <StyledBannerWrapper>
           {/* A11Y TODO: Translate alt text */}

@@ -90,7 +90,6 @@ export default function PaymentMethod({
     <Grid
       container
       direction="column"
-      ref={sectionRef}
       component="section"
       id="select-payment-method"
       flexDirection={'column'}
@@ -102,7 +101,7 @@ export default function PaymentMethod({
       {isSmall ? (
         <RadioAccordionGroup name="payment" options={mobileOptions} />
       ) : (
-        <>
+        <div ref={sectionRef} id="select-payment--radiocard">
           <RadioCardGroup
             loading={status === 'loading'}
             columns={2}
@@ -117,7 +116,7 @@ export default function PaymentMethod({
           <Collapse in={payment.value === DonationFormPaymentMethod.BANK}>
             <BankPayment />
           </Collapse>
-        </>
+        </div>
       )}
     </Grid>
   )

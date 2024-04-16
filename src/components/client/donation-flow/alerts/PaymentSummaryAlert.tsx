@@ -1,7 +1,7 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Info } from '@mui/icons-material'
-import { Alert, Box, BoxProps, IconButton, Stack, Tooltip, Typography } from '@mui/material'
+import { BoxProps, IconButton, Tooltip, Typography } from '@mui/material'
 import { styled } from '@mui/styles'
 import theme from 'common/theme'
 import { moneyPublicDecimals2 } from 'common/util/money'
@@ -9,15 +9,16 @@ import { stripeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { CardRegion } from 'gql/donations.enums'
 import { useFormikContext } from 'formik'
 import { DonationFormData } from '../helpers/types'
+import Grid2 from '@mui/material/Unstable_Grid2'
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
-  fontSize: theme.typography.pxToRem(16),
+  fontSize: theme.typography.pxToRem(22),
+  fontWeight: 600,
 }))
 
 function PaymentSummaryAlert({
   donationAmount,
   sx,
-  boxProps,
 }: {
   donationAmount: number
   sx?: BoxProps['sx']
@@ -31,25 +32,33 @@ function PaymentSummaryAlert({
       : donationAmount
 
   return (
-    <Box
+    <Grid2
+      container
+      xs={12}
+      direction={'column'}
       sx={{
-        borderRadius: theme.borders.semiRound,
+        borderRadius: 8,
         border: `1px solid ${theme.palette.primary.dark}`,
+        overflow: 'hidden',
         ...sx,
-      }}
-      {...boxProps}>
-      <Box
+      }}>
+      <Grid2
         sx={{
           py: 2,
           px: 3,
+          flex: 2,
         }}>
-        <Stack direction={'row'} justifyContent="space-between">
-          <StyledTypography>{t('step.summary.donation')}: </StyledTypography>
-          <StyledTypography>{moneyPublicDecimals2(donationAmount - feeAmount)}</StyledTypography>
-        </Stack>
+        <Grid2 container direction={'row'} justifyContent={'space-between'} gap={2}>
+          <Typography fontSize={theme.typography.pxToRem(22)} fontWeight={600}>
+            {t('step.summary.donation')}:{' '}
+          </Typography>
+          <Typography fontSize={theme.typography.pxToRem(22)} fontWeight={600}>
+            {moneyPublicDecimals2(donationAmount - feeAmount)}
+          </Typography>
+        </Grid2>
 
-        <Stack direction={'row'} justifyContent="space-between">
-          <StyledTypography>
+        <Grid2 container direction={'row'} justifyContent={'space-between'}>
+          <Typography fontSize={theme.typography.pxToRem(22)} fontWeight={600}>
             {t('step.summary.transaction.title')}
             <Tooltip title={t('step.summary.transaction.description')}>
               <IconButton sx={{ padding: '5px', height: 30, width: 30 }}>
@@ -57,29 +66,34 @@ function PaymentSummaryAlert({
               </IconButton>
             </Tooltip>
             :{' '}
-          </StyledTypography>
-          <StyledTypography>{moneyPublicDecimals2(feeAmount)}</StyledTypography>
-        </Stack>
-      </Box>
-      <Alert
+          </Typography>
+          <Typography fontSize={theme.typography.pxToRem(22)} fontWeight={600}>
+            {moneyPublicDecimals2(feeAmount)}
+          </Typography>
+        </Grid2>
+      </Grid2>
+      <Grid2
+        container
+        direction={'row'}
+        justifyContent="space-between"
         sx={{
-          display: 'block',
-          borderBottomLeftRadius: theme.borders.semiRound,
-          borderBottomRightRadius: theme.borders.semiRound,
           borderTop: `1px solid ${theme.palette.primary.dark}`,
+          backgroundColor: '#CBE9FE',
           py: 1,
           px: 3,
-        }}
-        color="info"
-        icon={false}>
-        <Stack direction={'row'} justifyContent="space-between">
-          <StyledTypography>{t('step.summary.total')}: </StyledTypography>
-          <StyledTypography data-testid="total-amount">
-            {moneyPublicDecimals2(donationAmount)}
-          </StyledTypography>
-        </Stack>
-      </Alert>
-    </Box>
+          // flex: 1,
+        }}>
+        <Typography fontSize={theme.typography.pxToRem(22)} fontWeight={600}>
+          {t('step.summary.total')}:{' '}
+        </Typography>
+        <Typography
+          fontSize={theme.typography.pxToRem(22)}
+          fontWeight={600}
+          data-testid="total-amount">
+          {moneyPublicDecimals2(donationAmount)}
+        </Typography>
+      </Grid2>
+    </Grid2>
   )
 }
 

@@ -234,16 +234,9 @@ export function DonationFlowForm() {
       validateOnChange={true}
       validateOnBlur={true}>
       {({ handleSubmit, values, errors, submitCount }) => (
-        <Grid2 spacing={4} container>
-          <Grid2 sm={12} md={8}>
-            <Form
-              onSubmit={handleSubmit}
-              style={{
-                maxWidth: '662px',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-              }}
-              autoComplete="off">
+        <Grid2 spacing={4} container justifyContent={'center'}>
+          <Grid2 sm={12} md={9} justifyContent={'center'}>
+            <Form onSubmit={handleSubmit} autoComplete="off">
               <ConfirmationDialog
                 isOpen={showCancelDialog}
                 handleCancel={() => {
@@ -266,63 +259,94 @@ export function DonationFlowForm() {
                 }}>
                 <ArrowBack sx={{ mr: 2 }} /> {t('action.back')}
               </Button>
-              <Box mb={2}>
+              <Grid2 container xs={12} md={7} direction={'column'}>
                 <StepSplitter content="1" active={Boolean(values.amountChosen)} />
                 <Amount
                   disabled={values.payment === DonationFormPaymentMethod.BANK}
                   error={Boolean(errors.finalAmount) && Boolean(submitCount > 0)}
                 />
+              </Grid2>
+              <Grid2 container xs={12} md={7} direction={'column'}>
                 <StepSplitter content="2" active={Boolean(values.mode)} />
                 <PaymentModeSelect error={Boolean(errors.mode) && Boolean(submitCount > 0)} />
-                <StepSplitter
-                  content="3"
-                  active={Boolean(values.amountChosen) && Boolean(values.payment)}
-                />
-                <PaymentMethod
-                  sectionRef={paymentMethodSectionRef}
-                  error={Boolean(errors.payment) && submitCount > 0}
-                />
-                <StepSplitter
-                  content="4"
-                  active={
-                    Boolean(values.amountChosen) &&
-                    Boolean(values.payment) &&
-                    Boolean(values.authentication)
-                  }
-                />
-                <Authentication
-                  sectionRef={authenticationSectionRef}
-                  error={Boolean(errors.authentication) && submitCount > 0}
-                />
-              </Box>
-              <StepSplitter />
-              <CheckboxField
-                label={
-                  <Box display="flex" alignItems="center">
-                    <Typography>{t('step.summary.field.anonymous.label')}</Typography>
-                    <Tooltip title={t('step.summary.field.anonymous.description')}>
-                      <IconButton color="primary">
-                        <Info />
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-                }
-                name="isAnonymous"
-                checkboxProps={{
-                  disabled: !session?.user,
-                }}
-              />
-              <AcceptPrivacyPolicyField name="privacy" showFieldError={false} />
-              <Hidden mdUp>
-                <PaymentSummaryAlert
-                  donationAmount={Number(values.finalAmount)}
-                  sx={{
-                    flex: 1,
-                    my: 2,
-                  }}
-                />
-              </Hidden>
-              <DonationFormErrorList errors={errors} show={submitCount > 0} />
+              </Grid2>
+              <Grid2
+                position={'relative'}
+                display="flex"
+                container
+                justifyContent={'space-between'}
+                xs={12}>
+                <Grid2 container xs={12} md={7} direction={'column'}>
+                  <StepSplitter
+                    content="3"
+                    active={Boolean(values.amountChosen) && Boolean(values.payment)}
+                  />
+                  <PaymentMethod
+                    sectionRef={paymentMethodSectionRef}
+                    error={Boolean(errors.payment) && submitCount > 0}
+                  />
+                </Grid2>
+                <Grid2 container md={4}>
+                  <AlertsColumn sectionsRefArray={[paymentMethodSectionRef]} />
+                </Grid2>
+              </Grid2>
+              <Grid2
+                position={'relative'}
+                container
+                justifyContent={'space-between'}
+                flexDirection={'row'}>
+                <Grid2 container xs={12} md={7} direction={'column'}>
+                  <StepSplitter content="4" active={Boolean(values.authentication)} />
+                  <Authentication
+                    sectionRef={authenticationSectionRef}
+                    error={Boolean(errors.authentication) && submitCount > 0}
+                  />
+                  <StepSplitter />
+                </Grid2>
+                <Grid2 container md={4}>
+                  <AlertsColumn sectionsRefArray={[authenticationSectionRef]} />
+                </Grid2>
+              </Grid2>
+              <Grid2 container xs={12} gap={6} justifyContent={'space-between'} md={9}>
+                <Grid2 container direction={'column'} gap={1} md={6}>
+                  <Grid2 container display={{ xs: 'flex', md: 'none' }}>
+                    <PaymentSummaryAlert
+                      donationAmount={Number(values.finalAmount)}
+                      sx={{ maxWidth: 345 }}
+                    />
+                  </Grid2>
+                  <CheckboxField
+                    label={
+                      <Box display="flex" alignItems="center">
+                        <Typography>{t('step.summary.field.anonymous.label')}</Typography>
+                        <Tooltip title={t('step.summary.field.anonymous.description')}>
+                          <IconButton color="primary">
+                            <Info />
+                          </IconButton>
+                        </Tooltip>
+                      </Box>
+                    }
+                    name="isAnonymous"
+                    checkboxProps={{
+                      disabled: !session?.user,
+                    }}
+                  />
+                  <AcceptPrivacyPolicyField name="privacy" showFieldError={false} />
+                  <DonationFormErrorList errors={errors} show={submitCount > 0} />
+                  <SubmitButton
+                    disabled={submitPaymentLoading}
+                    loading={submitPaymentLoading}
+                    label={t('action.submit')}
+                    sx={{ maxWidth: 150 }}
+                  />
+                </Grid2>
+                <Grid2 container md={4} display={{ xs: 'none', md: 'flex' }}>
+                  <PaymentSummaryAlert
+                    donationAmount={Number(values.finalAmount)}
+                    sx={{ minWidth: 345 }}
+                  />
+                </Grid2>
+              </Grid2>
               <Stack direction={'column'}>
                 {paymentError ? (
                   <Alert sx={{ fontSize: theme.typography.fontSize, mb: 1 }} severity="error">
@@ -330,12 +354,6 @@ export function DonationFlowForm() {
                   </Alert>
                 ) : null}
               </Stack>
-              <SubmitButton
-                disabled={submitPaymentLoading}
-                loading={submitPaymentLoading}
-                label={t('action.submit')}
-                fullWidth
-              />
               <PersistFormikValues
                 hashInitials={true}
                 ignoreValues={['authentication']}
@@ -345,19 +363,6 @@ export function DonationFlowForm() {
               />
             </Form>
           </Grid2>
-          <Hidden mdDown>
-            <Grid2 display={'flex'} alignItems="flex-end" sx={{ overflow: 'auto' }} md={4}>
-              <AlertsColumn
-                sectionsRefArray={[paymentMethodSectionRef, authenticationSectionRef]}
-              />
-              <PaymentSummaryAlert
-                donationAmount={Number(values.finalAmount)}
-                sx={{
-                  flex: 1,
-                }}
-              />
-            </Grid2>
-          </Hidden>
         </Grid2>
       )}
     </Formik>

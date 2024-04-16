@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
-import { useMediaQuery, Collapse, Grid, Typography } from '@mui/material'
+import { useMediaQuery, Collapse, Grid, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import { CardRegion } from 'gql/donations.enums'
@@ -62,7 +62,8 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
   const [{ value }] = useField('amountChosen')
   const { t } = useTranslation('donation-flow')
   const { status } = useSession()
-  const { data: prices } = useSinglePriceList()
+  // const { data: prices } = useSinglePriceList()
+  const prices = [1000, 2000, 5000, 10000, 50000, 100000]
   const mobile = useMediaQuery('(max-width:600px)')
   useEffect(() => {
     const amountChosen =
@@ -91,33 +92,27 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
   ])
 
   return (
-    <Grid
-      container
-      ref={sectionRef}
-      component="section"
-      id={ids['finalAmount']}
-      direction={'column'}>
+    <Grid2 ref={sectionRef} component="section" id={ids['finalAmount']} direction={'column'}>
       <Typography variant="h5" my={3}>
         {t('step.amount.title')}?
       </Typography>
-      <Grid container item gap={2}>
-        {error && <DonationFormSectionErrorText message={t('general.error.select-field')} />}
-        <RadioButtonGroup
-          loading={status === 'loading'}
-          error={error}
-          disabled={disabled}
-          name="amountChosen"
-          options={
-            prices
-              ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
-              .map((v) => ({
-                label: moneyPublic(Number(v.unit_amount)),
-                value: String(Number(v.unit_amount)),
-              }))
-              .concat({ label: t('step.amount.field.other-amount.label'), value: 'other' }) || []
-          }
-        />
-      </Grid>
+
+      {error && <DonationFormSectionErrorText message={t('general.error.select-field')} />}
+      <RadioButtonGroup
+        loading={status === 'loading'}
+        error={error}
+        disabled={disabled}
+        name="amountChosen"
+        options={
+          prices
+            ?.sort((a, b) => Number(a) - Number(a))
+            .map((v) => ({
+              label: moneyPublic(Number(v)),
+              value: String(Number(v)),
+            }))
+            .concat({ label: t('step.amount.field.other-amount.label'), value: 'other' }) || []
+        }
+      />
       <Collapse unmountOnExit in={value === 'other'} timeout="auto">
         <Grid
           item
@@ -134,22 +129,9 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
                 }
               : { marginTop: theme.spacing(2), width: mobile ? '100%' : '49%' }
           }>
-          {/* <FormTextField
-            name="otherAmount"
-            type="text"
-            label={t('step.amount.field.other-amount.label')}
-            InputProps={{
-              style: { fontSize: 14, padding: 7 },
-              endAdornment: (
-                <InputAdornment variant="filled" position="end">
-                  {t('general.BGN')}
-                </InputAdornment>
-              ),
-            }}
-          /> */}
           <NumberInputField />
         </Grid>
       </Collapse>
-    </Grid>
+    </Grid2>
   )
 }

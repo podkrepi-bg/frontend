@@ -35,12 +35,12 @@ function AlertsColumn({
     setUpdatedRefArray([...sectionsRefArray])
   })
   const alerts: { [key: string]: AlertProps } = {
-    [ids['payment']]: {
+    'select-payment--radiocard': {
       color: 'info',
       children: <Typography>{payment && paymentMethodAlertMap[payment]}</Typography>,
       icon: false,
       sx: {
-        display: payment ? 'flex' : 'none',
+        display: payment ? { md: 'flex' } : 'none',
       },
     },
     [ids['authentication']]: {
@@ -51,7 +51,7 @@ function AlertsColumn({
         display:
           authentication === DonationFormAuthState.AUTHENTICATED || authentication === null
             ? 'none'
-            : 'flex',
+            : { md: 'flex' },
       },
     },
   }

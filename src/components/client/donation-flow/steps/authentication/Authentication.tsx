@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Typography, Alert, useMediaQuery, Grid } from '@mui/material'
+import { Box, Typography, Alert, useMediaQuery, Unstable_Grid2 as Grid2 } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
 
@@ -108,12 +108,7 @@ export default function Authentication({
   ]
 
   return (
-    <Grid
-      container
-      direction="column"
-      ref={sectionRef}
-      component="section"
-      id={ids['authentication']}>
+    <Grid2 container direction="column" component="section" id={ids['authentication']}>
       <Typography mb={3} variant="h5">
         {t('step.authentication.title')}?
       </Typography>
@@ -122,7 +117,7 @@ export default function Authentication({
           {t('step.authentication.logged-as')} {session?.user?.email}
         </Alert>
       ) : (
-        <Grid container item gap={2}>
+        <Grid2 container gap={2} ref={sectionRef} id={ids['authentication']}>
           {error && <DonationFormSectionErrorText message={t('general.error.select-field')} />}
           <RadioAccordionGroup
             error={error}
@@ -130,8 +125,8 @@ export default function Authentication({
             name="authentication"
             options={options}
           />
-        </Grid>
+        </Grid2>
       )}
-    </Grid>
+    </Grid2>
   )
 }
