@@ -92,7 +92,12 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
   ])
 
   return (
-    <Grid2 ref={sectionRef} component="section" id={ids['finalAmount']} direction={'column'}>
+    <Grid2
+      container
+      ref={sectionRef}
+      component="section"
+      id={ids['finalAmount']}
+      direction={'column'}>
       <Typography variant="h5" my={3}>
         {t('step.amount.title')}?
       </Typography>
@@ -114,8 +119,7 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
         }
       />
       <Collapse unmountOnExit in={value === 'other'} timeout="auto">
-        <Grid
-          item
+        <Grid2
           xs={12}
           sm={6}
           //Since we can't put the otherAmount field in the same grid as the radio buttons
@@ -125,12 +129,11 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
               ? {
                   float: 'right',
                   marginTop: -50,
-                  width: '100%',
                 }
               : { marginTop: theme.spacing(2), width: mobile ? '100%' : '49%' }
           }>
           <NumberInputField />
-        </Grid>
+        </Grid2>
       </Collapse>
     </Grid2>
   )
