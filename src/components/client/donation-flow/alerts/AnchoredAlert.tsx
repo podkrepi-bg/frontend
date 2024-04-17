@@ -1,5 +1,4 @@
 import { Alert, AlertProps } from '@mui/material'
-import theme from 'common/theme'
 
 export interface AnchoredAlertProps extends AlertProps {
   sectionRef: React.RefObject<HTMLDivElement>
@@ -7,7 +6,6 @@ export interface AnchoredAlertProps extends AlertProps {
 
 export const AnchoredAlert = (props: AnchoredAlertProps) => {
   const { sectionRef, sx, ...alertProps } = props
-  console.log(sx)
   return (
     <Alert
       sx={{
