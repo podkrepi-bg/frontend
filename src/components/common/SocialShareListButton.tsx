@@ -12,7 +12,7 @@ import { ContentCopy, Facebook, LinkedIn, Share, Twitter } from '@mui/icons-mate
 
 import { AlertStore } from 'stores/AlertStore'
 import theme from 'common/theme'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 export default function SocialShareListButton({
   url,
