@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { AlertProps, Typography } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { AnchoredAlert } from './AnchoredAlert'

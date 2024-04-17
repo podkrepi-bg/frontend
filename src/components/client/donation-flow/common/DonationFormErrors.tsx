@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Typography } from '@mui/material'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { FormikErrors } from 'formik'
 import { DonationFormData } from '../helpers/types'
 import { ids, DonationFormSections } from './DonationFormSections'
@@ -45,7 +45,6 @@ export function DonationFormErrorList({ errors, show }: DonationFormErrorProps) 
               alignItems={'center'}
               onClick={() => {
                 const elementId = ids[id as keyof DonationFormSections] ?? id
-                console.log(elementId)
                 const element = document.getElementById(elementId)
                 const elementPosition = element?.getBoundingClientRect().top
                 if (!elementPosition) return
