@@ -208,7 +208,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
     status === DonationFormPaymentStatus.SUCCEEDED ? <Success /> : error ? <Fail /> : null
 
   return (
-    <DonationFlowLayout campaign={campaign}>
+    <DonationFlowLayout campaign={campaign} maxWidth={'960px'}>
       {status ? (
         <StatusToRender />
       ) : (

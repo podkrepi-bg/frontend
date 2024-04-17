@@ -45,14 +45,19 @@ const StyledBeneficiaryAvatar = styled(Image)(({ theme }) => ({
   },
 }))
 
-const StyledStepsWrapper = styled(Grid2)(() => ({
+type StyledStepsWrapperProps = {
+  maxWidth?: string | number
+}
+const StyledStepsWrapper = styled(Grid2)<StyledStepsWrapperProps>(({ maxWidth }) => ({
   width: '100%',
+  maxWidth: maxWidth ?? 'auto',
 }))
 
 function DonationFlowLayout({
   children,
   campaign,
-}: PropsWithChildren<{ campaign: CampaignResponse }>) {
+  maxWidth,
+}: PropsWithChildren<{ campaign: CampaignResponse; maxWidth?: string | number }>) {
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   const matches = useMediaQuery('sm')
@@ -76,7 +81,7 @@ function DonationFlowLayout({
           />
         </StyledBeneficiaryAvatarWrapper>
 
-        <StyledStepsWrapper>
+        <StyledStepsWrapper maxWidth={maxWidth}>
           <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
             <Typography
               variant="h4"
