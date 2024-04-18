@@ -157,6 +157,7 @@ export function DonationFlowForm() {
           return router.push(
             `${routes.campaigns.donationStatus(campaign.slug)}?${new URLSearchParams({
               bank_payment: 'true',
+              p_status: 'succeeded',
             }).toString()}`,
           )
         }

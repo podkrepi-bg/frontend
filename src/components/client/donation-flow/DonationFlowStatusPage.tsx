@@ -57,13 +57,15 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   //This query needs to be prefetched in the pages folder
   //otherwise on the first render the data will be undefined
   const router = useRouter()
-  const { p_status, p_error, payment_intent } = router.query
+  const { p_status, p_error, payment_intent, bank_payment } = router.query
   const campaign = data?.campaign as CampaignResponse
   const [status] = useState<DonationFormPaymentStatus | null>(p_status as DonationFormPaymentStatus)
   const { data: donationData, isLoading } = useFindDonationById(payment_intent as string)
 
   const [error] = useState<string | undefined>(p_error as string)
-  const [disableWishForm, setDisableWishForm] = useState<boolean>(!isLoading && !donationData)
+  const [disableWishForm, setDisableWishForm] = useState<boolean>(
+    (!isLoading && !donationData) || !!bank_payment,
+  )
 
   const formikRef = useRef<FormikProps<{ wish: string }> | null>(null)
   const session = useSession()
