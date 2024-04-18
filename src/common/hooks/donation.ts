@@ -79,6 +79,12 @@ export function useGetPayment(id: string) {
 export async function prefetchDonationById(client: QueryClient, id: string) {
   await client.prefetchQuery<DonationResponse>([endpoints.donation.getDonation(id).url])
 }
+
+export function useFindDonationById(id: string) {
+  return useQuery<Pick<DonationResponse, 'id'>>([
+    endpoints.donation.getDonationByPaymentIntent(id).url,
+  ])
+}
 export function useUserDonations() {
   const { data: session } = useSession()
   return useQuery<UserDonationResult>([endpoints.donation.userDonations.url], {

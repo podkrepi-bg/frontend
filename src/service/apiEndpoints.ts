@@ -176,6 +176,8 @@ export const endpoints = {
     invalidateStripePayment: (id: string) =>
       <Endpoint>{ url: `/donation/${id}/invalidate`, method: 'PATCH' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
+    getDonationByPaymentIntent: (id: string) =>
+      <Endpoint>{ url: `/donation/payment-intent?id=${id}`, method: 'GET' },
     donationsList: (
       paymentId?: string,
       campaignId?: string,

@@ -35,6 +35,7 @@ import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { CampaignResponse } from 'gql/campaigns'
 import FailGraphic from './icons/FailGraphic'
 import getConfig from 'next/config'
+import { useFindDonationById } from 'common/hooks/donation'
 const { publicRuntimeConfig } = getConfig()
 function LinkCard({ href, text }: { href: string; text: string }) {
   return (
@@ -56,11 +57,14 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   //This query needs to be prefetched in the pages folder
   //otherwise on the first render the data will be undefined
   const router = useRouter()
-  const { p_status, p_error } = router.query
+  const { p_status, p_error, payment_intent } = router.query
   const campaign = data?.campaign as CampaignResponse
   const [status] = useState<DonationFormPaymentStatus | null>(p_status as DonationFormPaymentStatus)
+  const { data: donationData, isLoading } = useFindDonationById(payment_intent as string)
+
   const [error] = useState<string | undefined>(p_error as string)
-  const [disableWishForm, setDisableWishForm] = useState<boolean>(false)
+  const [disableWishForm, setDisableWishForm] = useState<boolean>(!isLoading && !donationData)
+
   const formikRef = useRef<FormikProps<{ wish: string }> | null>(null)
   const session = useSession()
   const { data: { user: person } = { user: null } } = useCurrentPerson()
@@ -104,6 +108,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
             message: values.wish,
             campaignId: campaign.id,
             personId: person?.id ? person.id : null,
+            donationId: donationData?.id,
           })
         }}
         validateOnMount

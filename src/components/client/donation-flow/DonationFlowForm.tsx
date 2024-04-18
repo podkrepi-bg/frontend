@@ -215,7 +215,7 @@ export function DonationFlowForm() {
           router.push(
             `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
               payment.status
-            }`,
+            }&payment_intent=${payment.id}`,
           )
         } catch (error) {
           setSubmitPaymentLoading(false)
