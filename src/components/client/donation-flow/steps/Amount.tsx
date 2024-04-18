@@ -110,7 +110,7 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
         name="amountChosen"
         options={
           prices
-            ?.sort((a, b) => Number(a) - Number(a))
+            ?.sort((a, b) => Number(a) - Number(b))
             .map((v) => ({
               label: moneyPublic(Number(v)),
               value: String(Number(v)),

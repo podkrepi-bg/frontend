@@ -40,7 +40,6 @@ export async function confirmStripePayment(
   if (payment.data.status === DonationFormPaymentStatus.REQUIRES_ACTION) {
     const { error } = await stripe.confirmCardPayment(payment.data.client_secret as string)
     if (error) throw error
-    sessionStorage.removeItem('donation-form')
   }
   return payment.data
 }

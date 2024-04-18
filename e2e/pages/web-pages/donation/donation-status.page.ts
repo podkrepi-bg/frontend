@@ -17,15 +17,17 @@ export class DonationStatusPage extends CampaignsPage {
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await expect(this.page, 'The URL is not correct!').toHaveURL(
-      new RegExp(urlRegExpAsString || `^(.*?)/campaigns/donation/${SLUG_REGEX}/status?.+$`),
+      new RegExp(urlRegExpAsString || `^(.*?)/campaigns/donation/${SLUG_REGEX}/status?.+$`, 'g'),
       {
         timeout: timeoutParam,
       },
     )
   }
 
-  async isSucceededStatusTitleDisplayed(): Promise<boolean> {
-    return this.isH4HeadingVisible(LanguagesEnum.BG, this.bgSuccessTitle, this.enSuccessTitle)
+  async isSucceededStatusTitleDisplayed(
+    language: LanguagesEnum = LanguagesEnum.BG,
+  ): Promise<boolean> {
+    return this.isH4HeadingVisible(language, this.bgSuccessTitle, this.enSuccessTitle)
   }
 
   async submitWishForm(): Promise<void> {

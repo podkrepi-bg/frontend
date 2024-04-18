@@ -209,16 +209,15 @@ export function DonationFlowForm() {
             session,
             idempotencyKey,
           )
-          if (payment.status === DonationFormPaymentStatus.SUCCEEDED) {
-            sessionStorage.removeItem('donation-form')
-            router.push(
-              `${window.location.origin}${routes.campaigns.donationStatus(
-                campaign.slug,
-              )}?p_status=${DonationFormPaymentStatus.SUCCEEDED}`,
-            )
-          }
-        } catch (error) {
+
           helpers.resetForm()
+          sessionStorage.removeItem('donation-form')
+          router.push(
+            `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
+              payment.status
+            }`,
+          )
+        } catch (error) {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',

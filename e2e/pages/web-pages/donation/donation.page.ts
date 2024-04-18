@@ -1,8 +1,10 @@
 import { Page, expect } from '@playwright/test'
+
 import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
-} from 'components/client/donation-flow/helpers/types'
+  PaymentMode,
+} from '../../../../src/components/client/donation-flow/helpers/types'
 import {
   stripeSuccessFormData,
   stripeErrorNoBalanceFormData,
@@ -13,6 +15,7 @@ import {
   bgLocalizationDonationFlow,
   bgLocalizationValidation,
   enLocalizationDonationFlow,
+  enLocalizationValidation,
 } from '../../../data/localization'
 import { SLUG_REGEX } from '../../../utils/helpers'
 import { CampaignsPage } from '../campaigns/campaigns.page'
@@ -31,19 +34,28 @@ export class DonationPage extends CampaignsPage {
   private readonly regionsMenuList = '#menu-cardRegion ul.MuiMenu-list li'
   private readonly bgBankTransferText =
     bgLocalizationDonationFlow.step['payment-method'].field.method.bank
+  private readonly enBankTransferText =
+    enLocalizationDonationFlow.step['payment-method'].field.method.bank
   private readonly bgCardText = bgLocalizationDonationFlow.step['payment-method'].field.method.card
-
+  private readonly enCardText = enLocalizationDonationFlow.step['payment-method'].field.method.card
   // -> Authentication section <-
   private readonly bgLoginText = bgLocalizationDonationFlow.step.authentication.login.label
+  private readonly enLoginText = enLocalizationDonationFlow.step.authentication.login.label
   private readonly bgRegisterText = bgLocalizationDonationFlow.step.authentication.register.label
+  private readonly enRegisterText = enLocalizationDonationFlow.step.authentication.register.label
   private readonly bgNoRegitserText =
     bgLocalizationDonationFlow.step.authentication.noregister.label
+  private readonly enNoRegitserText =
+    enLocalizationDonationFlow.step.authentication.noregister.label
 
   // -> Summary section <-
   private readonly totalAmountSelector = '[data-testid="total-amount"]'
   private readonly bgSubmitButtonText = bgLocalizationDonationFlow.action.submit
-  private readonly privacyCheckboxText =
+  private readonly enSubmitButtonText = enLocalizationDonationFlow.action.submit
+  private readonly bgPrivacyCheckboxText =
     bgLocalizationValidation['informed-agree-with'] + ' ' + bgLocalizationValidation.gdpr
+  private readonly enPrivacyCheckboxText =
+    enLocalizationValidation['informed-agree-with'] + ' ' + enLocalizationValidation.gdpr
   private readonly bgStripeErrorNoBalanceText = 'Картата Ви не разполага с достатъчно средства.'
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
@@ -91,16 +103,23 @@ export class DonationPage extends CampaignsPage {
    * Select payment method
    * @param {DonationFormPaymentMethod} method
    */
-  async selectPaymentMethod(method: DonationFormPaymentMethod): Promise<void> {
+  async selectPaymentMethod(
+    method: DonationFormPaymentMethod,
+    language: LanguagesEnum = LanguagesEnum.BG,
+  ): Promise<void> {
+    const cardText = language === LanguagesEnum.BG ? this.bgCardText : this.enCardText
+    const bankText =
+      language === LanguagesEnum.BG ? this.bgBankTransferText : this.enBankTransferText
+
     if (method === DonationFormPaymentMethod.BANK) {
       await this.page
-        .getByText(this.bgBankTransferText, {
+        .getByText(bankText, {
           exact: true,
         })
         .click()
     } else if (method === DonationFormPaymentMethod.CARD) {
       await this.page
-        .getByText(this.bgCardText, {
+        .getByText(cardText, {
           exact: true,
         })
         .click()
@@ -123,11 +142,13 @@ export class DonationPage extends CampaignsPage {
       .frameLocator('iframe')
       .last()
     const emailField = baseEmailLocator.locator('input[name="email"]')
+    const nameField = this.page.locator('input[name="billingName"]')
     const cardNumberField = baseCardPaymentLocator.locator('input[name="number"]')
     const cardExpiryField = baseCardPaymentLocator.locator('input[name="expiry"]')
     const cvcField = baseCardPaymentLocator.locator('input[name="cvc"]')
     const countrySelect = baseCardPaymentLocator.locator('select[name="country"]')
     await emailField.fill(data.email)
+    await nameField.fill(data.name)
     await cardNumberField.fill(data.cardNumber)
     await cardExpiryField.fill(data.expiryDate)
     await cvcField.fill(data.cvc)
@@ -150,21 +171,28 @@ export class DonationPage extends CampaignsPage {
    *  Select authentication method
    * @param {DonationFormAuthState} auth
    */
-  async selectAuthentication(auth: DonationFormAuthState): Promise<void> {
+  async selectAuthentication(
+    auth: DonationFormAuthState,
+    language: LanguagesEnum = LanguagesEnum.BG,
+  ): Promise<void> {
     const baseLocator = this.page.locator('span.MuiFormControlLabel-label')
+
+    const loginText = language === 'BG' ? this.bgLoginText : this.enLoginText
+    const registerText = language === 'BG' ? this.bgRegisterText : this.enRegisterText
+    const noRegisterText = language === 'BG' ? this.bgNoRegitserText : this.enNoRegitserText
     if (auth === DonationFormAuthState.LOGIN) {
       await baseLocator
-        .getByText(this.bgLoginText, {
+        .getByText(loginText, {
           exact: true,
         })
         .click()
     } else if (auth === DonationFormAuthState.REGISTER) {
-      await baseLocator.getByText(this.bgRegisterText, {
+      await baseLocator.getByText(registerText, {
         exact: true,
       })
     } else if (auth === DonationFormAuthState.NOREGISTER) {
       await baseLocator
-        .getByText(this.bgNoRegitserText, {
+        .getByText(noRegisterText, {
           exact: true,
         })
         .click()
@@ -175,17 +203,30 @@ export class DonationPage extends CampaignsPage {
    * Set donation region from the radio cards
    * @param {number} amount
    */
-  async checkTotalAmount(amount: number): Promise<void> {
-    const totalAmount = await this.page.locator(this.totalAmountSelector).textContent()
-    expect(totalAmount).toBe(`${amount.toLocaleString('BG')} лв.`)
+  async checkTotalAmount(
+    amount: number,
+    language: LanguagesEnum = LanguagesEnum.BG,
+  ): Promise<void> {
+    const totalAmount = await this.page.locator(this.totalAmountSelector).first().textContent()
+    const totalAmountSpaceFix = totalAmount?.replace(/\s/, String.fromCharCode(160))
+    const donationAmountIntl = Intl.NumberFormat(language, {
+      style: 'currency',
+      currency: 'BGN',
+    }).format(amount)
+
+    expect(totalAmountSpaceFix).toEqual(donationAmountIntl)
   }
 
-  async checkPrivacyCheckbox(): Promise<void> {
-    await this.selectCheckboxByLabelText([this.privacyCheckboxText])
+  async checkPrivacyCheckbox(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
+    const privacyCheckbox =
+      language === 'BG' ? this.bgPrivacyCheckboxText : this.enPrivacyCheckboxText
+    await this.selectCheckboxByLabelText([privacyCheckbox])
   }
 
-  async submitForm(): Promise<void> {
-    const button = this.page.locator(`button:has-text("${this.bgSubmitButtonText}")`)
+  async submitForm(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
+    const submitButtonText = language === 'BG' ? this.bgSubmitButtonText : this.enSubmitButtonText
+    console.log(submitButtonText)
+    const button = this.page.locator(`button:has-text("${submitButtonText}")`).last()
     button.click()
   }
 }

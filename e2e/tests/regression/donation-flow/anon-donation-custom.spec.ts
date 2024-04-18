@@ -25,6 +25,7 @@ test.describe.serial(
     let statusPage: DonationStatusPage
     // Localization texts
     const otherAmountText = bgLocalizationDonationFlow.step.amount.field['other-amount'].label
+    const paymentMode = bgLocalizationDonationFlow.step['payment-mode'].fields['one-time']
     const bgCardIncludeFeesText =
       bgLocalizationDonationFlow.step['payment-method'].field['include-fees'].label
 
@@ -62,15 +63,19 @@ test.describe.serial(
       await campaignsPage.clickDonationSupportButton()
       await donationPage.checkPageUrlByRegExp()
       await donationPage.selectRadioButtonByLabelText([otherAmountText])
-      await donationPage.fillOtherAmountInputField('7.50')
+      await donationPage.fillOtherAmountInputField('8')
       await donationPage.selectPaymentMethod(DonationFormPaymentMethod.CARD)
       await donationPage.setDonationRegionFromTheDropdown(DonationRegions.EUROPE)
       await donationPage.selectCheckboxByLabelText([bgCardIncludeFeesText])
     })
 
     test('The total charge, fee tax and donation amount are recalculated correctly when the donation amount is changed', async () => {
-      await donationPage.fillOtherAmountInputField('12.90')
-      await donationPage.checkTotalAmount(13.56)
+      await donationPage.fillOtherAmountInputField('120')
+      await donationPage.checkTotalAmount(121.96)
+    })
+
+    test('Select payment type', async () => {
+      await donationPage.selectRadioButtonByLabelText([paymentMode])
     })
 
     test('Fill in the stripe card form', async () => {
@@ -86,7 +91,6 @@ test.describe.serial(
     test('The user can submit the form', async () => {
       await donationPage.checkPrivacyCheckbox()
       await donationPage.submitForm()
-      await page.waitForEvent('domcontentloaded')
     })
 
     test('The user is redirected to succes page', async () => {

@@ -358,7 +358,7 @@ export class BasePage {
     for (const item of labelText) {
       // Here we use Xpath because of the special symbol "&nbsp" in the English version
       const radioCheckboxElementLocator = this.page.locator(
-        "(//input[@type='radio']/ancestor::label/span/p[contains(text(),'" + item + "')])[1]",
+        "(//input[@type='radio']/ancestor::label/p[contains(text(),'" + item + "')])[1]",
       )
       if (await this.isElementVisibleByLocatorWithTimeout(radioCheckboxElementLocator)) {
         await radioCheckboxElementLocator.click()
