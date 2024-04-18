@@ -18,7 +18,7 @@ const classes = {
 }
 
 type StyledRadioWrapperProps = {
-  error: boolean
+  error?: boolean
 }
 
 const StyledRadioButton = styled('div')<StyledRadioWrapperProps>(({ error }) => ({
@@ -67,7 +67,7 @@ type RadioButtonProps = {
   disabled?: boolean
   loading?: boolean
   muiRadioButtonProps?: Partial<RadioProps>
-  error: boolean
+  error?: boolean
 }
 
 function RadioButton({ checked, label, muiRadioButtonProps, value, error }: RadioButtonProps) {
