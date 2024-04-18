@@ -38,8 +38,17 @@ export async function confirmStripePayment(
   )
 
   if (payment.data.status === DonationFormPaymentStatus.REQUIRES_ACTION) {
-    const { error } = await stripe.confirmCardPayment(payment.data.client_secret as string)
-    if (error) throw error
+    const { error: confirmPaymentError } = await stripe.confirmCardPayment(
+      payment.data.client_secret as string,
+    )
+    if (confirmPaymentError) throw confirmPaymentError
+    //Retrieve latest paymentintent status
+    const { paymentIntent, error: retrievePaymentError } = await stripe.retrievePaymentIntent(
+      payment.data.client_secret as string,
+    )
+    if (!paymentIntent || retrievePaymentError) throw retrievePaymentError
+
+    return paymentIntent as StripeJS.PaymentIntent
   }
   return payment.data
 }
