@@ -38,7 +38,8 @@ export default function PersonSelect({
         </MenuItem>
         {personList.map((person, index) => (
           <MenuItem key={index} value={person.id}>
-            {person.firstName} {person.lastName}
+            {/* {person.firstName} {person.lastName} */}
+            {person.company ? person.company.companyName : `${person.firstName} ${person.lastName}`}
           </MenuItem>
         ))}
       </FormTextField>
