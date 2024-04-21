@@ -13,8 +13,9 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
   const { t } = useTranslation()
 
   return (
-    <Grid container direction="row" wrap="nowrap" alignItems="baseline" spacing={4}>
-      <Grid item>
+    // <Grid container direction="row" wrap="nowrap" alignItems="baseline" spacing={4}>
+    <>
+      <Grid item component={'li'}>
         <LinkButton
           variant="outlined"
           size="large"
@@ -26,16 +27,17 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
           </Typography>
         </LinkButton>
       </Grid>
-      <Grid item>
+      <Grid item component={'li'}>
         <DonationMenu />
       </Grid>
-      <Grid item>
+      <Grid item component={'li'}>
         <ProjectMenu />
       </Grid>
       {/* <Grid item>
         <DevelopmentMenu />
       </Grid> */}
       {children}
-    </Grid>
+      {/* </Grid> */}
+    </>
   )
 }

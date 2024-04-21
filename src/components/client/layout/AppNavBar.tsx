@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Menu } from '@mui/icons-material'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
-import { AppBar, Toolbar, IconButton, Grid, ButtonBase } from '@mui/material'
+import { AppBar, Toolbar, IconButton, Grid, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
@@ -49,42 +49,43 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
         backgroundColor: theme.palette.common.white,
       })}>
       <Toolbar
+        component={'nav'}
         sx={{
           height: '100%',
           display: 'flex',
           justifyContent: 'space-between',
           padding: 0,
         }}>
-        <Link href={routes.index} passHref>
-          <ButtonBase
-            className={clsx({ shrink })}
-            aria-label={t('meta.title')}
-            sx={(theme) => ({
-              transition: 'height .5s',
-              height: theme.spacing(7.5),
-              minWidth: theme.spacing(15),
-              marginLeft: theme.spacing(5),
-              [theme.breakpoints.up('lg')]: {
-                marginLeft: theme.spacing(10),
-              },
-              [theme.breakpoints.down('md')]: {
-                marginLeft: 0,
-                width: '100%',
-                height: theme.spacing(5),
-              },
-              '& > svg': {
-                display: 'block',
-                height: '100%',
-              },
-            })}>
+        <Grid
+          sx={(theme) => ({
+            transition: 'height .5s',
+            height: theme.spacing(7.5),
+            minWidth: theme.spacing(15),
+            marginLeft: theme.spacing(5),
+            [theme.breakpoints.down('md')]: {
+              marginLeft: 0,
+              width: '100%',
+              height: theme.spacing(5),
+            },
+            '& > svg': {
+              display: 'block',
+              height: '100%',
+            },
+          })}>
+          <Link href={routes.index} passHref>
+            <Typography variant="hidden">{t('meta.title')}</Typography>
             <PodkrepiLogo locale={locale} variant="adaptive" />
-          </ButtonBase>
-        </Link>
+          </Link>
+        </Grid>
         <Grid
           container
+          item
+          component={'ul'}
           wrap="nowrap"
           direction="row"
           justifyContent="flex-end"
+          alignItems={'center'}
+          spacing={4}
           sx={(theme) => ({
             marginLeft: theme.spacing(2),
             marginRight: theme.spacing(5),
@@ -93,14 +94,12 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             },
             display: { md: 'flex', xs: 'none' },
           })}>
-          <Grid item>
-            <MainNavMenu>
-              {status === 'authenticated' ? <PrivateMenu /> : <PublicMenu />}
-              <Grid item>
-                <LocaleButton />
-              </Grid>
-            </MainNavMenu>
-          </Grid>
+          <MainNavMenu>
+            {status === 'authenticated' ? <PrivateMenu /> : <PublicMenu />}
+            <Grid item component={'li'}>
+              <LocaleButton />
+            </Grid>
+          </MainNavMenu>
         </Grid>
         <Grid sx={{ display: { xs: 'flex', md: 'none' } }}>
           <IconButton

@@ -64,7 +64,7 @@ export default function DevelopmentMenu() {
   const router = useRouter()
 
   return (
-    <StyledGenericNavMenu id="menu-development" label={t('nav.dev.index')}>
+    <StyledGenericNavMenu id="menu-development" buttonType="label" label={t('nav.dev.index')}>
       {navItems.map(({ href, label, target }, key) => (
         <ExternalLinkMenuItem
           selected={router.asPath === href}

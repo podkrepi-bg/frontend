@@ -1,8 +1,6 @@
 import React from 'react'
-import { styled } from '@mui/material/styles'
 import { useRouter } from 'next/router'
 import { Typography } from '@mui/material'
-import { lighten } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
@@ -17,22 +15,6 @@ const classes = {
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
-
-const StyledGenericNavMenu = styled(GenericNavMenu)(({ theme }) => ({
-  [`& .${classes.dropdownLinkButton}`]: {
-    '&:hover': {
-      backgroundColor: lighten(theme.palette.primary.main, 0.9),
-    },
-  },
-
-  [`& .${classes.dropdownLinkText}`]: {
-    color: theme.palette.primary.dark,
-    width: '100%',
-    '&:hover': {
-      color: theme.palette.primary.main,
-    },
-  },
-}))
 
 type NavItem = {
   href: string
@@ -95,7 +77,7 @@ export default function ProjectMenu() {
   const router = useRouter()
 
   return (
-    <StyledGenericNavMenu id="menu-project" label={t('nav.about.about-us')}>
+    <GenericNavMenu id="menu-project" buttonType="label" label={t('nav.about.about-us')}>
       {navItems.map(({ href, label, target }, key) =>
         target ? (
           <ExternalLinkMenuItem
@@ -120,6 +102,6 @@ export default function ProjectMenu() {
           </LinkMenuItem>
         ),
       )}
-    </StyledGenericNavMenu>
+    </GenericNavMenu>
   )
 }
