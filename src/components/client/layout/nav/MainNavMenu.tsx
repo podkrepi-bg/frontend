@@ -20,6 +20,7 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
           variant="outlined"
           size="large"
           color="inherit"
+          tabIndex={0}
           sx={{ borderColor: theme.palette.primary.main }}
           href={routes.campaigns.index}>
           <Typography variant="button" color="#000000DE">

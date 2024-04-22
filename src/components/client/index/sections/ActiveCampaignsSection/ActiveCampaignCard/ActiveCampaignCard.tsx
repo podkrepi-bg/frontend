@@ -1,7 +1,7 @@
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 import Link from 'components/common/Link'
 import CampaignProgress from 'components/client/campaigns/CampaignProgress'
@@ -36,7 +36,9 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   return (
     <Root data-testid={`completed-campaign-${index}`} variant="outlined">
-      <Link href={routes.campaigns.viewCampaignBySlug(slug)}>
+      <Link
+        href={routes.campaigns.viewCampaignBySlug(slug)}
+        aria-labelledby={`${index}--heading ${index}--summary`}>
         <Box
           position={'relative'}
           sx={{
@@ -54,12 +56,14 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
             fill
             sizes="(min-width: 2000px) 312px, (min-width: 1200px) calc(30vw - 38px), (min-width: 900px) calc(40.57vw - 29px), (min-width: 600px) calc(50vw - 28px), calc(100vw - 32px)"
             quality={index === 0 ? 100 : 75}
+            aria-hidden={true}
             style={{ objectFit: 'cover' }}
           />
         </Box>
         <StyledContent>
-          <SumWrapper>
+          <SumWrapper id={`${index}--summary`}>
             <Sum>
+              <Typography variant="hidden">Reached amount</Typography>
               <SumNumber>
                 {i18n?.language === 'bg'
                   ? reachedAmount.split(',')[0] + ' лв.'
@@ -67,6 +71,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
               </SumNumber>
             </Sum>
             <Sum>
+              <Typography variant="hidden">Target amount</Typography>
               <SumNumber>
                 {i18n?.language === 'bg'
                   ? targetAmount.split(',')[0] + ' лв.'
@@ -75,7 +80,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
             </Sum>
           </SumWrapper>
           <CampaignProgress campaignId={id} raised={reached} target={target} />
-          <CampaignTitle>{title}</CampaignTitle>
+          <CampaignTitle id={`${index}--heading`}>{title}</CampaignTitle>
         </StyledContent>
       </Link>
       <StyledCardActions disableSpacing>

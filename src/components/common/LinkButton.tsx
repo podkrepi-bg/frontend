@@ -18,7 +18,7 @@ const LinkButton = (
     tabIndex={disabled ? -1 : 0}
     legacyBehavior
     style={{ pointerEvents: disabled ? 'none' : 'all' }}>
-    <Button ref={ref} tabIndex={-1} disabled={disabled} {...props} />
+    <Button ref={ref} disabled={disabled} {...props} />
   </Link>
 )
 
