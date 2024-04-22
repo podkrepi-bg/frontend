@@ -36,6 +36,7 @@ export default function PlatformStatisticsSection() {
           </Heading>
           <Subtitle>{t('index:platform-statistics.text')}</Subtitle>
           <HelpThoseInNeedButton
+            tabIndex={0}
             href={routes.campaigns.index}
             variant="contained"
             endIcon={<ArrowForwardSharp />}>
@@ -50,6 +51,7 @@ export default function PlatformStatisticsSection() {
           <SubscribeButton
             onClick={() => setSubscribeOpen(true)}
             variant="contained"
+            color="secondary"
             endIcon={<ArrowForwardSharp />}>
             {t('common:notifications.subscribeGeneralButton')}
           </SubscribeButton>

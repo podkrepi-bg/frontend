@@ -17,6 +17,11 @@ export const Root = styled(Card)(() => ({
     backgroundColor: '#F8F8F8	',
   },
 
+  '& .Mui-focusVisible': {
+    filter: 'grayscale(15%)',
+    backgroundColor: '#F8F8F8	',
+  },
+
   [theme.breakpoints.up('lg')]: {
     '&:nth-of-type(1)': {
       gridArea: '1 / 1 / 3 / 3',
@@ -96,7 +101,7 @@ export const DonateButton = styled(LinkButton)(() => ({
   height: theme.spacing(4.5),
   padding: theme.spacing(0.75, 2),
   marginRight: theme.spacing(1),
-  backgroundColor: theme.palette.secondary.main,
+  // backgroundColor: theme.palette.secondary.main,
   boxShadow:
     '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
   borderRadius: theme.borders.round,
@@ -104,10 +109,10 @@ export const DonateButton = styled(LinkButton)(() => ({
   fontSize: theme.typography.pxToRem(16),
   letterSpacing: '0.4px',
 
-  '&:hover': {
-    boxShadow:
-      '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
-  },
+  // '&:hover': {
+  //   boxShadow:
+  //     '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
+  // },
 
   '&.Mui-disabled': {
     backgroundColor: 'rgba(152, 152, 152, 0.8)',

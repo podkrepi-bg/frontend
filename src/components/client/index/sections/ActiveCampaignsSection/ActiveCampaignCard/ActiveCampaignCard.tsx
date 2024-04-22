@@ -35,7 +35,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const targetAmount = moneyPublic(campaign.targetAmount)
 
   return (
-    <Root data-testid={`completed-campaign-${index}`}>
+    <Root data-testid={`completed-campaign-${index}`} variant="outlined">
       <Link href={routes.campaigns.viewCampaignBySlug(slug)}>
         <Box
           position={'relative'}
@@ -80,6 +80,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
       </Link>
       <StyledCardActions disableSpacing>
         <DonateButton
+          tabIndex={0}
           href={routes.campaigns.oneTimeDonation(slug)}
           variant="contained"
           color="secondary">

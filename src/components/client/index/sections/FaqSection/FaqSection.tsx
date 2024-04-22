@@ -16,7 +16,7 @@ export default function FaqSection() {
   return (
     <Root aria-labelledby={'faq--heading'}>
       <Grid maxWidth="lg">
-        <Heading variant="h4" id={'faq-hedding'} component={'h2'}>
+        <Heading variant="h4" id={'faq--heading'} component={'h2'}>
           {t('common:nav.campaigns.faq')}
         </Heading>
         <FaqWrapper container spacing={2}>

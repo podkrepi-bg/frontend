@@ -47,21 +47,14 @@ export const Subtitle = styled(Typography)(() => ({
 export const HelpThoseInNeedButton = styled(LinkButton)(() => ({
   fontWeight: 600,
   borderRadius: theme.borders.round,
-  backgroundColor: theme.palette.primary.light,
   minWidth: theme.spacing(3.75),
   fontSize: theme.typography.pxToRem(15),
   margin: theme.spacing(2, 0, 0, 'auto'),
-  boxShadow:
-    '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
+  // boxShadow:
+  //   '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
 
   '& span': {
     display: 'none',
-  },
-
-  '&:hover': {
-    backgroundColor: theme.palette.primary.main,
-    boxShadow:
-      '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
   },
 
   [theme.breakpoints.up('md')]: {
@@ -83,7 +76,7 @@ export const SubscribeHeading = styled(Typography)(() => ({
 export const SubscribeButton = styled(Button)(() => ({
   fontWeight: 600,
   borderRadius: theme.borders.round,
-  backgroundColor: theme.palette.secondary.main,
+  // backgroundColor: theme.palette.secondary.main,
   minWidth: theme.spacing(3.75),
   fontSize: theme.typography.pxToRem(15),
   margin: theme.spacing(2, 0, 0, 'auto'),

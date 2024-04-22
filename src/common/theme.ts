@@ -144,10 +144,16 @@ export const themeOptions: ThemeOptions = {
           '&:hover': {
             backgroundColor: darken(colors.blue.main, 0.15),
           },
+          '&.Mui-focusVisible': {
+            backgroundColor: darken(colors.blue.main, 0.15),
+          },
         },
         containedSecondary: {
           backgroundColor: colors.yellow.main,
           '&:hover': {
+            backgroundColor: darken(colors.yellow.main, 0.15),
+          },
+          '&.Mui-focusVisible': {
             backgroundColor: darken(colors.yellow.main, 0.15),
           },
         },
@@ -208,6 +214,26 @@ export const themeOptions: ThemeOptions = {
     MuiMenuItem: {
       defaultProps: {
         sx: { py: 1.5 },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          border: '10px red',
+          '&.Mui-focusVisible': {
+            outline: '1rem solid',
+          },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          outline: 'red',
+          '&.Mui-focusVisible': {
+            outline: '1px solid',
+          },
+        },
       },
     },
   },
