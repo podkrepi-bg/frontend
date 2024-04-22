@@ -13,7 +13,6 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
   const { t } = useTranslation()
 
   return (
-    // <Grid container direction="row" wrap="nowrap" alignItems="baseline" spacing={4}>
     <>
       <Grid item component={'li'}>
         <LinkButton
@@ -38,7 +37,6 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
         <DevelopmentMenu />
       </Grid> */}
       {children}
-      {/* </Grid> */}
     </>
   )
 }

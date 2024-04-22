@@ -63,7 +63,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         <StyledContent>
           <SumWrapper id={`${index}--summary`}>
             <Sum>
-              <Typography variant="hidden">Reached amount</Typography>
+              <Typography variant="hidden">{t('donationsAmount')}</Typography>
               <SumNumber>
                 {i18n?.language === 'bg'
                   ? reachedAmount.split(',')[0] + ' лв.'
@@ -71,7 +71,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
               </SumNumber>
             </Sum>
             <Sum>
-              <Typography variant="hidden">Target amount</Typography>
+              <Typography variant="hidden">{t('targetAmount')}</Typography>
               <SumNumber>
                 {i18n?.language === 'bg'
                   ? targetAmount.split(',')[0] + ' лв.'
