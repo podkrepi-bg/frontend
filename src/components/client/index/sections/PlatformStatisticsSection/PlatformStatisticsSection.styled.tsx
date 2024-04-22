@@ -1,4 +1,4 @@
-import { Button, Typography, Grid } from '@mui/material'
+import { Button, Typography, Grid, TypographyProps } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
@@ -25,7 +25,7 @@ export const SectionGridWrapper = styled(Grid)(() => ({
   },
 }))
 
-export const Heading = styled(Typography)(() => ({
+export const Heading = styled(Typography)<TypographyProps>(() => ({
   color: theme.palette.primary.dark,
   fontWeight: 500,
   margin: theme.spacing(7, 0, 2),

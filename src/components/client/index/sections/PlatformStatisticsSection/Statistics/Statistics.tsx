@@ -47,22 +47,26 @@ export default function Statistics() {
       {sections.map((section, index) => (
         <React.Fragment key={index}>
           <StatisticsWrapper>
-            <SubtitleSectionNumber variant="subtitle1">
+            <SubtitleSectionNumber variant="subtitle1" component={'h3'}>
               {toNumberWithSpacesBetween(section.value)}
             </SubtitleSectionNumber>
-            <SubtitleSectionText variant="subtitle1">{section.message}</SubtitleSectionText>
+            <SubtitleSectionText variant="subtitle1" component={'h4'}>
+              {section.message}
+            </SubtitleSectionText>
           </StatisticsWrapper>
           <SectionDivider />
         </React.Fragment>
       ))}
       <StatisticsWrapper>
         <Stack flexDirection="row">
-          <SubtitleSectionNumber variant="subtitle1">
+          <SubtitleSectionNumber variant="subtitle1" component={'h3'}>
             {toNumberWithSpacesBetween(unit)}
           </SubtitleSectionNumber>
           <Fraction>{fraction}</Fraction>
         </Stack>
-        <SubtitleSectionText>{t('platform-statistics.donated-leva')}</SubtitleSectionText>
+        <SubtitleSectionText component={'h4'}>
+          {t('platform-statistics.donated-leva')}
+        </SubtitleSectionText>
       </StatisticsWrapper>
       <SectionDivider />
     </StatisticsSectionWrapper>

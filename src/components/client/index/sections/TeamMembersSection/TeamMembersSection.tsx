@@ -13,8 +13,10 @@ export default function TeamMembersSection() {
   const teamImagePath = '/img/team-photos/team-image.png'
 
   return (
-    <Root>
-      <Heading variant="h4">{t('team-section.heading')}</Heading>
+    <Root aria-labelledby="team-section--heading">
+      <Heading variant="h4" component={'h2'} id={'team-section--heading'}>
+        {t('team-section.heading')}
+      </Heading>
       <InfoText maxWidth="lg">{t('team-section.content')}</InfoText>
       <Box>
         <Image

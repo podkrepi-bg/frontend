@@ -24,13 +24,15 @@ const SubscriptionSection = () => {
   const [subscribeIsOpen, setSubscribeOpen] = useState(false)
 
   return (
-    <Root>
+    <Root aria-labelledby={'subscription--heading'}>
       <Grid
         sx={{
           margin: '0 auto',
           textAlign: 'center',
         }}>
-        <Heading variant="h4">{t('index:subscription-section.heading')}</Heading>
+        <Heading variant="h4" component={'h2'} id={'subscription--heading'}>
+          {t('index:subscription-section.heading')}
+        </Heading>
         <InfoText sx={{ marginBottom: theme.spacing(3), padding: 0 }}>
           {t('index:subscription-section.content')}
         </InfoText>

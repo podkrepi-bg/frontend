@@ -32,6 +32,7 @@ const ExpandableListItem = ({ header, content }: Props) => {
             primaryTypographyProps={{
               variant: 'subtitle1',
               color: `${withAccentColor(open)}`,
+              component: 'h3',
             }}
           />
           {open ? (

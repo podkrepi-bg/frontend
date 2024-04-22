@@ -16,9 +16,9 @@ export default function WantToHelpPodkrepiBgSection() {
   const joinIconSource = '/img/JoinIcon.png'
 
   return (
-    <Root>
+    <Root aria-labelledby="join-us--heading">
       <JoinIcon alt="Join icon" src={joinIconSource} width={150} height={100} />
-      <BecomeVolunteerHeading variant="h4">
+      <BecomeVolunteerHeading variant="h4" component={'h2'} id={'join-us--heading'}>
         {t('join-podkrepi-bg-section.heading')}
       </BecomeVolunteerHeading>
       <Box textAlign="center">

@@ -43,8 +43,8 @@ export default function CompletedCampaignsSection() {
   }
 
   return (
-    <Root>
-      <Heading variant="h4" px={3}>
+    <Root aria-labelledby="completed-campaigns--heading">
+      <Heading variant="h4" component={'h2'} px={3} id={'completed-campaigns--heading'}>
         {t('completed-campaigns')}
       </Heading>
       <CarouselWrapper {...settings}>
