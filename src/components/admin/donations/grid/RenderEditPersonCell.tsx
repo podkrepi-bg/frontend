@@ -44,7 +44,7 @@ export default function RenderEditPersonCell({
   const [person, setPerson] = React.useState<PersonResponse | null>({
     ...initialPerson,
   } as PersonResponse)
-  const mutationFn = useEditDonation(params.row.id)
+  const mutationFn = useEditDonation(params.row.paymentId)
 
   const mutation = useMutation<
     AxiosResponse<DonationResponse>,
@@ -65,6 +65,7 @@ export default function RenderEditPersonCell({
       const donationData: UserDonationInput = params.row
       donationData.targetPersonId = person.id
       donationData.billingEmail = undefined
+      donationData.donationId = params.row.id
       mutation.mutate(donationData)
     } else {
       AlertStore.show(t('donations:alerts.requiredError'), 'error')
