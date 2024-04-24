@@ -28,8 +28,9 @@ import { moneyPublic } from 'common/util/money'
 import CampaignPublicExpensesChart from './CampaignPublicExpensesChart'
 import EmailIcon from '@mui/icons-material/Email'
 import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
+import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
+import { sanitizeHTML } from 'common/util/htmlUtils'
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
 
 const PREFIX = 'CampaignDetails'
@@ -128,6 +129,7 @@ export default function CampaignDetails({ campaign }: Props) {
   const canEditCampaign = useCanEditCampaign(campaign.slug)
   const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
   const totalExpenses = expensesList?.reduce((acc, expense) => acc + expense.amount, 0)
+  const sanitizedDescription = sanitizeHTML(campaign.description)
 
   return (
     <StyledGrid item xs={12} md={8}>
@@ -155,7 +157,14 @@ export default function CampaignDetails({ campaign }: Props) {
           </Typography>
         </Grid>
         <Grid item xs={12} style={{ paddingTop: '20px' }}>
-          <ReactQuill readOnly theme="bubble" value={campaign.description} />
+          <QuillStypeWrapper>
+            {/*Temp: Surpress hydratation warning until the reason for the fail is found*/}
+            <Typography
+              component={'div'}
+              dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+              suppressHydrationWarning
+            />
+          </QuillStypeWrapper>
         </Grid>
         <Grid item xs={12}>
           <ImageSlider sliderImages={sliderImages} />
