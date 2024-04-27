@@ -20,7 +20,7 @@
   "campaignType": "Campaign type",
   "description": "Description",
   "targetAmount": "Target amount",
-  "donationsAmount": "Donations amount",
+  "donationsAmount": "Reached Amount",
   "blockedAmount": "Blocked amount",
   "withdrawnAmount": "Withdrawn amount",
   "startDate": "Start date",

@@ -15,8 +15,8 @@ export default function HowWeWorkSection() {
   const desktopInfographicPath = `/infographic-${i18n?.language}.svg`
 
   return (
-    <Root>
-      <Heading variant="h4" px={3}>
+    <Root aria-labelledby="how-we-work--heading">
+      <Heading variant="h4" px={3} id={'how-we-work--heading'}>
         {t('how-we-work.heading')}
       </Heading>
       <InfoText maxWidth="lg" px={3}>

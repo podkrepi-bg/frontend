@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { styled } from '@mui/material/styles'
-import { Box, CircularProgress, Grid, IconButton, Typography } from '@mui/material'
+import { Box, CircularProgress, Grid, GridProps, IconButton, Typography } from '@mui/material'
 import { useCampaignList } from 'common/hooks/campaigns'
 import CampaignsList from './CampaignsList'
 import { CampaignResponse } from 'gql/campaigns'
@@ -29,7 +29,7 @@ const classes = {
   filterButtonContainer: `${PREFIX}-filterButtonsCtn`,
 }
 
-const Root = styled('div')(() => ({
+const Root = styled(Grid)<GridProps>(() => ({
   [`& .${classes.filterButtonContainer}`]: {
     display: 'flex',
     justifyContent: 'center',
@@ -95,47 +95,45 @@ export default function CampaignFilter() {
 
   return (
     <>
-      <Grid container justifyContent={'center'} display={'flex'}>
-        <Root>
-          <Grid container item sx={{ my: 5 }} maxWidth={'lg'} component={'ul'}>
-            {Object.values(CampaignTypeCategory).map((category) => {
-              const count = campaigns?.reduce((acc, curr) => {
-                return category === curr.campaignType.category ? acc + 1 : acc
-              }, 0)
-              return (
-                <Grid
-                  item
-                  xs={6}
-                  md={2}
-                  className={classes.filterButtonContainer}
+      <Root container justifyContent={'center'} display={'flex'} component={'section'}>
+        <Grid container item sx={{ my: 5 }} maxWidth={'lg'} component={'ul'}>
+          {Object.values(CampaignTypeCategory).map((category) => {
+            const count = campaigns?.reduce((acc, curr) => {
+              return category === curr.campaignType.category ? acc + 1 : acc
+            }, 0)
+            return (
+              <Grid
+                item
+                xs={6}
+                md={2}
+                className={classes.filterButtonContainer}
+                key={category}
+                component={'li'}>
+                <IconButton
                   key={category}
-                  component={'li'}>
-                  <IconButton
-                    key={category}
-                    className={classes.filterButtons}
-                    disabled={count === 0}
-                    onClick={() => setSelectedCategory(category)}>
-                    {categories[category].icon ?? <Category fontSize="small" />}
-                    <Typography>
-                      {t(`campaigns:filters.${category}`)} ({count})
-                    </Typography>
-                  </IconButton>
-                </Grid>
-              )
-            })}
-            <Grid item xs={6} md={2} className={classes.filterButtonContainer} component={'li'}>
-              <IconButton
-                className={classes.filterButtons}
-                onClick={() => setSelectedCategory('ALL')}>
-                <FilterNone fontSize="small" />
-                <Typography>
-                  {t(`campaigns:filters.all`)} ({campaigns?.length ?? 0})
-                </Typography>
-              </IconButton>
-            </Grid>
+                  className={classes.filterButtons}
+                  disabled={count === 0}
+                  onClick={() => setSelectedCategory(category)}>
+                  {categories[category].icon ?? <Category fontSize="small" />}
+                  <Typography>
+                    {t(`campaigns:filters.${category}`)} ({count})
+                  </Typography>
+                </IconButton>
+              </Grid>
+            )
+          })}
+          <Grid item xs={6} md={2} className={classes.filterButtonContainer} component={'li'}>
+            <IconButton
+              className={classes.filterButtons}
+              onClick={() => setSelectedCategory('ALL')}>
+              <FilterNone fontSize="small" />
+              <Typography>
+                {t(`campaigns:filters.all`)} ({campaigns?.length ?? 0})
+              </Typography>
+            </IconButton>
           </Grid>
-        </Root>
-      </Grid>
+        </Grid>
+      </Root>
       {isLoading ? (
         <Box textAlign="center">
           <CircularProgress size="3rem" />

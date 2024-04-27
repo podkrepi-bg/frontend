@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import { styled, lighten } from '@mui/material/styles'
+import React from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
-import { Avatar, Grid, IconButton, Menu, Typography } from '@mui/material'
+import { Avatar, Grid, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
 import { isAdmin } from 'common/util/roles'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 import { useRouter } from 'next/router'
+import GenericNavMenu from './GenericNavMenu'
 
 const PREFIX = 'PrivateMenu'
 
@@ -16,22 +16,6 @@ const classes = {
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
-
-const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`& .${classes.dropdownLinkButton}`]: {
-    '&:hover': {
-      backgroundColor: lighten(theme.palette.primary.main, 0.9),
-    },
-  },
-
-  [`& .${classes.dropdownLinkText}`]: {
-    color: theme.palette.primary.dark,
-    width: '100%',
-    '&:hover': {
-      color: theme.palette.primary.main,
-    },
-  },
-}))
 
 type NavItem = {
   href: string
@@ -51,10 +35,6 @@ export default function PrivateMenu() {
   const { t } = useTranslation()
   const { data: session, status } = useSession()
   const router = useRouter()
-  const [anchorEl, setAnchorEl] = useState<Element | null>(null)
-
-  const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
-  const handleClose = () => setAnchorEl(null)
 
   if (!session) {
     return null
@@ -65,32 +45,26 @@ export default function PrivateMenu() {
     session.user?.family_name?.charAt(0) || session.user?.email?.charAt(1)
   }`.toUpperCase()
 
+  const Icon = (
+    <>
+      {session?.user?.picture ? (
+        <Avatar title={title} alt={title} src={session?.user?.picture} />
+      ) : (
+        <Avatar
+          sx={{
+            bgcolor: theme.palette.success.light,
+            height: theme.spacing(4.5),
+            width: theme.spacing(4.5),
+            fontSize: theme.typography.pxToRem(16),
+          }}>
+          {lettersAvatar}
+        </Avatar>
+      )}
+    </>
+  )
   return (
-    <StyledGrid item>
-      <IconButton onClick={handleMenu} size="medium">
-        {session?.user?.picture ? (
-          <Avatar title={title} alt={title} src={session?.user?.picture} />
-        ) : (
-          <Avatar
-            sx={{
-              bgcolor: theme.palette.success.light,
-              height: theme.spacing(4.5),
-              width: theme.spacing(4.5),
-              fontSize: theme.typography.pxToRem(16),
-            }}>
-            {lettersAvatar}
-          </Avatar>
-        )}
-      </IconButton>
-      <Menu
-        disableScrollLock={true}
-        keepMounted
-        id="menu-appbar"
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        open={Boolean(anchorEl)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
+    <Grid item component={'li'}>
+      <GenericNavMenu buttonType="icon" id="test" label={'ahoy'} icon={Icon}>
         <LinkMenuItem href={routes.profile.index} className={classes.dropdownLinkText}>
           <Typography variant="button">{t('nav.profile')}</Typography>
         </LinkMenuItem>
@@ -110,7 +84,7 @@ export default function PrivateMenu() {
         <LinkMenuItem href={routes.logout} className={classes.dropdownLinkText}>
           <Typography variant="button">{t('nav.logout')}</Typography>
         </LinkMenuItem>
-      </Menu>
-    </StyledGrid>
+      </GenericNavMenu>
+    </Grid>
   )
 }

@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
 import theme from 'common/theme'
-import { Typography } from '@mui/material'
+import { Typography, TypographyProps } from '@mui/material'
 
 export const Root = styled('section')(() => ({
   position: 'relative',
@@ -29,7 +29,7 @@ export const Root = styled('section')(() => ({
   },
 }))
 
-export const BecomeVolunteerHeading = styled(Typography)(() => ({
+export const BecomeVolunteerHeading = styled(Typography)<TypographyProps>(() => ({
   fontStyle: 'normal',
   fontWeight: 500,
   lineHeight: theme.typography.pxToRem(60),

@@ -55,7 +55,7 @@ export default function DonationMenu() {
   const { t } = useTranslation()
   const router = useRouter()
   return (
-    <StyledGenericNavMenu id="menu-donation" label={t('nav.donation-menu')}>
+    <StyledGenericNavMenu id="menu-donation" buttonType="label" label={t('nav.donation-menu')}>
       {navItems.map(({ href, label }, key) => (
         <LinkMenuItem
           href={href}

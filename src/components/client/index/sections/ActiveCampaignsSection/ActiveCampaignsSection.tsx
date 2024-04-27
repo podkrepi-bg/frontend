@@ -11,6 +11,7 @@ import {
   SeeAllButton,
   SeeAllButtonWrapper,
 } from './ActiveCampaignsSection.styled'
+import { Typography } from '@mui/material'
 
 export default function ActiveCampaignsSection() {
   const { t } = useTranslation('index')
@@ -23,7 +24,10 @@ export default function ActiveCampaignsSection() {
     return null
   } else {
     return (
-      <Root>
+      <Root aria-labelledby="active-campaigns--heading">
+        <Typography variant="hidden" id={'active-campaigns--heading'}>
+          Кампании на фокус
+        </Typography>
         <ActiveCampaignsWrapper>
           {activeCampaigns?.map((campaign, index) => (
             <ActiveCampaignCard index={index} key={campaign.id} campaign={campaign} />

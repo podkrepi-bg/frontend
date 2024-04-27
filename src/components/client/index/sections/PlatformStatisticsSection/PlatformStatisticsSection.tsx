@@ -24,16 +24,19 @@ export default function PlatformStatisticsSection() {
   const [subscribeIsOpen, setSubscribeOpen] = useState(false)
 
   return (
-    <Root>
+    <Root aria-labelledby="platform-statistics--heading">
       <SectionGridWrapper>
         <Grid
           sx={(theme) => ({
             margin: '0 auto',
             maxWidth: theme.spacing(67),
           })}>
-          <Heading variant="h4">{t('index:platform-statistics.heading')}</Heading>
+          <Heading variant="h4" component={'h2'} id={'platform-statistics--heading'}>
+            {t('index:platform-statistics.heading')}
+          </Heading>
           <Subtitle>{t('index:platform-statistics.text')}</Subtitle>
           <HelpThoseInNeedButton
+            tabIndex={0}
             href={routes.campaigns.index}
             variant="contained"
             endIcon={<ArrowForwardSharp />}>
@@ -48,6 +51,7 @@ export default function PlatformStatisticsSection() {
           <SubscribeButton
             onClick={() => setSubscribeOpen(true)}
             variant="contained"
+            color="secondary"
             endIcon={<ArrowForwardSharp />}>
             {t('common:notifications.subscribeGeneralButton')}
           </SubscribeButton>

@@ -13,8 +13,8 @@ export default function MediaSection() {
   const { t } = useTranslation('index')
 
   return (
-    <Root>
-      <Heading variant="h4" px={3}>
+    <Root aria-labelledby="media--heading">
+      <Heading variant="h4" component={'h2'} id={'media--heading'} px={3}>
         {t('media-heading')}
       </Heading>
       <CarouselWrapper {...settings}>

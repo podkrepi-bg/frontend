@@ -14,8 +14,8 @@ export default function PartnersSection() {
   const { t } = useTranslation('index')
 
   return (
-    <Root>
-      <Heading variant="h4" px={3}>
+    <Root aria-labelledby="partners--heading">
+      <Heading variant="h4" component={'h2'} id={'partners--heading'} px={3}>
         {t('partners-heading')}
       </Heading>
       <CarouselWrapper {...settings}>

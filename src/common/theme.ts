@@ -47,6 +47,24 @@ const borders = {
   input: 'rgba(0, 0, 0, 0.23)',
 }
 
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    hidden: React.CSSProperties
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    hidden?: React.CSSProperties
+  }
+}
+
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    hidden: true
+  }
+}
+
 export const themeOptions: ThemeOptions = {
   palette: {
     mode: 'light',
@@ -96,6 +114,14 @@ export const themeOptions: ThemeOptions = {
             color: colors.blue.mainDark,
           },
         },
+        textInherit: {
+          '&:hover': {
+            backgroundColor: lighten(colors.blue.main, 0.9),
+          },
+          '&.Mui-focusVisible': {
+            backgroundColor: lighten(colors.blue.main, 0.9),
+          },
+        },
         outlined: {
           backgroundColor: colors.white.main,
         },
@@ -118,10 +144,16 @@ export const themeOptions: ThemeOptions = {
           '&:hover': {
             backgroundColor: darken(colors.blue.main, 0.15),
           },
+          '&.Mui-focusVisible': {
+            backgroundColor: darken(colors.blue.main, 0.15),
+          },
         },
         containedSecondary: {
           backgroundColor: colors.yellow.main,
           '&:hover': {
+            backgroundColor: darken(colors.yellow.main, 0.15),
+          },
+          '&.Mui-focusVisible': {
             backgroundColor: darken(colors.yellow.main, 0.15),
           },
         },
@@ -184,6 +216,26 @@ export const themeOptions: ThemeOptions = {
         sx: { py: 1.5 },
       },
     },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          border: '10px red',
+          '&.Mui-focusVisible': {
+            outline: '1rem solid',
+          },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          outline: 'red',
+          '&.Mui-focusVisible': {
+            outline: '1px solid',
+          },
+        },
+      },
+    },
   },
 
   typography: {
@@ -197,7 +249,12 @@ export const themeOptions: ThemeOptions = {
     },
     h4: { fontFamily: montserrat.style.fontFamily },
     h5: { fontFamily: montserrat.style.fontFamily },
-
+    hidden: {
+      position: 'absolute',
+      overflow: 'hidden',
+      width: '1px',
+      height: '1px',
+    },
     body1: {
       fontSize: '0.875rem',
       lineHeight: '1.43',

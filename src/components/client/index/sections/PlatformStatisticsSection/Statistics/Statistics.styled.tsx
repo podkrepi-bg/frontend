@@ -1,4 +1,4 @@
-import { Divider, Grid, Stack, Typography } from '@mui/material'
+import { Divider, Grid, Stack, Typography, TypographyProps, TypographyProps } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
@@ -8,7 +8,7 @@ export const StatisticsSectionWrapper = styled(Grid)(() => ({
   padding: theme.spacing(7, 0),
 }))
 
-export const SubtitleSectionNumber = styled(Typography)(() => ({
+export const SubtitleSectionNumber = styled(Typography)<TypographyProps>(() => ({
   display: 'inline-block',
   color: theme.palette.primary.light,
   fontWeight: 'bold',
@@ -67,7 +67,7 @@ export const StatisticsWrapper = styled(Stack)(() => ({
   },
 }))
 
-export const SubtitleSectionText = styled(Typography)(() => ({
+export const SubtitleSectionText = styled(Typography)<TypographyProps>(() => ({
   display: 'inline-block',
   marginLeft: theme.spacing(2),
   fontSize: theme.typography.pxToRem(16),
