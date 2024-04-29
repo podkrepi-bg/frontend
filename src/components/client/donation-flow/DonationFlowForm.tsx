@@ -353,19 +353,12 @@ export function DonationFlowForm() {
                   />
                 </Grid2>
               </Grid2>
-              <Stack direction={'column'}>
-                {paymentError ? (
-                  <Alert sx={{ fontSize: theme.typography.fontSize, mb: 1 }} severity="error">
-                    {paymentError.message}
-                  </Alert>
-                ) : null}
-              </Stack>
               <PersistFormikValues
                 hashInitials={true}
                 ignoreValues={['authentication']}
                 debounce={3000}
                 storage="sessionStorage"
-                name="donation-form"
+                name={`donation-flow-${campaign.slug}`}
               />
             </Form>
           </Grid2>
