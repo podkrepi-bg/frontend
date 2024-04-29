@@ -36,6 +36,10 @@ export type UpdatePaymentIntentInput = {
   payload: Stripe.PaymentIntentUpdateParams
 }
 
+export type CancelSetupIntentInput = {
+  id: string
+}
+
 export type UpdateSetupIntentInput = {
   id: string
   idempotencyKey: string

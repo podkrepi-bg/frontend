@@ -12,6 +12,7 @@ import {
   SubscriptionPaymentInput,
   UpdateSetupIntentInput,
   UserDonationInput,
+  CancelSetupIntentInput,
 } from 'gql/donations'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
@@ -21,6 +22,7 @@ import { useMutation } from '@tanstack/react-query'
 import { FilterData } from 'gql/types'
 import { PaymentMode } from 'components/client/donation-flow/helpers/types'
 import { Session } from 'next-auth'
+import { SetupIntent } from '@stripe/stripe-js'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
@@ -54,6 +56,16 @@ export function useUpdateSetupIntent() {
         endpoints.donation.updateSetupIntent(id, idempotencyKey).url,
         payload,
         authConfig(session?.accessToken),
+      )
+    },
+  })
+}
+
+export function useCancelSetupIntent() {
+  return useMutation<AxiosResponse<SetupIntent>, AxiosError, CancelSetupIntentInput>({
+    mutationFn: async ({ id }) => {
+      return await apiClient.patch<CancelSetupIntentInput, AxiosResponse<SetupIntent>>(
+        endpoints.donation.cancelSetupIntent(id).url,
       )
     },
   })

@@ -168,6 +168,11 @@ export const endpoints = {
         url: `/stripe/setup-intent/${id}?idempotency-key=${idempotencyKey}`,
         method: 'POST',
       },
+    cancelSetupIntent: (id: string) =>
+      <Endpoint>{
+        url: `/stripe/setup-intent/${id}/cancel`,
+        method: 'POST',
+      },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     synchronizeWithPayment: (id: string) =>
       <Endpoint>{ url: `/donation/${id}/sync-with-payment`, method: 'PATCH' },
