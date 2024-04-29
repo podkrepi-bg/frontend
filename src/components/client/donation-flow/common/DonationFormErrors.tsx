@@ -59,6 +59,7 @@ export function DonationFormErrorList({ errors, show, paymentError }: DonationFo
               <Typography
                 variant="subtitle2"
                 color={'error.main'}
+                component={'strong'}
                 fontWeight={500}
                 fontSize={theme.typography.pxToRem(14)}
                 sx={{ textDecoration: 'underline', cursor: 'pointer' }}>
@@ -89,6 +90,7 @@ export function DonationFormErrorList({ errors, show, paymentError }: DonationFo
                 variant="subtitle2"
                 color={'error.main'}
                 fontWeight={500}
+                component={'strong'}
                 fontSize={theme.typography.pxToRem(14)}
                 sx={{ textDecoration: 'underline', cursor: 'pointer' }}>
                 {paymentError.message}
