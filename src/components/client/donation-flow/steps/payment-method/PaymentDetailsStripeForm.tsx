@@ -7,6 +7,7 @@ import { useField, useFormikContext } from 'formik'
 import { DonationFormData } from '../../helpers/types'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
+import { ids } from '../../common/DonationFormSections'
 
 export type PaymentDetailsStripeFormProps = {
   containerProps?: BoxProps
@@ -81,6 +82,7 @@ export default function PaymentDetailsStripeForm({
         />
       </Box>
       <PaymentElement
+        id={ids['stripeCardField']}
         onReady={() => setIsloading(false)}
         options={{
           defaultValues: { billingDetails: { name: '' } },

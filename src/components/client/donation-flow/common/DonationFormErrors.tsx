@@ -6,10 +6,14 @@ import { DonationFormData } from '../helpers/types'
 import { ids, DonationFormSections } from './DonationFormSections'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import { ErrorTwoTone } from '@mui/icons-material'
+import theme from 'common/theme'
+import { StripeError } from '@stripe/stripe-js'
+import { id } from 'date-fns/locale'
 
 type DonationFormErrorProps = {
   errors: FormikErrors<DonationFormData>
   show: boolean
+  paymentError: StripeError | null
 }
 
 type DonationFormSectionErrorTextProps = {
@@ -26,7 +30,7 @@ export function DonationFormSectionErrorText({ message }: DonationFormSectionErr
   )
 }
 
-export function DonationFormErrorList({ errors, show }: DonationFormErrorProps) {
+export function DonationFormErrorList({ errors, show, paymentError }: DonationFormErrorProps) {
   const { t } = useTranslation()
 
   return (
@@ -54,14 +58,43 @@ export function DonationFormErrorList({ errors, show }: DonationFormErrorProps) 
               <ArrowUpwardIcon color="error" />
               <Typography
                 variant="subtitle2"
-                color={'#D32F2F'}
+                color={'error.main'}
                 fontWeight={500}
-                fontSize={14}
+                fontSize={theme.typography.pxToRem(14)}
                 sx={{ textDecoration: 'underline', cursor: 'pointer' }}>
                 {t(err)}
               </Typography>
             </Grid>
           ))}
+          {paymentError && (
+            <Grid
+              container
+              item
+              direction="row"
+              justifyContent={'flex-start'}
+              wrap="nowrap"
+              gap={2}
+              alignItems={'center'}
+              onClick={() => {
+                const elementId = ids['stripeCardField']
+                const element = document.getElementById(elementId)
+                const elementPosition = element?.getBoundingClientRect().top
+                if (!elementPosition) return
+                const offsetY = 100
+                const offsetPosition = elementPosition + window.scrollY - offsetY
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
+              }}>
+              <ArrowUpwardIcon color="error" />
+              <Typography
+                variant="subtitle2"
+                color={'error.main'}
+                fontWeight={500}
+                fontSize={theme.typography.pxToRem(14)}
+                sx={{ textDecoration: 'underline', cursor: 'pointer' }}>
+                {paymentError.message}
+              </Typography>
+            </Grid>
+          )}
         </>
       )}
     </Grid>

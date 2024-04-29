@@ -235,7 +235,7 @@ export function DonationFlowForm() {
       validateOnMount={false}
       validateOnChange={true}
       validateOnBlur={true}>
-      {({ handleSubmit, values, errors, submitCount }) => (
+      {({ handleSubmit, values, errors, submitCount, isValid }) => (
         <Grid2 spacing={4} container justifyContent={'center'}>
           <Grid2 sm={12} md={9} justifyContent={'center'}>
             <Form onSubmit={handleSubmit} autoComplete="off">
@@ -334,9 +334,13 @@ export function DonationFlowForm() {
                     }}
                   />
                   <AcceptPrivacyPolicyField name="privacy" showFieldError={false} />
-                  <DonationFormErrorList errors={errors} show={submitCount > 0} />
+                  <DonationFormErrorList
+                    errors={errors}
+                    show={submitCount > 0}
+                    paymentError={paymentError}
+                  />
                   <SubmitButton
-                    disabled={submitPaymentLoading}
+                    disabled={submitPaymentLoading || (submitCount > 0 && !isValid)}
                     loading={submitPaymentLoading}
                     label={t('action.submit')}
                     sx={{ maxWidth: 150 }}

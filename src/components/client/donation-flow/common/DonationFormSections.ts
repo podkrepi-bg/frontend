@@ -13,6 +13,7 @@ export type DonationFormSections = {
   registerFirstName: 'authentication-register'
   registerLastName: 'authentication-register'
   registerConfirmPassword: 'authentication-register'
+  stripeCardField: 'stripe-card-field'
 }
 
 export const ids: DonationFormSections = {
@@ -28,4 +29,5 @@ export const ids: DonationFormSections = {
   registerFirstName: 'authentication-register',
   registerLastName: 'authentication-register',
   registerConfirmPassword: 'authentication-register',
+  stripeCardField: 'stripe-card-field',
 }
