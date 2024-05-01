@@ -64,7 +64,8 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     padding: theme.spacing(1.5),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2.5),
-    width: theme.spacing(60),
+    width: '100%',
+    maxWidth: theme.spacing(60),
 
     '&:hover': {
       background: theme.palette.primary.main,
@@ -139,70 +140,111 @@ export default function SubscriptionPage(data: Props) {
   if (loading)
     return (
       <Layout maxWidth="xl">
-        <StyledGrid display="grid" alignItems="center" justifyContent="center" mt={40}>
-          <PodkrepiLogo className={classes.loader} locale={locale} size="giant" variant="fixed" />
+        <StyledGrid container alignItems="center" justifyContent="center">
+          <Grid item xs={10} md={5}>
+            <PodkrepiLogo
+              className={classes.loader}
+              locale={locale}
+              size="giant"
+              variant="adaptive"
+            />
+          </Grid>
         </StyledGrid>
       </Layout>
     )
 
   return (
     <Layout maxWidth="xl">
-      <Grid display="grid" alignItems="center" justifyContent="center" mt={32}>
-        <Grid item display="grid" alignItems="center" justifyContent="center">
-          <PodkrepiLogo locale={locale} size="large" variant="fixed" />
+      <StyledGrid container alignItems="center" justifyContent="center" direction={'column'}>
+        <Grid item alignItems="center" justifyContent="center">
+          <PodkrepiLogo locale={locale} size="large" variant="adaptive" />
         </Grid>
         {isSuccess ? (
           <React.Fragment>
-            <Grid item mt={5} display="flex" direction="column" alignItems="center">
-              <ThumbUpIcon sx={{ fontSize: theme.typography.pxToRem(64), color: '#03C03C' }} />
-              <DialogTitle>
-                <Typography
-                  variant="h5"
-                  style={{ textAlign: 'center', width: '100%', color: '#03C03C' }}>
-                  {t('notifications:subscribe.thank-you-msg-heading')}
+            <Grid
+              container
+              item
+              mt={5}
+              direction="column"
+              alignItems="center"
+              gap={5}
+              justifyContent={'center'}>
+              <Grid
+                container
+                item
+                direction={'column'}
+                justifyContent={'center'}
+                alignItems={'center'}>
+                <ThumbUpIcon sx={{ fontSize: theme.typography.pxToRem(64), color: '#03C03C' }} />
+                <DialogTitle>
+                  <Typography
+                    variant="h5"
+                    style={{
+                      textAlign: 'center',
+                      width: '100%',
+                      color: '#03C03C',
+                      wordBreak: 'break-word',
+                    }}>
+                    {t('notifications:subscribe.thank-you-msg-heading')}
+                  </Typography>
+                </DialogTitle>
+                <Typography sx={{ wordBreak: 'break-word' }}>
+                  <Trans
+                    t={t}
+                    i18nKey="notifications:subscribe.thank-you-msg-text"
+                    values={{ email: data.email }}
+                  />
                 </Typography>
-              </DialogTitle>
-              <Typography>
-                <Trans
-                  t={t}
-                  i18nKey="notifications:subscribe.thank-you-msg-text"
-                  values={{ email: data.email }}
-                />
-              </Typography>
+              </Grid>
+              <Grid container item xs={12} justifyContent="center">
+                <LinkButton className={classes.siteBtn} href="/" legacyBehavior>
+                  {t('notifications:subscribe.cta')}
+                </LinkButton>
+              </Grid>
             </Grid>
-            <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
-              <LinkButton className={classes.siteBtn} href="/">
-                {t('notifications:subscribe.cta')}
-              </LinkButton>
-            </StyledGrid>
           </React.Fragment>
         ) : (
           <React.Fragment>
             <React.Fragment>
-              <Grid item mt={5} display="flex" direction="column" alignItems="center">
-                <AnnouncementIcon
-                  sx={{ fontSize: theme.typography.pxToRem(64), color: '#FF007F' }}
-                />
-                <DialogTitle>
-                  <Typography
-                    variant="h5"
-                    style={{ textAlign: 'center', width: '100%', color: '#FF007F' }}>
-                    {t('notifications:subscribe.subscription-fail-heading')}
+              <Grid
+                container
+                item
+                mt={5}
+                direction="column"
+                alignItems="center"
+                justifyContent={'center'}
+                gap={2}>
+                <Grid
+                  container
+                  item
+                  direction={'column'}
+                  alignItems={'center'}
+                  justifyContent={'center'}>
+                  <AnnouncementIcon
+                    sx={{ fontSize: theme.typography.pxToRem(64), color: '#FF007F' }}
+                  />
+                  <DialogTitle>
+                    <Typography
+                      variant="h5"
+                      component={'p'}
+                      style={{ textAlign: 'center', width: '100%', color: '#FF007F' }}>
+                      {t('notifications:subscribe.subscription-fail-heading')}
+                    </Typography>
+                  </DialogTitle>
+                  <Typography sx={{ textAlign: 'center' }}>
+                    <Trans t={t} i18nKey="notifications:subscribe.subscription-fail-text" />
                   </Typography>
-                </DialogTitle>
-                <Typography>
-                  <Trans t={t} i18nKey="notifications:subscribe.subscription-fail-text" />
-                </Typography>
+                </Grid>
+                <Grid container item xs={12} justifyContent={'center'}>
+                  <Button className={classes.siteBtn} onClick={() => router.reload()}>
+                    {t('notifications:subscribe.cta-retry')}
+                  </Button>
+                </Grid>
               </Grid>
-              <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
-                <Button className={classes.siteBtn} onClick={() => router.reload()}>
-                  {t('notifications:subscribe.cta-retry')}
-                </Button>
-              </StyledGrid>{' '}
             </React.Fragment>
           </React.Fragment>
         )}
-      </Grid>
+      </StyledGrid>
     </Layout>
   )
 }
