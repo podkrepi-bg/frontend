@@ -38,7 +38,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
     allowDonationOnComplete,
   } = campaign
 
-  const campaignImagesUrl = campaignListPictureUrl(campaign)
+  const campaignImagesUrl = campaignListPictureUrl(campaign.campaignFiles)
 
   const reached = summary ? summary.reachedAmount + (summary.guaranteedAmount ?? 0) : 0
   const reachedAmount = moneyPublic(reached)

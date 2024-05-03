@@ -42,6 +42,7 @@ import { socialMedia } from './helpers/socialMedia'
 import { CampaignState } from './helpers/campaign.enums'
 import { AlertStore } from 'stores/AlertStore'
 import { useDonationWishesList } from 'common/hooks/donationWish'
+import { CampaignNewsResponse } from 'gql/campaign-news'
 
 const PREFIX = 'InlineDonation'
 

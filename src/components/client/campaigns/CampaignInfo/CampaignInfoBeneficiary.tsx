@@ -14,7 +14,7 @@ type Props = {
 }
 
 export default function CampaignInfoBeneficiary({ campaign }: Props) {
-  const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
+  const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign.campaignFiles)
   const { t } = useTranslation('campaigns')
 
   return (

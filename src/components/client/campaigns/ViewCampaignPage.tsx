@@ -26,7 +26,7 @@ export default function ViewCampaignPage({ slug }: Props) {
       </>
     )
   const { campaign } = data
-  const ogImageUrl = campaignListPictureUrl(campaign)
+  const ogImageUrl = campaignListPictureUrl(campaign.campaignFiles)
 
   return (
     <Layout

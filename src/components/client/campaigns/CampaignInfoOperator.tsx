@@ -64,7 +64,7 @@ type Props = {
 export default function CampaignInfoOperator({ campaign }: Props) {
   const { t } = useTranslation()
 
-  const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
+  const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign.campaignFiles)
 
   return (
     <StyledGrid container gap={3} mb={8}>

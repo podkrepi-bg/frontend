@@ -9,7 +9,6 @@ import {
   Divider,
   Card,
   CardContent,
-  Box,
   Pagination,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -70,8 +69,8 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
   ]
   if (slug && data) {
     breadcumbData.splice(1, 0, {
-      label: data.campaign.title,
-      url: routes.campaigns.viewCampaignBySlug(data.campaign.slug),
+      label: data.campaign.campaignNews[0].title,
+      url: routes.campaigns.viewCampaignBySlug(data.campaign.campaignNews[0].slug),
     })
   }
 
@@ -134,9 +133,9 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
       </Grid>
       <Grid item>
         <Card
-          variant="outlined"
+          elevation={0}
           sx={{
-            border: `1px solid ${theme.borders.light}`,
+            border: { xs: `1px solid ${theme.borders.light}`, sm: '0px' },
             borderRadius: theme.borders.semiRound,
             height: theme.spacing(40),
             margin: theme.spacing(4),
@@ -155,16 +154,16 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
                   sx={{ mt: 3.5, mb: 0.5, justifyContent: 'justify' }}>
                   <EmailIcon color="primary" fontSize="small" sx={{ mr: 0.5 }} cursor="pointer" />
                   <SubscribeHeading>
-                    {t('campaigns:cta.subscribe-monthly-newsletter')}
+                    {t('common:notifications.subscribe-monthly-newsletter')}
                   </SubscribeHeading>
                 </Grid>
                 <Subtitle sx={{ margin: '5px' }}>
-                  {t('campaigns:cta.subscribeGeneralSubtext')}
+                  {t('common:notifications.subscribeGeneralSubtext')}
                 </Subtitle>
               </Grid>
               <Grid>
                 <SubscribeButton onClick={() => setSubscribeOpen(true)} variant="contained">
-                  {t('campaigns:cta.subscribe-general-newsletter-button')}
+                  {t('common:notifications.subscribe-general-newsletter-button')}
                 </SubscribeButton>
               </Grid>
             </Grid>
