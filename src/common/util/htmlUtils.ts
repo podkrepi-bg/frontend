@@ -1,4 +1,4 @@
-import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify'
 
 export function sanitizeHTML(htmlContent: string): string {
   return DOMPurify.sanitize(htmlContent, { ADD_TAGS: ['iframe'] })

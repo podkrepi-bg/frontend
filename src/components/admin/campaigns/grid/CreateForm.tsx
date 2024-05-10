@@ -65,7 +65,7 @@ const validationSchema: yup.SchemaOf<CampaignAdminCreateFormData> = yup
   .shape({
     title: yup.string().trim().min(10).max(200).required(),
     slug: yup.string().trim().min(10).max(200).optional(),
-    description: yup.string().trim().min(50).max(60000).required(),
+    description: yup.string().trim().min(50).required(),
     targetAmount: yup.number().integer().positive().required(),
     allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),

@@ -6,10 +6,18 @@ export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
     maxWidth: '100%',
   },
 
-  ['p']: {
-    fontSize: theme.spacing(2),
-    fontWeight: 400,
-    lineHeight: theme.spacing(2.85),
+  ['p, span, a']: {
+    fontSize: theme.typography.pxToRem(16),
+    lineHeight: theme.spacing(4),
+    fontWeight: 500,
+    paddingLeft: '0',
+    paddingRight: '0',
+    fontFamily: theme.typography.fontFamily,
+  },
+
+  ['strong']: {
+    fontWeight: 700,
+    fontSize: theme.typography.pxToRem(16),
   },
 
   ['.ql-editor, .ql-video']: {
@@ -21,12 +29,11 @@ export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
     marginInline: 'auto',
   },
 
-  ['.ql-editor, blockquote, .ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6, .ql-editor ol, .ql-editor p, .ql-editor pre, .ql-editor ul']:
-    {
-      margin: 0,
-      padding: 0,
-      counterReset: 'list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9',
-    },
+  ['blockquote, h1, h2, h3,h4, h5,h6, ol, p, pre, ul']: {
+    margin: 0,
+    padding: 0,
+    counterReset: 'list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9',
+  },
 
   ['.ql-editor ol, .ql-editor ul']: {
     paddingLeft: '1.5em',
@@ -77,7 +84,14 @@ export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
     fontSize: theme.typography.pxToRem(24),
   },
 
-  ['.ql-bubble .ql-editor a ']: {
-    textDecoration: 'none',
+  ['a']: {
+    textDecoration: 'underline',
+    color: 'rgb(17, 85, 204)',
+  },
+  ['ul']: {
+    listStyle: 'inside',
+  },
+  ['ul, ol']: {
+    paddingLeft: '1.5em',
   },
 }))
