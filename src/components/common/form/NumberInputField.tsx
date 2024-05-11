@@ -31,6 +31,9 @@ export default function NumberInputField({
       label={t('step.amount.field.other-amount.label')}
       lang={i18n?.language}
       onKeyDown={(e) => {
+        if ((e.shiftKey && e.key === 'Tab') || e.key === 'Tab') {
+          return
+        }
         if (meta.error && e.key !== 'Backspace' && e.key !== 'Delete' && !isInteger(meta.value)) {
           e.preventDefault()
           return
@@ -101,6 +104,7 @@ export default function NumberInputField({
         inputProps: {
           max: limit,
           inputMode: 'decimal',
+          tabIndex: 0,
         },
         style: { padding: 5 },
         endAdornment: (
