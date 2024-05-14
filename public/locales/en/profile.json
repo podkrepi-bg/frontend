@@ -91,7 +91,7 @@
     },
     "campaign": {
       "index": "Campaign notifications",
-      "noSubscriptions": "Към момента не сте се записали за получаване на известия по конкретни кампании",
+      "noSubscriptions": "You are currently not signed up to receive notifications for a specific campaign.",
       "cta": "Unsubscribe"
     }
   },
