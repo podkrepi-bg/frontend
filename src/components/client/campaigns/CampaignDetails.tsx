@@ -124,7 +124,7 @@ type Props = {
 export default function CampaignDetails({ campaign }: Props) {
   const { t } = useTranslation()
   const [subscribeIsOpen, setSubscribeOpen] = useState(false)
-  const sliderImages = campaignSliderUrls(campaign)
+  const sliderImages = campaignSliderUrls(campaign.campaignFiles)
   const canEditCampaign = useCanEditCampaign(campaign.slug)
   const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
   const totalExpenses = expensesList?.reduce((acc, expense) => acc + expense.amount, 0)

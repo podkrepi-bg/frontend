@@ -1,21 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Typography, Grid, PaginationItem, Divider } from '@mui/material'
-import Pagination from '@mui/material/Pagination'
+import Link from 'next/link'
+import dynamic from 'next/dynamic'
+import {
+  Typography,
+  Grid,
+  PaginationItem,
+  Divider,
+  Card,
+  CardContent,
+  Pagination,
+} from '@mui/material'
+import { styled } from '@mui/material/styles'
+import EmailIcon from '@mui/icons-material/Email'
 
 import theme from 'common/theme'
-
 import { baseUrl, routes } from 'common/routes'
-import Layout from 'components/client/layout/Layout'
-import { styled } from '@mui/material/styles'
-
 import { useCampaignNewsList } from 'common/hooks/campaign-news'
-
-import Link from 'next/link'
-
-import dynamic from 'next/dynamic'
-
+import Layout from 'components/client/layout/Layout'
 import BreadcrumbWrapper from 'components/common/BreadcrumbWrapper'
+import RenderSubscribeModal from '../notifications/GeneralSubscribeModal'
+import {
+  Subtitle,
+  SubscribeButton,
+  SubscribeHeading,
+} from '../index/sections/PlatformStatisticsSection/PlatformStatisticsSection.styled'
 
 const CampaignNewsList = dynamic(() => import('./CampaignNewsList'), { ssr: false })
 
@@ -50,9 +59,9 @@ type Props = {
 }
 
 export default function CampaignNewsPage({ page, slug = null }: Props) {
+  const [subscribeIsOpen, setSubscribeOpen] = useState(false)
   const { data } = useCampaignNewsList(page, slug)
   const { t } = useTranslation('news')
-
   //TODO: Fill breadcumbs dynamically
   const breadcumbData = [
     { label: 'campaigns', url: routes.campaigns.index },
@@ -60,15 +69,15 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
   ]
   if (slug && data) {
     breadcumbData.splice(1, 0, {
-      label: data.campaign.title,
-      url: routes.campaigns.viewCampaignBySlug(data.campaign.slug),
+      label: data.campaign.campaignNews[0].title,
+      url: routes.campaigns.viewCampaignBySlug(data.campaign.campaignNews[0].slug),
     })
   }
 
   return (
     <Root
       maxWidth={false}
-      style={{ padding: theme.spacing(0) }}
+      style={{ padding: theme.spacing(5) }}
       prevPage={
         data?.pagination.prevPage
           ? `${baseUrl}${routes.campaigns.news.listNewsPaginated(data?.pagination.prevPage, slug)}`
@@ -121,6 +130,45 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
             />
           )}
         </Grid>
+      </Grid>
+      <Grid item>
+        <Card
+          elevation={0}
+          sx={{
+            border: { xs: `1px solid ${theme.borders.light}`, sm: '0px' },
+            borderRadius: theme.borders.semiRound,
+            height: theme.spacing(40),
+            margin: theme.spacing(4),
+            [theme.breakpoints.up('sm')]: {
+              height: theme.spacing(20),
+            },
+          }}>
+          <CardContent>
+            <Grid container justifyContent="center">
+              {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
+              <Grid container item md={8} xs={12} sx={{ justifyContent: 'start' }}>
+                <Grid
+                  item
+                  xs={12}
+                  display="flex"
+                  sx={{ mt: 3.5, mb: 0.5, justifyContent: 'justify' }}>
+                  <EmailIcon color="primary" fontSize="small" sx={{ mr: 0.5 }} cursor="pointer" />
+                  <SubscribeHeading>
+                    {t('common:notifications.subscribe-monthly-newsletter')}
+                  </SubscribeHeading>
+                </Grid>
+                <Subtitle sx={{ margin: '5px' }}>
+                  {t('common:notifications.subscribeGeneralSubtext')}
+                </Subtitle>
+              </Grid>
+              <Grid>
+                <SubscribeButton onClick={() => setSubscribeOpen(true)} variant="contained">
+                  {t('common:notifications.subscribe-general-newsletter-button')}
+                </SubscribeButton>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
       </Grid>
     </Root>
   )

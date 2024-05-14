@@ -1,6 +1,8 @@
 import { ArticleStatus } from 'components/admin/campaign-news/helpers/article-status.enum'
 import { CampaignFileRole } from 'components/common/campaign-file/roles'
 import { UUID } from './types'
+import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
+import { CampaignFile } from './campaigns'
 
 type BaseCampaignNewsResponse = {
   id: UUID
@@ -16,6 +18,9 @@ type BaseCampaignNewsResponse = {
   editedAt: Date | undefined
   description: string
   newsFiles: CampaignNewsFile[] | []
+  campaignType: {
+    name: string
+  }
 }
 
 export type AdminCampaignNewsResponse = BaseCampaignNewsResponse & {
@@ -24,13 +29,20 @@ export type AdminCampaignNewsResponse = BaseCampaignNewsResponse & {
   }
 }
 
-export type CampaignNewsResponse = Omit<BaseCampaignNewsResponse, '|createdAt|editedAt'> & {
+export type CampaignNewsResponse = Omit<BaseCampaignNewsResponse, 'createdAt' | 'editedAt'> & {
   campaign: {
+    id: string
     title: string
     state: string
     slug: string
+    campaignType: {
+      category: CampaignTypeCategory
+    }
+    campaignFiles: CampaignFile[]
   }
 }
+
+export type CampaignNewsListResponse = Omit<CampaignNewsResponse, 'description'>
 
 export type CampaignNewsPagination = {
   currentPage: number
@@ -41,9 +53,7 @@ export type CampaignNewsPagination = {
 
 export type CampaignNewsWithPaginationResponse = {
   campaign: {
-    title: string
-    slug: string
-    campaignNews: CampaignNewsResponse[]
+    campaignNews: CampaignNewsListResponse[]
   }
   pagination: CampaignNewsPagination
 }

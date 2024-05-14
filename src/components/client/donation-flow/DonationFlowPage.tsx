@@ -74,8 +74,8 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 
-  const bannerSource = backgroundCampaignPictureUrl(campaign)
-  const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
+  const bannerSource = backgroundCampaignPictureUrl(campaign.campaignFiles)
+  const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign.campaignFiles)
 
   return (
     <StyledLayout maxWidth={false}>

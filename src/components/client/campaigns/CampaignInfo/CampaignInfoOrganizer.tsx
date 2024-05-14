@@ -15,7 +15,7 @@ type Props = {
 
 export default function CampaignInfoOrganizer({ campaign }: Props) {
   const { t } = useTranslation()
-  const organizerAvatarSource = organizerCampaignPictureUrl(campaign)
+  const organizerAvatarSource = organizerCampaignPictureUrl(campaign.campaignFiles)
 
   const organizerName = campaign.organizer?.person.company
     ? campaign.organizer.person.company.companyName

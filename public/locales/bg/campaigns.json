@@ -39,6 +39,7 @@
   "deleteTitle": "Сигурни ли сте?",
   "deleteContent": "Това действие ще изтрие елемента завинаги!",
   "actions": "Действия",
+  "toTheCampaignButton": "Към кампанията",
   "statistics": {
     "button": "Статистика за даренията",
     "backButton": "Обратно към кампанията",

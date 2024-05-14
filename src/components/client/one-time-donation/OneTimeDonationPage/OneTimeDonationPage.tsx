@@ -39,7 +39,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
 
   const { campaign } = data
 
-  const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
+  const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign.campaignFiles)
 
   return (
     <Layout maxWidth={false}>

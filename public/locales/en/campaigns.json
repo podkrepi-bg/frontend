@@ -39,6 +39,7 @@
   "deleteTitle": "Are you sure you want to delete this campaign?",
   "deleteContent": "This action cannot be undone.",
   "actions": "Actions",
+  "toTheCampaignButton": "See the campaign",
   "statistics": {
     "button": "Donation statistics",
     "backButton": "Go back",
@@ -88,6 +89,21 @@
     "attached-files": "Attached files",
     "download": "Download",
     "allow-donation-on-complete": "Allow donations after the amount is reached"
+  },
+  "subscribe": {
+    "confirm-sent": "Please, <bold>activate</bold> your subscription from the email that we sent to {{email}}",
+    "confirm-subscribe": "You subscribed successfully",
+    "subscribe-title": "Subscribe for news from Podkrepi.bg",
+    "subscribe-campaign-title": "Subscribe for news about the campaign",
+    "subscribe-text-nonLoggedUser": "Please, proceed as a guest and write down your email, on which you want to receive notifications for this campaign or you can log in. If you log in with your and password you will be able to manage your subscription from your Personal profile",
+    "subscribe-text-nonLoggedUser-general": "Please, proceed as a guest and write down your email, on which you want to receive notifications from us or you can log in. If you log in with your and password you will be able to manage your subscription from your Personal profile",
+    "subscribe-text-loggedUser": "Please, choose if you want to receive the news about the campaign on your profile email or on another one:",
+    "subscribe-subtitle": "I want to receive news and notifications from Podkrepi.bg on this email:",
+    "subscribe-campaign-subtTitle": "I want to receive news about the campaign on this email:",
+    "subscribe-button": "Subscribe me",
+    "profile-button": "On the profile one",
+    "another-button": "On another one",
+    "monthly-newsletter": "Monthly newsletter"
   },
   "campaign": {
     "subheading": "Your support for the world matters. All supporters through Podkrepi.bg are our partners in supporting the community campaign. As a generous benefactor, you become an important partner in supporting a campaign regarding someone's health or the success of a cause that is close to your heart.",
