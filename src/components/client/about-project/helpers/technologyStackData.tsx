@@ -27,7 +27,7 @@ export const data: TechnologyData[] = [
     items: [
       'TypeScript',
       'Next.js',
-      'NextAuth',
+      'NextAuth.js',
       'React',
       'MaterialUI',
       'SCSS',
