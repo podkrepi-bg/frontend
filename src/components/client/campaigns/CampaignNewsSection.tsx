@@ -162,7 +162,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   const { t, i18n } = useTranslation('news')
   const { small }: { small: boolean } = useMobile()
 
-  const INITIAL_HEIGHT_LIMIT = 200
+  const INITIAL_HEIGHT_LIMIT = 203
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
