@@ -109,7 +109,7 @@
       "profile-button": "На профилния",
       "another-button": "На друг"
     },
-    "subscribe": "Абонирай се за email известия за кампанията",
+    "subscribe": "Абонирай се за email известия за кампанията.",
     "subscribeFooter": "Абонирай се за бюлетина",
     "subscribeGeneral": "Абонирайте се за email известия от Подкрепи.бг",
     "subscribe-monthly-newsletter": "Месечен бюлетин на Подкрепи.бг",
@@ -117,7 +117,7 @@
     "subscribe-general-monthly-newsletter": "Получавайте нашия месечен бюлетин, за да сте в час най-интересните новини от Подкрепи.бг!",
     "subscribeGeneralButton": "Абонирайте се за новини",
     "subscribe-general-newsletter-button": "Абонирайте се",
-    "confirm-sent": "Моля, <strong>активирайте</strong> абонамента си от email-a, който Ви изпратихме на {{email}}",
+    "confirm-sent": "Моля, <strong>активирайте</strong> абонамента си от email-a, който Ви изпратихме на {{email}}.",
     "confirm-subscribe": "Записахте се успешно.",
     "subscribe-title": "Абониране за новините на Подкрепи.бг",
     "subscribe-campaign-title": "Абониране за новините по кампанията",
