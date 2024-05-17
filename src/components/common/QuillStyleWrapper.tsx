@@ -7,7 +7,7 @@ export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
   },
 
   ['p']: {
-    fontSize: theme.spacing(2),
+    fontSize: theme.typography.pxToRem(16),
     fontWeight: 400,
     lineHeight: theme.spacing(2.85),
   },
