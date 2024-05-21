@@ -81,7 +81,9 @@ type Props = {
 
 export default function CampaignNewsList({ articles }: Props) {
   const { t, i18n } = useTranslation('news')
-  const INITIAL_HEIGHT_LIMIT = 400
+
+  const LINE_HEIGHT = theme.typography.body1.lineHeight
+  const INITIAL_HEIGHT_LIMIT = 400 * Number(LINE_HEIGHT)
   const [isExpanded, expandContent] = useShowMoreContent()
   return (
     <>
@@ -131,10 +133,12 @@ export default function CampaignNewsList({ articles }: Props) {
                   maxWidth: 1200,
                 }}>
                 <Grid container item direction={'column'} gap={1}>
-                  <Typography className={classes.articleHeader}>{article.title}</Typography>
+                  <Typography component={'h2'} className={classes.articleHeader}>
+                    {article.title}
+                  </Typography>
                   <QuillStypeWrapper>
                     <Typography
-                      component={'div'}
+                      component={'article'}
                       className={classes.articleDescription}
                       dangerouslySetInnerHTML={{
                         __html: sanitizedDescription,
