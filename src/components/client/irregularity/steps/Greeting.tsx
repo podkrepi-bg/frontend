@@ -43,9 +43,6 @@ export default function Greeting() {
         <Grid item>
           <Typography variant="body1">
             {t('steps.greeting.text-description-first')}
-            <Link href={routes.campaigns.create}>
-              <span>{t('steps.greeting.text-link')}</span>
-            </Link>
             {t('steps.greeting.text-description-second')}
           </Typography>
         </Grid>

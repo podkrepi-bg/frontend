@@ -49,10 +49,14 @@ export const StyledArrow = styled(Image)(() => ({
   },
 
   '&.slick-prev': {
-    left: theme.spacing(-0.7),
+    left: theme.spacing(-4),
+    width: theme.spacing(4),
+    height: theme.spacing(3),
   },
 
   '&.slick-next': {
-    right: theme.spacing(-0.7),
+    right: theme.spacing(-4),
+    width: theme.spacing(4),
+    height: theme.spacing(3),
   },
 }))

@@ -117,7 +117,11 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
             </Typography>
           </Grid>
           <Grid item xs={12} textAlign="center">
-            <EmailField label="auth:fields.email-descriptive" name="email" sx={{ width: '70%' }} />
+            <EmailField
+              label={t('auth:fields.email-descriptive')}
+              name="email"
+              sx={{ width: '70%' }}
+            />
           </Grid>
           <Grid item xs={12}>
             <AcceptNewsLetterField name="consent" />

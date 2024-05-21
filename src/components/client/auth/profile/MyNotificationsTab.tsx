@@ -60,8 +60,9 @@ const Root = styled('div')(({ theme }) => ({
   },
   [`& .${classes.statusBoxRow}`]: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    padding: theme.spacing(0, 2),
   },
   [`& .${classes.statusActive}`]: {
     color: 'green',
