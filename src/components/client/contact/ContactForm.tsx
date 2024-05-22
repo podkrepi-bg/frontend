@@ -102,7 +102,6 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
               label="auth:fields.first-name"
               name="firstName"
               autoComplete="first-name"
-              sx={{ minHeight: theme.space(3) }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -140,7 +139,7 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
               type="text"
               name="message"
               label="auth:fields.message"
-              sx={{ '& textarea': { resize: 'vertical' } }}
+              sx={{ '& textarea': { resize: 'vertical', minHeight: theme.spacing(3) } }}
             />
           </Grid>
           <Grid item xs={12}>
