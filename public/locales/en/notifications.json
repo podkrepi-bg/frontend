@@ -1,7 +1,7 @@
 {
   "subscribe": {
     "thank-you-msg-heading": "Your subscription is active!",
-    "thank-you-msg-text": "You successfully activated your subscription. You can wait news from us on {{email}}",
+    "thank-you-msg-text": "You successfully activated your subscription. You can wait news from us on {{email}}.",
     "subscription-fail-heading": "An error occurred",
     "subscription-fail-text": "We couldn`t activate your subscription. Please, try again.",
     "cta": "To the site",

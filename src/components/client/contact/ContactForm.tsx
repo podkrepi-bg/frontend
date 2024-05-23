@@ -18,6 +18,8 @@ import { name, companyName, phone, email } from 'common/form/validation'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import EmailField from 'components/common/form/EmailField'
 
+import theme from 'common/theme'
+
 const validationSchema: yup.SchemaOf<ContactFormData> = yup
   .object()
   .defined()
@@ -137,7 +139,7 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
               type="text"
               name="message"
               label="auth:fields.message"
-              sx={{ '& textarea': { resize: 'vertical' } }}
+              sx={{ '& textarea': { resize: 'vertical', minHeight: theme.spacing(3) } }}
             />
           </Grid>
           <Grid item xs={12}>

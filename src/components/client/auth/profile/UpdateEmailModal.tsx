@@ -129,7 +129,7 @@ function UpdateEmailModal({
           validationSchema={validationSchema}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <EmailField name="email" label="email" />
+              <EmailField name="email" label="Email" />
             </Grid>
             <Grid item xs={12} sm={8}>
               <PasswordField />
