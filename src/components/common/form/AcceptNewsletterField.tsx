@@ -24,7 +24,6 @@ export function AcceptNewsLetterFieldCampaign({ name }: AcceptNewsLetterFieldPro
   const { t } = useTranslation('validation')
   return (
     <CheckboxField
-      sx={{ paddingTop: '0px' }}
       name={name}
       label={
         <Typography textAlign="start" variant="body2">

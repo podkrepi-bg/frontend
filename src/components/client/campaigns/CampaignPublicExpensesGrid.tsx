@@ -67,7 +67,6 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       field: 'amount',
       headerName: t('expenses:fields.amount'),
       headerClassName: classes.gridColumn,
-      align: 'right',
       minWidth: 120,
       valueGetter: ({ value, row }) => value && toMoney(row.amount, 1),
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
