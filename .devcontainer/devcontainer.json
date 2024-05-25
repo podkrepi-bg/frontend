@@ -1,0 +1,25 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/alpine
+{
+	"name": "NodeJS",  
+ 	"image": "ghcr.io/podkrepi-bg/nodejs-devcontainer:v1.2.0",
+	"forwardPorts": [], // Forward ports
+	"containerEnv": {
+		"DATABASE_URL": "postgres://postgres:postgrespass@host.docker.internal:5432/postgres?schema=api" // Custom env vars
+	},
+	"postStartCommand": "yarn", // Install dependencies
+	"customizations":{
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"nrwl.angular-console",
+				"esbenp.prettier-vscode",
+				"firsttris.vscode-jest-runner",
+				"dbaeumer.vscode-eslint"
+			]
+		}
+	},
+	"mounts": [
+		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+	]
+}
