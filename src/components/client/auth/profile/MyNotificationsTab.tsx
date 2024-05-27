@@ -61,6 +61,8 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.statusBoxRow}`]: {
     display: 'flex',
     justifyContent: 'space-between',
+    flexWrap:'wrap',
+    gap:20,
     alignItems: 'center',
     padding: theme.spacing(0, 2),
   },
