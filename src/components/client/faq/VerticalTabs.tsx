@@ -26,7 +26,11 @@ const VerticalTabs = ({ faqCategories }: Props) => {
       : { borderColor: 'divider', mb: 4, width: '100%' }
   return (
     <Box sx={{ bgcolor: 'background.paper', display: 'flex', justifyContent: 'center', flex: 1 }}>
-      <TabList orientation="vertical" variant="scrollable" onChange={handleChange} sx={rightLineStyle}>
+      <TabList
+        orientation="vertical"
+        variant="scrollable"
+        onChange={handleChange}
+        sx={rightLineStyle}>
         {faqCategories.map((category) => {
           return <Tab key={category} value={category} label={t(`categories.${category}`)} />
         })}

@@ -67,11 +67,11 @@ const Root = styled('div')(({ theme }) => ({
     alignItems: 'center',
     padding: theme.spacing(0, 2),
   },
-  [`& .${classes.statusBoxBtnStatus}`]:{
-    display:'flex',
+  [`& .${classes.statusBoxBtnStatus}`]: {
+    display: 'flex',
     alignItems: 'center',
     gap: 20,
-    flexWrap:'wrap',
+    flexWrap: 'wrap',
   },
   [`& .${classes.statusActive}`]: {
     color: 'green',
