@@ -2,6 +2,7 @@
   "header": "Personal profile",
   "corporate-header": "Corporate Profile",
   "campaigns": "Supported campaigns",
+  "notAuthenticated": "User is not authenticated.",
   "personalInfo": {
     "index": "Personal information",
     "login": "Login information:",

@@ -2,6 +2,7 @@
   "header": "Личен профил",
   "corporate-header": "Корпоративен профил",
   "campaigns": "Подкрепени кампании",
+  "notAuthenticated": "Потребителят не е удостоверен.",
   "personalInfo": {
     "index": "Лична информация",
     "login": "Данни за вход:",
