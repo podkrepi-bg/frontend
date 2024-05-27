@@ -20,14 +20,13 @@ const VerticalTabs = ({ faqCategories }: Props) => {
       query: { section: newValue },
     })
   }
-
+  const rightLineStyle =
+    faqCategories.length > 0
+      ? { borderRight: 1, borderColor: 'divider', mb: 4, width: '100%' }
+      : { borderColor: 'divider', mb: 4, width: '100%' }
   return (
     <Box sx={{ bgcolor: 'background.paper', display: 'flex', justifyContent: 'center', flex: 1 }}>
-      <TabList
-        orientation="vertical"
-        variant="scrollable"
-        onChange={handleChange}
-        sx={{ borderRight: 1, borderColor: 'divider', mb: 4, width: '100%' }}>
+      <TabList orientation="vertical" variant="scrollable" onChange={handleChange} sx={rightLineStyle}>
         {faqCategories.map((category) => {
           return <Tab key={category} value={category} label={t(`categories.${category}`)} />
         })}
