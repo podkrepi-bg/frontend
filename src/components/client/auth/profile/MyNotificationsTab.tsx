@@ -17,6 +17,7 @@ const classes = {
   smallText: `${PREFIX}-smallText`,
   boxTitle: `${PREFIX}-boxTitle`,
   statusBoxRow: `${PREFIX}-statusBoxRow`,
+  statusBoxBtnStatus: `${PREFIX}-statusBoxBtnStatus`,
   notificationsBox: `${PREFIX}-notificationBox`,
   statusBtn: `${PREFIX}-statusBtn`,
   statusActive: `${PREFIX}-statusActive`,
@@ -66,6 +67,12 @@ const Root = styled('div')(({ theme }) => ({
     alignItems: 'center',
     padding: theme.spacing(0, 2),
   },
+  [`& .${classes.statusBoxBtnStatus}`]:{
+    display:'flex',
+    alignItems: 'center',
+    gap: 20,
+    flexWrap:'wrap',
+  },
   [`& .${classes.statusActive}`]: {
     color: 'green',
   },
@@ -114,23 +121,25 @@ export default function MyNotificationsTab() {
           <Typography fontWeight="medium" variant="h6">
             {t('profile:myNotifications.status-msg')}
           </Typography>
-          <Typography
-            fontWeight="bold"
-            ml={1}
-            variant="h5"
-            className={user?.user.newsletter ? classes.statusActive : classes.statusInactive}>
-            {user?.user.newsletter
-              ? t('profile:myNotifications.status.active')
-              : t('profile:myNotifications.status.inactive')}
-          </Typography>
-          <Button
-            className={classes.statusBtn}
-            style={{ opacity: user?.user.newsletter ? '80%' : '100%' }}
-            onClick={() => setShowConfirmModal(true)}>
-            {user?.user.newsletter
-              ? t('profile:myNotifications.cta.deactivate')
-              : t('profile:myNotifications.cta.activate')}
-          </Button>
+          <Box className={classes.statusBoxBtnStatus}>
+            <Typography
+              fontWeight="bold"
+              ml={1}
+              variant="h5"
+              className={user?.user.newsletter ? classes.statusActive : classes.statusInactive}>
+              {user?.user.newsletter
+                ? t('profile:myNotifications.status.active')
+                : t('profile:myNotifications.status.inactive')}
+            </Typography>
+            <Button
+              className={classes.statusBtn}
+              style={{ opacity: user?.user.newsletter ? '80%' : '100%' }}
+              onClick={() => setShowConfirmModal(true)}>
+              {user?.user.newsletter
+                ? t('profile:myNotifications.cta.deactivate')
+                : t('profile:myNotifications.cta.activate')}
+            </Button>
+          </Box>
         </Box>
       </Card>
       {user?.user.newsletter && (
