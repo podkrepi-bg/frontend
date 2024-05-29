@@ -4,8 +4,6 @@ import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 
 import Subtitle from '../helpers/Subtitle'
-import Link from 'components/common/Link'
-import { routes } from 'common/routes'
 
 const greetingStyles = {
   fontWeight: 'bold',
