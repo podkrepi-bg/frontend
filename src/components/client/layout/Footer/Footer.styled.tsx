@@ -20,7 +20,7 @@ export const Root = styled('footer')(() => ({
   },
 }))
 
-export const FooterWrapper = styled(Grid)(() => ({
+export const FooterWrapper = styled(Grid)(({ theme }) => ({
   margin: theme.spacing(5),
 }))
 
