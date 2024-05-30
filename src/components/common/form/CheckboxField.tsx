@@ -54,7 +54,11 @@ export default function CheckboxField({
           }
         />
       </Tooltip>
-      {Boolean(meta.error) && <FormHelperText error>{helperText}</FormHelperText>}
+      {Boolean(meta.error) && (
+        <FormHelperText sx={{ marginTop: 0 }} error>
+          {helperText}
+        </FormHelperText>
+      )}
     </FormControl>
   )
 }
