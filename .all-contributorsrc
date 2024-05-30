@@ -840,6 +840,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Tuscann",
+      "name": "Tuscann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16596102?v=4",
+      "profile": "https://github.com/Tuscann",
+      "contributions": [
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 10,
