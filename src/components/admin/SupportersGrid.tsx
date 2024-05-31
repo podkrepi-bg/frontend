@@ -19,51 +19,51 @@ const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID' },
   {
     field: 'name',
-    headerName: 'Name',
+    headerName: 'Име',
     valueGetter: (p) => `${p.row.person.firstName} ${p.row.person.lastName}`,
     width: 200,
   },
   {
     field: 'email',
-    headerName: 'Email',
+    headerName: 'Поща',
     valueGetter: (p) => p.row.person.email,
     width: 250,
   },
   {
     field: 'comment',
-    headerName: 'Comment',
+    headerName: 'Коментар',
     width: 200,
   },
   {
     field: 'createdAt',
-    headerName: 'Date',
+    headerName: 'Дата',
     valueFormatter: (d) => typeof d.value === 'string' && formatDateString(d.value),
     width: 200,
   },
-  { ...commonProps, field: 'associationMember', headerName: 'Association member' },
-  { ...commonProps, field: 'benefactorCampaign', headerName: 'Benefactor campaign' },
-  { ...commonProps, field: 'benefactorPlatform', headerName: 'Benefactor platform' },
-  { ...commonProps, field: 'companyOtherText', headerName: 'Company other' },
-  { ...commonProps, field: 'companySponsor', headerName: 'Company sponsor' },
-  { ...commonProps, field: 'companyVolunteer', headerName: 'Company volunteer' },
-  { ...commonProps, field: 'partnerBussiness', headerName: 'Partner bussiness' },
-  { ...commonProps, field: 'partnerNpo', headerName: 'Partner npo' },
-  { ...commonProps, field: 'partnerOtherText', headerName: 'Partner other' },
-  { ...commonProps, field: 'roleAssociationMember', headerName: 'Role association member' },
-  { ...commonProps, field: 'roleBenefactor', headerName: 'Role benefactor' },
-  { ...commonProps, field: 'roleCompany', headerName: 'Role company' },
-  { ...commonProps, field: 'rolePartner', headerName: 'Role partner' },
-  { ...commonProps, field: 'roleVolunteer', headerName: 'Role volunteer' },
-  { ...commonProps, field: 'volunteerBackend', headerName: 'Backend' },
-  { ...commonProps, field: 'volunteerDesigner', headerName: 'Designer' },
-  { ...commonProps, field: 'volunteerDevOps', headerName: 'Dev ops' },
-  { ...commonProps, field: 'volunteerFinancesAndAccounts', headerName: 'Finances and accounts' },
-  { ...commonProps, field: 'volunteerFrontend', headerName: 'Frontend' },
-  { ...commonProps, field: 'volunteerLawyer', headerName: 'Lawyer' },
-  { ...commonProps, field: 'volunteerMarketing', headerName: 'Marketing' },
-  { ...commonProps, field: 'volunteerProjectManager', headerName: 'Project manager' },
-  { ...commonProps, field: 'volunteerQa', headerName: 'Qa' },
-  { ...commonProps, field: 'volunteerSecurity', headerName: 'Security' },
+  { ...commonProps, field: 'associationMember', headerName: 'Член на асоциация' }, //Association member
+  { ...commonProps, field: 'benefactorCampaign', headerName: 'Благотворителна компания' }, //Benefactor campaign
+  { ...commonProps, field: 'benefactorPlatform', headerName: 'Благотворителна платформа' }, //Benefactor platform
+  { ...commonProps, field: 'companyOtherText', headerName: 'Други компании' }, //Company other
+  { ...commonProps, field: 'companySponsor', headerName: 'Спонсор на компания' }, //Company sponsor
+  { ...commonProps, field: 'companyVolunteer', headerName: 'Доброволец на компания' }, //Company volunteer
+  { ...commonProps, field: 'partnerBussiness', headerName: 'Бизнес партньор' }, //Partner bussiness
+  { ...commonProps, field: 'partnerNpo', headerName: 'Партньор npo' }, //Partner npo
+  { ...commonProps, field: 'partnerOtherText', headerName: 'Други партньори' }, //Partner other
+  { ...commonProps, field: 'roleAssociationMember', headerName: 'Роля на член асоциация' }, //Role association member
+  { ...commonProps, field: 'roleBenefactor', headerName: 'Благотворителна роля' }, //Role benefactor
+  { ...commonProps, field: 'roleCompany', headerName: 'Роля на компания' }, //Role company
+  { ...commonProps, field: 'rolePartner', headerName: 'Роля на парньор' }, //Role partner
+  { ...commonProps, field: 'roleVolunteer', headerName: 'Роля на доброволец' }, //Role volunteer
+  { ...commonProps, field: 'volunteerBackend', headerName: 'Backend' }, //Backend
+  { ...commonProps, field: 'volunteerDesigner', headerName: 'Дизайнер' }, //Designer
+  { ...commonProps, field: 'volunteerDevOps', headerName: 'Dev ops' }, //Dev ops
+  { ...commonProps, field: 'volunteerFinancesAndAccounts', headerName: 'Финанси и сметки' }, //Finances and accounts
+  { ...commonProps, field: 'volunteerFrontend', headerName: 'Frontend' }, //Frontend
+  { ...commonProps, field: 'volunteerLawyer', headerName: 'Адвокат' }, //Lawyer
+  { ...commonProps, field: 'volunteerMarketing', headerName: 'Маркетинг' }, //Marketing
+  { ...commonProps, field: 'volunteerProjectManager', headerName: 'Проект мениджър' }, //Project manager
+  { ...commonProps, field: 'volunteerQa', headerName: 'Контрол качество' }, // Qa
+  { ...commonProps, field: 'volunteerSecurity', headerName: 'Защита' }, //Security
 ]
 
 export default function SupportersGrid() {
