@@ -3,6 +3,7 @@
   "corporate-header": "Corporate Profile",
   "campaigns": "Supported campaigns",
   "notAuthenticated": "User is not authenticated.",
+  "redirectToLogin": "The user session has expired. Redirecting to Login page.",
   "personalInfo": {
     "index": "Personal information",
     "login": "Login information:",
