@@ -130,5 +130,6 @@
 
   "cookieConsent": "Podkrepi.bg doesn't use cookies, except the third-party cookies required for the analytics components Google Analytics and HotJar. Accepting the cookies will help us improve your user experience.",
   "cookieConsentButton": "Accept",
-  "cookieRejectButton": "Reject"
+  "cookieRejectButton": "Reject",
+  "rows": "Rows per page"
 }

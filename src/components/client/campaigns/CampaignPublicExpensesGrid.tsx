@@ -152,6 +152,11 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
             py: '22px',
           },
         }}
+        localeText={{
+          MuiTablePagination: {
+            labelRowsPerPage: t('common:rows'),
+          },
+        }}
       />
     </Root>
   )
