@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
-import { Trans } from 'react-i18next'
+import { Trans } from 'next-i18next'
 import { useTranslation } from 'next-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'

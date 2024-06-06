@@ -1,6 +1,5 @@
 import { Box, Button, CircularProgress, Link, TableBody, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { useTranslation } from 'react-i18next'
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
 import {
@@ -8,7 +7,7 @@ import {
   useGetAffiliateData,
   useJoinAffiliateProgramMutation,
 } from 'common/hooks/affiliates'
-import { TFunction } from 'next-i18next'
+import { TFunction, useTranslation } from 'next-i18next'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import theme from 'common/theme'
 import { useMemo } from 'react'
