@@ -1,4 +1,4 @@
-import { useTranslation, Trans } from 'react-i18next'
+import { useTranslation, Trans } from 'next-i18next'
 import Layout from '../layout/Layout'
 import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
 import { useRouter } from 'next/router'
