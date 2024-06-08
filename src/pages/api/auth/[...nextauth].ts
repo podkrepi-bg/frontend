@@ -104,6 +104,9 @@ export const authOptions: NextAuthOptions = {
           account.access_token,
           account.provider,
           token.picture ?? '',
+          token.sub ?? '',
+          token.email ?? '',
+          token.name ?? '',
         )
         return {
           accessToken: keycloakToken.accessToken,
