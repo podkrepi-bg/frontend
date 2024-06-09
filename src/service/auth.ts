@@ -135,11 +135,14 @@ export async function getAccessTokenFromProvider(
   token: string | undefined,
   provider: string,
   picture: string,
+  userId: string,
+  email: string,
+  name: string,
 ): Promise<JWT> {
   try {
     const response = await apiClient.post<AuthResponse>(
       endpoints.auth.providerLogin.url,
-      { providerToken: token, provider, picture },
+      { providerToken: token, provider, picture, userId, email, name },
       {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
