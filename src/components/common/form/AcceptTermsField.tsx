@@ -20,6 +20,7 @@ export default function AcceptTermsField({ name }: AcceptTermsFieldProps) {
           <ExternalLink href={routes.termsOfService}>
             {t('validation:terms-and-conditions')}
           </ExternalLink>
+          .
         </Typography>
       }
     />
