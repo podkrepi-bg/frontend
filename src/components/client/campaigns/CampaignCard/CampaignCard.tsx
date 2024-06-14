@@ -95,7 +95,6 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         {(campaignState === CampaignState.complete && !allowDonationOnComplete) || (
           <DonateButton
             href={routes.campaigns.oneTimeDonation(slug)}
-            disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
             variant="contained"
             color="secondary">
             {t('cta.support')}
