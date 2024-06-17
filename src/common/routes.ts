@@ -248,6 +248,10 @@ export const routes = {
     company: {
       create: '/admin/companies/create',
     },
+    marketing: {
+      index: '/admin/marketing/',
+      newsLetterConsent: '/admin/marketing/newsletter-consent',
+    },
   },
   dev: {
     openData: '/open-data',

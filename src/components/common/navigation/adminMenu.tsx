@@ -14,6 +14,7 @@ import {
   DisplaySettings,
   RequestQuote,
   ArticleOutlined,
+  BroadcastOnPersonal,
 } from '@mui/icons-material'
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
@@ -104,5 +105,10 @@ export const adminCards = [
     label: 'Партньорска програма',
     icon: HandshakeIcon,
     href: routes.admin.affiliates,
+  },
+  {
+    label: 'Маркетинг',
+    icon: BroadcastOnPersonal,
+    href: routes.admin.marketing.index,
   },
 ]
