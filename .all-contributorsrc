@@ -858,6 +858,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "gparlakov",
+      "name": "Georgi Parlakov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3482199?v=4",
+      "profile": "https://github.com/gparlakov",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 10,
