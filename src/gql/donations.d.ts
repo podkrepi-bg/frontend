@@ -138,6 +138,7 @@ export type DonationInput = {
 export type UserDonationInput = DonationInput & {
   targetPersonId?: UUID
   billingEmail?: string
+  donationId?: string
 }
 
 export type DonationBankInput = {

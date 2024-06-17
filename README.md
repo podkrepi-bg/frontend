@@ -100,7 +100,7 @@ Watch releases of this repository to be notified about future updates:
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-77-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-80-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -217,6 +217,9 @@ Thanks goes to these wonderful people:
       <td align="center" valign="top" width="10%"><a href="https://github.com/kzhecheva"><img src="https://avatars.githubusercontent.com/u/60223025?v=4?s=100" width="100px;" alt="Kalina Zhecheva"/><br /><sub><b>Kalina Zhecheva</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=kzhecheva" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=kzhecheva" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/PetarDimitrov91"><img src="https://avatars.githubusercontent.com/u/79804094?v=4?s=100" width="100px;" alt="Petar Dimitrov"/><br /><sub><b>Petar Dimitrov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=PetarDimitrov91" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/kdachev97"><img src="https://avatars.githubusercontent.com/u/149360576?v=4?s=100" width="100px;" alt="Krum Dachev"/><br /><sub><b>Krum Dachev</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=kdachev97" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/Tuscann"><img src="https://avatars.githubusercontent.com/u/16596102?v=4?s=100" width="100px;" alt="Tuscann"/><br /><sub><b>Tuscann</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=Tuscann" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/iliyan90"><img src="https://avatars.githubusercontent.com/u/74927065?v=4?s=100" width="100px;" alt="iliyan90"/><br /><sub><b>iliyan90</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=iliyan90" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/gparlakov"><img src="https://avatars.githubusercontent.com/u/3482199?v=4?s=100" width="100px;" alt="Georgi Parlakov"/><br /><sub><b>Georgi Parlakov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=gparlakov" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

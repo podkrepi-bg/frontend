@@ -64,15 +64,11 @@ export default function ProfilePage() {
   }
 
   if (status !== 'authenticated') {
-    return <StyledLayout title={t('nav.profile')}>Not authenticated</StyledLayout>
+    return <StyledLayout title={t('nav.profile')}>{t('profile:notAuthenticated')}</StyledLayout>
   }
 
   if (isError && userError.response && userError.response.status === 401) {
-    return (
-      <StyledLayout title={t('nav.profile')}>
-        The user session has expired. Redirecting to login page
-      </StyledLayout>
-    )
+    return <StyledLayout title={t('nav.profile')}>{t('profile:redirectToLogin')}</StyledLayout>
   }
 
   const { Component: SelectedTab } = tab

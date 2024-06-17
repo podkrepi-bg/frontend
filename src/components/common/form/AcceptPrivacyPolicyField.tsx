@@ -22,7 +22,7 @@ export default function AcceptPrivacyPolicyField({
       label={
         <Typography variant="body2">
           {t('validation:informed-agree-with')}{' '}
-          <ExternalLink href={routes.privacyPolicy}>{t('validation:gdpr')}</ExternalLink>
+          <ExternalLink href={routes.privacyPolicy}>{t('validation:gdpr')}</ExternalLink>.
         </Typography>
       }
     />

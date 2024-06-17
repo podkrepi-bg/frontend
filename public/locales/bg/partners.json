@@ -11,14 +11,15 @@
     "media": "Медийни партньори",
     "tech": "Технологични партньори",
     "marketing": "Маркетинг / PR партньори",
+    "UXAndDesign": "UX и дизайн партньор",
     "organizations": "Организации / Организатори"
   },
   "guarants": {
     "title": "Гаранти",
     "corporateGivers": "Корпоративни дарители",
     "megaGivers": "Мега дарители",
-    "megaGiversSubtitle": "Хора дарили суми над 5000лв",
+    "megaGiversSubtitle": "Хора, дарили суми над 5000 лв",
     "superGivers": "Супер дарители",
-    "superGiversSubtitle": "Хора дарили суми над 500лв"
+    "superGiversSubtitle": "Хора, дарили суми над 500 лв"
   }
 }

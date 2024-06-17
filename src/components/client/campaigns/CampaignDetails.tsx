@@ -249,13 +249,15 @@ type CampaignFinanceProps = Props & {
 const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) => {
   const total = (campaign.summary.guaranteedAmount ?? 0) + campaign.summary.reachedAmount
   const transferred = campaign.summary.blockedAmount + campaign.summary.withdrawnAmount
+  const { t } = useTranslation()
   return (
     <StyledGrid item>
       <Typography variant="h5" fontWeight={500}>
-        Събрана сума: {moneyPublic(total)}
+        {t('campaigns:campaign-details-report.amount-collected')}: {moneyPublic(total)}
       </Typography>
       <Typography className={classes.financeSummary}>
-        Налични: {moneyPublic(campaign.summary.currentAmount)}
+        {t('campaigns:campaign-details-report.available')}:{' '}
+        {moneyPublic(campaign.summary.currentAmount)}
         <Tooltip enterTouchDelay={0} title="Средства налични по сметката на Podkrepi.bg">
           <IconButton size="small" color="primary">
             <InfoOutlined fontSize="small" />
@@ -263,11 +265,12 @@ const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) =>
         </Tooltip>
       </Typography>
       <Typography className={classes.financeSummary}>
-        Гарантирани: {moneyPublic(campaign.summary.guaranteedAmount ?? 0)}
+        {t('campaigns:campaign-details-report.guaranteed')}:{' '}
+        {moneyPublic(campaign.summary.guaranteedAmount ?? 0)}
         <Tooltip
           enterTouchDelay={0}
           title={
-            'Дарения от служители или клиенти на компании, които имат вътрешни дарителски инициативи с партньорска интеграция към Подкрепи.бг. При такова дарение сумите се отразяват веднага в платформата като "гарантирани" от компанията и се превеждат веднъж в месеца като консолидирана сума към Подкрепи.бг с цел по-лесно управление'
+            'Дарения от служители или клиенти на компании, които имат вътрешни дарителски инициативи с партньорска интеграция към Подкрепи.бг. При такова дарение сумите се отразяват веднага в платформата като "гарантирани" от компанията и се превеждат веднъж в месеца като консолидирана сума към Подкрепи.бг с цел по-лесно управление.'
           }>
           <IconButton size="small" color="primary">
             <InfoOutlined fontSize="small" />
@@ -275,7 +278,7 @@ const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) =>
         </Tooltip>
       </Typography>
       <Typography className={classes.financeSummary} fontWeight={600}>
-        Преведени: {moneyPublic(transferred)}
+        {t('campaigns:campaign-details-report.translated')}: {moneyPublic(transferred)}
         <Tooltip
           enterTouchDelay={0}
           title="Средства преведени от сметката на Podkrepi.bg към организатора на кампанията">
@@ -285,7 +288,7 @@ const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) =>
         </Tooltip>
       </Typography>
       <Typography className={classes.financeSummary}>
-        Отчетени: {moneyPublic(expenses)}
+        {t('campaigns:campaign-details-report.accounted')}: {moneyPublic(expenses)}
         <Tooltip enterTouchDelay={0} title="Отчетени разходи">
           <IconButton size="small" color="primary">
             <InfoOutlined fontSize="small" />

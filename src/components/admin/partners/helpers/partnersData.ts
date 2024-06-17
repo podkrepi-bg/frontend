@@ -25,6 +25,12 @@ export const partners: Partners[] = [
     image: '/img/partners/superhosting.svg',
     website: partnerUrls.superHosting,
   },
+  {
+    title: 'partners:sections.UXAndDesign',
+    name: 'lucrat',
+    image: '/img/partners/lucrat.svg',
+    website: partnerUrls.lucrat,
+  },
 ]
 
 export const mainPartners: MainPartners[] = [
@@ -48,6 +54,11 @@ export const mainPartners: MainPartners[] = [
     items: ['kotaOne', 'estProduction'],
     websites: partnerUrls.videoPartners,
   },
+  // {
+  //   title: 'partners:sections.UXAndDesign',
+  //   items: ['lucrat'],
+  //   websites: partnerUrls.lucrat,
+  // },
 ]
 
 export const organizations: Organizations[] = [
@@ -136,5 +147,10 @@ export const allPartners = [
     name: 'irisSolutions',
     image: '/img/partners/irisSolutions.svg',
     website: partnerUrls.irisSolutions,
+  },
+  {
+    name: 'lucrat',
+    image: '/img/partners/lucrat.svg',
+    website: partnerUrls.lucrat,
   },
 ]

@@ -67,6 +67,7 @@ export const partnerUrls = {
   mentormate: 'https://mentormate.com/',
   eightyEight: 'https://www.88studiodesign.com/',
   crossroadsBulgaria: 'https://crossroadsbulgaria.com/',
+  lucrat: 'https://lucrat.net/',
 }
 
 export const routes = {

@@ -12,10 +12,10 @@ export const LogoSocialIcons = () => {
   const { t } = useTranslation()
 
   return (
-    <Grid item xs={12} sm={8} md={5} container direction="column">
-      <Grid item>
+    <Grid item xs={12} sm={8} md={5} container direction="column" gap={1}>
+      <Grid container style={{ maxWidth: 236, maxHeight: 48 }} item justifyContent={'flex-start'}>
         <Link href={routes.index} passHref aria-label={t('meta.title')}>
-          <PodkrepiLogo locale={locale} size="large" variant="fixed" />
+          <PodkrepiLogo locale={locale} size="large" variant="adaptive" />
         </Link>
       </Grid>
       <SocialIcons />

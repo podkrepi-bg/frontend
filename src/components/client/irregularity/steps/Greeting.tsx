@@ -4,8 +4,6 @@ import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 
 import Subtitle from '../helpers/Subtitle'
-import Link from 'components/common/Link'
-import { routes } from 'common/routes'
 
 const greetingStyles = {
   fontWeight: 'bold',
@@ -43,9 +41,6 @@ export default function Greeting() {
         <Grid item>
           <Typography variant="body1">
             {t('steps.greeting.text-description-first')}
-            <Link href={routes.campaigns.create}>
-              <span>{t('steps.greeting.text-link')}</span>
-            </Link>
             {t('steps.greeting.text-description-second')}
           </Typography>
         </Grid>

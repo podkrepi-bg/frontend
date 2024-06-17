@@ -59,7 +59,7 @@ function PersonInfo({ person }: Props) {
             {t('person:info.createdAt')}: {formatDateString(person.createdAt, i18n?.language)}
           </Typography>
           <Typography>
-            {t('person:info.company')}: {person.company}
+            {t('person:info.company')}: {person.company.companyName}
           </Typography>
           <Typography>
             {t('person:info.confirmedEmail')}: {person.emailConfirmed ? 'Yes' : 'No'}
