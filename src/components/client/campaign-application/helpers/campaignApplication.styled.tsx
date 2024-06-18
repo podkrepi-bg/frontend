@@ -11,13 +11,17 @@ export const StyledCampaignApplicationStep = styled(Step)(() => ({
   },
 
   '& .Mui-active': {
-    backgroundColor: theme.palette.primary.light,
-    height: theme.spacing(9.25),
-    width: theme.spacing(9.25),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.palette.primary.main,
+    height: '70px',
+    width: '70px',
     borderRadius: theme.borders.round,
 
     '& span': {
       color: theme.palette.common.white,
+      fontSize: theme.typography.pxToRem(48),
     },
   },
 }))
@@ -30,7 +34,7 @@ export const StyledCampaignApplicationStepper = styled(Stepper)(() => ({
 
 export const StyledStepConnector = styled(StepConnector)(() => ({
   height: 5,
-  backgroundColor: theme.palette.primary.light,
+  backgroundColor: theme.palette.primary.main,
 
   '& span': {
     border: 'none',
@@ -38,14 +42,14 @@ export const StyledStepConnector = styled(StepConnector)(() => ({
 }))
 
 export const StyledCampaignApplicationStepperIcon = styled(Grid)(() => ({
+  display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  borderRadius: theme.borders.round,
-  border: `5px solid ${theme.palette.primary.light}`,
   color: theme.palette.common.black,
-  display: 'flex',
-  width: theme.spacing(9),
-  height: theme.spacing(9),
+  height: '52.05px',
+  width: '52.05px',
+  border: `5px solid ${theme.palette.primary.main}`,
+  borderRadius: theme.borders.round,
   zIndex: 1,
-  fontSize: theme.typography.pxToRem(28),
+  fontSize: theme.typography.pxToRem(36),
 }))

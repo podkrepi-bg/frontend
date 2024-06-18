@@ -3,7 +3,7 @@ import CampaignApplicationForm from './CampaignApplicationForm'
 
 export default function CampaignApplicationPage() {
   return (
-    <Layout maxWidth="md">
+    <Layout maxWidth="sm">
       <CampaignApplicationForm />
     </Layout>
   )
