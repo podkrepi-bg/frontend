@@ -1,5 +1,10 @@
 {
   "admin": {
-    "marketing": "Маркетинг"
+    "marketing": "Маркетинг",
+    "sendConsentEmail": "Изпращане на емайл за съгласие",
+    "common": {
+      "templateId": "Идентификатор на Sendgrid шаблон",
+      "listId": "Идентифицатор на Sendgrid списък с контакти"
+    }
   }
 }

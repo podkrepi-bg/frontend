@@ -1,6 +1,6 @@
-import MarketingPage from 'components/admin/marketing/MarketingPage'
+import SendEmailConsentPage from 'components/admin/marketing/EmailConsent/SendEmailConsentPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 
 export const getServerSideProps = securedAdminProps(['common', 'auth', 'validation', 'marketing'])
 
-export default MarketingPage
+export default SendEmailConsentPage
