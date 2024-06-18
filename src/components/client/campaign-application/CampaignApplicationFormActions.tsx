@@ -13,8 +13,7 @@ import {
   Root,
 } from './helpers/campaignApplicationFormActions.styled'
 
-type ActionsProps = {
-  loading?: boolean
+type CampaignApplicationFormActionsProps = {
   activeStep: number
   onBack?: (event: MouseEvent) => void
 }
@@ -22,8 +21,7 @@ type ActionsProps = {
 export default function CampaignApplicationFormActions({
   onBack,
   activeStep,
-  loading = false,
-}: ActionsProps) {
+}: CampaignApplicationFormActionsProps) {
   const { t } = useTranslation('campaign-application')
 
   return (
@@ -37,19 +35,14 @@ export default function CampaignApplicationFormActions({
             {t('cta.back')}
           </ActionLinkButton>
         ) : (
-          <ActionButton
-            fullWidth
-            onClick={onBack}
-            startIcon={<ArrowBackIosIcon fontSize="small" />}>
+          <ActionButton onClick={onBack} startIcon={<ArrowBackIosIcon fontSize="small" />}>
             {t('cta.back')}
           </ActionButton>
         )}
       </Grid>
       <Grid item>
         <ActionSubmitButton
-          fullWidth
           label={t('cta.next')}
-          loading={loading}
           endIcon={<ArrowForwardIosIcon fontSize="small" />}
         />
       </Grid>

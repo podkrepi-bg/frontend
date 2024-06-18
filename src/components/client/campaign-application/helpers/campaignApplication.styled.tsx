@@ -28,8 +28,8 @@ export const StyledCampaignApplicationStep = styled(Step)(() => ({
 
 export const StyledCampaignApplicationStepper = styled(Stepper)(() => ({
   backgroundColor: 'transparent',
-  margin: theme.spacing(10, 0, 8, 0),
-  alignItems: 'center',
+  margin: '20px auto',
+  maxWidth: '530px',
 }))
 
 export const StyledStepConnector = styled(StepConnector)(() => ({

@@ -1,17 +1,21 @@
-import { Grid, StepLabel } from '@mui/material'
 import { useCallback, useState } from 'react'
+
+import { Grid, StepLabel } from '@mui/material'
+
 import {
   Step as StepType,
   CampaignApplicationFormData,
   Steps,
 } from './helpers/campaignApplication.types'
 
+import GenericForm from 'components/common/form/GenericForm'
 import CampaignApplicationStepperIcon from './CampaignApplicationStepperIcon'
-import CampaignApplicationFormActions from './CampaignApplicationFormActions'
+import CampaignApplicationOrganizer from './steps/CampaignApplicationOrganizer'
 import CampaignApplicationDetails from './steps/CampaignApplicationDetails'
 import CampaignApplication from './steps/CampaignApplication'
-import CampaignApplicationOrganizer from './steps/CampaignApplicationOrganizer'
-import GenericForm from 'components/common/form/GenericForm'
+import CampaignApplicationFormActions from './CampaignApplicationFormActions'
+import stepsHandler from './helpers/stepsHandler'
+
 import {
   ActionsContainer,
   StyledCampaignApplicationStep,
@@ -21,25 +25,27 @@ import {
 
 const initialValues: CampaignApplicationFormData = {}
 
+const steps: StepType[] = [
+  {
+    title: 'campaign-application:steps.organizer.title',
+    component: <CampaignApplicationOrganizer />,
+  },
+  {
+    title: 'campaign-application:steps.campaign-application.title',
+    component: <CampaignApplication />,
+  },
+  {
+    title: 'campaign-application:steps.campaign-application-details.title',
+    component: <CampaignApplicationDetails />,
+  },
+]
+
 export default function CampaignApplicationForm() {
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ORGANIZER)
 
-  const steps: StepType[] = [
-    {
-      title: 'campaign-application:steps.organizer.title',
-      component: <CampaignApplicationOrganizer />,
-    },
-    {
-      title: 'campaign-application:steps.campaign-application.title',
-      component: <CampaignApplication />,
-    },
-    {
-      title: 'campaign-application:steps.campaign-application-details.title',
-      component: <CampaignApplicationDetails />,
-    },
-  ]
-
-  const handleSubmit = () => {}
+  const handleSubmit = () => {
+    stepsHandler({ activeStep, setActiveStep })
+  }
 
   const handleBack = useCallback(() => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
