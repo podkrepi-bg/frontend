@@ -9,7 +9,7 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 
 import { CityFormData, CityInput, CityResponse } from 'gql/cities'
 import { routes } from 'common/routes'
-import { ApiErrors, handleUniqueViolation } from 'service/apiErrors'
+import { ApiErrors, Message, handleUniqueViolation } from 'service/apiErrors'
 import { useCreateCity } from 'service/city'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
@@ -42,7 +42,9 @@ export default function EditForm() {
     const error = e.response
 
     if (error?.status === 409) {
-      const message = error.data.message.map((el) => handleUniqueViolation(el.constraints, t))
+      const message = (error.data.message as Message[]).map((el) =>
+        handleUniqueViolation(el.constraints, t),
+      )
       return AlertStore.show(message.join('/n'), 'error')
     }
 

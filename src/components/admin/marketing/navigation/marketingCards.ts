@@ -7,10 +7,12 @@ export const marketingCards = [
     label: 'Изпращане на емайл за съгласие',
     icon: ThumbUpAltIcon,
     href: routes.admin.marketing.newsLetterConsent,
+    disabled: false,
   },
   {
     label: 'Изпращане на маркетинг емайл',
     icon: SendIcon,
     href: routes.admin.marketing.newsLetterConsent,
+    disabled: true,
   },
 ]

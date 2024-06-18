@@ -6,6 +6,7 @@ import FormDatePicker from 'components/common/form/FormDatePicker'
 import FormTextField from 'components/common/form/FormTextField'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
+import { FormikHelpers } from 'formik'
 import { SendNewsLetterConsent } from 'gql/marketing'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -22,7 +23,7 @@ export default function EditForm() {
   const initialValues: SendNewsLetterConsent = {
     templateId: '',
     listId: '',
-    dateThreshold: undefined,
+    dateThreshold: new Date().toISOString(),
   }
 
   const validationSchema: yup.SchemaOf<SendNewsLetterConsent> = yup.object().defined().shape({
@@ -34,7 +35,8 @@ export default function EditForm() {
   const mutationFn = useSendConsentEmail()
 
   const handleError = (e: AxiosError<ApiErrors>) => {
-    AlertStore.show(t(e.message), 'error')
+    const error = e.response
+    AlertStore.show(t(error?.data.message as string), 'error')
   }
 
   const mutation = useMutation<AxiosResponse<any>, AxiosError<ApiErrors>, SendNewsLetterConsent>({
@@ -42,17 +44,23 @@ export default function EditForm() {
     onError: (error) => handleError(error),
     onSuccess: (data) => {
       AlertStore.show(t(`Емайлът беше изпратен успешно на ${data.data} емайла.`), 'success')
-      router.push(routes.admin.marketing.index)
     },
   })
 
-  async function onSubmit(values: SendNewsLetterConsent) {
+  async function onSubmit(
+    values: SendNewsLetterConsent,
+    formikHelpers: FormikHelpers<SendNewsLetterConsent>,
+  ) {
     const data: SendNewsLetterConsent = {
       templateId: values.templateId,
       listId: values.listId,
       dateThreshold: values.dateThreshold,
     }
-    mutation.mutate(data)
+    await mutation.mutateAsync(data)
+    if (mutation.isSuccess && !mutation.isLoading) {
+      console.log(mutation.isSuccess)
+      formikHelpers.resetForm({ values: initialValues })
+    }
   }
 
   return (
