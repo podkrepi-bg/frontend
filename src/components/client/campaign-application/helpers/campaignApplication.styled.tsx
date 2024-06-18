@@ -53,3 +53,9 @@ export const StyledCampaignApplicationStepperIcon = styled(Grid)(() => ({
   zIndex: 1,
   fontSize: theme.typography.pxToRem(36),
 }))
+
+export const ActionsContainer = styled(Grid)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: theme.spacing(1),
+}))

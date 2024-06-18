@@ -1,5 +1,5 @@
-import { StepLabel } from '@mui/material'
-import { useState } from 'react'
+import { Grid, StepLabel } from '@mui/material'
+import { useCallback, useState } from 'react'
 import {
   Step as StepType,
   CampaignApplicationFormData,
@@ -7,11 +7,13 @@ import {
 } from './helpers/campaignApplication.types'
 
 import CampaignApplicationStepperIcon from './CampaignApplicationStepperIcon'
+import CampaignApplicationFormActions from './CampaignApplicationFormActions'
 import CampaignApplicationDetails from './steps/CampaignApplicationDetails'
 import CampaignApplication from './steps/CampaignApplication'
 import CampaignApplicationOrganizer from './steps/CampaignApplicationOrganizer'
 import GenericForm from 'components/common/form/GenericForm'
 import {
+  ActionsContainer,
   StyledCampaignApplicationStep,
   StyledCampaignApplicationStepper,
   StyledStepConnector,
@@ -39,6 +41,10 @@ export default function CampaignApplicationForm() {
 
   const handleSubmit = () => {}
 
+  const handleBack = useCallback(() => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1)
+  }, [])
+
   return (
     <GenericForm<CampaignApplicationFormData> onSubmit={handleSubmit} initialValues={initialValues}>
       <StyledCampaignApplicationStepper activeStep={activeStep} connector={<StyledStepConnector />}>
@@ -48,7 +54,14 @@ export default function CampaignApplicationForm() {
           </StyledCampaignApplicationStep>
         ))}
       </StyledCampaignApplicationStepper>
-      {steps[activeStep].component}
+      <ActionsContainer container spacing={5}>
+        <Grid container item xs={12}>
+          {activeStep < steps.length && steps[activeStep].component}
+        </Grid>
+        <Grid container item spacing={3}>
+          <CampaignApplicationFormActions activeStep={activeStep} onBack={handleBack} />
+        </Grid>
+      </ActionsContainer>
     </GenericForm>
   )
 }
