@@ -283,11 +283,7 @@ export function DonationFlowForm() {
                   <AlertsColumn sectionsRefArray={[paymentMethodSectionRef]} />
                 </Grid2>
               </Grid2>
-              <Grid2
-                position={'relative'}
-                container
-                justifyContent={'space-between'}
-                flexDirection={'row'}>
+              <Grid2 container justifyContent={'space-between'} flexDirection={'row'}>
                 <Grid2 container xs={12} md={7} direction={'column'}>
                   <StepSplitter content="4" active={Boolean(values.authentication)} />
                   <Authentication

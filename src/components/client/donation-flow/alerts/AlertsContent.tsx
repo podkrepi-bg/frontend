@@ -6,18 +6,19 @@ export const AuthenticateAlertContent = () => {
 
   const liSx: SxProps = {
     '& .MuiTypography-root': {
-      fontSize: '0.875rem',
+      fontSize: '1rem',
+      fontStyle: 'italic',
     },
     p: 0,
   }
 
   return (
-    <Box>
+    <Box paddingRight={2} paddingLeft={2} sx={liSx}>
       <Typography>{t('step.authentication.alert.authenticate.title')}:</Typography>
       <List
         sx={{
           listStyleType: 'disc',
-          pl: 2,
+          pl: 4,
           '& .MuiListItem-root': {
             display: 'list-item',
           },
@@ -36,5 +37,19 @@ export const AuthenticateAlertContent = () => {
         </ListItem>
       </List>
     </Box>
+  )
+}
+
+export const NoRegisterContent = () => {
+  const { t } = useTranslation('donation-flow')
+  return (
+    <Typography
+      paddingRight={1}
+      paddingLeft={2}
+      fontSize={16}
+      fontStyle={'italic'}
+      fontWeight={400}>
+      {t('step.authentication.noregister.description')}
+    </Typography>
   )
 }

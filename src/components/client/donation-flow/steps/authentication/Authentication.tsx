@@ -8,7 +8,10 @@ import {
   DonationFormAuthState,
   DonationFormData,
 } from 'components/client/donation-flow/helpers/types'
-import { AuthenticateAlertContent } from 'components/client/donation-flow/alerts/AlertsContent'
+import {
+  AuthenticateAlertContent,
+  NoRegisterContent,
+} from 'components/client/donation-flow/alerts/AlertsContent'
 import theme from 'common/theme'
 
 import RadioAccordionGroup from '../../common/RadioAccordionGroup'
@@ -91,7 +94,7 @@ export default function Authentication({
       disabled: Boolean(session?.user || mode === 'subscription'),
       content: (
         <Box>
-          {showNoRegisterAlert && (
+          {showNoRegisterAlert && isSmall && (
             <Alert
               onClose={() => {
                 setShowNoRegisterAlert(false)
@@ -99,7 +102,7 @@ export default function Authentication({
               color="info"
               icon={false}
               sx={{ mb: 1, mx: -2 }}>
-              {t('step.authentication.noregister.description')}
+              <NoRegisterContent />
             </Alert>
           )}
         </Box>

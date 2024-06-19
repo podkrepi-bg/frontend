@@ -9,7 +9,7 @@ import {
   DonationFormData,
 } from '../helpers/types'
 import { useElements } from '@stripe/react-stripe-js'
-import { AuthenticateAlertContent } from './AlertsContent'
+import { AuthenticateAlertContent, NoRegisterContent } from './AlertsContent'
 import { ids } from '../common/DonationFormSections'
 
 function AlertsColumn({
@@ -37,7 +37,16 @@ function AlertsColumn({
   const alerts: { [key: string]: AlertProps } = {
     'select-payment--radiocard': {
       color: 'info',
-      children: <Typography>{payment && paymentMethodAlertMap[payment]}</Typography>,
+      children: (
+        <Typography
+          fontSize={16}
+          paddingRight={4}
+          paddingLeft={2}
+          fontWeight={400}
+          fontStyle={'italic'}>
+          {payment && paymentMethodAlertMap[payment]}
+        </Typography>
+      ),
       icon: false,
       sx: {
         display: payment ? 'flex' : 'none',
@@ -45,7 +54,12 @@ function AlertsColumn({
     },
     [ids['authentication']]: {
       color: 'info',
-      children: <AuthenticateAlertContent />,
+      children:
+        authentication === DonationFormAuthState.NOREGISTER ? (
+          <NoRegisterContent />
+        ) : (
+          <AuthenticateAlertContent />
+        ),
       icon: false,
       sx: {
         display:
