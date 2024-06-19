@@ -2,7 +2,6 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { Info } from '@mui/icons-material'
 import { BoxProps, IconButton, Theme, Tooltip, Typography } from '@mui/material'
-import { styled } from '@mui/styles'
 import theme from 'common/theme'
 import { moneyPublicDecimals2 } from 'common/util/money'
 import { stripeFeeCalculator } from '../helpers/stripe-fee-calculator'
@@ -10,11 +9,6 @@ import { CardRegion } from 'gql/donations.enums'
 import { useFormikContext } from 'formik'
 import { DonationFormData } from '../helpers/types'
 import Grid2 from '@mui/material/Unstable_Grid2'
-
-const StyledTypography = styled(Typography)(({ theme }) => ({
-  fontSize: theme.typography.pxToRem(22),
-  fontWeight: 600,
-}))
 
 function PaymentSummaryAlert({
   donationAmount,
@@ -90,15 +84,13 @@ function PaymentSummaryAlert({
                   }),
                 },
                 arrow: {
-                  sx(theme) {
-                    return {
-                      color: '#CBE9FE',
-                      fontSize: 50,
-                      zIndex: 999,
-                      '&:before': {
-                        border: '1px solid #32A9FE',
-                      },
-                    }
+                  sx: {
+                    color: '#CBE9FE',
+                    fontSize: 50,
+                    zIndex: 999,
+                    '&:before': {
+                      border: '1px solid #32A9FE',
+                    },
                   },
                 },
               }}

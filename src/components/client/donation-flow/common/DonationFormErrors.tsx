@@ -8,7 +8,6 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import { ErrorTwoTone } from '@mui/icons-material'
 import theme from 'common/theme'
 import { StripeError } from '@stripe/stripe-js'
-import { id } from 'date-fns/locale'
 
 type DonationFormErrorProps = {
   errors: FormikErrors<DonationFormData>

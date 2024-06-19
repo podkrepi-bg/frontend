@@ -1,5 +1,5 @@
 import React from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 import { useField } from 'formik'
 

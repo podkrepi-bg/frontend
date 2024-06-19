@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { signIn } from 'next-auth/react'
 import { useFormikContext } from 'formik'
 import { Box, Button, CircularProgress, Grid } from '@mui/material'

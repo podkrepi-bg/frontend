@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
-import { useMediaQuery, Collapse, Grid, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { useMediaQuery, Collapse, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import { CardRegion } from 'gql/donations.enums'
 import theme from 'common/theme'
-import { useSinglePriceList } from 'common/hooks/donation'
 import { moneyPublic, toMoney } from 'common/util/money'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 

@@ -1,4 +1,4 @@
-import { Grid, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 
 import React, { useEffect } from 'react'
@@ -16,7 +16,7 @@ type PaymentModeOptions = {
 type PaymentModeSelectProps = {
   error: boolean
 }
-export default function PaymentMode({ error }: PaymentModeSelectProps) {
+export default function PaymentModeSelect({ error }: PaymentModeSelectProps) {
   const formik = useFormikContext<DonationFormData>()
   const { t } = useTranslation('donation-flow')
   const options: PaymentModeOptions[] = [

@@ -3,7 +3,7 @@ import { useFormikContext } from 'formik'
 import * as yup from 'yup'
 import { Button, CircularProgress, FormHelperText, Grid } from '@mui/material'
 import { signIn } from 'next-auth/react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
 import { useRegister } from 'service/auth'

@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Appearance, StripeElementLocale } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 

@@ -7,19 +7,15 @@ import * as yup from 'yup'
 import { Form, Formik, FormikProps } from 'formik'
 import { PersistFormikValues } from 'formik-persist-values'
 import {
-  Alert,
   Box,
   Button,
-  Hidden,
   IconButton,
-  Stack,
   Tooltip,
   Typography,
   Unstable_Grid2 as Grid2,
 } from '@mui/material'
 import { ArrowBack, Info } from '@mui/icons-material'
 
-import theme from 'common/theme'
 import { routes } from 'common/routes'
 import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
@@ -44,7 +40,6 @@ import {
   DonationFormPaymentMethod,
   DonationFormData,
   PaymentMode,
-  DonationFormPaymentStatus,
 } from './helpers/types'
 import { DonationType } from 'gql/donations.enums'
 import PaymentModeSelect from './steps/PaymentModeSelect'
