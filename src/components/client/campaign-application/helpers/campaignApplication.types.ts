@@ -9,5 +9,3 @@ export enum Steps {
   CAMPAIGN = 1,
   CAMPAIGN_DETAILS = 2,
 }
-
-export type CampaignApplicationFormData = {}
