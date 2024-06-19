@@ -1,6 +1,7 @@
 export type SendMarketingEmail = {
   templateId: string
   listId: string
+  subject: string
 }
 
 export type SendNewsLetterConsent = SendMarketingEmail & {

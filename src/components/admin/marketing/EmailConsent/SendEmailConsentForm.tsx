@@ -21,12 +21,14 @@ export default function SendConsentEmailForm() {
   const initialValues: SendNewsLetterConsent = {
     templateId: '',
     listId: '',
+    subject: '',
     dateThreshold: new Date().toISOString(),
   }
 
   const validationSchema: yup.SchemaOf<SendNewsLetterConsent> = yup.object().defined().shape({
     templateId: yup.string().required(),
     listId: yup.string().required(),
+    subject: yup.string().required(),
     dateThreshold: yup.string().optional(),
   })
 
@@ -60,6 +62,7 @@ export default function SendConsentEmailForm() {
     const data: SendNewsLetterConsent = {
       templateId: values.templateId,
       listId: values.listId,
+      subject: values.subject,
       dateThreshold: values.dateThreshold,
     }
     await mutation.mutateAsync(data)
@@ -85,6 +88,9 @@ export default function SendConsentEmailForm() {
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="text" label={t('admin.common.listId')} name="listId" />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField type="text" label={t('admin.common.subject')} name="subject" />
           </Grid>
           <Grid
             container
