@@ -6,3 +6,7 @@ export type SendMarketingEmail = {
 export type SendNewsLetterConsent = SendMarketingEmail & {
   dateThreshold?: string
 }
+
+export type NewsLetterConsentResponse = {
+  contactCount: number
+}

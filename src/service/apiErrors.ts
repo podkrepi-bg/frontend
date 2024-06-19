@@ -6,7 +6,7 @@ export { isAxiosError }
 
 export interface ApiErrors {
   statusCode: number
-  message: Message[] | string
+  message: Message[]
   error: string
 }
 

@@ -1,9 +1,8 @@
-import { Box, Button, Card, CardContent, Container, Grid, Typography } from '@mui/material'
+import { Box, Button, CardContent, Container, Grid, Typography } from '@mui/material'
 import AdminContainer from 'components/common/navigation/AdminContainer'
 import AdminLayout from 'components/common/navigation/AdminLayout'
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { adminCards } from 'components/common/navigation/adminMenu'
 import Link from 'next/link'
 import { marketingCards } from './navigation/marketingCards'
 

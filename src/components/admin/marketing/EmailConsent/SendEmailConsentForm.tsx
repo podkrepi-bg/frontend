@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { routes } from 'common/routes'
@@ -7,17 +7,15 @@ import FormTextField from 'components/common/form/FormTextField'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { FormikHelpers } from 'formik'
-import { SendNewsLetterConsent } from 'gql/marketing'
+import { NewsLetterConsentResponse, SendNewsLetterConsent } from 'gql/marketing'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { ApiErrors } from 'service/apiErrors'
+import { ApiError } from 'service/apiErrors'
 import { useSendConsentEmail } from 'service/marketing'
 import { AlertStore } from 'stores/AlertStore'
 import * as yup from 'yup'
 
-export default function EditForm() {
-  const router = useRouter()
+export default function SendConsentEmailForm() {
   const { t } = useTranslation('marketing')
 
   const initialValues: SendNewsLetterConsent = {
@@ -34,16 +32,24 @@ export default function EditForm() {
 
   const mutationFn = useSendConsentEmail()
 
-  const handleError = (e: AxiosError<ApiErrors>) => {
-    const error = e.response
-    AlertStore.show(t(error?.data.message as string), 'error')
+  const handleError = (e: AxiosError<ApiError>) => {
+    const error = e.response as AxiosResponse<ApiError>
+    AlertStore.show(error.data.message, 'error')
   }
 
-  const mutation = useMutation<AxiosResponse<any>, AxiosError<ApiErrors>, SendNewsLetterConsent>({
+  const mutation = useMutation<
+    AxiosResponse<NewsLetterConsentResponse>,
+    AxiosError<ApiError>,
+    SendNewsLetterConsent
+  >({
     mutationFn,
     onError: (error) => handleError(error),
     onSuccess: (data) => {
-      AlertStore.show(t(`Емайлът беше изпратен успешно на ${data.data} емайла.`), 'success')
+      const response = data.data
+      AlertStore.show(
+        t(`Съобщението беше изпратен успешно на ${response.contactCount} емайла.`),
+        'success',
+      )
     },
   })
 
@@ -58,7 +64,6 @@ export default function EditForm() {
     }
     await mutation.mutateAsync(data)
     if (mutation.isSuccess && !mutation.isLoading) {
-      console.log(mutation.isSuccess)
       formikHelpers.resetForm({ values: initialValues })
     }
   }
@@ -88,13 +93,13 @@ export default function EditForm() {
             direction={'row'}
             justifyContent={'space-between'}
             alignItems={'center'}>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Typography>Премахване от списък на потребители регистрирани след: </Typography>
             </Grid>
             <FormDatePicker name="dateThreshold" label="" />
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton label="Изпрати" fullWidth loading={mutation.isLoading}></SubmitButton>
+            <SubmitButton label="Изпрати" fullWidth loading={mutation.isLoading} />
             <Link href={routes.admin.marketing.index} passHref>
               <Button fullWidth>{t('Откажи')}</Button>
             </Link>
