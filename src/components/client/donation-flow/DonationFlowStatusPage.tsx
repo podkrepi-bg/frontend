@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -71,6 +71,11 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   const session = useSession()
   const { data: { user: person } = { user: null } } = useCurrentPerson()
 
+  useEffect(() => {
+    if (p_status === 'succeeded') {
+      sessionStorage.removeItem(`donation-flow-${campaign.slug}`)
+    }
+  }, [])
   const { mutate: createDonationWishMutate, isLoading: isWishSendLoading } = useMutation(
     createDonationWish,
     {

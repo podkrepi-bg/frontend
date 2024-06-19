@@ -150,7 +150,6 @@ export function DonationFlowForm() {
         if (values.payment === DonationFormPaymentMethod.BANK) {
           cancelSetupIntentMutation.mutate({ id: setupIntent.id })
           helpers.resetForm()
-          sessionStorage.removeItem('donation-form')
           return router.push(
             `${routes.campaigns.donationStatus(campaign.slug)}?${new URLSearchParams({
               bank_payment: 'true',
@@ -207,9 +206,6 @@ export function DonationFlowForm() {
             session,
             idempotencyKey,
           )
-
-          helpers.resetForm()
-          sessionStorage.removeItem('donation-form')
           router.push(
             `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
               payment.status
@@ -349,10 +345,9 @@ export function DonationFlowForm() {
                 </Grid2>
               </Grid2>
               <PersistFormikValues
-                hashInitials={true}
                 ignoreValues={['authentication']}
-                debounce={3000}
                 storage="sessionStorage"
+                persistInvalid={true}
                 name={`donation-flow-${campaign.slug}`}
               />
             </Form>
