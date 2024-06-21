@@ -9,6 +9,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
       'common',
       'support_us',
       'one-time-donation',
+      'validation',
+      'auth',
     ])),
   },
 })

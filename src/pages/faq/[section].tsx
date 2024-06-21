@@ -5,7 +5,7 @@ import { FaqCategory } from 'components/client/faq/contents/faq-categories.enum'
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'faq'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'faq', 'validation', 'auth'])),
     section: `${params?.section ?? FaqCategory.Common}`,
   },
 })

@@ -5,7 +5,7 @@ import AboutPage from 'components/client/about/AboutPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'about'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'about', 'validation', 'auth'])),
   },
 })
 

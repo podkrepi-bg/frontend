@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query, locale }) 
       props: {
         posts: [],
         pagination: {},
-        ...(await serverSideTranslations(locale ?? 'bg', ['common', 'blog'])),
+        ...(await serverSideTranslations(locale ?? 'bg', ['common', 'blog', 'validation', 'auth'])),
       },
     }
   }

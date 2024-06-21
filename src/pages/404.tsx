@@ -5,7 +5,7 @@ import NotFoundPage from 'components/common/errors/NotFoundPage/NotFoundPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'errors'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'errors', 'validation', 'auth'])),
   },
 })
 

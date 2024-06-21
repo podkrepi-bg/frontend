@@ -5,7 +5,12 @@ import OpenDataPage from '../../components/client/open-data/OpenDataPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'open-data'])),
+    ...(await serverSideTranslations(locale ?? 'bg', [
+      'common',
+      'open-data',
+      'validation',
+      'auth',
+    ])),
   },
 })
 
