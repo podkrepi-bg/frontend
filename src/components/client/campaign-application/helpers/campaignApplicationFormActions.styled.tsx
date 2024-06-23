@@ -17,7 +17,7 @@ export const ActionLinkButton = styled(LinkButton)(() => ({
   padding: theme.spacing(1, 5),
   borderRadius: theme.borders.round,
   color: theme.palette.common.black,
-  fontSize: theme.typography.pxToRem(20),
+  fontSize: theme.typography.pxToRem(15),
   width: theme.spacing(50),
   fontWeight: 800,
 }))
@@ -28,7 +28,7 @@ export const ActionButton = styled(Button)(() => ({
   padding: theme.spacing(1, 5),
   borderRadius: theme.borders.round,
   color: theme.palette.common.black,
-  fontSize: theme.typography.pxToRem(20),
+  fontSize: theme.typography.pxToRem(15),
   width: theme.spacing(50),
   fontWeight: 800,
 }))
@@ -39,7 +39,7 @@ export const ActionSubmitButton = styled(SubmitButton)(() => ({
   padding: theme.spacing(1, 5),
   borderRadius: theme.borders.round,
   color: theme.palette.common.black,
-  fontSize: theme.typography.pxToRem(20),
+  fontSize: theme.typography.pxToRem(15),
   width: theme.spacing(50),
   fontWeight: 800,
 }))

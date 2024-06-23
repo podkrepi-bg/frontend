@@ -26,7 +26,7 @@ export default function CampaignApplicationFormActions({
 
   return (
     <Root container item xs={12} spacing={3} justifyContent="space-between">
-      <Grid item sx={{ textAlign: 'left' }}>
+      <Grid item xs={12} md={6}>
         {activeStep === 0 ? (
           <ActionLinkButton
             href=""
@@ -40,7 +40,7 @@ export default function CampaignApplicationFormActions({
           </ActionButton>
         )}
       </Grid>
-      <Grid item>
+      <Grid item xs={12} md={6}>
         <ActionSubmitButton
           label={t('cta.next')}
           endIcon={<ArrowForwardIosIcon fontSize="small" />}
