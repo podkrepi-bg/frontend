@@ -1,0 +1,11 @@
+{
+  "admin": {
+    "marketing": "Marketing",
+    "sendConsentEmail": "Send newsletter consent email",
+    "common": {
+      "templateId": "ID of Sendgrid template",
+      "listId": "ID of Sendgrid contact list",
+      "subject": "Email subject"
+    }
+  }
+}
