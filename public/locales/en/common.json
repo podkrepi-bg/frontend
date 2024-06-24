@@ -125,7 +125,10 @@
     "subscribe-text-nonLoggedUser-general": "Please, proceed as a guest and write down your email, on which you want to receive notifications from us or you can log in. If you log in with your and password you will be able to manage your subscription from your Personal profile",
     "subscribe-text-loggedUser": "Please, choose if you want to receive the news about the campaign on your profile email or on another one:",
     "subscribe-subtitle": "I want to receive news and notifications from Podkrepi.bg on this email:",
-    "subscribe-campaign-subtTitle": "I want to receive news about the campaign on this email:"
+    "subscribe-campaign-subtTitle": "I want to receive news about the campaign on this email:",
+    "email-descriptive": "Fill in your email",
+    "agree-with-newsletter": "I agree to receive news.",
+    "agree-with-newsletter-campaign": "I agree to receive news about this campaign and news by Podkrepi.bg."
   },
 
   "cookieConsent": "Podkrepi.bg doesn't use cookies, except the third-party cookies required for the analytics components Google Analytics and HotJar. Accepting the cookies will help us improve your user experience.",
