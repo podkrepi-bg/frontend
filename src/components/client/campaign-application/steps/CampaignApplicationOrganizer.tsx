@@ -8,15 +8,18 @@ export default function CampaignApplicationOrganizer() {
   const { t } = useTranslation('campaign-application')
 
   return (
-    <Grid container spacing={4} justifyContent="center" direction="column" alignContent="center">
-      <StyledStepHeading variant="h4">{t('steps.organizer.title')}</StyledStepHeading>
-      <Grid item container spacing={4} justifyContent="space-between" direction="row">
+    <Grid container spacing={6} justifyContent="center" direction="column" alignContent="center">
+      <Grid item container justifyContent="center">
+        <StyledStepHeading variant="h4">{t('steps.organizer.title')}</StyledStepHeading>
+      </Grid>
+      <Grid item container spacing={6} justifyContent="space-between" direction="row">
         <Grid container item xs={12} md={6} flexWrap="nowrap">
           <StyledFormTextField
+            autoFocus
             label={t('steps.organizer.first-name')}
             type="text"
             name="organizer.firstName"
-            required
+            autoComplete="first-name"
           />
         </Grid>
         <Grid container item xs={12} md={6} flexWrap="nowrap">
@@ -24,17 +27,17 @@ export default function CampaignApplicationOrganizer() {
             label={t('steps.organizer.last-name')}
             type="text"
             name="organizer.lastName"
-            required
+            autoComplete="family-name"
           />
         </Grid>
       </Grid>
-      <Grid item container spacing={4} justifyContent="space-between" direction="row">
+      <Grid item container spacing={6} justifyContent="space-between" direction="row">
         <Grid container item xs={12} md={6} flexWrap="nowrap">
           <StyledFormTextField
             label={t('steps.organizer.phone')}
             type="phone"
             name="organizer.phone"
-            required
+            autoComplete="tel"
           />
         </Grid>
         <Grid container item xs={12} md={6} flexWrap="nowrap">
@@ -42,7 +45,7 @@ export default function CampaignApplicationOrganizer() {
             label={t('steps.organizer.email')}
             type="email"
             name="organizer.email"
-            required
+            autoComplete="email"
           />
         </Grid>
       </Grid>

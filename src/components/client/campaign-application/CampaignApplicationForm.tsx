@@ -2,7 +2,11 @@ import { useCallback, useState } from 'react'
 
 import { Grid, StepLabel } from '@mui/material'
 
-import { Step as StepType, Steps } from './helpers/campaignApplication.types'
+import {
+  CampaignApplicationFormData,
+  Step as StepType,
+  Steps,
+} from './helpers/campaignApplication.types'
 
 import GenericForm from 'components/common/form/GenericForm'
 import CampaignApplicationStepperIcon from './CampaignApplicationStepperIcon'
@@ -13,13 +17,22 @@ import CampaignApplicationFormActions from './CampaignApplicationFormActions'
 import CampaignApplicationRemark from './CampaignApplicationRemark'
 import stepsHandler from './helpers/stepsHandler'
 
+import { validationSchema } from './helpers/validation-schema'
+
 import {
   StyledCampaignApplicationStep,
   StyledCampaignApplicationStepper,
   StyledStepConnector,
 } from './helpers/campaignApplication.styled'
 
-const initialValues: Record<string, string> = {}
+const initialValues: CampaignApplicationFormData = {
+  organizer: {
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+  },
+}
 
 const steps: StepType[] = [
   {
@@ -49,7 +62,10 @@ export default function CampaignApplicationForm() {
 
   return (
     <>
-      <GenericForm<Record<string, string>> onSubmit={handleSubmit} initialValues={initialValues}>
+      <GenericForm<CampaignApplicationFormData>
+        onSubmit={handleSubmit}
+        initialValues={initialValues}
+        validationSchema={validationSchema[activeStep]}>
         <StyledCampaignApplicationStepper
           activeStep={activeStep}
           connector={<StyledStepConnector />}>
