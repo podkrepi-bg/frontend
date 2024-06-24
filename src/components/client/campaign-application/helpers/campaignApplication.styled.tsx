@@ -56,10 +56,8 @@ export const StyledCampaignApplicationStepperIcon = styled(Grid)(() => ({
 }))
 
 export const StyledStepHeading = styled(Heading)(() => ({
-  alignSelf: 'center',
   fontWeight: 600,
-  paddingTop: theme.spacing(5),
-  paddingBottom: theme.spacing(10),
+  paddingBlock: theme.spacing(5),
 }))
 
 export const StyledFormTextField = styled(FormTextField)(() => ({

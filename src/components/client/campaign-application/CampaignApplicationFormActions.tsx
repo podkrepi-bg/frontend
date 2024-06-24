@@ -29,19 +29,24 @@ export default function CampaignApplicationFormActions({
       <Grid item xs={12} md={6}>
         {activeStep === 0 ? (
           <ActionLinkButton
+            fullWidth
             href=""
             variant="outlined"
             startIcon={<ArrowBackIosIcon fontSize="small" />}>
             {t('cta.back')}
           </ActionLinkButton>
         ) : (
-          <ActionButton onClick={onBack} startIcon={<ArrowBackIosIcon fontSize="small" />}>
+          <ActionButton
+            fullWidth
+            onClick={onBack}
+            startIcon={<ArrowBackIosIcon fontSize="small" />}>
             {t('cta.back')}
           </ActionButton>
         )}
       </Grid>
       <Grid item xs={12} md={6}>
         <ActionSubmitButton
+          fullWidth
           label={t('cta.next')}
           endIcon={<ArrowForwardIosIcon fontSize="small" />}
         />
