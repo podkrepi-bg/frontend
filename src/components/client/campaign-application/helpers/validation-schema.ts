@@ -11,8 +11,7 @@ import {
 const organizer: yup.SchemaOf<CampaignApplicationOrganizer> = yup
   .object()
   .shape({
-    firstName: name.required(),
-    lastName: name.required(),
+    name: name.required(),
     phone: phone.required(),
     email: email.required(),
   })

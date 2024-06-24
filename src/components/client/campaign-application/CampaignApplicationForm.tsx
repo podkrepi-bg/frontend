@@ -27,8 +27,7 @@ import {
 
 const initialValues: CampaignApplicationFormData = {
   organizer: {
-    firstName: '',
-    lastName: '',
+    name: '',
     phone: '',
     email: '',
   },

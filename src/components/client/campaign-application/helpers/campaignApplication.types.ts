@@ -12,10 +12,11 @@ export enum Steps {
   CAMPAIGN_DETAILS = 2,
 }
 
-export type CampaignApplicationOrganizer = Pick<
-  Person,
-  'firstName' | 'lastName' | 'phone' | 'email'
->
+export type CampaignApplicationOrganizer = {
+  name: string
+  phone: string
+  email: string
+}
 
 export type CampaignApplicationFormData = {
   organizer: CampaignApplicationOrganizer

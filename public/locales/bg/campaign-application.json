@@ -2,8 +2,7 @@
   "steps": {
     "organizer": {
       "title": "Организатор",
-      "first-name": "Вашето име",
-      "last-name": "Вашата фамилия",
+      "name": "Вашите име и фамилия",
       "phone": "Телефон за връзка",
       "email": "Email"
     }

@@ -13,21 +13,12 @@ export default function CampaignApplicationOrganizer() {
         <StyledStepHeading variant="h4">{t('steps.organizer.title')}</StyledStepHeading>
       </Grid>
       <Grid item container spacing={6} justifyContent="space-between" direction="row">
-        <Grid container item xs={12} md={6} flexWrap="nowrap">
+        <Grid item xs={12} flexWrap="nowrap">
           <StyledFormTextField
-            autoFocus
-            label={t('steps.organizer.first-name')}
+            label={t('steps.organizer.name')}
             type="text"
-            name="organizer.firstName"
-            autoComplete="first-name"
-          />
-        </Grid>
-        <Grid container item xs={12} md={6} flexWrap="nowrap">
-          <StyledFormTextField
-            label={t('steps.organizer.last-name')}
-            type="text"
-            name="organizer.lastName"
-            autoComplete="family-name"
+            name="organizer.name"
+            autoComplete="name"
           />
         </Grid>
       </Grid>
