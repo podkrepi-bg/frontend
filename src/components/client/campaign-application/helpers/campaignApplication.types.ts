@@ -16,6 +16,9 @@ export type CampaignApplicationOrganizer = {
   name: string
   phone: string
   email: string
+  acceptTermsAndConditions: boolean
+  transparencyTermsAccepted: boolean
+  personalInformationProcessingAccepted: boolean
 }
 
 export type CampaignApplicationFormData = {

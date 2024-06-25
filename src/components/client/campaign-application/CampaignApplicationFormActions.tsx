@@ -25,7 +25,7 @@ export default function CampaignApplicationFormActions({
   const { t } = useTranslation('campaign-application')
 
   return (
-    <Root container item xs={12} spacing={6} justifyContent="space-between">
+    <Root container item xs={12} spacing={6} sx={{ marginTop: 1 }} justifyContent="space-between">
       <Grid item xs={12} md={6} flexWrap="nowrap">
         {activeStep === 0 ? (
           <ActionLinkButton
