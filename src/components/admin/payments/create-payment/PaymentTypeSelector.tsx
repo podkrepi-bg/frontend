@@ -1,8 +1,8 @@
 import { Box, Button, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import React, { useContext } from 'react'
-import { SelectedPaymentSource } from '../store/createPaymentStepReducer'
-import { PaymentContext } from '../store/CreatePaymentContext'
+import { SelectedPaymentSource } from './helpers/createPaymentStepReducer'
+import { PaymentContext } from './CreatePaymentDialog'
 
 export default function PaymentTypeSelector() {
   const paymentContext = useContext(PaymentContext)

@@ -6,7 +6,7 @@ import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { endpoints } from 'service/apiEndpoints'
-import { authConfig, authQueryFnFactory } from 'service/restRequests'
+import { authQueryFnFactory } from 'service/restRequests'
 import {
   CheckoutSessionInput,
   CheckoutSessionResponse,

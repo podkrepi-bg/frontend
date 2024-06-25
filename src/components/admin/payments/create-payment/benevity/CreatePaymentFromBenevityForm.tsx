@@ -1,7 +1,7 @@
 import { Button, Grid, Typography } from '@mui/material'
 import { useMutation } from '@tanstack/react-query'
 import { useImportBenevityDonation } from 'service/donation'
-import { CreatePaymentStore, benevityInitialValues } from '../../store/CreatePaymentStore'
+import { benevityInitialValues } from './helpers/form/initialValues'
 import { useFormikContext } from 'formik'
 import { AxiosError, AxiosResponse } from 'axios'
 import { TPaymentResponse } from 'gql/donations'

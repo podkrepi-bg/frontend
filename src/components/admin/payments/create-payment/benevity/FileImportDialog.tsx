@@ -4,10 +4,10 @@ import { useField } from 'formik'
 import { useRef, useState } from 'react'
 
 export function FileImportDialog() {
-  const [isDragging, setIsDragging] = useState(false)
+  const [, setIsDragging] = useState(false)
   const inputFile = useRef<HTMLInputElement | null>(null)
   const submitButtonRef = useRef<HTMLButtonElement | null>(null)
-  const [field, meta, { setValue }] = useField('benevityData')
+  const [, , { setValue }] = useField('benevityData')
 
   const onDragOver = (event: React.DragEvent) => {
     event.preventDefault()

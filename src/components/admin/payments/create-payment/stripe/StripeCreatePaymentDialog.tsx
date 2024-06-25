@@ -15,7 +15,6 @@ import { stripeFeeCalculator } from 'components/client/one-time-donation/helpers
 import { StripeChargeResponse, TPaymentResponse } from 'gql/donations'
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { endpoints } from 'service/apiEndpoints'
 import { useCreatePaymentFromStripeMutation } from 'service/donation'
 import Stripe from 'stripe'
 import { AlertStore } from 'stores/AlertStore'
@@ -73,7 +72,7 @@ export function CreatePaymentFromStripeChargeTable({
       <Grid item>
         <TableContainer>
           <TableHead>
-            <TableCell></TableCell>
+            <TableCell />
             <TableCell>База данни на Страйп</TableCell>
             <TableCell>Вътрена база данни</TableCell>
           </TableHead>

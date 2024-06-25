@@ -14,7 +14,7 @@ import { FieldArray, useFormikContext } from 'formik'
 
 import { BenevityImportInput } from '../benevity.types'
 import { Delete } from '@mui/icons-material'
-import { benevityDonationInitialValues } from '../../../../store/CreatePaymentStore'
+import { benevityDonationInitialValues } from './initialValues'
 import { BenevityInput } from '../../BenevityEditableInput'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 

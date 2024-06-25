@@ -1,6 +1,10 @@
 import React, { createContext } from 'react'
-import { Actions, CreatePayment, createPaymentStepReducer } from './createPaymentStepReducer'
-import CreatePaymentStepper from '../create-payment/CreatePaymentStepper'
+import {
+  Actions,
+  CreatePayment,
+  createPaymentStepReducer,
+} from './helpers/createPaymentStepReducer'
+import CreatePaymentStepper from './CreatePaymentStepper'
 import { observer } from 'mobx-react'
 
 export type PaymentContext = {

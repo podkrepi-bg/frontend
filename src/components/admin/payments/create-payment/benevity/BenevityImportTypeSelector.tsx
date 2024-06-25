@@ -1,15 +1,15 @@
 import { Box, Button, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import { CreatePaymentStore, TImportType } from '../../store/CreatePaymentStore'
 import { observer } from 'mobx-react'
 import { useContext } from 'react'
-import { PaymentContext } from '../../store/CreatePaymentContext'
+import { PaymentContext } from '../CreatePaymentDialog'
+import { BenevityImportType } from '../helpers/createPaymentStepReducer'
 
 function BenevityImportFirstStep() {
   const { t } = useTranslation()
   const paymentContext = useContext(PaymentContext)
 
-  const handleImportTypeChange = (importType: TImportType) => {
+  const handleImportTypeChange = (importType: BenevityImportType) => {
     paymentContext.dispatch({ type: 'SET_BENEVITY_IMPORT_TYPE', payload: importType })
   }
 

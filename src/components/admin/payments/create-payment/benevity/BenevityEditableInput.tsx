@@ -16,7 +16,7 @@ export const BenevityInput = ({
 }) => {
   const { t } = useTranslation()
   const [editable, setEditable] = useState(false)
-  const [field, meta, { setValue }] = useField(name)
+  const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
 
   const ref = useRef<HTMLDivElement | null>(null)

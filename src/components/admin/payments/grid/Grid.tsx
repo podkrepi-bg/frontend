@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Box, Button, IconButton, Tooltip } from '@mui/material'
+import { Box, IconButton, Tooltip } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 import {
   DataGrid,
@@ -30,7 +30,7 @@ import { PaymentStatus, PaymentProvider } from '../../../../gql/donations.enums'
 import { useSession } from 'next-auth/react'
 import { PaymentAdminResponse } from 'gql/donations'
 import Link from 'next/link'
-import CreatePaymentDialog from '../store/CreatePaymentContext'
+import CreatePaymentDialog from '../create-payment/CreatePaymentDialog'
 
 interface RenderCellProps {
   params: GridRenderCellParams
