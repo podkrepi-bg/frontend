@@ -1,5 +1,3 @@
-import { Person } from 'gql/person'
-
 export type Step = {
   title: string
   component: JSX.Element
