@@ -11,7 +11,7 @@ export const ModalStore = new ModalStoreImpl()
 export const RefundStore = new RefundStoreImpl()
 export const InvalidateStore = new ModalStoreImpl()
 
-export default function DocumentsPage() {
+export default function PaymentsPage() {
   const { t } = useTranslation()
 
   return (

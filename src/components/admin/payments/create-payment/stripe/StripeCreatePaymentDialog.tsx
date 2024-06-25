@@ -7,67 +7,40 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosResponse } from 'axios'
 import { money } from 'common/util/money'
 import { stripeFeeCalculator } from 'components/client/one-time-donation/helpers/stripe-fee-calculator'
-import CenteredSpinner from 'components/common/CenteredSpinner'
-import { useField } from 'formik'
-import { TPaymentResponse } from 'gql/donations'
-import { CardRegion, PaymentStatus } from 'gql/donations.enums'
+
+import { StripeChargeResponse, TPaymentResponse } from 'gql/donations'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { apiClient } from 'service/apiClient'
+import { useTranslation } from 'next-i18next'
 import { endpoints } from 'service/apiEndpoints'
+import { useCreatePaymentFromStripeMutation } from 'service/donation'
 import Stripe from 'stripe'
 
-type Reference = {
-  netAmount: number
-  status: PaymentStatus
-}
-
-type GetStripeChargeResponse = {
-  stripe: Stripe.Charge
-  internal?: TPaymentResponse
-  region: CardRegion
-}
-
-function useGetStripeChargeFromPID(stripeId: string) {
-  return useQuery<GetStripeChargeResponse>([
-    endpoints.payments.referenceStripeWithInternal(stripeId).url,
-  ])
-}
-
-type SynchronizeStripeWithInternalProps = {
-  data: GetStripeChargeResponse
+type CreateUpdatePaymentFromStripeChargeProps = {
+  data: StripeChargeResponse
   id: string
 }
 
-type SynchronizeWithStripeInput = GetStripeChargeResponse & {
-  id: string
-}
-
-function synchronizeWithStrip(data: any) {
-  return apiClient.patch(endpoints.payments.synchronizeWithStripe(data.id).url, data)
-}
-
-const useSynchronizeWithStripeMutation = () => {
-  return useMutation<AxiosResponse<TPaymentResponse>, unknown, SynchronizeWithStripeInput>(
-    [endpoints.payments.synchronizeWithStripe],
-    { mutationFn: synchronizeWithStrip },
-  )
-}
-
-function SynchronizeStripeWithInternal({ data, id }: SynchronizeStripeWithInternalProps) {
+export function CreatePaymentFromStripeChargeTable({
+  data,
+  id,
+}: CreateUpdatePaymentFromStripeChargeProps) {
   const { t } = useTranslation()
-  const stripeMutation = useSynchronizeWithStripeMutation()
+
+  const stripeMutation = useMutation<AxiosResponse<TPaymentResponse>, unknown, Stripe.Charge>({
+    mutationFn: useCreatePaymentFromStripeMutation(),
+  })
+
   const handleSubmit = () => {
-    const mutateData: SynchronizeWithStripeInput = {
-      id: id,
-      ...data,
-    }
-    stripeMutation.mutate(mutateData)
+    console.log(`HandleSubmit is called`)
+    stripeMutation.mutate(data.stripe)
   }
+
+  const stripeStatus = data.stripe.refunded ? 'refund' : data.stripe.status
+
   return (
     <Grid container direction={'column'} gap={2} justifyContent={'center'}>
       <Grid item xs={12}>
@@ -89,16 +62,16 @@ function SynchronizeStripeWithInternal({ data, id }: SynchronizeStripeWithIntern
           <TableHead>
             <TableCell></TableCell>
             <TableCell>База данни на Страйп</TableCell>
-            <TableCell>Вътрещна база данни</TableCell>
+            <TableCell>Вътрена база данни</TableCell>
           </TableHead>
           <TableRow>
             <TableCell>Статус</TableCell>
+            <TableCell>{t('profile:donations.status.' + stripeStatus)}</TableCell>
             <TableCell>
-              {t(
-                'profile:donations.status.' + data.stripe.refunded ? 'refund' : data.stripe.status,
-              )}
+              {data.internal?.status
+                ? t('profile:donations.status.' + data.internal?.status)
+                : 'N/A'}
             </TableCell>
-            <TableCell>{t('profile:donations.status.' + data.internal?.status)}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Сума(бруто)</TableCell>
@@ -118,23 +91,15 @@ function SynchronizeStripeWithInternal({ data, id }: SynchronizeStripeWithIntern
             <TableCell>{data.internal?.billingName ?? 'N/A'}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Дарител(име)</TableCell>
+            <TableCell>Дарител(емайл)</TableCell>
             <TableCell>{data.stripe.billing_details.email}</TableCell>
             <TableCell>{data.internal?.billingEmail ?? 'N/A'}</TableCell>
           </TableRow>
         </TableContainer>
       </Grid>
-      <Button variant="contained" onClick={handleSubmit}>
+      <Button variant="contained" onClick={() => handleSubmit()}>
         Синхронизиране
       </Button>
     </Grid>
   )
-}
-
-export default function StripeCreatePaymentDialog() {
-  const [field] = useField('extPaymentIntentId')
-  const data = useGetStripeChargeFromPID(field.value)
-  if (data.isLoading) return <CenteredSpinner />
-  if (data.isError) return
-  return <SynchronizeStripeWithInternal data={data.data} id={field.value} />
 }

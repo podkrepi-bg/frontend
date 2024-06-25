@@ -6,13 +6,14 @@ import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { endpoints } from 'service/apiEndpoints'
-import { authQueryFnFactory } from 'service/restRequests'
+import { authConfig, authQueryFnFactory } from 'service/restRequests'
 import {
   CheckoutSessionInput,
   CheckoutSessionResponse,
   DonationResponse,
   DonorsCountResult,
   PaymentAdminResponse,
+  StripeChargeResponse,
   TPaymentResponse,
   TotalDonatedMoneyResponse,
   UserDonationResult,
@@ -110,4 +111,12 @@ export function getTotalDonatedMoney() {
 
 export function useDonatedUsersCount() {
   return useQuery<DonorsCountResult>([endpoints.donation.getDonorsCount.url])
+}
+
+export function useGetStripeChargeFromPID(stripeId: string) {
+  const { data: session } = useSession()
+  return useQuery<StripeChargeResponse>(
+    [endpoints.payments.referenceStripeWithInternal(stripeId).url],
+    { queryFn: authQueryFnFactory(session?.accessToken) },
+  )
 }

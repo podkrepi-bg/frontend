@@ -248,3 +248,9 @@ export type PaymentAdminResponse = {
   items: PaymentAdminResponse[]
   total: number
 }
+
+export type StripeChargeResponse = {
+  stripe: Stripe.Charge
+  internal?: TPaymentResponse
+  region: CardRegion
+}

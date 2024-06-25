@@ -1,5 +1,6 @@
 import camelCase from 'lodash/camelCase'
 import Papa from 'papaparse'
+import { TBenevityCSVParser, TBenevityDonation } from './benevity.types'
 
 /**
  * Serialize Benevity CSV donation report to JavaScript Object
@@ -9,7 +10,7 @@ import Papa from 'papaparse'
 
 export function BenevityCSVParser(csvString: string): TBenevityCSVParser {
   const benevityObj = {} as TBenevityCSVParser
-  benevityObj.donations = [] as TBenevityDonation[]
+  benevityObj.donations = []
 
   const EXPECTED_CSV_SECTIONS = 4
   const SECTION_DELIMETER = '#-------------------------------------------,'
@@ -39,12 +40,11 @@ export function BenevityCSVParser(csvString: string): TBenevityCSVParser {
       skipEmptyLines: true,
       dynamicTyping: true,
       step(row: Papa.ParseStepResult<unknown>) {
-        const [key, value] = row.data as [string, string | number]
+        const [key, value] = row.data as [string, string]
 
         if (!key || !value) return
         const transformedKey = camelCase(key) as keyof TBenevityCSVParser
-
-        ;(benevityObj[transformedKey] as TBenevityCSVParser[typeof transformedKey]) = value
+        ;(benevityObj as BenevtyObj)[transformedKey] = value
       },
     },
   )
@@ -78,46 +78,4 @@ export function BenevityCSVParser(csvString: string): TBenevityCSVParser {
   return benevityObj
 }
 
-export type TBenevityCSVParser = {
-  charityName: string
-  charityId: string
-  periodEnding: string
-  currency: string
-  paymentMethod: string
-  disbursementId: string
-  totalDonationsGross: string
-  checkFee: string
-  note: string
-  netTotalPayment: number
-  transactionAmount: number
-  exchangeRate: number
-  donations: TBenevityDonation[]
-}
-
-export type TBenevityDonation = {
-  company: string
-  project: string
-  donationDate: string
-  donorFirstName: string
-  donorLastName: string
-  email: string
-  address: string
-  city: string
-  stateProvince: string
-  postalCode: string
-  activity: string
-  comment: string
-  transactionId: string
-  donationFrequency: string
-  currency: string
-  projectRemoteId: string
-  source: string
-  reason: string
-  totalDonationToBeAcknowledged: number
-  matchAmount: number
-  causeSupportFee: number
-  merchantFee: number
-  feeComment: string
-  totalFee: number
-  totalAmount: number
-}
+type BenevtyObj = Record<keyof TBenevityCSVParser, TBenevityCSVParser[keyof TBenevityCSVParser]>

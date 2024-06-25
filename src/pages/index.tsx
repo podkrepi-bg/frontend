@@ -9,7 +9,7 @@ import { CampaignResponse } from 'gql/campaigns'
 import { endpoints } from 'service/apiEndpoints'
 
 import { authOptions } from './api/auth/[...nextauth]'
-import CreatePaymentDialog from 'components/admin/donations/dialogs/CreatePaymentDialog'
+import CreatePaymentDialog from 'components/admin/payments/store/CreatePaymentContext'
 
 export const getServerSideProps: GetServerSideProps<{
   session: Session | null

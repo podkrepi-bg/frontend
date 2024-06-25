@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Box, IconButton, Tooltip } from '@mui/material'
+import { Box, Button, IconButton, Tooltip } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 import {
   DataGrid,
@@ -30,6 +30,7 @@ import { PaymentStatus, PaymentProvider } from '../../../../gql/donations.enums'
 import { useSession } from 'next-auth/react'
 import { PaymentAdminResponse } from 'gql/donations'
 import Link from 'next/link'
+import CreatePaymentDialog from '../store/CreatePaymentContext'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -51,7 +52,7 @@ export default observer(function Grid() {
   const [focusedRowId, setFocusedRowId] = useState(null as string | null)
   const { t } = useTranslation()
   const router = useRouter()
-  const { isDetailsOpen } = ModalStore
+  const { isDetailsOpen, isPaymentImportOpen } = ModalStore
   const { isRefundOpen } = RefundStore
   const {
     isDeleteOpen,
@@ -274,6 +275,7 @@ export default observer(function Grid() {
       {isDetailsOpen && <DetailsModal />}
       {isRefundOpen && <RefundModal />}
       {isDeleteOpen && <InvalidateModal onUpdate={refetch} />}
+      {isPaymentImportOpen && <CreatePaymentDialog />}
     </>
   )
 })
