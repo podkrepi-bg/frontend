@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useImportBenevityDonation } from 'service/donation'
 import { CreatePaymentStore, benevityInitialValues } from '../../store/CreatePaymentStore'
 import { useFormikContext } from 'formik'
-import { AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { TPaymentResponse } from 'gql/donations'
 import { BenevityRequest } from './helpers/benevity.types'
 import { useEffect } from 'react'
@@ -13,15 +13,31 @@ import { BenevityImportInput } from './helpers/benevity.types'
 import BenevityTransactionData from './helpers/form/BenevityTransactionData'
 import { BenevityDonationsTable } from './helpers/form/BenevityDonationTable'
 import { BankTransactionsInput } from 'gql/bank-transactions'
+import { AlertStore } from 'stores/AlertStore'
+import { ApiError } from 'service/apiErrors'
+import { useTranslation } from 'next-i18next'
+import { ModalStore } from '../../PaymentsPage'
 
 type CreatePaymentFromBenevityForm = {
   data: BankTransactionsInput
 }
 export function CreatePaymentFromBenevityForm({ data }: CreatePaymentFromBenevityForm) {
-  const { hideImportModal } = CreatePaymentStore
+  const { hideImport } = ModalStore
+  const { t } = useTranslation()
 
-  const benevityMutation = useMutation<AxiosResponse<TPaymentResponse>, unknown, BenevityRequest>({
+  const benevityMutation = useMutation<
+    AxiosResponse<TPaymentResponse>,
+    AxiosError<ApiError>,
+    BenevityRequest
+  >({
     mutationFn: useImportBenevityDonation(),
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.success'), 'success')
+      hideImport()
+    },
+    onError: (error: AxiosError<ApiError>) => {
+      AlertStore.show(error.message, 'error')
+    },
   })
   const { values, setFieldValue } = useFormikContext<BenevityImportInput>()
 
@@ -67,11 +83,11 @@ export function CreatePaymentFromBenevityForm({ data }: CreatePaymentFromBenevit
         <Grid container item sx={{ width: '40%' }} gap={2}>
           <SubmitButton
             fullWidth
-            label="campaigns:cta.submit"
+            label="donations:cta.submit"
             loading={benevityMutation.isLoading}
             onClick={handleSubmit}
           />
-          <Button fullWidth onClick={() => hideImportModal()}>
+          <Button fullWidth onClick={() => hideImport()}>
             Отказ
           </Button>
         </Grid>

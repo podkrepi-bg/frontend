@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material'
 import { useMutation } from '@tanstack/react-query'
-import { AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { money } from 'common/util/money'
 import { stripeFeeCalculator } from 'components/client/one-time-donation/helpers/stripe-fee-calculator'
 
@@ -18,6 +18,9 @@ import { useTranslation } from 'next-i18next'
 import { endpoints } from 'service/apiEndpoints'
 import { useCreatePaymentFromStripeMutation } from 'service/donation'
 import Stripe from 'stripe'
+import { AlertStore } from 'stores/AlertStore'
+import { ApiError } from 'service/apiErrors'
+import { ModalStore } from '../../PaymentsPage'
 
 type CreateUpdatePaymentFromStripeChargeProps = {
   data: StripeChargeResponse
@@ -29,13 +32,23 @@ export function CreatePaymentFromStripeChargeTable({
   id,
 }: CreateUpdatePaymentFromStripeChargeProps) {
   const { t } = useTranslation()
-
-  const stripeMutation = useMutation<AxiosResponse<TPaymentResponse>, unknown, Stripe.Charge>({
+  const { hideImport } = ModalStore
+  const stripeMutation = useMutation<
+    AxiosResponse<TPaymentResponse>,
+    AxiosError<ApiError>,
+    Stripe.Charge
+  >({
     mutationFn: useCreatePaymentFromStripeMutation(),
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.success'), 'success')
+      hideImport()
+    },
+    onError: (error: AxiosError<ApiError>) => {
+      AlertStore.show(error.message, 'error')
+    },
   })
 
   const handleSubmit = () => {
-    console.log(`HandleSubmit is called`)
     stripeMutation.mutate(data.stripe)
   }
 
