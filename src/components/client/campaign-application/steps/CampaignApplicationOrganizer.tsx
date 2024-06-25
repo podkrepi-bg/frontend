@@ -46,12 +46,12 @@ export default function CampaignApplicationOrganizer() {
       </Grid>
       <Grid item container spacing={2}>
         <Grid item container xs={12}>
-          <AcceptTermsField name="organizer.termsAndConditions" />
+          <AcceptTermsField name="organizer.acceptTermsAndConditions" />
         </Grid>
         <Grid item container xs={12}>
           <FormControl component="fieldset">
             <CheckboxField
-              name="organizer.transparencyTerms"
+              name="organizer.transparencyTermsAccepted"
               label={
                 <Typography variant="body2">{t('steps.organizer.transparencyTerms')}</Typography>
               }
@@ -59,7 +59,7 @@ export default function CampaignApplicationOrganizer() {
           </FormControl>
         </Grid>
         <Grid item container xs={12}>
-          <AcceptPrivacyPolicyField name="organizer.personalInformation" />
+          <AcceptPrivacyPolicyField name="organizer.personalInformationProcessingAccepted" />
         </Grid>
       </Grid>
     </Grid>
