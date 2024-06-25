@@ -13,8 +13,6 @@
   "terms-of-use": "Please accept the Terms and Conditions",
   "terms-of-service": "Please accept the GDPR policy",
   "agree-with": "I agree to the",
-  "agree-with-newsletter": "I agree to receive news",
-  "agree-with-newsletter-campaign": "I agree to receive news about this campaign and news by Podkrepi.bg *",
   "informed-agree-with": "I understand and I agree to the",
   "terms-and-conditions": "Terms and Conditions",
   "gdpr": "General Data Protection Regulation (GDPR)",
@@ -23,5 +21,5 @@
   "unique-field-violation": "The field `{1}` with this value already exists in the platform.",
   "payment-reference": "Invalid payment code format",
   "eik-invalid": "Invalid EIK",
-  "help-us-improve": "Do you want to help us improve the platform? We want to hear from you? Please spare 30 minutes to help us improve Podkrepi.bg"
+  "help-us-improve": "I agree to be contacted to help improve the platform."
 }

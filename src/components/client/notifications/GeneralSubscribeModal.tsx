@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
-import { Trans } from 'react-i18next'
+import { Trans } from 'next-i18next'
 import { useTranslation } from 'next-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
@@ -117,7 +117,11 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
             </Typography>
           </Grid>
           <Grid item xs={12} textAlign="center">
-            <EmailField label="auth:fields.email-descriptive" name="email" sx={{ width: '70%' }} />
+            <EmailField
+              label={t('common:notifications.email-descriptive')}
+              name="email"
+              sx={{ width: '70%' }}
+            />
           </Grid>
           <Grid item xs={12}>
             <AcceptNewsLetterField name="consent" />

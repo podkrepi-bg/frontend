@@ -831,6 +831,51 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "kdachev97",
+      "name": "Krum Dachev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/149360576?v=4",
+      "profile": "https://github.com/kdachev97",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Tuscann",
+      "name": "Tuscann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16596102?v=4",
+      "profile": "https://github.com/Tuscann",
+      "contributions": [
+        "test"
+      ]
+    },
+    {
+      "login": "iliyan90",
+      "name": "iliyan90",
+      "avatar_url": "https://avatars.githubusercontent.com/u/74927065?v=4",
+      "profile": "https://github.com/iliyan90",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "gparlakov",
+      "name": "Georgi Parlakov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3482199?v=4",
+      "profile": "https://github.com/gparlakov",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "teodorazhelyazkova",
+      "name": "Teodora Zhelyazkova",
+      "avatar_url": "https://avatars.githubusercontent.com/u/103574320?v=4",
+      "profile": "https://github.com/teodorazhelyazkova",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 10,

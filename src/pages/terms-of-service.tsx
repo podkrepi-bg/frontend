@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth'])),
   },
 })
 

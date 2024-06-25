@@ -59,7 +59,7 @@ export default observer(function Grid() {
     setSelectedRecord: setInvalidateRecord,
     showDelete: showInvalidate,
   } = InvalidateStore
-  const paymentId = router.query.paymentId as string | undefined
+  const paymentId = router.query.id as string | undefined
   const { data: session } = useSession()
   const canEditFinancials = session?.user?.realm_access?.roles.includes(
     'account-edit-financials-requests',

@@ -67,6 +67,7 @@ export const partnerUrls = {
   mentormate: 'https://mentormate.com/',
   eightyEight: 'https://www.88studiodesign.com/',
   crossroadsBulgaria: 'https://crossroadsbulgaria.com/',
+  lucrat: 'https://lucrat.net/',
 }
 
 export const routes = {
@@ -90,6 +91,7 @@ export const routes = {
   campaigns: {
     index: '/campaigns',
     create: '/campaigns/create',
+    application: 'campaigns/application',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
     viewExpenses: (slug: string) => `/campaigns/${slug}/expenses`,
     oneTimeDonation: (slug: string) => `/campaigns/donation/${slug}`,
@@ -246,6 +248,10 @@ export const routes = {
     },
     company: {
       create: '/admin/companies/create',
+    },
+    marketing: {
+      index: '/admin/marketing/',
+      newsLetterConsent: '/admin/marketing/newsletter-consent',
     },
   },
   dev: {

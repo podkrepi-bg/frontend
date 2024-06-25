@@ -113,7 +113,7 @@ const StyledTimeline = styled(Timeline)(({ theme }) => ({
     padding: 0,
   },
 
-  [`div.${classes.articleDescription} > p`]: {
+  [`article.${classes.articleDescription} > p`]: {
     margin: 0,
   },
 
@@ -162,7 +162,8 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   const { t, i18n } = useTranslation('news')
   const { small }: { small: boolean } = useMobile()
 
-  const INITIAL_HEIGHT_LIMIT = 200
+  const LINE_HEIGHT = theme.typography.body1.lineHeight
+  const INITIAL_HEIGHT_LIMIT = 200 * Number(LINE_HEIGHT)
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
@@ -249,7 +250,9 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                     )}
                     <Grid container gap={1} direction={'column'} className={classes.articleContent}>
                       <Grid item>
-                        <Typography className={classes.articleHeader}>{article.title}</Typography>
+                        <Typography component={'h2'} className={classes.articleHeader}>
+                          {article.title}
+                        </Typography>
                       </Grid>
                       <Grid
                         container
@@ -265,7 +268,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                         }}>
                         <QuillStypeWrapper>
                           <Typography
-                            component={'div'}
+                            component={'article'}
                             className={classes.articleDescription}
                             dangerouslySetInnerHTML={{
                               __html: sanitizedDescription,

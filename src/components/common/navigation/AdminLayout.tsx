@@ -16,6 +16,10 @@ import Link from 'next/link'
 import { routes } from 'common/routes'
 import PictureLogo from '/public/android-chrome-192x192.png'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
+import { isAdmin } from 'common/util/roles'
+
+import NotFoundPage from '../errors/NotFoundPage/NotFoundPage'
 
 const PREFIX = 'AdminLayout'
 const drawerWidth = 200
@@ -97,7 +101,10 @@ type Props = {
 
 export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
-
+  const session = useSession()
+  if (!isAdmin(session.data)) {
+    return <NotFoundPage />
+  }
   const initialOpen = useMemo<boolean>(() => {
     const item = typeof window !== 'undefined' ? window.localStorage.getItem('menu-open') : false
     if (item) {

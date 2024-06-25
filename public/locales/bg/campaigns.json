@@ -207,5 +207,12 @@
     "nature": "Природа",
     "art": "Изкуство",
     "others": "Други"
+  },
+  "campaign-details-report": {
+    "amount-collected": "Събрана сума",
+    "available": "Налични",
+    "guaranteed": "Гарантирани",
+    "translated": "Преведени",
+    "accounted": "Отчетени"
   }
 }

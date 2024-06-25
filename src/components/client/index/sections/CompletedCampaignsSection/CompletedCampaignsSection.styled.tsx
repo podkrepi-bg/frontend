@@ -2,7 +2,7 @@ import Slider from 'react-slick'
 
 import { Grid, Box, Typography } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
 

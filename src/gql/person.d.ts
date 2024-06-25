@@ -9,7 +9,6 @@ export type PersonResponse = {
   email?: string
   phone?: string
   address: string
-  company: string
   createdAt: string
   newsletter: boolean
   emailConfirmed: boolean
@@ -17,6 +16,7 @@ export type PersonResponse = {
   coordinators?: PersonRoleResponse
   organizer?: PersonRoleResponse
   profileEnabled: boolean
+  company: Pick<CompanyResponse, 'id' | 'companyName'>
 }
 
 export type PersonRoleResponse = {

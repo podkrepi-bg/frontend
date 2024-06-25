@@ -127,7 +127,10 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
         {profileType === AccountType.INDIVIDUAL && (
           <>
             <Typography sx={{ paddingTop: 1, px: 1 }}>{t('auth:register.individual')}</Typography>
-            <Tooltip title={t('auth:register.individual-subtitle')} sx={{ padding: 0 }}>
+            <Tooltip
+              enterTouchDelay={0}
+              title={t('auth:register.individual-subtitle')}
+              sx={{ padding: 0 }}>
               <Button
                 startIcon={<InfoIcon style={{ width: 20 }} />}
                 sx={{
@@ -166,7 +169,10 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
         {profileType === AccountType.CORPORATE && (
           <>
             <Typography sx={{ paddingTop: 1, px: 1 }}>{t('auth:register.corporate')}</Typography>
-            <Tooltip title={t('auth:register.corporate-subtitle')} sx={{ padding: 0 }}>
+            <Tooltip
+              enterTouchDelay={0}
+              title={t('auth:register.corporate-subtitle')}
+              sx={{ padding: 0 }}>
               <Button
                 startIcon={<InfoIcon style={{ width: 20 }} />}
                 sx={{

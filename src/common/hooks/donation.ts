@@ -92,7 +92,10 @@ export async function prefetchDonationsList(client: QueryClient) {
 }
 
 export function useGetPayment(id: string) {
-  return useQuery<TPaymentResponse>([endpoints.payments.getPayment(id).url])
+  const { data: session } = useSession()
+  return useQuery<TPaymentResponse>([endpoints.payments.getPayment(id).url], {
+    queryFn: authQueryFnFactory(session?.accessToken),
+  })
 }
 
 export async function prefetchDonationById(client: QueryClient, id: string) {

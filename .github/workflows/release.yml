@@ -134,7 +134,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@v4
 
       - name: Install kustomize
         uses: imranismail/setup-kustomize@v2
@@ -175,7 +175,7 @@ jobs:
       contents: write
     steps:
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
 
@@ -191,7 +191,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@v4
 
       - name: Install kustomize
         uses: imranismail/setup-kustomize@v2

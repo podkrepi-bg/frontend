@@ -7,13 +7,13 @@ export type AcceptNewsLetterFieldProps = {
 }
 
 export function AcceptNewsLetterField({ name }: AcceptNewsLetterFieldProps) {
-  const { t } = useTranslation('validation')
+  const { t } = useTranslation('common')
   return (
     <CheckboxField
       name={name}
       label={
         <Typography textAlign="start" variant="body2">
-          {t('agree-with-newsletter')}
+          {t('notifications.agree-with-newsletter')}
         </Typography>
       }
     />
@@ -21,14 +21,13 @@ export function AcceptNewsLetterField({ name }: AcceptNewsLetterFieldProps) {
 }
 
 export function AcceptNewsLetterFieldCampaign({ name }: AcceptNewsLetterFieldProps) {
-  const { t } = useTranslation('validation')
+  const { t } = useTranslation('common')
   return (
     <CheckboxField
-      sx={{ paddingTop: '0px' }}
       name={name}
       label={
         <Typography textAlign="start" variant="body2">
-          {t('agree-with-newsletter-campaign')}
+          {t('notifications.agree-with-newsletter-campaign')}
         </Typography>
       }
     />

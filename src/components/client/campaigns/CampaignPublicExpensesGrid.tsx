@@ -67,7 +67,6 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       field: 'amount',
       headerName: t('expenses:fields.amount'),
       headerClassName: classes.gridColumn,
-      align: 'right',
       minWidth: 120,
       valueGetter: ({ value, row }) => value && toMoney(row.amount, 1),
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
@@ -151,6 +150,11 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
           },
           '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': {
             py: '22px',
+          },
+        }}
+        localeText={{
+          MuiTablePagination: {
+            labelRowsPerPage: t('common:rows'),
           },
         }}
       />

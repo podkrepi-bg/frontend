@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { DonationResponse } from 'gql/donations'
 import { AxiosError, AxiosResponse } from 'axios'
 import {

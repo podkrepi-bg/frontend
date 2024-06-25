@@ -84,7 +84,7 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
     <Root>
       <Grid item className={classes.donationsWrapper} data-testid="summary-donors-wrapper">
         {donationsToShow && donationsToShow.length !== 0 ? (
-          donationsToShow.map(({ type, metadata, person, amount, updatedAt, currency }, key) => (
+          donationsToShow.map(({ type, metadata, person, amount, createdAt, currency }, key) => (
             <Grid key={key} className={classes.donationItemWrapper}>
               <AccountCircleIcon
                 sx={{ position: 'relative', bottom: !metadata || !metadata.name ? 0 : 8 }}
@@ -124,7 +124,7 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
                   <Typography>{moneyPublic(amount, currency)}</Typography>
                   <span className={classes.separatorIcon}>|</span>
                   <Typography>
-                    {formatDistanceStrict(parseISO(updatedAt), new Date(), {
+                    {formatDistanceStrict(parseISO(createdAt), new Date(), {
                       locale: i18n?.language == 'bg' ? bg : enUS,
                       addSuffix: true,
                     })}
