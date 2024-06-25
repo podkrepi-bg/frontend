@@ -3,6 +3,7 @@ import { useReducer } from 'react'
 export const ACTIONS = {
   CREATE_PAYMENT: 'CREATE_PAYMENT',
   INCREMENT_STEP: 'INCREMENT_STEP',
+  DECREMENT_STEP: 'DECREMENT_STEP',
   UPDATE_PAYMENT_SOURCE: 'UPDATE_PAYMENT_SOURCE',
   RESET_MODAL: 'RESET_MODAL',
   SET_BENEVITY_IMPORT_TYPE: 'SET_BENEVITY_IMPORT_TYPE',
@@ -54,6 +55,13 @@ function reducer(state: CreatePayment, actions: Actions): CreatePayment {
         ...state,
         benevityImportType: actions.payload as BenevityImportType,
         step: 1,
+      }
+    case 'DECREMENT_STEP':
+      return {
+        ...state,
+        paymentSource:
+          state.paymentSource !== 'none' && state.step === 0 ? 'none' : state.paymentSource,
+        step: state.step - 1 > 1 ? state.step-- : 0,
       }
     default:
       return state

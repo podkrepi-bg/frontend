@@ -1,4 +1,4 @@
-import { Card, CardContent, Dialog } from '@mui/material'
+import { Button, Card, CardContent, Dialog, Grid, IconButton } from '@mui/material'
 
 import { Form, Formik, useField, useFormikContext } from 'formik'
 import React, { useContext } from 'react'
@@ -15,7 +15,8 @@ import { StripeChargeLookupForm } from './stripe/StripeChargeLookupForm'
 import { SelectedPaymentSource } from '../store/createPaymentStepReducer'
 import { CreatePaymentFromStripeCharge } from './stripe/CreatePaymentFromStripeCharge'
 import { ModalStore } from '../PaymentsPage'
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { Close } from '@mui/icons-material'
 type Validation = yup.InferType<
   typeof stripeInputValidation | typeof benevityValidation | typeof benevityInputValidation
 >
@@ -63,21 +64,46 @@ function CreatePaymentStepper() {
     dispatch({ type: 'RESET_MODAL' })
     hideImport()
   }
+
+  const handleOnBackClick = () => {
+    dispatch({ type: 'DECREMENT_STEP' })
+  }
   return (
     <Dialog open={isPaymentImportOpen} onClose={onClose} maxWidth={false}>
       <Card sx={{ display: 'flex' }}>
         <CardContent>
-          <Formik
-            validateOnBlur
-            onSubmit={async () => {
-              if (payment.step < steps[payment.paymentSource].length - 1) {
-                dispatch({ type: 'INCREMENT_STEP' })
-              }
-            }}
-            initialValues={{}}
-            validationSchema={steps[payment.paymentSource][payment.step].validation}>
-            <Form>{steps[payment.paymentSource][payment.step].component}</Form>
-          </Formik>
+          <Grid container direction="column" gap={3}>
+            <Grid
+              container
+              item
+              direction={'row'}
+              justifyContent={'space-between'}
+              px={1}
+              sx={{ display: payment.paymentSource !== 'none' ? 'flex' : 'none' }}>
+              <Button
+                startIcon={<ArrowBackIcon />}
+                onClick={handleOnBackClick}
+                sx={{ display: payment.paymentSource !== 'none' ? 'flex' : 'none', padding: 0 }}>
+                Назад
+              </Button>
+              <IconButton onClick={onClose} sx={{ alignSelf: 'flex-end', padding: 0 }}>
+                <Close color="error" />
+              </IconButton>
+            </Grid>
+            <Grid container item>
+              <Formik
+                validateOnBlur
+                onSubmit={async () => {
+                  if (payment.step < steps[payment.paymentSource].length - 1) {
+                    dispatch({ type: 'INCREMENT_STEP' })
+                  }
+                }}
+                initialValues={{}}
+                validationSchema={steps[payment.paymentSource][payment.step].validation}>
+                <Form>{steps[payment.paymentSource][payment.step].component}</Form>
+              </Formik>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
     </Dialog>
