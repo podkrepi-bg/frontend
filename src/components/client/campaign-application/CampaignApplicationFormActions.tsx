@@ -25,23 +25,28 @@ export default function CampaignApplicationFormActions({
   const { t } = useTranslation('campaign-application')
 
   return (
-    <Root container item xs={12} spacing={3} justifyContent="space-between">
-      <Grid item sx={{ textAlign: 'left' }}>
+    <Root container item xs={12} spacing={6} justifyContent="space-between">
+      <Grid item xs={12} md={6} flexWrap="nowrap">
         {activeStep === 0 ? (
           <ActionLinkButton
+            fullWidth
             href=""
             variant="outlined"
             startIcon={<ArrowBackIosIcon fontSize="small" />}>
             {t('cta.back')}
           </ActionLinkButton>
         ) : (
-          <ActionButton onClick={onBack} startIcon={<ArrowBackIosIcon fontSize="small" />}>
+          <ActionButton
+            fullWidth
+            onClick={onBack}
+            startIcon={<ArrowBackIosIcon fontSize="small" />}>
             {t('cta.back')}
           </ActionButton>
         )}
       </Grid>
-      <Grid item>
+      <Grid item xs={12} md={6} flexWrap="nowrap">
         <ActionSubmitButton
+          fullWidth
           label={t('cta.next')}
           endIcon={<ArrowForwardIosIcon fontSize="small" />}
         />

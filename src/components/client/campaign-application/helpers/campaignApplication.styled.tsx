@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles'
 import { Grid, Step, StepConnector, Stepper } from '@mui/material'
-
+import Heading from 'components/common/Heading'
+import FormTextField from 'components/common/form/FormTextField'
 import theme from 'common/theme'
 
 export const StyledCampaignApplicationStep = styled(Step)(() => ({
@@ -54,8 +55,12 @@ export const StyledCampaignApplicationStepperIcon = styled(Grid)(() => ({
   fontSize: theme.typography.pxToRem(36),
 }))
 
-export const ActionsContainer = styled(Grid)(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-  marginTop: theme.spacing(1),
+export const StyledStepHeading = styled(Heading)(() => ({
+  fontWeight: 600,
+  paddingBlock: theme.spacing(5),
+}))
+
+export const StyledFormTextField = styled(FormTextField)(() => ({
+  borderRadius: theme.borders.round,
+  height: theme.spacing(5),
 }))

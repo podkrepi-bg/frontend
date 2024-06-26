@@ -2,7 +2,11 @@ import { useCallback, useState } from 'react'
 
 import { Grid, StepLabel } from '@mui/material'
 
-import { Step as StepType, Steps } from './helpers/campaignApplication.types'
+import {
+  CampaignApplicationFormData,
+  Step as StepType,
+  Steps,
+} from './helpers/campaignApplication.types'
 
 import GenericForm from 'components/common/form/GenericForm'
 import CampaignApplicationStepperIcon from './CampaignApplicationStepperIcon'
@@ -13,14 +17,21 @@ import CampaignApplicationFormActions from './CampaignApplicationFormActions'
 import CampaignApplicationRemark from './CampaignApplicationRemark'
 import stepsHandler from './helpers/stepsHandler'
 
+import { validationSchema } from './helpers/validation-schema'
+
 import {
-  ActionsContainer,
   StyledCampaignApplicationStep,
   StyledCampaignApplicationStepper,
   StyledStepConnector,
 } from './helpers/campaignApplication.styled'
 
-const initialValues: Record<string, string> = {}
+const initialValues: CampaignApplicationFormData = {
+  organizer: {
+    name: '',
+    phone: '',
+    email: '',
+  },
+}
 
 const steps: StepType[] = [
   {
@@ -50,7 +61,10 @@ export default function CampaignApplicationForm() {
 
   return (
     <>
-      <GenericForm<Record<string, string>> onSubmit={handleSubmit} initialValues={initialValues}>
+      <GenericForm<CampaignApplicationFormData>
+        onSubmit={handleSubmit}
+        initialValues={initialValues}
+        validationSchema={validationSchema[activeStep]}>
         <StyledCampaignApplicationStepper
           activeStep={activeStep}
           connector={<StyledStepConnector />}>
@@ -60,14 +74,14 @@ export default function CampaignApplicationForm() {
             </StyledCampaignApplicationStep>
           ))}
         </StyledCampaignApplicationStepper>
-        <ActionsContainer container spacing={5}>
+        <Grid container>
           <Grid container item xs={12}>
             {activeStep < steps.length && steps[activeStep].component}
           </Grid>
-          <Grid container item spacing={3}>
+          <Grid container item alignContent="center">
             <CampaignApplicationFormActions activeStep={activeStep} onBack={handleBack} />
           </Grid>
-        </ActionsContainer>
+        </Grid>
       </GenericForm>
       {(activeStep === Steps.ORGANIZER || activeStep === Steps.CAMPAIGN) && (
         <CampaignApplicationRemark />
