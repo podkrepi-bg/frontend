@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { useSession } from 'next-auth/react'
 
 import {
@@ -9,7 +9,10 @@ import {
   DonationBankInput,
   DonationResponse,
   StripeRefundResponse,
+  SubscriptionPaymentInput,
+  UpdateSetupIntentInput,
   UserDonationInput,
+  CancelSetupIntentInput,
 } from 'gql/donations'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
@@ -17,6 +20,9 @@ import { authConfig } from 'service/restRequests'
 import { UploadBankTransactionsFiles } from 'components/admin/bank-transactions-file/types'
 import { useMutation } from '@tanstack/react-query'
 import { FilterData } from 'gql/types'
+import { PaymentMode } from 'components/client/donation-flow/helpers/types'
+import { Session } from 'next-auth'
+import { SetupIntent } from '@stripe/stripe-js'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
@@ -25,15 +31,70 @@ export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   )
 }
 
-export function useCreatePaymentIntent(params: Stripe.PaymentIntentCreateParams) {
+export function useCreatePaymentIntent() {
+  //Create payment intent useing the react-query mutation
+  return useMutation({
+    mutationKey: [endpoints.donation.createPaymentIntent.url],
+    mutationFn: async (data: Stripe.PaymentIntentCreateParams) => {
+      return await apiClient.post<
+        Stripe.PaymentIntentCreateParams,
+        AxiosResponse<Stripe.PaymentIntent>
+      >(endpoints.donation.createPaymentIntent.url, data)
+    },
+  })
+}
+
+export function useUpdateSetupIntent() {
   //Create payment intent useing the react-query mutation
   const { data: session } = useSession()
-  return useMutation(async () => {
-    return await apiClient.post<
-      Stripe.PaymentIntentCreateParams,
-      AxiosResponse<Stripe.PaymentIntent>
-    >(endpoints.donation.createPaymentIntent.url, params, authConfig(session?.accessToken))
+  return useMutation({
+    mutationFn: async ({ id, idempotencyKey, payload }: UpdateSetupIntentInput) => {
+      return await apiClient.post<
+        Stripe.SetupIntentUpdateParams,
+        AxiosResponse<Stripe.SetupIntent>
+      >(
+        endpoints.donation.updateSetupIntent(id, idempotencyKey).url,
+        payload,
+        authConfig(session?.accessToken),
+      )
+    },
   })
+}
+
+export function useCancelSetupIntent() {
+  return useMutation<AxiosResponse<SetupIntent>, AxiosError, CancelSetupIntentInput>({
+    mutationFn: async ({ id }) => {
+      return await apiClient.patch<CancelSetupIntentInput, AxiosResponse<SetupIntent>>(
+        endpoints.donation.cancelSetupIntent(id).url,
+      )
+    },
+  })
+}
+
+export function useCreateSubscriptionPayment() {
+  const { data: session } = useSession()
+  return useMutation(async (data: SubscriptionPaymentInput) => {
+    return await apiClient.post<SubscriptionPaymentInput, AxiosResponse<Stripe.PaymentIntent>>(
+      endpoints.donation.createSubscriptionPayment.url,
+      data,
+      authConfig(session?.accessToken),
+    )
+  })
+}
+
+export async function createIntentFromSetup(
+  setupIntentId: string,
+  idempotencyKey: string,
+  mode: PaymentMode,
+  session: Session | null,
+): Promise<AxiosResponse<Stripe.PaymentIntent>> {
+  return await apiClient.post<PaymentMode, AxiosResponse<Stripe.PaymentIntent>, AxiosError<Error>>(
+    mode === 'one-time'
+      ? endpoints.donation.createPaymentIntentFromSetup(setupIntentId, idempotencyKey).url
+      : endpoints.donation.createSubscriptionFromSetup(setupIntentId, idempotencyKey).url,
+    undefined,
+    authConfig(session?.accessToken),
+  )
 }
 
 export function useCreateBankDonation() {

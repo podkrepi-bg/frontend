@@ -16,7 +16,7 @@ export default function NumberInputField({
   name = 'otherAmount',
   limit = Number.MAX_SAFE_INTEGER,
 }: Props) {
-  const { t, i18n } = useTranslation('one-time-donation')
+  const { t, i18n } = useTranslation('donation-flow')
   const [, meta, { setValue, setError }] = useField(name)
 
   useEffect(() => {
@@ -28,9 +28,12 @@ export default function NumberInputField({
       name={name}
       type="number"
       value={meta.value === 1 ? '' : meta.value}
-      label={t('first-step.amount')}
+      label={t('step.amount.field.other-amount.label')}
       lang={i18n?.language}
       onKeyDown={(e) => {
+        if ((e.shiftKey && e.key === 'Tab') || e.key === 'Tab') {
+          return
+        }
         if (meta.error && e.key !== 'Backspace' && e.key !== 'Delete' && !isInteger(meta.value)) {
           e.preventDefault()
           return
@@ -79,11 +82,15 @@ export default function NumberInputField({
       onChange={(e) => {
         const amount = e.target.value
         if (isNaN(Number(amount))) {
-          setError(t('first-step.only-numbers'))
+          setError(t('step.amount.field.other-amount.only-numbers'))
           return
         }
         if (Number(amount) > limit) {
-          setError(t('first-step.transaction-limit', { limit: moneyPublic(limit, 'BGN', 1) }))
+          setError(
+            t('step.amount.field.other-amount.transaction-limit', {
+              limit: moneyPublic(limit, 'BGN', 1),
+            }),
+          )
           return
         } else if (Number(amount) < 1) {
           setValue(1)
@@ -97,11 +104,12 @@ export default function NumberInputField({
         inputProps: {
           max: limit,
           inputMode: 'decimal',
+          tabIndex: 0,
         },
         style: { padding: 5 },
         endAdornment: (
           <InputAdornment variant="filled" position="end">
-            {t('first-step.BGN')}
+            {t('step.amount.field.other-amount.currency')}
           </InputAdornment>
         ),
       }}

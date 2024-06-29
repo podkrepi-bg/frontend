@@ -29,6 +29,9 @@ export class CampaignsPage extends HomePage {
   private readonly bgWishesButtonText = bgLocalizationCampaigns.campaign['wishes']
   private readonly enWishesButtonText = enLocalizationCampaigns.campaign['wishes']
 
+  /**
+   * Ovverride the method from the BasePage and add the specific selector for the Campaigns page as default
+   */
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await this.page.waitForTimeout(1000)
     await expect(this.page, 'The URL is not correct!').toHaveURL(

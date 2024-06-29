@@ -7,13 +7,18 @@ import CheckboxField from 'components/common/form/CheckboxField'
 
 export type AcceptGDPRFieldProps = {
   name: string
+  showFieldError?: boolean
 }
 
-export default function AcceptPrivacyPolicyField({ name }: AcceptGDPRFieldProps) {
+export default function AcceptPrivacyPolicyField({
+  name,
+  showFieldError = true,
+}: AcceptGDPRFieldProps) {
   const { t } = useTranslation()
   return (
     <CheckboxField
       name={name}
+      showFieldError={showFieldError}
       label={
         <Typography variant="body2">
           {t('validation:informed-agree-with')}{' '}
