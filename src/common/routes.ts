@@ -160,6 +160,10 @@ export const routes = {
       viewCampaignBySlug: (slug: string) => `/admin/campaigns/${slug}`,
       edit: (id: string) => `/admin/campaigns/edit/${id}`,
     },
+    campaignApplications: {
+      index: '/admin/campaign-applications',
+      edit: (id: string) => `/admin/campaign-applications/edit/${id}`,
+    },
     news: {
       index: '/admin/campaign-news',
       create: '/admin/campaign-news/create',
