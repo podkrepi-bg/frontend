@@ -1,5 +1,3 @@
-import { Person } from 'gql/person'
-
 export type Step = {
   title: string
   component: JSX.Element
@@ -16,6 +14,9 @@ export type CampaignApplicationOrganizer = {
   name: string
   phone: string
   email: string
+  acceptTermsAndConditions: boolean
+  transparencyTermsAccepted: boolean
+  personalInformationProcessingAccepted: boolean
 }
 
 export type CampaignApplicationFormData = {

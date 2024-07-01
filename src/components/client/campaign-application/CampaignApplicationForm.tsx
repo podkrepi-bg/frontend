@@ -30,6 +30,9 @@ const initialValues: CampaignApplicationFormData = {
     name: '',
     phone: '',
     email: '',
+    acceptTermsAndConditions: false,
+    transparencyTermsAccepted: false,
+    personalInformationProcessingAccepted: false,
   },
 }
 
