@@ -28,7 +28,7 @@ test.describe.serial(
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
-      await headerPage.changeLanguageToBe(LanguagesEnum.EN)
+      // await headerPage.changeLanguageToBe(LanguagesEnum.BG)
     })
 
     test.afterAll(async () => {
