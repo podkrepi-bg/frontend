@@ -45,9 +45,12 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
-    'no-restricted-imports': ["error", {
-      "name": "react-i18next",
-      "message": "Please use next-i18next"
-    }]
+    'no-restricted-imports': [
+      'error',
+      {
+        name: 'react-i18next',
+        message: 'Please use next-i18next',
+      },
+    ],
   },
 }
