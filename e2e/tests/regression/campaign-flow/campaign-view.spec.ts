@@ -28,7 +28,7 @@ test.describe.serial(
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
-      // await headerPage.changeLanguageToBe(LanguagesEnum.BG)
+      await headerPage.changeLanguageToBe(LanguagesEnum.EN)
     })
 
     test.afterAll(async () => {
@@ -36,7 +36,7 @@ test.describe.serial(
     })
 
     test('Particular campaign can be opened through the Campaign page', async () => {
-      await headerPage.clickDonateHeaderNavButton()
+      await headerPage.clickDonateHeaderNavButton(LanguagesEnum.EN)
       await campaignsPage.clickCampaignCardByIndex(0)
 
       expect(
