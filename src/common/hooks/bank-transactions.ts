@@ -1,4 +1,4 @@
-import { BankTransactionsHistoryResponse } from 'gql/bank-transactions'
+import { BankTransactionsHistoryResponse, BankTransactionsInput } from 'gql/bank-transactions'
 import { useSession } from 'next-auth/react'
 
 import { useQuery } from '@tanstack/react-query'
@@ -19,5 +19,13 @@ export function useBankTransactionsList(
     {
       queryFn: authQueryFnFactory(session?.accessToken),
     },
+  )
+}
+
+export function useFindBankTransaction(id: string) {
+  const { data: session } = useSession()
+  return useQuery<BankTransactionsInput>(
+    [endpoints.bankTransactions.getTransactionById(id).url],
+    authQueryFnFactory<BankTransactionsInput>(session?.accessToken),
   )
 }
