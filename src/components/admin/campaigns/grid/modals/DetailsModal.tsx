@@ -32,7 +32,7 @@ export default function DetailsModal({ campaign, onClose }: Props) {
           <Typography variant="body1">
             {t('Заглавие')}: {campaign.title}
           </Typography>
-          <Typography variant="body1">Слъг: {campaign.slug}</Typography>
+          <Typography variant="body1">Кратко наименование: {campaign.slug}</Typography>
           <Typography variant="body1">
             Целева сума: {money(campaign.targetAmount, campaign.currency)}
           </Typography>
