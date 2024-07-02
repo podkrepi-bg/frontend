@@ -21,5 +21,6 @@
   "unique-field-violation": "The field `{1}` with this value already exists in the platform.",
   "payment-reference": "Invalid payment code format",
   "eik-invalid": "Invalid EIK",
-  "help-us-improve": "I agree to be contacted to help improve the platform."
+  "help-us-improve": "I agree to be contacted to help improve the platform.",
+  "positive-amount": "The amount must be a positive number."
 }
