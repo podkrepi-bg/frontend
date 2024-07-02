@@ -116,7 +116,7 @@ export default function CreateForm({ campaigns }: Props) {
       onSubmit={handleSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}>
-      <Box>
+      <Box mb={5}>
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
           {t('form-heading')}
         </Typography>
