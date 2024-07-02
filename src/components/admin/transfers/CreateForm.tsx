@@ -70,7 +70,7 @@ export default function CreateForm({ campaigns }: Props) {
             return value ? value < Number(fromMoney(currentAmount)) : false
           },
         }),
-      otherwise: yup.number().positive().integer().required(),
+      otherwise: yup.number().positive('validation:positive-amount').integer().required(),
     }),
     reason: yup.string().trim().min(1).max(300).required(),
     documentId: yup.string().uuid().notRequired().nullable(),
