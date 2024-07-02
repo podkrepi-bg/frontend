@@ -1,0 +1,23 @@
+{
+  "steps": {
+    "organizer": {
+      "title": "Organizer",
+      "name": "Your First and Last Name",
+      "phone": "Contact phone",
+      "email": "Email",
+      "transparencyTerms": "I confirm that the campaign meets the basic principles for publishing on the platform: it is legal, it is moral, and it is not business-oriented."
+    }
+  },
+  "cta": {
+    "next": "Save and continue",
+    "back": "Back"
+  },
+  "remark": {
+    "part-one": "*Additional information about the application process and its stages can be found in our ",
+    "part-two": "and in the section ",
+    "links": {
+      "terms": "Terms and Conditions ",
+      "faq": "Frequently Asked Questions"
+    }
+  }
+}
