@@ -106,7 +106,9 @@ function DonationTable({ donations }: DonationTableProps) {
                   <TableCell>{`${t(
                     'profile:donations.status.' + donation.payment.status,
                   )}`}</TableCell>
-                  <TableCell>{donation.payment.provider}</TableCell>
+                  <TableCell sx={{ textTransform: 'capitalize' }}>
+                    {donation.payment.provider}
+                  </TableCell>
                   <TableCell>
                     <Link
                       target="_blank"

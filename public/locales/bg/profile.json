@@ -51,13 +51,13 @@
     "lv": "лв",
     "status": {
       "header": "Статус",
-      "initial": "започнато",
-      "waiting": "чакащо",
-      "succeeded": "успешно",
-      "refund": "възстановено",
-      "cancelled": "отменено",
-      "guaranteed": "гарантирано",
-      "declined": "отказано"
+      "initial": "Започнато",
+      "waiting": "Чакащо",
+      "succeeded": "Успешно",
+      "refund": "Възстановено",
+      "cancelled": "Отменено",
+      "guaranteed": "Гарантирано",
+      "declined": "Отказано"
     }
   },
   "certificates-history": {
