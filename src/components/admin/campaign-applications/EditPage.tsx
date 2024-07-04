@@ -8,13 +8,13 @@ import AdminContainer from 'components/common/navigation/AdminContainer'
 import AdminLayout from 'components/common/navigation/AdminLayout'
 
 export default function EditPage() {
-  const initialValues: CampaignApplicationFormData = {
+  const initialValues = {
     organizer: {
       name: '',
       phone: '',
       email: '',
     },
-  }
+  } as CampaignApplicationFormData;
 
   return (
     <AdminLayout>
