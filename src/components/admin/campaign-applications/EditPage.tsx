@@ -1,5 +1,4 @@
 import { CampaignApplicationFormData } from 'components/client/campaign-application/helpers/campaignApplication.types'
-import { validationSchema } from 'components/client/campaign-application/helpers/validation-schema'
 import CampaignApplication from 'components/client/campaign-application/steps/CampaignApplication'
 import CampaignApplicationDetails from 'components/client/campaign-application/steps/CampaignApplicationDetails'
 import CampaignApplicationOrganizer from 'components/client/campaign-application/steps/CampaignApplicationOrganizer'
@@ -14,7 +13,7 @@ export default function EditPage() {
       phone: '',
       email: '',
     },
-  } as CampaignApplicationFormData;
+  } as CampaignApplicationFormData
 
   return (
     <AdminLayout>
