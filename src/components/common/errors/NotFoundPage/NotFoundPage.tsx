@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import { Grid } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
-import { routes } from 'common/routes'
 import Layout from 'components/client/layout/Layout'
 import NotFoundIllustration from '../assets/NotFoundIllustration'
 
@@ -10,6 +10,11 @@ import { BackButton, ErrorMessage, Root } from './NotFoundPage.styled'
 
 export default function NotFoundPage() {
   const { t } = useTranslation('common')
+  const router = useRouter()
+
+  const handleBackClick = () => {
+    router.back()
+  }
 
   return (
     <Layout>
@@ -22,7 +27,7 @@ export default function NotFoundPage() {
           size="large"
           startIcon={<ArrowBackIcon />}
           variant="outlined"
-          href={routes.index}>
+          onClick={handleBackClick}>
           {t('errors.backButtonLabel')}
         </BackButton>
       </Root>
