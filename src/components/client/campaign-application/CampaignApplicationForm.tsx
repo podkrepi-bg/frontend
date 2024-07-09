@@ -47,19 +47,16 @@ type Props = {
 export default function CampaignApplicationForm({ person }: Props) {
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ORGANIZER)
 
-  const initialValues: CampaignApplicationFormData = useMemo(
-    () => ({
-      organizer: {
-        name: `${person?.firstName} ${person?.lastName}` ?? '',
-        phone: person?.phone ?? '',
-        email: person?.email ?? '',
-        acceptTermsAndConditions: false,
-        transparencyTermsAccepted: false,
-        personalInformationProcessingAccepted: false,
-      },
-    }),
-    [person],
-  )
+  const initialValues: CampaignApplicationFormData = {
+    organizer: {
+      name: `${person?.firstName} ${person?.lastName}` ?? '',
+      phone: person?.phone ?? '',
+      email: person?.email ?? '',
+      acceptTermsAndConditions: false,
+      transparencyTermsAccepted: false,
+      personalInformationProcessingAccepted: false,
+    },
+  }
 
   const handleSubmit = () => {
     stepsHandler({ activeStep, setActiveStep })
