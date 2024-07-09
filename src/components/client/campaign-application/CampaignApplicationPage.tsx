@@ -1,12 +1,11 @@
 import { CircularProgress, Grid } from '@mui/material'
-import { useSession } from 'next-auth/react'
-import { useViewPersonByKeylockId } from 'common/hooks/person'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import Layout from '../layout/Layout'
 import CampaignApplicationForm from './CampaignApplicationForm'
 
 export default function CampaignApplicationPage() {
-  const { data: session } = useSession()
-  const { data: person, isLoading } = useViewPersonByKeylockId(session?.user?.sub as string)
+  const { data: userData, isLoading } = useCurrentPerson()
+  const person = userData?.user || undefined
 
   if (isLoading) {
     return (
@@ -18,7 +17,7 @@ export default function CampaignApplicationPage() {
 
   return (
     <Layout maxWidth="md" sx={{ paddingInline: 5 }}>
-      {person && <CampaignApplicationForm person={person} />}
+      <CampaignApplicationForm person={person} />
     </Layout>
   )
 }

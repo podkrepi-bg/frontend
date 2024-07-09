@@ -1,6 +1,6 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Grid, StepLabel } from '@mui/material'
-import { PersonResponse } from 'gql/person'
+import { Person } from 'gql/person'
 
 import {
   CampaignApplicationFormData,
@@ -41,7 +41,7 @@ const steps: StepType[] = [
 ]
 
 type Props = {
-  person: PersonResponse
+  person?: Person
 }
 
 export default function CampaignApplicationForm({ person }: Props) {
