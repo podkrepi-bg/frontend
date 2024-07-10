@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
-
 import { Grid, StepLabel } from '@mui/material'
+import { Person } from 'gql/person'
 
 import {
   CampaignApplicationFormData,
@@ -25,17 +25,6 @@ import {
   StyledStepConnector,
 } from './helpers/campaignApplication.styled'
 
-const initialValues: CampaignApplicationFormData = {
-  organizer: {
-    name: '',
-    phone: '',
-    email: '',
-    acceptTermsAndConditions: false,
-    transparencyTermsAccepted: false,
-    personalInformationProcessingAccepted: false,
-  },
-}
-
 const steps: StepType[] = [
   {
     title: 'campaign-application:steps.organizer.title',
@@ -51,8 +40,23 @@ const steps: StepType[] = [
   },
 ]
 
-export default function CampaignApplicationForm() {
+type Props = {
+  person?: Person
+}
+
+export default function CampaignApplicationForm({ person }: Props) {
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ORGANIZER)
+
+  const initialValues: CampaignApplicationFormData = {
+    organizer: {
+      name: `${person?.firstName} ${person?.lastName}` ?? '',
+      phone: person?.phone ?? '',
+      email: person?.email ?? '',
+      acceptTermsAndConditions: false,
+      transparencyTermsAccepted: false,
+      personalInformationProcessingAccepted: false,
+    },
+  }
 
   const handleSubmit = () => {
     stepsHandler({ activeStep, setActiveStep })
