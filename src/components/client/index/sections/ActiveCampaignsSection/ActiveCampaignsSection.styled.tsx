@@ -40,20 +40,24 @@ export const ActiveCampaignsWrapper = styled(Grid)(() => ({
 export const SeeAllButtonWrapper = styled(Grid)(() => ({
   display: 'flex',
   placeContent: 'center',
-  marginTop: theme.spacing(10),
+  marginTop: theme.spacing(6),
 }))
 
 export const SeeAllButton = styled(LinkButton)(() => ({
-  fontFamily: "'Lato', sans-serif",
+  fontFamily: 'sans-serif',
   fontSize: theme.typography.pxToRem(16),
   fontWeight: 600,
-  color: theme.palette.common.black,
-  letterSpacing: '0.4px',
-  textDecoration: 'underline',
-  marginTop: 0,
+  color: '#252222',
+  letterSpacing: '0.46px',
+  backgroundColor: theme.palette.primary.light,
+  lineHeight: theme.spacing(3.25),
+  width: theme.spacing(28.5),
+  height: theme.spacing(6),
+  boxShadow:
+    '0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0, 0, 0, 0.12)',
 
   '&:hover': {
-    backgroundColor: 'transparent',
-    textDecoration: 'underline',
+    boxShadow:
+      '0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0, 0, 0, 0.12)',
   },
 }))

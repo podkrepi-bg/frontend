@@ -1,5 +1,7 @@
 import { useTranslation } from 'next-i18next'
 
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+
 import { useCampaignList } from 'common/hooks/campaigns'
 import { routes } from 'common/routes'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
@@ -28,9 +30,14 @@ export default function ActiveCampaignsSection() {
           {activeCampaigns?.map((campaign, index) => (
             <ActiveCampaignCard index={index} key={campaign.id} campaign={campaign} />
           ))}
-        </ActiveCampaignsWrapper>{' '}
+        </ActiveCampaignsWrapper>
         <SeeAllButtonWrapper>
-          <SeeAllButton href={routes.campaigns.index}>{t('campaign.see-all')}</SeeAllButton>
+          <SeeAllButton
+            href={routes.campaigns.index}
+            variant="contained"
+            endIcon={<ArrowForwardIcon />}>
+            {t('campaign.see-all')}
+          </SeeAllButton>
         </SeeAllButtonWrapper>
       </Root>
     )
