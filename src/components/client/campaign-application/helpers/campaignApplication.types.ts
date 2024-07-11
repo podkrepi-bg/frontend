@@ -19,8 +19,16 @@ export type CampaignApplicationOrganizer = {
   personalInformationProcessingAccepted: boolean
 }
 
+export type CampaignApplication = {
+  beneficiaryNames: string
+  campaignType: string
+  funds: number
+  campaignEnd: string
+}
+
 export type CampaignApplicationFormData = {
   organizer: CampaignApplicationOrganizer
+  application: CampaignApplication
 }
 
 export type CampaignApplicationFormDataSteps = {
@@ -28,4 +36,10 @@ export type CampaignApplicationFormDataSteps = {
   [Steps.ORGANIZER]: {
     organizer: CampaignApplicationOrganizer
   }
+}
+
+export enum CampaignEndTypes {
+  FUNDS = 'funds',
+  ONGOING = 'ongoing',
+  DATE = 'date',
 }

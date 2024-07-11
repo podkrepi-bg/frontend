@@ -7,6 +7,19 @@
       "email": "Email",
       "transparencyTerms": "I confirm that the campaign meets the basic principles for publishing on the platform: it is legal, it is moral, and it is not business-oriented."
     },
+    "application": {
+      "title": "Campaign Application",
+      "beneficiary": "Beneficiary names",
+      "funds": "The required amount in leva",
+      "campaign-end": {
+        "title": "Desired campaign end date:",
+        "options": {
+          "funds": "Until the required funds are raised",
+          "ongoing": "Year-round/ongoing",
+          "date": "Specify date"
+        }
+      }
+    },
     "admin": {
       "title": "Admin edit",
       "status": "Status",
