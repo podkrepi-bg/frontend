@@ -20,6 +20,26 @@
         }
       }
     },
+    "details": {
+      "title": "Tell us more about your campaign",
+      "description": "Description",
+      "current-status": {
+        "label": "What has been done so far in the campaign?",
+        "placeholder": "(collected material and/or non-material resources, what has been done with them, completed examinations/procedures, etc.)"
+      },
+      "cause": "What are the funds needed for?",
+      "links": {
+        "label": "If applicable, attach:",
+        "fields": {
+          "website": "campaign website",
+          "media": "links to media coverage",
+          "facebook": "link to the campaign's Facebook page",
+          "donation-platforms": "link to other donation platforms where your campaign is (or has been) active"
+        }
+      },
+      "photos": "Photo/Video material",
+      "documents": "Documents"
+    },
     "admin": {
       "title": "Admin edit",
       "status": "Status",
