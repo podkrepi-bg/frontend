@@ -84,10 +84,20 @@ export default function CampaignApplicationDetails() {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <FileUpload buttonLabel={t('steps.details.photos')} onUpload={(files) => {}} />
+          <FileUpload
+            buttonLabel={t('steps.details.photos')}
+            onUpload={(files) => {
+              return
+            }}
+          />
         </Grid>
         <Grid item xs={12}>
-          <FileUpload buttonLabel={t('steps.details.documents')} onUpload={(files) => {}} />
+          <FileUpload
+            buttonLabel={t('steps.details.documents')}
+            onUpload={(files) => {
+              return
+            }}
+          />
         </Grid>
       </Grid>
     </Grid>
