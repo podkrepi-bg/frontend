@@ -37,11 +37,6 @@ const Root = styled(Layout)(({ theme }) => ({
     letterSpacing: theme.typography.pxToRem(-1.5),
     marginBottom: theme.spacing(1),
   },
-
-  '.ql-video, img': {
-    margin: '0 auto',
-    display: 'block',
-  },
 }))
 
 type Props = {
