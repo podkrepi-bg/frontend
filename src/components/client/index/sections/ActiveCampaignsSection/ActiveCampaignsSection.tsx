@@ -36,7 +36,7 @@ export default function ActiveCampaignsSection() {
             href={routes.campaigns.index}
             variant="contained"
             endIcon={<ArrowForwardIcon />}>
-            {t('campaign.see-all')}
+            {t('campaign.see-more')}
           </SeeAllButton>
         </SeeAllButtonWrapper>
       </Root>
