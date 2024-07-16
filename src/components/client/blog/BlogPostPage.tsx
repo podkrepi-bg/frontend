@@ -33,7 +33,7 @@ export default function BlogPostPage({ post, referer }: Props) {
             </Typography>
           </Grid2>
           <Grid2 xs={10} xsOffset={1} textAlign="center">
-            <DateCreated showLabel createdAt={post.created_at} />
+            <DateCreated showLabel createdAt={post.published_at as string} />
             <ReadingTime showLabel readingTime={post.reading_time} />
           </Grid2>
           <Grid2 xs={10} xsOffset={1}>

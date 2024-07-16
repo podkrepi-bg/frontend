@@ -32,7 +32,7 @@ export default function BlogPage({ page }: Props) {
             </Typography>
           </Grid2>
           <Grid2 xs={10} xsOffset={1} textAlign="center">
-            <DateCreated showLabel createdAt={page.created_at} />
+            <DateCreated showLabel createdAt={page.published_at as string} />
             <ReadingTime showLabel readingTime={page.reading_time} />
           </Grid2>
           <Grid2 xs={10} xsOffset={1}>
