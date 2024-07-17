@@ -39,7 +39,6 @@
     "toDate": "To",
     "date": "Date",
     "type": "Type",
-    "sort": "Sort",
     "cause": "Cause",
     "amount": "Amount",
     "cancelDonation": "Cancel donation",
@@ -51,13 +50,13 @@
     "lv": "lv",
     "status": {
       "header": "Status",
-      "initial": "initial",
-      "waiting": "waiting",
-      "succeeded": "succeeded",
-      "refund": "refunded",
-      "cancelled": "cancelled",
-      "guaranteed": "guaranteed",
-      "declined": "declined"
+      "initial": "Initial",
+      "waiting": "Waiting",
+      "succeeded": "Succeeded",
+      "refund": "Refunded",
+      "cancelled": "Cancelled",
+      "guaranteed": "Guaranteed",
+      "declined": "Declined"
     }
   },
   "certificates-history": {

@@ -93,7 +93,7 @@ function DonationTable({ donations }: DonationTableProps) {
               <TableRow>
                 <TableCell>{t('profile:donations.date')}</TableCell>
                 <TableCell>{t('profile:donations.status.header')}</TableCell>
-                <TableCell>{t('profile:donations.sort')}</TableCell>
+                <TableCell>{t('profile:donations.type')}</TableCell>
                 <TableCell>{t('profile:donations.cause')}</TableCell>
                 <TableCell>{t('profile:donations.amount')}</TableCell>
                 <TableCell>{t('profile:donations.certificate')}</TableCell>
@@ -106,7 +106,9 @@ function DonationTable({ donations }: DonationTableProps) {
                   <TableCell>{`${t(
                     'profile:donations.status.' + donation.payment.status,
                   )}`}</TableCell>
-                  <TableCell>{donation.payment.provider}</TableCell>
+                  <TableCell sx={{ textTransform: 'capitalize' }}>
+                    {donation.payment.provider}
+                  </TableCell>
                   <TableCell>
                     <Link
                       target="_blank"
