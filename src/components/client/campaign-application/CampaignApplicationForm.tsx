@@ -56,6 +56,12 @@ export default function CampaignApplicationForm({ person }: Props) {
       transparencyTermsAccepted: false,
       personalInformationProcessingAccepted: false,
     },
+    application: {
+      beneficiaryNames: '',
+      campaignType: '',
+      funds: 0,
+      campaignEnd: '',
+    },
   }
 
   const handleSubmit = () => {
