@@ -1,45 +1,24 @@
 import { useSession } from 'next-auth/react'
-import { useTranslation } from 'next-i18next'
-import { AxiosError, AxiosResponse } from 'axios'
-import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
-
-import { ApiErrors } from 'service/apiErrors'
-import { AlertStore } from 'stores/AlertStore'
+import { QueryClient, useQuery } from '@tanstack/react-query'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 import {
-  CheckoutSessionInput,
-  CheckoutSessionResponse,
+  DonationPrice,
   DonationResponse,
-  DonorsCountResult,
+  UserDonationResult,
   PaymentAdminResponse,
   TPaymentResponse,
   TotalDonatedMoneyResponse,
-  UserDonationResult,
+  DonorsCountResult,
 } from 'gql/donations'
-import { createCheckoutSession } from 'service/donation'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 import { FilterData, PaginationData } from 'gql/types'
 
-export function useDonationSession() {
-  const { t } = useTranslation()
-  const mutation = useMutation<
-    AxiosResponse<CheckoutSessionResponse>,
-    AxiosError<ApiErrors>,
-    CheckoutSessionInput
-  >({
-    mutationFn: createCheckoutSession,
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
-    retry(failureCount) {
-      if (failureCount < 4) {
-        return true
-      }
-      return false
-    },
-    retryDelay: 1000,
-  })
-  return mutation
+export function usePriceList() {
+  return useQuery<DonationPrice[]>([endpoints.donation.prices.url])
+}
+export function useSinglePriceList() {
+  return useQuery<DonationPrice[]>([endpoints.donation.singlePrices.url])
 }
 
 export function useDonationsList(
@@ -99,6 +78,12 @@ export function useGetPayment(id: string) {
 
 export async function prefetchDonationById(client: QueryClient, id: string) {
   await client.prefetchQuery<DonationResponse>([endpoints.donation.getDonation(id).url])
+}
+
+export function useFindDonationById(id: string) {
+  return useQuery<Pick<DonationResponse, 'id'>>([
+    endpoints.donation.getDonationByPaymentIntent(id).url,
+  ])
 }
 export function useUserDonations() {
   const { data: session } = useSession()

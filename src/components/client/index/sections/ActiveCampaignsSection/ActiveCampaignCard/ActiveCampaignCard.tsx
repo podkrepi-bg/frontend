@@ -35,7 +35,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const targetAmount = moneyPublic(campaign.targetAmount)
 
   return (
-    <Root data-testid={`completed-campaign-${index}`}>
+    <Root data-testid={`campaign-card-${index}`}>
       <Link href={routes.campaigns.viewCampaignBySlug(slug)}>
         <Box
           position={'relative'}

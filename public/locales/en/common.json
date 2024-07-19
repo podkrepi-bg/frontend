@@ -83,6 +83,10 @@
         "youtube": "YouTube",
         "instagram": "Instagram"
       }
+    },
+    "social-share": {
+      "share": "Share in",
+      "copy": "Copy link"
     }
   },
   "or": "or",
@@ -99,6 +103,7 @@
     "email": "Email"
   },
   "cta": {
+    "share": "Share",
     "more-information": "More information"
   },
   "notifications": {

@@ -53,6 +53,13 @@ ul {
   }
 }
 
+// Add outline to all MuiFocusVisible elements
+// https://github.com/mui/material-ui/issues/35843
+/* stylelint-disable selector-class-pattern */
+.Mui-focusVisible {
+  outline: 2px solid $theme-primary-dark;
+}
+
 .sp-cm {
   pre {
     flex-shrink: 1;
@@ -60,9 +67,9 @@ ul {
     white-space: break-spaces;
     word-break: break-word;
   }
-}
 
-// center the videos in campaign pages
-.ql-bubble .ql-video {
-  margin-inline: auto;
+  // center the videos in campaign pages
+  .ql-bubble .ql-video {
+    margin-inline: auto;
+  }
 }
