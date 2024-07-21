@@ -38,7 +38,7 @@ const validationSchema = yup
     personId: yup.string().trim().uuid().required(),
     extSubscriptionId: yup.string().trim().required(),
     extCustomerId: yup.string().trim().required(),
-    money: yup.number().min(0).positive().required(),
+    money: yup.number().min(0).positive('validation:positive-amount').required(),
     currency: yup.string().oneOf(validCurrencies).required(),
     sourceVault: yup.string().trim().uuid().required(),
   })

@@ -51,7 +51,7 @@ export default function Form() {
         is: (value: string) => value !== undefined,
         then: yup
           .number()
-          .positive()
+          .positive('validation:positive-amount')
           .required()
           .test({
             name: 'max',
@@ -66,7 +66,7 @@ export default function Form() {
               return value < Number(currentAmount)
             },
           }),
-        otherwise: yup.number().positive().integer().required(),
+        otherwise: yup.number().positive('validation:positive-amount').integer().required(),
       }),
       vaultId: yup.string().trim().uuid().required(),
       deleted: yup.boolean().required(),
