@@ -23,7 +23,13 @@ const validationSchema = yup
   .object()
   .defined()
   .shape({
-    type: yup.string().oneOf(validDocumentTypes, `Видът трябва да бъде една от следните стойности: ${validDocumentTypes.join(', ')}.`).required(),
+    type: yup
+      .string()
+      .oneOf(
+        validDocumentTypes,
+        `Видът трябва да бъде една от следните стойности: ${validDocumentTypes.join(', ')}.`,
+      )
+      .required(),
     name: yup.string().trim().min(2).max(20).required(),
     filename: yup.string().trim().min(2).max(20).required(),
     filetype: yup.string().trim().max(3),
