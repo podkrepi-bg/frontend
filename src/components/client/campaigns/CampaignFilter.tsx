@@ -53,7 +53,7 @@ const Root = styled('div')(() => ({
     '&:focus': {
       color: theme.palette.primary.light,
       borderBottom: `5px solid ${theme.palette.primary.light}`,
-      background: 'transperent',
+      background: 'transparent',
     },
     '&:hover': {
       color: theme.palette.primary.light,
