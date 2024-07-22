@@ -5,22 +5,19 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 import * as yup from 'yup'
-
 import { useMutation } from '@tanstack/react-query'
-
 import { AxiosError, AxiosResponse } from 'axios'
+import { Person } from 'gql/person'
+import { CampaignResponse } from 'gql/campaigns'
 
 import { Button, Grid } from '@mui/material'
 
-import { routes } from 'common/routes'
-
 import { ApiErrors } from 'service/apiErrors'
 import { createIrregularity, uploadIrregularityFiles } from 'service/irregularity'
-
 import { AlertStore } from 'stores/AlertStore'
-
-import { Person } from 'gql/person'
-import { CampaignResponse } from 'gql/campaigns'
+import { routes } from 'common/routes'
+import { email, name, phone } from 'common/form/validation'
+import theme from 'common/theme'
 
 import FileUpload from 'components/common/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
@@ -37,7 +34,6 @@ import {
   IrregularityStatus,
   UploadIrregularityFiles,
 } from 'components/client/irregularity/helpers/irregularity.types'
-import { email, name, phone } from 'common/form/validation'
 
 import CampaignSelect from 'components/client/campaigns/CampaignSelect'
 import FileList from 'components/client/irregularity/helpers/FileList'
@@ -139,7 +135,10 @@ export default function CreateForm({ campaigns, person }: Props) {
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
+        <Grid
+          container
+          spacing={3}
+          sx={{ 'div.MuiSelect-select': { padding: theme.spacing(1.06, 1.75) } }}>
           <Grid container item spacing={3}>
             <Grid item xs={12} sm={6}>
               <FormTextField
