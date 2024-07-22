@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+
 import { ArrowCircleUp } from '@mui/icons-material'
 import { Box } from '@mui/material'
 
@@ -8,7 +9,7 @@ const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false)
 
   const toggleVisibility = () => {
-    if (window.pageYOffset > 300) {
+    if (window.pageYOffset > 700) {
       setIsVisible(true)
     } else {
       setIsVisible(false)
@@ -31,10 +32,19 @@ const ScrollToTop = () => {
     <div>
       {isVisible && (
         <Box
-          sx={{ position: 'fixed', cursor: 'pointer', right: '6rem', bottom: '0.6rem' }}
+          sx={{
+            position: 'fixed',
+            cursor: 'pointer',
+            right: theme.spacing(3),
+            bottom: theme.spacing(2),
+          }}
           onClick={scrollToTop}>
           <ArrowCircleUp
-            sx={{ width: '65px', height: '65px', color: theme.palette.primary.main }}
+            sx={{
+              width: theme.spacing(8),
+              height: theme.spacing(8),
+              color: theme.palette.primary.main,
+            }}
           />
         </Box>
       )}
