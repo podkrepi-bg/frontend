@@ -13,6 +13,7 @@ import {
   DonationResponse,
   DonorsCountResult,
   PaymentAdminResponse,
+  StripeChargeResponse,
   TPaymentResponse,
   TotalDonatedMoneyResponse,
   UserDonationResult,
@@ -113,4 +114,12 @@ export function getTotalDonatedMoney() {
 
 export function useDonatedUsersCount() {
   return useQuery<DonorsCountResult>([endpoints.donation.getDonorsCount.url])
+}
+
+export function useGetStripeChargeFromPID(stripeId: string) {
+  const { data: session } = useSession()
+  return useQuery<StripeChargeResponse>(
+    [endpoints.payments.referenceStripeWithInternal(stripeId).url],
+    { queryFn: authQueryFnFactory(session?.accessToken) },
+  )
 }
