@@ -74,7 +74,7 @@ export default function EditForm() {
       extCustomerId: data?.extCustomerId,
       money: fromMoney(data?.amount || 0),
       currency: data?.currency,
-      sourceVault: data?.sourceVault.id,
+      sourceVault: '',
       campaign: data?.sourceVault.campaign.id,
     }
   }
