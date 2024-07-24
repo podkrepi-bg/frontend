@@ -57,7 +57,7 @@ export default function CreateForm({ campaigns }: Props) {
       is: (value: string) => value !== undefined,
       then: yup
         .number()
-        .positive()
+        .positive('validation:positive-amount')
         .required()
         .test({
           name: 'max',

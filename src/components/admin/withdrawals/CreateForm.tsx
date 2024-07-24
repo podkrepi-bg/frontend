@@ -41,7 +41,7 @@ export default function CreateForm() {
         is: (value: string) => value !== undefined,
         then: yup
           .number()
-          .positive()
+          .positive('validation:positive-amount')
           .required()
           .test({
             name: 'max',
@@ -55,7 +55,7 @@ export default function CreateForm() {
               return Number(value) < Number(fromMoney(currentAmount))
             },
           }),
-        otherwise: yup.number().positive().integer().required(),
+        otherwise: yup.number().positive('validation:positive-amount').integer().required(),
       }),
       reason: yup.string().trim().min(1).max(300).required(),
       targetDate: yup.date().required(),
