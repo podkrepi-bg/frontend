@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
-import { ArrowCircleUp } from '@mui/icons-material'
+import Image from 'next/image'
+
 import { Box } from '@mui/material'
 
 import theme from 'common/theme'
 
+
 const ScrollToTop = () => {
+  const scrollToTopButtonPath = '/scroll-to-top-icon.svg'
+  
   const [isVisible, setIsVisible] = useState(false)
 
   const toggleVisibility = () => {
@@ -39,13 +43,7 @@ const ScrollToTop = () => {
             bottom: theme.spacing(2),
           }}
           onClick={scrollToTop}>
-          <ArrowCircleUp
-            sx={{
-              width: theme.spacing(8),
-              height: theme.spacing(8),
-              color: theme.palette.primary.main,
-            }}
-          />
+          <Image alt="Scroll to top button" src={scrollToTopButtonPath} width={64} height={64} />
         </Box>
       )}
     </div>
