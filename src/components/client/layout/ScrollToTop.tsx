@@ -6,10 +6,9 @@ import { Box } from '@mui/material'
 
 import theme from 'common/theme'
 
-
 const ScrollToTop = () => {
   const scrollToTopButtonPath = '/scroll-to-top-icon.svg'
-  
+
   const [isVisible, setIsVisible] = useState(false)
 
   const toggleVisibility = () => {
@@ -43,7 +42,7 @@ const ScrollToTop = () => {
             bottom: theme.spacing(2),
           }}
           onClick={scrollToTop}>
-          <Image alt="Scroll to top button" src={scrollToTopButtonPath} width={64} height={64} />
+          <Image src={scrollToTopButtonPath} width={64} height={64} alt="Scroll to top button" />
         </Box>
       )}
     </div>
