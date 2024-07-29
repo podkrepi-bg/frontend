@@ -9,6 +9,7 @@
     },
     "application": {
       "title": "Campaign Application",
+      "campaignTitle": "Campaign Title",
       "beneficiary": "Beneficiary names",
       "funds": "The required amount in leva",
       "campaign-end": {
@@ -48,7 +49,8 @@
   },
   "cta": {
     "next": "Save and continue",
-    "back": "Back"
+    "back": "Back",
+    "submit": "Submit campaign"
   },
   "remark": {
     "part-one": "*Additional information about the application process and its stages can be found in our ",
