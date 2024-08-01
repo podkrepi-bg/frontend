@@ -21,6 +21,7 @@ export type CampaignApplicationOrganizer = {
 
 export type CampaignApplication = {
   beneficiaryNames: string
+  title: string
   campaignType: string
   funds: number
   campaignEnd: string
@@ -29,6 +30,16 @@ export type CampaignApplication = {
 export type CampaignApplicationFormData = {
   organizer: CampaignApplicationOrganizer
   application: CampaignApplication
+  details: {
+    organizerBeneficiaryRelationship: string
+    campaignGuarantee: string | undefined
+    otherFinancialSources: string | undefined
+    description: string
+    currentStatus: string
+    cause: string
+    links: string[]
+    documents: string[]
+  }
 }
 
 export type CampaignApplicationFormDataSteps = {

@@ -424,4 +424,7 @@ export const endpoints = {
       }
     },
   },
+  campaignApplication: {
+    create: <Endpoint>{ url: '/campaign-application/create', method: 'POST' },
+  },
 }
