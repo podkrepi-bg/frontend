@@ -29,6 +29,13 @@ export default function CampaignApplication() {
         </Grid>
         <Grid item xs={12}>
           <StyledFormTextField
+            label={t('steps.application.beneficiaryRelationship')}
+            type="text"
+            name="details.beneficiaryNames"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <StyledFormTextField
             label={t('steps.application.campaignTitle')}
             type="text"
             name="application.title"

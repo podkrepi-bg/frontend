@@ -9,8 +9,9 @@
     },
     "application": {
       "title": "Campaign Application",
-      "campaignTitle": "Campaign Title",
+      "campaignTitle": "Campaign title",
       "beneficiary": "Beneficiary names",
+      "beneficiaryRelationship": "Beneficiary relationship",
       "funds": "The required amount in leva",
       "campaign-end": {
         "title": "Desired campaign end date:",

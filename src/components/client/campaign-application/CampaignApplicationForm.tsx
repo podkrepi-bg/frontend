@@ -85,7 +85,7 @@ export default function CampaignApplicationForm({ person }: Props) {
       description: '',
       documents: [],
       links: [],
-      organizerBeneficiaryRelationship: '',
+      organizerBeneficiaryRelationship: '-',
       otherFinancialSources: '',
     },
   }
