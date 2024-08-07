@@ -69,9 +69,10 @@
   "association-name": "Association Podkrepi BG",
   "finance-report-page": {
     "financeReport": "Annual Reports",
-    "finance-report-2021": "Annual financial Report for 2021:",
-    "finance-report-2022-january-june": "Semi-annual Financial Report for January-June 2022:",
-    "finance-report-2022": "Annual Financial Report for 2022",
+    "finance-report-2021": "Annual financial report for 2021:",
+    "finance-report-2022-january-june": "Semiannual financial report for January-June 2022:",
+    "finance-report-2022": "Annual financial report for 2022:",
+    "finance-report-half-2024": "Semiannual financial report for January-June 2024:",
     "download-from-here": "Download from here"
   }
 }

@@ -27,7 +27,7 @@ export default function FinanceReportPage() {
         <LinkButton
           locale={false} // shows BG translation of finance report only for now
           endIcon={<FileDownloadIcon />}
-          href="/finance-reports/Podkrepi.bg_Financial_Report_062022.pdf">
+          href="/finance-reports/Podkrepi.bg_Financial_Semiannual_Report_2022.pdf">
           {t('finance-report-page.download-from-here')}
         </LinkButton>
       </Container>
@@ -37,6 +37,15 @@ export default function FinanceReportPage() {
           locale={false} // shows BG translation of finance report only for now
           endIcon={<FileDownloadIcon />}
           href="/finance-reports/Podkrepi.bg_Financial_Report_2022.pdf">
+          {t('finance-report-page.download-from-here')}
+        </LinkButton>
+      </Container>
+      <Container>
+        <Typography>{t('finance-report-page.finance-report-half-2024')}</Typography>
+        <LinkButton
+          locale={false} // shows BG translation of finance report only for now
+          endIcon={<FileDownloadIcon />}
+          href="/finance-reports/Podkrepi.bg_Financial_Semiannual_Report_2024.pdf">
           {t('finance-report-page.download-from-here')}
         </LinkButton>
       </Container>
