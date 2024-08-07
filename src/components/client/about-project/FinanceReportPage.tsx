@@ -41,7 +41,16 @@ export default function FinanceReportPage() {
         </LinkButton>
       </Container>
       <Container>
-        <Typography>{t('finance-report-page.finance-report-half-2024')}</Typography>
+        <Typography>{t('finance-report-page.finance-report-2023')}</Typography>
+        <LinkButton
+          locale={false} // shows BG translation of finance report only for now
+          endIcon={<FileDownloadIcon />}
+          href="/finance-reports/Podkrepi.bg_Financial_Report_2023.pdf">
+          {t('finance-report-page.download-from-here')}
+        </LinkButton>
+      </Container>
+      <Container>
+        <Typography>{t('finance-report-page.finance-report-2024-january-june')}</Typography>
         <LinkButton
           locale={false} // shows BG translation of finance report only for now
           endIcon={<FileDownloadIcon />}
