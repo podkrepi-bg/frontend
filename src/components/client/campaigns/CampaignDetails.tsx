@@ -2,31 +2,30 @@ import React, { useState } from 'react'
 
 import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
-
 import { CampaignResponse } from 'gql/campaigns'
-
 import 'react-quill/dist/quill.bubble.css'
 
 import { Divider, Grid, IconButton, Tooltip, Typography } from '@mui/material'
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined'
+import EditIcon from '@mui/icons-material/Edit'
+import { Assessment, InfoOutlined } from '@mui/icons-material'
+import EmailIcon from '@mui/icons-material/Email'
 import { styled } from '@mui/material/styles'
 
-import DonationWishes from './DonationWishes'
 import { ImageSlider } from 'components/common/ImageSlider'
+import LinkButton from 'components/common/LinkButton'
+import { campaignSliderUrls } from 'common/util/campaignImageUrls'
+import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
+import { useCanEditCampaign } from 'common/hooks/campaigns'
+import { moneyPublic } from 'common/util/money'
+import { routes } from 'common/routes'
+
+import DonationWishes from './DonationWishes'
 import CampaignInfo from './CampaignInfo/CampaignInfo'
 import CampaignInfoGraphics from './CampaignInfoGraphics'
 import CampaignInfoOperator from './CampaignInfoOperator'
-import LinkButton from 'components/common/LinkButton'
-import { campaignSliderUrls } from 'common/util/campaignImageUrls'
 import CampaignPublicExpensesGrid from './CampaignPublicExpensesGrid'
-import EditIcon from '@mui/icons-material/Edit'
-import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
-import { Assessment, InfoOutlined } from '@mui/icons-material'
-import { routes } from 'common/routes'
-import { useCanEditCampaign } from 'common/hooks/campaigns'
-import { moneyPublic } from 'common/util/money'
 import CampaignPublicExpensesChart from './CampaignPublicExpensesChart'
-import EmailIcon from '@mui/icons-material/Email'
 import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
