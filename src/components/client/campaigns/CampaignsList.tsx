@@ -1,69 +1,65 @@
-import { useMemo, useState } from 'react'
-import { CampaignResponse } from 'gql/campaigns'
-import Image from 'next/image'
-import { useTranslation } from 'next-i18next'
+import { useMemo, useState, useEffect } from 'react'
 
-import { Box, Button, Grid } from '@mui/material'
+import { CampaignResponse } from 'gql/campaigns'
+
+import Image from 'next/image'
+
+import { Box, Grid, Pagination } from '@mui/material'
 
 import useMobile from 'common/hooks/useMobile'
-import theme from 'common/theme'
 import CampaignCard from './CampaignCard/CampaignCard'
 
-type Props = { campaignToShow: CampaignResponse[] }
+type Props = {
+  campaignToShow: CampaignResponse[]
+}
 
 export default function CampaignsList({ campaignToShow }: Props) {
-  const { t } = useTranslation()
   const { mobile } = useMobile()
-  const numberOfMinimalShownCampaigns = 12
-  const [all, setAll] = useState<boolean>(false)
+
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const campaignsPerPage = 20
+
+  const totalCampaigns = campaignToShow?.length || 0
+  const totalPages = Math.ceil(totalCampaigns / campaignsPerPage)
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [campaignToShow])
+
   const campaigns = useMemo<CampaignResponse[]>(() => {
-    if (all) {
-      return campaignToShow ?? []
-    }
-    return campaignToShow?.slice(0, numberOfMinimalShownCampaigns) ?? []
-  }, [campaignToShow, all])
+    const startIndex = (currentPage - 1) * campaignsPerPage
+    const endIndex = startIndex + campaignsPerPage
+    return campaignToShow?.slice(startIndex, endIndex) ?? []
+  }, [campaignToShow, currentPage])
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page)
+  }
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      spacing={4}
-      sx={(theme) => ({
-        width: `calc(100% + ${theme.spacing(1.5)})`,
-        marginLeft: `-${theme.spacing(2.75)}`,
-      })}>
+    <Grid container justifyContent="center" spacing={4}>
       {campaigns?.map((campaign, index) => (
         <Grid key={campaign.id} item xs={12} sm={6} lg={3}>
-          <Box
-            sx={{
-              textAlign: 'center',
-            }}>
+          <Box sx={{ textAlign: 'center' }}>
             <CampaignCard index={index} campaign={campaign} />
           </Box>
         </Grid>
       ))}
-      {campaignToShow && campaignToShow?.length > numberOfMinimalShownCampaigns && (
-        <Grid container justifyContent="center">
-          <Button
-            onClick={() => setAll((prev) => !prev)}
-            sx={{
-              fontFamily: "'Lato', sans-serif",
-              fontSize: theme.typography.pxToRem(16),
-              fontWeight: 600,
-              color: theme.palette.common.black,
-              letterSpacing: '0.4px',
-              textDecoration: 'underline',
-              marginTop: 0,
 
-              '&:hover': {
-                backgroundColor: 'transparent',
-                textDecoration: 'underline',
-              },
-            }}>
-            {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}
-          </Button>
+      {totalCampaigns > campaignsPerPage && (
+        <Grid container justifyContent="center" sx={{ mt: 5 }} alignItems="center">
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            siblingCount={1}
+            boundaryCount={1}
+            size="large"
+          />
         </Grid>
       )}
+
       <Grid item xs={12} textAlign="center">
         <Box sx={{ my: 10 }}>
           {mobile ? (
