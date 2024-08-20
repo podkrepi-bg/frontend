@@ -13,7 +13,7 @@ import {
 
 export default function WantToHelpPodkrepiBgSection() {
   const { t } = useTranslation('index')
-  const joinIconSource = '/img/JoinIcon.png'
+  const joinIconSource = '/img/join-icon.png'
 
   return (
     <Root>
