@@ -17,7 +17,6 @@ export default function AboutPage() {
       <ActiveMembersSection />
       <SupervisoryBoardSection />
       <AboutTheTeamSection />
-      {/* <PrinciplesThatUniteUs /> */}
     </Layout>
   )
 }
