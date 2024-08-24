@@ -4,9 +4,13 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { routes } from 'common/routes'
 import theme from 'common/theme'
 import Link from 'next/link'
+import { useCampaignApplicationsAdminList } from 'common/hooks/campaign-applications'
+import { CampaignApplication } from 'gql/campaign-applications'
 
 export default function CampaignApplicationsGrid() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
+
+  const { data = [] } = useCampaignApplicationsAdminList()
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -14,35 +18,35 @@ export default function CampaignApplicationsGrid() {
     headerAlign: 'left',
   }
 
-  const columns: GridColDef[] = [
+  const columns: GridColDef<CampaignApplication>[] = [
     {
-      field: 'status',
+      field: 'state',
       headerName: t('campaigns:status'),
       ...commonProps,
       align: 'left',
       width: 220,
     },
     {
-      field: 'title',
+      field: 'campaignName',
       headerName: t('campaigns:title'),
       ...commonProps,
       align: 'left',
       width: 250,
       renderCell: (cellValues: GridRenderCellParams) => (
         <Link href={routes.admin.campaignApplications.edit(cellValues.id.toString())}>
-          {cellValues.row.title}
+          {cellValues.row.campaignName}
         </Link>
       ),
     },
     {
-      field: 'essence',
+      field: 'goal',
       headerName: t('campaigns:essence'),
       ...commonProps,
       align: 'left',
       width: 250,
     },
     {
-      field: 'organizer',
+      field: 'organizerName',
       headerName: t('campaigns:organizer'),
       ...commonProps,
       align: 'left',
@@ -71,59 +75,6 @@ export default function CampaignApplicationsGrid() {
     },
   ]
 
-  const data = [
-    {
-      updatedAt: 'date',
-      createdAt: '2024-5-5',
-      beneficiary: 'beneficiary',
-      organizer: 'organizer',
-      essence: 'essence',
-      title: 'title',
-      id: '1',
-      status: 'нова',
-    },
-    {
-      updatedAt: 'yesterday',
-      createdAt: '10 days ago',
-      beneficiary: 'beneficiary',
-      organizer: 'organizer',
-      essence: 'essence',
-      title: 'title',
-      id: '2',
-      status: 'очаква документи',
-    },
-    {
-      updatedAt: '',
-      createdAt: '',
-      beneficiary: 'beneficiary',
-      organizer: 'organizer',
-      essence: 'essence',
-      title: 'title',
-      id: '3',
-      status: 'очаква решение на комисия',
-    },
-
-    {
-      updatedAt: '',
-      createdAt: '',
-      beneficiary: 'beneficiary',
-      organizer: 'organizer',
-      essence: 'essence',
-      title: 'title',
-      id: '4',
-      status: 'одобрена',
-    },
-    {
-      updatedAt: '',
-      createdAt: '',
-      beneficiary: 'beneficiary',
-      organizer: 'organizer',
-      essence: 'essence',
-      title: 'title',
-      id: '4',
-      status: 'отказана',
-    },
-  ]
   return (
     <DataGrid
       style={{

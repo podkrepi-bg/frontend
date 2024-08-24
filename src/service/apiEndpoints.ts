@@ -424,4 +424,7 @@ export const endpoints = {
       }
     },
   },
+  campaignApplications: {
+    listAllAdmin: <Endpoint>{ url: '/campaign-application/list', method: 'GET' },
+  },
 }
