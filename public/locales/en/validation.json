@@ -17,7 +17,7 @@
   "terms-and-conditions": "Terms and Conditions",
   "gdpr": "General Data Protection Regulation (GDPR)",
   "legal-entity": "Legal entity",
-  "newsletter": "Please give your consent",
+  "newsletter": "Please give your consent.",
   "unique-field-violation": "The field `{1}` with this value already exists in the platform.",
   "payment-reference": "Invalid payment code format",
   "eik-invalid": "Invalid EIK",
