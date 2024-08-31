@@ -426,5 +426,6 @@ export const endpoints = {
   },
   campaignApplications: {
     listAllAdmin: <Endpoint>{ url: '/campaign-application/list', method: 'GET' },
+    create: <Endpoint>{ url: '/campaign-application/create', method: 'POST' },
   },
 }

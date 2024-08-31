@@ -23,12 +23,26 @@ export default function CampaignApplication() {
           <StyledFormTextField
             label={t('steps.application.beneficiary')}
             type="text"
-            name="application.beneficiary"
+            name="application.beneficiaryNames"
             autoComplete="name"
           />
         </Grid>
         <Grid item xs={12}>
-          <CampaignTypeSelect />
+          <StyledFormTextField
+            label={t('steps.application.beneficiaryRelationship')}
+            type="text"
+            name="details.beneficiaryNames"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <StyledFormTextField
+            label={t('steps.application.campaignTitle')}
+            type="text"
+            name="application.title"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <CampaignTypeSelect name="application.campaignType" />
         </Grid>
         <Grid item xs={12}>
           <StyledFormTextField

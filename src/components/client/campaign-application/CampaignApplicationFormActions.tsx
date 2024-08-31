@@ -16,11 +16,13 @@ import {
 type CampaignApplicationFormActionsProps = {
   activeStep: number
   onBack?: (event: MouseEvent) => void
+  isLast: boolean
 }
 
 export default function CampaignApplicationFormActions({
   onBack,
   activeStep,
+  isLast,
 }: CampaignApplicationFormActionsProps) {
   const { t } = useTranslation('campaign-application')
 
@@ -47,7 +49,7 @@ export default function CampaignApplicationFormActions({
       <Grid item xs={12} md={6} flexWrap="nowrap">
         <ActionSubmitButton
           fullWidth
-          label={t('cta.next')}
+          label={t(isLast ? 'cta.submit' : 'cta.next')}
           endIcon={<ArrowForwardIosIcon fontSize="small" />}
         />
       </Grid>
