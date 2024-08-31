@@ -113,7 +113,11 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
             </Typography>
           </Grid>
           <Grid item xs={12} textAlign="center">
-            <EmailField label="auth:fields.email-descriptive" name="email" sx={{ width: '70%' }} />
+            <EmailField
+              label="common:notifications.email-descriptive"
+              name="email"
+              sx={{ maxWidth: theme.spacing(50) }}
+            />
           </Grid>
           <Grid item xs={12}>
             <AcceptNewsLetterFieldCampaign name="consent" />
