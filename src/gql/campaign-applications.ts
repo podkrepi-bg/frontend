@@ -33,9 +33,8 @@ export interface CampaignApplication {
   archived: boolean | null
 }
 
+export type Keys = keyof CampaignApplication
 
-export type Keys = keyof CampaignApplication;
-=======
 export class CreateCampaignApplicationInput {
   /**
    * What would the campaign be called. ('Help Vesko' or 'Castrate Plovdiv Cats')
