@@ -1,6 +1,6 @@
 import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
 
-export class CreateCampaignApplicationInput {
+export interface CreateCampaignApplicationInput {
   /**
    * What would the campaign be called. ('Help Vesko' or 'Castrate Plovdiv Cats')
    */
@@ -57,3 +57,10 @@ export class CreateCampaignApplicationInput {
 export type CreateCampaignApplicationResponse = CreateCampaignApplicationInput & {
   id: string
 }
+
+export interface UploadCampaignApplicationFilesRequest {
+  campaignApplicationId: string
+  files: File[]
+}
+
+export type UploadCampaignApplicationFilesResponse = unknown

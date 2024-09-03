@@ -1,13 +1,19 @@
-import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import { StyledStepHeading } from '../helpers/campaignApplication.styled'
 import FormTextField from 'components/common/form/FormTextField'
+import { StyledStepHeading } from '../helpers/campaignApplication.styled'
 
 import theme from 'common/theme'
+import FileList from 'components/common/file-upload/FileList'
 import FileUpload from 'components/common/file-upload/FileUpload'
 
-export default function CampaignApplicationDetails() {
+export type Props = {
+  files: File[]
+  setFiles: (files: File[]) => void
+}
+
+export default function CampaignApplicationDetails({ files, setFiles }: Props) {
   const { t } = useTranslation('campaign-application')
 
   return (
@@ -85,18 +91,22 @@ export default function CampaignApplicationDetails() {
         </Grid>
         <Grid item xs={12}>
           <FileUpload
-            buttonLabel={t('steps.details.photos')}
-            onUpload={(files) => {
-              return
+            buttonLabel={t('steps.details.documents')}
+            onUpload={(newFiles) => {
+              setFiles((prevFiles) => [...prevFiles, ...newFiles])
             }}
           />
-        </Grid>
-        <Grid item xs={12}>
-          <FileUpload
-            buttonLabel={t('steps.details.documents')}
-            onUpload={(files) => {
-              return
+          <FileList
+            files={files}
+            onDelete={(deletedFile) =>
+              setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
+            }
+            rolesList={{}}
+            onSetFileRole={() => {
+              // we have no roles for the campaign application - it's all a document
+              return undefined
             }}
+            filesRole={[]}
           />
         </Grid>
       </Grid>

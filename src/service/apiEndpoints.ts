@@ -426,5 +426,7 @@ export const endpoints = {
   },
   campaignApplication: {
     create: <Endpoint>{ url: '/campaign-application/create', method: 'POST' },
+    uploadFile: (campaignId: string) =>
+      <Endpoint>{ url: `/campaign-application/uploadFile/${campaignId}`, method: 'POST' },
   },
 }

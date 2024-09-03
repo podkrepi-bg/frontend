@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react'
 import { Grid, StepLabel } from '@mui/material'
 import { Person } from 'gql/person'
+import { useCallback, useState } from 'react'
 
 import {
   CampaignApplicationFormData,
@@ -9,48 +9,49 @@ import {
 } from './helpers/campaignApplication.types'
 
 import GenericForm from 'components/common/form/GenericForm'
-import CampaignApplicationStepperIcon from './CampaignApplicationStepperIcon'
-import CampaignApplicationOrganizer from './steps/CampaignApplicationOrganizer'
-import CampaignApplicationDetails from './steps/CampaignApplicationDetails'
-import CampaignApplication from './steps/CampaignApplication'
 import CampaignApplicationFormActions from './CampaignApplicationFormActions'
 import CampaignApplicationRemark from './CampaignApplicationRemark'
-import stepsHandler from './helpers/stepsHandler'
+import CampaignApplicationStepperIcon from './CampaignApplicationStepperIcon'
+import CampaignApplication from './steps/CampaignApplication'
+import CampaignApplicationDetails from './steps/CampaignApplicationDetails'
+import CampaignApplicationOrganizer from './steps/CampaignApplicationOrganizer'
 
 import { validationSchema } from './helpers/validation-schema'
 
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
+import { FormikHelpers } from 'formik'
+import {
+  CreateCampaignApplicationInput,
+  CreateCampaignApplicationResponse,
+  UploadCampaignApplicationFilesRequest,
+  UploadCampaignApplicationFilesResponse,
+} from 'gql/campaign-applications'
+import { CampaignTypesResponse } from 'gql/campaign-types'
+import { t } from 'i18next'
+import { useTranslation } from 'next-i18next'
+import { ApiErrors, matchValidator } from 'service/apiErrors'
+import {
+  useCreateCampaignApplication,
+  useUploadCampaignApplicationFiles,
+} from 'service/campaign-application'
+import { useCampaignTypesList } from 'service/campaignTypes'
+import { AlertStore } from 'stores/AlertStore'
 import {
   StyledCampaignApplicationStep,
   StyledCampaignApplicationStepper,
   StyledStepConnector,
 } from './helpers/campaignApplication.styled'
-import { useMutation } from '@tanstack/react-query'
-import {
-  CreateCampaignApplicationInput,
-  CreateCampaignApplicationResponse,
-} from 'gql/campaign-applications'
-import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
-import { ApiErrors, matchValidator } from 'service/apiErrors'
-import { useCreateCampaignApplication } from 'service/campaign-application'
-import { AlertStore } from 'stores/AlertStore'
-import { t } from 'i18next'
-import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
-import { FormikHelpers } from 'formik'
-import { useCampaignTypesList } from 'service/campaignTypes'
-import { CampaignTypesResponse } from 'gql/campaign-types'
 
 const steps: StepType[] = [
   {
     title: 'campaign-application:steps.organizer.title',
-    component: <CampaignApplicationOrganizer />,
   },
   {
     title: 'campaign-application:steps.campaign-application.title',
-    component: <CampaignApplication />,
   },
   {
     title: 'campaign-application:steps.campaign-application-details.title',
-    component: <CampaignApplicationDetails />,
   },
 ]
 
@@ -59,8 +60,10 @@ type Props = {
 }
 
 export default function CampaignApplicationForm({ person }: Props) {
+  const { t } = useTranslation('campaign-application')
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ORGANIZER)
   const isLast = activeStep === Steps.CAMPAIGN_DETAILS
+  const [submitting, setSubmitting] = useState(false)
 
   const initialValues: CampaignApplicationFormData = {
     organizer: {
@@ -90,18 +93,30 @@ export default function CampaignApplicationForm({ person }: Props) {
     },
   }
 
+  const [files, setFiles] = useState<File[]>([])
+
   const { data } = useCampaignTypesList()
-  const { mutation } = useCreateApplication()
+  const create = useCreateApplication()
   const handleSubmit = async (
     formData: CampaignApplicationFormData,
     { setFieldError, resetForm }: FormikHelpers<CampaignApplicationFormData>,
   ) => {
     if (isLast) {
+      if (submitting) {
+        return
+      }
+      setSubmitting(true)
       try {
-        await mutation.mutateAsync(mapCreateInput(formData, data ?? []))
+        const createInput = mapCreateInput(formData, data ?? [])
+        await create(createInput, files)
 
         resetForm()
+        setSubmitting(false)
+        AlertStore.show(t('alerts.successfully-created'), 'success')
+
+        // take user to next campaign application page
       } catch (error) {
+        setSubmitting(false)
         console.error(error)
         if (isAxiosError(error)) {
           const { response } = error as AxiosError<ApiErrors>
@@ -111,7 +126,7 @@ export default function CampaignApplicationForm({ person }: Props) {
         }
       }
     } else {
-      stepsHandler({ activeStep, setActiveStep })
+      setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
   }
 
@@ -136,13 +151,18 @@ export default function CampaignApplicationForm({ person }: Props) {
         </StyledCampaignApplicationStepper>
         <Grid container>
           <Grid container item xs={12}>
-            {activeStep < steps.length && steps[activeStep].component}
+            {activeStep === Steps.ORGANIZER && <CampaignApplicationOrganizer />}
+            {activeStep === Steps.CAMPAIGN && <CampaignApplication />}
+            {activeStep === Steps.CAMPAIGN_DETAILS && (
+              <CampaignApplicationDetails files={files} setFiles={setFiles} />
+            )}
           </Grid>
           <Grid container item alignContent="center">
             <CampaignApplicationFormActions
               activeStep={activeStep}
               onBack={handleBack}
               isLast={isLast}
+              submitting={submitting}
             />
           </Grid>
         </Grid>
@@ -155,7 +175,7 @@ export default function CampaignApplicationForm({ person }: Props) {
 }
 
 const useCreateApplication = () => {
-  const mutation = useMutation<
+  const create = useMutation<
     AxiosResponse<CreateCampaignApplicationResponse>,
     AxiosError<ApiErrors>,
     CreateCampaignApplicationInput
@@ -165,15 +185,23 @@ const useCreateApplication = () => {
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
-  // const fileUploadMutation = useMutation<
-  //   AxiosResponse<CampaignUploadImage[]>,
-  //   AxiosError<ApiErrors>,
-  //   UploadCampaignFiles
-  // >({
-  //   mutationFn: useUploadCampaignFiles(),
-  // })
+  const fileUpload = useMutation<
+    AxiosResponse<UploadCampaignApplicationFilesResponse>,
+    AxiosError<ApiErrors>,
+    UploadCampaignApplicationFilesRequest
+  >({
+    mutationFn: useUploadCampaignApplicationFiles(),
+  })
 
-  return { mutation }
+  return async (i: CreateCampaignApplicationInput, files: File[]) => {
+    const {
+      data: { id },
+    } = await create.mutateAsync(i)
+
+    await fileUpload.mutateAsync({ campaignApplicationId: id, files })
+
+    return { id }
+  }
 }
 
 function mapCreateInput(
