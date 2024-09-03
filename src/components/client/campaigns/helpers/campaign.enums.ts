@@ -1,15 +1,11 @@
 export enum CampaignState {
-  initial = 'initial',
   draft = 'draft',
-  pendingvalidation = 'pending_validation',
-  approved = 'approved',
-  rejected = 'rejected',
   active = 'active',
-  activependingvalidation = 'active_pending_validation',
+  partially_financed = 'partially_financed',
   suspended = 'suspended',
   complete = 'complete',
-  disabled = 'disabled',
-  error = 'error',
+  blocked = 'blocked',
+  paused = 'paused',
   deleted = 'deleted',
 }
 

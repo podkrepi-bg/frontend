@@ -182,17 +182,13 @@
     "corporate-donor": "Корпоративен дарител"
   },
   "campaign-status": {
-    "initial": "В начален етап",
     "draft": "Чернова",
-    "pending-validation": "Чакаща валидация",
-    "approved": "Одобрена",
-    "rejected": "Отхвърлена",
     "active": "Активна",
-    "active-pending-validation": "Активна чака валидиране",
-    "suspended": "Спряна",
-    "complete": "Завършена",
-    "disabled": "Деактивирана",
-    "error": "Грешна",
+    "paused": "На пауза",
+    "suspended": "Спряна от организатор",
+    "partially_financed": "Частично финансирана",
+    "blocked": "Спряна",
+    "complete": "Успешнa",
     "deleted": "Изтрита"
   },
   "campaignTypesFields": {

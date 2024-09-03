@@ -182,17 +182,12 @@
     "corporate-donor": "Corporate Donor"
   },
   "campaign-status": {
-    "initial": "Initial",
     "draft": "Draft",
-    "pending-validation": "Pending validation",
-    "approved": "Approved",
-    "rejected": "Rejected",
     "active": "Active",
-    "active-pending-validation": "Active pending validation",
-    "suspended": "Suspended",
-    "complete": "Complete",
-    "disabled": "Disabled",
-    "error": "Error",
+    "suspended": "Suspended by organizer",
+    "complete": "Succeeded",
+    "partially_financed": "Partially financed",
+    "blocked": "Suspended",
     "deleted": "Deleted"
   },
   "campaignTypesFields": {
