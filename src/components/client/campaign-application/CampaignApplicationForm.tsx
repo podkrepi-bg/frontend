@@ -1,6 +1,6 @@
-import { Grid, StepLabel } from '@mui/material'
+import { Grid, StepLabel, Typography } from '@mui/material'
 import { Person } from 'gql/person'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import {
   CampaignApplicationFormData,
@@ -8,8 +8,9 @@ import {
   Steps,
 } from './helpers/campaignApplication.types'
 
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import GenericForm from 'components/common/form/GenericForm'
-import CampaignApplicationFormActions from './CampaignApplicationFormActions'
 import CampaignApplicationRemark from './CampaignApplicationRemark'
 import CampaignApplicationStepperIcon from './CampaignApplicationStepperIcon'
 import CampaignApplication from './steps/CampaignApplication'
@@ -28,9 +29,8 @@ import {
   UploadCampaignApplicationFilesResponse,
 } from 'gql/campaign-applications'
 import { CampaignTypesResponse } from 'gql/campaign-types'
-import { t } from 'i18next'
 import { useTranslation } from 'next-i18next'
-import { ApiErrors, matchValidator } from 'service/apiErrors'
+import { ApiErrors } from 'service/apiErrors'
 import {
   useCreateCampaignApplication,
   useUploadCampaignApplicationFiles,
@@ -42,6 +42,16 @@ import {
   StyledCampaignApplicationStepper,
   StyledStepConnector,
 } from './helpers/campaignApplication.styled'
+import {
+  ActionButton,
+  ActionLinkButton,
+  ActionSubmitButton,
+  Root,
+} from './helpers/campaignApplicationFormActions.styled'
+import { red } from '@mui/material/colors'
+import CampaignApplicationSummary from './steps/CampaignApplicationSummary'
+import { useRouter } from 'next/router'
+import { routes } from 'common/routes'
 
 const steps: StepType[] = [
   {
@@ -61,9 +71,6 @@ type Props = {
 
 export default function CampaignApplicationForm({ person }: Props) {
   const { t } = useTranslation('campaign-application')
-  const [activeStep, setActiveStep] = useState<Steps>(Steps.ORGANIZER)
-  const isLast = activeStep === Steps.CAMPAIGN_DETAILS
-  const [submitting, setSubmitting] = useState(false)
 
   const initialValues: CampaignApplicationFormData = {
     organizer: {
@@ -94,36 +101,31 @@ export default function CampaignApplicationForm({ person }: Props) {
   }
 
   const [files, setFiles] = useState<File[]>([])
+  const router = useRouter()
 
-  const { data } = useCampaignTypesList()
-  const create = useCreateApplication()
+  const {
+    createApplication,
+    applicationCreated,
+    submitting,
+    uploadedFiles,
+    error: createCampaignError,
+    campaignApplicationResult: camApp,
+  } = useCreateApplication()
+
+  const { data: types } = useCampaignTypesList()
   const handleSubmit = async (
     formData: CampaignApplicationFormData,
-    { setFieldError, resetForm }: FormikHelpers<CampaignApplicationFormData>,
+    { resetForm }: FormikHelpers<CampaignApplicationFormData>,
   ) => {
-    if (isLast) {
-      if (submitting) {
-        return
-      }
-      setSubmitting(true)
-      try {
-        const createInput = mapCreateInput(formData, data ?? [])
-        await create(createInput, files)
-
+    if (activeStep === Steps.CREATED_DETAILS && camApp?.id != null) {
+      router.push(routes.campaigns.applicationEdit(camApp?.id))
+    } else if (shouldSubmit) {
+      const createInput = mapCreateInput(formData, types ?? [])
+      await createApplication(createInput, files)
+      if (applicationCreated) {
+        setActiveStep(Steps.CREATED_DETAILS)
         resetForm()
-        setSubmitting(false)
         AlertStore.show(t('alerts.successfully-created'), 'success')
-
-        // take user to next campaign application page
-      } catch (error) {
-        setSubmitting(false)
-        console.error(error)
-        if (isAxiosError(error)) {
-          const { response } = error as AxiosError<ApiErrors>
-          response?.data.message.map(({ property, constraints }) => {
-            setFieldError(property, t(matchValidator(constraints)))
-          })
-        }
       }
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
@@ -133,6 +135,15 @@ export default function CampaignApplicationForm({ person }: Props) {
   const handleBack = useCallback(() => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }, [])
+
+  const [activeStep, setActiveStep] = useState<Steps>(Steps.ORGANIZER)
+  const shouldSubmit = activeStep === Steps.CAMPAIGN_DETAILS
+
+  useEffect(() => {
+    if (applicationCreated && camApp?.id) {
+      setActiveStep(Steps.CREATED_DETAILS)
+    }
+  }, [applicationCreated])
 
   return (
     <>
@@ -156,20 +167,69 @@ export default function CampaignApplicationForm({ person }: Props) {
             {activeStep === Steps.CAMPAIGN_DETAILS && (
               <CampaignApplicationDetails files={files} setFiles={setFiles} />
             )}
+            {activeStep === Steps.CREATED_DETAILS && (
+              <CampaignApplicationSummary uploadedFiles={uploadedFiles} camApp={camApp} />
+            )}
           </Grid>
           <Grid container item alignContent="center">
-            <CampaignApplicationFormActions
-              activeStep={activeStep}
-              onBack={handleBack}
-              isLast={isLast}
-              submitting={submitting}
-            />
+            <Root
+              container
+              item
+              xs={12}
+              spacing={6}
+              sx={{ marginTop: 1 }}
+              justifyContent="space-between">
+              <Grid item xs={12} md={6} flexWrap="nowrap">
+                {activeStep === Steps.ORGANIZER ? (
+                  <ActionLinkButton
+                    fullWidth
+                    href=""
+                    variant="outlined"
+                    startIcon={<ArrowBackIosIcon fontSize="small" />}>
+                    {t('cta.back')}
+                  </ActionLinkButton>
+                ) : (
+                  <ActionButton
+                    fullWidth
+                    onClick={handleBack}
+                    startIcon={<ArrowBackIosIcon fontSize="small" />}
+                    disabled={
+                      applicationCreated /**after campaign application is created disable going back and editing */
+                    }>
+                    {t('cta.back')}
+                  </ActionButton>
+                )}
+              </Grid>
+              <Grid item xs={12} md={6} flexWrap="nowrap">
+                <ActionSubmitButton
+                  fullWidth
+                  label={t(
+                    activeStep === Steps.CREATED_DETAILS
+                      ? 'result.editButton'
+                      : shouldSubmit
+                      ? 'cta.submit'
+                      : 'cta.next',
+                  )}
+                  endIcon={<ArrowForwardIosIcon fontSize="small" />}
+                  disabled={submitting}
+                />
+              </Grid>
+            </Root>
           </Grid>
         </Grid>
+        {(activeStep === Steps.ORGANIZER || activeStep === Steps.CAMPAIGN) && (
+          <CampaignApplicationRemark />
+        )}
+        {/* campaign errors */}
+        {createCampaignError && (
+          <>
+            Errors:
+            {createCampaignError?.map((e, i) => (
+              <p key={i}>{e}</p>
+            ))}
+          </>
+        )}
       </GenericForm>
-      {(activeStep === Steps.ORGANIZER || activeStep === Steps.CAMPAIGN) && (
-        <CampaignApplicationRemark />
-      )}
     </>
   )
 }
@@ -181,8 +241,6 @@ const useCreateApplication = () => {
     CreateCampaignApplicationInput
   >({
     mutationFn: useCreateCampaignApplication(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
   const fileUpload = useMutation<
@@ -193,14 +251,79 @@ const useCreateApplication = () => {
     mutationFn: useUploadCampaignApplicationFiles(),
   })
 
-  return async (i: CreateCampaignApplicationInput, files: File[]) => {
-    const {
-      data: { id },
-    } = await create.mutateAsync(i)
+  const [submitting, setSubmitting] = useState(false)
+  const [created, setCreated] = useState(false)
+  const [error, setError] = useState<string[]>()
+  const [uploadedFiles, setFileUploadState] = useState<Record<'successful' | 'failed', string[]>>({
+    successful: [],
+    failed: [],
+  })
+  const [campaignApplicationResult, setCampaignApplicationResult] =
+    useState<CreateCampaignApplicationResponse>()
 
-    await fileUpload.mutateAsync({ campaignApplicationId: id, files })
+  const createApplication = async (input: CreateCampaignApplicationInput, files: File[]) => {
+    if (submitting) {
+      return
+    }
+    setSubmitting(true)
 
-    return { id }
+    const dataOrError = await create.mutateAsync(input).catch((e) => e as AxiosError<ApiErrors>)
+
+    if (isAxiosError(dataOrError)) {
+      setSubmitting(false)
+      if (typeof dataOrError.response?.data.message === 'string') {
+        setError([dataOrError.response?.data.message])
+      } else {
+        setError(dataOrError.response?.data?.message?.flatMap((m) => Object.values(m.constraints)))
+      }
+      return
+    }
+
+    if (dataOrError?.data?.id == null) {
+      // it appears the create was not successful after all so still
+      setSubmitting(false)
+      setError(['could not create a campaign application'])
+      return
+    }
+
+    const campaignApplication = dataOrError.data
+    setCreated(true)
+    setCampaignApplicationResult(campaignApplication)
+
+    const uploadedFilesMap = new Map<string, 'success' | 'fail'>()
+    await Promise.all(
+      files.map((f) =>
+        fileUpload
+          .mutateAsync({ campaignApplicationId: campaignApplication.id, files: [f] })
+          .then(() => {
+            uploadedFilesMap.set(f.name, 'success')
+          })
+          .catch((e) => {
+            console.log('----error', e)
+            // one of the files was rejected - note
+            uploadedFilesMap.set(f.name, 'fail')
+          }),
+      ),
+    )
+
+    const fileUploadResults = [...uploadedFilesMap.entries()].reduce((a, [key, value]) => {
+      value === 'fail' ? a.failed.push(key) : a.successful.push(key)
+      return a
+    }, uploadedFiles)
+
+    setFileUploadState(fileUploadResults)
+    setSubmitting(false)
+
+    return { id: campaignApplication.id, ...input }
+  }
+
+  return {
+    createApplication,
+    applicationCreated: created,
+    submitting,
+    uploadedFiles,
+    error,
+    campaignApplicationResult,
   }
 }
 
@@ -228,5 +351,6 @@ function mapCreateInput(
     campaignGuarantee: i.details.campaignGuarantee,
     history: i.details.currentStatus,
     otherFinanceSources: i.details.otherFinancialSources,
+    campaignEnd: i.application.campaignEnd,
   }
 }
