@@ -52,6 +52,8 @@ export interface CreateCampaignApplicationInput {
   otherNotes?: string
 
   category?: CampaignTypeCategory
+
+  campaignEnd: string
 }
 
 export type CreateCampaignApplicationResponse = CreateCampaignApplicationInput & {
@@ -63,4 +65,7 @@ export interface UploadCampaignApplicationFilesRequest {
   files: File[]
 }
 
-export type UploadCampaignApplicationFilesResponse = unknown
+export type UploadCampaignApplicationFilesResponse = {
+  id: string
+  filename: string
+}

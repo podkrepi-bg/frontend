@@ -7,6 +7,7 @@ export enum Steps {
   ORGANIZER = 0,
   CAMPAIGN = 1,
   CAMPAIGN_DETAILS = 2,
+  CREATED_DETAILS = 3,
 }
 
 export type CampaignApplicationOrganizer = {

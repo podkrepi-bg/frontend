@@ -63,5 +63,13 @@
   },
   "alerts": {
     "successfully-created": "Campaign application successfully created."
+  },
+  "result": {
+    "created": "Successfully created campaign application",
+    "editButton": "Edit campaign application",
+    "uploadOk": "Fails uploaded",
+    "uploadFailed": "Failed upload",
+    "uploadFailedWhat": "What can I do?",
+    "uploadFailedDirection": "Please visit the campaign application edit page linked below and retry uploading the files."
   }
 }
