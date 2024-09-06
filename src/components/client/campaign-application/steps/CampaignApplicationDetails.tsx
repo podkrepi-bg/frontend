@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import FormTextField from 'components/common/form/FormTextField'
@@ -25,7 +25,7 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
         <Grid item xs={12}>
           <FormTextField
             type="text"
-            name="details.cause"
+            name="applicationDetails.cause"
             label={t('steps.details.cause')}
             multiline
             rows={3}
@@ -34,7 +34,7 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
         <Grid item xs={12}>
           <FormTextField
             type="text"
-            name="details.description"
+            name="applicationDetails.description"
             label={t('steps.details.description')}
             multiline
             rows={3}
@@ -43,7 +43,7 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
         <Grid item xs={12}>
           <FormTextField
             type="text"
-            name="details.currentStatus"
+            name="applicationDetails.currentStatus"
             label={t('steps.details.current-status.label')}
             placeholder={t('steps.details.current-status.placeholder')}
             multiline
@@ -58,6 +58,7 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
             }}
             accept="text/plain,application/json,application/pdf,image/png,image/jpeg,application/xml,text/xml,application/msword,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           />
+          <Typography>{t('steps.details.disclaimer')}</Typography>
           <FileList
             files={files}
             onDelete={(deletedFile) =>

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import {
   CampaignApplicationFormData,
+  CampaignEndTypes,
   Step as StepType,
   Steps,
 } from './helpers/campaignApplication.types'
@@ -13,7 +14,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import GenericForm from 'components/common/form/GenericForm'
 import CampaignApplicationRemark from './CampaignApplicationRemark'
 import CampaignApplicationStepperIcon from './CampaignApplicationStepperIcon'
-import CampaignApplication from './steps/CampaignApplication'
+import CampaignApplicationBasic from './steps/CampaignApplicationBasic'
 import CampaignApplicationDetails from './steps/CampaignApplicationDetails'
 import CampaignApplicationOrganizer from './steps/CampaignApplicationOrganizer'
 
@@ -48,7 +49,6 @@ import {
   ActionSubmitButton,
   Root,
 } from './helpers/campaignApplicationFormActions.styled'
-import { red } from '@mui/material/colors'
 import CampaignApplicationSummary from './steps/CampaignApplicationSummary'
 import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
@@ -81,14 +81,14 @@ export default function CampaignApplicationForm({ person }: Props) {
       transparencyTermsAccepted: false,
       personalInformationProcessingAccepted: false,
     },
-    application: {
+    applicationBasic: {
       title: '',
       beneficiaryNames: '',
       campaignType: '',
       funds: 0,
-      campaignEnd: '',
+      campaignEnd: CampaignEndTypes.FUNDS,
     },
-    details: {
+    applicationDetails: {
       campaignGuarantee: '',
       cause: '',
       currentStatus: '',
@@ -163,7 +163,7 @@ export default function CampaignApplicationForm({ person }: Props) {
         <Grid container>
           <Grid container item xs={12}>
             {activeStep === Steps.ORGANIZER && <CampaignApplicationOrganizer />}
-            {activeStep === Steps.CAMPAIGN && <CampaignApplication />}
+            {activeStep === Steps.CAMPAIGN_BASIC && <CampaignApplicationBasic />}
             {activeStep === Steps.CAMPAIGN_DETAILS && (
               <CampaignApplicationDetails files={files} setFiles={setFiles} />
             )}
@@ -217,7 +217,7 @@ export default function CampaignApplicationForm({ person }: Props) {
             </Root>
           </Grid>
         </Grid>
-        {(activeStep === Steps.ORGANIZER || activeStep === Steps.CAMPAIGN) && (
+        {(activeStep === Steps.ORGANIZER || activeStep === Steps.CAMPAIGN_BASIC) && (
           <CampaignApplicationRemark />
         )}
         {/* campaign errors */}
@@ -340,17 +340,17 @@ function mapCreateInput(
     organizerEmail: i.organizer.email,
     organizerPhone: i.organizer.phone,
 
-    beneficiary: i.application.beneficiaryNames,
+    beneficiary: i.applicationBasic.beneficiaryNames,
 
-    campaignName: i.application.title,
-    amount: i.application.funds?.toString() ?? '',
-    goal: i.details.cause,
-    category: types.find((c) => c.id === i.application.campaignType)?.category,
-    description: i.details.description,
-    organizerBeneficiaryRel: i.details.organizerBeneficiaryRelationship ?? '-',
-    campaignGuarantee: i.details.campaignGuarantee,
-    history: i.details.currentStatus,
-    otherFinanceSources: i.details.otherFinancialSources,
-    campaignEnd: i.application.campaignEnd,
+    campaignName: i.applicationBasic.title,
+    amount: i.applicationBasic.funds?.toString() ?? '',
+    goal: i.applicationDetails.cause,
+    category: types.find((c) => c.id === i.applicationBasic.campaignType)?.category,
+    description: i.applicationDetails.description,
+    organizerBeneficiaryRel: i.applicationDetails.organizerBeneficiaryRelationship ?? '-',
+    campaignGuarantee: i.applicationDetails.campaignGuarantee,
+    history: i.applicationDetails.currentStatus,
+    otherFinanceSources: i.applicationDetails.otherFinancialSources,
+    campaignEnd: i.applicationBasic.campaignEnd,
   }
 }

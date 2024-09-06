@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import CampaignApplication from 'components/client/campaign-application/steps/CampaignApplication'
+import CampaignApplicationBasic from 'components/client/campaign-application/steps/CampaignApplicationBasic'
 import CampaignApplicationDetails from 'components/client/campaign-application/steps/CampaignApplicationDetails'
 import CampaignApplicationOrganizer from 'components/client/campaign-application/steps/CampaignApplicationOrganizer'
 import GenericForm from 'components/common/form/GenericForm'
@@ -31,7 +31,7 @@ export default function EditPage() {
           initialValues={initialValues}>
           <CampaignApplicationOrganizer />
           <div>.</div>
-          <CampaignApplication />
+          <CampaignApplicationBasic />
           <div>.</div>
           <CampaignApplicationDetails files={files} setFiles={setFiles} />
           <div>.</div>

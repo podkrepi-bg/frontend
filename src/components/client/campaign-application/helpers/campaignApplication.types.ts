@@ -5,7 +5,7 @@ export type Step = {
 export enum Steps {
   NONE = -1,
   ORGANIZER = 0,
-  CAMPAIGN = 1,
+  CAMPAIGN_BASIC = 1,
   CAMPAIGN_DETAILS = 2,
   CREATED_DETAILS = 3,
 }
@@ -19,7 +19,7 @@ export type CampaignApplicationOrganizer = {
   personalInformationProcessingAccepted: boolean
 }
 
-export type CampaignApplication = {
+export type CampaignApplicationBasic = {
   beneficiaryNames: string
   title: string
   campaignType: string
@@ -27,19 +27,21 @@ export type CampaignApplication = {
   campaignEnd: string
 }
 
+export type CampaignApplicationDetails = {
+  cause: string
+  organizerBeneficiaryRelationship?: string
+  campaignGuarantee?: string
+  otherFinancialSources?: string
+  description?: string
+  currentStatus?: string
+  links?: string[]
+  documents?: string[]
+}
+
 export type CampaignApplicationFormData = {
   organizer: CampaignApplicationOrganizer
-  application: CampaignApplication
-  details: {
-    organizerBeneficiaryRelationship: string
-    campaignGuarantee: string | undefined
-    otherFinancialSources: string | undefined
-    description: string
-    currentStatus: string
-    cause: string
-    links: string[]
-    documents: string[]
-  }
+  applicationBasic: CampaignApplicationBasic
+  applicationDetails: CampaignApplicationDetails
 }
 
 export type CampaignApplicationFormDataSteps = {

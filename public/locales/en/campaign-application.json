@@ -40,7 +40,8 @@
         }
       },
       "photos": "Photo/Video material",
-      "documents": "Documents"
+      "documents": "Documents",
+      "disclaimer": "Up to 10 documents accepted. Each of the documents can be up to 30MB is size"
     },
     "admin": {
       "title": "Admin edit",

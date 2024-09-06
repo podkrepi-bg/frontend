@@ -9,7 +9,7 @@ import FormDatePicker from 'components/common/form/FormDatePicker'
 
 import theme from 'common/theme'
 
-export default function CampaignApplication() {
+export default function CampaignApplicationBasic() {
   const { t } = useTranslation('campaign-application')
   const [campaignEnd] = useField('application.campaignEnd')
 
@@ -23,7 +23,7 @@ export default function CampaignApplication() {
           <StyledFormTextField
             label={t('steps.application.beneficiary')}
             type="text"
-            name="application.beneficiaryNames"
+            name="applicationBasic.beneficiaryNames"
             autoComplete="name"
           />
         </Grid>
@@ -38,17 +38,17 @@ export default function CampaignApplication() {
           <StyledFormTextField
             label={t('steps.application.campaignTitle')}
             type="text"
-            name="application.title"
+            name="applicationBasic.title"
           />
         </Grid>
         <Grid item xs={12}>
-          <CampaignTypeSelect name="application.campaignType" />
+          <CampaignTypeSelect name="applicationBasic.campaignType" />
         </Grid>
         <Grid item xs={12}>
           <StyledFormTextField
             label={t('steps.application.funds')}
             type="number"
-            name="application.funds"
+            name="applicationBasic.funds"
           />
         </Grid>
         <Grid container item>
@@ -65,7 +65,7 @@ export default function CampaignApplication() {
                     <Field
                       size="medium"
                       type="radio"
-                      name="application.campaignEnd"
+                      name="applicationBasic.campaignEnd"
                       value={CampaignEndTypes.FUNDS}
                     />
                     {t('steps.application.campaign-end.options.funds')}
@@ -76,7 +76,7 @@ export default function CampaignApplication() {
                     <Field
                       size="medium"
                       type="radio"
-                      name="application.campaignEnd"
+                      name="applicationBasic.campaignEnd"
                       value={CampaignEndTypes.ONGOING}
                     />
                     {t('steps.application.campaign-end.options.ongoing')}
@@ -87,7 +87,7 @@ export default function CampaignApplication() {
                     <Field
                       size="medium"
                       type="radio"
-                      name="application.campaignEnd"
+                      name="applicationBasic.campaignEnd"
                       value={CampaignEndTypes.DATE}
                     />
                     {t('steps.application.campaign-end.options.date')}
@@ -96,7 +96,7 @@ export default function CampaignApplication() {
               </Grid>
               {campaignEnd.value === CampaignEndTypes.DATE && (
                 <Grid item xs={6} sx={{ paddingTop: 2 }}>
-                  <FormDatePicker name="application.campaign-end" label="" />
+                  <FormDatePicker name="applicationBasic.campaign-end" label="" />
                 </Grid>
               )}
             </FormControl>
