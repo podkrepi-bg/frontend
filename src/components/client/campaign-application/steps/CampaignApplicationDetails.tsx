@@ -7,10 +7,11 @@ import { StyledStepHeading } from '../helpers/campaignApplication.styled'
 import theme from 'common/theme'
 import FileList from 'components/common/file-upload/FileList'
 import FileUpload from 'components/common/file-upload/FileUpload'
+import { Dispatch, SetStateAction } from 'react'
 
 export type Props = {
   files: File[]
-  setFiles: (files: File[]) => void
+  setFiles: Dispatch<SetStateAction<File[]>>
 }
 
 export default function CampaignApplicationDetails({ files, setFiles }: Props) {
