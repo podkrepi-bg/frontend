@@ -35,7 +35,6 @@ export type CampaignApplicationDetails = {
   description?: string
   currentStatus?: string
   links?: string[]
-  documents?: string[]
 }
 
 export type CampaignApplicationFormData = {

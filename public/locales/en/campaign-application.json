@@ -67,10 +67,13 @@
   },
   "result": {
     "created": "Successfully created campaign application",
+    "edited": "Successfully edited campaign application",
     "editButton": "Edit campaign application",
-    "uploadOk": "Fails uploaded",
-    "uploadFailed": "Failed upload",
+    "uploadOk": "Fails added",
+    "deleteOk": "Files removed",
+    "uploadFailed": "Failed file add",
+    "deleteFailed": "Failed to remove files",
     "uploadFailedWhat": "What can I do?",
-    "uploadFailedDirection": "Please visit the campaign application edit page linked below and retry uploading the files."
+    "uploadFailedDirection": "Please visit the campaign application edit page linked below and retry adding/removing the files."
   }
 }

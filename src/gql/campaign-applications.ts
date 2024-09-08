@@ -1,5 +1,3 @@
-import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
-
 export interface CreateCampaignApplicationInput {
   /**
    * What would the campaign be called. ('Help Vesko' or 'Castrate Plovdiv Cats')
@@ -51,9 +49,9 @@ export interface CreateCampaignApplicationInput {
   /** Anything that the operator needs to know about the campaign */
   otherNotes?: string
 
-  category?: CampaignTypeCategory
-
   campaignEnd: string
+
+  campaignTypeId?: string
 }
 
 export type CreateCampaignApplicationResponse = CreateCampaignApplicationInput & {
@@ -68,4 +66,11 @@ export interface UploadCampaignApplicationFilesRequest {
 export type UploadCampaignApplicationFilesResponse = {
   id: string
   filename: string
+}
+
+export type CampaignApplicationExisting = CreateCampaignApplicationResponse & {
+  documents: Array<{
+    id: string
+    filename: string
+  }>
 }

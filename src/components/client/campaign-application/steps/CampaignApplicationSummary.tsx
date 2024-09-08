@@ -1,99 +1,134 @@
 import { Grid, Typography } from '@mui/material'
-import { red } from '@mui/material/colors'
+import { green, orange, red } from '@mui/material/colors'
 import { CreateCampaignApplicationResponse } from 'gql/campaign-applications'
 import { useTranslation } from 'next-i18next'
 
 export interface SummaryProps {
   uploadedFiles: Record<string, string[]>
   camApp?: CreateCampaignApplicationResponse
+  deletedFiles?: Record<string, string[]>
+  isEdit?: boolean
 }
 
-export default function CampaignApplicationSummary({ uploadedFiles, camApp }: SummaryProps) {
+function FilesDetail({
+  label,
+  files,
+  type,
+}: {
+  label: string
+  files?: string[]
+  type?: 'success' | 'failure' | 'successful-delete'
+}) {
+  return (
+    Number(files?.length) > 0 && (
+      <>
+        <Grid item xs={12} md={6}>
+          {label}
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {files?.map((f) => (
+            <Typography
+              key={f}
+              component="p"
+              color={
+                type === 'success'
+                  ? green[300]
+                  : type === 'failure'
+                  ? red.A200
+                  : type === 'successful-delete'
+                  ? orange[100]
+                  : undefined
+              }>
+              {f}
+            </Typography>
+          ))}
+        </Grid>
+      </>
+    )
+  )
+}
+
+function CamAppDetail({ label, value }: { label: string; value?: string }) {
+  const normalized = typeof value === 'string' && value.trim() != '' ? value : '-'
+  return (
+    <>
+      <Grid item xs={12} md={6}>
+        {label}
+      </Grid>
+      <Grid item xs={12} md={6}>
+        {normalized}
+      </Grid>
+    </>
+  )
+}
+
+export default function CampaignApplicationSummary({
+  uploadedFiles,
+  camApp,
+  deletedFiles,
+  isEdit,
+}: SummaryProps) {
   const { t } = useTranslation('campaign-application')
 
   return (
     <>
-      <Typography component="div">
-        {uploadedFiles.successful.length > 0 && (
-          <p>
-            {t('result.uploadOk')}: {uploadedFiles.successful.join()}
-          </p>
-        )}
-        {uploadedFiles.failed.length > 0 && (
-          <Typography color={red.A200} border="1px solid" borderColor={red.A400} component="div">
-            <p>
-              {t('result.uploadFailed')}:{' '}
-              {uploadedFiles.failed?.map((f) => (
-                // eslint-disable-next-line react/jsx-key
-                <Typography>{f}</Typography>
-              ))}
-            </p>
-            <p>{t('result.uploadFailedDirection')}</p>
-          </Typography>
-        )}
+      <Typography variant="h3">{t(isEdit ? 'result.edited' : 'result.created')}</Typography>
+      <Typography component="div" variant="subtitle1">
+        <Grid container justifyContent="center" direction="column" alignContent="center">
+          <Grid item container justifyContent="space-between" direction="row">
+            <FilesDetail
+              label={t('result.uploadOk')}
+              files={uploadedFiles.successful}
+              type="success"
+            />
+            <FilesDetail
+              label={t('result.deleteOk')}
+              files={deletedFiles?.successful}
+              type="successful-delete"
+            />
+            {uploadedFiles.failed.length > 0 && (
+              <>
+                <FilesDetail
+                  label={t('result.uploadFailed')}
+                  files={uploadedFiles.failed}
+                  type="failure"
+                />
+                <p>{t('result.uploadFailedDirection')}</p>
+              </>
+            )}
+            {deletedFiles && deletedFiles.failed.length > 0 && (
+              <>
+                <FilesDetail
+                  label={t('result.deleteFailed')}
+                  files={deletedFiles.failed}
+                  type="failure"
+                />
+                <p>{t('result.uploadFailedDirection')}</p>
+              </>
+            )}
+            <CamAppDetail label={t('steps.organizer.name')} value={camApp?.organizerName} />
+            <CamAppDetail label={t('steps.organizer.phone')} value={camApp?.organizerPhone} />
+            <CamAppDetail label={t('steps.organizer.email')} value={camApp?.organizerEmail} />
+            <CamAppDetail label={t('steps.application.beneficiary')} value={camApp?.beneficiary} />
+            <CamAppDetail
+              label={t('steps.application.beneficiaryRelationship')}
+              value={camApp?.organizerBeneficiaryRel}
+            />
+            <CamAppDetail
+              label={t('steps.application.campaignTitle')}
+              value={camApp?.campaignName}
+            />
+            <CamAppDetail label={t('steps.application.funds')} value={camApp?.amount} />
+            <CamAppDetail
+              label={t('steps.application.campaign-end.title')}
+              value={camApp?.campaignEnd}
+            />
+            <CamAppDetail label={t('steps.details.cause')} value={camApp?.goal} />
+            <CamAppDetail label={t('steps.details.description')} value={camApp?.description} />
+            <CamAppDetail label={t('steps.details.current-status.label')} value={camApp?.history} />
+          </Grid>
+        </Grid>
       </Typography>
-      <Grid container justifyContent="center" direction="column" alignContent="center">
-        <Grid item container justifyContent="space-between" direction="row">
-          <Grid item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.organizer.name')} : {camApp?.organizerName ?? '-'}
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid item container justifyContent="space-between" direction="row">
-          <Grid container item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.organizer.phone')} : {camApp?.organizerPhone ?? '-'}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.organizer.email')}: {camApp?.organizerEmail ?? '-'}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.application.beneficiary')}: {camApp?.beneficiary ?? '-'}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.application.beneficiaryRelationship')}:
-              {camApp?.organizerBeneficiaryRel ?? '-'}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.application.campaignTitle')}: {camApp?.campaignName ?? '-'}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.application.funds')}: {camApp?.amount ?? '-'}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.application.campaign-end.title')} {camApp?.campaignEnd ?? '-'}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.details.cause')}: {camApp?.goal ?? '-'}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.details.description')}: {camApp?.description ?? '-'}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} md={12}>
-            <Typography variant="body2">
-              {t('steps.details.current-status.label')}: {camApp?.history ?? '-'}
-            </Typography>
-          </Grid>
-        </Grid>
-      </Grid>
     </>
   )
 }

@@ -1,7 +1,9 @@
-import { AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { useSession } from 'next-auth/react'
 
+import { useQuery } from '@tanstack/react-query'
 import {
+  CampaignApplicationExisting,
   CreateCampaignApplicationInput,
   CreateCampaignApplicationResponse,
   UploadCampaignApplicationFilesRequest,
@@ -9,7 +11,7 @@ import {
 } from 'gql/campaign-applications'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
-import { authConfig } from 'service/restRequests'
+import { authConfig, authQueryFnFactory } from 'service/restRequests'
 
 export const useCreateCampaignApplication = () => {
   const { data: session } = useSession()
@@ -38,4 +40,33 @@ export const useUploadCampaignApplicationFiles = () => {
       },
     )
   }
+}
+
+export const useDeleteCampaignApplicationFile = () => {
+  const { data: session } = useSession()
+  return async (id: string) =>
+    await apiClient.delete<UploadCampaignApplicationFilesRequest>(
+      endpoints.campaignApplication.deleteFile(id).url,
+      authConfig(session?.accessToken),
+    )
+}
+
+export function useViewCampaignApplicationCached(id: string, cacheFor = 60 * 1000) {
+  const { data } = useSession()
+  return useQuery<CampaignApplicationExisting, AxiosError>(
+    [endpoints.campaignApplication.view(id).url],
+    authQueryFnFactory<CampaignApplicationExisting>(data?.accessToken),
+    {
+      cacheTime: cacheFor,
+    },
+  )
+}
+
+export const useUpdateCampaignApplication = () => {
+  const { data: session } = useSession()
+  return async ([data, id]: [CreateCampaignApplicationInput, string]) =>
+    await apiClient.patch<
+      CreateCampaignApplicationInput,
+      AxiosResponse<CreateCampaignApplicationResponse>
+    >(endpoints.campaignApplication.update(id).url, data, authConfig(session?.accessToken))
 }

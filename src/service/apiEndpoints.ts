@@ -426,7 +426,11 @@ export const endpoints = {
   },
   campaignApplication: {
     create: <Endpoint>{ url: '/campaign-application/create', method: 'POST' },
+    update: (id: string) => <Endpoint>{ url: `/campaign-application/${id}`, method: 'PATCH' },
     uploadFile: (campaignId: string) =>
       <Endpoint>{ url: `/campaign-application/uploadFile/${campaignId}`, method: 'POST' },
+    deleteFile: (fileId: string) =>
+      <Endpoint>{ url: `/campaign-application/fileById/${fileId}`, method: 'DELETE' },
+    view: (id: string) => <Endpoint>{ url: `/campaign-application/byId/${id}`, method: 'GET' },
   },
 }

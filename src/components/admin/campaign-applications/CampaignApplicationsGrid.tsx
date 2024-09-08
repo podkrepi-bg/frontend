@@ -6,7 +6,7 @@ import theme from 'common/theme'
 import Link from 'next/link'
 
 export default function CampaignApplicationsGrid() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',

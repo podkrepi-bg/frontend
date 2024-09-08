@@ -1,4 +1,4 @@
-import { Grid, StepLabel, Typography } from '@mui/material'
+import { Grid, StepLabel } from '@mui/material'
 import { Person } from 'gql/person'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -12,31 +12,34 @@ import {
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import GenericForm from 'components/common/form/GenericForm'
-import CampaignApplicationRemark from './CampaignApplicationRemark'
-import CampaignApplicationStepperIcon from './CampaignApplicationStepperIcon'
 import CampaignApplicationBasic from './steps/CampaignApplicationBasic'
 import CampaignApplicationDetails from './steps/CampaignApplicationDetails'
 import CampaignApplicationOrganizer from './steps/CampaignApplicationOrganizer'
+import CampaignApplicationRemark from './steps/CampaignApplicationRemark'
+import CampaignApplicationStepperIcon from './steps/CampaignApplicationStepperIcon'
 
 import { validationSchema } from './helpers/validation-schema'
 
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
+import { routes } from 'common/routes'
 import { FormikHelpers } from 'formik'
 import {
+  CampaignApplicationExisting,
   CreateCampaignApplicationInput,
   CreateCampaignApplicationResponse,
   UploadCampaignApplicationFilesRequest,
   UploadCampaignApplicationFilesResponse,
 } from 'gql/campaign-applications'
-import { CampaignTypesResponse } from 'gql/campaign-types'
 import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import { ApiErrors } from 'service/apiErrors'
 import {
   useCreateCampaignApplication,
+  useDeleteCampaignApplicationFile,
+  useUpdateCampaignApplication,
   useUploadCampaignApplicationFiles,
 } from 'service/campaign-application'
-import { useCampaignTypesList } from 'service/campaignTypes'
 import { AlertStore } from 'stores/AlertStore'
 import {
   StyledCampaignApplicationStep,
@@ -50,8 +53,6 @@ import {
   Root,
 } from './helpers/campaignApplicationFormActions.styled'
 import CampaignApplicationSummary from './steps/CampaignApplicationSummary'
-import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
 
 const steps: StepType[] = [
   {
@@ -67,63 +68,46 @@ const steps: StepType[] = [
 
 type Props = {
   person?: Person
+  isEdit?: boolean
+  campaignApplication?: CampaignApplicationExisting
 }
 
-export default function CampaignApplicationForm({ person }: Props) {
+export default function CampaignApplicationForm({
+  person,
+  isEdit,
+  campaignApplication: existing,
+}: Props) {
   const { t } = useTranslation('campaign-application')
-
-  const initialValues: CampaignApplicationFormData = {
-    organizer: {
-      name: `${person?.firstName} ${person?.lastName}` ?? '',
-      phone: person?.phone ?? '',
-      email: person?.email ?? '',
-      acceptTermsAndConditions: false,
-      transparencyTermsAccepted: false,
-      personalInformationProcessingAccepted: false,
-    },
-    applicationBasic: {
-      title: '',
-      beneficiaryNames: '',
-      campaignType: '',
-      funds: 0,
-      campaignEnd: CampaignEndTypes.FUNDS,
-    },
-    applicationDetails: {
-      campaignGuarantee: '',
-      cause: '',
-      currentStatus: '',
-      description: '',
-      documents: [],
-      links: [],
-      organizerBeneficiaryRelationship: '-',
-      otherFinancialSources: '',
-    },
-  }
-
-  const [files, setFiles] = useState<File[]>([])
   const router = useRouter()
 
   const {
-    createApplication,
+    createOrUpdateApplication,
     applicationCreated,
     submitting,
     uploadedFiles,
     error: createCampaignError,
     campaignApplicationResult: camApp,
-  } = useCreateApplication()
+    files,
+    setFiles,
+    initialValues,
+    deletedFiles,
+  } = useCreateOrEditApplication({
+    person,
+    isEdit,
+    campaignApplication: existing,
+  })
 
-  const { data: types } = useCampaignTypesList()
   const handleSubmit = async (
     formData: CampaignApplicationFormData,
     { resetForm }: FormikHelpers<CampaignApplicationFormData>,
   ) => {
     if (activeStep === Steps.CREATED_DETAILS && camApp?.id != null) {
-      router.push(routes.campaigns.applicationEdit(camApp?.id))
+      router.push(routes.campaigns.applicationEdit(camApp?.id)) // go to the edit page
+      router.reload() // in case we are re-editing refresh the whole page to reset all the things
     } else if (shouldSubmit) {
-      const createInput = mapCreateInput(formData, types ?? [])
-      await createApplication(createInput, files)
+      const createInput = mapCreateInput(formData)
+      await createOrUpdateApplication(createInput, files)
       if (applicationCreated) {
-        setActiveStep(Steps.CREATED_DETAILS)
         resetForm()
         AlertStore.show(t('alerts.successfully-created'), 'success')
       }
@@ -139,6 +123,7 @@ export default function CampaignApplicationForm({ person }: Props) {
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ORGANIZER)
   const shouldSubmit = activeStep === Steps.CAMPAIGN_DETAILS
 
+  // move to last step after campaign application created successfully
   useEffect(() => {
     if (applicationCreated && camApp?.id) {
       setActiveStep(Steps.CREATED_DETAILS)
@@ -168,7 +153,12 @@ export default function CampaignApplicationForm({ person }: Props) {
               <CampaignApplicationDetails files={files} setFiles={setFiles} />
             )}
             {activeStep === Steps.CREATED_DETAILS && (
-              <CampaignApplicationSummary uploadedFiles={uploadedFiles} camApp={camApp} />
+              <CampaignApplicationSummary
+                uploadedFiles={uploadedFiles}
+                camApp={camApp}
+                deletedFiles={deletedFiles}
+                isEdit={isEdit}
+              />
             )}
           </Grid>
           <Grid container item alignContent="center">
@@ -185,6 +175,7 @@ export default function CampaignApplicationForm({ person }: Props) {
                     fullWidth
                     href=""
                     variant="outlined"
+                    disabled
                     startIcon={<ArrowBackIosIcon fontSize="small" />}>
                     {t('cta.back')}
                   </ActionLinkButton>
@@ -234,7 +225,36 @@ export default function CampaignApplicationForm({ person }: Props) {
   )
 }
 
-const useCreateApplication = () => {
+export interface CreateOrEditApplication {
+  person?: Person
+  isEdit?: boolean
+  campaignApplication?: CampaignApplicationExisting
+}
+
+const useCreateOrEditApplication = ({
+  person,
+  isEdit,
+  campaignApplication: existing,
+}: CreateOrEditApplication) => {
+  const initialValues: CampaignApplicationFormData = mapExistingOrNew(isEdit, existing, person)
+
+  const [files, setFiles] = useState<File[]>(
+    existing?.documents?.map((d) => ({ name: d.filename } as File)) ?? [],
+  )
+  const [submitting, setSubmitting] = useState(false)
+  const [created, setCreated] = useState(false)
+  const [error, setError] = useState<string[]>()
+  const [uploadedFiles, setFileUploadState] = useState<Record<'successful' | 'failed', string[]>>({
+    successful: [],
+    failed: [],
+  })
+  const [deletedFiles, setFileDeletedState] = useState<Record<'successful' | 'failed', string[]>>({
+    successful: [],
+    failed: [],
+  })
+  const [campaignApplicationResult, setCampaignApplicationResult] =
+    useState<CreateCampaignApplicationResponse>()
+
   const create = useMutation<
     AxiosResponse<CreateCampaignApplicationResponse>,
     AxiosError<ApiErrors>,
@@ -251,23 +271,31 @@ const useCreateApplication = () => {
     mutationFn: useUploadCampaignApplicationFiles(),
   })
 
-  const [submitting, setSubmitting] = useState(false)
-  const [created, setCreated] = useState(false)
-  const [error, setError] = useState<string[]>()
-  const [uploadedFiles, setFileUploadState] = useState<Record<'successful' | 'failed', string[]>>({
-    successful: [],
-    failed: [],
+  const fileDelete = useMutation({
+    mutationFn: useDeleteCampaignApplicationFile(),
   })
-  const [campaignApplicationResult, setCampaignApplicationResult] =
-    useState<CreateCampaignApplicationResponse>()
 
-  const createApplication = async (input: CreateCampaignApplicationInput, files: File[]) => {
+  const update = useMutation<
+    AxiosResponse<CreateCampaignApplicationResponse>,
+    AxiosError<ApiErrors>,
+    [CreateCampaignApplicationInput, string]
+  >({
+    mutationFn: useUpdateCampaignApplication(),
+  })
+
+  const createOrUpdateApplication = async (
+    input: CreateCampaignApplicationInput,
+    files: File[],
+  ) => {
     if (submitting) {
       return
     }
     setSubmitting(true)
 
-    const dataOrError = await create.mutateAsync(input).catch((e) => e as AxiosError<ApiErrors>)
+    const dataOrError =
+      isEdit && typeof existing?.id === 'string'
+        ? await update.mutateAsync([input, existing?.id])
+        : await create.mutateAsync(input).catch((e) => e as AxiosError<ApiErrors>)
 
     if (isAxiosError(dataOrError)) {
       setSubmitting(false)
@@ -291,8 +319,23 @@ const useCreateApplication = () => {
     setCampaignApplicationResult(campaignApplication)
 
     const uploadedFilesMap = new Map<string, 'success' | 'fail'>()
-    await Promise.all(
-      files.map((f) =>
+    const deletedFilesMap = new Map<string, 'success' | 'fail'>()
+    const filesToUpload = isEdit
+      ? files.filter(
+          (f) => f.size > 0 && !existing?.documents.some((d) => d.filename === f.name),
+        ) ?? []
+      : files
+    const filesToDelete =
+      existing?.documents.filter((d) => !files.some((f) => f.name === d.filename)) ?? []
+
+    await Promise.all([
+      ...filesToDelete.map((f) =>
+        fileDelete
+          .mutateAsync(f.id)
+          .then(() => deletedFilesMap.set(f.filename, 'success'))
+          .catch(() => deletedFilesMap.set(f.filename, 'fail')),
+      ),
+      ...filesToUpload.map((f) =>
         fileUpload
           .mutateAsync({ campaignApplicationId: campaignApplication.id, files: [f] })
           .then(() => {
@@ -304,33 +347,72 @@ const useCreateApplication = () => {
             uploadedFilesMap.set(f.name, 'fail')
           }),
       ),
-    )
+    ])
 
     const fileUploadResults = [...uploadedFilesMap.entries()].reduce((a, [key, value]) => {
       value === 'fail' ? a.failed.push(key) : a.successful.push(key)
       return a
     }, uploadedFiles)
+    const fileDeleteResults = [...deletedFilesMap.entries()].reduce((a, [key, value]) => {
+      value === 'fail' ? a.failed.push(key) : a.successful.push(key)
+      return a
+    }, deletedFiles)
 
     setFileUploadState(fileUploadResults)
+    setFileDeletedState(fileDeleteResults)
     setSubmitting(false)
 
     return { id: campaignApplication.id, ...input }
   }
 
   return {
-    createApplication,
+    createOrUpdateApplication,
     applicationCreated: created,
     submitting,
     uploadedFiles,
     error,
     campaignApplicationResult,
+    files,
+    setFiles,
+    initialValues,
+    deletedFiles,
   }
 }
 
-function mapCreateInput(
-  i: CampaignApplicationFormData,
-  types: CampaignTypesResponse[],
-): CreateCampaignApplicationInput {
+function mapExistingOrNew(
+  isEdit: boolean | undefined,
+  existing: CampaignApplicationExisting | undefined,
+  person: Person | undefined,
+): CampaignApplicationFormData {
+  return {
+    organizer: {
+      name: (isEdit ? existing?.organizerName : `${person?.firstName} ${person?.lastName}`) ?? '',
+      phone: (isEdit ? existing?.organizerPhone : person?.phone) ?? '',
+      email: (isEdit ? existing?.organizerEmail : person?.email) ?? '',
+      acceptTermsAndConditions: isEdit ? true : false,
+      transparencyTermsAccepted: isEdit ? true : false,
+      personalInformationProcessingAccepted: isEdit ? true : false,
+    },
+    applicationBasic: {
+      title: existing?.campaignName ?? '',
+      beneficiaryNames: existing?.beneficiary ?? '',
+      campaignType: existing?.campaignTypeId ?? '',
+      funds: isNaN(parseInt(existing?.amount ?? '')) ? 0 : parseInt(existing?.amount ?? '0'),
+      campaignEnd: existing?.campaignEnd ?? CampaignEndTypes.FUNDS,
+    },
+    applicationDetails: {
+      campaignGuarantee: existing?.campaignGuarantee ?? '',
+      cause: existing?.goal ?? '',
+      currentStatus: existing?.history ?? '',
+      description: existing?.description ?? '',
+      links: [],
+      organizerBeneficiaryRelationship: '-',
+      otherFinancialSources: '',
+    },
+  }
+}
+
+function mapCreateInput(i: CampaignApplicationFormData): CreateCampaignApplicationInput {
   return {
     acceptTermsAndConditions: i.organizer.acceptTermsAndConditions,
     personalInformationProcessingAccepted: i.organizer.personalInformationProcessingAccepted,
@@ -345,12 +427,12 @@ function mapCreateInput(
     campaignName: i.applicationBasic.title,
     amount: i.applicationBasic.funds?.toString() ?? '',
     goal: i.applicationDetails.cause,
-    category: types.find((c) => c.id === i.applicationBasic.campaignType)?.category,
     description: i.applicationDetails.description,
     organizerBeneficiaryRel: i.applicationDetails.organizerBeneficiaryRelationship ?? '-',
     campaignGuarantee: i.applicationDetails.campaignGuarantee,
     history: i.applicationDetails.currentStatus,
     otherFinanceSources: i.applicationDetails.otherFinancialSources,
     campaignEnd: i.applicationBasic.campaignEnd,
+    campaignTypeId: i.applicationBasic.campaignType,
   }
 }
