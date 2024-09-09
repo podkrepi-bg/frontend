@@ -168,4 +168,10 @@ export const data: TeamData[] = [
     description: 'Продуктов дизайн',
     linkedInProfile: 'https://www.linkedin.com/in/digitallymarked',
   },
+  {
+    img: '/img/team-photos/ZhivkoNedyalkov.png',
+    name: 'Живко Недялков',
+    description: 'Софтуерно тестване',
+    linkedInProfile: 'https://www.linkedin.com/in/zhivko-nedyalkov-b44a93111/',
+  },
 ]
