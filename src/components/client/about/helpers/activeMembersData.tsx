@@ -67,12 +67,6 @@ export const data: TeamData[] = [
     linkedInProfile: 'https://www.linkedin.com/in/neli-tancheva-703193169/',
   },
   {
-    img: '/img/team-photos/SlavchoIvanov.png',
-    name: 'Славчо Иванов',
-    description: 'Софтуерна разработка',
-    linkedInProfile: 'https://www.linkedin.com/in/slavchoivanov/',
-  },
-  {
     img: '/img/team-photos/HristiyanHristov.png',
     name: 'Християн Христов',
     description: 'Финанси',
@@ -119,12 +113,6 @@ export const data: TeamData[] = [
     name: 'Десислава Пенчева',
     description: 'Маркетинг',
     linkedInProfile: 'https://www.linkedin.com/in/dessislava-pencheva-emba-24369311/',
-  },
-  {
-    img: '/img/team-photos/ZdravkaGornachka.png',
-    name: 'Здравка Горначка',
-    description: 'Кампании',
-    linkedInProfile: 'https://www.linkedin.com/in/zdravka-gornachka-3a0b3510/',
   },
   {
     img: '/img/team-photos/PetyaDimitrova.png',
