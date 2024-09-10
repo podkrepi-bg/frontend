@@ -50,7 +50,7 @@ export const data: TeamData[] = [
     img: '/img/team-photos/SlavchoIvanov.png',
     name: 'Славчо Иванов',
     description:
-      'Програмист, който се е борил с бъгове в много стартъпи в продължение на повече от 20 години. В момента CTO на индийска IT компания и начина',
+      'Програмист, който се е борил с бъгове в много стартъпи в продължение на повече от 20 години. В момента CTO на индийска IT компания и начинаещ доброволец.',
     linkedInProfile: 'https://www.linkedin.com/in/slavchoivanov/',
   },
 ]
