@@ -2,6 +2,7 @@ import { Grid, Typography } from '@mui/material'
 import { green, orange, red } from '@mui/material/colors'
 import { CreateCampaignApplicationResponse } from 'gql/campaign-applications'
 import { useTranslation } from 'next-i18next'
+import { CampaignEndTypes } from '../helpers/campaignApplication.types'
 
 export interface SummaryProps {
   uploadedFiles: Record<string, string[]>
@@ -121,7 +122,13 @@ export default function CampaignApplicationSummary({
             <CamAppDetail label={t('steps.application.funds')} value={camApp?.amount} />
             <CamAppDetail
               label={t('steps.application.campaign-end.title')}
-              value={camApp?.campaignEnd}
+              value={
+                camApp?.campaignEnd === CampaignEndTypes.FUNDS
+                  ? t('steps.application.campaign-end.options.funds')
+                  : camApp?.campaignEnd === CampaignEndTypes.ONGOING
+                  ? t('steps.application.campaign-end.options.ongoing')
+                  : camApp?.campaignEndDate?.toString()?.slice(0, 10)
+              }
             />
             <CamAppDetail label={t('steps.details.cause')} value={camApp?.goal} />
             <CamAppDetail label={t('steps.details.description')} value={camApp?.description} />

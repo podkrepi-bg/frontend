@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from 'react'
 
 import {
   CampaignApplicationFormData,
-  CampaignEndTypes,
   Step as StepType,
   Steps,
 } from './helpers/campaignApplication.types'
@@ -20,26 +19,12 @@ import CampaignApplicationStepperIcon from './steps/CampaignApplicationStepperIc
 
 import { validationSchema } from './helpers/validation-schema'
 
-import { useMutation } from '@tanstack/react-query'
-import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
 import { routes } from 'common/routes'
 import { FormikHelpers } from 'formik'
-import {
-  CampaignApplicationExisting,
-  CreateCampaignApplicationInput,
-  CreateCampaignApplicationResponse,
-  UploadCampaignApplicationFilesRequest,
-  UploadCampaignApplicationFilesResponse,
-} from 'gql/campaign-applications'
+import { CampaignApplicationExisting } from 'gql/campaign-applications'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { ApiErrors } from 'service/apiErrors'
-import {
-  useCreateCampaignApplication,
-  useDeleteCampaignApplicationFile,
-  useUpdateCampaignApplication,
-  useUploadCampaignApplicationFiles,
-} from 'service/campaign-application'
+import { mapCreateOrEditInput, useCreateOrEditApplication } from 'service/campaign-application'
 import { AlertStore } from 'stores/AlertStore'
 import {
   StyledCampaignApplicationStep,
@@ -103,10 +88,12 @@ export default function CampaignApplicationForm({
   ) => {
     if (activeStep === Steps.CREATED_DETAILS && camApp?.id != null) {
       router.push(routes.campaigns.applicationEdit(camApp?.id)) // go to the edit page
-      router.reload() // in case we are re-editing refresh the whole page to reset all the things
+      if (isEdit) {
+        router.reload() // in case we are re-editing refresh the whole page to reset all the things
+      }
     } else if (shouldSubmit) {
-      const createInput = mapCreateInput(formData)
-      await createOrUpdateApplication(createInput, files)
+      const createOrEdit = mapCreateOrEditInput(formData)
+      await createOrUpdateApplication(createOrEdit, files)
       if (applicationCreated) {
         resetForm()
         AlertStore.show(t('alerts.successfully-created'), 'success')
@@ -223,216 +210,4 @@ export default function CampaignApplicationForm({
       </GenericForm>
     </>
   )
-}
-
-export interface CreateOrEditApplication {
-  person?: Person
-  isEdit?: boolean
-  campaignApplication?: CampaignApplicationExisting
-}
-
-const useCreateOrEditApplication = ({
-  person,
-  isEdit,
-  campaignApplication: existing,
-}: CreateOrEditApplication) => {
-  const initialValues: CampaignApplicationFormData = mapExistingOrNew(isEdit, existing, person)
-
-  const [files, setFiles] = useState<File[]>(
-    existing?.documents?.map((d) => ({ name: d.filename } as File)) ?? [],
-  )
-  const [submitting, setSubmitting] = useState(false)
-  const [created, setCreated] = useState(false)
-  const [error, setError] = useState<string[]>()
-  const [uploadedFiles, setFileUploadState] = useState<Record<'successful' | 'failed', string[]>>({
-    successful: [],
-    failed: [],
-  })
-  const [deletedFiles, setFileDeletedState] = useState<Record<'successful' | 'failed', string[]>>({
-    successful: [],
-    failed: [],
-  })
-  const [campaignApplicationResult, setCampaignApplicationResult] =
-    useState<CreateCampaignApplicationResponse>()
-
-  const create = useMutation<
-    AxiosResponse<CreateCampaignApplicationResponse>,
-    AxiosError<ApiErrors>,
-    CreateCampaignApplicationInput
-  >({
-    mutationFn: useCreateCampaignApplication(),
-  })
-
-  const fileUpload = useMutation<
-    AxiosResponse<UploadCampaignApplicationFilesResponse>,
-    AxiosError<ApiErrors>,
-    UploadCampaignApplicationFilesRequest
-  >({
-    mutationFn: useUploadCampaignApplicationFiles(),
-  })
-
-  const fileDelete = useMutation({
-    mutationFn: useDeleteCampaignApplicationFile(),
-  })
-
-  const update = useMutation<
-    AxiosResponse<CreateCampaignApplicationResponse>,
-    AxiosError<ApiErrors>,
-    [CreateCampaignApplicationInput, string]
-  >({
-    mutationFn: useUpdateCampaignApplication(),
-  })
-
-  const createOrUpdateApplication = async (
-    input: CreateCampaignApplicationInput,
-    files: File[],
-  ) => {
-    if (submitting) {
-      return
-    }
-    setSubmitting(true)
-
-    const dataOrError =
-      isEdit && typeof existing?.id === 'string'
-        ? await update.mutateAsync([input, existing?.id])
-        : await create.mutateAsync(input).catch((e) => e as AxiosError<ApiErrors>)
-
-    if (isAxiosError(dataOrError)) {
-      setSubmitting(false)
-      if (typeof dataOrError.response?.data.message === 'string') {
-        setError([dataOrError.response?.data.message])
-      } else {
-        setError(dataOrError.response?.data?.message?.flatMap((m) => Object.values(m.constraints)))
-      }
-      return
-    }
-
-    if (dataOrError?.data?.id == null) {
-      // it appears the create was not successful after all so still
-      setSubmitting(false)
-      setError(['could not create a campaign application'])
-      return
-    }
-
-    const campaignApplication = dataOrError.data
-    setCreated(true)
-    setCampaignApplicationResult(campaignApplication)
-
-    const uploadedFilesMap = new Map<string, 'success' | 'fail'>()
-    const deletedFilesMap = new Map<string, 'success' | 'fail'>()
-    const filesToUpload = isEdit
-      ? files.filter(
-          (f) => f.size > 0 && !existing?.documents.some((d) => d.filename === f.name),
-        ) ?? []
-      : files
-    const filesToDelete =
-      existing?.documents.filter((d) => !files.some((f) => f.name === d.filename)) ?? []
-
-    await Promise.all([
-      ...filesToDelete.map((f) =>
-        fileDelete
-          .mutateAsync(f.id)
-          .then(() => deletedFilesMap.set(f.filename, 'success'))
-          .catch(() => deletedFilesMap.set(f.filename, 'fail')),
-      ),
-      ...filesToUpload.map((f) =>
-        fileUpload
-          .mutateAsync({ campaignApplicationId: campaignApplication.id, files: [f] })
-          .then(() => {
-            uploadedFilesMap.set(f.name, 'success')
-          })
-          .catch((e) => {
-            console.log('----error', e)
-            // one of the files was rejected - note
-            uploadedFilesMap.set(f.name, 'fail')
-          }),
-      ),
-    ])
-
-    const fileUploadResults = [...uploadedFilesMap.entries()].reduce((a, [key, value]) => {
-      value === 'fail' ? a.failed.push(key) : a.successful.push(key)
-      return a
-    }, uploadedFiles)
-    const fileDeleteResults = [...deletedFilesMap.entries()].reduce((a, [key, value]) => {
-      value === 'fail' ? a.failed.push(key) : a.successful.push(key)
-      return a
-    }, deletedFiles)
-
-    setFileUploadState(fileUploadResults)
-    setFileDeletedState(fileDeleteResults)
-    setSubmitting(false)
-
-    return { id: campaignApplication.id, ...input }
-  }
-
-  return {
-    createOrUpdateApplication,
-    applicationCreated: created,
-    submitting,
-    uploadedFiles,
-    error,
-    campaignApplicationResult,
-    files,
-    setFiles,
-    initialValues,
-    deletedFiles,
-  }
-}
-
-function mapExistingOrNew(
-  isEdit: boolean | undefined,
-  existing: CampaignApplicationExisting | undefined,
-  person: Person | undefined,
-): CampaignApplicationFormData {
-  return {
-    organizer: {
-      name: (isEdit ? existing?.organizerName : `${person?.firstName} ${person?.lastName}`) ?? '',
-      phone: (isEdit ? existing?.organizerPhone : person?.phone) ?? '',
-      email: (isEdit ? existing?.organizerEmail : person?.email) ?? '',
-      acceptTermsAndConditions: isEdit ? true : false,
-      transparencyTermsAccepted: isEdit ? true : false,
-      personalInformationProcessingAccepted: isEdit ? true : false,
-    },
-    applicationBasic: {
-      title: existing?.campaignName ?? '',
-      beneficiaryNames: existing?.beneficiary ?? '',
-      campaignType: existing?.campaignTypeId ?? '',
-      funds: isNaN(parseInt(existing?.amount ?? '')) ? 0 : parseInt(existing?.amount ?? '0'),
-      campaignEnd: existing?.campaignEnd ?? CampaignEndTypes.FUNDS,
-    },
-    applicationDetails: {
-      campaignGuarantee: existing?.campaignGuarantee ?? '',
-      cause: existing?.goal ?? '',
-      currentStatus: existing?.history ?? '',
-      description: existing?.description ?? '',
-      links: [],
-      organizerBeneficiaryRelationship: '-',
-      otherFinancialSources: '',
-    },
-  }
-}
-
-function mapCreateInput(i: CampaignApplicationFormData): CreateCampaignApplicationInput {
-  return {
-    acceptTermsAndConditions: i.organizer.acceptTermsAndConditions,
-    personalInformationProcessingAccepted: i.organizer.personalInformationProcessingAccepted,
-    transparencyTermsAccepted: i.organizer.transparencyTermsAccepted,
-
-    organizerName: i.organizer.name,
-    organizerEmail: i.organizer.email,
-    organizerPhone: i.organizer.phone,
-
-    beneficiary: i.applicationBasic.beneficiaryNames,
-
-    campaignName: i.applicationBasic.title,
-    amount: i.applicationBasic.funds?.toString() ?? '',
-    goal: i.applicationDetails.cause,
-    description: i.applicationDetails.description,
-    organizerBeneficiaryRel: i.applicationDetails.organizerBeneficiaryRelationship ?? '-',
-    campaignGuarantee: i.applicationDetails.campaignGuarantee,
-    history: i.applicationDetails.currentStatus,
-    otherFinanceSources: i.applicationDetails.otherFinancialSources,
-    campaignEnd: i.applicationBasic.campaignEnd,
-    campaignTypeId: i.applicationBasic.campaignType,
-  }
 }

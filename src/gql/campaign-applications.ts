@@ -26,7 +26,7 @@ export interface CreateCampaignApplicationInput {
   beneficiary: string
 
   /** What is the relationship between the Organizer and the Beneficiary ('They're my elderly relative and I'm helping with the internet-computer stuff') */
-  organizerBeneficiaryRel: string
+  organizerBeneficiaryRel?: string
 
   /** What is the result that the collected donations will help achieve */
   goal: string
@@ -49,7 +49,11 @@ export interface CreateCampaignApplicationInput {
   /** Anything that the operator needs to know about the campaign */
   otherNotes?: string
 
+  /** when does the campaign end - funds gathered, ongoing (no end), or specific date , */
   campaignEnd: string
+
+  /** specific date of the if applicable */
+  campaignEndDate?: string
 
   campaignTypeId?: string
 }

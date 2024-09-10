@@ -25,16 +25,14 @@ export type CampaignApplicationBasic = {
   campaignType: string
   funds: number
   campaignEnd: string
+  campaignEndDate?: string
 }
 
 export type CampaignApplicationDetails = {
   cause: string
   organizerBeneficiaryRelationship?: string
-  campaignGuarantee?: string
-  otherFinancialSources?: string
   description?: string
   currentStatus?: string
-  links?: string[]
 }
 
 export type CampaignApplicationFormData = {
