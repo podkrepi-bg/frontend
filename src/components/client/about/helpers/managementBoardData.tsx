@@ -29,7 +29,8 @@ export const data: TeamData[] = [
   {
     img: '/img/team-photos/GeorgiIvanov.jpg',
     name: 'Георги Иванов',
-    description: '',
+    description:
+      'Занимава се с предприемачество от над 12 години. Основател на Noble Hire, Conf.ai, Club-Mate Bulgaria, а преди това и на Enhancv. По образование е геолог. През последните близо 4 години Подкрепи.бг е неизменна част от живота му.',
     linkedInProfile: 'https://www.linkedin.com/in/joroivanoff/',
   },
   {
@@ -41,13 +42,15 @@ export const data: TeamData[] = [
   {
     img: '/img/team-photos/IvanMilchev.jpg',
     name: 'Иван Милчев',
-    description: '',
+    description:
+      'Програмист с над 10 години опит в различни софтуерни направления. По-голямата част от опита ми е придобит в Нидерландия, където съм работил за една от най-проспериращите компании в сферата на производството. От 2 години съм част от Mondoo, където разработваме софтуер за кибер сигурност. От скоро се завърнах в България и мисля да продължа развитието си тук.',
     linkedInProfile: 'https://www.linkedin.com/in/ivanmilchev/',
   },
   {
     img: '/img/team-photos/SlavchoIvanov.png',
     name: 'Славчо Иванов',
-    description: '',
+    description:
+      'Програмист, който се е борил с бъгове в много стартъпи в продължение на повече от 20 години. В момента CTO на индийска IT компания и начина',
     linkedInProfile: 'https://www.linkedin.com/in/slavchoivanov/',
   },
 ]
