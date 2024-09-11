@@ -28,7 +28,10 @@ export function TeamMemberDescription({ description }: Props) {
 
   return (
     <>
-      <Description ref={descriptionRef} variant="body2" maxHeight={show ? 'auto' : theme.spacing(23)}>
+      <Description
+        ref={descriptionRef}
+        variant="body2"
+        maxHeight={show ? 'auto' : theme.spacing(23)}>
         {description}
       </Description>
 
