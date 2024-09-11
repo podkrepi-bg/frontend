@@ -95,7 +95,7 @@ export const useCreateOrEditApplication = ({
     existing?.documents?.map((d) => ({ name: d.filename } as File)) ?? [],
   )
   const [submitting, setSubmitting] = useState(false)
-  const [created, setCreated] = useState(false)
+  const [successful, setSuccessful] = useState(false)
   const [error, setError] = useState<string[]>()
   const [uploadedFiles, setFileUploadState] = useState<Record<'successful' | 'failed', string[]>>({
     successful: [],
@@ -136,10 +136,7 @@ export const useCreateOrEditApplication = ({
     mutationFn: useUpdateCampaignApplication(),
   })
 
-  const createOrUpdateApplication = async (
-    input: CreateCampaignApplicationInput,
-    files: File[],
-  ) => {
+  const createOrUpdateApplication = async (input: CreateCampaignApplicationInput) => {
     setError(undefined)
     if (submitting) {
       return
@@ -150,13 +147,14 @@ export const useCreateOrEditApplication = ({
       isEdit && typeof existing?.id === 'string'
         ? await update.mutateAsync([input, existing?.id]).catch((e) => e as AxiosError<ApiErrors>)
         : await create.mutateAsync(input).catch((e) => e as AxiosError<ApiErrors>)
-
     if (isAxiosError(dataOrError)) {
       setSubmitting(false)
-      if (typeof dataOrError.response?.data.message === 'string') {
-        setError([dataOrError.response?.data.message])
-      } else {
+      if (typeof dataOrError.response?.data?.message === 'string') {
+        setError([dataOrError.response?.data?.message])
+      } else if (Array.isArray(dataOrError.response?.data?.message)) {
         setError(dataOrError.response?.data?.message?.flatMap((m) => Object.values(m.constraints)))
+      } else {
+        setError(['could not create a campaign application due to unknown error'])
       }
       return
     }
@@ -169,7 +167,7 @@ export const useCreateOrEditApplication = ({
     }
 
     const campaignApplication = dataOrError.data
-    setCreated(true)
+    setSuccessful(true)
     setCampaignApplicationResult(campaignApplication)
 
     const uploadedFilesMap = new Map<string, 'success' | 'fail'>()
@@ -180,7 +178,7 @@ export const useCreateOrEditApplication = ({
         ) ?? []
       : files
     const filesToDelete =
-      existing?.documents.filter((d) => !files.some((f) => f.name === d.filename)) ?? []
+      existing?.documents?.filter((d) => !files.some((f) => f.name === d.filename)) ?? []
 
     await Promise.all([
       ...filesToDelete.map((f) =>
@@ -209,13 +207,11 @@ export const useCreateOrEditApplication = ({
     setFileUploadState(fileUploadResults)
     setFileDeletedState(fileDeleteResults)
     setSubmitting(false)
-
-    return { id: campaignApplication.id, ...input }
   }
 
   return {
     createOrUpdateApplication,
-    applicationCreated: created,
+    createOrUpdateSuccessful: successful,
     submitting,
     uploadedFiles,
     error,

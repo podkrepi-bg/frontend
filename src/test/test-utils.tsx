@@ -26,6 +26,15 @@ export const Providers = ({ children }: { children: React.ReactElement }) => {
                   retry: 0,
                 },
               },
+              logger: {
+                error: () => {
+                  // skip the errors as it fills the console with the 4xx and 5xx errors that are legitimate parts of the tests
+                  // i.e. when a file fails to upload - inform the user
+                  return
+                },
+                log: console.log,
+                warn: console.warn,
+              },
             })
           }>
           {children}

@@ -67,7 +67,7 @@ export default function CampaignApplicationForm({
 
   const {
     createOrUpdateApplication,
-    applicationCreated,
+    createOrUpdateSuccessful: applicationCreated,
     submitting,
     uploadedFiles,
     error: createCampaignError,
@@ -93,7 +93,7 @@ export default function CampaignApplicationForm({
       }
     } else if (shouldSubmit) {
       const createOrEdit = mapCreateOrEditInput(formData)
-      await createOrUpdateApplication(createOrEdit, files)
+      await createOrUpdateApplication(createOrEdit)
       if (applicationCreated) {
         resetForm()
         AlertStore.show(t('alerts.successfully-created'), 'success')
