@@ -1,6 +1,5 @@
 export type Step = {
   title: string
-  component: JSX.Element
 }
 
 export enum Steps {

@@ -7,8 +7,11 @@ import AdminContainer from 'components/common/navigation/AdminContainer'
 import AdminLayout from 'components/common/navigation/AdminLayout'
 import CampaignApplicationAdminPropsEdit from './CampaignApplicationAdminPropsEdit'
 import { CampaignApplicationAdminEdit } from './campaignApplicationAdmin.types'
+import { useState } from 'react'
 
 export default function EditPage() {
+  const [files, setFiles] = useState<File[]>([])
+
   const initialValues = {
     organizer: {
       name: 'Some organizer',
@@ -30,7 +33,7 @@ export default function EditPage() {
           <div>.</div>
           <CampaignApplication />
           <div>.</div>
-          <CampaignApplicationDetails />
+          <CampaignApplicationDetails files={files} setFiles={setFiles} />
           <div>.</div>
           <CampaignApplicationAdminPropsEdit />
         </GenericForm>

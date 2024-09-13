@@ -49,24 +49,26 @@ function FileList({ rolesList, files, onDelete, onSetFileRole, filesRole = [] }:
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary={file.name} />
-          <FormControl>
-            <InputLabel id="choose-type-label">{'Избери роля'}</InputLabel>
-            <Select<CampaignFileRole>
-              id="choose-type"
-              size="small"
-              label="Избери роля"
-              labelId="choose-type-label"
-              value={
-                filesRole.find((f) => f.file === file.name)?.role ?? CampaignFileRole.background
-              }
-              onChange={setFileRole(file)}>
-              {Object.values(rolesList).map((role) => (
-                <MenuItem key={role} value={role}>
-                  {role}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          {Array.isArray(filesRole) && filesRole.length > 0 && (
+            <FormControl>
+              <InputLabel id="choose-type-label">{'Избери роля'}</InputLabel>
+              <Select<CampaignFileRole>
+                id="choose-type"
+                size="small"
+                label="Избери роля"
+                labelId="choose-type-label"
+                value={
+                  filesRole.find((f) => f.file === file.name)?.role ?? CampaignFileRole.background
+                }
+                onChange={setFileRole(file)}>
+                {Object.values(rolesList).map((role) => (
+                  <MenuItem key={role} value={role}>
+                    {role}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
         </ListItem>
       ))}
     </List>

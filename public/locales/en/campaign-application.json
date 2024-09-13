@@ -60,5 +60,8 @@
       "terms": "Terms and Conditions ",
       "faq": "Frequently Asked Questions"
     }
+  },
+  "alerts": {
+    "successfully-created": "Campaign application successfully created."
   }
 }
