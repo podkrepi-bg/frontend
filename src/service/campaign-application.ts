@@ -265,7 +265,7 @@ export function mapExistingOrNew(
       cause: existing?.goal ?? '',
       currentStatus: existing?.history ?? '',
       description: existing?.description ?? '',
-      organizerBeneficiaryRelationship: existing?.organizerBeneficiaryRel,
+      organizerBeneficiaryRelationship: existing?.organizerBeneficiaryRel ?? '',
     },
     admin: {
       archived: existing?.archived ?? false,
@@ -291,7 +291,7 @@ export function mapCreateOrEditInput(i: CampaignApplicationFormData): CampaignAp
     amount: i.applicationBasic.funds?.toString() ?? '',
     goal: i.applicationDetails.cause,
     description: i.applicationDetails.description,
-    organizerBeneficiaryRel: i.applicationDetails.organizerBeneficiaryRelationship,
+    organizerBeneficiaryRel: i.applicationDetails.organizerBeneficiaryRelationship ?? '-',
     history: i.applicationDetails.currentStatus,
     campaignEnd: i.applicationBasic.campaignEnd,
     campaignEndDate: i.applicationBasic.campaignEndDate,

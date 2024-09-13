@@ -25,6 +25,7 @@ export default function CampaignApplicationBasic() {
     setFieldValue(
       'applicationBasic.campaignEndDate',
       values?.applicationBasic?.campaignEnd === CampaignEndTypes.DATE ? selectedDate : undefined,
+      false,
     )
   }, [values?.applicationBasic?.campaignEnd])
 
