@@ -9,6 +9,7 @@ export interface SummaryProps {
   camApp?: CreateCampaignApplicationResponse
   deletedFiles?: Record<string, string[]>
   isEdit?: boolean
+  prependChildren?: JSX.Element
 }
 
 function FilesDetail({
@@ -49,8 +50,9 @@ function FilesDetail({
   )
 }
 
-function CamAppDetail({ label, value }: { label: string; value?: string }) {
-  const normalized = typeof value === 'string' && value.trim() != '' ? value : '-'
+export function CamAppDetail({ label, value }: { label: string; value?: string | JSX.Element }) {
+  const normalized =
+    typeof value === 'string' && value.trim() != '' ? value : value != null ? value : '-'
   return (
     <>
       <Grid item xs={12} md={6}>
@@ -68,6 +70,7 @@ export default function CampaignApplicationSummary({
   camApp,
   deletedFiles,
   isEdit,
+  prependChildren,
 }: SummaryProps) {
   const { t } = useTranslation('campaign-application')
 
@@ -77,6 +80,7 @@ export default function CampaignApplicationSummary({
       <Typography component="div" variant="subtitle1">
         <Grid container justifyContent="center" direction="column" alignContent="center">
           <Grid item container justifyContent="space-between" direction="row">
+            {prependChildren}
             <FilesDetail
               label={t('result.uploadOk')}
               files={uploadedFiles.successful}

@@ -35,10 +35,35 @@ export type CampaignApplicationDetails = {
   currentStatus?: string
 }
 
+// keep in sync with api repo/podkrepi.dbml -> Enum CampaignApplicationState
+export type CampaignApplicationState =
+  | 'review'
+  | 'requestInfo'
+  | 'forCommitteeReview'
+  | 'approved'
+  | 'denied'
+  | 'abandoned'
+
+export const allStates: CampaignApplicationState[] = [
+  'review',
+  'requestInfo',
+  'forCommitteeReview',
+  'approved',
+  'denied',
+  'abandoned',
+]
+
+export type CampaignApplicationAdmin = {
+  state: CampaignApplicationState
+  ticketURL?: string
+  archived?: boolean
+}
+
 export type CampaignApplicationFormData = {
   organizer: CampaignApplicationOrganizer
   applicationBasic: CampaignApplicationBasic
   applicationDetails: CampaignApplicationDetails
+  admin?: CampaignApplicationAdmin
 }
 
 export type CampaignApplicationFormDataSteps = {

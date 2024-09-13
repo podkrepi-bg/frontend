@@ -8,7 +8,11 @@ import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicy
 
 import { StyledStepHeading, StyledFormTextField } from '../helpers/campaignApplication.styled'
 
-export default function CampaignApplicationOrganizer() {
+type Props = {
+  isAdmin?: boolean
+}
+
+export default function CampaignApplicationOrganizer({ isAdmin }: Props) {
   const { t } = useTranslation('campaign-application')
 
   return (
@@ -46,7 +50,7 @@ export default function CampaignApplicationOrganizer() {
       </Grid>
       <Grid item container spacing={2}>
         <Grid item container xs={12}>
-          <AcceptTermsField name="organizer.acceptTermsAndConditions" />
+          <AcceptTermsField name="organizer.acceptTermsAndConditions" disabled={isAdmin} />
         </Grid>
         <Grid item container xs={12}>
           <FormControl component="fieldset">
@@ -55,11 +59,15 @@ export default function CampaignApplicationOrganizer() {
               label={
                 <Typography variant="body2">{t('steps.organizer.transparencyTerms')}</Typography>
               }
+              disabled={isAdmin}
             />
           </FormControl>
         </Grid>
         <Grid item container xs={12}>
-          <AcceptPrivacyPolicyField name="organizer.personalInformationProcessingAccepted" />
+          <AcceptPrivacyPolicyField
+            name="organizer.personalInformationProcessingAccepted"
+            disabled={isAdmin}
+          />
         </Grid>
       </Grid>
     </Grid>

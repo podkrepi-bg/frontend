@@ -3,28 +3,29 @@ import { useSession } from 'next-auth/react'
 
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {
+  CampaignApplicationFormData,
+  CampaignApplicationState,
+  CampaignEndTypes,
+} from 'components/client/campaign-application/helpers/campaignApplication.types'
+import {
   CampaignApplicationExisting,
-  CreateCampaignApplicationInput,
+  CampaignApplicationRequest,
   CreateCampaignApplicationResponse,
   UploadCampaignApplicationFilesRequest,
   UploadCampaignApplicationFilesResponse,
 } from 'gql/campaign-applications'
+import { Person } from 'gql/person'
+import { useState } from 'react'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig, authQueryFnFactory } from 'service/restRequests'
-import {
-  CampaignApplicationFormData,
-  CampaignEndTypes,
-} from 'components/client/campaign-application/helpers/campaignApplication.types'
-import { Person } from 'gql/person'
-import { useState } from 'react'
 import { ApiErrors } from './apiErrors'
 
 export const useCreateCampaignApplication = () => {
   const { data: session } = useSession()
-  return async (data: CreateCampaignApplicationInput) =>
+  return async (data: CampaignApplicationRequest) =>
     await apiClient.post<
-      CreateCampaignApplicationInput,
+      CampaignApplicationRequest,
       AxiosResponse<CreateCampaignApplicationResponse>
     >(endpoints.campaignApplication.create.url, data, authConfig(session?.accessToken))
 }
@@ -71,12 +72,44 @@ export function useViewCampaignApplicationCached(id: string, cacheFor = 60 * 100
 
 export const useUpdateCampaignApplication = () => {
   const { data: session } = useSession()
-  return async ([data, id]: [CreateCampaignApplicationInput, string]) =>
+  return async ([data, id]: [CampaignApplicationRequest, string]) =>
     await apiClient.patch<
-      CreateCampaignApplicationInput,
+      CampaignApplicationRequest,
       AxiosResponse<CreateCampaignApplicationResponse>
     >(endpoints.campaignApplication.update(id).url, data, authConfig(session?.accessToken))
 }
+
+const createMutation = () =>
+  useMutation<
+    AxiosResponse<CreateCampaignApplicationResponse>,
+    AxiosError<ApiErrors>,
+    CampaignApplicationRequest
+  >({
+    mutationFn: useCreateCampaignApplication(),
+  })
+
+const fileUploadMutation = () =>
+  useMutation<
+    AxiosResponse<UploadCampaignApplicationFilesResponse>,
+    AxiosError<ApiErrors>,
+    UploadCampaignApplicationFilesRequest
+  >({
+    mutationFn: useUploadCampaignApplicationFiles(),
+  })
+
+const fileDeleteMutation = () =>
+  useMutation({
+    mutationFn: useDeleteCampaignApplicationFile(),
+  })
+
+const updateMutation = () =>
+  useMutation<
+    AxiosResponse<CreateCampaignApplicationResponse>,
+    AxiosError<ApiErrors>,
+    [CampaignApplicationRequest, string]
+  >({
+    mutationFn: useUpdateCampaignApplication(),
+  })
 
 export interface CreateOrEditApplication {
   person?: Person
@@ -108,41 +141,21 @@ export const useCreateOrEditApplication = ({
   const [campaignApplicationResult, setCampaignApplicationResult] =
     useState<CreateCampaignApplicationResponse>()
 
-  const create = useMutation<
-    AxiosResponse<CreateCampaignApplicationResponse>,
-    AxiosError<ApiErrors>,
-    CreateCampaignApplicationInput
-  >({
-    mutationFn: useCreateCampaignApplication(),
-  })
+  const update = updateMutation()
+  const create = createMutation()
+  const fileDelete = fileDeleteMutation()
+  const fileUpload = fileUploadMutation()
 
-  const fileUpload = useMutation<
-    AxiosResponse<UploadCampaignApplicationFilesResponse>,
-    AxiosError<ApiErrors>,
-    UploadCampaignApplicationFilesRequest
-  >({
-    mutationFn: useUploadCampaignApplicationFiles(),
-  })
-
-  const fileDelete = useMutation({
-    mutationFn: useDeleteCampaignApplicationFile(),
-  })
-
-  const update = useMutation<
-    AxiosResponse<CreateCampaignApplicationResponse>,
-    AxiosError<ApiErrors>,
-    [CreateCampaignApplicationInput, string]
-  >({
-    mutationFn: useUpdateCampaignApplication(),
-  })
-
-  const createOrUpdateApplication = async (input: CreateCampaignApplicationInput) => {
-    setError(undefined)
+  const createOrUpdateApplication = async (input: CampaignApplicationRequest) => {
     if (submitting) {
       return
     }
     setSubmitting(true)
+    setError(undefined)
+    setSuccessful(false)
+    setCampaignApplicationResult(undefined)
 
+    // ---- create or edit the campaign application entity (excl. files - they are a separate call below)
     const dataOrError =
       isEdit && typeof existing?.id === 'string'
         ? await update.mutateAsync([input, existing?.id]).catch((e) => e as AxiosError<ApiErrors>)
@@ -170,6 +183,7 @@ export const useCreateOrEditApplication = ({
     setSuccessful(true)
     setCampaignApplicationResult(campaignApplication)
 
+    // ---- FILES
     const uploadedFilesMap = new Map<string, 'success' | 'fail'>()
     const deletedFilesMap = new Map<string, 'success' | 'fail'>()
     const filesToUpload = isEdit
@@ -251,12 +265,15 @@ export function mapExistingOrNew(
       description: existing?.description ?? '',
       organizerBeneficiaryRelationship: existing?.organizerBeneficiaryRel,
     },
+    admin: {
+      archived: existing?.archived ?? false,
+      state: (existing?.state as CampaignApplicationState) ?? 'review',
+      ticketURL: existing?.ticketURL ?? '',
+    },
   }
 }
 
-export function mapCreateOrEditInput(
-  i: CampaignApplicationFormData,
-): CreateCampaignApplicationInput {
+export function mapCreateOrEditInput(i: CampaignApplicationFormData): CampaignApplicationRequest {
   return {
     acceptTermsAndConditions: i.organizer.acceptTermsAndConditions,
     personalInformationProcessingAccepted: i.organizer.personalInformationProcessingAccepted,
@@ -277,5 +294,7 @@ export function mapCreateOrEditInput(
     campaignEnd: i.applicationBasic.campaignEnd,
     campaignEndDate: i.applicationBasic.campaignEndDate,
     campaignTypeId: i.applicationBasic.campaignType,
+
+    ...(i.admin ?? {}), // server disregards admin-only props if the user is not admin
   }
 }

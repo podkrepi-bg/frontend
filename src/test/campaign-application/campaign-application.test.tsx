@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
 import {
   CampaignApplicationExisting,
-  CreateCampaignApplicationInput,
+  CampaignApplicationRequest,
   CreateCampaignApplicationResponse,
 } from 'gql/campaign-applications'
 import { Person } from 'gql/person'
@@ -123,7 +123,7 @@ describe('Campaign application create or update logic', () => {
     server.use(handleCreate(responsePromise))
     const { result } = setup().run()
 
-    const createPromise: Promise<CreateCampaignApplicationInput | undefined>[] = []
+    const createPromise: Promise<CampaignApplicationRequest | undefined>[] = []
     // act
     await act(() => createPromise.push(result.current.createOrUpdateApplication({})))
 

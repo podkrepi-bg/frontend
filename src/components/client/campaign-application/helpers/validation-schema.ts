@@ -2,7 +2,56 @@ import * as yup from 'yup'
 
 import { email, name, phone } from 'common/form/validation'
 
-import { CampaignApplicationFormData, Steps } from './campaignApplication.types'
+import {
+  CampaignApplicationAdmin,
+  CampaignApplicationBasic,
+  CampaignApplicationDetails,
+  CampaignApplicationFormData,
+  CampaignApplicationOrganizer,
+  CampaignApplicationState,
+  Steps,
+} from './campaignApplication.types'
+
+const organizerSchema: yup.SchemaOf<CampaignApplicationOrganizer> = yup.object().shape({
+  name: name.required(),
+  phone: phone.required(),
+  email: email.required(),
+  acceptTermsAndConditions: yup.bool().oneOf([true], 'validation:terms-of-use').required(),
+  transparencyTermsAccepted: yup.bool().oneOf([true], 'validation:required').required(),
+  personalInformationProcessingAccepted: yup
+    .bool()
+    .oneOf([true], 'validation:terms-of-service')
+    .required(),
+})
+
+const basicSchema: yup.SchemaOf<CampaignApplicationBasic> = yup.object().shape({
+  beneficiaryNames: yup.string().required(),
+  campaignEnd: yup.string().required(),
+  campaignType: yup.string().required(),
+  funds: yup.number().required(),
+  title: yup.string().required(),
+  campaignEndDate: yup.string().optional(),
+})
+
+const detailsSchema: yup.SchemaOf<CampaignApplicationDetails> = yup.object().shape({
+  cause: yup.string().required(),
+  campaignGuarantee: yup.string().optional(),
+  currentStatus: yup.string().optional(),
+  description: yup.string().optional(),
+  documents: yup.array().optional(),
+  links: yup.array().optional(),
+  organizerBeneficiaryRelationship: yup.string().optional(),
+  otherFinancialSources: yup.string().optional(),
+})
+
+const adminPropsSchema: yup.SchemaOf<CampaignApplicationAdmin> = yup.object().shape({
+  state: yup
+    .mixed<CampaignApplicationState>()
+    .oneOf(['review', 'requestInfo', 'forCommitteeReview', 'approved', 'denied', 'abandoned'])
+    .required(),
+  ticketURL: yup.string().optional(),
+  archived: yup.bool().optional(),
+})
 
 export const validationSchema: {
   [Steps.NONE]: undefined
@@ -14,46 +63,20 @@ export const validationSchema: {
   [Steps.NONE]: undefined,
   [Steps.CREATED_DETAILS]: undefined,
   [Steps.ORGANIZER]: yup.object().shape({
-    organizer: yup
-      .object()
-      .shape({
-        name: name.required(),
-        phone: phone.required(),
-        email: email.required(),
-        acceptTermsAndConditions: yup.bool().oneOf([true], 'validation:terms-of-use').required(),
-        transparencyTermsAccepted: yup.bool().oneOf([true], 'validation:required').required(),
-        personalInformationProcessingAccepted: yup
-          .bool()
-          .oneOf([true], 'validation:terms-of-service')
-          .required(),
-      })
-      .defined(),
+    organizer: organizerSchema.defined(),
   }),
   [Steps.CAMPAIGN_BASIC]: yup.object().shape({
-    applicationBasic: yup
-      .object()
-      .shape({
-        beneficiaryNames: yup.string().required(),
-        campaignEnd: yup.string().required(),
-        campaignType: yup.string().required(),
-        funds: yup.number().required(),
-        title: yup.string().required(),
-      })
-      .defined(),
+    applicationBasic: basicSchema.defined(),
   }),
   [Steps.CAMPAIGN_DETAILS]: yup.object().shape({
-    applicationDetails: yup
-      .object()
-      .shape({
-        cause: yup.string().required(),
-        campaignGuarantee: yup.string().optional(),
-        currentStatus: yup.string().optional(),
-        description: yup.string().optional(),
-        documents: yup.array().optional(),
-        links: yup.array().optional(),
-        organizerBeneficiaryRelationship: yup.string().optional(),
-        otherFinancialSources: yup.string().optional(),
-      })
-      .defined(),
+    applicationDetails: detailsSchema.defined(),
   }),
 }
+
+export const campaignApplicationAdminValidationSchema: yup.SchemaOf<CampaignApplicationFormData> =
+  yup.object().shape({
+    organizer: organizerSchema.defined(),
+    applicationBasic: basicSchema.defined(),
+    applicationDetails: detailsSchema.defined(),
+    admin: adminPropsSchema.nullable().defined(),
+  })

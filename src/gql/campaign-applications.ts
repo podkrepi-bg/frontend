@@ -1,4 +1,4 @@
-export interface CreateCampaignApplicationInput {
+export interface CampaignApplicationRequest {
   /**
    * What would the campaign be called. ('Help Vesko' or 'Castrate Plovdiv Cats')
    */
@@ -56,9 +56,13 @@ export interface CreateCampaignApplicationInput {
   campaignEndDate?: string
 
   campaignTypeId?: string
+
+  state?: string
+  ticketURL?: string
+  archived?: boolean
 }
 
-export type CreateCampaignApplicationResponse = CreateCampaignApplicationInput & {
+export type CreateCampaignApplicationResponse = CampaignApplicationRequest & {
   id: string
 }
 
