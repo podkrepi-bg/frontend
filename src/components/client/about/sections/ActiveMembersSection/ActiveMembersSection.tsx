@@ -24,7 +24,12 @@ export default function ActiveMembersSection() {
       <AboutWrapper>
         {data.map((teamMember) => (
           <ТeamMemberWrapper key={teamMember.name}>
-            <Avatar alt="Team member avatar" src={teamMember.img} width={200} height={200} />
+            <Avatar
+              alt={t('about.avatar-alt-text')}
+              src={teamMember.img}
+              width={200}
+              height={200}
+            />
             <TeamMemberName variant="subtitle1">{teamMember.name}</TeamMemberName>
             <Typography variant="body2">{teamMember.description}</Typography>
             <LinkedInButton href={teamMember.linkedInProfile} target="_blank">

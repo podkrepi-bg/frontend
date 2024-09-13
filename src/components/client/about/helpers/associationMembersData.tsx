@@ -52,7 +52,6 @@ export const data: TeamData[] = [
     name: 'Атанас Сарафов',
     linkedInProfile: 'https://www.linkedin.com/in/atanas-sarafov-192a6889/',
   },
-
   {
     img: '/img/team-photos/PreslavGerchev.png',
     name: 'Преслав Герчев',
