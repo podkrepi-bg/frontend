@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react'
 import {
   CampaignApplicationExisting,
   CampaignApplicationRequest,
-  CreateCampaignApplicationResponse,
+  CampaignApplicationResponse,
 } from 'gql/campaign-applications'
 import { Person } from 'gql/person'
 import { rest } from 'msw'
@@ -114,10 +114,10 @@ describe('Campaign application create or update logic', () => {
 
   test('when create called multiple times it should only call the create mutation once', async () => {
     // arrange
-    let resolveCampaign: (c: Partial<CreateCampaignApplicationResponse>) => void = () => {
+    let resolveCampaign: (c: Partial<CampaignApplicationResponse>) => void = () => {
       return
     }
-    const responsePromise = new Promise<Partial<CreateCampaignApplicationResponse>>((res) => {
+    const responsePromise = new Promise<Partial<CampaignApplicationResponse>>((res) => {
       resolveCampaign = res
     })
     server.use(handleCreate(responsePromise))
@@ -340,9 +340,7 @@ function setup() {
 }
 
 export const handleCreate = (
-  response:
-    | Partial<CreateCampaignApplicationResponse>
-    | Promise<Partial<CreateCampaignApplicationResponse>>,
+  response: Partial<CampaignApplicationResponse> | Promise<Partial<CampaignApplicationResponse>>,
 ) =>
   rest.post('**/campaign-application/create', async (req, res, ctx) => {
     const r = {
@@ -371,8 +369,8 @@ export const handleFileDeleteWith = (handler: Parameters<typeof rest.delete>[1])
 
 export const handleEdit = (
   response:
-    | Partial<CreateCampaignApplicationResponse>
-    | Promise<Partial<CreateCampaignApplicationResponse>> = {},
+    | Partial<CampaignApplicationResponse>
+    | Promise<Partial<CampaignApplicationResponse>> = {},
 ) =>
   rest.patch('**/campaign-application/**', async (req, res, ctx) => {
     const r = {

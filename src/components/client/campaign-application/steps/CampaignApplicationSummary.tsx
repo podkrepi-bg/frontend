@@ -1,12 +1,12 @@
 import { Grid, Typography } from '@mui/material'
 import { green, orange, red } from '@mui/material/colors'
-import { CreateCampaignApplicationResponse } from 'gql/campaign-applications'
+import { CampaignApplicationResponse } from 'gql/campaign-applications'
 import { useTranslation } from 'next-i18next'
 import { CampaignEndTypes } from '../helpers/campaignApplication.types'
 
 export interface SummaryProps {
   uploadedFiles: Record<string, string[]>
-  camApp?: CreateCampaignApplicationResponse
+  camApp?: CampaignApplicationResponse
   deletedFiles?: Record<string, string[]>
   isEdit?: boolean
   prependChildren?: JSX.Element

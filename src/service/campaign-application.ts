@@ -10,7 +10,7 @@ import {
 import {
   CampaignApplicationExisting,
   CampaignApplicationRequest,
-  CreateCampaignApplicationResponse,
+  CampaignApplicationResponse,
   UploadCampaignApplicationFilesRequest,
   UploadCampaignApplicationFilesResponse,
 } from 'gql/campaign-applications'
@@ -24,10 +24,11 @@ import { ApiErrors } from './apiErrors'
 export const useCreateCampaignApplication = () => {
   const { data: session } = useSession()
   return async (data: CampaignApplicationRequest) =>
-    await apiClient.post<
-      CampaignApplicationRequest,
-      AxiosResponse<CreateCampaignApplicationResponse>
-    >(endpoints.campaignApplication.create.url, data, authConfig(session?.accessToken))
+    await apiClient.post<CampaignApplicationRequest, AxiosResponse<CampaignApplicationResponse>>(
+      endpoints.campaignApplication.create.url,
+      data,
+      authConfig(session?.accessToken),
+    )
 }
 
 export const useUploadCampaignApplicationFiles = () => {
@@ -73,15 +74,16 @@ export function useViewCampaignApplicationCached(id: string, cacheFor = 60 * 100
 export const useUpdateCampaignApplication = () => {
   const { data: session } = useSession()
   return async ([data, id]: [CampaignApplicationRequest, string]) =>
-    await apiClient.patch<
-      CampaignApplicationRequest,
-      AxiosResponse<CreateCampaignApplicationResponse>
-    >(endpoints.campaignApplication.update(id).url, data, authConfig(session?.accessToken))
+    await apiClient.patch<CampaignApplicationRequest, AxiosResponse<CampaignApplicationResponse>>(
+      endpoints.campaignApplication.update(id).url,
+      data,
+      authConfig(session?.accessToken),
+    )
 }
 
 const createMutation = () =>
   useMutation<
-    AxiosResponse<CreateCampaignApplicationResponse>,
+    AxiosResponse<CampaignApplicationResponse>,
     AxiosError<ApiErrors>,
     CampaignApplicationRequest
   >({
@@ -104,7 +106,7 @@ const fileDeleteMutation = () =>
 
 const updateMutation = () =>
   useMutation<
-    AxiosResponse<CreateCampaignApplicationResponse>,
+    AxiosResponse<CampaignApplicationResponse>,
     AxiosError<ApiErrors>,
     [CampaignApplicationRequest, string]
   >({
@@ -139,7 +141,7 @@ export const useCreateOrEditApplication = ({
     failed: [],
   })
   const [campaignApplicationResult, setCampaignApplicationResult] =
-    useState<CreateCampaignApplicationResponse>()
+    useState<CampaignApplicationResponse>()
 
   const update = updateMutation()
   const create = createMutation()

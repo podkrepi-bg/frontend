@@ -432,5 +432,6 @@ export const endpoints = {
     deleteFile: (fileId: string) =>
       <Endpoint>{ url: `/campaign-application/fileById/${fileId}`, method: 'DELETE' },
     view: (id: string) => <Endpoint>{ url: `/campaign-application/byId/${id}`, method: 'GET' },
+    listAllForAdmin: <Endpoint>{ url: `/campaign-application/list`, method: 'GET' },
   },
 }

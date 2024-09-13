@@ -62,7 +62,7 @@ export interface CampaignApplicationRequest {
   archived?: boolean
 }
 
-export type CreateCampaignApplicationResponse = CampaignApplicationRequest & {
+export type CampaignApplicationResponse = CampaignApplicationRequest & {
   id: string
 }
 
@@ -76,9 +76,14 @@ export type UploadCampaignApplicationFilesResponse = {
   filename: string
 }
 
-export type CampaignApplicationExisting = CreateCampaignApplicationResponse & {
+export type CampaignApplicationExisting = CampaignApplicationResponse & {
   documents: Array<{
     id: string
     filename: string
   }>
+}
+
+export interface CampaignApplicationAdminResponse extends CampaignApplicationResponse {
+  updatedAt?: string
+  createdAt: string
 }
