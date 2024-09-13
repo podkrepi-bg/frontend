@@ -55,12 +55,10 @@ export function EditLoadedCampaign({ campaign }: { campaign: CampaignApplication
                       Admin props / Административни подробности
                     </Typography>
                   </Grid>
-                  <Typography variant="subtitle1">
-                    <CamAppDetail
-                      label={t('steps.admin.organizer-edit-link')}
-                      value={<OrganizerCanEditAt id={campaign.id} />}
-                    />
-                  </Typography>
+                  <CamAppDetail
+                    label={t('steps.admin.organizer-edit-link')}
+                    value={<OrganizerCanEditAt id={campaign.id} />}
+                  />
                   <CamAppDetail
                     label={t('steps.admin.status')}
                     value={t(`status.${c.campaignApplicationResult?.state}`)}
