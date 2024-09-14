@@ -33,6 +33,14 @@ export const articles: ArticleData[] = [
     url: 'https://bnr.bg/post/101689024/novata-daritelska-platforma-podkrepibg-veche-pomaga',
   },
   {
+    img: '/img/partners/mediaAboutUs/darik.svg',
+    title: 'Darik Radio',
+    subtitle: 'Нова дигитална платформа стимулира дарителската култура в България',
+    description:
+      '“От началото на месец август стартира нова българска дарителска платформа, подкрепяща нуждаещите се и организациите, които им помагат. Тя се нарича Подкрепи.бг и...”',
+    url: 'https://darik.bg/nova-digitalna-platforma-stimulira-daritelskata-kultura-v-balgaria',
+  },
+  {
     img: '/img/partners/mediaAboutUs/mediapool.svg',
     title: 'Mediapool',
     subtitle: 'Над 1000 доброволци дават живот на нова дигитална платформа за дарения',
