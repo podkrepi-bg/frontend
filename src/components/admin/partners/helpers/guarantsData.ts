@@ -38,6 +38,6 @@ export const data: TeamData[] = [
   {
     img: '/img/partners/guarants/IvayloMarinov.png',
     name: 'Ивайло Маринов',
-    description: 'Районен кмет',
+    description: 'Кмет на район Аспарухово',
   },
 ]
