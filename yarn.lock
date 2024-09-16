@@ -6448,10 +6448,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^3.0.3":
-  version: 3.0.4
-  resolution: "dompurify@npm:3.0.4"
-  checksum: 098de639595861127c644df48932f829d35860058365ea46cbf54f9a93b309774da3c4568198a6daaf68efd1593ed09ff842c0c4e848991e09a1d51e32eab33e
+"dompurify@npm:^3.1.3":
+  version: 3.1.6
+  resolution: "dompurify@npm:3.1.6"
+  checksum: cc4fc4ccd9261fbceb2a1627a985c70af231274a26ddd3f643fd0616a0a44099bd9e4480940ce3655612063be4a1fe9f5e9309967526f8c0a99f931602323866
   languageName: node
   linkType: hard
 
@@ -11938,7 +11938,7 @@ __metadata:
     chartjs-plugin-datalabels: ^2.2.0
     date-fns: 2.24.0
     depcheck: ^1.4.3
-    dompurify: ^3.0.3
+    dompurify: ^3.1.3
     eslint: ^8.44.0
     eslint-config-next: ^13.4.9
     eslint-config-prettier: ^8.8.0
