@@ -42,12 +42,6 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
 
   return (
     <div>
-      {meta.touched && meta.error && (
-        <Typography className="error" color="red">
-          {helperText}
-        </Typography>
-      )}
-
       <Field name={name}>
         {({ field }: { field: FieldInputProps<string> }) => (
           <StyledGrid>
