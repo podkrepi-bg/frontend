@@ -1,9 +1,7 @@
-import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
 import { Grid, Typography } from '@mui/material'
 
-import { DiscordTeamImage } from './AboutTheTeamSection.styled'
 import { AboutHeading } from 'components/client/about/AboutPage.styled'
 
 export default function AboutTheTeamSection() {
