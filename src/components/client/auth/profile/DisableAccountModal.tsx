@@ -161,11 +161,11 @@ function DisableAccountModal({
         <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
           <li className={classes.graySpan}>
             {t('profile:disableModal.deactivateEmails')}
-            <Link href="#">{t('profile:disableModal.link')}</Link>.
+            <Link href={routes.profile.myNotifications}>{t('profile:disableModal.link')}</Link>.
           </li>
           <li className={classes.graySpan}>
             {t('profile:disableModal.writeUs')}
-            <Link href="#">{t('profile:disableModal.link')}</Link>.
+            <Link href={routes.contact}>{t('profile:disableModal.link')}</Link>.
           </li>
         </ul>
         <br />
