@@ -5,13 +5,7 @@ export const formatDate = 'dd MMM yyyy'
 export const formatDatetime = 'dd MMM yyyy HH:mm:ss'
 
 export const formatDateString = (dateString: string | Date, language?: string) => {
-  const date = new Date(dateString)
-
-  const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const year = date.getFullYear()
-
-  return `${day}.${month}.${year}`
+  return format(new Date(dateString), 'dd.MM.yyyy')
 }
 
 const matchLocale = (language?: string): Locale => {
