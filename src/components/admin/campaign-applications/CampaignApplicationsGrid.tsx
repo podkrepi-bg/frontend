@@ -115,7 +115,7 @@ export const useCampaignsList = () => {
   const { data, isLoading } = fetchMutation()
 
   return {
-    list: data?.toSorted((a, b) => b?.updatedAt?.localeCompare(a?.updatedAt ?? '') ?? 0),
+    list: data?.sort((a, b) => b?.updatedAt?.localeCompare(a?.updatedAt ?? '') ?? 0),
     isLoading,
   }
 }
