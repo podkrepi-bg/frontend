@@ -40,12 +40,15 @@
         }
       },
       "photos": "Photo/Video material",
-      "documents": "Documents"
+      "documents": "Documents",
+      "disclaimer": "Up to 10 documents accepted. Each of the documents can be up to 30MB is size"
     },
     "admin": {
       "title": "Admin edit",
       "status": "Status",
-      "external-url": "External URL"
+      "external-url": "External URL",
+      "archived": "Archived",
+      "organizer-edit-link": "Organizer can edit at"
     }
   },
   "cta": {
@@ -63,5 +66,25 @@
   },
   "alerts": {
     "successfully-created": "Campaign application successfully created."
+  },
+  "result": {
+    "created": "Successfully created campaign application",
+    "edited": "Successfully edited campaign application",
+    "editButton": "Edit campaign application",
+    "uploadOk": "Fails added",
+    "deleteOk": "Files removed",
+    "uploadFailed": "Failed file add",
+    "deleteFailed": "Failed to remove files",
+    "uploadFailedWhat": "What can I do?",
+    "uploadFailedDirection": "Please visit the campaign application edit page linked below and retry adding/removing the files."
+  },
+  "status": {
+    "selectorLabel": "Status",
+    "review": "New - for review",
+    "requestInfo": "Request for more info",
+    "forCommitteeReview": "For committee review",
+    "approved": "Approved",
+    "denied": "Denied",
+    "abandoned": "Abandoned"
   }
 }

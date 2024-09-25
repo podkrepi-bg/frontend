@@ -1,5 +1,5 @@
 import { StepIconProps } from '@mui/material/StepIcon'
-import { StyledCampaignApplicationStepperIcon } from './helpers/campaignApplication.styled'
+import { StyledCampaignApplicationStepperIcon } from '../helpers/campaignApplication.styled'
 
 export default function CampaignApplicationStepperIcon(props: StepIconProps) {
   const icons: { [index: string]: React.ReactElement } = {

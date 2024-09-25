@@ -1,17 +1,33 @@
 import { FormControl, Grid, Typography } from '@mui/material'
-import { Field, useField } from 'formik'
+import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { StyledFormTextField, StyledStepHeading } from '../helpers/campaignApplication.styled'
-import { CampaignEndTypes } from '../helpers/campaignApplication.types'
 import CampaignTypeSelect from 'components/client/campaigns/CampaignTypeSelect'
 import FormDatePicker from 'components/common/form/FormDatePicker'
+import { StyledFormTextField, StyledStepHeading } from '../helpers/campaignApplication.styled'
+import { CampaignApplicationFormData, CampaignEndTypes } from '../helpers/campaignApplication.types'
 
 import theme from 'common/theme'
+import { useEffect, useState } from 'react'
 
-export default function CampaignApplication() {
+export default function CampaignApplicationBasic() {
   const { t } = useTranslation('campaign-application')
-  const [campaignEnd] = useField('application.campaignEnd')
+  const { values, setFieldValue } = useFormikContext<CampaignApplicationFormData>()
+  // if user selects the date we'll fill in the previously selected (or new Date()) or remove that in case they chose another option
+  const [selectedDate, setSelectedDate] = useState(
+    values?.applicationBasic?.campaignEndDate ?? new Date().toString(),
+  )
+  useEffect(() => {
+    const endDate = values.applicationBasic?.campaignEndDate
+    if (endDate != null && endDate != selectedDate) {
+      setSelectedDate(endDate)
+    }
+    setFieldValue(
+      'applicationBasic.campaignEndDate',
+      values?.applicationBasic?.campaignEnd === CampaignEndTypes.DATE ? selectedDate : undefined,
+      false,
+    )
+  }, [values?.applicationBasic?.campaignEnd])
 
   return (
     <Grid container spacing={6} justifyContent="center" direction="column" alignContent="center">
@@ -23,7 +39,7 @@ export default function CampaignApplication() {
           <StyledFormTextField
             label={t('steps.application.beneficiary')}
             type="text"
-            name="application.beneficiaryNames"
+            name="applicationBasic.beneficiaryNames"
             autoComplete="name"
           />
         </Grid>
@@ -31,24 +47,24 @@ export default function CampaignApplication() {
           <StyledFormTextField
             label={t('steps.application.beneficiaryRelationship')}
             type="text"
-            name="details.beneficiaryNames"
+            name="applicationDetails.organizerBeneficiaryRelationship"
           />
         </Grid>
         <Grid item xs={12}>
           <StyledFormTextField
             label={t('steps.application.campaignTitle')}
             type="text"
-            name="application.title"
+            name="applicationBasic.title"
           />
         </Grid>
         <Grid item xs={12}>
-          <CampaignTypeSelect name="application.campaignType" />
+          <CampaignTypeSelect name="applicationBasic.campaignType" />
         </Grid>
         <Grid item xs={12}>
           <StyledFormTextField
             label={t('steps.application.funds')}
             type="number"
-            name="application.funds"
+            name="applicationBasic.funds"
           />
         </Grid>
         <Grid container item>
@@ -65,7 +81,7 @@ export default function CampaignApplication() {
                     <Field
                       size="medium"
                       type="radio"
-                      name="application.campaignEnd"
+                      name="applicationBasic.campaignEnd"
                       value={CampaignEndTypes.FUNDS}
                     />
                     {t('steps.application.campaign-end.options.funds')}
@@ -76,7 +92,7 @@ export default function CampaignApplication() {
                     <Field
                       size="medium"
                       type="radio"
-                      name="application.campaignEnd"
+                      name="applicationBasic.campaignEnd"
                       value={CampaignEndTypes.ONGOING}
                     />
                     {t('steps.application.campaign-end.options.ongoing')}
@@ -87,18 +103,19 @@ export default function CampaignApplication() {
                     <Field
                       size="medium"
                       type="radio"
-                      name="application.campaignEnd"
+                      name="applicationBasic.campaignEnd"
                       value={CampaignEndTypes.DATE}
                     />
                     {t('steps.application.campaign-end.options.date')}
                   </label>
                 </Grid>
               </Grid>
-              {campaignEnd.value === CampaignEndTypes.DATE && (
-                <Grid item xs={6} sx={{ paddingTop: 2 }}>
-                  <FormDatePicker name="application.campaign-end" label="" />
-                </Grid>
-              )}
+              {values?.applicationBasic?.campaignEnd === CampaignEndTypes.DATE &&
+                values?.applicationBasic?.campaignEndDate != null && (
+                  <Grid item xs={6} sx={{ paddingTop: 2 }}>
+                    <FormDatePicker name="applicationBasic.campaignEndDate" label="" />
+                  </Grid>
+                )}
             </FormControl>
           </Grid>
         </Grid>
