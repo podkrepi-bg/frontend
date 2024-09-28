@@ -9,8 +9,16 @@ import {
 import { CamAppDetail } from 'components/client/campaign-application/steps/CampaignApplicationSummary'
 import CheckboxField from 'components/common/form/CheckboxField'
 import OrganizerCanEditAt from './CampaignApplicationOrganizerCanEditAt'
+import { UploadedFile } from 'components/common/file-upload/UploadedFilesList'
+import UploadedCampaignApplicationFiles from './UploadedCampaignApplicationFiles'
 
-export default function CampaignApplicationAdminPropsEdit({ id }: { id: string }) {
+export default function CampaignApplicationAdminPropsEdit({
+  id,
+  files,
+}: {
+  id: string
+  files: UploadedFile[]
+}) {
   const { t } = useTranslation('campaign-application')
   return (
     <Grid container spacing={6} justifyContent="center" direction="column" alignContent="center">
@@ -39,6 +47,9 @@ export default function CampaignApplicationAdminPropsEdit({ id }: { id: string }
           label={t('steps.admin.organizer-edit-link')}
           value={<OrganizerCanEditAt id={id} />}
         />
+      </Grid>
+      <Grid item>
+        <UploadedCampaignApplicationFiles files={files} campaignApplicationId={id} />
       </Grid>
     </Grid>
   )

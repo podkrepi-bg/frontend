@@ -2,6 +2,7 @@ import { Box, CircularProgress, Grid, Typography } from '@mui/material'
 import { red } from '@mui/material/colors'
 import { CampaignApplicationFormData } from 'components/client/campaign-application/helpers/campaignApplication.types'
 import { ActionSubmitButton } from 'components/client/campaign-application/helpers/campaignApplicationFormActions.styled'
+import { campaignApplicationAdminValidationSchema } from 'components/client/campaign-application/helpers/validation-schema'
 import CampaignApplicationBasic from 'components/client/campaign-application/steps/CampaignApplicationBasic'
 import CampaignApplicationDetails from 'components/client/campaign-application/steps/CampaignApplicationDetails'
 import CampaignApplicationOrganizer from 'components/client/campaign-application/steps/CampaignApplicationOrganizer'
@@ -21,7 +22,6 @@ import {
 } from 'service/campaign-application'
 import CampaignApplicationAdminPropsEdit from './CampaignApplicationAdminPropsEdit'
 import OrganizerCanEditAt from './CampaignApplicationOrganizerCanEditAt'
-import { campaignApplicationAdminValidationSchema } from 'components/client/campaign-application/helpers/validation-schema'
 
 export type Props = {
   id: string
@@ -83,7 +83,7 @@ export function EditLoadedCampaign({ campaign }: { campaign: CampaignApplication
             }}
             initialValues={c.initialValues}
             validationSchema={campaignApplicationAdminValidationSchema.defined()}>
-            <CampaignApplicationAdminPropsEdit id={campaign.id} />
+            <CampaignApplicationAdminPropsEdit id={campaign.id} files={campaign.documents} />
             <CampaignApplicationOrganizer isAdmin={true} />
             <CampaignApplicationBasic />
             <CampaignApplicationDetails files={c.files} setFiles={c.setFiles} />
