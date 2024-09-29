@@ -1,5 +1,3 @@
-import { EmotionCache } from '@emotion/cache'
-import { CacheProvider } from '@emotion/react'
 import { CssBaseline } from '@mui/material'
 import { Theme, ThemeProvider } from '@mui/material/styles'
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
