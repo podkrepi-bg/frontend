@@ -38,7 +38,7 @@ export const articles: ArticleData[] = [
     subtitle: 'Нова дигитална платформа стимулира дарителската култура в България',
     description:
       '“От началото на месец август стартира нова българска дарителска платформа, подкрепяща нуждаещите се и организациите, които им помагат. Тя се нарича Подкрепи.бг и...”',
-    url: 'https://darik.bg/darik.bg/nova-digitalna-platforma-stimulira-daritelskata-kultura-v-balgaria',
+    url: 'https://darik.bg/nova-digitalna-platforma-stimulira-daritelskata-kultura-v-balgaria',
   },
   {
     img: '/img/partners/mediaAboutUs/mediapool.svg',
