@@ -96,7 +96,7 @@ export default function SingleArticlePage({ slug }: Props) {
             <Grid container item gap={1} xs="auto">
               <AvTimerIcon color="primary" />
               <Typography className={classes.articlepublishedDate}>
-                {formatDateString(article.publishedAt, i18n?.language)}
+                {formatDateString(article.publishedAt)}
               </Typography>
             </Grid>
             <Grid container item gap={1} xs="auto" style={{ maxWidth: '100%' }} wrap="nowrap">

@@ -4,7 +4,7 @@ import { bg, enUS } from 'date-fns/locale'
 export const formatDate = 'dd MMM yyyy'
 export const formatDatetime = 'dd MMM yyyy HH:mm:ss'
 
-export const formatDateString = (dateString: string | Date, language?: string) => {
+export const formatDateString = (dateString: string | Date) => {
   return format(new Date(dateString), 'dd.MM.yyyy')
 }
 
