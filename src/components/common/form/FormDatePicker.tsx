@@ -2,9 +2,8 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { format } from 'date-fns'
 import { useField, useFormikContext } from 'formik'
-import { useTranslation } from 'next-i18next'
 
-import { DATE_VALUE_FORMAT, getDateFormat } from 'common/util/date'
+import { DATE_VALUE_FORMAT, dateViewFormat } from 'common/util/date'
 
 /**
  * MUI date picker to be connected with Formik. Propagates updates to the passed Formik field name
@@ -15,9 +14,6 @@ import { DATE_VALUE_FORMAT, getDateFormat } from 'common/util/date'
 export default function FormDatePicker({ name, label }: { name: string; label: string }) {
   const [field] = useField(name)
   const { setFieldValue } = useFormikContext()
-  const { i18n } = useTranslation()
-
-  const dateViewFormat = getDateFormat(i18n?.language)
 
   const updateValue = (newValue: Date | null) => {
     let formattedValue

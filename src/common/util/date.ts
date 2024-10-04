@@ -3,6 +3,7 @@ import { bg, enUS } from 'date-fns/locale'
 
 export const formatDate = 'dd MMM yyyy'
 export const formatDatetime = 'dd MMM yyyy HH:mm:ss'
+export const dateViewFormat = 'dd.MM.yyyy'
 
 export const formatDateString = (dateString: string | Date) => {
   return format(new Date(dateString), 'dd.MM.yyyy')
