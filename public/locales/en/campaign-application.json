@@ -86,5 +86,8 @@
     "approved": "Approved",
     "denied": "Denied",
     "abandoned": "Abandoned"
+  },
+  "admin": {
+    "title": "Campaign Applications"
   }
 }

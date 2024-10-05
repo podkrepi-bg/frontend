@@ -5,11 +5,11 @@ import AdminLayout from 'components/common/navigation/AdminLayout'
 import CampaignApplicationsGrid from './CampaignApplicationsGrid'
 
 export default function CampaignApplicationsPage() {
-  const { t } = useTranslation('campaigns')
+  const { t } = useTranslation('campaign-application')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('Кандидат Кампании')}>
+      <AdminContainer title={t('admin.title')}>
         <CampaignApplicationsGrid />
       </AdminContainer>
     </AdminLayout>
