@@ -53,17 +53,6 @@ const parseDateString = (value: string, originalValue: string) => {
 
 const maxDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
 
-const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'birthday'>> = yup
-  .object()
-  .defined()
-  .shape({
-    birthday: yup
-      .date()
-      .transform(parseDateString)
-      .max(maxDate, 'profile:birthdateModal.ageInvalid')
-      .required(),
-  })
-
 function UpdateBirthdateModal({
   isOpen,
   handleClose,
@@ -75,6 +64,17 @@ function UpdateBirthdateModal({
 }) {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
+
+  const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'birthday'>> = yup
+    .object()
+    .defined()
+    .shape({
+      birthday: yup
+        .date()
+        .transform(parseDateString)
+        .max(maxDate, t('profile:birthdateModal.ageInvalid'))
+        .required(),
+    })
 
   const dateBefore18Years = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
 
@@ -119,7 +119,11 @@ function UpdateBirthdateModal({
           validationSchema={validationSchema}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <FormDatePicker name="birthday" label={t('profile:birthdateModal.question')} />
+              <FormDatePicker
+                name="birthday"
+                label={t('profile:birthdateModal.question')}
+                maxDate={maxDate}
+              />
             </Grid>
             <Grid item xs={6}>
               <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
