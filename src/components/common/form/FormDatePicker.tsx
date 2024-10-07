@@ -3,17 +3,27 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { format } from 'date-fns'
 import { useField, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
+import theme from 'common/theme'
 
 import { DATE_VALUE_FORMAT, getDateFormat } from 'common/util/date'
+
+interface FormDatePickerProps {
+  name: string
+  label: string
+  maxDate?: Date
+}
+
+const errorValidationColor = theme.palette.error as unknown as string
 
 /**
  * MUI date picker to be connected with Formik. Propagates updates to the passed Formik field name
  * @param name - name of the Formik field to bind
  * @param label - prompt text
+ * @param maxDate - optional maximal selectable date
  * @returns
  */
-export default function FormDatePicker({ name, label }: { name: string; label: string }) {
-  const [field] = useField(name)
+export default function FormDatePicker({ name, label, maxDate }: FormDatePickerProps) {
+  const [field, meta] = useField(name)
   const { setFieldValue } = useFormikContext()
   const { i18n } = useTranslation()
 
@@ -42,7 +52,19 @@ export default function FormDatePicker({ name, label }: { name: string; label: s
         label={label}
         value={new Date(field?.value)}
         onChange={(newValue) => updateValue(newValue)}
-        slotProps={{ textField: { size: 'small' } }}
+        slotProps={{ textField: { size: 'small', helperText: maxDate && meta.error } }}
+        sx={
+          maxDate && meta.error
+            ? {
+                '&.MuiOutlinedInput-root': {
+                  '& fieldset, &:hover fieldset, &.Mui-focused fieldset': {
+                    borderColor: errorValidationColor,
+                  },
+                },
+              }
+            : undefined
+        }
+        maxDate={maxDate}
       />
     </LocalizationProvider>
   )

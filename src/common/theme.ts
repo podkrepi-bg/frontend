@@ -37,6 +37,9 @@ const colors = {
   white: {
     main: '#ffffff',
   },
+  red: {
+    error: '#ED1D1D',
+  },
 }
 
 const borders = {
@@ -66,6 +69,9 @@ export const themeOptions: ThemeOptions = {
       main: colors.blue.dark,
       light: colors.blue.mainDark,
       dark: darken(colors.blue.dark, 0.2),
+    },
+    error: {
+      main: colors.red.error,
     },
   },
   shape: {
