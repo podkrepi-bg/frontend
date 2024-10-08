@@ -3832,10 +3832,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stripe/stripe-js@npm:^1.46.0":
-  version: 1.54.1
-  resolution: "@stripe/stripe-js@npm:1.54.1"
-  checksum: eb54054edea3d3f9a8c18e8442cc05b46f7afbe5bd85863121737f268875d30aab6de16ee84d467853ad9d983bf69f922f45daeee6f13134ca138f7e862c9eb4
+"@stripe/stripe-js@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@stripe/stripe-js@npm:3.1.0"
+  checksum: a32e5d3d6cd7bd7130e0d2f15312bdae83f568125407e461c033d726c44503bd00aabe8d6d593a6329d4a10b8a325440ce947cec21b685f260ee3f01f4597ec8
   languageName: node
   linkType: hard
 
@@ -4227,6 +4227,15 @@ __metadata:
   version: 2.4.1
   resolution: "@types/normalize-package-data@npm:2.4.1"
   checksum: e87bccbf11f95035c89a132b52b79ce69a1e3652fe55962363063c9c0dae0fe2477ebc585e03a9652adc6f381d24ba5589cc5e51849df4ced3d3e004a7d40ed5
+  languageName: node
+  linkType: hard
+
+"@types/papaparse@npm:^5":
+  version: 5.3.14
+  resolution: "@types/papaparse@npm:5.3.14"
+  dependencies:
+    "@types/node": "*"
+  checksum: fbf942ed92179eeb824d4e544cc701468157a4ce3f6f668f8b17692d9886fea92ccff5e56965615ff64f049efa01ff95ddb7d30c67e0186bc802a6cc8ef26e63
   languageName: node
   linkType: hard
 
@@ -12046,6 +12055,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"papaparse@npm:^5.4.1":
+  version: 5.4.1
+  resolution: "papaparse@npm:5.4.1"
+  checksum: fc9e52f7158dca3517c229e3309065b1ab5da6c7194572fba4f31ff138bc43e3c91182cc40365cc828f97fe10d0aca416068fd731661058bea0f69ddb84a411a
+  languageName: node
+  linkType: hard
+
 "parchment@npm:^1.1.2, parchment@npm:^1.1.4":
   version: 1.1.4
   resolution: "parchment@npm:1.1.4"
@@ -12255,7 +12271,7 @@ __metadata:
     "@react-pdf/renderer": ^3.1.3
     "@sentry/nextjs": ^7.80.0
     "@stripe/react-stripe-js": ^1.16.1
-    "@stripe/stripe-js": ^1.46.0
+    "@stripe/stripe-js": ^3.1.0
     "@tanstack/react-query": ^4.16.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
@@ -12265,6 +12281,7 @@ __metadata:
     "@types/lodash.truncate": ^4.4.7
     "@types/lru-cache": ^5.1.1
     "@types/node": 14.14.37
+    "@types/papaparse": ^5
     "@types/react": 18.2.14
     "@types/react-dom": ^18.0.0
     "@types/react-gtm-module": 2.0.0
@@ -12307,6 +12324,7 @@ __metadata:
     next-i18next: ^14.0.3
     next-sitemap: ^3.1.52
     nookies: ^2.5.2
+    papaparse: ^5.4.1
     prettier: 2.3.0
     quill-blot-formatter: ^1.0.5
     quill-html-edit-button: ^2.2.12

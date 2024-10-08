@@ -2,8 +2,8 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import {
   Box,
-  Button,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
@@ -26,6 +26,9 @@ import theme from 'common/theme'
 import debounce from 'lodash/debounce'
 
 import { useCampaignList } from 'common/hooks/campaigns'
+import AddIcon from '@mui/icons-material/Add'
+import { ModalStore } from '../PaymentsPage'
+import { observer } from 'mobx-react'
 
 const addIconStyles = {
   background: theme.palette.primary.light,
@@ -35,7 +38,7 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-export default function GridAppbar() {
+function GridAppbar() {
   const router = useRouter()
   const { donationStore } = useStores()
   const { t } = useTranslation()
@@ -50,7 +53,7 @@ export default function GridAppbar() {
   const [searchValue, setSearchValue] = useState('')
   const [selectedCampaign, setSelectedCampaign] = useState<string | undefined>('')
   const { data: campaigns } = useCampaignList()
-
+  const { showImport } = ModalStore
   const debounceSearch = useMemo(
     () =>
       debounce(
@@ -130,9 +133,23 @@ export default function GridAppbar() {
         </FormControl>
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+          <IconButton onClick={() => showImport()}>
+            <Tooltip title="Създаване на ново плащане">
+              <AddIcon sx={addIconStyles} fontSize="large" />
+            </Tooltip>
+          </IconButton>
+          <IconButton>
+            <Tooltip title={t('donations:cta:download') || ''}>
+              <DownloadFileIcon
+                sx={addIconStyles}
+                fontSize="large"
+                onClick={() => exportToExcel.mutate()}
+              />
+            </Tooltip>
+          </IconButton>
           {/* button is disabled because we have a bug(conflicting bank donations) https://github.com/podkrepi-bg/frontend/issues/1649 */}
-          <Button disabled>
+          <IconButton disabled>
             <Tooltip title={t('donations:form-heading-bank-transactions-file') || ''}>
               <Receipt
                 sx={addIconStyles}
@@ -140,16 +157,11 @@ export default function GridAppbar() {
                 onClick={() => router.push(routes.admin.donations.addBankTransactionsFile)}
               />
             </Tooltip>
-          </Button>
-          <Tooltip title={t('donations:cta:download') || ''}>
-            <DownloadFileIcon
-              sx={addIconStyles}
-              fontSize="large"
-              onClick={() => exportToExcel.mutate()}
-            />
-          </Tooltip>
+          </IconButton>
         </Box>
       </Box>
     </Toolbar>
   )
 }
+
+export default observer(GridAppbar)

@@ -10,6 +10,7 @@ type Record = {
 export class ModalStoreImpl {
   isDetailsOpen = false
   isDeleteOpen = false
+  isPaymentImportOpen = false
   selectedRecord: Record = {
     id: '',
     name: '',
@@ -20,8 +21,10 @@ export class ModalStoreImpl {
       isDetailsOpen: observable,
       isDeleteOpen: observable,
       selectedRecord: observable,
+      isPaymentImportOpen: observable,
       setSelectedRecord: action,
       showDetails: action,
+      showImport: action,
       hideDetails: action,
       showDelete: action,
       hideDelete: action,
@@ -44,6 +47,13 @@ export class ModalStoreImpl {
     this.isDeleteOpen = false
   }
 
+  showImport = () => {
+    this.isPaymentImportOpen = true
+  }
+
+  hideImport = () => {
+    this.isPaymentImportOpen = false
+  }
   setSelectedRecord = (record: Record) => {
     this.selectedRecord = record
   }

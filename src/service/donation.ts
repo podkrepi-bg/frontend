@@ -17,6 +17,7 @@ import { authConfig } from 'service/restRequests'
 import { UploadBankTransactionsFiles } from 'components/admin/bank-transactions-file/types'
 import { useMutation } from '@tanstack/react-query'
 import { FilterData } from 'gql/types'
+import { BenevityRequest } from 'components/admin/payments/create-payment/benevity/helpers/benevity.types'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
@@ -123,5 +124,27 @@ export const useExportToExcel = (filterData?: FilterData, searchData?: string) =
       ...authConfig(session?.accessToken),
       responseType: 'blob',
     })
+  }
+}
+
+export const useImportBenevityDonation = () => {
+  const { data: session } = useSession()
+  return async (data: BenevityRequest) => {
+    return await apiClient.post(
+      endpoints.payments.createFromBeneivty.url,
+      data,
+      authConfig(session?.accessToken),
+    )
+  }
+}
+
+export function useCreatePaymentFromStripeMutation() {
+  const { data: session } = useSession()
+  return async (data: Stripe.Charge) => {
+    return await apiClient.put(
+      endpoints.payments.synchronizeWithStripe.url,
+      data,
+      authConfig(session?.accessToken),
+    )
   }
 }
