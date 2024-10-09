@@ -49,7 +49,7 @@ test.describe.serial(
     })
 
     test('Particular campaign can be opened through the Campaign page', async () => {
-      await headerPage.clickDonateHeaderNavButton()
+      await headerPage.clickDonateHeaderNavButton(LanguagesEnum.BG)
       await campaignsPage.clickCampaignCardByIndex(0)
       // We move from the common Campaigns page to the particular campain page
       // check if the url is changed only based on the url pattern http://localhost:3040/campaigns/{slug-based-regexp}

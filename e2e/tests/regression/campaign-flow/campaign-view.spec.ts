@@ -36,7 +36,7 @@ test.describe.serial(
     })
 
     test('Particular campaign can be opened through the Campaign page', async () => {
-      await headerPage.changeLanguageToBe(LanguagesEnum.EN)
+      await headerPage.clickDonateHeaderNavButton(LanguagesEnum.BG)
       await campaignsPage.clickCampaignCardByIndex(0)
 
       expect(
