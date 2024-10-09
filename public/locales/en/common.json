@@ -130,6 +130,12 @@
     "agree-with-newsletter": "I agree to receive news.",
     "agree-with-newsletter-campaign": "I agree to receive news about this campaign and news by Podkrepi.bg."
   },
+  "files": {
+    "attached-files": "Attached files",
+    "download": "Download",
+    "errorDeletingFile": "Failure deleting file",
+    "deletedFile": "Successfully deleted file"
+  },
 
   "cookieConsent": "Podkrepi.bg doesn't use cookies, except the third-party cookies required for the analytics components Google Analytics and HotJar. Accepting the cookies will help us improve your user experience.",
   "cookieConsentButton": "Accept",
