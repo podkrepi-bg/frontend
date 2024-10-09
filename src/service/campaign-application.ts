@@ -20,6 +20,7 @@ import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig, authQueryFnFactory } from 'service/restRequests'
 import { ApiErrors } from './apiErrors'
+import { Session } from 'next-auth'
 
 export const useCreateCampaignApplication = () => {
   const { data: session } = useSession()
@@ -51,8 +52,8 @@ export const useUploadCampaignApplicationFiles = () => {
   }
 }
 
-export const useDeleteCampaignApplicationFile = () => {
-  const { data: session } = useSession()
+export const useDeleteCampaignApplicationFile = (s?: Session | null) => {
+  const { data: session } = s != null ? { data: s } : useSession()
   return async (id: string) =>
     await apiClient.delete<UploadCampaignApplicationFilesRequest>(
       endpoints.campaignApplication.deleteFile(id).url,
@@ -299,4 +300,14 @@ export function mapCreateOrEditInput(i: CampaignApplicationFormData): CampaignAp
 
     ...(i.admin ?? {}), // server disregards admin-only props if the user is not admin
   }
+}
+
+export function fetchCampaignApplicationFile(fileId: string, session: Session | null) {
+  return apiClient.get<string, AxiosResponse<Blob>>(
+    endpoints.campaignApplication.getFile(fileId).url,
+    {
+      ...authConfig(session?.accessToken),
+      responseType: 'blob',
+    },
+  )
 }
