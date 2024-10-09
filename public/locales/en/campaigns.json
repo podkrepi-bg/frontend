@@ -186,6 +186,7 @@
     "active": "Active",
     "suspended": "Suspended by organizer",
     "complete": "Succeeded",
+    "paused": "Paused",
     "partially_financed": "Partially financed",
     "blocked": "Suspended",
     "deleted": "Deleted"
