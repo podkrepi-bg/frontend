@@ -57,7 +57,7 @@ export default function CreateForm({ campaigns }: Props) {
       is: (value: string) => value !== undefined,
       then: yup
         .number()
-        .positive()
+        .positive('validation:positive-amount')
         .required()
         .test({
           name: 'max',
@@ -70,7 +70,7 @@ export default function CreateForm({ campaigns }: Props) {
             return value ? value < Number(fromMoney(currentAmount)) : false
           },
         }),
-      otherwise: yup.number().positive().integer().required(),
+      otherwise: yup.number().positive('validation:positive-amount').integer().required(),
     }),
     reason: yup.string().trim().min(1).max(300).required(),
     documentId: yup.string().uuid().notRequired().nullable(),
@@ -116,7 +116,7 @@ export default function CreateForm({ campaigns }: Props) {
       onSubmit={handleSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}>
-      <Box>
+      <Box mb={5}>
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
           {t('form-heading')}
         </Typography>

@@ -1,5 +1,3 @@
-import { EmotionCache } from '@emotion/cache'
-import { CacheProvider } from '@emotion/react'
 import { CssBaseline } from '@mui/material'
 import { Theme, ThemeProvider } from '@mui/material/styles'
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -9,7 +7,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import createEmotionCache from 'common/createEmotionCache'
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
 
@@ -26,27 +23,19 @@ import {
 } from 'components/client/layout/NotificationSnackBar/props/global'
 import { getCookieConsentValue, Cookies } from 'react-cookie-consent'
 import CookieConsentPopup from 'components/common/CookieConsentPopup'
-
+import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter'
 // Client-side cache, shared for the whole session of the user in the browser.
-const clientSideEmotionCache = createEmotionCache()
 
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
 
-interface CustomAppProps extends AppProps {
-  emotionCache?: EmotionCache
-}
-
-function CustomApp({
-  Component,
-  emotionCache = clientSideEmotionCache,
-  pageProps: { session, dehydratedState, ...pageProps },
-}: CustomAppProps) {
+function CustomApp(props: AppProps) {
   const router = useRouter()
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
+  const { Component, pageProps } = props
 
   const handleAcceptCookie = () => {
     initialize({
@@ -101,7 +90,7 @@ function CustomApp({
   )
 
   return (
-    <CacheProvider value={emotionCache}>
+    <AppCacheProvider {...props}>
       <Head>
         <title>Podkrepi.bg</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
@@ -109,9 +98,12 @@ function CustomApp({
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <SessionProvider session={session} refetchInterval={10 * 60} refetchOnWindowFocus={true}>
+        <SessionProvider
+          session={pageProps.session}
+          refetchInterval={60}
+          refetchOnWindowFocus={true}>
           <QueryClientProvider client={queryClient}>
-            <Hydrate state={dehydratedState}>
+            <Hydrate state={pageProps.dehydratedState}>
               <Provider {...stores}>
                 <Component {...pageProps} />
                 <NotificationSnackBar
@@ -127,7 +119,7 @@ function CustomApp({
         handleAcceptCookie={handleAcceptCookie}
         handleDeclineCookie={handleDeclineCookie}
       />
-    </CacheProvider>
+    </AppCacheProvider>
   )
 }
 

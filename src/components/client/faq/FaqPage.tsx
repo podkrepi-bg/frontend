@@ -6,7 +6,6 @@ import React, { useMemo, useState } from 'react'
 import Layout from 'components/client/layout/Layout'
 
 import ContactUs from './ContactUs'
-import ScrollToTop from './ScrollToTop'
 import VerticalTabs from './VerticalTabs'
 import ExpandableListItem from './ExpandableListItem'
 import {
@@ -81,7 +80,6 @@ export default function FaqPage({ section }: Props) {
         </Stack>
       </TabContext>
       <ContactUs />
-      <ScrollToTop />
     </Layout>
   )
 }

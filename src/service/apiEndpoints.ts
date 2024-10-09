@@ -65,6 +65,7 @@ export const endpoints = {
   notifications: {
     sendConfirmationEmail: <Endpoint>{ url: '/notifications/send-confirm-email', method: 'POST' },
     subscribePublicEmail: <Endpoint>{ url: '/notifications/public/subscribe', method: 'POST' },
+    sendNewsLetterConsentEmail: <Endpoint>{ url: '/notifications/send-newsletter-consent' },
     unsubscribePublicEmail: <Endpoint>{ url: '/notifications/public/unsubscribe', method: 'POST' },
     subscribeEmail: <Endpoint>{ url: '/notifications/subscribe', method: 'POST' },
     unsubscribeEmail: <Endpoint>{ url: '/notifications/unsubscribe', method: 'POST' },
@@ -446,5 +447,15 @@ export const endpoints = {
         method: 'GET',
       }
     },
+  },
+  campaignApplication: {
+    create: <Endpoint>{ url: '/campaign-application/create', method: 'POST' },
+    update: (id: string) => <Endpoint>{ url: `/campaign-application/${id}`, method: 'PATCH' },
+    uploadFile: (campaignId: string) =>
+      <Endpoint>{ url: `/campaign-application/uploadFile/${campaignId}`, method: 'POST' },
+    deleteFile: (fileId: string) =>
+      <Endpoint>{ url: `/campaign-application/fileById/${fileId}`, method: 'DELETE' },
+    view: (id: string) => <Endpoint>{ url: `/campaign-application/byId/${id}`, method: 'GET' },
+    listAllForAdmin: <Endpoint>{ url: `/campaign-application/list`, method: 'GET' },
   },
 }

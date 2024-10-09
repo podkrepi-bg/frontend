@@ -31,7 +31,7 @@ export default function DetailsModal({ article, onClose }: Props) {
           <Typography variant="body1">
             {t('Заглавие')}: {article.title}
           </Typography>
-          <Typography variant="body1">Слъг: {article.slug}</Typography>
+          <Typography variant="body1">Кратко наименование: {article.slug}</Typography>
           <Typography variant="body1">
             <Typography variant="body1">Автор: {article.author}</Typography>
             Създадена на: {getExactDateTime(article.createdAt)}

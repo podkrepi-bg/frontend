@@ -47,7 +47,7 @@ const validationSchema: yup.SchemaOf<WithdrawalData> = yup
   .defined()
   .shape({
     status: yup.string().trim().min(1).max(10).required(),
-    amount: yup.number().positive().required(),
+    amount: yup.number().positive('validation:positive-amount').required(),
     reason: yup.string().trim().min(1).max(300).required(),
     currency: yup.string().oneOf(Object.values(Currency)).required(),
     sourceVaultId: yup.string().uuid().required(),

@@ -9,8 +9,7 @@ import {
   RadioGroup,
   RadioGroupProps,
   Stack,
-  Grid,
-  Skeleton,
+  Grid2,
 } from '@mui/material'
 import { styled, lighten } from '@mui/material/styles'
 import theme from 'common/theme'
@@ -120,7 +119,7 @@ function RadioCardGroup({ options, name, columns, loading, error }: RadioCardGro
       <RadioGroup value={field.value} onChange={handleChange}>
         <Grid columnSpacing={3} container>
           {options.map((option) => (
-            <Grid item xs={12} sm={12 / columns} key={option.value}>
+            <Grid2 size={{ xs: 4 }} key={option.value}>
               <RadioCardItem
                 onClick={() => setValue(option.value)}
                 style={{

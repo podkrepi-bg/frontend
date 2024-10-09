@@ -11,6 +11,7 @@ import DetailsModal from 'components/admin/modal/DetailsModal'
 
 import AppNavBar from './AppNavBar'
 import MobileNav from './nav/MobileNav/MobileNav'
+import ScrollToTop from './ScrollToTop'
 
 const createPageTitle = (suffix: string, title?: string) => {
   if (title) {
@@ -135,6 +136,7 @@ export default function Layout({
         <DetailsModal />
       </Container>
       {!hideFooter && <Footer />}
+      <ScrollToTop />
     </Container>
   )
 }

@@ -290,9 +290,9 @@ export class BasePage {
       await this.clearInputFieldBySelector(elementSelector)
     }
     if (slowTyping) {
-      await this.page.type(elementSelector, inputValueToFill.toString().trim(), { delay: 100 })
+      await this.page.fill(elementSelector, inputValueToFill.toString().trim())
     } else {
-      await this.page.type(elementSelector, inputValueToFill.toString().trim())
+      await this.page.fill(elementSelector, inputValueToFill.toString().trim())
     }
     if (pressEnterKey) {
       await this.page.press(elementSelector, 'Enter')

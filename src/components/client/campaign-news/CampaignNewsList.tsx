@@ -188,7 +188,7 @@ export default function CampaignNewsList({ articles }: Props) {
                     expandContent(article.id)
                     scrollToTop(article.id)
                   }}
-                  sx={{ background: 'transperent', width: '100%' }}>
+                  sx={{ background: 'transparent', width: '100%' }}>
                   {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
                 </Button>
               )}

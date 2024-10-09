@@ -2,31 +2,30 @@ import React, { useState } from 'react'
 
 import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
-
 import { CampaignResponse } from 'gql/campaigns'
-
 import 'react-quill/dist/quill.bubble.css'
 
 import { Divider, Grid, IconButton, Tooltip, Typography } from '@mui/material'
-import SecurityIcon from '@mui/icons-material/Security'
+import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined'
+import EditIcon from '@mui/icons-material/Edit'
+import { Assessment, InfoOutlined } from '@mui/icons-material'
+import EmailIcon from '@mui/icons-material/Email'
 import { styled } from '@mui/material/styles'
 
-import DonationWishes from './DonationWishes'
 import { ImageSlider } from 'components/common/ImageSlider'
+import LinkButton from 'components/common/LinkButton'
+import { campaignSliderUrls } from 'common/util/campaignImageUrls'
+import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
+import { useCanEditCampaign } from 'common/hooks/campaigns'
+import { moneyPublic } from 'common/util/money'
+import { routes } from 'common/routes'
+
+import DonationWishes from './DonationWishes'
 import CampaignInfo from './CampaignInfo/CampaignInfo'
 import CampaignInfoGraphics from './CampaignInfoGraphics'
 import CampaignInfoOperator from './CampaignInfoOperator'
-import LinkButton from 'components/common/LinkButton'
-import { campaignSliderUrls } from 'common/util/campaignImageUrls'
 import CampaignPublicExpensesGrid from './CampaignPublicExpensesGrid'
-import EditIcon from '@mui/icons-material/Edit'
-import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
-import { Assessment, InfoOutlined } from '@mui/icons-material'
-import { routes } from 'common/routes'
-import { useCanEditCampaign } from 'common/hooks/campaigns'
-import { moneyPublic } from 'common/util/money'
 import CampaignPublicExpensesChart from './CampaignPublicExpensesChart'
-import EmailIcon from '@mui/icons-material/Email'
 import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
@@ -38,7 +37,7 @@ const classes = {
   banner: `${PREFIX}-banner`,
   campaignTitle: `${PREFIX}-campaignTitle`,
   linkButton: `${PREFIX}-linkButton`,
-  securityIcon: `${PREFIX}-securityIcon`,
+  irregularityIcon: `${PREFIX}-irregularityIcon`,
   subscribeLink: `${PREFIX}-subscribe`,
   financeSummary: `${PREFIX}-financeSummary`,
 }
@@ -79,11 +78,11 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.linkButton}`]: {
-    fontSize: theme.typography.pxToRem(10),
+    fontSize: theme.typography.pxToRem(16),
     letterSpacing: theme.spacing(0.01),
     lineHeight: '150%',
     textDecoration: 'underline',
-    color: 'initial',
+    color: '#11356A',
 
     '&:hover': {
       textDecoration: 'underline',
@@ -92,7 +91,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.securityIcon}`]: {
+  [`& .${classes.irregularityIcon}`]: {
     width: theme.spacing(2.25),
     height: theme.spacing(2.75),
   },
@@ -221,22 +220,12 @@ export default function CampaignDetails({ campaign }: Props) {
           <DonationWishes campaignId={campaign?.id} />
         </Grid>
         <Grid container item xs={12}>
-          <Grid item xs={12} mb={1}>
-            <LinkButton
-              startIcon={<SecurityIcon color="action" className={classes.securityIcon} />}
-              href={'/contact'}
-              className={classes.linkButton}>
-              {t('campaigns:campaign.feedback')}
-            </LinkButton>
-          </Grid>
-          <Grid item xs={12}>
-            <LinkButton
-              startIcon={<SecurityIcon color="action" className={classes.securityIcon} />}
-              href={`/campaigns/${campaign.slug}/irregularity`}
-              className={classes.linkButton}>
-              {t('campaigns:campaign.report-campaign')}
-            </LinkButton>
-          </Grid>
+          <LinkButton
+            startIcon={<NotificationsActiveOutlinedIcon className={classes.irregularityIcon} />}
+            href={`/campaigns/${campaign.slug}/irregularity`}
+            className={classes.linkButton}>
+            {t('campaigns:campaign.report-campaign')}
+          </LinkButton>
         </Grid>
       </Grid>
     </StyledGrid>

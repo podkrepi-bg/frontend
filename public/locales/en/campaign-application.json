@@ -1,0 +1,90 @@
+{
+  "steps": {
+    "organizer": {
+      "title": "Organizer",
+      "name": "Your First and Last Name",
+      "phone": "Contact phone",
+      "email": "Email",
+      "transparencyTerms": "I confirm that the campaign meets the basic principles for publishing on the platform: it is legal, it is moral, and it is not business-oriented."
+    },
+    "application": {
+      "title": "Campaign Application",
+      "campaignTitle": "Campaign title",
+      "beneficiary": "Beneficiary names",
+      "beneficiaryRelationship": "Beneficiary relationship",
+      "funds": "The required amount in leva",
+      "campaign-end": {
+        "title": "Desired campaign end date:",
+        "options": {
+          "funds": "Until the required funds are raised",
+          "ongoing": "Year-round/ongoing",
+          "date": "Specify date"
+        }
+      }
+    },
+    "details": {
+      "title": "Tell us more about your campaign",
+      "description": "Description",
+      "current-status": {
+        "label": "What has been done so far in the campaign?",
+        "placeholder": "(collected material and/or non-material resources, what has been done with them, completed examinations/procedures, etc.)"
+      },
+      "cause": "What are the funds needed for?",
+      "links": {
+        "label": "If applicable, attach:",
+        "fields": {
+          "website": "campaign website",
+          "media": "links to media coverage",
+          "facebook": "link to the campaign's Facebook page",
+          "donation-platforms": "link to other donation platforms where your campaign is (or has been) active"
+        }
+      },
+      "photos": "Photo/Video material",
+      "documents": "Documents",
+      "disclaimer": "Up to 10 documents accepted. Each of the documents can be up to 30MB is size"
+    },
+    "admin": {
+      "title": "Admin edit",
+      "status": "Status",
+      "external-url": "External URL",
+      "archived": "Archived",
+      "organizer-edit-link": "Organizer can edit at"
+    }
+  },
+  "cta": {
+    "next": "Save and continue",
+    "back": "Back",
+    "submit": "Submit campaign"
+  },
+  "remark": {
+    "part-one": "*Additional information about the application process and its stages can be found in our ",
+    "part-two": "and in the section ",
+    "links": {
+      "terms": "Terms and Conditions ",
+      "faq": "Frequently Asked Questions"
+    }
+  },
+  "alerts": {
+    "successfully-created": "Campaign application successfully created."
+  },
+  "result": {
+    "created": "Successfully created campaign application",
+    "edited": "Successfully edited campaign application",
+    "editButton": "Edit campaign application",
+    "uploadOk": "Fails added",
+    "deleteOk": "Files removed",
+    "uploadFailed": "Failed file add",
+    "deleteFailed": "Failed to remove files",
+    "uploadFailedWhat": "What can I do?",
+    "uploadFailedDirection": "Please visit the campaign application edit page linked below and retry adding/removing the files."
+  },
+  "status": {
+    "selectorLabel": "Status",
+    "review": "New - for review",
+    "requestInfo": "Request for more info",
+    "forCommitteeReview": "For committee review",
+    "approved": "Approved",
+    "denied": "Denied",
+    "abandoned": "Abandoned"
+  }
+}

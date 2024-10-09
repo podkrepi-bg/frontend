@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'
-import CheckboxField from 'components/common/form/CheckboxField'
+import CheckboxField, { CheckboxFieldProps } from 'components/common/form/CheckboxField'
 
 export type AcceptGDPRFieldProps = {
   name: string
@@ -13,6 +13,7 @@ export type AcceptGDPRFieldProps = {
 export default function AcceptPrivacyPolicyField({
   name,
   showFieldError = true,
+  ...rest
 }: AcceptGDPRFieldProps) {
   const { t } = useTranslation()
   return (
@@ -22,9 +23,10 @@ export default function AcceptPrivacyPolicyField({
       label={
         <Typography variant="body2">
           {t('validation:informed-agree-with')}{' '}
-          <ExternalLink href={routes.privacyPolicy}>{t('validation:gdpr')}</ExternalLink>.
+          <ExternalLink href={routes.privacyPolicy}>{t('validation:gdpr')}</ExternalLink>
         </Typography>
       }
+      {...rest}
     />
   )
 }

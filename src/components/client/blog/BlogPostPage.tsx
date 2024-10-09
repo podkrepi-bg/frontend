@@ -1,6 +1,6 @@
 import React from 'react'
 import { PostOrPage } from '@tryghost/content-api'
-import { Container, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Container, Typography, Grid2 } from '@mui/material'
 
 import { baseUrl, routes } from 'common/routes'
 import Layout from 'components/client/layout/Layout'
@@ -24,19 +24,19 @@ export default function BlogPostPage({ post, referer }: Props) {
       ogImage={post.og_image ?? undefined}>
       <Container maxWidth="lg">
         <Grid2 container spacing={2}>
-          <Grid2 xs={12} xsOffset={0}>
+          <Grid2 size={{ xs: 12 }} offset={{ xs: 0 }}>
             <BackButton href={referer ?? routes.blog.index} />
           </Grid2>
-          <Grid2 xs={12}>
+          <Grid2 size={{ xs: 12 }}>
             <Typography paragraph variant="h3" component="h1" align="center">
               {post.title}
             </Typography>
           </Grid2>
-          <Grid2 xs={10} xsOffset={1} textAlign="center">
-            <DateCreated showLabel createdAt={post.created_at} />
+          <Grid2 size={{ xs: 10 }} offset={{ xs: 1 }} textAlign="center">
+            <DateCreated showLabel createdAt={post.published_at as string} />
             <ReadingTime showLabel readingTime={post.reading_time} />
           </Grid2>
-          <Grid2 xs={10} xsOffset={1}>
+          <Grid2 size={{ xs: 10 }} offset={{ xs: 1 }}>
             <FeaturedImage
               priority
               sizes="33vw"
@@ -46,10 +46,10 @@ export default function BlogPostPage({ post, referer }: Props) {
               title={post.feature_image_caption ?? post.title}
             />
           </Grid2>
-          <Grid2 xs={12} sm={10} smOffset={1}>
+          <Grid2 size={{ xs: 12, sm: 10 }} offset={{ xs: 0, sm: 1 }}>
             <RenderContent html={post.html} />
           </Grid2>
-          <Grid2 xs={12} textAlign="center">
+          <Grid2 size={{ xs: 12 }} textAlign="center">
             <BackButton href={referer ?? routes.blog.index} />
           </Grid2>
         </Grid2>
