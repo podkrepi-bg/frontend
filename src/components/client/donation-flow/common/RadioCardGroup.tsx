@@ -8,7 +8,7 @@ import {
   RadioGroup,
   RadioGroupProps,
   Stack,
-  Unstable_Grid2 as Grid2,
+  Grid2,
 } from '@mui/material'
 import { styled, lighten } from '@mui/material/styles'
 import theme from 'common/theme'
@@ -87,7 +87,7 @@ function RadioCardGroup({ options, defaultValue }: RadioCardGroupProps) {
         onChange={handleChange}>
         <Grid2 spacing={2} container>
           {options.map((option) => (
-            <Grid2 xs={4} key={option.value}>
+            <Grid2 size={{ xs: 4 }} key={option.value}>
               <RadioCardItem
                 onClick={() => setValue(option.value)}
                 control={

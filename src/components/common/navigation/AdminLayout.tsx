@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
-import { useTheme } from '@mui/styles'
+import { useTheme } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
 import { IconButton, List, Box, Button, Typography } from '@mui/material'
@@ -79,18 +79,18 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }))
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: string) => prop !== 'open' })(
-  ({ theme, open }: { theme: Theme; open: boolean }) => ({
+  ({ theme, open }: { theme?: Theme; open: boolean }) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
     ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
+      ...openedMixin(theme as Theme),
+      '& .MuiDrawer-paper': openedMixin(theme as Theme),
     }),
     ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
+      ...closedMixin(theme as Theme),
+      '& .MuiDrawer-paper': closedMixin(theme as Theme),
     }),
   }),
 )
@@ -124,14 +124,14 @@ export default function AdminLayout({ children }: Props) {
   const toggleMenu = useCallback(() => setOpen((open) => !open), [])
   return (
     <StyledBox className={classes.wrapper}>
-      <Drawer variant="permanent" open={open} theme={theme}>
+      <Drawer variant="permanent" open={open}>
         <Box
           sx={{
             display: 'flex',
             position: 'absolute',
             left: 5,
             top: 9,
-            padding: theme.spacing(0, 1),
+            // padding: theme.spacing(0, 1),
           }}>
           <Link href={routes.admin.index} passHref>
             {/* A11Y TODO: Translate alt text */}
