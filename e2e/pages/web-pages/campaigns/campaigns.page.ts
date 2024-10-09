@@ -35,7 +35,7 @@ export class CampaignsPage extends HomePage {
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await this.page.waitForTimeout(1000)
     await expect(this.page, 'The URL is not correct!').toHaveURL(
-      new RegExp(urlRegExpAsString || `^(.*?)/campaigns/${SLUG_REGEX}`),
+      new RegExp(urlRegExpAsString || `^(.*?)/(en/)?campaigns/${SLUG_REGEX}`),
       {
         timeout: timeoutParam,
       },
