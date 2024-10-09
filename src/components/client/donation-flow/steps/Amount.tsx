@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
-import { useMediaQuery, Collapse, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { useMediaQuery, Collapse, Typography, Grid2 } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import { CardRegion } from 'gql/donations.enums'
@@ -119,8 +119,7 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
       />
       <Collapse unmountOnExit in={value === 'other'} timeout="auto">
         <Grid2
-          xs={12}
-          sm={6}
+          size={{ xs: 12, sm: 6 }}
           //Since we can't put the otherAmount field in the same grid as the radio buttons
           //if the amount of prices are not even and there is empty space to the right, we need to float it to the right
           style={

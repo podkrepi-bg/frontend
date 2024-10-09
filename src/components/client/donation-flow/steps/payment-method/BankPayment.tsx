@@ -1,14 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import {
-  Alert,
-  AlertTitle,
-  Divider,
-  List,
-  Typography,
-  Unstable_Grid2 as Grid2,
-  useMediaQuery,
-} from '@mui/material'
+import { Alert, AlertTitle, Divider, List, Typography, Grid2, useMediaQuery } from '@mui/material'
 
 import { ibanNumber } from 'common/iban'
 import theme from 'common/theme'
@@ -38,7 +30,7 @@ function BankPayment() {
       </Typography>
       <Divider />
       <Grid2 rowSpacing={2} my={2} container justifyContent="center">
-        <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
+        <Grid2 display="flex" alignItems="center" justifyContent="space-between" size={{ xs: 12 }}>
           <Typography>{bankAccountInfo.owner}</Typography>
           <CopyTextButton
             label={t('step.payment-method.bank.btn-copy')}
@@ -48,7 +40,7 @@ function BankPayment() {
             color="info"
           />
         </Grid2>
-        <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
+        <Grid2 display="flex" alignItems="center" justifyContent="space-between" size={{ xs: 12 }}>
           <Typography>{bankAccountInfo.bank}</Typography>
           <CopyTextButton
             label={t('step.payment-method.bank.btn-copy')}
@@ -58,7 +50,7 @@ function BankPayment() {
             color="info"
           />
         </Grid2>
-        <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
+        <Grid2 display="flex" alignItems="center" justifyContent="space-between" size={{ xs: 12 }}>
           <Typography>{ibanNumber}</Typography>
           <CopyTextButton
             label={t('step.payment-method.bank.btn-copy')}
@@ -75,7 +67,7 @@ function BankPayment() {
       </Typography>
       <Divider />
       <Grid2 my={1} container justifyContent="center">
-        <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
+        <Grid2 display="flex" alignItems="center" justifyContent="space-between" size={{ xs: 12 }}>
           <Typography data-testid="payment-reference-field" fontWeight="bold">
             {campaign.paymentReference}
           </Typography>

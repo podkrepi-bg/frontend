@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Typography, Alert, useMediaQuery, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Box, Typography, Alert, useMediaQuery, Grid2 } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
 

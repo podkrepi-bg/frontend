@@ -12,7 +12,7 @@ import {
   Card,
   CardContent,
   CardActionArea,
-  Unstable_Grid2 as Grid2,
+  Grid2,
 } from '@mui/material'
 import { Email } from '@mui/icons-material'
 
@@ -162,19 +162,19 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       </Stack>
       <StepSplitter />
       <Grid2 spacing={2} container>
-        <Grid2 xs={12} md={6}>
+        <Grid2 size={{ xs: 12, md: 6 }}>
           <LinkCard
             href={routes.campaigns.viewCampaignBySlug(slug)}
             text={t('status.success.link.return')}
           />
         </Grid2>
-        <Grid2 xs={12} md={6}>
+        <Grid2>
           <LinkCard href={routes.campaigns.index} text={t('status.success.link.see')} />
         </Grid2>
-        <Grid2 xs={12} md={6}>
+        <Grid2 size={{ xs: 12, md: 6 }}>
           <LinkCard href={routes.profile.index} text={t('status.success.link.donations')} />
         </Grid2>
-        <Grid2 xs={12} md={6}>
+        <Grid2 size={{ xs: 12, md: 6 }}>
           <LinkCard href={routes.support} text={t('status.success.link.volunteer')} />
         </Grid2>
       </Grid2>
@@ -200,13 +200,13 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       </Typography>
       <StepSplitter />
       <Grid2 spacing={2} container>
-        <Grid2 xs={12} md={6}>
+        <Grid2 size={{ xs: 12, md: 6 }}>
           <LinkCard
             href={routes.campaigns.oneTimeDonation(slug)}
             text={t('status.fail.link.retry')}
           />
         </Grid2>
-        <Grid2 xs={12} md={6}>
+        <Grid2 size={{ xs: 12, md: 6 }}>
           <LinkCard
             href={routes.campaigns.viewCampaignBySlug(slug)}
             text={t('status.fail.link.return')}

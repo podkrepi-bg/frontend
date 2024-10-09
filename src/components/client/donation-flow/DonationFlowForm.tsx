@@ -6,14 +6,7 @@ import { useElements, useStripe } from '@stripe/react-stripe-js'
 import * as yup from 'yup'
 import { Form, Formik, FormikProps } from 'formik'
 import { PersistFormikValues } from 'formik-persist-values'
-import {
-  Box,
-  Button,
-  IconButton,
-  Tooltip,
-  Typography,
-  Unstable_Grid2 as Grid2,
-} from '@mui/material'
+import { Box, Button, IconButton, Tooltip, Typography, Grid2 } from '@mui/material'
 import { ArrowBack, Info } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
@@ -228,7 +221,7 @@ export function DonationFlowForm() {
       validateOnBlur={true}>
       {({ handleSubmit, values, errors, submitCount, isValid }) => (
         <Grid2 spacing={4} container justifyContent={'center'}>
-          <Grid2 sm={12} md={9} justifyContent={'center'}>
+          <Grid2 size={{ sm: 12, md: 9 }} justifyContent={'center'}>
             <Form onSubmit={handleSubmit} autoComplete="off">
               <ConfirmationDialog
                 isOpen={showCancelDialog}
@@ -252,14 +245,14 @@ export function DonationFlowForm() {
                 }}>
                 <ArrowBack sx={{ mr: 2 }} /> {t('action.back')}
               </Button>
-              <Grid2 container xs={12} md={7} direction={'column'}>
+              <Grid2 container size={{ xs: 12, md: 7 }} direction={'column'}>
                 <StepSplitter content="1" active={Boolean(values.amountChosen)} />
                 <Amount
                   disabled={values.payment === DonationFormPaymentMethod.BANK}
                   error={Boolean(errors.finalAmount) && Boolean(submitCount > 0)}
                 />
               </Grid2>
-              <Grid2 container xs={12} md={7} direction={'column'}>
+              <Grid2 container size={{ xs: 12, md: 7 }} direction={'column'}>
                 <StepSplitter content="2" active={Boolean(values.mode)} />
                 <PaymentModeSelect error={Boolean(errors.mode) && Boolean(submitCount > 0)} />
               </Grid2>
@@ -268,8 +261,8 @@ export function DonationFlowForm() {
                 display="flex"
                 container
                 justifyContent={'space-between'}
-                xs={12}>
-                <Grid2 container xs={12} md={7} direction={'column'}>
+                size={{ xs: 12 }}>
+                <Grid2 container size={{ xs: 12, md: 7 }} direction={'column'}>
                   <StepSplitter
                     content="3"
                     active={Boolean(values.amountChosen) && Boolean(values.payment)}
@@ -279,7 +272,7 @@ export function DonationFlowForm() {
                     error={Boolean(errors.payment) && submitCount > 0}
                   />
                 </Grid2>
-                <Grid2 container md={4} display={{ xs: 'none', md: 'flex' }}>
+                <Grid2 container size={{ md: 4 }} display={{ xs: 'none', md: 'flex' }}>
                   <AlertsColumn sectionsRefArray={[paymentMethodSectionRef]} />
                 </Grid2>
               </Grid2>
@@ -288,7 +281,7 @@ export function DonationFlowForm() {
                 container
                 justifyContent={'space-between'}
                 flexDirection={'row'}>
-                <Grid2 container xs={12} md={7} direction={'column'}>
+                <Grid2 container size={{ xs: 12, md: 7 }} direction={'column'}>
                   <StepSplitter content="4" active={Boolean(values.authentication)} />
                   <Authentication
                     sectionRef={authenticationSectionRef}
@@ -296,12 +289,12 @@ export function DonationFlowForm() {
                   />
                   <StepSplitter />
                 </Grid2>
-                <Grid2 container md={4} display={{ xs: 'none', md: 'flex' }}>
+                <Grid2 container size={{ md: 4 }} display={{ xs: 'none', md: 'flex' }}>
                   <AlertsColumn sectionsRefArray={[authenticationSectionRef]} />
                 </Grid2>
               </Grid2>
-              <Grid2 container xs={12} gap={6} justifyContent={'space-between'} md={9}>
-                <Grid2 container direction={'column'} gap={1} md={6}>
+              <Grid2 container size={{ xs: 12, md: 9 }} gap={6} justifyContent={'space-between'}>
+                <Grid2 container direction={'column'} gap={1} size={{ md: 6 }}>
                   <Grid2 container display={{ xs: 'flex', md: 'none' }}>
                     <PaymentSummaryAlert
                       donationAmount={Number(values.finalAmount)}
@@ -337,7 +330,7 @@ export function DonationFlowForm() {
                     sx={{ maxWidth: 150 }}
                   />
                 </Grid2>
-                <Grid2 container md={4} display={{ xs: 'none', md: 'flex' }}>
+                <Grid2 container size={{ md: 4 }} display={{ xs: 'none', md: 'flex' }}>
                   <PaymentSummaryAlert
                     donationAmount={Number(values.finalAmount)}
                     sx={{ minWidth: 345, maxHeight: 175 }}

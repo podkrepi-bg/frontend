@@ -1,6 +1,6 @@
 import React from 'react'
 import { Trans, useTranslation } from 'next-i18next'
-import { Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Typography, Grid2 } from '@mui/material'
 import { useField } from 'formik'
 
 import { CardRegion } from 'gql/donations.enums'
@@ -15,7 +15,7 @@ export const TaxesCheckbox = () => {
   return (
     <>
       <Grid2 container>
-        <Grid2 xs={12} sm={8}>
+        <Grid2 size={{ xs: 12, sm: 8 }}>
           <CheckboxField
             name="cardIncludeFees"
             label={
@@ -25,7 +25,7 @@ export const TaxesCheckbox = () => {
             }
           />
         </Grid2>
-        <Grid2 xs={12} sm={4} mb={2}>
+        <Grid2 mb={2} size={{ xs: 12, sm: 4 }}>
           <FormSelectField
             name="cardRegion"
             label={t('step.payment-method.field.card-region.title')}

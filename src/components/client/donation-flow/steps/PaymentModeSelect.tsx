@@ -1,4 +1,4 @@
-import { Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Typography, Grid2 } from '@mui/material'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 
 import React, { useEffect } from 'react'
@@ -37,7 +37,7 @@ export default function PaymentModeSelect({ error }: PaymentModeSelectProps) {
   return (
     <Grid2 container gap={5} id={ids['mode']} direction={'column'}>
       <Typography variant="h5">{t('donation-flow:step.payment-mode.title')}</Typography>
-      <Grid2 md={6} gap={3}>
+      <Grid2 size={{ md: 6 }} gap={3}>
         {error && <DonationFormSectionErrorText message={t('general.error.select-field')} />}
         <RadioButtonGroup name="mode" columns={1} options={options} error={error} />
       </Grid2>

@@ -8,17 +8,20 @@ import CheckboxField, { CheckboxFieldProps } from 'components/common/form/Checkb
 export type AcceptGDPRFieldProps = {
   name: string
   showFieldError?: boolean
+  disabled?: boolean
 }
 
 export default function AcceptPrivacyPolicyField({
   name,
   showFieldError = true,
+  disabled,
   ...rest
 }: AcceptGDPRFieldProps) {
   const { t } = useTranslation()
   return (
     <CheckboxField
       name={name}
+      disabled={disabled}
       showFieldError={showFieldError}
       label={
         <Typography variant="body2">

@@ -8,7 +8,7 @@ import { stripeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { CardRegion } from 'gql/donations.enums'
 import { useFormikContext } from 'formik'
 import { DonationFormData } from '../helpers/types'
-import Grid2 from '@mui/material/Unstable_Grid2'
+import { Grid2 } from '@mui/material'
 
 function PaymentSummaryAlert({
   donationAmount,
@@ -28,7 +28,7 @@ function PaymentSummaryAlert({
   return (
     <Grid2
       container
-      xs={12}
+      size={{ xs: 12 }}
       direction={'column'}
       sx={{
         borderRadius: 8,

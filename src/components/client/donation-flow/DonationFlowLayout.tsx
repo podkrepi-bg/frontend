@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Typography, Box, Unstable_Grid2 as Grid2, useMediaQuery } from '@mui/material'
+import { Typography, Box, Grid2, useMediaQuery } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import {
@@ -72,7 +72,7 @@ function DonationFlowLayout({
           {/* A11Y TODO: Translate alt text */}
           <StyledBanner src={bannerSource} alt="Campaign banner image" sizes="100vw" fill />
         </StyledBannerWrapper>
-        <StyledBeneficiaryAvatarWrapper xs={12} justifyContent="center" p={4}>
+        <StyledBeneficiaryAvatarWrapper size={{ xs: 12 }} justifyContent="center" p={4}>
           <StyledBeneficiaryAvatar
             src={beneficiaryAvatarSource}
             alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
