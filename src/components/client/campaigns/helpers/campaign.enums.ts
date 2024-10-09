@@ -9,6 +9,11 @@ export enum CampaignState {
   deleted = 'deleted',
 }
 
+export const canAcceptDonationState = new Set([
+  CampaignState.partially_financed,
+  CampaignState.complete,
+])
+
 export enum StatisticsGroupBy {
   DAY = 'day',
   WEEK = 'week',
