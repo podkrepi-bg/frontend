@@ -59,8 +59,8 @@ export default function PaymentMethod({
       label: t('step.payment-method.field.method.card'),
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
       content: (
-        <Box>
-          <Alert sx={{ mt: 1, mb: 2, mx: -2 }} color="info" icon={false}>
+        <Box gap={2}>
+          <Alert sx={{ mt: 1, mb: 2 }} color="info" icon={false}>
             <Typography>
               {paymentMethodAlertMap[payment.value as DonationFormPaymentMethod]}
             </Typography>
@@ -76,7 +76,7 @@ export default function PaymentMethod({
       icon: <BankIcon sx={{ width: 80, height: 80 }} />,
       content: (
         <Box>
-          <Alert sx={{ my: 2, mx: -2 }} color="info" icon={false}>
+          <Alert sx={{ my: 2 }} color="info" icon={false}>
             <Typography>
               {paymentMethodAlertMap[payment.value as DonationFormPaymentMethod]}
             </Typography>
@@ -104,7 +104,7 @@ export default function PaymentMethod({
         <div ref={sectionRef} id="select-payment--radiocard">
           <RadioCardGroup
             loading={status === 'loading'}
-            columns={2}
+            columns={4}
             name="payment"
             error={error}
             options={options}

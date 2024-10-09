@@ -37,7 +37,7 @@ export default function PaymentModeSelect({ error }: PaymentModeSelectProps) {
   return (
     <Grid2 container gap={5} id={ids['mode']} direction={'column'}>
       <Typography variant="h5">{t('donation-flow:step.payment-mode.title')}</Typography>
-      <Grid2 size={{ md: 6 }} gap={3}>
+      <Grid2 container size={{ md: 6 }}>
         {error && <DonationFormSectionErrorText message={t('general.error.select-field')} />}
         <RadioButtonGroup name="mode" columns={1} options={options} error={error} />
       </Grid2>
