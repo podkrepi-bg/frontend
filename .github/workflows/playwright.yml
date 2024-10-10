@@ -2,6 +2,8 @@ name: Playwright tests
 on:
   workflow_call:
   workflow_dispatch:
+env:
+  STRIPE_DEV_PUBLISHABLE_KEY: ${{ vars.STRIPE_DEV_PUBLISHABLE_KEY }}
 
 jobs:
   run-playwright:
@@ -95,6 +97,8 @@ jobs:
       - name: Start frontend
         working-directory: ./frontend
         run: yarn start &> frontend.log &
+        env:
+          STRIPE_PUBLISHABLE_KEY: ${{ env.STRIPE_DEV_PUBLISHABLE_KEY }}
 
       - name: Install Playwright Browsers
         working-directory: ./frontend/e2e

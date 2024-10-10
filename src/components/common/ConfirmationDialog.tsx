@@ -49,7 +49,7 @@ const ConfirmationDialog = ({
       <Button onClick={handleConfirm} color="primary">
         {confirmButtonLabel}
       </Button>
-      <Button onClick={handleCancel} color="secondary">
+      <Button onClick={handleCancel} color="error">
         {cancelButtonLabel}
       </Button>
     </DialogActions>

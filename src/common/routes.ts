@@ -96,6 +96,8 @@ export const routes = {
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
     viewExpenses: (slug: string) => `/campaigns/${slug}/expenses`,
     oneTimeDonation: (slug: string) => `/campaigns/donation/${slug}`,
+    donationStatus: (slug: string) => `/campaigns/donation/${slug}/status`,
+    finalizeDonation: `api/donation/finalize`,
     expenses: {
       create: (slug: string) => `/campaigns/${slug}/expenses/create`,
       edit: (slug: string, id: string) => `/campaigns/${slug}/expenses/${id}`,

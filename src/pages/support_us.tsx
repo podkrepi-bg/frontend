@@ -5,11 +5,7 @@ import SupportUsFormPage from 'components/client/support-us-form/SupportUsPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', [
-      'common',
-      'support_us',
-      'one-time-donation',
-    ])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'support_us', 'donation-flow'])),
   },
 })
 
