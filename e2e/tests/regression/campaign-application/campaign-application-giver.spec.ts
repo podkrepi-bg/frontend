@@ -68,6 +68,7 @@ test.describe('Campaign application giver', () => {
     baseURL,
   }) => {
     // arrange
+    await setupMeAndCampaignTypes(page)
     await page.goto(`${baseURL}/campaigns/application`)
     const t = await textLocalized().campaign.bg()
 
@@ -136,7 +137,7 @@ test.describe('Campaign application giver', () => {
       beneficiary: 'beneficiary',
       campaignEnd: 'funds',
       campaignName: 'title',
-      campaignTypeId: 'b9043466-a3c1-4ced-b951-6282ca3e6a7b',
+      campaignTypeId: '34b501f0-b3c3-43d9-9be0-7f7258eeb247',
       description: 'description',
       goal: 'goal',
       history: 'history',
@@ -192,4 +193,42 @@ function defaultCampaignApplication() {
     state: 'review',
     ticketURL: '',
   }
+}
+
+async function setupMeAndCampaignTypes(page: Page) {
+  await page.route('*/**/api/v1/account/me', (req) =>
+    req.fulfill({
+      json: {
+        user: {
+          id: '99c18c81-54bc-4f32-ab50-3ac5c383f44b',
+          firstName: 'Giver',
+          lastName: 'Dev',
+          email: 'giver@podkrepi.bg',
+          phone: '+35928700500',
+        },
+      },
+    }),
+  )
+  await page.route('*/**/api/v1/campaign-types/', (req) =>
+    req.fulfill({
+      json: [
+        {
+          id: '0c80a28c-f09e-4e82-b2ec-6682ae559cab',
+          name: 'Transplantation',
+          slug: 'transplantation',
+          description: 'Ullam exercitationem optio tempora ullam.',
+          parentId: 'b9043466-a3c1-4ced-b951-6282ca3e6a7b',
+          category: 'medical',
+        },
+        {
+          id: '34b501f0-b3c3-43d9-9be0-7f7258eeb247',
+          name: 'Membership',
+          slug: 'membership',
+          description: 'Membership Campaigns',
+          parentId: null,
+          category: 'others',
+        },
+      ],
+    }),
+  )
 }
