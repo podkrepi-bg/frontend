@@ -3,13 +3,11 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useState, useRef } from 'react'
 import { FormikHelpers, FormikProps } from 'formik'
-import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid, Box } from '@mui/material'
-
+import { Stepper, Step, StepLabel, StepConnector, Grid, Box } from '@mui/material'
 import { AlertStore } from 'stores/AlertStore'
 import { createSupportRequest } from 'service/support'
 import GenericForm from 'components/common/form/GenericForm'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-
 import Actions from './Actions'
 import Roles from './steps/Roles'
 import StepIcon from './StepperIcon'
@@ -24,6 +22,7 @@ import {
   SupportRequestResponse,
   SupportRequestInput,
 } from './helpers/support-form.types'
+import ValidationObserver from './ValidationObserver'
 
 const initialValues: SupportFormData = {
   person: {
@@ -108,6 +107,7 @@ export default function SupportForm() {
   const formRef = useRef<FormikProps<SupportFormData>>(null)
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ROLES)
   const [failedStep, setFailedStep] = useState<Steps>(Steps.NONE)
+  const [currentValidatedField, setCurrentValidatedField] = useState<number | null>(null)
 
   const mutation = useMutation<
     AxiosResponse<SupportRequestResponse>,
@@ -216,27 +216,29 @@ export default function SupportForm() {
   const isThankYouStep = (activeStep: number, steps: StepType[]): boolean => {
     return activeStep === steps.length - 1
   }
+  console.log(currentValidatedField)
 
   return (
     <GenericForm<SupportFormData>
       onSubmit={handleSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema[activeStep]}
-      innerRef={formRef}>
-      <Hidden mdDown>
-        <Stepper
-          alternativeLabel
-          activeStep={activeStep}
-          connector={<StepConnector sx={{ mt: 1.5 }} />}>
-          {steps.map((step, index) => (
-            <Step key={index}>
-              <StepLabel error={isStepFailed(index)} StepIconComponent={StepIcon}>
-                {t(step.label)}
-              </StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-      </Hidden>
+      innerRef={formRef}
+      validateOnBlur={false}
+      validateOnChange={currentValidatedField === activeStep}>
+      <Stepper
+        alternativeLabel
+        activeStep={activeStep}
+        connector={<StepConnector sx={{ mt: 1.5 }} />}
+        sx={{ display: { xs: 'none', md: 'flex' } }}>
+        {steps.map((step, index) => (
+          <Step key={index}>
+            <StepLabel error={isStepFailed(index)} StepIconComponent={StepIcon}>
+              {t(step.label)}
+            </StepLabel>
+          </Step>
+        ))}
+      </Stepper>
       {isThankYouStep(activeStep, steps) ? (
         steps[activeStep].component
       ) : (
@@ -258,6 +260,10 @@ export default function SupportForm() {
           </Grid>
         </Box>
       )}
+      <ValidationObserver
+        setCurrentValidatedField={setCurrentValidatedField}
+        activeStep={activeStep}
+      />
     </GenericForm>
   )
 }
