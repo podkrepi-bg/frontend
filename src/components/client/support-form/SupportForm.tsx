@@ -216,7 +216,6 @@ export default function SupportForm() {
   const isThankYouStep = (activeStep: number, steps: StepType[]): boolean => {
     return activeStep === steps.length - 1
   }
-  console.log(currentValidatedField)
 
   return (
     <GenericForm<SupportFormData>
