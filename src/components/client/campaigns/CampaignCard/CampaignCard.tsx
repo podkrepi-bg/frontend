@@ -10,7 +10,7 @@ import theme from 'common/theme'
 import Link from 'components/common/Link'
 import CampaignProgress from 'components/client/campaigns/CampaignProgress'
 import SuccessfullCampaignTag from '../SuccessfullCampaignTag'
-import { CampaignState } from '../helpers/campaign.enums'
+import { CampaignState, canAcceptDonationState } from '../helpers/campaign.enums'
 
 import { Root } from './CampaignCard.styled'
 import {
@@ -92,14 +92,15 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         </StyledContent>
       </Link>
       <StyledCardActions disableSpacing>
-        {(campaignState === CampaignState.complete && !allowDonationOnComplete) || (
-          <DonateButton
-            href={routes.campaigns.oneTimeDonation(slug)}
-            variant="contained"
-            color="secondary">
-            {t('cta.support')}
-          </DonateButton>
-        )}
+        {campaignState === CampaignState.active ||
+          (canAcceptDonationState.has(campaignState) && !allowDonationOnComplete) || (
+            <DonateButton
+              href={routes.campaigns.oneTimeDonation(slug)}
+              variant="contained"
+              color="secondary">
+              {t('cta.support')}
+            </DonateButton>
+          )}
       </StyledCardActions>
     </Root>
   )
