@@ -8,7 +8,7 @@ import { ibanNumber, BIC } from 'common/iban'
 import { BankDetailsLabel } from './SupportUs.styled'
 
 export default function SupportUsForm() {
-  const { t } = useTranslation('one-time-donation')
+  const { t } = useTranslation('donation-flow')
 
   const bankAccountInfo = {
     owner: t('third-step.owner_name'),
@@ -67,7 +67,7 @@ export default function SupportUsForm() {
         </Grid>
         <Grid my={1} item display="flex" justifyContent="center" xs={3}>
           <CopyTextButton
-            label={t('third-step.btn-copy')}
+            label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.iban.replace(/\s+/g, '')} //remove spaces in IBAN on copy
             variant="contained"
             size="small"

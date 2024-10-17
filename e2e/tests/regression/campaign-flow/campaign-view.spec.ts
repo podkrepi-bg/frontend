@@ -2,7 +2,7 @@ import { test, expect, Page } from '@playwright/test'
 import { HeaderPage } from '../../../pages/web-pages/header.page'
 import { HomePage } from '../../../pages/web-pages/home.page'
 import { CampaignsPage } from '../../../pages/web-pages/campaigns/campaigns.page'
-import { DonationPage } from '../../../pages/web-pages/campaigns/donation.page'
+import { DonationPage } from '../../../pages/web-pages/donation/donation.page'
 import { StripeCheckoutPage } from '../../../pages/web-pages/external/stripe-checkout.page'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
 
@@ -28,7 +28,7 @@ test.describe.serial(
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
-      await headerPage.changeLanguageToBe(LanguagesEnum.EN)
+      await headerPage.changeLanguageToBe(LanguagesEnum.BG)
     })
 
     test.afterAll(async () => {
@@ -36,7 +36,7 @@ test.describe.serial(
     })
 
     test('Particular campaign can be opened through the Campaign page', async () => {
-      await headerPage.clickDonateHeaderNavButton(LanguagesEnum.EN)
+      await headerPage.clickDonateHeaderNavButton(LanguagesEnum.BG)
       await campaignsPage.clickCampaignCardByIndex(0)
 
       expect(

@@ -1,7 +1,7 @@
 import { test, expect, Page } from '@playwright/test'
 
 import { CampaignsPage } from '../../pages/web-pages/campaigns/campaigns.page'
-import { DonationPage } from '../../pages/web-pages/campaigns/donation.page'
+import { DonationPage } from '../../pages/web-pages/donation/donation.page'
 import { HeaderPage } from '../../pages/web-pages/header.page'
 import { HomePage } from '../../pages/web-pages/home.page'
 
@@ -52,8 +52,5 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
   test('Support Now action button navigates to the Donation page for particular campaign', async () => {
     await campaignsPage.clickCampaignCardButtonByIndex(0)
     await donationPage.checkPageUrlByRegExp()
-    expect
-      .soft(await donationPage.isSelectAmountStepActive(), 'Select Amount step is not active.')
-      .toBeTruthy()
   })
 })

@@ -21,6 +21,8 @@ export type RadioButtonGroupOptions = {
 export type RadioButtonGroup = {
   name: string
   options: RadioButtonGroupOptions[]
+  disabled?: boolean
+  loading?: boolean
   columns?: number
   muiRadioGroupProps?: Partial<RadioGroupProps>
   /**
@@ -31,24 +33,27 @@ export type RadioButtonGroup = {
    * <Grid />
    */
   muiRadioButtonGridProps?: Partial<GridProps>
+  ref?: React.RefObject<HTMLDivElement>
+  error?: boolean
 }
 
 export default function RadioButtonGroup({
   name,
   options,
+  disabled,
+  loading,
   columns = 2,
   muiRadioGroupProps,
   muiRadioButtonGridProps,
+  error,
 }: RadioButtonGroup) {
-  const { t } = useTranslation('one-time-donation')
+  const { t } = useTranslation()
   const [field, meta, { setValue }] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
+  const showError =
+    typeof error !== undefined ? Boolean(error) : Boolean(meta.error) && Boolean(meta.touched)
   return (
-    <FormControl
-      fullWidth
-      required
-      component="fieldset"
-      error={Boolean(meta.error) && Boolean(meta.touched)}>
+    <FormControl fullWidth disabled={disabled} required component="fieldset" error={showError}>
       <RadioGroup
         onChange={(e, v) => {
           setValue(v)
@@ -64,6 +69,9 @@ export default function RadioButtonGroup({
                   !hidden && (
                     <Grid key={index} item xs={12} sm={12 / columns} {...muiRadioButtonGridProps}>
                       <PriceRadioButton
+                        disabled={disabled}
+                        loading={loading}
+                        error={showError}
                         value={optionValue}
                         checked={optionValue == field.value}
                         label={optionLabel}
@@ -77,7 +85,7 @@ export default function RadioButtonGroup({
           )}
         </Grid>
       </RadioGroup>
-      {Boolean(meta.error) && Boolean(meta.touched) && helperText && (
+      {typeof error === undefined && showError && helperText && (
         <FormHelperText error>{t(helperText)}</FormHelperText>
       )}
     </FormControl>

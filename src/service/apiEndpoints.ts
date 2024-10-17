@@ -147,11 +147,33 @@ export const endpoints = {
     },
   },
   donation: {
-    prices: <Endpoint>{ url: '/donation/prices', method: 'GET' },
-    singlePrices: <Endpoint>{ url: '/donation/prices/single', method: 'GET' },
-    recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
-    createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
-    createPaymentIntent: <Endpoint>{ url: '/donation/create-payment-intent', method: 'POST' },
+    prices: <Endpoint>{ url: '/stripe/prices', method: 'GET' },
+    singlePrices: <Endpoint>{ url: '/stripe/prices/single', method: 'GET' },
+    recurringPrices: <Endpoint>{ url: '/stripe/prices/recurring', method: 'GET' },
+    createCheckoutSession: <Endpoint>{ url: '/stripe/create-checkout-session', method: 'POST' },
+    createSubscriptionPayment: <Endpoint>{ url: '/stripe/create-subscription', method: 'POST' },
+    createPaymentIntent: <Endpoint>{ url: '/stripe/payment-intent', method: 'POST' },
+    createSetupIntent: <Endpoint>{ url: '/stripe/setup-intent', method: 'POST' },
+    createPaymentIntentFromSetup: (id: string, idempotencyKey: string) =>
+      <Endpoint>{
+        url: `/stripe/setup-intent/${id}/payment-intent?idempotency-key=${idempotencyKey}`,
+        method: 'POST',
+      },
+    createSubscriptionFromSetup: (id: string, idempotencyKey: string) =>
+      <Endpoint>{
+        url: `/stripe/setup-intent/${id}/subscription?idempotency-key=${idempotencyKey}`,
+        method: 'POST',
+      },
+    updateSetupIntent: (id: string, idempotencyKey: string) =>
+      <Endpoint>{
+        url: `/stripe/setup-intent/${id}?idempotency-key=${idempotencyKey}`,
+        method: 'POST',
+      },
+    cancelSetupIntent: (id: string) =>
+      <Endpoint>{
+        url: `/stripe/setup-intent/${id}/cancel`,
+        method: 'POST',
+      },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     synchronizeWithPayment: (id: string) =>
       <Endpoint>{ url: `/donation/${id}/sync-with-payment`, method: 'PATCH' },
@@ -160,6 +182,8 @@ export const endpoints = {
     invalidateStripePayment: (id: string) =>
       <Endpoint>{ url: `/donation/${id}/invalidate`, method: 'PATCH' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
+    getDonationByPaymentIntent: (id: string) =>
+      <Endpoint>{ url: `/donation/payment-intent?id=${id}`, method: 'GET' },
     donationsList: (
       paymentId?: string,
       campaignId?: string,
@@ -433,5 +457,7 @@ export const endpoints = {
       <Endpoint>{ url: `/campaign-application/fileById/${fileId}`, method: 'DELETE' },
     view: (id: string) => <Endpoint>{ url: `/campaign-application/byId/${id}`, method: 'GET' },
     listAllForAdmin: <Endpoint>{ url: `/campaign-application/list`, method: 'GET' },
+    getFile: (fileId: string) =>
+      <Endpoint>{ url: `/campaign-application/fileById/${fileId}`, method: 'GET' },
   },
 }

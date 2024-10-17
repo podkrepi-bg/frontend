@@ -2,7 +2,7 @@ import { CardRegion } from 'gql/donations.enums'
 import {
   stripeFeeCalculator,
   stripeIncludeFeeCalculator,
-} from 'components/client/one-time-donation/helpers/stripe-fee-calculator'
+} from 'components/client/donation-flow/helpers/stripe-fee-calculator'
 
 describe("Calculating total charged amount with Stripe's fee included", () => {
   //Total amount of donation in stotinki, BGN 1 = 100 stotinki

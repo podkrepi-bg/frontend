@@ -5,7 +5,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import { DrawerStore } from 'stores/dashboard/DrawerStore'
 import Accordion from '@mui/material/Accordion'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import { Button, ListItem } from '@mui/material'
+import { Button, ListItem, ListItemButton } from '@mui/material'
 import { observer } from 'mobx-react'
 
 import theme from 'common/theme'
@@ -30,9 +30,8 @@ export default observer(function NestedMenu() {
         sx={{ p: 0, height: '60px' }}
         aria-controls="panel1a-content"
         id="panel1a-header">
-        <ListItem
+        <ListItemButton
           onClick={() => toggleAccordion()}
-          button
           sx={{
             display: 'flex',
             justifyContent: { xs: 'center', sm: 'left' },
@@ -46,7 +45,7 @@ export default observer(function NestedMenu() {
             Профил
           </Button>
           <ExpandMoreIcon fontSize="small" sx={{ display: { xs: 'none', sm: 'block' } }} />
-        </ListItem>
+        </ListItemButton>
       </AccordionSummary>
       <AccordionDetails sx={{ padding: '0' }}>
         <div>
