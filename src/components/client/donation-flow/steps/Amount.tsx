@@ -70,6 +70,9 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
         ? toMoney(Number(formik.values.otherAmount))
         : Number(formik.values.amountChosen)
 
+    // Do not perform calculations if amount is not set
+    if (amountChosen === 0) return
+
     if (formik.values.cardIncludeFees) {
       formik.setFieldValue('amountWithoutFees', amountChosen)
       formik.setFieldValue(
