@@ -128,7 +128,7 @@
       "donation": "Donation",
       "transaction": {
         "title": "Transaction",
-        "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission"
+        "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission."
       },
       "total": "Total",
       "field": {
