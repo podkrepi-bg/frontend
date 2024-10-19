@@ -168,7 +168,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
             text={t('status.success.link.return')}
           />
         </Grid2>
-        <Grid2>
+        <Grid2 size={{ xs: 12, md: 6 }}>
           <LinkCard href={routes.campaigns.index} text={t('status.success.link.see')} />
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6 }}>
