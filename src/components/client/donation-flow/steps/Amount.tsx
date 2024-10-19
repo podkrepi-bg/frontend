@@ -30,7 +30,7 @@ export const amountValidation = {
     then: yup.string().required(),
   }),
   finalAmount: yup.number().when('payment', {
-    is: 'card',
+    is: (payment: string | null) => ['card', 'bank', null].includes(payment),
     then: () =>
       yup.number().min(1, 'donation-flow:step.amount.field.final-amount.error').required(),
   }),
