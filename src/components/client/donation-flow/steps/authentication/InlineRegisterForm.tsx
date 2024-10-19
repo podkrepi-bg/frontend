@@ -166,10 +166,6 @@ export default function InlineRegisterForm() {
             </FormHelperText>
           )}
         </Grid>
-        <Grid item xs={12}>
-          <AcceptTermsField name="registerTerms" />
-          <AcceptPrivacyPolicyField name="registerGdpr" />
-        </Grid>
 
         <Grid item xs={12}>
           <Button
