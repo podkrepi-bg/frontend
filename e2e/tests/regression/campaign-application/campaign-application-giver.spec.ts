@@ -169,6 +169,41 @@ test.describe('Campaign application giver', () => {
     await expect(page.getByText(t.steps.application['campaign-end'].options.funds)).toBeVisible()
     await expect(page.getByText('goal')).toBeVisible()
   })
+
+  test('should see the edit campaign application and be able to delete a selected file ', async ({
+    page,
+    baseURL,
+  }) => {
+    // arrange
+    await setupMeAndCampaignTypes(page)
+    await setupCampaignApplicationForEdit(page)
+    await page.goto(`${baseURL}/campaigns/application/1234`)
+    const t = await textLocalized().campaign.bg()
+    await page.getByRole('button', { name: t.cta.next }).click()
+    await page.getByRole('button', { name: t.cta.next }).click()
+
+    // expect to see 2 files
+    await expect(page.getByText('1234.txt')).toBeVisible()
+    await expect(page.getByText('document.pdf')).toBeVisible()
+
+    // act
+    // hit the delete button ...
+    await page.locator('li').filter({ hasText: '1234.txt' }).getByLabel('delete').click()
+    const [editCamAppReq, fileDeleteReq] = await Promise.all([
+      // the edit request to edit the CamApp entity
+      page.waitForRequest((r) => r.method() === 'PATCH'),
+      // the delete request to remove one of the files
+      page.waitForRequest((r) => r.method() === 'DELETE'),
+      // ... and when submit
+      page.getByRole('button', { name: t.cta.submit }).click(),
+    ])
+
+    await expect(editCamAppReq.postDataJSON()).toBeDefined()
+
+    const fileDelRes = await fileDeleteReq.response()
+
+    await expect(fileDelRes?.json()).resolves.toEqual({ id: 'ok' })
+  })
 })
 
 function defaultCampaignApplication() {
@@ -229,6 +264,45 @@ async function setupMeAndCampaignTypes(page: Page) {
           category: 'others',
         },
       ],
+    }),
+  )
+}
+
+async function setupCampaignApplicationForEdit(
+  page: Page,
+  application: Partial<ReturnType<typeof defaultCampaignApplication>> = {},
+) {
+  await page.route('*/**/api/v1/campaign-application/byId/*', (req) =>
+    req.fulfill({
+      json: {
+        ...defaultCampaignApplication(),
+        id: 'forEdit',
+        documents: [
+          { filename: '1234.txt', id: '1234' },
+          { filename: 'document.pdf', id: 'doc-id-123123' },
+        ],
+        ...application,
+      },
+    }),
+  )
+
+  // on submit at the end of edit this patch request needs to be sent
+  await page.route('*/**/api/v1/campaign-application/forEdit', (req) =>
+    req.fulfill({
+      json: {
+        ...defaultCampaignApplication(),
+        id: 'forEdit',
+        ...application,
+      },
+    }),
+  )
+
+  // delete file successful
+  await page.route('*/**/api/v1/campaign-application/fileById/*', (req) =>
+    req.fulfill({
+      json: {
+        id: 'ok',
+      },
     }),
   )
 }

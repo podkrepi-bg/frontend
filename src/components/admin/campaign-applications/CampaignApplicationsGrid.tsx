@@ -115,7 +115,8 @@ export const useCampaignsList = () => {
   const { data, isLoading } = fetchMutation()
 
   return {
-    list: data?.sort((a, b) => b?.updatedAt?.localeCompare(a?.updatedAt ?? '') ?? 0),
+    // the data array is strict mode (sometimes) it throws a Readonly array error on the sort so create a shallow copy
+    list: [...(data ?? [])].sort((a, b) => b?.updatedAt?.localeCompare(a?.updatedAt ?? '') ?? 0),
     isLoading,
   }
 }
