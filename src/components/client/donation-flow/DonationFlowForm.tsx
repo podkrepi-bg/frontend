@@ -247,7 +247,10 @@ export function DonationFlowForm() {
               </Button>
               <Grid2 container size={{ xs: 12, md: 7 }} direction={'column'}>
                 <StepSplitter content="1" active={Boolean(values.amountChosen)} />
-                <Amount error={Boolean(errors.finalAmount) && Boolean(submitCount > 0)} />
+                <Amount
+                  disabled={values.payment === DonationFormPaymentMethod.BANK}
+                  error={Boolean(errors.finalAmount) && Boolean(submitCount > 0)}
+                />
               </Grid2>
               <Grid2 container size={{ xs: 12, md: 7 }} gap={2} direction={'column'}>
                 <StepSplitter content="2" active={Boolean(values.mode)} />
