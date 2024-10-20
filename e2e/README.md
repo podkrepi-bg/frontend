@@ -61,13 +61,15 @@ To auth a user we rely on the Storage where the session is stored. And the stora
 
 This is the process for writing tests for auth user.
 
-- import the desired user `test` from the fixture 
+- import the desired user `test` from the fixture
 
-  ```import { expect, giverTest as test } from '../../../utils/fixtures'``` for the `giver` user
+  `import { expect, giverTest as test } from '../../../utils/fixtures'` for the `giver` user
+
 - write your e2e tests ...
 
->[Examples] `e2e/tests/regression/campaign-application/campaign-application-giver.spec.ts` and `e2e/tests/regression/campaign-application/campaign-application-admin.spec.ts`
+> [Examples] `e2e/tests/regression/campaign-application/campaign-application-giver.spec.ts` and `e2e/tests/regression/campaign-application/campaign-application-admin.spec.ts`
+
 ### Running
 
 - [Locally] run the 'docker compose -d keycloak pg-db', the api (`yarn dev` in the api repo folder), the app (`yarn dev` in the frontend repo folder),
-- in the `frontend/e2e` folder run `yarn e2e:tests --ui` to start the playwright visual testing tool 
+- in the `frontend/e2e` folder run `yarn e2e:tests --ui` to start the playwright visual testing tool
