@@ -1,8 +1,3 @@
-import {
-  CampaignApplicationResponse,
-  CampaignApplicationExisting,
-  CampaignApplicationAdminResponse,
-} from '../../../../src/gql/campaign-applications'
 import { Page } from 'playwright/test'
 import { expect, giverTest as test } from '../../../utils/fixtures'
 import { textLocalized } from '../../../utils/texts-localized'
