@@ -92,15 +92,15 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         </StyledContent>
       </Link>
       <StyledCardActions disableSpacing>
-        {campaignState === CampaignState.active ||
-          (canAcceptDonationState.has(campaignState) && !allowDonationOnComplete) || (
-            <DonateButton
-              href={routes.campaigns.oneTimeDonation(slug)}
-              variant="contained"
-              color="secondary">
-              {t('cta.support')}
-            </DonateButton>
-          )}
+        {(campaignState === CampaignState.active ||
+          (canAcceptDonationState.has(campaignState) && allowDonationOnComplete)) && (
+          <DonateButton
+            href={routes.campaigns.oneTimeDonation(slug)}
+            variant="contained"
+            color="secondary">
+            {t('cta.support')}
+          </DonateButton>
+        )}
       </StyledCardActions>
     </Root>
   )
