@@ -30,7 +30,7 @@ export const amountValidation = {
     then: yup.string().required(),
   }),
   finalAmount: yup.number().when('payment', {
-    is: 'card',
+    is: (payment: string | null) => ['card', null].includes(payment),
     then: () =>
       yup.number().min(1, 'donation-flow:step.amount.field.final-amount.error').required(),
   }),
@@ -69,6 +69,9 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
       value === 'other'
         ? toMoney(Number(formik.values.otherAmount))
         : Number(formik.values.amountChosen)
+
+    // Do not perform calculations if amount is not set
+    if (amountChosen === 0) return
 
     if (formik.values.cardIncludeFees) {
       formik.setFieldValue('amountWithoutFees', amountChosen)

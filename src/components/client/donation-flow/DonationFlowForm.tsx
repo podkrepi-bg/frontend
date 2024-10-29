@@ -226,15 +226,15 @@ export function DonationFlowForm() {
               <ConfirmationDialog
                 isOpen={showCancelDialog}
                 handleCancel={() => {
-                  cancelSetupIntentMutation.mutate({ id: setupIntent.id })
-                  router.push(routes.campaigns.viewCampaignBySlug(campaign.slug))
+                  setShowCancelDialog(false)
                 }}
                 title={t('cancel-dialog.title')}
                 content={t('cancel-dialog.content')}
                 confirmButtonLabel={t('cancel-dialog.btn-continue')}
                 cancelButtonLabel={t('cancel-dialog.btn-cancel')}
                 handleConfirm={() => {
-                  setShowCancelDialog(false)
+                  cancelSetupIntentMutation.mutate({ id: setupIntent.id })
+                  router.push(routes.campaigns.viewCampaignBySlug(campaign.slug))
                 }}
               />
               <Button
