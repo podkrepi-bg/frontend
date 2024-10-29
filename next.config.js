@@ -20,6 +20,10 @@ const moduleExports = {
     tsconfigPath: 'tsconfig.build.json',
   },
   swcMinify: true,
+  webpack: (config) => {
+    config.experiments = { ...config.experiments, topLevelAwait: true }
+    return config
+  },
   env: {
     APP_ENV: process.env.APP_ENV,
     APP_VERSION: version,
@@ -32,6 +36,7 @@ const moduleExports = {
     APP_URL: process.env.APP_URL,
     GTM_ID: process.env.GTM_ID ?? 'GTM-TWQBXM6',
     PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
+    STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
     FEATURE_ENABLED: {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
     },
@@ -87,11 +92,20 @@ const moduleExports = {
     ]
   },
   modularizeImports: {
+    lodash: {
+      transform: 'lodash/{{member}}',
+    },
     '@mui/material': {
       transform: '@mui/material/{{member}}',
     },
-    '@mui/icons-material/?(((\\w*)?/?)*)': {
-      transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}',
+    '@mui/icons-material': {
+      transform: '@mui/icons-material/{{member}}',
+    },
+    '@mui/core/': {
+      transform: '@mui/core/{{member}}',
+    },
+    '@mui/lab/': {
+      transform: '@mui/lab/{{member}}',
     },
   },
 }

@@ -21,6 +21,7 @@ export const ТeamMemberWrapper = styled(Grid)(() => ({
   },
   [theme.breakpoints.up('md')]: {
     flex: '1 0 30%',
+    maxWidth: '30%',
   },
   [theme.breakpoints.up('lg')]: {
     flex: '1 0 10%',
@@ -56,6 +57,6 @@ export const ShowMoreButton = styled(Button)(() => ({
 
 export const Description = styled(Typography)(() => ({
   textAlign: 'initial',
-  marginBottom: theme.spacing(3),
+  marginBottom: theme.spacing(2),
   overflow: 'hidden',
 }))

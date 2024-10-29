@@ -181,7 +181,6 @@ export default observer(function Grid() {
     },
     {
       field: 'paymentId',
-      //TODO:Ttranslate
       headerName: 'Плащане номер',
       width: 150,
       renderCell: (params: GridRenderCellParams) => {
@@ -192,7 +191,6 @@ export default observer(function Grid() {
     },
     {
       field: 'payment.status',
-      //TODO:Ttranslate
       headerName: 'Статус на плащане',
       renderCell(params) {
         return params.row.payment?.status
@@ -200,7 +198,6 @@ export default observer(function Grid() {
     },
     {
       field: 'payment.provider',
-      //TODO:Ttranslate
       headerName: 'Разплащателна система',
       renderCell(params) {
         return params.row.payment?.provider
@@ -215,7 +212,6 @@ export default observer(function Grid() {
     },
     {
       field: 'payment.billingName',
-      //TODO:Ttranslate
       headerName: 'billingName',
       width: 250,
       renderCell(params) {
@@ -224,7 +220,6 @@ export default observer(function Grid() {
     },
     {
       field: 'payment.billingEmail',
-      //TODO:Ttranslate
       headerName: 'billingEmail',
       width: 300,
       renderCell(params) {

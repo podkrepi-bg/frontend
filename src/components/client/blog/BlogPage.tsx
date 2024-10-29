@@ -1,6 +1,6 @@
 import React from 'react'
 import { PostOrPage } from '@tryghost/content-api'
-import { Container, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Container, Typography, Grid2 } from '@mui/material'
 
 import { baseUrl, routes } from 'common/routes'
 import Layout from 'components/client/layout/Layout'
@@ -23,19 +23,19 @@ export default function BlogPage({ page }: Props) {
       ogImage={page.og_image ?? undefined}>
       <Container maxWidth="lg">
         <Grid2 container spacing={2}>
-          <Grid2 xs={12} xsOffset={0} sx={{ pl: 4 }}>
+          <Grid2 sx={{ pl: 4 }} size={{ xs: 12 }} offset={{ xs: 0 }}>
             <BackButton href={routes.blog.index} />
           </Grid2>
-          <Grid2 xs={12}>
+          <Grid2 size={{ xs: 12 }}>
             <Typography paragraph variant="h3" component="h1" align="center">
               {page.title}
             </Typography>
           </Grid2>
-          <Grid2 xs={10} xsOffset={1} textAlign="center">
+          <Grid2 textAlign="center" size={{ xs: 10 }} offset={{ xs: 1 }}>
             <DateCreated showLabel createdAt={page.published_at as string} />
             <ReadingTime showLabel readingTime={page.reading_time} />
           </Grid2>
-          <Grid2 xs={10} xsOffset={1}>
+          <Grid2 size={{ xs: 10 }} offset={{ xs: 1 }}>
             <FeaturedImage
               priority
               sizes="33vw"
@@ -45,10 +45,10 @@ export default function BlogPage({ page }: Props) {
               title={page.feature_image_caption ?? page.title}
             />
           </Grid2>
-          <Grid2 xs={12} sm={10} xsOffset={1}>
+          <Grid2 size={{ xs: 12 }} offset={{ xs: 1 }}>
             <RenderContent html={page.html} />
           </Grid2>
-          <Grid2 xs={12} textAlign="center">
+          <Grid2 textAlign="center" size={{ xs: 12 }}>
             <BackButton href={routes.index} />
           </Grid2>
         </Grid2>

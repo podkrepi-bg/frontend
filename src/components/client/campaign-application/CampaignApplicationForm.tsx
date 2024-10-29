@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react'
 import { Grid, StepLabel } from '@mui/material'
 import { Person } from 'gql/person'
+import { useCallback, useEffect, useState } from 'react'
 
 import {
   CampaignApplicationFormData,
@@ -8,116 +8,114 @@ import {
   Steps,
 } from './helpers/campaignApplication.types'
 
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import GenericForm from 'components/common/form/GenericForm'
-import CampaignApplicationStepperIcon from './CampaignApplicationStepperIcon'
-import CampaignApplicationOrganizer from './steps/CampaignApplicationOrganizer'
+import CampaignApplicationBasic from './steps/CampaignApplicationBasic'
 import CampaignApplicationDetails from './steps/CampaignApplicationDetails'
-import CampaignApplication from './steps/CampaignApplication'
-import CampaignApplicationFormActions from './CampaignApplicationFormActions'
-import CampaignApplicationRemark from './CampaignApplicationRemark'
-import stepsHandler from './helpers/stepsHandler'
+import CampaignApplicationOrganizer from './steps/CampaignApplicationOrganizer'
+import CampaignApplicationRemark from './steps/CampaignApplicationRemark'
+import CampaignApplicationStepperIcon from './steps/CampaignApplicationStepperIcon'
 
 import { validationSchema } from './helpers/validation-schema'
 
+import { routes } from 'common/routes'
+import { FormikHelpers } from 'formik'
+import { CampaignApplicationExisting } from 'gql/campaign-applications'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import { mapCreateOrEditInput, useCreateOrEditApplication } from 'service/campaign-application'
+import { AlertStore } from 'stores/AlertStore'
 import {
   StyledCampaignApplicationStep,
   StyledCampaignApplicationStepper,
   StyledStepConnector,
 } from './helpers/campaignApplication.styled'
-import { useMutation } from '@tanstack/react-query'
 import {
-  CreateCampaignApplicationInput,
-  CreateCampaignApplicationResponse,
-} from 'gql/campaign-applications'
-import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
-import { ApiErrors, matchValidator } from 'service/apiErrors'
-import { useCreateCampaignApplication } from 'service/campaign-application'
-import { AlertStore } from 'stores/AlertStore'
-import { t } from 'i18next'
-import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
-import { FormikHelpers } from 'formik'
-import { useCampaignTypesList } from 'service/campaignTypes'
-import { CampaignTypesResponse } from 'gql/campaign-types'
+  ActionButton,
+  ActionLinkButton,
+  ActionSubmitButton,
+  Root,
+} from './helpers/campaignApplicationFormActions.styled'
+import CampaignApplicationSummary from './steps/CampaignApplicationSummary'
 
 const steps: StepType[] = [
   {
     title: 'campaign-application:steps.organizer.title',
-    component: <CampaignApplicationOrganizer />,
   },
   {
     title: 'campaign-application:steps.campaign-application.title',
-    component: <CampaignApplication />,
   },
   {
     title: 'campaign-application:steps.campaign-application-details.title',
-    component: <CampaignApplicationDetails />,
   },
 ]
 
 type Props = {
   person?: Person
+  isEdit?: boolean
+  campaignApplication?: CampaignApplicationExisting
 }
 
-export default function CampaignApplicationForm({ person }: Props) {
-  const [activeStep, setActiveStep] = useState<Steps>(Steps.ORGANIZER)
-  const isLast = activeStep === Steps.CAMPAIGN_DETAILS
+export default function CampaignApplicationForm({
+  person,
+  isEdit,
+  campaignApplication: existing,
+}: Props) {
+  const { t } = useTranslation('campaign-application')
+  const router = useRouter()
 
-  const initialValues: CampaignApplicationFormData = {
-    organizer: {
-      name: `${person?.firstName} ${person?.lastName}` ?? '',
-      phone: person?.phone ?? '',
-      email: person?.email ?? '',
-      acceptTermsAndConditions: false,
-      transparencyTermsAccepted: false,
-      personalInformationProcessingAccepted: false,
-    },
-    application: {
-      title: '',
-      beneficiaryNames: '',
-      campaignType: '',
-      funds: 0,
-      campaignEnd: '',
-    },
-    details: {
-      campaignGuarantee: '',
-      cause: '',
-      currentStatus: '',
-      description: '',
-      documents: [],
-      links: [],
-      organizerBeneficiaryRelationship: '-',
-      otherFinancialSources: '',
-    },
-  }
+  const {
+    createOrUpdateApplication,
+    createOrUpdateSuccessful: applicationCreated,
+    submitting,
+    uploadedFiles,
+    error: createCampaignError,
+    campaignApplicationResult: camApp,
+    files,
+    setFiles,
+    initialValues,
+    deletedFiles,
+  } = useCreateOrEditApplication({
+    person,
+    isEdit,
+    campaignApplication: existing,
+  })
 
-  const { data } = useCampaignTypesList()
-  const { mutation } = useCreateApplication()
   const handleSubmit = async (
     formData: CampaignApplicationFormData,
-    { setFieldError, resetForm }: FormikHelpers<CampaignApplicationFormData>,
+    { resetForm }: FormikHelpers<CampaignApplicationFormData>,
   ) => {
-    if (isLast) {
-      try {
-        await mutation.mutateAsync(mapCreateInput(formData, data ?? []))
-
+    if (activeStep === Steps.CREATED_DETAILS && camApp?.id != null) {
+      router.push(routes.campaigns.applicationEdit(camApp?.id)) // go to the edit page
+      if (isEdit) {
+        router.reload() // in case we are re-editing refresh the whole page to reset all the things
+      }
+    } else if (shouldSubmit) {
+      const createOrEdit = mapCreateOrEditInput(formData)
+      await createOrUpdateApplication(createOrEdit)
+      if (applicationCreated) {
         resetForm()
-      } catch (error) {
-        console.error(error)
-        if (isAxiosError(error)) {
-          const { response } = error as AxiosError<ApiErrors>
-          response?.data.message.map(({ property, constraints }) => {
-            setFieldError(property, t(matchValidator(constraints)))
-          })
-        }
+        AlertStore.show(t('alerts.successfully-created'), 'success')
       }
     } else {
-      stepsHandler({ activeStep, setActiveStep })
+      setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
   }
 
   const handleBack = useCallback(() => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }, [])
+
+  const [activeStep, setActiveStep] = useState<Steps>(Steps.ORGANIZER)
+  const shouldSubmit = activeStep === Steps.CAMPAIGN_DETAILS
+
+  // move to last step after campaign application created successfully
+  useEffect(() => {
+    if (applicationCreated && camApp?.id) {
+      setActiveStep(Steps.CREATED_DETAILS)
+    }
+  }, [applicationCreated])
 
   return (
     <>
@@ -136,69 +134,80 @@ export default function CampaignApplicationForm({ person }: Props) {
         </StyledCampaignApplicationStepper>
         <Grid container>
           <Grid container item xs={12}>
-            {activeStep < steps.length && steps[activeStep].component}
+            {activeStep === Steps.ORGANIZER && <CampaignApplicationOrganizer />}
+            {activeStep === Steps.CAMPAIGN_BASIC && <CampaignApplicationBasic />}
+            {activeStep === Steps.CAMPAIGN_DETAILS && (
+              <CampaignApplicationDetails files={files} setFiles={setFiles} />
+            )}
+            {activeStep === Steps.CREATED_DETAILS && (
+              <CampaignApplicationSummary
+                uploadedFiles={uploadedFiles}
+                camApp={camApp}
+                deletedFiles={deletedFiles}
+                isEdit={isEdit}
+              />
+            )}
           </Grid>
           <Grid container item alignContent="center">
-            <CampaignApplicationFormActions
-              activeStep={activeStep}
-              onBack={handleBack}
-              isLast={isLast}
-            />
+            <Root
+              container
+              item
+              xs={12}
+              spacing={6}
+              sx={{ marginTop: 1 }}
+              justifyContent="space-between">
+              <Grid item xs={12} md={6} flexWrap="nowrap">
+                {activeStep === Steps.ORGANIZER ? (
+                  <ActionLinkButton
+                    fullWidth
+                    href=""
+                    variant="outlined"
+                    disabled
+                    startIcon={<ArrowBackIosIcon fontSize="small" />}>
+                    {t('cta.back')}
+                  </ActionLinkButton>
+                ) : (
+                  <ActionButton
+                    fullWidth
+                    onClick={handleBack}
+                    startIcon={<ArrowBackIosIcon fontSize="small" />}
+                    disabled={
+                      applicationCreated /**after campaign application is created disable going back and editing */
+                    }>
+                    {t('cta.back')}
+                  </ActionButton>
+                )}
+              </Grid>
+              <Grid item xs={12} md={6} flexWrap="nowrap">
+                <ActionSubmitButton
+                  fullWidth
+                  label={t(
+                    activeStep === Steps.CREATED_DETAILS
+                      ? 'result.editButton'
+                      : shouldSubmit
+                      ? 'cta.submit'
+                      : 'cta.next',
+                  )}
+                  endIcon={<ArrowForwardIosIcon fontSize="small" />}
+                  disabled={submitting}
+                />
+              </Grid>
+            </Root>
           </Grid>
         </Grid>
+        {(activeStep === Steps.ORGANIZER || activeStep === Steps.CAMPAIGN_BASIC) && (
+          <CampaignApplicationRemark />
+        )}
+        {/* campaign errors */}
+        {createCampaignError && (
+          <>
+            Errors:
+            {createCampaignError?.map((e, i) => (
+              <p key={i}>{e}</p>
+            ))}
+          </>
+        )}
       </GenericForm>
-      {(activeStep === Steps.ORGANIZER || activeStep === Steps.CAMPAIGN) && (
-        <CampaignApplicationRemark />
-      )}
     </>
   )
-}
-
-const useCreateApplication = () => {
-  const mutation = useMutation<
-    AxiosResponse<CreateCampaignApplicationResponse>,
-    AxiosError<ApiErrors>,
-    CreateCampaignApplicationInput
-  >({
-    mutationFn: useCreateCampaignApplication(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
-  })
-
-  // const fileUploadMutation = useMutation<
-  //   AxiosResponse<CampaignUploadImage[]>,
-  //   AxiosError<ApiErrors>,
-  //   UploadCampaignFiles
-  // >({
-  //   mutationFn: useUploadCampaignFiles(),
-  // })
-
-  return { mutation }
-}
-
-function mapCreateInput(
-  i: CampaignApplicationFormData,
-  types: CampaignTypesResponse[],
-): CreateCampaignApplicationInput {
-  return {
-    acceptTermsAndConditions: i.organizer.acceptTermsAndConditions,
-    personalInformationProcessingAccepted: i.organizer.personalInformationProcessingAccepted,
-    transparencyTermsAccepted: i.organizer.transparencyTermsAccepted,
-
-    organizerName: i.organizer.name,
-    organizerEmail: i.organizer.email,
-    organizerPhone: i.organizer.phone,
-
-    beneficiary: i.application.beneficiaryNames,
-
-    campaignName: i.application.title,
-    amount: i.application.funds?.toString() ?? '',
-    goal: i.details.cause,
-    category: types.find((c) => c.id === i.application.campaignType)?.category,
-    description: i.details.description,
-    organizerBeneficiaryRel: i.details.organizerBeneficiaryRelationship ?? '-',
-    campaignGuarantee: i.details.campaignGuarantee,
-    history: i.details.currentStatus,
-    otherFinanceSources: i.details.otherFinancialSources,
-  }
 }

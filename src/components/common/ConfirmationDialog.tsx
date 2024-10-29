@@ -6,6 +6,11 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
+import { Box, IconButton } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+
+import theme from 'common/theme'
+
 export type ConfirmationDialogRef = HTMLDialogElement
 export interface ConfirmationDialogProps {
   isOpen: boolean
@@ -31,7 +36,12 @@ const ConfirmationDialog = ({
     onClose={handleCancel}
     aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description">
-    <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+    <Box display="flex" justifyContent="space-between" alignItems="center">
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <IconButton onClick={handleCancel} sx={{ marginRight: theme.spacing(1) }}>
+        <CloseIcon />
+      </IconButton>
+    </Box>
     <DialogContent>
       <DialogContentText id="alert-dialog-description">{content}</DialogContentText>
     </DialogContent>
@@ -39,7 +49,7 @@ const ConfirmationDialog = ({
       <Button onClick={handleConfirm} color="primary">
         {confirmButtonLabel}
       </Button>
-      <Button onClick={handleCancel} color="secondary">
+      <Button onClick={handleCancel} color="error">
         {cancelButtonLabel}
       </Button>
     </DialogActions>

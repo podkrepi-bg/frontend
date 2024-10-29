@@ -886,6 +886,24 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "viiktorstefanov",
+      "name": "Viktor Stefanov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/122864734?v=4",
+      "profile": "https://github.com/viiktorstefanov",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "velnachev",
+      "name": "velnachev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60844919?v=4",
+      "profile": "https://github.com/velnachev",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 10,

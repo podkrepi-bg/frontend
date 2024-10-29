@@ -2,15 +2,7 @@ import React, { useMemo, useRef, useState } from 'react'
 
 import { useTranslation } from 'next-i18next'
 
-import {
-  Unstable_Grid2 as Grid2,
-  Stack,
-  Typography,
-  Grid,
-  Button,
-  TextField,
-  InputAdornment,
-} from '@mui/material'
+import { Grid2, Stack, Typography, Grid, Button, TextField, InputAdornment } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
@@ -156,7 +148,7 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
               key={id}
               direction="row"
               sx={{ p: 2, bgcolor: 'grey.100', borderRadius: theme.spacing(2) }}>
-              <Grid2 xs={12}>
+              <Grid2 size={{ xs: 12 }}>
                 <Stack direction="row" spacing={2}>
                   <Grid pt={0.7}>
                     <AccountCircleIcon
@@ -250,12 +242,12 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
               </Grid2>
             </Grid2>
           ))}
-        <Grid2 xs={12}>
+        <Grid2 size={{ xs: 12 }}>
           {data?.items?.length === 0 && searchValue !== '' && (
             <Typography align="center"> {t('campaign.sort.noResults')}</Typography>
           )}
         </Grid2>
-        <Grid2 xs={12}>
+        <Grid2 size={{ xs: 12 }}>
           {numOfPages > 1 && (
             <Pagination
               count={numOfPages}

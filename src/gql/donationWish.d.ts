@@ -5,6 +5,7 @@ export type DonationWishInput = {
   campaignId: UUID
   personId?: UUID
   donationId?: UUID
+  paymentIntentId?: UUID
 }
 
 export type DonationWishResponse = {

@@ -20,3 +20,5 @@ spec:
           env:
             - name: FEATURE_CAMPAIGN
               value: 'true'
+            - name: STRIPE_PUBLISHABLE_KEY
+              value: pk_test_51IRdsUKApGjVGa9tYn5oVQwt3rybeIwNHAyWR8nAYd6JaKyTyB4X0g3EgzIEGfqwMYo3ZSlt9gBExTFnVomFTNEO008bjoNXSx
