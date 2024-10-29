@@ -17,3 +17,8 @@ spec:
             limits:
               memory: 400Mi
               cpu: 800m
+          env:
+            - name: "API_URL"
+              value: "https://podkrepi.bg/api/v1"
+            - name: "APP_URL"
+              value: "https://podkrepi.bg"
