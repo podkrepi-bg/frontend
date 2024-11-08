@@ -100,7 +100,7 @@ Watch releases of this repository to be notified about future updates:
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-85-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-86-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -227,6 +227,7 @@ Thanks goes to these wonderful people:
       <td align="center" valign="top" width="10%"><a href="https://github.com/viiktorstefanov"><img src="https://avatars.githubusercontent.com/u/122864734?v=4?s=100" width="100px;" alt="Viktor Stefanov"/><br /><sub><b>Viktor Stefanov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=viiktorstefanov" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/velnachev"><img src="https://avatars.githubusercontent.com/u/60844919?v=4?s=100" width="100px;" alt="velnachev"/><br /><sub><b>velnachev</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=velnachev" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/nikolay-yankov"><img src="https://avatars.githubusercontent.com/u/36303598?v=4?s=100" width="100px;" alt="Nikolay Yankov"/><br /><sub><b>Nikolay Yankov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=nikolay-yankov" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/katina-anachkova"><img src="https://avatars.githubusercontent.com/u/82702355?v=4?s=100" width="100px;" alt="Katina Anachkova"/><br /><sub><b>Katina Anachkova</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=katina-anachkova" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
