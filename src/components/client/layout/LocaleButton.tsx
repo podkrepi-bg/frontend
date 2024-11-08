@@ -30,7 +30,15 @@ export default function LocaleButton() {
       variant="text"
       color="inherit"
       size="small"
-      onClick={changeLang(router.locale === 'bg' ? 'en' : 'bg')}>
+      onClick={changeLang(router.locale === 'bg' ? 'en' : 'bg')}
+      sx={(theme) => ({
+        [theme.breakpoints.down('md')]: {
+          '&:hover': {
+            color: 'rgb(40, 135, 203)',
+            backgroundColor: 'transparent',
+          },
+        },
+      })}>
       {t(router.locale === 'bg' ? 'EN' : 'BG')}
     </Button>
   )
