@@ -47,16 +47,12 @@ export default function DropdownFilter(props: DropdownFilterProps) {
   }
 
   return (
-    <FormControl style={selectElementStyle}>
+    <FormControl sx={selectElementStyle}>
       <InputLabel size="small">{t(label)}</InputLabel>
       <Select
         startAdornment={
           value ? (
-            <Close
-              fontSize="small"
-              style={closeIconStyle}
-              onClick={(e) => handleClear(e, name, '')}
-            />
+            <Close fontSize="small" sx={closeIconStyle} onClick={(e) => handleClear(e, name, '')} />
           ) : null
         }
         name={name}
