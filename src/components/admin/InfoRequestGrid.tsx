@@ -43,7 +43,7 @@ export default function InfoRequestGrid() {
 
   return (
     <DataGrid
-      style={{
+      sx={{
         background: theme.palette.common.white,
         height: 'calc(100vh - 300px)',
         border: 'none',
