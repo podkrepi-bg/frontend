@@ -1,5 +1,6 @@
 import React from 'react'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { Box } from '@mui/material'
 
 const renderCell = (cellValues: GridRenderCellParams): React.ReactNode => {
   const style =
@@ -15,14 +16,14 @@ const renderCell = (cellValues: GridRenderCellParams): React.ReactNode => {
       ? { color: 'green' }
       : { color: '' }
 
-  return <div style={style}>{cellValues.value}</div>
+  return <Box sx={style}>{cellValues.value}</Box>
 }
 
 export const renderCellWithdraws = (): React.ReactNode => {
   return (
-    <div style={{ width: '100%' }}>
-      <p style={{ cursor: 'pointer', color: 'hsl(206,100%,40%)' }}>Отваряне</p>
-    </div>
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ cursor: 'pointer', color: 'hsl(206,100%,40%)' }}>Отваряне</Box>
+    </Box>
   )
 }
 

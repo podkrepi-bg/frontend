@@ -80,7 +80,7 @@ export default function CampaignApplicationsGrid() {
 
   return (
     <DataGrid
-      style={{
+      sx={{
         background: theme.palette.common.white,
         position: 'absolute',
         height: 'calc(100vh - 299px)',

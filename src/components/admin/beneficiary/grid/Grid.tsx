@@ -121,7 +121,7 @@ export default observer(function Grid() {
     <>
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
-          style={{
+          sx={{
             background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',

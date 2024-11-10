@@ -17,7 +17,7 @@ type Props = {
 export default function GridActions({ id, allowDelete = false, onView, onDelete }: Props) {
   return (
     <Box
-      style={{
+      sx={{
         width: '100%',
         height: '100%',
         display: 'flex',

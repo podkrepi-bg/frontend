@@ -150,7 +150,7 @@ export default function CampaignNewsGrid() {
         </Link>
       </Toolbar>
       <DataGrid
-        style={{
+        sx={{
           background: theme.palette.common.white,
           position: 'absolute',
           height: 'calc(100vh - 300px)',

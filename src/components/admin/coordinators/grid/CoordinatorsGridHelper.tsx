@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import React from 'react'
@@ -16,7 +17,7 @@ const renderCell = (cellValues: GridRenderCellParams): React.ReactNode => {
       ? { color: 'green' }
       : { color: '' }
 
-  return <div style={style}>{cellValues.value}</div>
+  return <Box sx={style}>{cellValues.value}</Box>
 }
 
 export const commonProps: Partial<GridColDef> = {

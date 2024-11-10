@@ -47,7 +47,7 @@ export default function DropdownFilter(props: DropdownFilterProps) {
   }
 
   return (
-    <FormControl style={selectElementStyle}>
+    <FormControl sx={selectElementStyle}>
       <InputLabel size="small">{t(label)}</InputLabel>
       <Select
         startAdornment={

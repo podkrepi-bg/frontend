@@ -17,7 +17,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useEditTransactionPaymentRef } from 'service/bankTransaction'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiError } from 'next/dist/server/api-utils'
-import { StyledDialogContent } from 'components/admin/styles/Admin.styled'
+import { StyledDialogContent, StyledDialogTitle } from 'components/admin/styles/Admin.styled'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -99,19 +99,17 @@ export default function RenderBankDonationStatusCell({ params }: RenderCellProps
     return (
       <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
         <StyledDialogContent>
-          <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+          <Grid sx={{ display: 'flex', justifyContent: 'end', mr: '-4rem' }}>
             <CloseModalButton href={''} onClose={handleClose} />
           </Grid>
-          <DialogTitle style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-            {t('bank-transactions:cta.apply-ref-heading')}
-          </DialogTitle>
+          <StyledDialogTitle>{t('bank-transactions:cta.apply-ref-heading')}</StyledDialogTitle>
           <Grid container direction="column" component="section">
             <GenericForm
               onSubmit={onSubmit}
               initialValues={{ paymentRef: '' }}
               validationSchema={validationSchema}>
               <Grid container spacing={3}>
-                <Grid item xs={12} sx={{ marginBottom: '1rem' }}>
+                <Grid item xs={12} sx={{ mb: '1rem' }}>
                   <FormTextField
                     type="text"
                     label="bank-transactions:payment-ref"

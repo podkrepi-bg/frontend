@@ -65,7 +65,7 @@ export default observer(function CitiesGrid() {
   return (
     <>
       <DataGrid
-        style={{
+        sx={{
           background: theme.palette.common.white,
           position: 'absolute',
           height: 'calc(100vh - 300px)',

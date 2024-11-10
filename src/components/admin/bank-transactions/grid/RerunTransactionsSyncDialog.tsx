@@ -10,6 +10,7 @@ import { useRerunBankImportForDate } from 'service/bankTransaction'
 import FormDatePicker from 'components/common/form/FormDatePicker'
 import { useMutation } from '@tanstack/react-query'
 import { AlertStore } from 'stores/AlertStore'
+import { StyledDialogContent, StyledDialogTitle } from 'components/admin/styles/Admin.styled'
 
 const validationSchema: yup.SchemaOf<RerunTransactionsDatesInput> = yup
   .object()
@@ -54,19 +55,11 @@ export default function RerunTransactionSyncModal({
       sx={{ scroll: 'none' }}
       fullWidth={true}
       maxWidth={'sm'}>
-      <DialogContent
-        style={{
-          overflow: 'hidden',
-          padding: '4rem',
-          paddingTop: '1rem',
-          width: '100%',
-        }}>
-        <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+      <StyledDialogContent>
+        <Grid sx={{ display: 'flex', justifyContent: 'end', mr: '-4rem' }}>
           <CloseModalButton href={''} onClose={handleClose} />
         </Grid>
-        <DialogTitle style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-          {t('bank-transactions:rerun-dates')}
-        </DialogTitle>
+        <StyledDialogTitle> {t('bank-transactions:rerun-dates')}</StyledDialogTitle>
         <Grid container direction="column" component="section">
           <GenericForm
             onSubmit={onSubmit}
@@ -89,7 +82,7 @@ export default function RerunTransactionSyncModal({
             </Grid>
           </GenericForm>
         </Grid>
-      </DialogContent>
+      </StyledDialogContent>
     </Dialog>
   )
 }
