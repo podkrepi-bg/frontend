@@ -79,6 +79,12 @@ export default function PaymentDetailsStripeForm({
           id="billingName"
           variant="outlined"
           placeholder={t('donation-flow:step.payment-method.field.card-data.name-label')}
+          onInput={(e) => {
+            const input = e.target as HTMLInputElement
+            if (!/^[a-zA-Z\s]+$/.test(input.value)) {
+              input.value = input.value.replace(/[^a-zA-Z\s]/g, '')
+            }
+          }}
         />
       </Box>
       <PaymentElement
