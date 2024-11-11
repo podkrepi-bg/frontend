@@ -37,8 +37,8 @@ export default function DropdownFilter(props: DropdownFilterProps) {
 
   const selectElementStyle = {
     minWidth: 115,
-    marginRight: 1,
-    marginLeft: 1,
+    mr: 0.125,
+    ml: 0.125,
   }
 
   const closeIconStyle = {
