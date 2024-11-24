@@ -125,6 +125,7 @@ export function DonationFlowForm() {
   const cancelSetupIntentMutation = useCancelSetupIntent()
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
+  const stripeChargeRef = React.useRef<string>(idempotencyKey)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
   const [submitPaymentLoading, setSubmitPaymentLoading] = React.useState(false)
   const { data: { user: person } = { user: null } } = useCurrentPerson()
@@ -197,7 +198,7 @@ export function DonationFlowForm() {
             campaign,
             values,
             session,
-            idempotencyKey,
+            stripeChargeRef.current,
           )
           router.push(
             `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
@@ -210,7 +211,7 @@ export function DonationFlowForm() {
             type: 'invalid_request_error',
             message: (error as StripeError).message ?? t('step.summary.alerts.error'),
           })
-
+          stripeChargeRef.current = crypto.randomUUID()
           return
         }
 

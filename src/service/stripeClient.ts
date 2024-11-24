@@ -4,4 +4,4 @@ const {
   publicRuntimeConfig: { STRIPE_PUBLISHABLE_KEY },
 } = getConfig()
 
-export const stripe = await loadStripe(STRIPE_PUBLISHABLE_KEY)
+export const stripe = loadStripe(STRIPE_PUBLISHABLE_KEY)
