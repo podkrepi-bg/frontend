@@ -252,9 +252,9 @@ async function setupMeAndCampaignTypes(page: Page) {
         },
         {
           id: '34b501f0-b3c3-43d9-9be0-7f7258eeb247',
-          name: 'Membership',
-          slug: 'membership',
-          description: 'Membership Campaigns',
+          name: 'Elderly',
+          slug: 'elderly',
+          description: 'Help elderly people',
           parentId: null,
           category: 'others',
         },
