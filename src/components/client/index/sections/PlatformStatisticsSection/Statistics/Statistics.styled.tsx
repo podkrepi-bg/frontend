@@ -17,7 +17,6 @@ export const SubtitleSectionNumber = styled(Typography)(() => ({
 
   [theme.breakpoints.up('md')]: {
     fontSize: theme.typography.pxToRem(50),
-    marginTop: theme.spacing(1),
   },
 }))
 
