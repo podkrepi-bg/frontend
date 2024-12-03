@@ -8,13 +8,12 @@ import { toNumberWithSpacesBetween } from 'common/util/number'
 
 import {
   Fraction,
-  SectionDivider,
   StatisticsSectionWrapper,
   StatisticsWrapper,
   SubtitleSectionNumber,
   SubtitleSectionText,
 } from './Statistics.styled'
-import { Stack } from '@mui/material'
+import { Stack, Divider } from '@mui/material'
 
 export default function Statistics() {
   const { t } = useTranslation('index')
@@ -52,7 +51,7 @@ export default function Statistics() {
             </SubtitleSectionNumber>
             <SubtitleSectionText variant="subtitle1">{section.message}</SubtitleSectionText>
           </StatisticsWrapper>
-          <SectionDivider />
+          <Divider />
         </React.Fragment>
       ))}
       <StatisticsWrapper>
@@ -64,7 +63,7 @@ export default function Statistics() {
         </Stack>
         <SubtitleSectionText>{t('platform-statistics.donated-leva')}</SubtitleSectionText>
       </StatisticsWrapper>
-      <SectionDivider />
+      <Divider />
     </StatisticsSectionWrapper>
   )
 }
