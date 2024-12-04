@@ -31,10 +31,6 @@ export default function SocialShareListButton({
     setAnchorEl(event.currentTarget)
   }
 
-  React.useEffect(() => {
-    console.log(url)
-  }, [url])
-
   const handleClose = () => {
     setAnchorEl(null)
   }
