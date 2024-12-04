@@ -60,6 +60,7 @@ function AlertsColumn({
     <>
       {updatedRefArray.map((ref, index) => {
         const alert = alerts[ref.current?.id as keyof typeof alerts]
+        if (!alert) return null
         return <AnchoredAlert key={index} sectionRef={ref} {...alert} />
       })}
     </>

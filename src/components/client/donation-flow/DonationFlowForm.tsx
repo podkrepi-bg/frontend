@@ -101,6 +101,18 @@ export const validationSchema: yup.SchemaOf<DonationFormData> = yup
 export function DonationFlowForm() {
   const formikRef = useRef<FormikProps<DonationFormData> | null>(null)
   const { t } = useTranslation('donation-flow')
+  const { campaign, setupIntent, paymentError, setPaymentError, idempotencyKey } = useDonationFlow()
+  const stripe = useStripe()
+  const elements = useElements()
+  const router = useRouter()
+  const updateSetupIntentMutation = useUpdateSetupIntent()
+  const cancelSetupIntentMutation = useCancelSetupIntent()
+  const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
+  const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
+  const stripeChargeRef = React.useRef<string>(idempotencyKey)
+  const [showCancelDialog, setShowCancelDialog] = React.useState(false)
+  const [submitPaymentLoading, setSubmitPaymentLoading] = React.useState(false)
+  const { data: { user: person } = { user: null } } = useCurrentPerson()
   const { data: session } = useSession({
     required: false,
     onUnauthenticated: () => {
@@ -117,17 +129,6 @@ export function DonationFlowForm() {
     formikRef.current?.setFieldValue('email', '')
     formikRef.current?.setFieldValue('isAnonymous', true, false)
   }, [session])
-  const { campaign, setupIntent, paymentError, setPaymentError, idempotencyKey } = useDonationFlow()
-  const stripe = useStripe()
-  const elements = useElements()
-  const router = useRouter()
-  const updateSetupIntentMutation = useUpdateSetupIntent()
-  const cancelSetupIntentMutation = useCancelSetupIntent()
-  const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
-  const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
-  const [showCancelDialog, setShowCancelDialog] = React.useState(false)
-  const [submitPaymentLoading, setSubmitPaymentLoading] = React.useState(false)
-  const { data: { user: person } = { user: null } } = useCurrentPerson()
 
   return (
     <Formik
@@ -186,6 +187,7 @@ export function DonationFlowForm() {
                 return_url: `${window.location.origin}/${routes.campaigns.donationStatus(
                   campaign.slug,
                 )}`,
+                personId: !values.isAnonymous && session?.user && person?.id ? person.id : null,
               },
             },
           })
@@ -197,7 +199,7 @@ export function DonationFlowForm() {
             campaign,
             values,
             session,
-            idempotencyKey,
+            stripeChargeRef.current,
           )
           router.push(
             `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
@@ -210,7 +212,7 @@ export function DonationFlowForm() {
             type: 'invalid_request_error',
             message: (error as StripeError).message ?? t('step.summary.alerts.error'),
           })
-
+          stripeChargeRef.current = crypto.randomUUID()
           return
         }
 

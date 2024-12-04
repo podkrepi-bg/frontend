@@ -56,7 +56,7 @@ export class DonationPage extends CampaignsPage {
     bgLocalizationValidation['informed-agree-with'] + ' ' + bgLocalizationValidation.gdpr
   private readonly enPrivacyCheckboxText =
     enLocalizationValidation['informed-agree-with'] + ' ' + enLocalizationValidation.gdpr
-  private readonly bgStripeErrorNoBalanceText = 'Картата Ви не разполага с достатъчно средства.'
+  private readonly bgStripeErrorNoBalanceText = 'В картата ви няма достатъчно средства. Опитайте с друга.'
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await this.page.waitForTimeout(1000)
