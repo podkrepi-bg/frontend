@@ -174,7 +174,6 @@ export function DonationFlowForm() {
 
         // Update the setup intent with the latest calculated amount
         try {
-          console.log(!values.isAnonymous, session?.user, person?.id)
           const updatedIntent = await updateSetupIntentMutation.mutateAsync({
             id: setupIntent.id,
             idempotencyKey,
