@@ -83,7 +83,6 @@ export default function InlineRegisterForm() {
     try {
       setLoading(true)
       // Register in Keycloak
-      console.log(values.password, values.confirmPassword)
       if (values.terms && values.gdpr && values.password === values.confirmPassword) {
         await register(values)
       } else if (!values.terms) {
