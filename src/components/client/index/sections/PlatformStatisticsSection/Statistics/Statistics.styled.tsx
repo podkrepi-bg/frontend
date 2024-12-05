@@ -26,6 +26,8 @@ export const Fraction = styled(Typography)(() => ({
   fontWeight: 'bold',
   lineHeight: 1,
   fontSize: theme.typography.pxToRem(20),
+  marginTop: theme.spacing(1.88),
+
 }))
 
 export const StatisticsWrapper = styled(Stack)(() => ({
