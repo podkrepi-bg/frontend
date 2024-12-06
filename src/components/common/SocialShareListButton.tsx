@@ -27,7 +27,6 @@ export default function SocialShareListButton({
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event.currentTarget)
     setAnchorEl(event.currentTarget)
   }
 
@@ -57,7 +56,6 @@ export default function SocialShareListButton({
           <ListItemButton
             onClick={() => {
               navigator.clipboard.writeText(url)
-              console.log(url)
               AlertStore.show('Campaign link copied to clipboard', 'success')
               setAnchorEl(null)
             }}>
