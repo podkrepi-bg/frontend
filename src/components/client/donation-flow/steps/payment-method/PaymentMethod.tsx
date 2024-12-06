@@ -29,19 +29,20 @@ export default function PaymentMethod({
   const { t } = useTranslation('donation-flow')
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
+  const [finalAmount] = useField('finalAmount')
   const [mode] = useField<PaymentMode>('mode')
   const { status } = useSession()
   const options = [
     {
       value: 'card',
       label: t('step.payment-method.field.method.card'),
-      icon: <CardIcon sx={{ width: 80, height: 80, minWidth: 421 }} />,
+      icon: <CardIcon sx={{ width: 80, height: 80, minWidth: 480 }} />,
       disabled: false,
     },
     {
       value: 'bank',
       label: t('step.payment-method.field.method.bank'),
-      icon: <BankIcon sx={{ width: 80, height: 80, minWidth: 421 }} />,
+      icon: <BankIcon sx={{ width: 80, height: 80, minWidth: 480 }} />,
       disabled: mode.value === 'subscription',
     },
   ]
