@@ -50,15 +50,17 @@ export const TaxesCheckbox = () => {
           />
         </Grid2>
       </Grid2>
-      <Trans
-        t={t}
-        i18nKey="step.payment-method.alert.calculated-fees"
-        values={{
-          amount: moneyPublicDecimals2(amountWithoutFees.value),
-          fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
-          totalAmount: moneyPublicDecimals2(amountWithFees.value),
-        }}
-      />
+      {!!amountWithFees.value && (
+        <Trans
+          t={t}
+          i18nKey="step.payment-method.alert.calculated-fees"
+          values={{
+            amount: moneyPublicDecimals2(amountWithoutFees.value),
+            fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
+            totalAmount: moneyPublicDecimals2(amountWithFees.value),
+          }}
+        />
+      )}
     </>
   )
 }
