@@ -10,7 +10,7 @@ type DonationContext = {
   paymentError: StripeError | null
   setPaymentError: React.Dispatch<React.SetStateAction<StripeError | null>>
   campaign: CampaignResponse
-  stripe: StripeType | null
+  stripe: Promise<StripeType | null>
   idempotencyKey: string
 }
 
