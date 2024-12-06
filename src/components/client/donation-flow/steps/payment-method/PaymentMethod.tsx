@@ -29,7 +29,6 @@ export default function PaymentMethod({
   const { t } = useTranslation('donation-flow')
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
-  const [finalAmount] = useField('finalAmount')
   const [mode] = useField<PaymentMode>('mode')
   const { status } = useSession()
   const options = [
