@@ -56,7 +56,7 @@
         },
         "card-data": {
           "name-label": "Cardholder name",
-          "error": {
+          "errors": {
             "email": "Please enter your email",
             "name": "Please enter your name"
           }
