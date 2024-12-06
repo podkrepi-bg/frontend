@@ -52,5 +52,6 @@ module.exports = {
         message: 'Please use next-i18next',
       },
     ],
+    no-console: ["error", { allow: ["warn", "error"] }]
   },
 }
