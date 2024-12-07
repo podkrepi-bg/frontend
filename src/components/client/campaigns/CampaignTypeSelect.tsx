@@ -4,7 +4,9 @@ import { useCampaignTypesList } from 'common/hooks/campaigns'
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
+const systemTypes = ['Membership']
+
+export default function CampaignTypeSelect({ name = 'campaignTypeId', hideSystemTypes = false }) {
   const { t } = useTranslation()
   const { data } = useCampaignTypesList()
   const [field, meta] = useField(name)
@@ -21,11 +23,13 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
         <MenuItem value="" disabled>
           {t('campaigns:campaign.type')}
         </MenuItem>
-        {data?.map((campaignType, index) => (
-          <MenuItem key={index} value={campaignType.id}>
-            {campaignType.name}
-          </MenuItem>
-        ))}
+        {data
+          ?.filter((campaignType) => !hideSystemTypes || !systemTypes.includes(campaignType?.name))
+          ?.map((campaignType, index) => (
+            <MenuItem key={index} value={campaignType.id}>
+              {campaignType.name}
+            </MenuItem>
+          ))}
       </Select>
       {helperText && <FormHelperText error>{helperText}</FormHelperText>}
     </FormControl>

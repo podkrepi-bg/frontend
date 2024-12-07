@@ -35,13 +35,13 @@ export default function PaymentMethod({
     {
       value: 'card',
       label: t('step.payment-method.field.method.card'),
-      icon: <CardIcon sx={{ width: 80, height: 80 }} />,
+      icon: <CardIcon sx={{ width: 80, height: 80, minWidth: 421 }} />,
       disabled: false,
     },
     {
       value: 'bank',
       label: t('step.payment-method.field.method.bank'),
-      icon: <BankIcon sx={{ width: 80, height: 80 }} />,
+      icon: <BankIcon sx={{ width: 80, height: 80, minWidth: 421 }} />,
       disabled: mode.value === 'subscription',
     },
   ]

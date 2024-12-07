@@ -25,15 +25,6 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
         <Grid item xs={12}>
           <FormTextField
             type="text"
-            name="applicationDetails.cause"
-            label={t('steps.details.cause')}
-            multiline
-            rows={3}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormTextField
-            type="text"
             name="applicationDetails.description"
             label={t('steps.details.description')}
             multiline
@@ -48,6 +39,15 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
             placeholder={t('steps.details.current-status.placeholder')}
             multiline
             rows={5}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormTextField
+            type="text"
+            name="applicationDetails.cause"
+            label={t('steps.details.cause')}
+            multiline
+            rows={3}
           />
         </Grid>
         <Grid item xs={12}>

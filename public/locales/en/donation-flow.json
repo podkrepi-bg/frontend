@@ -56,7 +56,7 @@
         },
         "card-data": {
           "name-label": "Cardholder name",
-          "error": {
+          "errors": {
             "email": "Please enter your email",
             "name": "Please enter your name"
           }
@@ -106,7 +106,7 @@
       },
       "noregister": {
         "label": "Continue without registration",
-        "description": "You will not be able to get a donation certificate or a list of your donations. If you still want to receive a receipt, please share your email - it will not be visible in the platform"
+        "description": "You will not be able to get a donation certificate or a list of your donations. If you still want to receive a receipt, please share your email - it will not be visible in the platform."
       },
       "field": {
         "password": "Password",
@@ -128,7 +128,7 @@
       "donation": "Donation",
       "transaction": {
         "title": "Transaction",
-        "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission"
+        "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission."
       },
       "total": "Total",
       "field": {

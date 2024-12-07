@@ -58,7 +58,7 @@ export default function CampaignApplicationBasic() {
           />
         </Grid>
         <Grid item xs={12}>
-          <CampaignTypeSelect name="applicationBasic.campaignType" />
+          <CampaignTypeSelect name="applicationBasic.campaignType" hideSystemTypes={true} />
         </Grid>
         <Grid item xs={12}>
           <StyledFormTextField

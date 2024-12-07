@@ -120,6 +120,7 @@ jobs:
           name: playwright-report
           path: ./frontend/e2e/test-results/
           retention-days: 14
+          overwrite: true
 
       - uses: actions/upload-artifact@v4
         if: always()

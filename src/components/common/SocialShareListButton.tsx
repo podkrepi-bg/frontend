@@ -8,7 +8,7 @@ import {
   PopoverProps,
   ButtonProps,
 } from '@mui/material'
-import { ContentCopy, Facebook, LinkedIn, Share, Twitter } from '@mui/icons-material'
+import { ContentCopy, Facebook, LinkedIn, Share, Twitter, X } from '@mui/icons-material'
 
 import { AlertStore } from 'stores/AlertStore'
 import theme from 'common/theme'
@@ -25,7 +25,7 @@ export default function SocialShareListButton({
 }) {
   const { t } = useTranslation('common')
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
-  const serializedUrl = new URLSearchParams(url).toString()
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -62,20 +62,20 @@ export default function SocialShareListButton({
             <Typography>{t('components.social-share.copy')}</Typography>
             <ContentCopy sx={{ ml: 1, fill: theme.palette.grey[400] }} />
           </ListItemButton>
-          <ListItemButton href={`https://www.facebook.com/sharer/sharer.php?u=${serializedUrl}`}>
+          <ListItemButton href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}>
             <Typography>{t('components.social-share.share')} Facebook</Typography>
             <Facebook sx={{ ml: 1, fill: '#4267B2' }} />
           </ListItemButton>
           <ListItemButton
             href={`
-            http://www.linkedin.com/shareArticle?mini=true&url=${serializedUrl}
+            http://www.linkedin.com/shareArticle?mini=true&url=${url}
           `}>
             <Typography>{t('components.social-share.share')} LinkedIn</Typography>
             <LinkedIn sx={{ ml: 1, fill: '#0077b5' }} />
           </ListItemButton>
-          <ListItemButton href={`https://twitter.com/intent/tweet?url=${serializedUrl}`}>
-            <Typography>{t('components.social-share.share')} Twitter</Typography>
-            <Twitter sx={{ ml: 1, fill: '#1DA1F2' }} />
+          <ListItemButton href={`https://x.com/intent/post?url=${url}`}>
+            <Typography>{t('components.social-share.share')} X</Typography>
+            <X sx={{ ml: 1 }} />
           </ListItemButton>
         </List>
       </Popover>

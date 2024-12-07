@@ -83,7 +83,6 @@ export default function InlineRegisterForm() {
     try {
       setLoading(true)
       // Register in Keycloak
-
       if (values.terms && values.gdpr && values.password === values.confirmPassword) {
         await register(values)
       } else if (!values.terms) {
@@ -143,7 +142,7 @@ export default function InlineRegisterForm() {
         </Grid>
         <Grid item xs={12}>
           <PasswordField
-            name="confirmPassword"
+            name="registerConfirmPassword"
             label="auth:account.confirm-password"
             autoComplete="new-password"
           />
@@ -155,20 +154,16 @@ export default function InlineRegisterForm() {
             )}
         </Grid>
         <Grid item xs={12}>
-          <AcceptTermsField name="terms" />
+          <AcceptTermsField name="registerTerms" />
           {!formik.values.registerTerms && formik.touched.registerTerms && (
             <FormHelperText sx={{ color: 'red' }}>{t('validation:terms-of-use')}</FormHelperText>
           )}
-          <AcceptPrivacyPolicyField name="gdpr" />
+          <AcceptPrivacyPolicyField name="registerGdpr" />
           {!formik.values.registerGdpr && formik.touched.registerGdpr && (
             <FormHelperText sx={{ color: 'red' }}>
               {t('validation:terms-of-service')}
             </FormHelperText>
           )}
-        </Grid>
-        <Grid item xs={12}>
-          <AcceptTermsField name="registerTerms" />
-          <AcceptPrivacyPolicyField name="registerGdpr" />
         </Grid>
 
         <Grid item xs={12}>

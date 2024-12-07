@@ -1,3 +1,7 @@
+/**
+ * This is logic for authenticating and storing the session to be used in the tests. See the e2e/Readme.md - the section about Authenticated user
+ */
+
 import { test, test as base } from '@playwright/test'
 import dotenv from 'dotenv'
 import fs from 'fs'
