@@ -70,13 +70,21 @@ type RadioButtonProps = {
   error?: boolean
 }
 
-function RadioButton({ checked, label, muiRadioButtonProps, value, error }: RadioButtonProps) {
+function RadioButton({
+  checked,
+  label,
+  muiRadioButtonProps,
+  value,
+  disabled,
+  error,
+}: RadioButtonProps) {
   return (
     <StyledRadioButton error={error}>
       <FormControlLabel
         value={value}
+        disabled={disabled}
+        sx={disabled ? { backgroundColor: '#e0e0e0', opacity: 0.7 } : {}}
         className={`${classes.radioWrapper} ${checked ? classes.checked : null}`}
-        sx={checked ? {} : undefined}
         label={
           <Typography className={classes.label} sx={{ wordBreak: 'break-word' }}>
             {label}
@@ -84,6 +92,7 @@ function RadioButton({ checked, label, muiRadioButtonProps, value, error }: Radi
         }
         control={
           <Radio
+            disabled={disabled}
             icon={<div className={`${classes.circle}`} />}
             checkedIcon={
               <Check color="primary" className={checked ? classes.checkIcon : undefined} />
