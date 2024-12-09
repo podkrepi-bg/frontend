@@ -130,6 +130,10 @@
         "title": "Transaction",
         "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission."
       },
+      "alerts": {
+        "subscription-unauthorized": "In order to continue with recurring payment, please login with your account or create new one if you havent done so",
+        "error": "Something went wrong, please try again or refresh the page"
+      },
       "total": "Total",
       "field": {
         "anonymous": {

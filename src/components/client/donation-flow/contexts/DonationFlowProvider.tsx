@@ -11,7 +11,6 @@ type DonationContext = {
   setPaymentError: React.Dispatch<React.SetStateAction<StripeError | null>>
   campaign: CampaignResponse
   stripe: Promise<StripeType | null>
-  idempotencyKey: string
 }
 
 const DonationFlowContext = React.createContext({} as DonationContext)
@@ -19,17 +18,14 @@ const DonationFlowContext = React.createContext({} as DonationContext)
 export const DonationFlowProvider = ({
   campaign,
   setupIntent,
-  idempotencyKey,
   children,
 }: PropsWithChildren<{
   campaign: CampaignResponse
   setupIntent: Stripe.SetupIntent
-  idempotencyKey: string
 }>) => {
   const [paymentError, setPaymentError] = React.useState<StripeError | null>(null)
 
   const value = {
-    idempotencyKey,
     setupIntent,
     paymentError,
     setPaymentError,

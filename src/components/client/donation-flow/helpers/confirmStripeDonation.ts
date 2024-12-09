@@ -13,7 +13,6 @@ export async function confirmStripePayment(
   campaign: CampaignResponse,
   values: DonationFormData,
   session: Session | null,
-  idempotencyKey: string,
 ): Promise<StripeJS.PaymentIntent> {
   if (setupIntent.status !== DonationFormPaymentStatus.SUCCEEDED) {
     const { error: intentError } = await stripe.confirmSetup({
@@ -30,12 +29,7 @@ export async function confirmStripePayment(
       throw intentError
     }
   }
-  const payment = await createIntentFromSetup(
-    setupIntent.id,
-    idempotencyKey,
-    values.mode as PaymentMode,
-    session,
-  )
+  const payment = await createIntentFromSetup(setupIntent.id, values.mode as PaymentMode, session)
 
   if (payment.data.status === DonationFormPaymentStatus.REQUIRES_ACTION) {
     const { error: confirmPaymentError } = await stripe.confirmCardPayment(
