@@ -1,6 +1,7 @@
 import { CampaignNewsFile } from 'gql/campaign-news'
 import { CampaignFileRole } from 'components/common/campaign-file/roles'
 import getConfig from 'next/config'
+import { API_URL } from 'service/apiClient'
 
 const { publicRuntimeConfig } = getConfig()
 
@@ -13,7 +14,7 @@ export function GetArticleDocuments(files: CampaignNewsFile[]) {
     .map((file) => {
       return {
         id: file.id,
-        fileUrl: `${publicRuntimeConfig.API_URL}/campaign-news-file/${file.id}`,
+        fileUrl: `${API_URL}/campaign-news-file/${file.id}`,
         fileName: file.filename.replace(fileExtensionRemoverRegex, ''),
       }
     })
@@ -26,7 +27,7 @@ export function GetArticleGalleryPhotos(files: CampaignNewsFile[]) {
     .map((file) => {
       return {
         id: file.id,
-        src: `${publicRuntimeConfig.API_URL}/campaign-news-file/${file.id}`,
+        src: `${API_URL}/campaign-news-file/${file.id}`,
         fileName: file.filename.replace(fileExtensionRemoverRegex, ''),
       }
     })
