@@ -171,6 +171,15 @@ export function DonationFlowForm() {
           return
         }
 
+        if (values.mode === 'subscription' && !session?.user?.sub) {
+          setSubmitPaymentLoading(false)
+          formikRef.current?.setFieldError(
+            'authentication',
+            t('step.summary.alerts.subscription-unauthorized'),
+          )
+          return
+        }
+
         // Update the setup intent with the latest calculated amount
         try {
           const updatedIntent = await updateSetupIntentMutation.mutateAsync({
