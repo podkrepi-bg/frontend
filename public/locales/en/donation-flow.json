@@ -131,7 +131,7 @@
         "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission."
       },
       "alerts": {
-        "subscription-unauthorized": "In order to continue with recurring payment, please login with your account or create new one if you havent done so",
+        "subscription-unauthorized": "If you wish to make monthly donations, please sign in with your account or register on the platform if you still have not.",
         "error": "Something went wrong, please try again or refresh the page"
       },
       "total": "Total",
