@@ -117,10 +117,10 @@
       "alert": {
         "authenticate": {
           "title": "Choosing to login you will be able to",
-          "create-account": "Create an account",
-          "certificate": "Get a donation certificate",
-          "monthly-donation": "Make a monthly donation",
-          "notification": "Get notifications about campaigns you donated to"
+          "create-account": "Create an account.",
+          "certificate": "Get a donation certificate.",
+          "monthly-donation": "Make a monthly donation.",
+          "notification": "Get notifications about campaigns you donated to."
         }
       }
     },
@@ -132,13 +132,13 @@
       },
       "alerts": {
         "subscription-unauthorized": "If you wish to make monthly donations, please sign in with your account or register on the platform if you still have not.",
-        "error": "Something went wrong, please try again or refresh the page"
+        "error": "Something went wrong, please try again or refresh the page."
       },
       "total": "Total",
       "field": {
         "anonymous": {
           "label": "I want to be anonymous",
-          "description": "If you choose to be anonymous, your name will not be visible in the campaign"
+          "description": "If you choose to be anonymous, your name will not be visible in the campaign."
         },
         "privacy": {
           "error": "You have to accept the privacy policy"
