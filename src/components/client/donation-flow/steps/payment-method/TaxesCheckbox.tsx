@@ -12,6 +12,7 @@ export const TaxesCheckbox = () => {
   const { t } = useTranslation('donation-flow')
   const [amountWithFees] = useField('finalAmount')
   const [amountWithoutFees] = useField<number>('amountWithoutFees')
+  const showCalculatedFees = Boolean(amountWithFees.value)
   return (
     <>
       <Grid2 container>
@@ -50,15 +51,17 @@ export const TaxesCheckbox = () => {
           />
         </Grid2>
       </Grid2>
-      <Trans
-        t={t}
-        i18nKey="step.payment-method.alert.calculated-fees"
-        values={{
-          amount: moneyPublicDecimals2(amountWithoutFees.value),
-          fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
-          totalAmount: moneyPublicDecimals2(amountWithFees.value),
-        }}
-      />
+      {showCalculatedFees && (
+        <Trans
+          t={t}
+          i18nKey="step.payment-method.alert.calculated-fees"
+          values={{
+            amount: moneyPublicDecimals2(amountWithoutFees.value),
+            fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
+            totalAmount: moneyPublicDecimals2(amountWithFees.value),
+          }}
+        />
+      )}
     </>
   )
 }

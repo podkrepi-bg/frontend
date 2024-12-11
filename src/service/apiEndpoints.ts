@@ -154,19 +154,19 @@ export const endpoints = {
     createSubscriptionPayment: <Endpoint>{ url: '/stripe/create-subscription', method: 'POST' },
     createPaymentIntent: <Endpoint>{ url: '/stripe/payment-intent', method: 'POST' },
     createSetupIntent: <Endpoint>{ url: '/stripe/setup-intent', method: 'POST' },
-    createPaymentIntentFromSetup: (id: string, idempotencyKey: string) =>
+    createPaymentIntentFromSetup: (id: string) =>
       <Endpoint>{
-        url: `/stripe/setup-intent/${id}/payment-intent?idempotency-key=${idempotencyKey}`,
+        url: `/stripe/setup-intent/${id}/payment-intent`,
         method: 'POST',
       },
-    createSubscriptionFromSetup: (id: string, idempotencyKey: string) =>
+    createSubscriptionFromSetup: (id: string) =>
       <Endpoint>{
-        url: `/stripe/setup-intent/${id}/subscription?idempotency-key=${idempotencyKey}`,
+        url: `/stripe/setup-intent/${id}/subscription`,
         method: 'POST',
       },
-    updateSetupIntent: (id: string, idempotencyKey: string) =>
+    updateSetupIntent: (id: string) =>
       <Endpoint>{
-        url: `/stripe/setup-intent/${id}?idempotency-key=${idempotencyKey}`,
+        url: `/stripe/setup-intent/${id}`,
         method: 'POST',
       },
     cancelSetupIntent: (id: string) =>
