@@ -22,6 +22,7 @@ import {
 
 export default function SupervisoryBoardSection() {
   const { t } = useTranslation('about')
+  console.log(data)
 
   return (
     <Grid component="section">
@@ -38,10 +39,7 @@ export default function SupervisoryBoardSection() {
               />
               <NameLinkedInWrapper>
                 <TeamMemberName variant="subtitle1">{teamMember.name}</TeamMemberName>
-                <LinkedInButton
-                  href={teamMember.linkedInProfile}
-                  target="_blank"
-                  style={{ float: 'left' }}>
+                <LinkedInButton href={teamMember.linkedInProfile} target="_blank">
                   <LinkedInIcon color="action" fontSize="large" />
                   <LinkedInText variant="subtitle1">{t('about.linkedIn')}</LinkedInText>
                 </LinkedInButton>

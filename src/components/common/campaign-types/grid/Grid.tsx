@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
@@ -30,6 +31,18 @@ export default observer(function Grid() {
     width: 250,
     headerAlign: 'left',
   }
+
+  const StyledDataGrid = styled(DataGrid)({
+    background: theme.palette.common.white,
+    position: 'absolute',
+    height: 'calc(100vh - 300px)',
+    border: 'none',
+    width: 'calc(100% - 48px)',
+    left: '24px',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    borderRadius: '0 0 13px 13px',
+  })
 
   const columns: GridColDef[] = [
     {
@@ -82,18 +95,7 @@ export default observer(function Grid() {
   return (
     <>
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            position: 'absolute',
-            height: 'calc(100vh - 300px)',
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={data || []}
           columns={columns}
           pageSizeOptions={[5, 10]}
