@@ -1,4 +1,4 @@
-import { Divider, Grid, Stack, Typography } from '@mui/material'
+import { Grid, Stack, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
@@ -26,8 +26,7 @@ export const Fraction = styled(Typography)(() => ({
   fontWeight: 'bold',
   lineHeight: 1,
   fontSize: theme.typography.pxToRem(20),
-  marginTop: theme.spacing(1.88),
-
+  marginTop: theme.spacing(.8),
 }))
 
 export const StatisticsWrapper = styled(Stack)(() => ({
