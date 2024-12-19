@@ -56,7 +56,7 @@
         },
         "card-data": {
           "name-label": "Cardholder name",
-          "error": {
+          "errors": {
             "email": "Please enter your email",
             "name": "Please enter your name"
           }
@@ -117,10 +117,10 @@
       "alert": {
         "authenticate": {
           "title": "Choosing to login you will be able to",
-          "create-account": "Create an account",
-          "certificate": "Get a donation certificate",
-          "monthly-donation": "Make a monthly donation",
-          "notification": "Get notifications about campaigns you donated to"
+          "create-account": "Create an account.",
+          "certificate": "Get a donation certificate.",
+          "monthly-donation": "Make a monthly donation.",
+          "notification": "Get notifications about campaigns you donated to."
         }
       }
     },
@@ -130,11 +130,15 @@
         "title": "Transaction",
         "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission."
       },
+      "alerts": {
+        "subscription-unauthorized": "If you wish to make monthly donations, please sign in with your account or register on the platform if you still have not.",
+        "error": "Something went wrong, please try again or refresh the page."
+      },
       "total": "Total",
       "field": {
         "anonymous": {
           "label": "I want to be anonymous",
-          "description": "If you choose to be anonymous, your name will not be visible in the campaign"
+          "description": "If you choose to be anonymous, your name will not be visible in the campaign."
         },
         "privacy": {
           "error": "You have to accept the privacy policy"

@@ -27,7 +27,7 @@ export const initialAmountFormValues = {
 export const amountValidation = {
   amountChosen: yup.string().when('payment', {
     is: 'card',
-    then: yup.string().required(),
+    then: yup.string().optional(),
   }),
   finalAmount: yup.number().when('payment', {
     is: (payment: string | null) => ['card', null].includes(payment),
