@@ -120,7 +120,12 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
             <EmailField
               label={t('common:notifications.email-descriptive')}
               name="email"
-              sx={{ width: '70%' }}
+              sx={{
+                width: '100%',
+                [theme.breakpoints.up('sm')]: {
+                  width: '70%',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -128,7 +133,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
           </Grid>
           <Grid item xs={12} textAlign="center">
             <SubmitButton
-              sx={{ width: '40%' }}
+              sx={{ minWidth: theme.spacing(25) }}
               className={classes.subscribeBtn}
               label="common:notifications.cta.subscribe-button"
               loading={loading}
