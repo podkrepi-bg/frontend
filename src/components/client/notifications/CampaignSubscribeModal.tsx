@@ -33,7 +33,6 @@ const classes = {
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.subscribeBtn}`]: {
     fontSize: theme.typography.pxToRem(16),
-    background: `${theme.palette.primary}`,
   },
 }))
 
@@ -116,7 +115,12 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
             <EmailField
               label="common:notifications.email-descriptive"
               name="email"
-              sx={{ maxWidth: theme.spacing(50) }}
+              sx={{
+                width: '100%',
+                [theme.breakpoints.up('sm')]: {
+                  width: '70%',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -124,7 +128,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
           </Grid>
           <Grid item xs={12} textAlign="center">
             <SubmitButton
-              sx={{ width: '40%' }}
+              sx={{ minWidth: theme.spacing(25) }}
               className={classes.subscribeBtn}
               label="common:notifications.cta.subscribe-button"
               loading={loading}
@@ -163,7 +167,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
           }}>
           <CloseModalButton onClose={handleClose} />
           <React.Fragment>
-            <EmailIcon color="primary" sx={{ fontSize: '64px' }} />
+            <EmailIcon color="primary" sx={{ fontSize: theme.typography.pxToRem(64) }} />
             <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
               {t('common:notifications.subscribe-campaign-title')}
             </DialogTitle>
@@ -176,10 +180,23 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
                       : t('common:notifications.subscribe-text-loggedUser')}
                   </Typography>
                 </Grid>
-                <Grid item xs={12} display="flex" justifyContent="space-evenly">
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                    flexFlow: 'column',
+                    gap: theme.spacing(2),
+                    alignItems: 'center',
+
+                    [theme.breakpoints.up('sm')]: {
+                      flexFlow: 'row',
+                    },
+                  }}>
                   <SubmitButton
                     type="button"
-                    sx={{ width: '40%' }}
+                    sx={{ minWidth: theme.spacing(25) }}
                     className={classes.subscribeBtn}
                     label={
                       status !== 'authenticated'
@@ -191,7 +208,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
                   />
                   <SubmitButton
                     type="button"
-                    sx={{ width: '40%' }}
+                    sx={{ minWidth: theme.spacing(25) }}
                     variant="outlined"
                     className={classes.subscribeBtn}
                     label={

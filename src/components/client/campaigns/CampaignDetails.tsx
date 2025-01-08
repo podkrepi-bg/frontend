@@ -138,9 +138,6 @@ export default function CampaignDetails({ campaign }: Props) {
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
       <Grid container spacing={8}>
-        {subscribeIsOpen && (
-          <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
-        )}
         <Grid item xs={12} display="flex" sx={{ mt: 1.5 }}>
           <EmailIcon
             color="primary"
