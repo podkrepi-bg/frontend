@@ -35,6 +35,37 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }))
 
+const StyledDialogContent = styled(DialogContent)({
+  overflow: 'hidden',
+  padding: '4rem',
+  paddingTop: '1rem',
+  width: '100%',
+})
+
+const CloseButtonGrid = styled(Grid)({
+  display: 'flex',
+  justifyContent: 'end',
+  marginRight: '-4rem',
+})
+
+const SuccessMessage = styled(DialogContent)({
+  textAlign: 'center',
+  fontSize: 20,
+  fontWeight: 600,
+  paddingBottom: 6,
+})
+
+const CenteredDialogTitle = styled(DialogTitle)({
+  textAlign: 'center',
+  width: '100%',
+})
+
+const NoScrollDialog = styled(Dialog)({
+  '& .MuiDialog-paper': {
+    overflow: 'hidden',
+  },
+})
+
 interface ModalProps {
   campaignId: string
   setOpen: React.Dispatch<React.SetStateAction<string>>
@@ -88,22 +119,16 @@ export default function RenderCampaignNotificationsConfirmModal({
   }
 
   return (
-    <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
-      <DialogContent
-        style={{
-          overflow: 'hidden',
-          padding: '4rem',
-          paddingTop: '1rem',
-          width: '100%',
-        }}>
-        <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+    <NoScrollDialog open onClose={handleClose} fullWidth maxWidth="sm">
+      <StyledDialogContent>
+        <CloseButtonGrid>
           <CloseModalButton onClose={handleClose} />
-        </Grid>
+        </CloseButtonGrid>
         {!isSuccess ? (
           <React.Fragment>
-            <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
+            <CenteredDialogTitle>
               {t('profile:myNotifications.modal.campaign-title-unsubscribe')}
-            </DialogTitle>
+            </CenteredDialogTitle>
             <Grid container direction="column" component="section">
               <GenericForm onSubmit={onSubmit} initialValues={{}}>
                 <StyledGrid container spacing={2}>
@@ -120,12 +145,11 @@ export default function RenderCampaignNotificationsConfirmModal({
             </Grid>
           </React.Fragment>
         ) : (
-          <DialogContent
-            style={{ textAlign: 'center', fontSize: 20, fontWeight: 600, paddingBottom: 6 }}>
+          <SuccessMessage>
             {t('profile:myNotifications.modal.campaign-unsubscribe-msg')}
-          </DialogContent>
+          </SuccessMessage>
         )}
-      </DialogContent>
-    </Dialog>
+      </StyledDialogContent>
+    </NoScrollDialog>
   )
 }

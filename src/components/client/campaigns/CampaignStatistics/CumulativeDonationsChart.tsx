@@ -160,7 +160,7 @@ export default function CumulativeDonationsChart({
 
   return (
     <Box>
-      <Stack style={{ marginBottom: '10px' }}>
+      <Stack sx={{ marginBottom: '10px' }}>
         <Typography variant="h6">{t('campaigns:statistics.cumulativeTitle')}</Typography>
         <Typography variant="caption">{t('campaigns:statistics.cumulativeDesc')}</Typography>
       </Stack>

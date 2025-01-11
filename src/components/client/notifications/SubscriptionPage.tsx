@@ -76,6 +76,13 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }))
 
+const StyledSuccessTypography = styled(Typography)(({ theme }) => ({
+  textAlign: 'center',
+  width: '100%',
+  color: '#03C03C',
+  wordBreak: 'break-word',
+}))
+
 export default function SubscriptionPage(data: Props) {
   const { t } = useTranslation()
   const { locale } = useRouter()
@@ -177,16 +184,9 @@ export default function SubscriptionPage(data: Props) {
                 alignItems={'center'}>
                 <ThumbUpIcon sx={{ fontSize: theme.typography.pxToRem(64), color: '#03C03C' }} />
                 <DialogTitle>
-                  <Typography
-                    variant="h5"
-                    style={{
-                      textAlign: 'center',
-                      width: '100%',
-                      color: '#03C03C',
-                      wordBreak: 'break-word',
-                    }}>
+                  <StyledSuccessTypography variant="h5">
                     {t('notifications:subscribe.thank-you-msg-heading')}
-                  </Typography>
+                  </StyledSuccessTypography>
                 </DialogTitle>
                 <Typography sx={{ wordBreak: 'break-word' }}>
                   <Trans
@@ -227,7 +227,7 @@ export default function SubscriptionPage(data: Props) {
                     <Typography
                       variant="h5"
                       component={'p'}
-                      style={{ textAlign: 'center', width: '100%', color: '#FF007F' }}>
+                      sx={{ textAlign: 'center', width: '100%', color: '#FF007F' }}>
                       {t('notifications:subscribe.subscription-fail-heading')}
                     </Typography>
                   </DialogTitle>

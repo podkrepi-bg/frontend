@@ -1,4 +1,4 @@
-import { Box, LinearProgress, useMediaQuery } from '@mui/material'
+import { Box, LinearProgress, Typography, useMediaQuery } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
@@ -83,9 +83,9 @@ export default function ProfilePage() {
             padding: '10px 10px',
             boxShadow: 3,
           }}>
-          <h1 className={classes.h1} style={{ marginLeft: '20px' }}>
+          <Typography variant="h1" className={classes.h1} sx={{ marginLeft: '20px' }}>
             {!person?.user.company ? t('profile:header') : t('profile:corporate-header')}
-          </h1>
+          </Typography>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab.slug} variant="scrollable" scrollButtons allowScrollButtonsMobile>
               <Tab

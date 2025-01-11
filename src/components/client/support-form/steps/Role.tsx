@@ -16,7 +16,7 @@ export default function Role({ name, label, description }: RoleProps) {
       <CheckboxField label={label} name={name} />
       {description && (
         <Tooltip title={description}>
-          <InfoIcon color="primary" style={{ opacity: '0.45' }} />
+          <InfoIcon color="primary" sx={{ opacity: '0.45' }} />
         </Tooltip>
       )}
     </Box>

@@ -26,6 +26,7 @@ const classes = {
   graySpan: `${PREFIX}-graySpan`,
   irrevirsibleAction: `${PREFIX}-irrevirsibleAction`,
   close: `${PREFIX}-close`,
+  bulletList: `${PREFIX}-bulletList`,
 }
 
 const StyledModal = styled(Modal)(({ theme }) => ({
@@ -68,6 +69,10 @@ const StyledModal = styled(Modal)(({ theme }) => ({
   [`& .${classes.close}`]: {
     position: 'absolute',
     right: '10px',
+  },
+  [`& .${classes.bulletList}`]: {
+    listStyle: 'disc',
+    paddingLeft: '20px',
   },
 }))
 
@@ -158,7 +163,7 @@ function DisableAccountModal({
         <Typography className={classes.graySpan}>
           {t('profile:disableModal.beforeDisableMsg')}
         </Typography>
-        <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
+        <ul className={classes.bulletList}>
           <li className={classes.graySpan}>
             {t('profile:disableModal.deactivateEmails')}
             <Link href={routes.profile.myNotifications}>{t('profile:disableModal.link')}</Link>.

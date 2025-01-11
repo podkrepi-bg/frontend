@@ -73,7 +73,7 @@ export default function UniqueDonationsChart({ campaignId }: Props) {
 
   return (
     <Box>
-      <Stack style={{ marginBottom: '10px' }}>
+      <Stack sx={{ marginBottom: '10px' }}>
         <Typography variant="h6">{t('campaigns:statistics.uniqueTitle')}</Typography>
         <Typography variant="caption">{t('campaigns:statistics.uniqueDesc')}</Typography>
       </Stack>

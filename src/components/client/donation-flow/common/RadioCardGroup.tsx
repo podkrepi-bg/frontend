@@ -124,7 +124,7 @@ function RadioCardGroup({ options, name, columns, loading, error }: RadioCardGro
             <Grid2 size={{ xs: 4 }} key={option.value}>
               <RadioCardItem
                 onClick={() => setValue(option.value)}
-                style={{
+                sx={{
                   border: `1px solid ${
                     showError ? theme.palette.error.main : theme.palette.common.black
                   }`,

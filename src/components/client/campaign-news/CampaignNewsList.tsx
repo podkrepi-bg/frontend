@@ -115,7 +115,7 @@ export default function CampaignNewsList({ articles }: Props) {
                     {dateToTime(article.publishedAt, i18n?.language)}
                   </Typography>
                 </Grid>
-                <Grid container item gap={1} xs="auto" style={{ maxWidth: '100%' }} wrap="nowrap">
+                <Grid container item gap={1} xs="auto" sx={{ maxWidth: '100%' }} wrap="nowrap">
                   <SupervisedUserCircleOutlinedIcon color="primary" />
                   <Typography className={classes.articleAuthor}>{article.author}</Typography>
                 </Grid>
@@ -160,7 +160,7 @@ export default function CampaignNewsList({ articles }: Props) {
                 </Grid>
                 {article.newsFiles.length > 0 && (
                   <>
-                    <Grid container item gap={1} xs={'auto'} style={{ maxWidth: '100%' }}>
+                    <Grid container item gap={1} xs={'auto'} sx={{ maxWidth: '100%' }}>
                       <Gallery images={images}>
                         {images.map((file) => {
                           return (

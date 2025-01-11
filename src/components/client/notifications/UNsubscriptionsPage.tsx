@@ -67,6 +67,13 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }))
 
+const StyledDialogContent = styled(DialogContent)(({ theme }) => ({
+  textAlign: 'center',
+  fontSize: 23,
+  fontWeight: 600,
+  paddingBottom: theme.spacing(6),
+}))
+
 export default function UNsubscriptionPage(data: Props) {
   const { t } = useTranslation()
   const { locale } = useRouter()
@@ -135,10 +142,9 @@ export default function UNsubscriptionPage(data: Props) {
         {isSuccess ? (
           <React.Fragment>
             <Grid item mt={5}>
-              <DialogContent
-                style={{ textAlign: 'center', fontSize: 23, fontWeight: 600, paddingBottom: 6 }}>
+              <StyledDialogContent>
                 {t('notifications:unsubscribe.thank-you-msg')}
-              </DialogContent>
+              </StyledDialogContent>
             </Grid>
             <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
               <LinkButton className={classes.siteBtn} href="/">
@@ -148,19 +154,16 @@ export default function UNsubscriptionPage(data: Props) {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <React.Fragment>
-              <Grid item mt={5}>
-                <DialogContent
-                  style={{ textAlign: 'center', fontSize: 23, fontWeight: 600, paddingBottom: 6 }}>
-                  {t('notifications:unsubscribe.subscription-fail')}
-                </DialogContent>
-              </Grid>
-              <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
-                <Button className={classes.siteBtn} onClick={() => router.reload()}>
-                  {t('notifications:unsubscribe.cta-retry')}
-                </Button>
-              </StyledGrid>{' '}
-            </React.Fragment>
+            <Grid item mt={5}>
+              <StyledDialogContent>
+                {t('notifications:unsubscribe.subscription-fail')}
+              </StyledDialogContent>
+            </Grid>
+            <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
+              <Button className={classes.siteBtn} onClick={() => router.reload()}>
+                {t('notifications:unsubscribe.cta-retry')}
+              </Button>
+            </StyledGrid>{' '}
           </React.Fragment>
         )}
       </Grid>

@@ -133,7 +133,7 @@ export default function MyNotificationsTab() {
             </Typography>
             <Button
               className={classes.statusBtn}
-              style={{ opacity: user?.user.newsletter ? '80%' : '100%' }}
+              sx={{ opacity: user?.user.newsletter ? '80%' : '100%' }}
               onClick={() => setShowConfirmModal(true)}>
               {user?.user.newsletter
                 ? t('profile:myNotifications.cta.deactivate')

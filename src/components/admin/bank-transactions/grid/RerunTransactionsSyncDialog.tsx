@@ -1,4 +1,4 @@
-import { Dialog, Grid, DialogContent, DialogTitle } from '@mui/material'
+import { Dialog, Grid } from '@mui/material'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { useState } from 'react'

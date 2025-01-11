@@ -47,6 +47,15 @@ const StyledGrid = styled('div')(({ theme }) => ({
   },
 }))
 
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+  background: theme.palette.common.white,
+  width: 'calc(100% - 48px)',
+  left: '24px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  borderRadius: '0 0 13px 13px',
+}))
+
 export default function MyCampaignNotificationsTable() {
   const { t, i18n } = useTranslation()
   const { data = [] } = useUserCampaignNotificationSubscriptions()
@@ -124,15 +133,7 @@ export default function MyCampaignNotificationsTable() {
         />
       )}
       {data.length !== 0 ? (
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={data || []}
           columns={columns}
           initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}

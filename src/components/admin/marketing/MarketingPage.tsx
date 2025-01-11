@@ -3,10 +3,16 @@ import AdminContainer from 'components/common/navigation/AdminContainer'
 import AdminLayout from 'components/common/navigation/AdminLayout'
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import Link from 'next/link'
+import { styled } from '@mui/material/styles'
 import { marketingCards } from './navigation/marketingCards'
 
 const colors = ['#0179a8', '#346cb0', '#5f4b8b', '#b76ba3', '#a7c796', '#00a28a', '#3686a0']
+
+const StyledLink = styled('a')({
+  textDecoration: 'none',
+  color: 'inherit',
+})
+
 export default function MarketingPage() {
   const { t } = useTranslation('marketing')
   return (
@@ -37,7 +43,7 @@ export default function MarketingPage() {
                     },
                     border: '1px solid ' + `${colors[index % colors.length]}7A`,
                   }}>
-                  <Link href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <StyledLink href={href}>
                     <CardContent>
                       <Box textAlign="center">
                         <Icon fontSize="large" />
@@ -46,7 +52,7 @@ export default function MarketingPage() {
                         {label}
                       </Typography>
                     </CardContent>
-                  </Link>
+                  </StyledLink>
                 </Button>
               </Grid>
             ))}

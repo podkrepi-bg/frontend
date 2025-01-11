@@ -132,7 +132,7 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
               title={t('auth:register.individual-subtitle')}
               sx={{ padding: 0 }}>
               <Button
-                startIcon={<InfoIcon style={{ width: 20 }} />}
+                startIcon={<InfoIcon sx={{ width: 20 }} />}
                 sx={{
                   paddingTop: 0,
                   textTransform: 'lowercase',
@@ -174,7 +174,7 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
               title={t('auth:register.corporate-subtitle')}
               sx={{ padding: 0 }}>
               <Button
-                startIcon={<InfoIcon style={{ width: 20 }} />}
+                startIcon={<InfoIcon sx={{ width: 20 }} />}
                 sx={{
                   paddingTop: 0,
                   marginBottom: 2,

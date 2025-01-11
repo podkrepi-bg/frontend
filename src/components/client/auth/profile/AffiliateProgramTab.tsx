@@ -71,6 +71,16 @@ const Root = styled(Box)(({ theme }) => ({
   },
 }))
 
+const StyledDataGrid = styled(DataGrid<DonationResponse>)(({ theme }) => ({
+  background: theme.palette.common.white,
+  border: 'none',
+  width: 'calc(100% - 48px)',
+  left: '24px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  borderRadius: '0 0 13px 13px',
+}))
+
 type Props = {
   t: TFunction
   children: React.ReactNode
@@ -218,16 +228,7 @@ function GuaranteedDonationsTable({ affiliate }: GuaranteedDonationsTableProps) 
       <Typography className={classes.h3} sx={{ py: 1 }}>
         {t('profile:affiliate.guaranteedDonationsList')}
       </Typography>
-      <DataGrid
-        style={{
-          background: theme.palette.common.white,
-          border: 'none',
-          width: 'calc(100% - 48px)',
-          left: '24px',
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          borderRadius: '0 0 13px 13px',
-        }}
+      <StyledDataGrid
         columnVisibilityModel={{ id: false }}
         rows={affiliate.payments.flatMap((e) => e.donations) || []}
         columns={columns}

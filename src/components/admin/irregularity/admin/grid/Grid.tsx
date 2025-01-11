@@ -2,6 +2,7 @@ import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
+import { styled } from '@mui/material/styles'
 
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
@@ -9,13 +10,24 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useIrregularityList } from 'common/hooks/irregularity'
 
 import { routes } from 'common/routes'
-import theme from 'common/theme'
 import GridActions from 'components/admin/GridActions'
 
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import { ModalStore } from '../IrregularityPage'
 import { IrregularityResponse } from 'components/client/irregularity/helpers/irregularity.types'
+
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+  background: theme.palette.common.white,
+  position: 'absolute',
+  height: 'calc(100vh - 300px) !important',
+  border: 'none',
+  width: 'calc(100% - 48px)',
+  left: '24px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  borderRadius: '0 0 13px 13px',
+}))
 
 export default observer(function Grid() {
   const { t } = useTranslation('irregularity')
@@ -124,18 +136,7 @@ export default observer(function Grid() {
   return (
     <>
       <Box>
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            position: 'absolute',
-            height: 'calc(100vh - 300px)',
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={data || []}
           columns={columns}
           columnVisibilityModel={{

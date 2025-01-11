@@ -1,5 +1,4 @@
 import { styled } from '@mui/material/styles'
-import theme from 'common/theme'
 import { DialogContent, DialogTitle } from '@mui/material'
 
 export const StyledDialogContent = styled(DialogContent)({

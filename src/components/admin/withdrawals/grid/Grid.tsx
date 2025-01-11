@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
+import { styled } from '@mui/material/styles'
 
 import { routes } from 'common/routes'
 import { WithdrawalResponse } from 'gql/withdrawals'
@@ -14,7 +15,18 @@ import { ModalStore } from '../WithdrawalPage'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import { fromMoney } from 'common/util/money'
-import theme from 'common/theme'
+
+const StyledDataGrid = styled(DataGrid)`
+  background: ${({ theme }) => theme.palette.common.white};
+  position: absolute;
+  height: calc(100vh - 300px) !important;
+  border: none;
+  width: calc(100% - 48px);
+  left: 24px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 0 0 13px 13px;
+`
 
 export default observer(function Grid() {
   const { t } = useTranslation()
@@ -131,18 +143,7 @@ export default observer(function Grid() {
   return (
     <>
       <Box>
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            position: 'absolute',
-            height: 'calc(100vh - 300px)',
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={data || []}
           columns={columns}
           pageSizeOptions={[5, 10]}

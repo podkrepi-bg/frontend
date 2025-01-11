@@ -63,7 +63,7 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
   return (
     <Root
       maxWidth={false}
-      style={{ padding: theme.spacing(0) }}
+      sx={{ padding: theme.spacing(0) }}
       prevPage={
         data?.pagination.prevPage
           ? `${baseUrl}${routes.campaigns.news.listNewsPaginated(data?.pagination.prevPage, slug)}`

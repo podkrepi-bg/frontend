@@ -25,7 +25,7 @@ export const BankTransfer = () => {
   return (
     <StyledGrid container justifyContent="space-between" className={classes.firstRow}>
       <Grid item xs={12}>
-        <Typography variant="body2" style={{ fontWeight: 'bold' }}>
+        <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
           {t('about-project:association-name')}
         </Typography>
         <Typography variant="body2">{t('about-project:bank-name')}</Typography>
@@ -38,7 +38,7 @@ export const BankTransfer = () => {
               whiteSpace="nowrap"
               variant="body2"
               component="strong"
-              style={{ fontWeight: 'bold' }}>
+              sx={{ fontWeight: 'bold' }}>
               {ibanNumber}
             </Typography>
           </Grid>

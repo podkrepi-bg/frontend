@@ -139,14 +139,14 @@ export default function GroupedDonationsChart({ campaignId, startDate, endDate }
 
   return (
     <Box>
-      <Stack style={{ marginBottom: '10px' }}>
+      <Stack sx={{ marginBottom: '10px' }}>
         <Typography variant="h6">{t('campaigns:statistics.groupedTitle')}</Typography>
         <Typography variant="caption">{t('campaigns:statistics.groupedDesc')}</Typography>
       </Stack>
       <Bar options={options} data={data} />
-      <Stack style={{ marginTop: '10px' }}>
+      <Stack sx={{ marginTop: '10px' }}>
         <Typography>{t('campaigns:statistics.groupBy')}:</Typography>
-        <Stack direction="row" style={{ marginTop: '10px', gap: 10 }}>
+        <Stack direction="row" sx={{ marginTop: '10px', gap: 10 }}>
           <Button
             variant={timePeriod === StatisticsGroupBy.DAY ? 'contained' : 'outlined'}
             onClick={() => setTimePeriod(StatisticsGroupBy.DAY)}>

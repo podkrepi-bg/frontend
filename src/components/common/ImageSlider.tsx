@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles'
 import { IconButton, Modal, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import theme from 'common/theme'
-import { ImageSlider } from 'components/common/campaign-file/roles'
+import { type ImageSlider} from 'components/common/campaign-file/roles'
 import Gallery from './Gallery'
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
 
@@ -17,6 +17,7 @@ const classes = {
   slider: `${PREFIX}-slider`,
   carouselFullScreen: `${PREFIX}-fullScreen`,
   minimizeFullScreenBtn: `${PREFIX}-minimizeFullScreenBtn`,
+  singleImageContainer: `${PREFIX}-singleImageContainer`,
 }
 
 const Root = styled('div')(() => ({
@@ -109,6 +110,9 @@ const Root = styled('div')(() => ({
       fontSize: 50,
     },
   },
+  [`& .${classes.singleImageContainer}`]: {
+    textAlign: 'center',
+  },
 }))
 
 type Props = {
@@ -141,7 +145,7 @@ export function ImageSlider({ sliderImages }: Props) {
   if (sliderImages.length === 1) {
     return (
       <Root className={classes.container}>
-        <div style={{ textAlign: 'center' }}>
+        <div className={classes.singleImageContainer}>
           <Image
             src={sliderImages[0].src}
             alt={sliderImages[0].fileName}

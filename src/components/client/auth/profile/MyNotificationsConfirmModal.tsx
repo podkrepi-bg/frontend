@@ -24,6 +24,10 @@ const PREFIX = 'ProfileNotificationsModal'
 
 const classes = {
   actionBtn: `${PREFIX}-subscriptions`,
+  dialogContent: `${PREFIX}-dialogContent`,
+  closeButtonWrapper: `${PREFIX}-closeButtonWrapper`,
+  dialogTitle: `${PREFIX}-dialogTitle`,
+  successMessage: `${PREFIX}-successMessage`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -39,6 +43,31 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 }))
+
+const StyledDialogContent = styled(DialogContent)({
+  overflow: 'hidden',
+  padding: '4rem',
+  paddingTop: '1rem',
+  width: '100%',
+})
+
+const StyledCloseButtonWrapper = styled(Grid)({
+  display: 'flex',
+  justifyContent: 'end',
+  marginRight: '-4rem',
+})
+
+const StyledDialogTitle = styled(DialogTitle)({
+  textAlign: 'center',
+  width: '100%',
+})
+
+const StyledSuccessMessage = styled(DialogContent)({
+  textAlign: 'center',
+  fontSize: 20,
+  fontWeight: 600,
+  paddingBottom: 6,
+})
 
 interface ModalProps {
   type: 'subscribe' | 'unsubscribe'
@@ -107,23 +136,17 @@ export default function RenderNotificationsConfirmModal({ type, setOpen }: Modal
 
   return (
     <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
-      <DialogContent
-        style={{
-          overflow: 'hidden',
-          padding: '4rem',
-          paddingTop: '1rem',
-          width: '100%',
-        }}>
-        <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+      <StyledDialogContent>
+        <StyledCloseButtonWrapper>
           <CloseModalButton onClose={handleClose} />
-        </Grid>
+        </StyledCloseButtonWrapper>
         {!isSuccess ? (
           <React.Fragment>
-            <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
+            <StyledDialogTitle>
               {type === 'subscribe'
                 ? t('profile:myNotifications.modal.title-subscribe')
                 : t('profile:myNotifications.modal.title-unsubscribe')}
-            </DialogTitle>
+            </StyledDialogTitle>
             <Grid container direction="column" component="section">
               <GenericForm onSubmit={onSubmit} initialValues={{}}>
                 <StyledGrid container spacing={2}>
@@ -140,14 +163,13 @@ export default function RenderNotificationsConfirmModal({ type, setOpen }: Modal
             </Grid>
           </React.Fragment>
         ) : (
-          <DialogContent
-            style={{ textAlign: 'center', fontSize: 20, fontWeight: 600, paddingBottom: 6 }}>
+          <StyledSuccessMessage>
             {type === 'subscribe'
               ? t('profile:myNotifications.modal.unsubscribe-msg')
               : t('profile:myNotifications.modal.subscribe-msg')}
-          </DialogContent>
+          </StyledSuccessMessage>
         )}
-      </DialogContent>
+      </StyledDialogContent>
     </Dialog>
   )
 }

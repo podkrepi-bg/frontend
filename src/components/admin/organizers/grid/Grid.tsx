@@ -5,12 +5,24 @@ import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import GridActions from 'components/admin/GridActions'
-import theme from 'common/theme'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import { ModalStore } from '../OrganizerPage'
 import { useOrganizersList } from 'common/hooks/organizer'
 import { OrganizerResponse } from 'gql/organizer'
+import { styled } from '@mui/material/styles'
+
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+  background: theme.palette.common.white,
+  position: 'absolute',
+  height: 'calc(100vh - 300px) !important',
+  border: 'none',
+  width: 'calc(100% - 48px)',
+  left: '24px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  borderRadius: '0 0 13px 13px',
+}))
 
 export default observer(function Grid() {
   const { t } = useTranslation()
@@ -75,18 +87,7 @@ export default observer(function Grid() {
   return (
     <>
       <Box>
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            position: 'absolute',
-            height: 'calc(100vh - 300px)',
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={data || []}
           columns={columns}
           columnVisibilityModel={{

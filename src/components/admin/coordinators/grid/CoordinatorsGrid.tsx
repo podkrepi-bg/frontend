@@ -11,6 +11,13 @@ import { ModalStore } from '../CoordinatorsPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import { useTranslation } from 'next-i18next'
+import { styled } from '@mui/material/styles'
+
+const StyledMailLink = styled('a')(() => ({
+  textDecoration: 'underline',
+  color: '#0070f3',
+  cursor: 'pointer',
+}))
 
 export default function CoordinatorsGrid() {
   const { t } = useTranslation('coordinator')
@@ -47,15 +54,9 @@ export default function CoordinatorsGrid() {
       width: 250,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
-          <a
-            href={`mailto:${params.row.person.email}`}
-            style={{
-              textDecoration: 'underline',
-              color: '#0070f3',
-              cursor: 'pointer',
-            }}>
+          <StyledMailLink href={`mailto:${params.row.person.email}`}>
             {params.row.person.email}
-          </a>
+          </StyledMailLink>
         )
       },
     },
@@ -76,20 +77,21 @@ export default function CoordinatorsGrid() {
     page: 0,
   })
 
+  const StyledDataGrid = styled(DataGrid)({
+    background: theme.palette.common.white,
+    position: 'absolute',
+    height: 'calc(100vh - 300px)',
+    border: 'none',
+    width: 'calc(100% - 48px)',
+    left: '24px',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    borderRadius: '0 0 13px 13px',
+  })
+
   return (
     <>
-      <DataGrid
-        sx={{
-          background: theme.palette.common.white,
-          position: 'absolute',
-          height: 'calc(100vh - 300px)',
-          border: 'none',
-          width: 'calc(100% - 48px)',
-          left: '24px',
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          borderRadius: '0 0 13px 13px',
-        }}
+      <StyledDataGrid
         rows={data || []}
         columns={columns}
         pageSizeOptions={[5, 10]}

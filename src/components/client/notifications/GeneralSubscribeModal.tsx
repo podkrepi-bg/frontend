@@ -28,6 +28,7 @@ const PREFIX = 'GeneralSubscribeModal'
 
 const classes = {
   subscribeBtn: `${PREFIX}-subscribe`,
+  dialogContent: `${PREFIX}-dialogContent`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -41,6 +42,17 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     '& svg': {
       color: '#ab2f26',
     },
+  },
+}))
+
+const StyledDialogContent = styled(DialogContent)(({ theme }) => ({
+  [`&.${classes.dialogContent}`]: {
+    overflow: 'hidden',
+    padding: theme.spacing(6),
+    paddingTop: theme.spacing(2),
+    width: '100%',
+    display: 'grid',
+    justifyItems: 'center',
   },
 }))
 
@@ -156,19 +168,11 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
   if (!isGuest) {
     return (
       <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
-        <DialogContent
-          style={{
-            overflow: 'hidden',
-            padding: '3rem',
-            paddingTop: '1rem',
-            width: '100%',
-            display: 'grid',
-            justifyItems: 'center',
-          }}>
+        <StyledDialogContent className={classes.dialogContent}>
           <CloseModalButton onClose={handleClose} />
           <React.Fragment>
             <EmailIcon color="primary" sx={{ fontSize: theme.typography.pxToRem(64) }} />
-            <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
+            <DialogTitle sx={{ textAlign: 'center', width: '100%' }}>
               {t('common:notifications.subscribe-title')}
             </DialogTitle>
             <Grid container direction="column" component="section">
@@ -223,26 +227,18 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
               </StyledGrid>
             </Grid>
           </React.Fragment>
-        </DialogContent>
+        </StyledDialogContent>
       </Dialog>
     )
   } else {
     return (
       <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
-        <DialogContent
-          style={{
-            overflow: 'hidden',
-            padding: '3rem',
-            paddingTop: '1rem',
-            width: '100%',
-            display: 'grid',
-            justifyItems: 'center',
-          }}>
+        <StyledDialogContent className={classes.dialogContent}>
           <CloseModalButton onClose={handleClose} />
           {!isSuccess ? (
             <React.Fragment>
               <EmailIcon color="primary" sx={{ fontSize: theme.typography.pxToRem(64) }} />
-              <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
+              <DialogTitle sx={{ textAlign: 'center', width: '100%' }}>
                 {t('common:notifications.subscribe-title')}
               </DialogTitle>
               <Grid container direction="column" component="section" sx={{ textAlign: 'center' }}>
@@ -251,14 +247,14 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
             </React.Fragment>
           ) : (
             <DialogContent
-              style={{ textAlign: 'center', fontSize: 20, fontWeight: 600, paddingBottom: 6 }}>
+              sx={{ textAlign: 'center', fontSize: 20, fontWeight: 600, paddingBottom: 6 }}>
               <CloseModalButton onClose={handleClose} />
               <React.Fragment>
                 <ThumbUpIcon sx={{ fontSize: theme.typography.pxToRem(64), color: '#03C03C' }} />
                 <DialogTitle>
                   <Typography
                     variant="h5"
-                    style={{ textAlign: 'center', width: '100%', color: '#03C03C' }}>
+                    sx={{ textAlign: 'center', width: '100%', color: '#03C03C' }}>
                     {t('common:notifications.confirm-subscribe')}
                   </Typography>
                 </DialogTitle>
@@ -272,7 +268,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
               </React.Fragment>
             </DialogContent>
           )}
-        </DialogContent>
+        </StyledDialogContent>
       </Dialog>
     )
   }

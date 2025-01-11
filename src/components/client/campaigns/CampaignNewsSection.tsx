@@ -239,7 +239,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                           item
                           gap={1}
                           xs="auto"
-                          style={{ maxWidth: '40%' }}
+                          sx={{ maxWidth: '40%' }}
                           wrap="nowrap">
                           <SupervisedUserCircleOutlinedIcon color="action" />
                           <Typography className={classes.articleAuthor}>

@@ -101,7 +101,7 @@ export default function HourlyDonationsChart({ campaignId }: Props) {
 
   return (
     <Box>
-      <Stack style={{ marginBottom: '10px' }}>
+      <Stack sx={{ marginBottom: '10px' }}>
         <Typography variant="h6">{t('campaigns:statistics.hourlyTitle')}</Typography>
         <Typography variant="caption">{t('campaigns:statistics.hourlyDesc')}</Typography>
       </Stack>

@@ -3,6 +3,7 @@ import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { IconButton, Tooltip, Box } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { styled } from '@mui/material/styles'
 
 import { RecurringDonationResponse } from 'gql/recurring-donation'
 import { useAllRecurringDonations } from 'common/hooks/recurringDonation'
@@ -20,7 +21,18 @@ import { authConfig } from 'service/restRequests'
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import EditIcon from '@mui/icons-material/Edit'
 import { routes } from 'common/routes'
-import theme from 'common/theme'
+
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+  background: theme.palette.common.white,
+  position: 'absolute',
+  height: 'calc(100vh - 300px) !important',
+  border: 'none',
+  width: 'calc(100% - 48px)',
+  left: '24px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  borderRadius: '0 0 13px 13px',
+}))
 
 export default function Grid() {
   const { t } = useTranslation('recurring-donation')
@@ -133,18 +145,7 @@ export default function Grid() {
   return (
     <>
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            position: 'absolute',
-            height: 'calc(100vh - 300px)',
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={data || []}
           columns={columns}
           pageSizeOptions={[5, 10]}

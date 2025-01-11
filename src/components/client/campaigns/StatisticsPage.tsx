@@ -30,14 +30,14 @@ export default function StatisticsPage({ slug }: Props) {
         <Link href={routes.campaigns.viewCampaignBySlug(slug)}>
           <Typography>{t('campaigns:statistics.backButton')}</Typography>
         </Link>
-        <Stack style={{ marginBottom: '30px' }}>
+        <Stack sx={{ marginBottom: '30px' }}>
           <Typography variant="h4" component="h1">
             {campaignTitle}
           </Typography>
           <Typography variant="caption">{t('campaigns:statistics.cachedMessage')}</Typography>
         </Stack>
         {hasDonations && (
-          <Stack style={{ gap: 50 }}>
+          <Stack sx={{ gap: 50 }}>
             <CumulativeDonationsChart
               campaignId={campaign.id}
               startDate={campaign.startDate}

@@ -10,6 +10,7 @@ import {
   CardContent,
   CircularProgress,
 } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import { useRefundStripeDonation } from 'service/donation'
 import { AlertStore } from 'stores/AlertStore'
 import { UseQueryResult, useMutation } from '@tanstack/react-query'
@@ -58,6 +59,18 @@ export default observer(function RefundModal() {
     refundMutation.mutate(values.extPaymentIntentId)
   }
 
+  const StyledDialogContent = styled(DialogContent)({
+    overflow: 'hidden',
+    padding: '2rem',
+    width: '100%',
+  })
+
+  const StyledDialogTitle = styled(DialogTitle)({
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+  })
+
   return (
     <Dialog
       open={isRefundOpen}
@@ -65,18 +78,11 @@ export default observer(function RefundModal() {
       sx={{ scroll: 'none' }}
       fullWidth={true}
       maxWidth={'sm'}>
-      <DialogContent
-        style={{
-          overflow: 'hidden',
-          padding: '2rem',
-          width: '100%',
-        }}>
-        <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+      <StyledDialogContent>
+        <Grid sx={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
           <CloseModalButton href={''} onClose={hideRefund} />
         </Grid>
-        <DialogTitle style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-          {t('refund.title')}
-        </DialogTitle>
+        <StyledDialogTitle>{t('refund.title')}</StyledDialogTitle>
         <Grid container direction="column" component="section">
           <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
             <CardContent>
@@ -101,7 +107,7 @@ export default observer(function RefundModal() {
             </CardContent>
           </GenericForm>
         </Grid>
-      </DialogContent>
+      </StyledDialogContent>
     </Dialog>
   )
 })

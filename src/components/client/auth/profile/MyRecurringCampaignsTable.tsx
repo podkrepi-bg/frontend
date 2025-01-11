@@ -18,6 +18,17 @@ import { useGetUserRecurringDonations } from 'common/hooks/recurringDonation'
 import Link from 'components/common/Link'
 import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
+import { styled } from '@mui/material/styles'
+
+const StyledDataGrid = styled(DataGrid)({
+  background: theme.palette.common.white,
+  border: 'none',
+  width: 'calc(100% - 48px)',
+  left: '24px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  borderRadius: '0 0 13px 13px',
+})
 
 export default function MyRecurringCampaignsTable() {
   const { t } = useTranslation()
@@ -122,16 +133,7 @@ export default function MyRecurringCampaignsTable() {
   return (
     <>
       {recurringDonations && recurringDonations.length !== 0 ? (
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={recurringDonations || []}
           columns={columns}
           initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}

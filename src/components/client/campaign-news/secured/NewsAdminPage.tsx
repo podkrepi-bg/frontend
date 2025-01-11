@@ -36,6 +36,10 @@ const Root = styled(Layout)({
   },
 })
 
+const StyledSpan = styled('span')({
+  overflow: 'visible',
+})
+
 type Props = {
   slug: string
   isAdmin: boolean
@@ -66,7 +70,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
       flex: 1,
       minWidth: 200,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return <span style={{ overflow: 'visible' }}>{params.row.title}</span>
+        return <StyledSpan>{params.row.title}</StyledSpan>
       },
     },
     {

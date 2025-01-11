@@ -1,10 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { Tooltip, Button, Box } from '@mui/material'
+import { styled } from '@mui/material/styles'
 
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
 import { money } from 'common/util/money'
-import theme from 'common/theme'
 import { useUserDonationsCampaigns } from 'common/hooks/campaigns'
 import Link from 'components/common/Link'
 import {
@@ -13,6 +13,16 @@ import {
   DisplayOrganizer,
   DisplayReachedAmount,
 } from 'components/admin/campaigns/grid/CampaignGrid'
+
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+  background: theme.palette.common.white,
+  border: 'none',
+  width: 'calc(100% - 48px)',
+  left: '24px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  borderRadius: '0 0 13px 13px',
+}))
 
 export default function MyDonatedToCampaignTable() {
   const { t, i18n } = useTranslation()
@@ -179,16 +189,7 @@ export default function MyDonatedToCampaignTable() {
   return (
     <>
       {data.length !== 0 ? (
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={data || []}
           columns={columns}
           initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}

@@ -4,16 +4,28 @@ import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
+import { styled } from '@mui/material/styles'
 
 import { routes } from 'common/routes'
 import { DocumentResponse } from 'gql/document'
 import GridActions from 'components/admin/GridActions'
 import { useDocumentsList } from 'common/hooks/documents'
-import theme from 'common/theme'
 
 import { ModalStore } from '../DocumentsPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
+
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+  background: theme.palette.common.white,
+  position: 'absolute',
+  height: 'calc(100vh - 300px) !important',
+  border: 'none',
+  width: 'calc(100% - 48px)',
+  left: '24px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  borderRadius: '0 0 13px 13px',
+}))
 
 export default observer(function Grid() {
   const [paginationModel, setPaginationModel] = useState({
@@ -84,18 +96,7 @@ export default observer(function Grid() {
   return (
     <>
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            position: 'absolute',
-            height: 'calc(100vh - 300px)',
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={data || []}
           columns={columns}
           pageSizeOptions={[5, 10]}

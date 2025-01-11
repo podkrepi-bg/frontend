@@ -14,7 +14,19 @@ import { ModalStore } from '../TransferPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import { fromMoney } from 'common/util/money'
-import theme from 'common/theme'
+import { styled } from '@mui/material/styles'
+
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+  background: theme.palette.common.white,
+  position: 'absolute',
+  height: 'calc(100vh - 300px) !important',
+  border: 'none',
+  width: 'calc(100% - 48px)',
+  left: '24px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  borderRadius: '0 0 13px 13px',
+}))
 
 export default observer(function Grid() {
   const { t } = useTranslation('transfer')
@@ -128,18 +140,7 @@ export default observer(function Grid() {
   return (
     <>
       <Box>
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            position: 'absolute',
-            height: 'calc(100vh - 300px)',
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={data || []}
           columns={columns}
           columnVisibilityModel={{

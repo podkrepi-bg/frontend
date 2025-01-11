@@ -99,19 +99,13 @@ export default function SingleArticlePage({ slug }: Props) {
                 {formatDateString(article.publishedAt, i18n?.language)}
               </Typography>
             </Grid>
-            <Grid container item gap={1} xs="auto" style={{ maxWidth: '100%' }} wrap="nowrap">
+            <Grid container item gap={1} xs="auto" sx={{ maxWidth: '100%' }} wrap="nowrap">
               <SupervisedUserCircleOutlinedIcon color="primary" />
               <Typography className={classes.articleAuthor}>{article.author}</Typography>
             </Grid>
           </Grid>
           <Grid container rowGap={1} columnGap={4}>
-            <Grid
-              container
-              item
-              direction={'column'}
-              gap={1}
-              xs={'auto'}
-              style={{ maxWidth: '100%' }}>
+            <Grid container item direction={'column'} gap={1} xs={'auto'} sx={{ maxWidth: '100%' }}>
               <Typography className={classes.articleHeader}>{article.title}</Typography>
               <Grid container item>
                 <QuillStypeWrapper>
@@ -140,7 +134,7 @@ export default function SingleArticlePage({ slug }: Props) {
                 ))}
               </Grid>
             </Grid>
-            <Grid container item gap={1} xs={'auto'} style={{ maxWidth: '100%' }}>
+            <Grid container item gap={1} xs={'auto'} sx={{ maxWidth: '100%' }}>
               {images.map((file) => (
                 <Grid item key={file.id}>
                   <Image src={file.src} width={220} height={120} alt={file.id} />
