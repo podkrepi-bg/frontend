@@ -1,4 +1,4 @@
-import { Divider, Grid, Stack, Typography } from '@mui/material'
+import { Grid, Stack, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
@@ -17,7 +17,6 @@ export const SubtitleSectionNumber = styled(Typography)(() => ({
 
   [theme.breakpoints.up('md')]: {
     fontSize: theme.typography.pxToRem(50),
-    marginTop: theme.spacing(1),
   },
 }))
 
@@ -27,11 +26,7 @@ export const Fraction = styled(Typography)(() => ({
   fontWeight: 'bold',
   lineHeight: 1,
   fontSize: theme.typography.pxToRem(20),
-  marginTop: theme.spacing(1),
-
-  [theme.breakpoints.up('md')]: {
-    marginTop: theme.spacing(1.87),
-  },
+  marginTop: theme.spacing(0.8),
 }))
 
 export const StatisticsWrapper = styled(Stack)(() => ({
@@ -71,8 +66,4 @@ export const SubtitleSectionText = styled(Typography)(() => ({
   display: 'inline-block',
   marginLeft: theme.spacing(2),
   fontSize: theme.typography.pxToRem(16),
-}))
-
-export const SectionDivider = styled(Divider)(() => ({
-  marginBottom: theme.spacing(1),
 }))

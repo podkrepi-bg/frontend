@@ -16,7 +16,7 @@ export const Root = styled('section')(() => ({
 export const SectionGridWrapper = styled(Grid)(() => ({
   display: 'flex',
   margin: '0 auto',
-  padding: theme.spacing(0, 1.8),
+  padding: theme.spacing(4, 1.8),
   maxWidth: theme.spacing(162),
   alignItems: 'center',
 
