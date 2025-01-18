@@ -47,7 +47,7 @@ export default function CampaignApplicationBasic() {
           <StyledFormTextField
             label={t('steps.application.beneficiaryRelationship')}
             type="text"
-            name="applicationDetails.organizerBeneficiaryRelationship"
+            name="applicationBasic.organizerBeneficiaryRelationship"
           />
         </Grid>
         <Grid item xs={12}>

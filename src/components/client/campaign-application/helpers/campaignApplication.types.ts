@@ -26,13 +26,14 @@ export type CampaignApplicationBasic = {
   funds: number
   campaignEnd: string
   campaignEndDate?: string
+  organizerBeneficiaryRelationship?: string
 }
 
 export type CampaignApplicationDetails = {
   cause: string
-  organizerBeneficiaryRelationship?: string
   description?: string
   currentStatus?: string
+  documents?: File[]
 }
 
 // keep in sync with api repo/podkrepi.dbml -> Enum CampaignApplicationState
