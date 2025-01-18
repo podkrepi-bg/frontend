@@ -84,7 +84,7 @@ export default function CampaignApplicationForm({
 
   const handleSubmit = async (
     formData: CampaignApplicationFormData,
-    { resetForm }: FormikHelpers<CampaignApplicationFormData>,
+    { resetForm, setTouched }: FormikHelpers<CampaignApplicationFormData>,
   ) => {
     if (activeStep === Steps.CREATED_DETAILS && camApp?.id != null) {
       router.push(routes.campaigns.applicationEdit(camApp?.id)) // go to the edit page
@@ -100,6 +100,26 @@ export default function CampaignApplicationForm({
       }
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
+
+      // reset the touched state b/c every step gets "submitted" in terms of formik and that in turn marks all values as touched
+      // the effect is that every step after the first immediately marks all required fields as errored even before the user has touched them
+      setTouched({
+        applicationDetails: {
+          description: false,
+          currentStatus: false,
+          cause: false,
+          documents: false,
+        },
+        applicationBasic: {
+          beneficiaryNames: false,
+          title: false,
+          campaignType: false,
+          funds: false,
+          campaignEnd: false,
+          campaignEndDate: false,
+          organizerBeneficiaryRelationship: false,
+        },
+      })
     }
   }
 

@@ -261,12 +261,12 @@ export function mapExistingOrNew(
       funds: isNaN(parseInt(existing?.amount ?? '')) ? 0 : parseInt(existing?.amount ?? '0'),
       campaignEnd: existing?.campaignEnd ?? CampaignEndTypes.FUNDS,
       campaignEndDate: existing?.campaignEndDate,
+      organizerBeneficiaryRelationship: existing?.organizerBeneficiaryRel ?? '',
     },
     applicationDetails: {
       cause: existing?.goal ?? '',
       currentStatus: existing?.history ?? '',
       description: existing?.description ?? '',
-      organizerBeneficiaryRelationship: existing?.organizerBeneficiaryRel ?? '',
     },
     admin: {
       archived: existing?.archived ?? false,
@@ -292,7 +292,7 @@ export function mapCreateOrEditInput(i: CampaignApplicationFormData): CampaignAp
     amount: i.applicationBasic.funds?.toString() ?? '',
     goal: i.applicationDetails.cause,
     description: i.applicationDetails.description,
-    organizerBeneficiaryRel: i.applicationDetails.organizerBeneficiaryRelationship ?? '-',
+    organizerBeneficiaryRel: i.applicationBasic.organizerBeneficiaryRelationship ?? '-',
     history: i.applicationDetails.currentStatus,
     campaignEnd: i.applicationBasic.campaignEnd,
     campaignEndDate: i.applicationBasic.campaignEndDate,

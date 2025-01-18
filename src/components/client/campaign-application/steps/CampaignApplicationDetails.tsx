@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material'
+import { FormControl, FormHelperText, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import FormTextField from 'components/common/form/FormTextField'
@@ -6,7 +6,9 @@ import { StyledStepHeading } from '../helpers/campaignApplication.styled'
 
 import FileList from 'components/common/file-upload/FileList'
 import FileUpload from 'components/common/file-upload/FileUpload'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
+import { useFormikContext } from 'formik'
+import { CampaignApplicationFormData } from '../helpers/campaignApplication.types'
 
 export type Props = {
   files: File[]
@@ -15,6 +17,11 @@ export type Props = {
 
 export default function CampaignApplicationDetails({ files, setFiles }: Props) {
   const { t } = useTranslation('campaign-application')
+  const { setFieldValue, errors, touched } = useFormikContext<CampaignApplicationFormData>()
+
+  useEffect(() => {
+    setFieldValue('applicationDetails.documents', files, false)
+  }, [files])
 
   return (
     <Grid container spacing={6} justifyContent="center" direction="column" alignContent="center">
@@ -51,13 +58,20 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
           />
         </Grid>
         <Grid item xs={12}>
-          <FileUpload
-            buttonLabel={t('steps.details.documents')}
-            onUpload={(newFiles) => {
-              setFiles((prevFiles) => [...prevFiles, ...newFiles])
-            }}
-            accept="text/plain,application/json,application/pdf,image/png,image/jpeg,application/xml,text/xml,application/msword,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-          />
+          <FormControl>
+            <Typography variant="h6">{t('steps.details.documents-hint')}</Typography>
+            <FileUpload
+              buttonLabel={t('steps.details.documents')}
+              onUpload={(newFiles) => {
+                setFiles((prevFiles) => [...prevFiles, ...newFiles])
+                setFieldValue('applicationDetails.documents', newFiles)
+              }}
+              accept="text/plain,application/json,application/pdf,image/png,image/jpeg,application/xml,text/xml,application/msword,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            />
+            {touched.applicationDetails?.documents && errors.applicationDetails?.documents && (
+              <FormHelperText error>{t('steps.details.documents-hint')}</FormHelperText>
+            )}
+          </FormControl>
           <Typography>{t('steps.details.disclaimer')}</Typography>
           <FileList
             files={files}

@@ -31,6 +31,7 @@ const basicSchema: yup.SchemaOf<CampaignApplicationBasic> = yup.object().shape({
   funds: yup.number().required(),
   title: yup.string().required(),
   campaignEndDate: yup.string().optional(),
+  organizerBeneficiaryRelationship: yup.string().required(),
 })
 
 const detailsSchema: yup.SchemaOf<CampaignApplicationDetails> = yup.object().shape({
@@ -38,9 +39,8 @@ const detailsSchema: yup.SchemaOf<CampaignApplicationDetails> = yup.object().sha
   campaignGuarantee: yup.string().optional(),
   currentStatus: yup.string().optional(),
   description: yup.string().optional(),
-  documents: yup.array().optional(),
+  documents: yup.array().min(1, 'documents-hint').required(),
   links: yup.array().optional(),
-  organizerBeneficiaryRelationship: yup.string().optional(),
   otherFinancialSources: yup.string().optional(),
 })
 
