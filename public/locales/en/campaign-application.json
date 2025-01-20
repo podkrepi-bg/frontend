@@ -41,7 +41,8 @@
       },
       "photos": "Photo/Video material",
       "documents": "Documents",
-      "disclaimer": "Up to 10 documents accepted. Each of the documents can be up to 30MB is size"
+      "disclaimer": "Up to 10 documents accepted. Each of the documents can be up to 30MB is size",
+      "documents-hint": "Please attach at least one document to stake your claim like: medical documents, offers for repair learning or healthcare, letters from institutions, detailed budget, offers for required items or services, as well as any other documents to do with your cause."
     },
     "admin": {
       "title": "Admin edit",

@@ -6,7 +6,7 @@ import { routes } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'
 import CheckboxField, { CheckboxFieldProps } from 'components/common/form/CheckboxField'
 
-export type AcceptGDPRFieldProps = {
+export type AcceptGDPRFieldProps = Omit<CheckboxFieldProps, 'label'> & {
   name: string
   showFieldError?: boolean
   disabled?: boolean

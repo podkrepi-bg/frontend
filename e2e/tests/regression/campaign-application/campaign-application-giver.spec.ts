@@ -13,7 +13,7 @@ test.describe('Campaign application giver', () => {
 
     // assert
     const t = await textLocalized().campaign.bg()
-    await expect(page.getByRole('heading')).toHaveText(t.steps.organizer.title)
+    await expect(page.getByRole('heading', { name: t.steps.organizer.title })).toBeVisible()
 
     await page.getByRole('checkbox').first().click()
     await page.getByRole('checkbox').nth(1).click()
@@ -22,7 +22,7 @@ test.describe('Campaign application giver', () => {
     await page.getByRole('button', { name: t.cta.next }).click()
 
     // assert
-    await expect(page.getByRole('heading')).toHaveText(t.steps.application.title)
+    await expect(page.getByRole('heading', { name: t.steps.application.title })).toBeVisible()
   })
 
   test('should see the second step -application - of create campaign application wizard and after filling in the beneficiary, relations, title, type and funds go to step 3', async ({
@@ -55,7 +55,7 @@ test.describe('Campaign application giver', () => {
     await page.getByRole('button', { name: t.cta.next }).click()
 
     // assert
-    await expect(page.getByRole('heading')).toHaveText(t.steps.details.title)
+    await expect(page.getByRole('heading', { name: t.steps.details.title })).toBeVisible()
   })
 
   test('should see the third step - details - of create campaign application wizard and after filling the title, description, history and 2 files be able to create a new campaign application', async ({
