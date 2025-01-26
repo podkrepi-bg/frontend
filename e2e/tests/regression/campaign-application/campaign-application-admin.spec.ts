@@ -165,6 +165,6 @@ function camAppForEdit(): CampaignApplicationExisting {
     acceptTermsAndConditions: true,
     transparencyTermsAccepted: true,
     personalInformationProcessingAccepted: true,
-    documents: [],
+    documents: [{ filename: 'test.me', id: 'test.me' }],
   }
 }

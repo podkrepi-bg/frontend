@@ -1,12 +1,14 @@
 import { useTranslation } from 'next-i18next'
 
-import { FormControl, Grid, Typography } from '@mui/material'
+import { FormControl, FormHelperText, Grid, Typography } from '@mui/material'
 
 import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import { StyledStepHeading, StyledFormTextField } from '../helpers/campaignApplication.styled'
+import { useFormikContext } from 'formik'
+import { CampaignApplicationFormData } from '../helpers/campaignApplication.types'
 
 type Props = {
   isAdmin?: boolean
@@ -14,6 +16,7 @@ type Props = {
 
 export default function CampaignApplicationOrganizer({ isAdmin }: Props) {
   const { t } = useTranslation('campaign-application')
+  const { errors, touched } = useFormikContext<CampaignApplicationFormData>()
 
   return (
     <Grid container spacing={6} justifyContent="center" direction="column" alignContent="center">
@@ -68,6 +71,12 @@ export default function CampaignApplicationOrganizer({ isAdmin }: Props) {
             name="organizer.personalInformationProcessingAccepted"
             disabled={isAdmin}
           />
+          {touched.organizer?.personalInformationProcessingAccepted &&
+            errors.organizer?.personalInformationProcessingAccepted && (
+              <FormHelperText error>
+                {t(errors.organizer.personalInformationProcessingAccepted)}
+              </FormHelperText>
+            )}
         </Grid>
       </Grid>
     </Grid>
