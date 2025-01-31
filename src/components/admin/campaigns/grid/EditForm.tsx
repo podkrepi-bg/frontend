@@ -85,11 +85,8 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
   })
 
 const statesForDisableCurrencySelect = [
-  CampaignState.rejected,
   CampaignState.suspended,
   CampaignState.complete,
-  CampaignState.disabled,
-  CampaignState.error,
   CampaignState.deleted,
   CampaignState.active,
 ]
