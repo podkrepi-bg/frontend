@@ -1,7 +1,17 @@
 import React from 'react'
 
 import { Delete, UploadFile } from '@mui/icons-material'
-import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import {
+  Avatar,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Tooltip,
+} from '@mui/material'
+
+import { formatFileName } from './formatFileName'
 
 type Props = {
   files: File[]
@@ -24,8 +34,10 @@ function FileList({ files, onDelete }: Props) {
               <UploadFile />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={file.type} />
-          <ListItemText primary={file.name} />
+          <ListItemText primary={file.type} sx={{ maxWidth: '300px' }} />
+          <Tooltip title={file.name}>
+            <ListItemText primary={formatFileName(file.name)} />
+          </Tooltip>
         </ListItem>
       ))}
     </List>
