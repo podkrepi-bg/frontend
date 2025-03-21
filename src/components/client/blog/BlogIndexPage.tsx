@@ -2,13 +2,7 @@ import React from 'react'
 import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { PostsOrPages, Pagination as GhostPagination } from '@tryghost/content-api'
-import {
-  Container,
-  Stack,
-  Typography,
-  Unstable_Grid2 as Grid2,
-  PaginationItem,
-} from '@mui/material'
+import { Container, Stack, Typography, Grid2, PaginationItem } from '@mui/material'
 import Pagination from '@mui/material/Pagination'
 
 import theme from 'common/theme'
@@ -38,9 +32,9 @@ export default function BlogIndexPage({ posts, pagination }: Props) {
       <Container maxWidth="lg">
         <Grid2 container rowSpacing={2} columnSpacing={2}>
           {posts.map((post) => (
-            <Grid2 key={post.id} xs={12} sm={6} md={4}>
+            <Grid2 key={post.id} size={{ xs: 12, sm: 6, md: 4 }}>
               <Grid2 container direction="column" spacing={2}>
-                <Grid2 xs={12}>
+                <Grid2 size={{ xs: 12 }}>
                   <NextLink href={routes.blog.postBySlug(post.slug)}>
                     <FeaturedImage
                       height="18rem"
@@ -53,7 +47,7 @@ export default function BlogIndexPage({ posts, pagination }: Props) {
                     />
                   </NextLink>
                 </Grid2>
-                <Grid2 xs={12}>
+                <Grid2 size={{ xs: 12 }}>
                   <Stack direction="column" spacing={2}>
                     <Link href={routes.blog.postBySlug(post.slug)}>
                       <Typography
@@ -74,7 +68,7 @@ export default function BlogIndexPage({ posts, pagination }: Props) {
             </Grid2>
           ))}
         </Grid2>
-        <Grid2 xs={12}>
+        <Grid2 size={{ xs: 12 }}>
           {pages > 1 && (
             <Pagination
               count={pages}

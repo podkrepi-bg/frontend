@@ -12,6 +12,8 @@ import { Button, Grid, Tooltip } from '@mui/material'
 import FilePresentIcon from '@mui/icons-material/FilePresent'
 import Link from 'next/link'
 import { expenseFileUrl } from 'common/util/expenseFileUrls'
+import { getExactDate } from 'common/util/date'
+import { bg, enUS } from 'date-fns/locale'
 
 const PREFIX = 'Grid'
 
@@ -43,12 +45,13 @@ const Root = styled(Grid)({
 })
 
 export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
-  const { t } = useTranslation('')
+  const { t, i18n } = useTranslation('')
   const { data: expensesList } = useCampaignApprovedExpensesList(slug)
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 20,
     page: 0,
   })
+  const locale = i18n?.language == 'bg' ? bg : enUS
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID' },
@@ -96,8 +99,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
         if (!params.row.spentAt) {
           return ''
         }
-
-        return new Date(params.row.spentAt).toLocaleDateString()
+        return getExactDate(params.row.spentAt, locale)
       },
     },
     {

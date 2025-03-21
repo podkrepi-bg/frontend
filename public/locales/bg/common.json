@@ -83,6 +83,10 @@
         "youtube": "YouTube",
         "instagram": "Instagram"
       }
+    },
+    "social-share": {
+      "share": "Сподели в",
+      "copy": "Копирай линка"
     }
   },
   "or": "или",
@@ -99,6 +103,7 @@
     "email": "Имейл"
   },
   "cta": {
+    "share": "Сподели",
     "more-information": "Повече информация"
   },
   "notifications": {
@@ -129,6 +134,12 @@
     "email-descriptive": "Въведи email адрес",
     "agree-with-newsletter": "Съгласявам се да получавам известия.",
     "agree-with-newsletter-campaign": "Съгласявам се да получавам новини за тази кампания и известия от Подкрепи.бг."
+  },
+  "files": {
+    "attached-files": "Прикачени файлове",
+    "download": "Изтегляне",
+    "errorDeletingFile": "Грешка при изтриване на файл",
+    "deletedFile": "Успешно изтрит файл"
   },
   "cookieConsent": "Подкрепи.бг не използва бисквитки, освен тези от трети страни, нужни за аналитичните компоненти Google Analytics и HotJar. Приемането на бисквитките ще ни помогне да подобрим вашето потребителско преживяване.",
   "cookieConsentButton": "Приемам",

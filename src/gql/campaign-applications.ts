@@ -1,6 +1,4 @@
-import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
-
-export interface CreateCampaignApplicationInput {
+export interface CampaignApplicationRequest {
   /**
    * What would the campaign be called. ('Help Vesko' or 'Castrate Plovdiv Cats')
    */
@@ -28,7 +26,7 @@ export interface CreateCampaignApplicationInput {
   beneficiary: string
 
   /** What is the relationship between the Organizer and the Beneficiary ('They're my elderly relative and I'm helping with the internet-computer stuff') */
-  organizerBeneficiaryRel: string
+  organizerBeneficiaryRel?: string
 
   /** What is the result that the collected donations will help achieve */
   goal: string
@@ -51,10 +49,20 @@ export interface CreateCampaignApplicationInput {
   /** Anything that the operator needs to know about the campaign */
   otherNotes?: string
 
-  category?: CampaignTypeCategory
+  /** when does the campaign end - funds gathered, ongoing (no end), or specific date , */
+  campaignEnd: string
+
+  /** specific date of the if applicable */
+  campaignEndDate?: string
+
+  campaignTypeId?: string
+
+  state?: string
+  ticketURL?: string
+  archived?: boolean
 }
 
-export type CreateCampaignApplicationResponse = CreateCampaignApplicationInput & {
+export type CampaignApplicationResponse = CampaignApplicationRequest & {
   id: string
 }
 
@@ -63,4 +71,19 @@ export interface UploadCampaignApplicationFilesRequest {
   files: File[]
 }
 
-export type UploadCampaignApplicationFilesResponse = unknown
+export type UploadCampaignApplicationFilesResponse = {
+  id: string
+  filename: string
+}
+
+export type CampaignApplicationExisting = CampaignApplicationResponse & {
+  documents: Array<{
+    id: string
+    filename: string
+  }>
+}
+
+export interface CampaignApplicationAdminResponse extends CampaignApplicationResponse {
+  updatedAt?: string
+  createdAt: string
+}

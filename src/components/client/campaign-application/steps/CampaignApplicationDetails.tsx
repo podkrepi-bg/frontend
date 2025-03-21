@@ -1,13 +1,14 @@
-import { Grid, Typography } from '@mui/material'
+import { FormControl, FormHelperText, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import FormTextField from 'components/common/form/FormTextField'
 import { StyledStepHeading } from '../helpers/campaignApplication.styled'
 
-import theme from 'common/theme'
 import FileList from 'components/common/file-upload/FileList'
 import FileUpload from 'components/common/file-upload/FileUpload'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
+import { useFormikContext } from 'formik'
+import { CampaignApplicationFormData } from '../helpers/campaignApplication.types'
 
 export type Props = {
   files: File[]
@@ -16,6 +17,11 @@ export type Props = {
 
 export default function CampaignApplicationDetails({ files, setFiles }: Props) {
   const { t } = useTranslation('campaign-application')
+  const { setFieldValue, errors, touched } = useFormikContext<CampaignApplicationFormData>()
+
+  useEffect(() => {
+    setFieldValue('applicationDetails.documents', files, false)
+  }, [files])
 
   return (
     <Grid container spacing={6} justifyContent="center" direction="column" alignContent="center">
@@ -26,7 +32,7 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
         <Grid item xs={12}>
           <FormTextField
             type="text"
-            name="details.description"
+            name="applicationDetails.description"
             label={t('steps.details.description')}
             multiline
             rows={3}
@@ -35,7 +41,7 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
         <Grid item xs={12}>
           <FormTextField
             type="text"
-            name="details.currentStatus"
+            name="applicationDetails.currentStatus"
             label={t('steps.details.current-status.label')}
             placeholder={t('steps.details.current-status.placeholder')}
             multiline
@@ -45,58 +51,28 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
         <Grid item xs={12}>
           <FormTextField
             type="text"
-            name="details.cause"
+            name="applicationDetails.cause"
             label={t('steps.details.cause')}
             multiline
             rows={3}
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography sx={{ fontSize: theme.typography.pxToRem(16), paddingBottom: 2 }}>
-            {t('steps.details.links.label')}
-          </Typography>
-          <Grid container item spacing={2} xs={12}>
-            <Grid item xs={12}>
-              <FormTextField
-                type="text"
-                name="details.links.website"
-                label=""
-                placeholder={t('steps.details.links.fields.website')}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormTextField
-                type="text"
-                name="details.links.media"
-                label=""
-                placeholder={t('steps.details.links.fields.media')}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormTextField
-                type="text"
-                name="details.links.facebook"
-                label=""
-                placeholder={t('steps.details.links.fields.facebook')}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormTextField
-                type="text"
-                name="details.links.donationPlatform"
-                label=""
-                placeholder={t('steps.details.links.fields.donation-platforms')}
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <FileUpload
-            buttonLabel={t('steps.details.documents')}
-            onUpload={(newFiles) => {
-              setFiles((prevFiles) => [...prevFiles, ...newFiles])
-            }}
-          />
+          <FormControl>
+            <Typography variant="h6">{t('steps.details.documents-hint')}</Typography>
+            <FileUpload
+              buttonLabel={t('steps.details.documents')}
+              onUpload={(newFiles) => {
+                setFiles((prevFiles) => [...prevFiles, ...newFiles])
+                setFieldValue('applicationDetails.documents', newFiles)
+              }}
+              accept="text/plain,application/json,application/pdf,image/png,image/jpeg,application/xml,text/xml,application/msword,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            />
+            {touched.applicationDetails?.documents && errors.applicationDetails?.documents && (
+              <FormHelperText error>{t('steps.details.documents-hint')}</FormHelperText>
+            )}
+          </FormControl>
+          <Typography>{t('steps.details.disclaimer')}</Typography>
           <FileList
             files={files}
             onDelete={(deletedFile) =>

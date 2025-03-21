@@ -13,6 +13,43 @@ import {
 
 export type DonationPrice = Stripe.Price
 
+export type StripePaymentInput = {
+  setupIntentId: Stripe.SetupIntent['id']
+  firstName: string | null
+  lastName: string | null
+  phone: string | null
+  personEmail: string
+  isAnonymous: boolean
+  amount: number
+}
+
+export type SubscriptionPaymentInput = {
+  type: DonationType
+  campaignId: string
+  amount: number
+  currency: Currency
+  email?: string
+}
+
+export type UpdatePaymentIntentInput = {
+  id: string
+  payload: Stripe.PaymentIntentUpdateParams
+}
+
+export type CancelSetupIntentInput = {
+  id: string
+}
+
+export type UpdateSetupIntentInput = {
+  id: string
+  payload: Stripe.SetupIntentUpdateParams
+}
+
+export type CancelPaymentIntentInput = {
+  id: string
+  payload: Stripe.PaymentIntentCancelParams
+}
+
 export type CheckoutSessionResponse = {
   session: Stripe.Checkout.Session
 }
@@ -181,7 +218,7 @@ export type DonationStep = {
 }
 
 export type FirstStep = {
-  payment: string
+  payment?: string
   amount?: string
 }
 

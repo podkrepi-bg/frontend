@@ -1,0 +1,183 @@
+{
+  "general": {
+    "BGN": "BGN",
+    "error": {
+      "email": "You have to enter a valid email",
+      "select-field": "Please make your decision"
+    }
+  },
+  "cancel-dialog": {
+    "title": "Are you sure you want to cancel?",
+    "content": "If you cancel, you will lose all the information you have entered so far.",
+    "btn-cancel": "Cancel",
+    "btn-continue": "Continue"
+  },
+  "action": {
+    "back": "Back",
+    "submit": "Donate"
+  },
+  "step": {
+    "amount": {
+      "title": "How much would you like to donate",
+      "field": {
+        "final-amount": {
+          "error": "You have to select an amount or enter a custom amount"
+        },
+        "other-amount": {
+          "label": "Other amount",
+          "error": "You have to enter a valid amount",
+          "currency": "BGN",
+          "only-number": "This field can contain only numbers.",
+          "transaction-limit": "Donation can't exceed the sum of {{limit}}"
+        }
+      }
+    },
+    "payment-mode": {
+      "title": "How often would you want to donate",
+      "error": "Please select, how often would you want to donate",
+      "fields": {
+        "one-time": "One time",
+        "monthly": "Monthly"
+      }
+    },
+    "payment-method": {
+      "title": "How would you like to pay",
+      "error": "Please select payment method",
+      "field": {
+        "method": {
+          "card": "Card",
+          "bank": "Bank transfer",
+          "paypal": "PayPal",
+          "error": "You have to select a payment method"
+        },
+        "tax-box": {
+          "label": "I want to cover transaction fees for card issued in",
+          "error": "You have to select a region"
+        },
+        "card-data": {
+          "name-label": "Cardholder name",
+          "errors": {
+            "email": "Please enter your email",
+            "name": "Please enter your name"
+          }
+        },
+        "card-region": {
+          "title": "Region",
+          "EU": "Europe",
+          "UK": "Great Britain",
+          "Other": "Other"
+        },
+        "include-fees": {
+          "label": "I want to cover transaction fees for card issued in",
+          "error": "You have to select a region"
+        }
+      },
+      "bank": {
+        "bank-payment": "Bank transfer",
+        "bank-instructions1": "To donate via bank transfer, please use your bank recommonded application with entering our bank details from below. The donation will not be updated immediatelly as the implemnetation of the automated bank integration is still pending.",
+        "bank-instructions2": "We trust you to register or to leave an email on the next step, so that we can link your donation to your account. Thank you!",
+        "bank-details": "Details of our bank account:",
+        "btn-copy": "Copy",
+        "owner_name": "Recipient:",
+        "owner": "Association Podkrepi BG",
+        "bank_name": "Bank:",
+        "bank": "Unicredit Bulbank",
+        "reason-donation": "For payment reference use:",
+        "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign.",
+        "recurring-donation": "Donate the same amount every month until the end of the campaign! Cancel anytime.",
+        "alert": {
+          "important": "IMPORTANT",
+          "authenticate": "Please fill in the next step regarding authentication so we can contact you if there is something wrong"
+        }
+      },
+      "alert": {
+        "card-fee": "Stripe tax is calculated based on the region of the card's issuer: 1.2% + 0.5 BGN for the EU Economic Zone",
+        "bank-fee": "Bank fee depends on the individual terms of your bank. Varies from (0-4 BGN)",
+        "calculated-fees": "For your donation of <strong>{{amount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the total charged amount will be <strong>{{totalAmount}}</strong>"
+      }
+    },
+    "authentication": {
+      "title": "How would you like to continue",
+      "error": "Please select authentication method",
+      "logged-as": "You are logged in as",
+      "login": {
+        "label": "Log in"
+      },
+      "register": {
+        "label": "Register"
+      },
+      "noregister": {
+        "label": "Continue without registration",
+        "description": "You will not be able to get a donation certificate or a list of your donations. If you still want to receive a receipt, please share your email - it will not be visible in the platform."
+      },
+      "field": {
+        "password": "Password",
+        "email": {
+          "error": "You have to enter a valid email"
+        }
+      },
+      "alert": {
+        "authenticate": {
+          "title": "Choosing to login you will be able to",
+          "create-account": "Create an account.",
+          "certificate": "Get a donation certificate.",
+          "monthly-donation": "Make a monthly donation.",
+          "notification": "Get notifications about campaigns you donated to."
+        }
+      }
+    },
+    "summary": {
+      "donation": "Donation",
+      "transaction": {
+        "title": "Transaction",
+        "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission."
+      },
+      "alerts": {
+        "subscription-unauthorized": "If you wish to make monthly donations, please sign in with your account or register on the platform if you still have not.",
+        "error": "Something went wrong, please try again or refresh the page."
+      },
+      "total": "Total",
+      "field": {
+        "anonymous": {
+          "label": "I want to be anonymous",
+          "description": "If you choose to be anonymous, your name will not be visible in the campaign."
+        },
+        "privacy": {
+          "error": "You have to accept the privacy policy"
+        }
+      }
+    }
+  },
+  "status": {
+    "success": {
+      "title": "Thank you for your trust and support",
+      "title-logged": "we thank you for your trust and support",
+      "email": "We have sent you an email with the details of your donation",
+      "wish": {
+        "title": "Help the beneficiary with a wish",
+        "thanks": "Thank you for your wish",
+        "error": "We could not save your wish. Please try again later",
+        "write": "Write a wish",
+        "send": "Send"
+      },
+      "share": {
+        "title": "Help the campaign by sharing with your friends",
+        "description": "Campaigns that are shared more often are more likely to be successful"
+      },
+      "link": {
+        "see": "See other campaigns",
+        "donations": "See your donations",
+        "volunteer": "Become a volunteer",
+        "return": "Return to the campaign"
+      }
+    },
+    "fail": {
+      "title": "Something went wrong",
+      "description": "We are sorry, but something went wrong. Please try again later",
+      "link": {
+        "return": "Return to the campaign",
+        "retry": "Try again"
+      }
+    }
+  }
+}

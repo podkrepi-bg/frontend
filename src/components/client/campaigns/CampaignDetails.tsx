@@ -138,9 +138,6 @@ export default function CampaignDetails({ campaign }: Props) {
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
       <Grid container spacing={8}>
-        {subscribeIsOpen && (
-          <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
-        )}
         <Grid item xs={12} display="flex" sx={{ mt: 1.5 }}>
           <EmailIcon
             color="primary"
@@ -267,7 +264,7 @@ const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) =>
         </Tooltip>
       </Typography>
       <Typography className={classes.financeSummary} fontWeight={600}>
-        {t('campaigns:campaign-details-report.translated')}: {moneyPublic(transferred)}
+        {t('campaigns:campaign-details-report.transferred')}: {moneyPublic(transferred)}
         <Tooltip
           enterTouchDelay={0}
           title="Средства преведени от сметката на Podkrepi.bg към организатора на кампанията">

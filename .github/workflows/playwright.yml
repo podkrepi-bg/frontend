@@ -2,6 +2,8 @@ name: Playwright tests
 on:
   workflow_call:
   workflow_dispatch:
+env:
+  STRIPE_DEV_PUBLISHABLE_KEY: ${{ vars.STRIPE_DEV_PUBLISHABLE_KEY }}
 
 jobs:
   run-playwright:
@@ -36,9 +38,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Run db
+      - name: Run db and keycloak
         working-directory: ./api
-        run: docker compose up -d pg-db
+        run: docker compose up -d pg-db keycloak
 
       - name: Run stripe webhook
         working-directory: ./api
@@ -69,7 +71,7 @@ jobs:
       - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: yarn install --immutable
-        
+
       - name: Install e2e Dependencies
         working-directory: ./frontend/e2e
         run: yarn install --immutable
@@ -95,6 +97,8 @@ jobs:
       - name: Start frontend
         working-directory: ./frontend
         run: yarn start &> frontend.log &
+        env:
+          STRIPE_PUBLISHABLE_KEY: ${{ env.STRIPE_DEV_PUBLISHABLE_KEY }}
 
       - name: Install Playwright Browsers
         working-directory: ./frontend/e2e
@@ -116,7 +120,8 @@ jobs:
           name: playwright-report
           path: ./frontend/e2e/test-results/
           retention-days: 14
-          
+          overwrite: true
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:

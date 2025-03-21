@@ -3,13 +3,11 @@ import { Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'
-import CheckboxField from 'components/common/form/CheckboxField'
+import CheckboxField, { CheckboxFieldProps } from 'components/common/form/CheckboxField'
 
-export type AcceptTermsFieldProps = {
-  name: string
-}
+export type AcceptTermsFieldProps = Omit<CheckboxFieldProps, 'label'>
 
-export default function AcceptTermsField({ name }: AcceptTermsFieldProps) {
+export default function AcceptTermsField({ name, ...rest }: AcceptTermsFieldProps) {
   const { t } = useTranslation()
   return (
     <CheckboxField
@@ -23,6 +21,7 @@ export default function AcceptTermsField({ name }: AcceptTermsFieldProps) {
           .
         </Typography>
       }
+      {...rest}
     />
   )
 }

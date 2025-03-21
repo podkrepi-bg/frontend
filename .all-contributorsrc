@@ -895,6 +895,42 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "velnachev",
+      "name": "velnachev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60844919?v=4",
+      "profile": "https://github.com/velnachev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "nikolay-yankov",
+      "name": "Nikolay Yankov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36303598?v=4",
+      "profile": "https://github.com/nikolay-yankov",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "katina-anachkova",
+      "name": "Katina Anachkova",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82702355?v=4",
+      "profile": "https://github.com/katina-anachkova",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "dpalikova",
+      "name": "dpalikova",
+      "avatar_url": "https://avatars.githubusercontent.com/u/65405865?v=4",
+      "profile": "https://github.com/dpalikova",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 10,

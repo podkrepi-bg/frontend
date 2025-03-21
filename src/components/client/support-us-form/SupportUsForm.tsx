@@ -8,13 +8,12 @@ import { ibanNumber, BIC } from 'common/iban'
 import { BankDetailsLabel } from './SupportUs.styled'
 
 export default function SupportUsForm() {
-  const { t } = useTranslation('one-time-donation')
+  const { t } = useTranslation('donation-flow')
 
   const bankAccountInfo = {
-    owner: t('third-step.owner_name'),
-    ownerValue: t('third-step.owner_value'),
-    bank: t('third-step.bank_name'),
-    bankValue: t('third-step.bank_value'),
+    owner: t('step.payment-method.bank.owner_value'),
+    ownerValue: t('step.payment-method.bank.owner'),
+    bank: t('step.payment-method.bank.bank'),
     bic: BIC,
     iban: ibanNumber,
     paymentReference: t('support_us:support-us-reference'),
@@ -24,20 +23,20 @@ export default function SupportUsForm() {
     <List component="div" disablePadding>
       <Typography variant="body1">{t('support_us:support-info')}</Typography>
       <Typography variant="h6" mt={4} mb={1}>
-        {t('third-step.bank-details')}
+        {t('step.payment-method.bank.bank-details')}
       </Typography>
       <Divider />
       <Grid container alignItems="center" mt={2} mb={2}>
         <Grid my={1} item xs={4}>
-          <BankDetailsLabel>{t('third-step.owner_name')}</BankDetailsLabel>
+          <BankDetailsLabel>{t('step.payment-method.bank.owner_name')}</BankDetailsLabel>
         </Grid>
         <Grid my={1} item xs={5} justifyContent="flex-start">
-          <Typography>{t('third-step.owner_value')}</Typography>
+          <Typography>{t('step.payment-method.bank.owner')}</Typography>
         </Grid>
         <Grid my={1} item xs={3} display="flex" justifyContent="center">
           <CopyTextButton
-            label={t('third-step.btn-copy')}
-            text={t('third-step.owner_value')}
+            label={t('step.payment-method.bank.btn-copy')}
+            text={bankAccountInfo.ownerValue}
             variant="contained"
             size="small"
             color="info"
@@ -45,15 +44,15 @@ export default function SupportUsForm() {
           />
         </Grid>
         <Grid my={1} item xs={4}>
-          <BankDetailsLabel>{t('third-step.bank_name')}</BankDetailsLabel>
+          <BankDetailsLabel>{t('step.payment-method.bank.bank_name')}</BankDetailsLabel>
         </Grid>
         <Grid my={1} item xs={5}>
-          <Typography>{t('third-step.bank_value')}</Typography>
+          <Typography>{t('step.payment-method.bank.bank')}</Typography>
         </Grid>
         <Grid my={1} item display="flex" justifyContent="center" xs={3}>
           <CopyTextButton
-            label={t('third-step.btn-copy')}
-            text={t('third-step.bank_value')}
+            label={t('step.payment-method.bank.btn-copy')}
+            text={bankAccountInfo.bank}
             variant="contained"
             size="small"
             color="info"
@@ -67,7 +66,7 @@ export default function SupportUsForm() {
         </Grid>
         <Grid my={1} item display="flex" justifyContent="center" xs={3}>
           <CopyTextButton
-            label={t('third-step.btn-copy')}
+            label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.iban.replace(/\s+/g, '')} //remove spaces in IBAN on copy
             variant="contained"
             size="small"
@@ -82,7 +81,7 @@ export default function SupportUsForm() {
         </Grid>
         <Grid my={1} item display="flex" justifyContent="center" xs={3}>
           <CopyTextButton
-            label={t('third-step.btn-copy')}
+            label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.bic}
             variant="contained"
             size="small"
@@ -91,7 +90,7 @@ export default function SupportUsForm() {
         </Grid>
         <Grid my={1} item xs={4}>
           <BankDetailsLabel my={1} pr={2}>
-            {t('third-step.reason-donation')}
+            {t('step.payment-method.bank.reason-donation')}
           </BankDetailsLabel>
         </Grid>
         <Grid my={1} item xs={5}>
@@ -99,7 +98,7 @@ export default function SupportUsForm() {
         </Grid>
         <Grid my={1} item display="flex" justifyContent="center" xs={3}>
           <CopyTextButton
-            label={t('third-step.btn-copy')}
+            label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.paymentReference}
             variant="contained"
             size="small"
