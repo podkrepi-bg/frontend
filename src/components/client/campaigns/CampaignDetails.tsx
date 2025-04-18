@@ -201,7 +201,7 @@ export default function CampaignDetails({ campaign }: Props) {
         {subscribeIsOpen && (
           <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
         )}
-        <Grid item xs={12} display="flex" mt={2} mb={2}>
+        <Grid item xs={12} display="flex" alignItems="center" mt={2} mb={2}>
           <EmailIcon
             color="primary"
             fontSize="small"
