@@ -138,13 +138,13 @@ export default function CampaignDetails({ campaign }: Props) {
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
       <Grid container spacing={8}>
-        <Grid item xs={12} display="flex" sx={{ mt: 1.5 }}>
+        <Grid item xs={12} display="flex" alignItems="center" sx={{ mt: 1.5 }}>
           <EmailIcon
             color="primary"
             fontSize="small"
             sx={{ mr: 0.5 }}
-            onClick={() => setSubscribeOpen(true)}
             cursor="pointer"
+            onClick={() => setSubscribeOpen(true)}
           />
           <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
             {t('common:notifications.subscribe')}
@@ -201,7 +201,7 @@ export default function CampaignDetails({ campaign }: Props) {
         {subscribeIsOpen && (
           <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
         )}
-        <Grid item xs={12} display="flex" alignItems="center" mt={2} mb={2}>
+        <Grid item xs={12} display="flex" mt={2} mb={2}>
           <EmailIcon
             color="primary"
             fontSize="small"
