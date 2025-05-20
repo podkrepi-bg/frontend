@@ -16,7 +16,12 @@ export const CarouselWrapper = styled(Slider)(() => ({
   maxWidth: theme.spacing(162),
 
   '.slick-list': {
-    paddingBottom: theme.spacing(3),
+    paddingBottom: theme.spacing(7),
+  },
+
+  '.slick-dots': {
+    position: 'relative',
+    bottom: 'auto',
   },
 
   '.slick-dots li button::before': {
