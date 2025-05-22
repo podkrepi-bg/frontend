@@ -12,6 +12,7 @@ import Subtitle from '../helpers/Subtitle'
 import FileList from '../helpers/FileList'
 import { NotifierTypes } from '../helpers/irregularity.types'
 import IrregularityReasonSelect from '../helpers/IrregularityReasonSelect'
+import { Box } from '@mui/material'
 
 import theme from 'common/theme'
 
@@ -103,21 +104,28 @@ export default function Info({ files, setFiles }: Props) {
             {t('steps.info.files')}
           </Typography>
         </Grid>
-        <Grid container justifyContent="center" mt={2}>
+        <Grid
+          container
+          justifyContent={'center'}
+          flexDirection={'column'}
+          alignItems={'center'}
+          mt={4}>
           <FileUpload
             onUpload={(newFiles) => {
               setFiles((prevFiles: File[]) => [...prevFiles, ...newFiles])
             }}
             buttonLabel={t('cta.upload-files')}
           />
-          <FileList
-            files={files}
-            onDelete={(deletedFile) =>
-              setFiles((prevFiles: File[]) =>
-                prevFiles.filter((file: File) => file.name !== deletedFile.name),
-              )
-            }
-          />
+          <Box sx={{ width: '100%', marginTop: theme.spacing(2) }}>
+            <FileList
+              files={files}
+              onDelete={(deletedFile) =>
+                setFiles((prevFiles: File[]) =>
+                  prevFiles.filter((file: File) => file.name !== deletedFile.name),
+                )
+              }
+            />
+          </Box>
         </Grid>
       </Grid>
       <Grid item xs={12}>
