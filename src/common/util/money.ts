@@ -20,7 +20,7 @@ export const moneyPublic = (
   divisionFactor = 100,
   maximumFractionDigits = 2,
   minimumFractionDigits = 2,
-) => {
+): string => {
   if (!i18n?.language || i18n?.language === 'bg' || i18n?.language === 'bg-BG') {
     const amount = new Intl.NumberFormat('bg-BG', {
       style: 'decimal',

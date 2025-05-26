@@ -138,13 +138,13 @@ export default function CampaignDetails({ campaign }: Props) {
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
       <Grid container spacing={8}>
-        <Grid item xs={12} display="flex" sx={{ mt: 1.5 }}>
+        <Grid item xs={12} display="flex" alignItems="center" sx={{ mt: 1.5 }}>
           <EmailIcon
             color="primary"
             fontSize="small"
             sx={{ mr: 0.5 }}
-            onClick={() => setSubscribeOpen(true)}
             cursor="pointer"
+            onClick={() => setSubscribeOpen(true)}
           />
           <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
             {t('common:notifications.subscribe')}
@@ -232,55 +232,75 @@ export default function CampaignDetails({ campaign }: Props) {
 type CampaignFinanceProps = Props & {
   expenses: number
 }
+
+interface FinanceItemProps {
+  label: string
+  tooltipTitle: string
+  fontWeight?: number
+  value: number
+}
+
+const FinanceItem = ({ label, value, tooltipTitle, fontWeight }: FinanceItemProps) => {
+  const { t } = useTranslation('campaigns', { keyPrefix: 'campaign-details-report' })
+
+  return (
+    <Typography className={classes.financeSummary} fontWeight={fontWeight}>
+      {t(label)}: {moneyPublic(value)}
+      <Tooltip enterTouchDelay={0} title={t(tooltipTitle)}>
+        <IconButton size="small" color="primary">
+          <InfoOutlined fontSize="small" />
+        </IconButton>
+      </Tooltip>
+    </Typography>
+  )
+}
+
 const CampaignFinanceSummary = ({ campaign, expenses }: CampaignFinanceProps) => {
-  const total = (campaign.summary.guaranteedAmount ?? 0) + campaign.summary.reachedAmount
-  const transferred = campaign.summary.blockedAmount + campaign.summary.withdrawnAmount
-  const { t } = useTranslation()
+  const { currentAmount, guaranteedAmount, reachedAmount, withdrawnAmount, blockedAmount } =
+    campaign.summary
+
+  const total = (guaranteedAmount ?? 0) + reachedAmount
+  const transferred = blockedAmount + withdrawnAmount
+  const { t } = useTranslation('campaigns', { keyPrefix: 'campaign-details-report' })
+
+  const financeItems: FinanceItemProps[] = [
+    {
+      label: 'available',
+      value: currentAmount,
+      tooltipTitle: 'available-tooltip',
+    },
+    {
+      label: 'guaranteed',
+      value: guaranteedAmount ?? 0,
+      tooltipTitle: 'guaranteed-tooltip',
+    },
+    {
+      label: 'transferred',
+      value: transferred,
+      tooltipTitle: 'transferred-tooltip',
+      fontWeight: 600,
+    },
+    {
+      label: 'accounted',
+      value: expenses,
+      tooltipTitle: 'accounted-tooltip',
+    },
+  ]
+
   return (
     <StyledGrid item>
       <Typography variant="h5" fontWeight={500}>
-        {t('campaigns:campaign-details-report.amount-collected')}: {moneyPublic(total)}
+        {t('amount-collected')}: {moneyPublic(total)}
       </Typography>
-      <Typography className={classes.financeSummary}>
-        {t('campaigns:campaign-details-report.available')}:{' '}
-        {moneyPublic(campaign.summary.currentAmount)}
-        <Tooltip enterTouchDelay={0} title="Средства налични по сметката на Podkrepi.bg">
-          <IconButton size="small" color="primary">
-            <InfoOutlined fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      </Typography>
-      <Typography className={classes.financeSummary}>
-        {t('campaigns:campaign-details-report.guaranteed')}:{' '}
-        {moneyPublic(campaign.summary.guaranteedAmount ?? 0)}
-        <Tooltip
-          enterTouchDelay={0}
-          title={
-            'Дарения от служители или клиенти на компании, които имат вътрешни дарителски инициативи с партньорска интеграция към Подкрепи.бг. При такова дарение сумите се отразяват веднага в платформата като "гарантирани" от компанията и се превеждат веднъж в месеца като консолидирана сума към Подкрепи.бг с цел по-лесно управление.'
-          }>
-          <IconButton size="small" color="primary">
-            <InfoOutlined fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      </Typography>
-      <Typography className={classes.financeSummary} fontWeight={600}>
-        {t('campaigns:campaign-details-report.transferred')}: {moneyPublic(transferred)}
-        <Tooltip
-          enterTouchDelay={0}
-          title="Средства преведени от сметката на Podkrepi.bg към организатора на кампанията">
-          <IconButton size="small" color="primary">
-            <InfoOutlined fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      </Typography>
-      <Typography className={classes.financeSummary}>
-        {t('campaigns:campaign-details-report.accounted')}: {moneyPublic(expenses)}
-        <Tooltip enterTouchDelay={0} title="Отчетени разходи">
-          <IconButton size="small" color="primary">
-            <InfoOutlined fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      </Typography>
+      {financeItems.map(({ label, value, tooltipTitle, fontWeight }) => (
+        <FinanceItem
+          key={label}
+          label={label}
+          value={value}
+          tooltipTitle={tooltipTitle}
+          fontWeight={fontWeight}
+        />
+      ))}
     </StyledGrid>
   )
 }
