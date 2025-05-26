@@ -211,8 +211,12 @@
   "campaign-details-report": {
     "amount-collected": "Amount Collected",
     "available": "Аvailable",
+    "available-tooltip":"Средства налични по сметката на Podkrepi.bg",
     "guaranteed": "Guaranteed",
+    "guaranteed-tooltip":"Дарения от служители или клиенти на компании, които имат вътрешни дарителски инициативи с партньорска интеграция към Подкрепи.бг. При такова дарение сумите се отразяват веднага в платформата като \" гарантирани\" от компанията и се превеждат веднъж в месеца като консолидирана сума към Подкрепи.бг с цел по-лесно управление.",
     "transferred": "Transferred",
-    "accounted": "Accounted"
+    "transferred-tooltip":"Средства преведени от сметката на Podkrepi.bg към организатора на кампанията",
+    "accounted": "Accounted",
+    "accounted-tooltip":"Отчетени разходи"
   }
 }
