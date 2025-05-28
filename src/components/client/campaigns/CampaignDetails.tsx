@@ -98,7 +98,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.subscribeLink}`]: {
     fontWeight: 500,
     fontSize: theme.typography.pxToRem(16.5),
-    textAlign: 'center',
+    lineHeight: 1,
 
     '&:hover': {
       textDecoration: 'underline',
@@ -128,6 +128,21 @@ export default function CampaignDetails({ campaign }: Props) {
   const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
   const totalExpenses = expensesList?.reduce((acc, expense) => acc + expense.amount, 0)
 
+  const renderSubscribeInfo = () => (
+    <>
+      <EmailIcon
+        onClick={() => setSubscribeOpen(true)}
+        color="primary"
+        fontSize="small"
+        sx={{ mr: 0.5 }}
+        cursor="pointer"
+      />
+      <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
+        {t('common:notifications.subscribe')}
+      </Typography>
+    </>
+  )
+
   return (
     <StyledGrid item xs={12} md={8}>
       <Typography variant="h1" component="h1" mb={8} className={classes.campaignTitle}>
@@ -138,17 +153,8 @@ export default function CampaignDetails({ campaign }: Props) {
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
       <Grid container spacing={8}>
-        <Grid item xs={12} display="flex" alignItems="center" sx={{ mt: 1.5 }}>
-          <EmailIcon
-            color="primary"
-            fontSize="small"
-            sx={{ mr: 0.5 }}
-            cursor="pointer"
-            onClick={() => setSubscribeOpen(true)}
-          />
-          <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
-            {t('common:notifications.subscribe')}
-          </Typography>
+        <Grid item xs={12} display="flex" alignItems="center" gap="5px" sx={{ mt: 1.5 }}>
+          {renderSubscribeInfo()}
         </Grid>
         <Grid item xs={12} style={{ paddingTop: '20px' }}>
           <ReactQuill readOnly theme="bubble" value={campaign.description} />
@@ -201,17 +207,8 @@ export default function CampaignDetails({ campaign }: Props) {
         {subscribeIsOpen && (
           <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
         )}
-        <Grid item xs={12} display="flex" mt={2} mb={2}>
-          <EmailIcon
-            color="primary"
-            fontSize="small"
-            sx={{ mr: 0.5 }}
-            onClick={() => setSubscribeOpen(true)}
-            cursor="pointer"
-          />
-          <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
-            {t('common:notifications.subscribe')}
-          </Typography>
+        <Grid item xs={12} display="flex" alignItems="center" gap="5px" mt={2} mb={2}>
+          {renderSubscribeInfo()}
         </Grid>
         <Grid item xs={12} id="wishes">
           <DonationWishes campaignId={campaign?.id} />
