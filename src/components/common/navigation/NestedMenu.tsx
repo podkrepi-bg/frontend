@@ -25,7 +25,7 @@ export default observer(function NestedMenu() {
     padding: 0,
   }
   return (
-    <Accordion expanded={accordionOpen} elevation={0} style={{ margin: '0px' }}>
+    <Accordion expanded={accordionOpen} elevation={0} sx={{ margin: 0 }}>
       <AccordionSummary
         sx={{ p: 0, height: '60px' }}
         aria-controls="panel1a-content"

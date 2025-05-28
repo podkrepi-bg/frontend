@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Box, Avatar, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import {
   DataGrid,
@@ -30,18 +30,20 @@ import theme from 'common/theme'
 import { PersonPaginatedResponse } from 'gql/person'
 import { PaginationData, SortData } from 'gql/types'
 import Switch from '@mui/material/Switch'
+import {
+  Centered,
+  CloseIcon,
+  NameContainer,
+  StyledAvatar,
+  StyledCheckIcon,
+  StyledDataGrid,
+  StyledLink,
+} from './Grid.styled'
 
 const defaultSort: SortData = {
   sortBy: 'createdAt',
   sortOrder: 'desc',
 }
-
-const Centered = styled('div')({
-  flex: 1,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-})
 
 export default observer(function Grid() {
   const { t } = useTranslation()
@@ -163,23 +165,10 @@ export default observer(function Grid() {
         const color = getColor(initials)
 
         return (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar
-              style={{
-                marginRight: 8,
-                backgroundColor: color,
-                fontWeight: 'bold',
-                fontSize: 14,
-                width: 32,
-                height: 32,
-                borderRadius: '50%',
-                border: '1px solid rgba(0, 0, 0, 0.1)',
-                transition: 'box-shadow 0.3s ease-in-out',
-              }}>
-              {initials}
-            </Avatar>
+          <NameContainer>
+            <StyledAvatar color={color}>{initials}</StyledAvatar>
             {name}
-          </div>
+          </NameContainer>
         )
       },
     },
@@ -189,17 +178,7 @@ export default observer(function Grid() {
       editable: false,
       minWidth: 240,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <a
-            href={`mailto:${params.row.email}`}
-            style={{
-              textDecoration: 'underline',
-              color: '#0070f3',
-              cursor: 'pointer',
-            }}>
-            {params.row.email}
-          </a>
-        )
+        return <StyledLink href={`mailto:${params.row.email}`}>{params.row.email}</StyledLink>
       },
     },
     {
@@ -221,15 +200,7 @@ export default observer(function Grid() {
       headerName: t('person:admin.fields.organizer'),
       minWidth: 130,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <Centered>
-            {params.row.organizer ? (
-              <CheckIcon style={{ color: '#00b386' }} />
-            ) : (
-              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
-            )}
-          </Centered>
-        )
+        return <Centered>{params.row.organizer ? <StyledCheckIcon /> : <CloseIcon />}</Centered>
       },
     },
     {
@@ -237,15 +208,7 @@ export default observer(function Grid() {
       headerName: t('person:admin.fields.coordinator'),
       minWidth: 130,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <Centered>
-            {params.row.coordinators ? (
-              <CheckIcon style={{ color: '#00b386' }} />
-            ) : (
-              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
-            )}
-          </Centered>
-        )
+        return <Centered>{params.row.coordinators ? <StyledCheckIcon /> : <CloseIcon />}</Centered>
       },
     },
     {
@@ -255,11 +218,7 @@ export default observer(function Grid() {
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <Centered>
-            {params.row.beneficiaries.length > 0 ? (
-              <CheckIcon style={{ color: '#00b386' }} />
-            ) : (
-              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
-            )}
+            {params.row.beneficiaries.length > 0 ? <StyledCheckIcon /> : <CloseIcon />}
           </Centered>
         )
       },
@@ -270,13 +229,7 @@ export default observer(function Grid() {
       minWidth: 140,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
-          <Centered>
-            {params.row.emailConfirmed ? (
-              <CheckIcon style={{ color: '#00b386' }} />
-            ) : (
-              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
-            )}
-          </Centered>
+          <Centered>{params.row.emailConfirmed ? <StyledCheckIcon /> : <CloseIcon />}</Centered>
         )
       },
     },
@@ -285,15 +238,7 @@ export default observer(function Grid() {
       headerName: t('person:admin.fields.newsletter'),
       minWidth: 130,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <Centered>
-            {params.row.newsletter ? (
-              <CheckIcon style={{ color: '#00b386' }} />
-            ) : (
-              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
-            )}
-          </Centered>
-        )
+        return <Centered>{params.row.newsletter ? <StyledCheckIcon /> : <CloseIcon />}</Centered>
       },
     },
     {
@@ -315,18 +260,7 @@ export default observer(function Grid() {
   return (
     <>
       <Box>
-        <DataGrid
-          style={{
-            background: theme.palette.common.white,
-            position: 'absolute',
-            height: 'calc(100vh - 300px)',
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
+        <StyledDataGrid
           rows={items}
           columns={columns}
           columnVisibilityModel={{
