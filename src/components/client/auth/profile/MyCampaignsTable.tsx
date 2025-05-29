@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { useState, useMemo } from 'react'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { Tooltip, Button, Box, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
 
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
 import { money } from 'common/util/money'
@@ -29,6 +30,16 @@ const classes = {
   smallText: `${PREFIX}-smallText`,
   boxTitle: `${PREFIX}-boxTitle`,
 }
+
+const StyledDataGrid = styled(DataGrid)({
+  background: theme.palette.common.white,
+  border: 'none',
+  width: 'calc(100% - 48px)',
+  left: '24px',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  borderRadius: '0 0 13px 13px',
+})
 
 export default function MyCampaingsTable() {
   const { t, i18n } = useTranslation()
@@ -240,16 +251,7 @@ export default function MyCampaingsTable() {
             <Typography className={classes.h3}>{t('profile:myCampaigns.history')}</Typography>
           </Box>
           <ProfileTab name={ProfileTabs.myCampaigns}>
-            <DataGrid
-              style={{
-                background: theme.palette.common.white,
-                border: 'none',
-                width: 'calc(100% - 48px)',
-                left: '24px',
-                overflowY: 'auto',
-                overflowX: 'hidden',
-                borderRadius: '0 0 13px 13px',
-              }}
+            <StyledDataGrid
               rows={campaigns || []}
               columns={columns}
               initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}

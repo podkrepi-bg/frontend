@@ -1,4 +1,9 @@
-import { Button } from '@mui/material'
+import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
+
+const Input = styled('input')({
+  display: 'none',
+})
 
 function FileUpload({
   onUpload,
@@ -11,11 +16,10 @@ function FileUpload({
 }) {
   return (
     <label htmlFor="contained-button-file">
-      <input
+      <Input
         id="contained-button-file"
         multiple
         type="file"
-        style={{ display: 'none' }}
         onChange={(e) => onUpload([...(e.target.files as FileList)])}
         {...rest}
       />
