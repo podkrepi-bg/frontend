@@ -78,7 +78,7 @@ export default function AdminPage() {
                   },
                   border: '1px solid ' + `${colors[index % colors.length]}7A`,
                 }}>
-                <div onClick={() => router.push(href)} style={{ cursor: 'pointer' }}>
+                <Box onClick={() => router.push(href)} sx={{ cursor: 'pointer' }}>
                   <CardContent>
                     <Box textAlign="center">
                       <Icon fontSize="large" />
@@ -87,7 +87,7 @@ export default function AdminPage() {
                       {label}
                     </Typography>
                   </CardContent>
-                </div>
+                </Box>
               </Card>
             </Grid>
           ))}

@@ -156,7 +156,7 @@ export default function CampaignDetails({ campaign }: Props) {
         <Grid item xs={12} display="flex" alignItems="center" gap="5px" sx={{ mt: 1.5 }}>
           {renderSubscribeInfo()}
         </Grid>
-        <Grid item xs={12} style={{ paddingTop: '20px' }}>
+        <Grid item xs={12} sx={{ pt: '20px' }}>
           <ReactQuill readOnly theme="bubble" value={campaign.description} />
         </Grid>
         <Grid item xs={12}>

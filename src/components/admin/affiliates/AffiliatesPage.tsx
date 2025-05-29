@@ -197,11 +197,12 @@ export default function AffiliatesPage() {
       },
     },
   ]
+
   return (
     <AdminLayout>
       <AdminContainer title={t('profile:affiliate.index')}>
         <DataGrid
-          style={{
+          sx={{
             background: theme.palette.common.white,
             position: 'absolute',
             height: 'calc(100vh - 300px)',
