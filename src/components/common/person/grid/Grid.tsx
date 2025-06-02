@@ -15,6 +15,7 @@ import {
 } from '@mui/x-data-grid'
 import CheckIcon from '@mui/icons-material/Check'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import { useRouter } from 'next/router'
 
 import GridActions from 'components/admin/GridActions'
 import DeleteModal from './DeleteModal'
@@ -47,18 +48,22 @@ const defaultSort: SortData = {
 
 export default observer(function Grid() {
   const { t } = useTranslation()
-
-  const { isDetailsOpen } = ModalStore
+  const router = useRouter()
 
   const [paginationModel, setPaginationModel] = useState<PaginationData>({
     pageIndex: 0,
     pageSize: 10,
   })
+  const searchData = router.query.search as string
   const [sortingModel, setSortingModel] = useState<SortData>(defaultSort)
 
   const {
     data: { items, total: totalCount } = { items: [], total: 0 },
-  }: UseQueryResult<PersonPaginatedResponse> = usePersonList(paginationModel, sortingModel)
+  }: UseQueryResult<PersonPaginatedResponse> = usePersonList(
+    paginationModel,
+    sortingModel,
+    searchData,
+  )
 
   const mutation = useChangeProfileStatus(paginationModel, sortingModel)
 
@@ -102,6 +107,8 @@ export default observer(function Grid() {
     }
     return name.slice(0, 2)
   }
+
+  const { isDetailsOpen } = ModalStore
 
   const columns: GridColDef[] = [
     {
@@ -246,7 +253,7 @@ export default observer(function Grid() {
       headerName: t('person:admin.fields.company'),
       editable: false,
       minWidth: 200,
-      valueGetter: (f) => f.row.company,
+      valueGetter: (f) => f.row.company?.companyName,
     },
     {
       field: 'address',
