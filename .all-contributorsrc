@@ -931,6 +931,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "samuil4",
+      "name": "Samuil Gospodinov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/797921?v=4",
+      "profile": "https://sq-ui.github.io/ng-sq-ui/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 10,
