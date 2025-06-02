@@ -29,9 +29,7 @@ export const SocialIcons = () => {
       </ExternalLink>
       <ExternalLink
         href="https://discord.com/invite/nZAeCb9YzP"
-        aria-label={t('components.footer.social.discord')}
-        target="_blank"
-        rel="noopener noreferrer">
+        aria-label={t('components.footer.social.discord')}>
         <svg
           className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-20bmp1-MuiSvgIcon-root"
           xmlns="http://www.w3.org/2000/svg"
