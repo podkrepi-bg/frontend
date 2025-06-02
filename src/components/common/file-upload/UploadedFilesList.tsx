@@ -12,7 +12,7 @@ import {
 import { useTranslation } from 'next-i18next'
 import { createContext, useContext, useEffect, useState } from 'react'
 import CenteredSpinner from '../CenteredSpinner'
-
+import { styled } from '@mui/material/styles'
 export interface FilesListContext {
   deleteMutation: (file: UploadedFile) => Promise<unknown>
   files: UploadedFile[]
@@ -100,6 +100,27 @@ export function FilePreview(f: UploadedFile) {
   const [display, setDisplay] = useState<'block' | 'none'>('none')
   const [blobUrl, setBlobUrl] = useState<string | undefined>()
 
+  const StyledDiv = styled('div')({
+    position: 'fixed',
+    top: '5vw',
+    left: '5vh',
+    boxShadow: '2px 4px 5px',
+    width: '90vw',
+    height: '90vh',
+    zIndex: 99999,
+    display,
+    backgroundColor: 'white',
+  })
+
+  const FixedDimentionsDiv = styled('div')({
+    width: '100%',
+    height: '100%',
+  })
+
+  const StyledIFrame = styled('iframe')({
+    width: '100%',
+    height: '100%',
+  })
   useEffect(() => {
     if (fetch) {
       setDisplay('block')
@@ -118,29 +139,13 @@ export function FilePreview(f: UploadedFile) {
           <Preview />
         </IconButton>
       </Tooltip>
-      <div
-        style={{
-          position: 'fixed',
-          top: '5vw',
-          left: '5vh',
-          boxShadow: '2px 4px 5px',
-          width: '90vw',
-          height: '90vh',
-          zIndex: 99999,
-          display,
-          backgroundColor: 'white',
-        }}>
+      <StyledDiv>
         {display === 'block' ? (
-          <iframe
-            id={f.id}
-            src={blobUrl}
-            allowFullScreen={true}
-            style={{ width: '100%', height: '100%' }}
-          />
+          <StyledIFrame id={f.id} src={blobUrl} allowFullScreen={true} />
         ) : (
-          <div style={{ width: '100%', height: '100%' }}>
+          <FixedDimentionsDiv>
             <CenteredSpinner />
-          </div>
+          </FixedDimentionsDiv>
         )}
         <Button
           color="secondary"
@@ -149,7 +154,7 @@ export function FilePreview(f: UploadedFile) {
           onClick={() => setDisplay('none')}>
           <Close />
         </Button>
-      </div>
+      </StyledDiv>
     </>
   )
 }
