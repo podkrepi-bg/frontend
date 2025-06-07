@@ -87,7 +87,7 @@ const StyledTimeline = styled(Timeline)(({ theme }) => ({
   },
 
   [`& .${classes.articleContent}`]: {
-    marginBottom: theme.spacing(5),
+    marginBottom: theme.spacing(0),
   },
 
   [`& .${classes.articlePublishedDate}`]: {
