@@ -18,6 +18,7 @@ import { useGetUserRecurringDonations } from 'common/hooks/recurringDonation'
 import Link from 'components/common/Link'
 import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
+import { useCancelRecurringDonation } from 'service/donation'
 
 export default function MyRecurringCampaignsTable() {
   const { t } = useTranslation()
@@ -27,18 +28,7 @@ export default function MyRecurringCampaignsTable() {
   const [openDialog, setOpenDialog] = useState(false)
   const [selectedRecurringDonation, setSelectedRecurringDonation] = useState<string | null>(null)
 
-  const cancelMutation = useMutation({
-    mutationFn: async (id: string) => {
-      apiClient.get(
-        endpoints.recurringDonation.cancelRecurringDonation(id).url,
-        authConfig(session?.accessToken),
-      )
-    },
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => {
-      AlertStore.show(t('recurring-donation:alerts.cancel'), 'success')
-    },
-  })
+  const cancelMutation = useCancelRecurringDonation()
 
   const cancelRecurringDonation = (id: string) => {
     cancelMutation.mutate(id)
