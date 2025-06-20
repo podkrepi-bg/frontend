@@ -402,7 +402,7 @@ export const endpoints = {
     deleteRecurringDonation: (id: string) =>
       <Endpoint>{ url: `/recurring-donation/${id}`, method: 'DELETE' },
     cancelRecurringDonation: (id: string) =>
-      <Endpoint>{ url: `/recurring-donation/cancel/${id}`, method: 'POST' },
+      <Endpoint>{ url: `/recurring-donation/${id}/cancel`, method: 'PATCH' },
 
     getUserRecurringDonations: <Endpoint>{
       url: '/recurring-donation/user-donations',
