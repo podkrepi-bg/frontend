@@ -29,7 +29,7 @@ jobs:
         env:
           NODE_ENV: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          GHOST_API_URL: https://blog.podkrepi.bg
+          GHOST_API_URL: https://blog-do.podkrepi.bg
           GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
         with:
           context: .
