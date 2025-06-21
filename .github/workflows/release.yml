@@ -70,7 +70,7 @@ jobs:
         env:
           NODE_ENV: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          GHOST_API_URL: https://blog.podkrepi.bg
+          GHOST_API_URL: https://blog-do.podkrepi.bg
           GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
         with:
           push: true
@@ -206,7 +206,7 @@ jobs:
           kustomize edit set annotation app.komodor.com/app.ref:$GITHUB_SHA
 
       - name: Set kubeconfig
-        run: echo ${{ secrets.K8S_CONFIG }} | base64 -d > config.yaml
+        run: echo ${{ secrets.K8S_CONFIG_DO }} | base64 -d > config.yaml
 
       - name: Apply new manifests
         run: kubectl apply -k manifests/overlays/production --kubeconfig config.yaml
