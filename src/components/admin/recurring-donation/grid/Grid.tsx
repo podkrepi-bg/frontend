@@ -4,23 +4,20 @@ import { useTranslation } from 'next-i18next'
 import { IconButton, Tooltip, Box } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
-import { RecurringDonationResponse } from 'gql/recurring-donation'
-import { useAllRecurringDonations } from 'common/hooks/recurringDonation'
 import { money } from 'common/util/money'
-import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { endpoints } from 'service/apiEndpoints'
 import { useSession } from 'next-auth/react'
-import { AlertStore } from 'stores/AlertStore'
 
 import DeleteModal from '../DeleteModal'
 import DetailsModal from '../DetailsModal'
-import { apiClient } from 'service/apiClient'
-import { authConfig } from 'service/restRequests'
+
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import EditIcon from '@mui/icons-material/Edit'
 import { routes } from 'common/routes'
 import theme from 'common/theme'
+import { useCancelRecurringDonation } from 'service/donation'
+import { RecurringDonationResponse } from 'gql/recurring-donation'
+import { useAllRecurringDonations } from 'common/hooks/recurringDonation'
 
 export default function Grid() {
   const { t } = useTranslation('recurring-donation')
@@ -29,7 +26,6 @@ export default function Grid() {
     pageSize: 10,
     page: 0,
   })
-  const { data: session } = useSession()
   const router = useRouter()
 
   const commonProps: Partial<GridColDef> = {
@@ -38,18 +34,7 @@ export default function Grid() {
     headerAlign: 'left',
   }
 
-  const cancelMutation = useMutation({
-    mutationFn: async (id: string) => {
-      apiClient.get(
-        endpoints.recurringDonation.cancelRecurringDonation(id).url,
-        authConfig(session?.accessToken),
-      )
-    },
-    onError: (err) => AlertStore.show(t('common:alerts.error') + err, 'error'),
-    onSuccess: () => {
-      AlertStore.show(t('recurring-donation:alerts.cancel'), 'success')
-    },
-  })
+  const cancelMutation = useCancelRecurringDonation()
 
   const cancelRecurringDonation = (id: string) => {
     if (confirm(t('recurring-donation:alerts.cancel-confirm'))) {
@@ -153,7 +138,6 @@ export default function Grid() {
           disableRowSelectionOnClick
         />
       </Box>
-      <DetailsModal />
       <DeleteModal />
     </>
   )
