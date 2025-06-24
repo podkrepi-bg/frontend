@@ -87,7 +87,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
       flex: 1,
       minWidth: 140,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return formatDateString(params.row.createdAt, i18n?.language)
+        return formatDateString(params.row.createdAt)
       },
     },
     {
@@ -99,7 +99,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
       minWidth: 200,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         const date: Date = params.row.publishedAt
-        return date ? formatDateString(date, i18n?.language) : ''
+        return date ? formatDateString(date) : ''
       },
     },
     {
@@ -107,7 +107,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
       headerName: t('article.lastEdit'),
       headerClassName: classes.gridColumn,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return params.row.editedAt ? formatDateString(params.row.editedAt, i18n?.language) : ''
+        return params.row.editedAt ? formatDateString(params.row.editedAt) : ''
       },
       minWidth: 200,
       flex: 1,
