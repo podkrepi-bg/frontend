@@ -1,6 +1,77 @@
+# Dependencies
 node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
 .next
-.dockerignore
-.github
+out
+build
+dist
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+coverage
+.nyc_output
+.jest
+
+# Development
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
 .git
-Dockerfile
+.gitignore
+
+# Docker
+.dockerignore
+Dockerfile*
+docker-compose*
+
+# CI/CD
+.github
+.gitlab-ci.yml
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+docs/
+
+# Test files
+**/*.test.js
+**/*.test.ts
+**/*.spec.js
+**/*.spec.ts
+**/test
+**/tests
+**/__tests__
+e2e/
+
+# Logs
+logs
+*.log
+
+# Cache
+.cache
+.tmp
+temp/

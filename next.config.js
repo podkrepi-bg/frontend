@@ -13,6 +13,7 @@ const { i18n } = require('./next-i18next.config')
 const moduleExports = {
   i18n,
   reactStrictMode: true,
+  output: 'standalone',
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
