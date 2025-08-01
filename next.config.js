@@ -12,6 +12,7 @@ const { i18n } = require('./next-i18next.config')
  */
 const moduleExports = {
   i18n,
+  output: 'standalone',
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
@@ -80,7 +81,7 @@ const moduleExports = {
       {
         key: 'X-XSS-Protection',
         value: '1; mode=block',
-      },
+      }
     ]
 
     return [
@@ -88,7 +89,7 @@ const moduleExports = {
         // Apply the headers to all routes
         source: '/:path*',
         headers: securityHeaders,
-      },
+      }
     ]
   },
   modularizeImports: {
