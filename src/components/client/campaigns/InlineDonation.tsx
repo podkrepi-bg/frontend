@@ -416,7 +416,10 @@ export default function InlineDonation({ campaign }: Props) {
           <LinkButton
             fullWidth
             href={routes.campaigns.oneTimeDonation(campaignSlug)}
-            disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
+            disabled={
+              campaignState !== CampaignState.active &&
+              !(campaignState === CampaignState.complete && allowDonationOnComplete)
+            }
             variant="contained"
             endIcon={<Favorite />}
             className={classes.donateButton}>
