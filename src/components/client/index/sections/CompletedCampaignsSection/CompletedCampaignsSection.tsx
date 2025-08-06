@@ -27,6 +27,7 @@ import {
   CampaignProgressWrapper,
   SuccessfullCampiagnText,
 } from './CompletedCampaignsSection.styled'
+import CampaignProgress from 'components/client/campaigns/CampaignProgress'
 
 export default function CompletedCampaignsSection() {
   const { t } = useTranslation('campaigns')
@@ -73,7 +74,11 @@ export default function CompletedCampaignsSection() {
                   <SuccessfullCampiagnText>{t('successfull-label')}</SuccessfullCampiagnText>
                 </SuccessfulCampaignLabel>
               </CompletedSumWrapper>
-              <CampaignProgressWrapper width={1} />
+              <CampaignProgress
+                state={campaign.state}
+                raised={campaign.summary.reachedAmount}
+                target={campaign.targetAmount}
+              />
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </Link>
           </CardWrapper>
