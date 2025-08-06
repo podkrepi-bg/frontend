@@ -30,7 +30,7 @@ export const Root = styled(Card)(() => ({
   [theme.breakpoints.up(1430)]: {
     '&:nth-of-type(1)': {
       img: {
-        height: theme.spacing(71.6),
+        height: theme.spacing(70.6),
       },
     },
   },
@@ -38,6 +38,19 @@ export const Root = styled(Card)(() => ({
 
 export const StyledContent = styled(CardContent)(() => ({
   padding: 0,
+
+  '.cardcontent--state': {
+    paddingTop: theme.spacing(2),
+
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+    color: theme.palette.common.black,
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: theme.typography.pxToRem(16),
+    fontWeight: 500,
+  },
 
   '&:last-child': { paddingBottom: 0 },
 }))
@@ -70,7 +83,8 @@ export const SumWrapper = styled(Grid)(() => ({
 export const Sum = styled('span')(() => ({
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
-  fontFamily: 'sans-serif',
+  lineHeight: '150%',
+  letterSpacing: '0.15px',
 }))
 
 export const SumNumber = styled('span')(() => ({
@@ -90,9 +104,9 @@ export const StyledCardActions = styled(CardActions)(() => ({
   padding: 0,
 }))
 
-export const DonateButton = styled(LinkButton)(() => ({
+export const LearnMoreButton = styled(LinkButton)(() => ({
   fontFamily: 'Montserrat, sans-serif',
-  width: theme.spacing(11.125),
+  // width: theme.spacing(11.125),
   height: theme.spacing(4.5),
   padding: theme.spacing(0.75, 2),
   marginRight: theme.spacing(1),

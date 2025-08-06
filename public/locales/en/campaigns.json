@@ -77,6 +77,7 @@
     "see-all": "See all",
     "see-less": "See less",
     "see-more": "See more",
+    "learn-more": "Learn more",
     "donor": "Donor",
     "add": "Add",
     "confirm": "Confirm",
@@ -191,6 +192,10 @@
     "blocked": "Suspended",
     "deleted": "Deleted"
   },
+  "campaign-progress": {
+    "aria-label": "Campaign progress: {{state}} - {{raised}} raised of {{target}} target",
+    "aria-valuetext": "{{percentage}}% complete - {{raised}} raised of {{target}} target"
+  },
   "campaignTypesFields": {
     "medical": "Treatment and rehabilitation",
     "events": "Culture",
@@ -207,12 +212,12 @@
   "campaign-details-report": {
     "amount-collected": "Amount Collected",
     "available": "Аvailable",
-    "available-tooltip":"Available balance in Podkrepi.bg account",
+    "available-tooltip": "Available balance in Podkrepi.bg account",
     "guaranteed": "Guaranteed",
-    "guaranteed-tooltip":"Donations from employees or customers via partner-integrated corporate giving initiatives. These are marked as \"guaranteed\" by the company and transferred monthly as a consolidated amount to Podkrepi.bg for easier management.",
+    "guaranteed-tooltip": "Donations from employees or customers via partner-integrated corporate giving initiatives. These are marked as \"guaranteed\" by the company and transferred monthly as a consolidated amount to Podkrepi.bg for easier management.",
     "transferred": "Transferred",
-    "transferred-tooltip":"Disbursed funds to campaign organizer",
+    "transferred-tooltip": "Disbursed funds to campaign organizer",
     "accounted": "Accounted",
-    "accounted-tooltip":"Recorded expenses"
+    "accounted-tooltip": "Recorded expenses"
   }
 }

@@ -505,6 +505,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.27.6":
+  version: 7.28.2
+  resolution: "@babel/runtime@npm:7.28.2"
+  checksum: 8673eb2311752929f5b0167f42cff4cc1d5fadddd0394baca27d06c1618680ffcf95e9f01061f5c4dc3f6a32b6bbf500e7762c02dc22bcd273c2947b9774ddad
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.22.15":
   version: 7.22.15
   resolution: "@babel/template@npm:7.22.15"
@@ -2171,17 +2178,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material-nextjs@npm:^6.1.1":
-  version: 6.1.1
-  resolution: "@mui/material-nextjs@npm:6.1.1"
+"@mui/material-nextjs@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@mui/material-nextjs@npm:7.2.0"
   dependencies:
-    "@babel/runtime": ^7.25.6
+    "@babel/runtime": ^7.27.6
   peerDependencies:
     "@emotion/cache": ^11.11.0
     "@emotion/react": ^11.11.4
     "@emotion/server": ^11.11.0
     "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
-    next: ^13.0.0 || ^14.0.0
+    next: ^13.0.0 || ^14.0.0 || ^15.0.0
     react: ^17.0.0 || ^18.0.0 || ^19.0.0
   peerDependenciesMeta:
     "@emotion/cache":
@@ -2190,7 +2197,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: ca6b091f4dff80389e0c6f13b26cd9631f69e4f8b8e26a8d6e12402decabafb1daaef213888af5a36fc74624cc3d95b2f5ebfa1b50c8350aed53fb03cdabed79
+  checksum: d1d2fa7f4adc8938be77a298dc02e76ac04de121c37839077c7310dc5e8824f8eecb8f452b043e9bd8d913dc921d54d29b1b3ecd04fb9cbe0402f915a435d561
   languageName: node
   linkType: hard
 
@@ -13901,7 +13908,7 @@ __metadata:
     "@mui/icons-material": ^6.1.1
     "@mui/lab": ^5.0.0-alpha.170
     "@mui/material": ^6.1.1
-    "@mui/material-nextjs": ^6.1.1
+    "@mui/material-nextjs": ^7.2.0
     "@mui/styles": ^5.15.19
     "@mui/x-data-grid": ^6.16.1
     "@mui/x-date-pickers": ^6.16.1

@@ -46,6 +46,7 @@ export default function PlatformStatisticsSection() {
           </Grid>
           <Subtitle>{t('common:notifications.subscribeGeneralSubtext')}</Subtitle>
           <SubscribeButton
+            disableElevation
             onClick={() => setSubscribeOpen(true)}
             variant="contained"
             endIcon={<ArrowForwardSharp />}>
