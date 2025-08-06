@@ -1,7 +1,7 @@
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Box, Grid2, Typography } from '@mui/material'
+import { Box, CardActions, Grid2, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
@@ -102,7 +102,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
                 component="span"
                 sx={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 {t(`campaign-status.${campaignState}`)}
-                {stateIconMap[campaignState]}
+                {stateIconMap[campaignState as keyof typeof stateIconMap]}
               </Box>
             </Typography>
           </Grid2>
@@ -126,14 +126,21 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           <CampaignTitle>{title}</CampaignTitle>
         </StyledContent>
       </Link>
-      <StyledCardActions disableSpacing>
+      <CardActions
+        disableSpacing
+        sx={{
+          position: 'absolute',
+          bottom: theme.spacing(20.37),
+          right: theme.spacing(0.75),
+          padding: 0,
+        }}>
         <LearnMoreButton
           href={routes.campaigns.viewCampaignBySlug(slug)}
           variant="contained"
           color="secondary">
           {t('cta.learn-more')}
         </LearnMoreButton>
-      </StyledCardActions>
+      </CardActions>
     </Root>
   )
 }
