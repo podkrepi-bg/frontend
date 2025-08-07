@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { styled, lighten } from '@mui/material/styles'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
-import { Avatar, Grid, IconButton, Menu, Typography } from '@mui/material'
+import { Avatar, Grid2, IconButton, Menu, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
@@ -17,7 +17,7 @@ const classes = {
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`& .${classes.dropdownLinkButton}`]: {
     '&:hover': {
       backgroundColor: lighten(theme.palette.primary.main, 0.9),

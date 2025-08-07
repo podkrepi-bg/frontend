@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import ArrowForwardSharp from '@mui/icons-material/ArrowForwardSharp'
 import EmailIcon from '@mui/icons-material/Email'
 
@@ -26,7 +26,7 @@ export default function PlatformStatisticsSection() {
   return (
     <Root>
       <SectionGridWrapper>
-        <Grid
+        <Grid2
           sx={(theme) => ({
             margin: '0 auto',
             maxWidth: theme.spacing(67),
@@ -40,10 +40,10 @@ export default function PlatformStatisticsSection() {
             {t('index:platform-statistics.donate-to-those-in-need')}
           </HelpThoseInNeedButton>
           {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
-          <Grid item xs={12} display="flex" sx={{ mt: 3.5, mb: 0.5 }}>
+          <Grid2 display="flex" sx={{ mt: 3.5, mb: 0.5 }} size={12}>
             <EmailIcon color="primary" fontSize="small" sx={{ mr: 0.5 }} cursor="pointer" />
             <SubscribeHeading>{t('common:notifications.subscribeGeneral')}</SubscribeHeading>
-          </Grid>
+          </Grid2>
           <Subtitle>{t('common:notifications.subscribeGeneralSubtext')}</Subtitle>
           <SubscribeButton
             onClick={() => setSubscribeOpen(true)}
@@ -51,7 +51,7 @@ export default function PlatformStatisticsSection() {
             endIcon={<ArrowForwardSharp />}>
             {t('common:notifications.subscribeGeneralButton')}
           </SubscribeButton>
-        </Grid>
+        </Grid2>
         <Statistics />
       </SectionGridWrapper>
     </Root>

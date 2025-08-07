@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import { LogoSocialIcons } from './LogoSocialIcons'
 import { FooterLinks } from './FooterLinks'
@@ -20,12 +20,12 @@ export default function Footer() {
         <Copyright item xs={12}>
           {t('components.footer.copyrights')}
         </Copyright>
-        <Grid item>
+        <Grid2>
           {t('components.footer.hosting-partner')}{' '}
           <ExternalLink href={staticUrls.hostingProvider}>
             <strong>SuperHosting.BG</strong>
           </ExternalLink>
-        </Grid>
+        </Grid2>
       </FooterWrapper>
     </Root>
   )

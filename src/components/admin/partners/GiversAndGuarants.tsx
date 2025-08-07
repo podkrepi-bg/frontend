@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from '@mui/material'
+import { Box, Container, Grid2, Typography } from '@mui/material'
 import Image from 'next/image'
 import { Fragment } from 'react'
 import { useTranslation } from 'next-i18next'
@@ -15,7 +15,7 @@ const GiversAndGuarants = () => {
   return (
     <>
       <Container maxWidth="xl">
-        <Grid container>
+        <Grid2 container>
           <StyledGrid item xs={12} paddingTop={8}>
             <Title>{t('partners:guarants.title')}</Title>
           </StyledGrid>
@@ -33,11 +33,11 @@ const GiversAndGuarants = () => {
               ))}
             </PartnersSlider>
           </StyledGrid>
-        </Grid>
+        </Grid2>
       </Container>
 
       <Container maxWidth="md">
-        <Grid container>
+        <Grid2 container>
           <StyledGrid item xs={12}>
             <Title textAlign={'center'} paddingBottom={2}>
               {t('partners:guarants.corporateGivers')}
@@ -68,7 +68,7 @@ const GiversAndGuarants = () => {
               ))}
             </Fragment>
           ))}
-        </Grid>
+        </Grid2>
       </Container>
     </>
   )

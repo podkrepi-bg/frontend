@@ -6,7 +6,7 @@ import {
   Typography,
   DialogTitle,
   DialogContent,
-  Grid,
+  Grid2,
   CardContent,
   CircularProgress,
 } from '@mui/material'
@@ -71,13 +71,13 @@ export default observer(function RefundModal() {
           padding: '2rem',
           width: '100%',
         }}>
-        <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+        <Grid2 style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
           <CloseModalButton href={''} onClose={hideRefund} />
-        </Grid>
+        </Grid2>
         <DialogTitle style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           {t('refund.title')}
         </DialogTitle>
-        <Grid container direction="column" component="section">
+        <Grid2 container direction="column" component="section">
           <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
             <CardContent>
               <Typography variant="body1">{t('refund.confirmation')}</Typography>
@@ -91,16 +91,16 @@ export default observer(function RefundModal() {
                 {' '}
                 {t('refund.email')} {data?.billingEmail}
               </Typography>
-              <Grid item xs={12} marginTop={3}>
+              <Grid2 marginTop={3} size={12}>
                 <SubmitButton
                   fullWidth
                   label={t('refund.confirm-button')}
                   loading={refundMutation.isLoading}
                 />
-              </Grid>
+              </Grid2>
             </CardContent>
           </GenericForm>
-        </Grid>
+        </Grid2>
       </DialogContent>
     </Dialog>
   )

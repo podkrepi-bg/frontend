@@ -1,5 +1,5 @@
 import { Edit } from '@mui/icons-material'
-import { Dialog, Box, Tooltip, Grid, DialogContent, DialogTitle } from '@mui/material'
+import { Dialog, Box, Tooltip, Grid2, DialogTitle } from '@mui/material'
 import { GridRenderCellParams, useGridApiContext } from '@mui/x-data-grid'
 import { paymentRef } from 'common/form/validation'
 import FormTextField from 'components/common/form/FormTextField'
@@ -99,35 +99,35 @@ export default function RenderBankDonationStatusCell({ params }: RenderCellProps
     return (
       <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
         <StyledDialogContent>
-          <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+          <Grid2 style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
             <CloseModalButton href={''} onClose={handleClose} />
-          </Grid>
+          </Grid2>
           <DialogTitle style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
             {t('bank-transactions:cta.apply-ref-heading')}
           </DialogTitle>
-          <Grid container direction="column" component="section">
+          <Grid2 container direction="column" component="section">
             <GenericForm
               onSubmit={onSubmit}
               initialValues={{ paymentRef: '' }}
               validationSchema={validationSchema}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sx={{ marginBottom: '1rem' }}>
+              <Grid2 container spacing={3}>
+                <Grid2 sx={{ marginBottom: '1rem' }} size={12}>
                   <FormTextField
                     type="text"
                     label="bank-transactions:payment-ref"
                     name="paymentRef"
                   />
-                </Grid>
-                <Grid item xs={12}>
+                </Grid2>
+                <Grid2 size={12}>
                   <SubmitButton
                     fullWidth
                     label="bank-transactions:cta.apply-ref"
                     loading={loading}
                   />
-                </Grid>
-              </Grid>
+                </Grid2>
+              </Grid2>
             </GenericForm>
-          </Grid>
+          </Grid2>
         </StyledDialogContent>
       </Dialog>
     )

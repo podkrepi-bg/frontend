@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid2, Typography } from '@mui/material'
 
 import SelectDate from './custom/SelectDate'
 import { WithdrawalData, WithdrawalInput, WithdrawalResponse } from 'gql/withdrawals'
@@ -137,8 +137,8 @@ export default function CreateForm() {
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
           {t('form-heading')}
         </Typography>
-        <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+          <Grid2 size={12}>
             <CampaignSelect
               name="sourceCampaignId"
               label="withdrawals:sourceCampaign"
@@ -146,16 +146,16 @@ export default function CreateForm() {
               handleCampaignSelected={handleCampaignSelected}
               selectedCampaign={initialValues.sourceCampaignId as string}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <VaultSelect
               name="sourceVaultId"
               label="withdrawals:sourceVault"
               vaults={vaults}
               handleVaultSelected={handleVaultSelected}
             />
-          </Grid>
-          <Grid item xs={8}>
+          </Grid2>
+          <Grid2 size={8}>
             <FormTextField
               type="number"
               label={t('amount-available')}
@@ -164,8 +164,8 @@ export default function CreateForm() {
                 readOnly: true,
               }}
             />
-          </Grid>
-          <Grid item xs={4}>
+          </Grid2>
+          <Grid2 size={4}>
             <FormTextField
               type="text"
               label={t('currency')}
@@ -174,45 +174,45 @@ export default function CreateForm() {
                 readOnly: true,
               }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="number"
               label={t('amount-input')}
               name="amount"
               autoComplete="amount"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField type="text" label={t('reason')} name="reason" autoComplete="reason" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SelectDate name="targetDate" />
-          </Grid>
+          </Grid2>
 
-          <Grid item xs={12}>
+          <Grid2 size={12}>
             <BankAccountSelect />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="string"
               label={t('documentId')}
               name="documentId"
               autoComplete="documentId"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <PersonSelect name="approvedById" label={t('approvedBy')} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <SubmitButton fullWidth label={t('cta.submit')} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <Link href={routes.admin.withdrawals.index} passHref>
               <Button fullWidth={true}>{t('cta.cancel')}</Button>
             </Link>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Box>
     </GenericForm>
   )

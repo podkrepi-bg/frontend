@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import GenericForm from 'components/common/form/GenericForm'
 import { name, phone, email } from 'common/form/validation'
@@ -148,13 +148,17 @@ export default function CreateForm() {
   }
 
   return (
-    <Grid container direction="column" component="section">
+    <Grid2 container direction="column" component="section">
       <GenericForm
         onSubmit={handleSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+        <Grid2 container spacing={3}>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6,
+            }}>
             <FormTextField
               autoFocus
               type="text"
@@ -162,19 +166,23 @@ export default function CreateForm() {
               name="firstName"
               autoComplete="first-name"
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6,
+            }}>
             <FormTextField
               type="text"
               label="person:admin.fields.last-name"
               name="lastName"
               autoComplete="family-name"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <EmailField label="person:admin.fields.email" name="email" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="tel"
               name="phone"
@@ -182,14 +190,14 @@ export default function CreateForm() {
               autoComplete="tel"
               label="person:admin.fields.phone"
             />
-          </Grid>
-          <Grid item xs={4}>
+          </Grid2>
+          <Grid2 size={4}>
             <CheckboxField name="isOrganizer" label="person:admin.fields.organizer" />
-          </Grid>
-          <Grid item xs={4}>
+          </Grid2>
+          <Grid2 size={4}>
             <CheckboxField name="isCoordinator" label="person:admin.fields.coordinator" />
-          </Grid>
-          <Grid item xs={4}>
+          </Grid2>
+          <Grid2 size={4}>
             <CheckboxField
               name="isBeneficiary"
               label="person:admin.fields.beneficiary"
@@ -197,22 +205,22 @@ export default function CreateForm() {
                 setShowBenefactor(e.target.checked)
               }}
             />
-          </Grid>
+          </Grid2>
           {showBenefactor && (
             <>
-              <Grid item xs={12}>
+              <Grid2 size={12}>
                 <OrganizerRelationSelect
                   name="organizerRelation"
                   label="person:admin.fields.organizerRelation"
                 />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <CountrySelect />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <CitySelect name="cityId" />
-              </Grid>
-              <Grid item xs={12}>
+              </Grid2>
+              <Grid2 size={12}>
                 <FormTextField
                   type="text"
                   name="description"
@@ -220,14 +228,14 @@ export default function CreateForm() {
                   multiline
                   rows={2}
                 />
-              </Grid>
+              </Grid2>
             </>
           )}
-          <Grid item xs={4} margin="auto">
+          <Grid2 margin="auto" size={4}>
             <SubmitButton fullWidth label="person:admin.cta.create" />
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
+    </Grid2>
   )
 }

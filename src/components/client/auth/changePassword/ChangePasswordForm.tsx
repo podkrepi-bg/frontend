@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'
@@ -72,27 +72,27 @@ export default function ChangePasswordForm({ initialValues = defaults }: ChangeP
       onSubmit={onSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Grid2 container spacing={3}>
+        <Grid2 size={12}>
           <PasswordField
             type="password"
             label="auth:fields.password"
             name="password"
             autoComplete="new-password"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <PasswordField
             type="password"
             label="auth:fields.confirm-password"
             name="confirmPassword"
             autoComplete="new-password"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <SubmitButton loading={loading} fullWidth label="auth:cta.reset" />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </GenericForm>
   )
 }

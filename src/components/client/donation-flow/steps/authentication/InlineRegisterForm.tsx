@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useFormikContext } from 'formik'
 import * as yup from 'yup'
-import { Button, CircularProgress, FormHelperText, Grid } from '@mui/material'
+import { Button, CircularProgress, FormHelperText, Grid2 } from '@mui/material'
 import { signIn } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 
@@ -117,30 +117,38 @@ export default function InlineRegisterForm() {
 
   return (
     <>
-      <Grid container p={2} spacing={3} borderRadius={5} id={ids['registerEmail']}>
-        <Grid item xs={12} sm={6}>
+      <Grid2 container p={2} spacing={3} borderRadius={5} id={ids['registerEmail']}>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 6,
+          }}>
           <FormTextField
             type="text"
             label="auth:fields.first-name"
             name="registerFirstName"
             autoComplete="first-name"
           />
-        </Grid>
-        <Grid item xs={12} sm={6}>
+        </Grid2>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 6,
+          }}>
           <FormTextField
             type="text"
             label="auth:fields.last-name"
             name="registerLastName"
             autoComplete="last-name"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <EmailField label="auth:fields.email" name="registerEmail" />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <PasswordField name="registerPassword" autoComplete="new-password" />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <PasswordField
             name="registerConfirmPassword"
             label="auth:account.confirm-password"
@@ -152,8 +160,8 @@ export default function InlineRegisterForm() {
                 {t('validation:password-match')}
               </FormHelperText>
             )}
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <AcceptTermsField name="registerTerms" />
           {!formik.values.registerTerms && formik.touched.registerTerms && (
             <FormHelperText sx={{ color: 'red' }}>{t('validation:terms-of-use')}</FormHelperText>
@@ -164,9 +172,9 @@ export default function InlineRegisterForm() {
               {t('validation:terms-of-service')}
             </FormHelperText>
           )}
-        </Grid>
+        </Grid2>
 
-        <Grid item xs={12}>
+        <Grid2 size={12}>
           <Button
             size="large"
             color="primary"
@@ -176,8 +184,8 @@ export default function InlineRegisterForm() {
             onClick={onClick}>
             {loading ? <CircularProgress color="inherit" size="1.5rem" /> : t('auth:cta.register')}
           </Button>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </>
   )
 }

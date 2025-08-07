@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { styled } from '@mui/material/styles'
-import { Box, CircularProgress, Grid, IconButton, Typography } from '@mui/material'
+import { Box, CircularProgress, Grid2, IconButton, Typography } from '@mui/material'
 import { useCampaignList } from 'common/hooks/campaigns'
 import CampaignsList from './CampaignsList'
 import { CampaignResponse } from 'gql/campaigns'
@@ -95,21 +95,22 @@ export default function CampaignFilter() {
 
   return (
     <>
-      <Grid container justifyContent={'center'} display={'flex'}>
+      <Grid2 container justifyContent={'center'} display={'flex'}>
         <Root>
-          <Grid container item sx={{ my: 5 }} maxWidth={'lg'} component={'ul'}>
+          <Grid2 container sx={{ my: 5 }} maxWidth={'lg'} component={'ul'}>
             {Object.values(CampaignTypeCategory).map((category) => {
               const count = campaigns?.reduce((acc, curr) => {
                 return category === curr.campaignType.category ? acc + 1 : acc
               }, 0)
               return (
-                <Grid
-                  item
-                  xs={6}
-                  md={2}
+                <Grid2
                   className={classes.filterButtonContainer}
                   key={category}
-                  component={'li'}>
+                  component={'li'}
+                  size={{
+                    xs: 6,
+                    md: 2,
+                  }}>
                   <IconButton
                     key={category}
                     className={classes.filterButtons}
@@ -120,10 +121,16 @@ export default function CampaignFilter() {
                       {t(`campaigns:filters.${category}`)} ({count})
                     </Typography>
                   </IconButton>
-                </Grid>
+                </Grid2>
               )
             })}
-            <Grid item xs={6} md={2} className={classes.filterButtonContainer} component={'li'}>
+            <Grid2
+              className={classes.filterButtonContainer}
+              component={'li'}
+              size={{
+                xs: 6,
+                md: 2,
+              }}>
               <IconButton
                 className={classes.filterButtons}
                 onClick={() => setSelectedCategory('ALL')}>
@@ -132,10 +139,10 @@ export default function CampaignFilter() {
                   {t(`campaigns:filters.all`)} ({campaigns?.length ?? 0})
                 </Typography>
               </IconButton>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </Root>
-      </Grid>
+      </Grid2>
       {isLoading ? (
         <Box textAlign="center">
           <CircularProgress size="3rem" />

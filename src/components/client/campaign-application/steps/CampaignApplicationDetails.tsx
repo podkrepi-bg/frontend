@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, Grid, Typography } from '@mui/material'
+import { FormControl, FormHelperText, Grid2, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import FormTextField from 'components/common/form/FormTextField'
@@ -24,12 +24,12 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
   }, [files])
 
   return (
-    <Grid container spacing={6} justifyContent="center" direction="column" alignContent="center">
-      <Grid item container justifyContent="center">
+    <Grid2 container spacing={6} justifyContent="center" direction="column" alignContent="center">
+      <Grid2 container justifyContent="center">
         <StyledStepHeading variant="h4">{t('steps.details.title')}</StyledStepHeading>
-      </Grid>
-      <Grid item container spacing={6} justifyContent="space-between" direction="row">
-        <Grid item xs={12}>
+      </Grid2>
+      <Grid2 container spacing={6} justifyContent="space-between" direction="row">
+        <Grid2 size={12}>
           <FormTextField
             type="text"
             name="applicationDetails.description"
@@ -37,8 +37,8 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
             multiline
             rows={3}
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <FormTextField
             type="text"
             name="applicationDetails.currentStatus"
@@ -47,8 +47,8 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
             multiline
             rows={5}
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <FormTextField
             type="text"
             name="applicationDetails.cause"
@@ -56,8 +56,8 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
             multiline
             rows={3}
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <FormControl>
             <Typography variant="h6">{t('steps.details.documents-hint')}</Typography>
             <FileUpload
@@ -85,8 +85,8 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
             }}
             filesRole={[]}
           />
-        </Grid>
-      </Grid>
-    </Grid>
+        </Grid2>
+      </Grid2>
+    </Grid2>
   )
 }

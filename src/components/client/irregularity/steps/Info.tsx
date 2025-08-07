@@ -3,7 +3,7 @@ import { Field } from 'formik'
 import { useTranslation } from 'next-i18next'
 
 import { styled } from '@mui/material/styles'
-import { FormControl, Grid, Typography } from '@mui/material'
+import { FormControl, Grid2, Typography } from '@mui/material'
 
 import FileUpload from 'components/common/file-upload/FileUpload'
 import FormTextField from 'components/common/form/FormTextField'
@@ -40,18 +40,18 @@ export default function Info({ files, setFiles }: Props) {
   }, [])
 
   return (
-    <Grid container spacing={4} justifyContent="center" alignContent="center">
+    <Grid2 container spacing={4} justifyContent="center" alignContent="center">
       <Subtitle label={t('steps.info.subtitle')} />
-      <Grid container item>
-        <Grid item xs={12}>
+      <Grid2 container>
+        <Grid2 size={12}>
           <Typography sx={{ fontSize: theme.typography.pxToRem(18) }}>
             {t('steps.info.is-donor')}
           </Typography>
-        </Grid>
-        <Grid container item xs={12}>
+        </Grid2>
+        <Grid2 container size={12}>
           <FormControl sx={{ width: '40%', marginTop: '20px' }}>
-            <Grid container item xs={12} direction="row">
-              <Grid item xs={6}>
+            <Grid2 container direction="row" size={12}>
+              <Grid2 size={6}>
                 <label>
                   <Field
                     size="medium"
@@ -61,8 +61,8 @@ export default function Info({ files, setFiles }: Props) {
                   />
                   {t('steps.info.yes')}
                 </label>
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <label>
                   <Field
                     size="medium"
@@ -72,38 +72,38 @@ export default function Info({ files, setFiles }: Props) {
                   />
                   {t('steps.info.no')}
                 </label>
-              </Grid>
-            </Grid>
+              </Grid2>
+            </Grid2>
           </FormControl>
-        </Grid>
-      </Grid>
-      <Grid container item>
-        <Grid item xs={12}>
+        </Grid2>
+      </Grid2>
+      <Grid2 container>
+        <Grid2 size={12}>
           <Typography sx={{ fontSize: theme.typography.pxToRem(18), marginBottom: '20px' }}>
             {t('reason.title')}
           </Typography>
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <IrregularityReasonSelect />
-        </Grid>
-      </Grid>
-      <Grid container item>
-        <Grid item xs={12}>
+        </Grid2>
+      </Grid2>
+      <Grid2 container>
+        <Grid2 size={12}>
           <Typography sx={{ fontSize: theme.typography.pxToRem(18) }}>
             {t('steps.info.content')}
           </Typography>
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <CssTextField label="" type="text" multiline rows={6} name="info.description" />
-        </Grid>
-      </Grid>
-      <Grid container item>
-        <Grid item xs={12}>
+        </Grid2>
+      </Grid2>
+      <Grid2 container>
+        <Grid2 size={12}>
           <Typography sx={{ fontSize: theme.typography.pxToRem(18) }}>
             {t('steps.info.files')}
           </Typography>
-        </Grid>
-        <Grid container justifyContent="center" mt={2}>
+        </Grid2>
+        <Grid2 container justifyContent="center" mt={2}>
           <FileUpload
             onUpload={(newFiles) => {
               setFiles((prevFiles: File[]) => [...prevFiles, ...newFiles])
@@ -118,28 +118,28 @@ export default function Info({ files, setFiles }: Props) {
               )
             }
           />
-        </Grid>
-      </Grid>
-      <Grid item xs={12}>
+        </Grid2>
+      </Grid2>
+      <Grid2 size={12}>
         <Typography sx={{ fontSize: theme.typography.pxToRem(15), textAlign: 'justify' }}>
           {t('steps.info.priority-message')}
         </Typography>
-      </Grid>
-      <Grid item xs={12}>
+      </Grid2>
+      <Grid2 size={12}>
         <Typography sx={{ fontSize: theme.typography.pxToRem(15), textAlign: 'justify' }}>
           {t('steps.info.share-message')}
         </Typography>
-      </Grid>
-      <Grid item xs={12}>
+      </Grid2>
+      <Grid2 size={12}>
         <Typography sx={{ fontSize: theme.typography.pxToRem(15), textAlign: 'justify' }}>
           {t('steps.info.thanks-message')}
         </Typography>
-      </Grid>
-      <Grid item xs={12}>
+      </Grid2>
+      <Grid2 size={12}>
         <Typography sx={{ fontSize: theme.typography.pxToRem(15), textAlign: 'justify' }}>
           {t('steps.info.sign')}
         </Typography>
-      </Grid>
-    </Grid>
+      </Grid2>
+    </Grid2>
   )
 }

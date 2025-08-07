@@ -1,4 +1,4 @@
-import { Modal, Box, Typography, Button, Grid, IconButton } from '@mui/material'
+import { Modal, Box, Typography, Button, Grid2, IconButton } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Person, UpdatePerson, UpdateUserAccount } from 'gql/person'
 import { useMutation } from '@tanstack/react-query'
@@ -178,11 +178,19 @@ function DisableAccountModal({
             onSubmit={onSubmit}
             initialValues={{ password: '' }}
             validationSchema={validationSchema}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={8}>
+            <Grid2 container spacing={3}>
+              <Grid2
+                size={{
+                  xs: 12,
+                  sm: 8,
+                }}>
                 <PasswordField />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Grid2>
+              <Grid2
+                size={{
+                  xs: 12,
+                  sm: 6,
+                }}>
                 <Button
                   fullWidth
                   variant="contained"
@@ -191,20 +199,28 @@ function DisableAccountModal({
                   onClick={() => handleClose()}>
                   {t('profile:disableModal.saveAccount')}
                 </Button>
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Grid2>
+              <Grid2
+                size={{
+                  xs: 12,
+                  sm: 6,
+                }}>
                 <SubmitButton
                   fullWidth
                   label="profile:disableModal.disableAccount"
                   color="error"
                   loading={loading}
                 />
-              </Grid>
-            </Grid>
+              </Grid2>
+            </Grid2>
           </GenericForm>
         ) : (
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
+          <Grid2 container spacing={3}>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 6,
+              }}>
               <Button
                 fullWidth
                 variant="contained"
@@ -213,8 +229,12 @@ function DisableAccountModal({
                 onClick={() => handleClose()}>
                 {t('profile:disableModal.saveAccount')}
               </Button>
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </Grid2>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 6,
+              }}>
               <Button
                 fullWidth
                 variant="contained"
@@ -223,8 +243,8 @@ function DisableAccountModal({
                 onClick={() => handleDisableUser()}>
                 {t('profile:disableModal.disableAccount')}
               </Button>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         )}
       </Box>
     </StyledModal>

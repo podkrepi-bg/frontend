@@ -1,6 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import { FormikConfig } from 'formik'
 
 import GenericForm from 'components/common/form/GenericForm'
@@ -49,13 +49,17 @@ export type PersonFormProps = {
 
 export default function PersonForm({ onSubmit, initialValues = defaults }: PersonFormProps) {
   return (
-    <Grid container direction="column" component="section">
+    <Grid2 container direction="column" component="section">
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+        <Grid2 container spacing={3}>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6,
+            }}>
             <FormTextField
               autoFocus
               type="text"
@@ -63,22 +67,26 @@ export default function PersonForm({ onSubmit, initialValues = defaults }: Perso
               name="firstName"
               autoComplete="first-name"
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6,
+            }}>
             <FormTextField
               type="text"
               label="auth:fields.last-name"
               name="lastName"
               autoComplete="family-name"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             {/* TODO <CheckboxField
               name="skipRegistration"
               label="Бенефициента ще бъде представляван от организатора"
             /> */}
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               inputMode="email"
               type="text"
@@ -86,8 +94,8 @@ export default function PersonForm({ onSubmit, initialValues = defaults }: Perso
               name="email"
               autoComplete="email"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="tel"
               name="phone"
@@ -95,13 +103,13 @@ export default function PersonForm({ onSubmit, initialValues = defaults }: Perso
               autoComplete="tel"
               label="auth:fields.phone"
             />
-          </Grid>
+          </Grid2>
           <CompanyForm />
-          <Grid item xs={4} margin="auto">
+          <Grid2 margin="auto" size={4}>
             <SubmitButton fullWidth label="campaigns:cta.save" />
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
+    </Grid2>
   )
 }

@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { DonationWishPaginatedResponse } from 'gql/donationWish'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
@@ -96,13 +96,13 @@ export default function DonationsWishesInline({
 
   return (
     <Root>
-      <Grid item className={classes.donationsWrapper} data-testid="summary-wishes-wrapper">
+      <Grid2 className={classes.donationsWrapper} data-testid="summary-wishes-wrapper">
         {wishListToShow && wishListToShow.length !== 0 ? (
           wishListToShow.map(({ person, createdAt, message }, key) => (
-            <Grid key={key} className={classes.donationItemWrapper}>
+            <Grid2 key={key} className={classes.donationItemWrapper}>
               <AccountCircleIcon color="disabled" className={classes.donatorAvatar} />
-              <Grid>
-                <Grid className={classes.donationQuantityAndTimeWrapper}>
+              <Grid2>
+                <Grid2 className={classes.donationQuantityAndTimeWrapper}>
                   <Typography className={classes.donatorName}>
                     {person
                       ? `${person?.firstName} ${person?.lastName}`
@@ -112,7 +112,7 @@ export default function DonationsWishesInline({
                   <Typography className={classes.donatorName}>
                     {getExactDate(createdAt, i18n.language == 'bg' ? bg : enUS)}
                   </Typography>
-                </Grid>
+                </Grid2>
                 <Typography
                   component="blockquote"
                   sx={{
@@ -123,15 +123,15 @@ export default function DonationsWishesInline({
                   }}>
                   {message}
                 </Typography>
-              </Grid>
-            </Grid>
+              </Grid2>
+            </Grid2>
           ))
         ) : (
           <Typography sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
             {t('campaigns:campaign.nowishes')}
           </Typography>
         )}
-      </Grid>
+      </Grid2>
     </Root>
   )
 }

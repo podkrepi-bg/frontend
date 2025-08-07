@@ -4,7 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid,
+  Grid2,
   List,
   ListItem,
   ListItemText,
@@ -36,7 +36,7 @@ function DetailsModal() {
             {title && <DialogTitle>{title}</DialogTitle>}
             <DialogContent dividers>
               {/* TODO: Extract concrete implementation and use generic one */}
-              <Grid item xs={12}>
+              <Grid2 size={12}>
                 <List>
                   <ListItem>
                     <ListItemText
@@ -89,7 +89,7 @@ function DetailsModal() {
                       </ListItem>
                     ))}
                 </List>
-              </Grid>
+              </Grid2>
             </DialogContent>
             <DialogActions>
               <Button autoFocus onClick={handleClose} color="primary">

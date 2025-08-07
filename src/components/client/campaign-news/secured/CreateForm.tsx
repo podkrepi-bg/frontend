@@ -5,7 +5,7 @@ import { FormikHelpers } from 'formik'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, InputAdornment, Tooltip, Typography } from '@mui/material'
+import { Button, Grid2, InputAdornment, Tooltip, Typography } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
@@ -148,8 +148,8 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
+    <Grid2 container direction="column" component="section">
+      <Grid2 size={12}>
         <Typography
           variant="h5"
           component="h2"
@@ -160,13 +160,13 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
           })}>
           {t('news:form-heading')}
         </Typography>
-      </Grid>
+      </Grid2>
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="news:article.title"
@@ -175,8 +175,8 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
               autoComplete="title"
               InputLabelProps={{ shrink: true }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="news:article.slug.name"
@@ -184,11 +184,11 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
               placeholder={t('news:article.slug.placeholder')}
               InputLabelProps={{ shrink: true }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <CampaignDropdownSelector isDisabled={campaignId ? true : false} />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="news:article.author"
@@ -205,8 +205,8 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
                 ),
               }}
             />
-          </Grid>
-          {/* <Grid item xs={12}>
+          </Grid2>
+          {/* <Grid2 item xs={12}>
             <FormTextField
               type="text"
               label="news:article.source-link.label"
@@ -223,15 +223,19 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
                 ),
               }}
             />
-          </Grid> */}
-          <Grid item xs={12} sm={4}>
+          </Grid2> */}
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 4,
+            }}>
             {isAdmin && <ArticleStatusSelect />}
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <Typography>{t('campaigns:campaign.description')}</Typography>
             <FormRichTextField name="description" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FileUpload
               onUpload={(newFiles) => {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
@@ -261,19 +265,19 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
                 ])
               }}
             />
-          </Grid>
-          <Grid item container direction="column" xs={12}>
+          </Grid2>
+          <Grid2 container direction="column" size={12}>
             <AcceptTermsField name="terms" />
             <AcceptPrivacyPolicyField name="gdpr" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
-          </Grid>
+          </Grid2>
           <Button onClick={() => router.back()} fullWidth={true}>
             {t('Отказ')}
           </Button>
-        </Grid>
+        </Grid2>
       </GenericForm>
-    </Grid>
+    </Grid2>
   )
 }

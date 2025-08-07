@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 type Props = {
@@ -7,10 +7,10 @@ type Props = {
 export default function Title({ label }: Props) {
   const { t } = useTranslation()
   return (
-    <Grid item xs={12}>
+    <Grid2 size={12}>
       <Typography variant="h4" align="center">
         {t(label)}
       </Typography>
-    </Grid>
+    </Grid2>
   )
 }

@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useQueryClient } from '@tanstack/react-query'
 import { endpoints } from 'service/apiEndpoints'
 import { styled } from '@mui/material/styles'
-import { Dialog, DialogContent, DialogTitle, Grid } from '@mui/material'
+import { Dialog, DialogContent, DialogTitle, Grid2 } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { UNsubscribeEmailResponse, UNsubscribeEmailInput } from 'gql/notification'
 import { ApiError } from 'next/dist/server/api-utils'
@@ -21,7 +21,7 @@ const classes = {
   actionBtn: `${PREFIX}-campaign-subscriptions`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`& .${classes.actionBtn}`]: {
     fontSize: theme.typography.pxToRem(16),
     background: `${theme.palette.secondary.main}`,
@@ -96,28 +96,28 @@ export default function RenderCampaignNotificationsConfirmModal({
           paddingTop: '1rem',
           width: '100%',
         }}>
-        <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+        <Grid2 style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
           <CloseModalButton onClose={handleClose} />
-        </Grid>
+        </Grid2>
         {!isSuccess ? (
           <React.Fragment>
             <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
               {t('profile:myNotifications.modal.campaign-title-unsubscribe')}
             </DialogTitle>
-            <Grid container direction="column" component="section">
+            <Grid2 container direction="column" component="section">
               <GenericForm onSubmit={onSubmit} initialValues={{}}>
                 <StyledGrid container spacing={2}>
-                  <Grid item xs={12}>
+                  <Grid2 size={12}>
                     <SubmitButton
                       fullWidth
                       className={classes.actionBtn}
                       label="profile:myNotifications.modal.cta"
                       loading={loading}
                     />
-                  </Grid>
+                  </Grid2>
                 </StyledGrid>
               </GenericForm>
-            </Grid>
+            </Grid2>
           </React.Fragment>
         ) : (
           <DialogContent

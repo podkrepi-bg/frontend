@@ -2,13 +2,13 @@ import React from 'react'
 
 import Image from 'next/image'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 export default function SuccessfullCampaignTag() {
   const successfullCampaignTagSource = '/img/successfull-campaign-tag.png'
 
   return (
-    <Grid
+    <Grid2
       sx={{
         position: 'absolute',
         right: 5,
@@ -23,6 +23,6 @@ export default function SuccessfullCampaignTag() {
         width={200}
         height={70}
       />
-    </Grid>
+    </Grid2>
   )
 }

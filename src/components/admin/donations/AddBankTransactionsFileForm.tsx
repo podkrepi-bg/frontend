@@ -7,7 +7,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import {
   Box,
   Button,
-  Grid,
+  Grid2,
   Table,
   TableCell,
   TableContainer,
@@ -99,8 +99,8 @@ export default function BankTransactionsFileForm({
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
+    <Grid2 container direction="column" component="section">
+      <Grid2 size={12}>
         <Typography
           variant="h5"
           component="h2"
@@ -111,21 +111,21 @@ export default function BankTransactionsFileForm({
           })}>
           {t('donations:form-heading-bank-transactions-file')}
         </Typography>
-      </Grid>
+      </Grid2>
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label={t('donations:bankTransactionsFileId')}
               name="bankTransactionsFileId"
               autoComplete="bankTransactionsFileId"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FileUpload
               onUpload={(newFiles) => {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
@@ -152,20 +152,20 @@ export default function BankTransactionsFileForm({
                 ])
               }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SubmitButton
               fullWidth
               label="donations:cta.submit"
               loading={fileUploadMutation.isLoading}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <Link href={routes.admin.donations.index} passHref>
               <Button fullWidth={true}>{t('donations:cta:cancel')}</Button>
             </Link>
-          </Grid>
-          <Grid item xs={18}>
+          </Grid2>
+          <Grid2 size={18}>
             {bankImportResults?.length ? (
               <TableContainer>
                 <Typography
@@ -239,9 +239,9 @@ export default function BankTransactionsFileForm({
             ) : (
               <Box />
             )}
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
+    </Grid2>
   )
 }

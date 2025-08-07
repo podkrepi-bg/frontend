@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 
-import { SwipeableDrawer, Grid } from '@mui/material'
+import { SwipeableDrawer, Grid2 } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 
 import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
@@ -44,7 +44,7 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
   }, [])
 
   return (
-    <Grid sx={{ display: { xs: 'flex', md: 'none' } }}>
+    <Grid2 sx={{ display: { xs: 'flex', md: 'none' } }}>
       <SwipeableDrawer
         anchor="right"
         open={mobileOpen}
@@ -59,17 +59,17 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
             </Link>
             <CloseButton edge="end" fontSize="large" onClose={closeNavMenu} />
           </OpenMenuHeader>
-          <Grid item>
+          <Grid2>
             <DonationMenuMobile />
-          </Grid>
-          <Grid item>
+          </Grid2>
+          <Grid2>
             <ProjectMenuMobile />
-          </Grid>
+          </Grid2>
           <AuthLinks />
           <LocaleButtonWrapper>
             <LocaleButton />
           </LocaleButtonWrapper>
-          <Grid textAlign="center">
+          <Grid2 textAlign="center">
             <DonateButton
               size="large"
               variant="outlined"
@@ -77,9 +77,9 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
               endIcon={<FavoriteIcon color="primary" fontSize="medium" />}>
               {t('nav.donate')}
             </DonateButton>
-          </Grid>
+          </Grid2>
         </NavMenuWrapper>
       </SwipeableDrawer>
-    </Grid>
+    </Grid2>
   )
 }

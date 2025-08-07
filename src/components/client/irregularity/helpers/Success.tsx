@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 
 import { ThemeProvider } from '@mui/styles'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined'
 
 import theme from 'common/theme'
@@ -26,27 +26,35 @@ export default function Success() {
         <Icon item xs={12} color="#4BD12A">
           <CheckCircleOutlinedIcon />
         </Icon>
-        <Grid item xs={12}>
+        <Grid2 size={12}>
           <Typography variant="h5">{t('steps.success.title')}</Typography>
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <Typography variant="h6" my={5}>
             {t('steps.success.subtitle')}
           </Typography>
-        </Grid>
+        </Grid2>
         <ButtonsWrapper container>
-          <Grid item xs={12} sm={6}>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6,
+            }}>
             <Typography variant="body1">{t('steps.success.label-campaigns')}</Typography>
             <ActionLinkButton href={routes.campaigns.index} variant="outlined">
               {t('cta.campaigns')}
             </ActionLinkButton>
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6,
+            }}>
             <Typography variant="body1">{t('steps.success.label-project')}</Typography>
             <ActionLinkButton href={routes.aboutProject} variant="outlined">
               {t('cta.project')}
             </ActionLinkButton>
-          </Grid>
+          </Grid2>
         </ButtonsWrapper>
       </Root>
     </ThemeProvider>

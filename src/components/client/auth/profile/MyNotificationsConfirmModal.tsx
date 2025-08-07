@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, Grid, DialogTitle } from '@mui/material'
+import { Dialog, DialogContent, Grid2, DialogTitle } from '@mui/material'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import CloseModalButton from 'components/common/CloseModalButton'
@@ -26,7 +26,7 @@ const classes = {
   actionBtn: `${PREFIX}-subscriptions`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`& .${classes.actionBtn}`]: {
     fontSize: theme.typography.pxToRem(16),
     background: `${theme.palette.secondary.main}`,
@@ -114,9 +114,9 @@ export default function RenderNotificationsConfirmModal({ type, setOpen }: Modal
           paddingTop: '1rem',
           width: '100%',
         }}>
-        <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+        <Grid2 style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
           <CloseModalButton onClose={handleClose} />
-        </Grid>
+        </Grid2>
         {!isSuccess ? (
           <React.Fragment>
             <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
@@ -124,20 +124,20 @@ export default function RenderNotificationsConfirmModal({ type, setOpen }: Modal
                 ? t('profile:myNotifications.modal.title-subscribe')
                 : t('profile:myNotifications.modal.title-unsubscribe')}
             </DialogTitle>
-            <Grid container direction="column" component="section">
+            <Grid2 container direction="column" component="section">
               <GenericForm onSubmit={onSubmit} initialValues={{}}>
                 <StyledGrid container spacing={2}>
-                  <Grid item xs={12}>
+                  <Grid2 size={12}>
                     <SubmitButton
                       fullWidth
                       className={classes.actionBtn}
                       label="profile:myNotifications.modal.cta"
                       loading={loading}
                     />
-                  </Grid>
+                  </Grid2>
                 </StyledGrid>
               </GenericForm>
-            </Grid>
+            </Grid2>
           </React.Fragment>
         ) : (
           <DialogContent

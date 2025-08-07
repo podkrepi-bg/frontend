@@ -8,7 +8,7 @@ import * as yup from 'yup'
 import {
   Box,
   Button,
-  Grid,
+  Grid2,
   InputLabel,
   MenuItem,
   Select,
@@ -99,21 +99,29 @@ export default function Form() {
         <Typography variant="h5" component="h2" sx={{ textAlign: 'center' }}>
           {id ? t('campaign-types:forms:edit-heading') : t('campaign-types:forms:add-heading')}
         </Typography>
-        <Grid
+        <Grid2
           sx={{ display: 'flex', marginTop: '1%' }}
           container
           direction="column"
           component="section"
           spacing={2}>
-          <Grid item xs={6} md={6}>
+          <Grid2
+            size={{
+              xs: 6,
+              md: 6,
+            }}>
             <FormTextField
               type="text"
               name="name"
               autoComplete="target-amount"
               label={t('campaign-types:grid:name')}
             />
-          </Grid>
-          <Grid item xs={6} md={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 6,
+              md: 6,
+            }}>
             <InputLabel>{t('campaign-types:grid:category')}</InputLabel>
             <Select
               fullWidth
@@ -137,8 +145,8 @@ export default function Form() {
                 )
               })}
             </Select>
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               name="description"
@@ -147,16 +155,16 @@ export default function Form() {
               multiline
               rows={3}
             />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <SubmitButton fullWidth label={t('documents:cta:submit')} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <Link href={routes.admin.campaignTypes.index} passHref>
               <Button fullWidth>{t('documents:cta:cancel')}</Button>
             </Link>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Box>
     </GenericForm>
   )

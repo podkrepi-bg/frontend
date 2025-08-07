@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import {
   Button,
-  Grid,
+  Grid2,
   InputAdornment,
   List,
   ListItemText,
@@ -169,8 +169,8 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
+    <Grid2 container direction="column" component="section">
+      <Grid2 size={12}>
         <Typography
           variant="h5"
           component="h2"
@@ -181,21 +181,21 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
           })}>
           {t('news:edit-form-heading')}
         </Typography>
-      </Grid>
+      </Grid2>
       <GenericForm<CampaignNewsInput>
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="news:article.title"
               name="title"
               autoComplete="title"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="news:article.slug.name"
@@ -215,11 +215,11 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
               })}>
               {slugWasChanged && t('news:article.slug.warning')}
             </Typography>
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <CampaignDropdownSelector isDisabled={campaignId ? true : false} />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="news:article.author"
@@ -236,8 +236,8 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
                 ),
               }}
             />
-          </Grid>
-          {/* <Grid item xs={12}>
+          </Grid2>
+          {/* <Grid2 item xs={12}>
             <FormTextField
               type="text"
               label="news:article.source-link.label"
@@ -254,31 +254,39 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
                 ),
               }}
             />
-          </Grid> */}
-          <Grid item xs={12} sm={4}>
+          </Grid2> */}
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 4,
+            }}>
             {isAdmin && <ArticleStatusSelect />}
-          </Grid>
-          <Grid item xs={12} sm={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 4,
+            }}>
             {isAdmin && (
               <CheckboxField
                 name="notify"
                 label={<Typography variant="body2">{t('campaigns:campaign.notify')}</Typography>}
               />
             )}
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <Typography>{t('campaigns:campaign.description')}</Typography>
             <FormRichTextField name="description" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <List dense>
               <ListItemText primary={t('campaigns:cta.attached-files')} />
               {(article?.newsFiles || []).map((file, key) => (
                 <UploadedCampaignFile key={key} file={file} articleId={article.id} />
               ))}
             </List>
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FileUpload
               buttonLabel={t('campaigns:cta.add-files')}
               onUpload={(newFiles) => {
@@ -308,15 +316,15 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
                 ])
               }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
             <Button onClick={() => router.back()} fullWidth>
               {t('Отказ')}
             </Button>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
+    </Grid2>
   )
 }

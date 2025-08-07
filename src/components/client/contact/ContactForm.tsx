@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { FormikHelpers } from 'formik'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
 import { createContactRequest } from 'service/contact'
@@ -78,8 +78,8 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
+    <Grid2 container direction="column" component="section">
+      <Grid2 size={12}>
         <Typography
           variant="h5"
           component="h2"
@@ -90,32 +90,40 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
           })}>
           {t('contact:form-heading')}
         </Typography>
-      </Grid>
+      </Grid2>
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+        <Grid2 container spacing={3}>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6,
+            }}>
             <FormTextField
               type="text"
               label="auth:fields.first-name"
               name="firstName"
               autoComplete="first-name"
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6,
+            }}>
             <FormTextField
               type="text"
               label="auth:fields.last-name"
               name="lastName"
               autoComplete="family-name"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <EmailField label="auth:fields.email" name="email" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="tel"
               name="phone"
@@ -123,16 +131,16 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
               autoComplete="tel"
               label="auth:fields.phone"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               name="company"
               label="auth:fields.company"
               autoComplete="organization"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               rows={4}
               multiline
@@ -141,16 +149,16 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
               label="auth:fields.message"
               sx={{ '& textarea': { resize: 'vertical', minHeight: theme.spacing(3) } }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <AcceptTermsField name="terms" />
             <AcceptPrivacyPolicyField name="gdpr" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SubmitButton fullWidth label="auth:cta.send" loading={mutation.isLoading} />
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
+    </Grid2>
   )
 }

@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles'
-import { Button, Grid, Link, Typography } from '@mui/material'
+import { Button, Grid2, Link, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 
@@ -9,7 +9,7 @@ export const ManagementBoardHeading = styled(Typography)(() => ({
   textAlign: 'center',
 }))
 
-export const ТeamMemberWrapper = styled(Grid)(() => ({
+export const ТeamMemberWrapper = styled(Grid2)(() => ({
   flexGrow: 1,
   width: '100%',
   textAlign: 'center',

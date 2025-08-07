@@ -1,4 +1,4 @@
-import { Button, Grid, Link, Typography } from '@mui/material'
+import { Button, Grid2, Link, Typography } from '@mui/material'
 
 import { CampaignNewsResponse } from 'gql/campaign-news'
 
@@ -30,7 +30,7 @@ const classes = {
   readMoreButton: `${PREFIX}-readMoreButton`,
 }
 
-const ArticleSection = styled(Grid)(({ theme }) => ({
+const ArticleSection = styled(Grid2)(({ theme }) => ({
   paddingTop: theme.spacing(2),
   paddingBottom: theme.spacing(2),
 
@@ -92,7 +92,7 @@ export default function CampaignNewsList({ articles }: Props) {
         const images = GetArticleGalleryPhotos(article.newsFiles)
         const [, sanitizedDescription] = HTMLContentSeparator(article.description)
         return (
-          <Grid
+          <Grid2
             container
             key={article.id}
             sx={{
@@ -107,20 +107,20 @@ export default function CampaignNewsList({ articles }: Props) {
               },
             }}>
             <ArticleSection id={article.id}>
-              <Grid container columnGap={2} rowGap={1} className={classes.dateAndAuthorContainer}>
-                <Grid container item gap={1} xs="auto">
+              <Grid2 container columnGap={2} rowGap={1} className={classes.dateAndAuthorContainer}>
+                <Grid2 container gap={1} size="auto">
                   <AvTimerIcon color="primary" />
                   <Typography className={classes.articlepublishedDate}>
                     {formatDateString(article.publishedAt, i18n?.language)} &nbsp;
                     {dateToTime(article.publishedAt, i18n?.language)}
                   </Typography>
-                </Grid>
-                <Grid container item gap={1} xs="auto" style={{ maxWidth: '100%' }} wrap="nowrap">
+                </Grid2>
+                <Grid2 container gap={1} style={{ maxWidth: '100%' }} wrap="nowrap" size="auto">
                   <SupervisedUserCircleOutlinedIcon color="primary" />
                   <Typography className={classes.articleAuthor}>{article.author}</Typography>
-                </Grid>
-              </Grid>
-              <Grid
+                </Grid2>
+              </Grid2>
+              <Grid2
                 container
                 rowGap={1}
                 columnGap={4}
@@ -132,7 +132,7 @@ export default function CampaignNewsList({ articles }: Props) {
                   overflow: 'hidden',
                   maxWidth: 1200,
                 }}>
-                <Grid container item direction={'column'} gap={1}>
+                <Grid2 container direction={'column'} gap={1}>
                   <Typography component={'h2'} className={classes.articleHeader}>
                     {article.title}
                   </Typography>
@@ -146,25 +146,25 @@ export default function CampaignNewsList({ articles }: Props) {
                       sx={{ wordBreak: 'break-word' }}
                     />
                   </QuillStypeWrapper>
-                  <Grid container item direction={'column'} gap={0.5}>
+                  <Grid2 container direction={'column'} gap={0.5}>
                     {documents.map((file) => (
-                      <Grid item key={file.id}>
+                      <Grid2 key={file.id}>
                         <Link key={file.id} href={file.fileUrl} target="_blank">
                           <Typography color="primary.dark" fontWeight="700">
                             {file.fileName}
                           </Typography>
                         </Link>
-                      </Grid>
+                      </Grid2>
                     ))}
-                  </Grid>
-                </Grid>
+                  </Grid2>
+                </Grid2>
                 {article.newsFiles.length > 0 && (
                   <>
-                    <Grid container item gap={1} xs={'auto'} style={{ maxWidth: '100%' }}>
+                    <Grid2 container gap={1} style={{ maxWidth: '100%' }} size="auto">
                       <Gallery images={images}>
                         {images.map((file) => {
                           return (
-                            <Grid item key={file.id}>
+                            <Grid2 key={file.id}>
                               <Image
                                 src={file.src}
                                 width={220}
@@ -172,14 +172,14 @@ export default function CampaignNewsList({ articles }: Props) {
                                 alt={file.fileName}
                                 style={{ objectFit: 'scale-down' }}
                               />
-                            </Grid>
+                            </Grid2>
                           )
                         })}
                       </Gallery>
-                    </Grid>
+                    </Grid2>
                   </>
                 )}
-              </Grid>
+              </Grid2>
               {getArticleHeight(article.id) > INITIAL_HEIGHT_LIMIT && (
                 <Button
                   key={article.id}
@@ -193,7 +193,7 @@ export default function CampaignNewsList({ articles }: Props) {
                 </Button>
               )}
             </ArticleSection>
-          </Grid>
+          </Grid2>
         )
       })}
     </>

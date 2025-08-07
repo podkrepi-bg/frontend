@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
@@ -12,7 +12,7 @@ export const Root = styled('section')(() => ({
   },
 }))
 
-export const ActiveCampaignsWrapper = styled(Grid)(() => ({
+export const ActiveCampaignsWrapper = styled(Grid2)(() => ({
   display: 'grid',
   gap: theme.spacing(4.62),
   marginTop: theme.spacing(8),
@@ -37,7 +37,7 @@ export const ActiveCampaignsWrapper = styled(Grid)(() => ({
   },
 }))
 
-export const SeeAllButtonWrapper = styled(Grid)(() => ({
+export const SeeAllButtonWrapper = styled(Grid2)(() => ({
   display: 'flex',
   placeContent: 'center',
   marginTop: theme.spacing(6),

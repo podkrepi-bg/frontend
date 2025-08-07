@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useMutation } from '@tanstack/react-query'
-import { Grid, Box, Typography, Link, Button } from '@mui/material'
+import { Grid2, Box, Typography, Link, Button } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 
@@ -76,7 +76,7 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
     }
   }
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       component="section"
@@ -89,45 +89,53 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
         initialValues={initialValues}
         validationSchema={validationSchema}>
         <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
+          <Grid2 container spacing={3}>
+            <Grid2 size={12}>
               <Typography variant="h6">{t('form-heading')}</Typography>
-            </Grid>
-            {/* <Grid item xs={12} sm={4}>
+            </Grid2>
+            {/* <Grid2 item xs={12} sm={4}>
             <FormTextField
               type="text"
               label="auth:fields.id"
               name="id"
               autoComplete="id"
             />
-          </Grid> */}
-            <Grid item xs={12} sm={4}>
+          </Grid2> */}
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 4,
+              }}>
               <FormTextField
                 type="text"
                 label={t('customerId')}
                 name="extCustomerId"
                 autoComplete="extCustomerId"
               />
-            </Grid>
-            <Grid item xs={12} sm={4}>
+            </Grid2>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 4,
+              }}>
               <FormTextField
                 type="text"
                 label={t('personId')}
                 name="person"
                 autoComplete="person"
               />
-            </Grid>
-            <Grid item xs={12}>
+            </Grid2>
+            <Grid2 size={12}>
               <SubmitButton fullWidth label={t('cta.submit')} />
-            </Grid>
-            <Grid item xs={6}>
+            </Grid2>
+            <Grid2 size={6}>
               <Link href={routes.admin.benefactor.index}>
                 <Button>{t('cta.cancel')}</Button>
               </Link>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </Box>
       </GenericForm>
-    </Grid>
+    </Grid2>
   )
 }

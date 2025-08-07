@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import { useViewCampaign } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
@@ -34,11 +34,10 @@ export default function ViewCampaignPage({ slug }: Props) {
       ogImage={ogImageUrl}
       metaTitle={campaign.title}
       metaDescription={campaign.title}>
-      <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
+      <Grid2 container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <CampaignDetails campaign={campaign} />
         {mobile || small ? (
-          <Grid
-            item
+          <Grid2
             sx={{
               position: 'sticky',
               top: 40,
@@ -52,13 +51,10 @@ export default function ViewCampaignPage({ slug }: Props) {
               zIndex: 100,
             }}>
             <InlineDonation campaign={campaign} />
-          </Grid>
+          </Grid2>
         ) : (
-          <Grid
+          <Grid2
             container
-            item
-            xs={12}
-            sm={4}
             direction="column"
             flexWrap="nowrap"
             sx={{
@@ -69,9 +65,12 @@ export default function ViewCampaignPage({ slug }: Props) {
                 flexBasis: 'fit-content',
                 flexDirection: 'column',
               },
+            }}
+            size={{
+              xs: 12,
+              sm: 4,
             }}>
-            <Grid
-              item
+            <Grid2
               sx={{
                 position: 'sticky',
                 top: theme.spacing(12),
@@ -84,10 +83,10 @@ export default function ViewCampaignPage({ slug }: Props) {
                 },
               }}>
               <InlineDonation campaign={campaign} />
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         )}
-      </Grid>
+      </Grid2>
     </Layout>
   )
 }

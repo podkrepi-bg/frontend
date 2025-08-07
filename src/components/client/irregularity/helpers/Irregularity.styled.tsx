@@ -1,16 +1,16 @@
 import { styled } from '@mui/material/styles'
-import { Button, Grid } from '@mui/material'
+import { Button, Grid2 } from '@mui/material'
 
 import LinkButton from 'components/common/LinkButton'
 import SubmitButton from 'components/common/form/SubmitButton'
 import theme from 'common/theme'
 
-export const Root = styled(Grid)(() => ({
+export const Root = styled(Grid2)(() => ({
   marginTop: theme.spacing(15),
   textAlign: 'center',
 }))
 
-export const Icon = styled(Grid)(() => ({
+export const Icon = styled(Grid2)(() => ({
   justifyContent: 'center',
   marginBottom: theme.spacing(4),
 
@@ -19,7 +19,7 @@ export const Icon = styled(Grid)(() => ({
   },
 }))
 
-export const ButtonsWrapper = styled(Grid)(() => ({
+export const ButtonsWrapper = styled(Grid2)(() => ({
   justifyContent: 'space-evenly',
 }))
 

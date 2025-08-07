@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { useSession } from 'next-auth/react'
-import { Alert, Box, Collapse, Grid, Typography, useMediaQuery } from '@mui/material'
+import { Alert, Box, Collapse, Grid2, Typography, useMediaQuery } from '@mui/material'
 import { useField } from 'formik'
 
 import theme from 'common/theme'
@@ -87,7 +87,7 @@ export default function PaymentMethod({
     },
   ]
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       component="section"
@@ -118,6 +118,6 @@ export default function PaymentMethod({
           </Collapse>
         </div>
       )}
-    </Grid>
+    </Grid2>
   )
 }

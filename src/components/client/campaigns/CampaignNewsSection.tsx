@@ -1,4 +1,4 @@
-import { Typography, Grid, Button, Link } from '@mui/material'
+import { Typography, Grid2, Button, Link } from '@mui/material'
 import { CampaignResponse } from 'gql/campaigns'
 import {
   Timeline,
@@ -167,8 +167,8 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
-    <Grid container item xs={12} spacing={1} id="news">
-      <Grid container item flexDirection={'column'}>
+    <Grid2 container spacing={1} id="news" size={12}>
+      <Grid2 container flexDirection={'column'}>
         <Typography component="h4" color={theme.palette.common.black} fontSize="2rem">
           {t('news')}
         </Typography>
@@ -179,13 +179,13 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
             </Typography>
           </Link>
         )}
-      </Grid>
+      </Grid2>
       {campaign.campaignNews.length === 0 ? (
-        <Grid item>
+        <Grid2>
           <Typography>{t('news-not-found')}</Typography>
-        </Grid>
+        </Grid2>
       ) : (
-        <Grid item>
+        <Grid2>
           <StyledTimeline>
             {campaign.campaignNews?.map((article) => {
               const documents = GetArticleDocuments(article.newsFiles)
@@ -195,8 +195,8 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                 <TimelineItem key={article.id} className={classes.timelineItem} id={article.id}>
                   {!small && (
                     <TimelineOppositeContent className={classes.timelineOppositeContent}>
-                      <Grid container flexDirection={'column'} wrap="nowrap" gap={2}>
-                        <Grid container item wrap="nowrap" gap={1}>
+                      <Grid2 container flexDirection={'column'} wrap="nowrap" gap={2}>
+                        <Grid2 container wrap="nowrap" gap={1}>
                           <AvTimerIcon color="action" />
                           <Typography className={classes.articlePublishedDate}>
                             {`${formatDateString(article.publishedAt, i18n?.language)} ${dateToTime(
@@ -204,14 +204,14 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                               i18n?.language,
                             )}`}
                           </Typography>
-                        </Grid>
-                        <Grid container item wrap="nowrap" gap={1}>
+                        </Grid2>
+                        <Grid2 container wrap="nowrap" gap={1}>
                           <SupervisedUserCircleOutlinedIcon color="action" />
                           <Typography className={classes.articleAuthor}>
                             {article.author}
                           </Typography>
-                        </Grid>
-                      </Grid>
+                        </Grid2>
+                      </Grid2>
                     </TimelineOppositeContent>
                   )}
                   <TimelineSeparator>
@@ -220,12 +220,12 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                   </TimelineSeparator>
                   <TimelineContent className={classes.timelineContent}>
                     {small && (
-                      <Grid
+                      <Grid2
                         container
                         columnGap={2}
                         rowGap={1}
                         className={classes.dateAndAuthorContainer}>
-                        <Grid container item gap={1} xs="auto">
+                        <Grid2 container gap={1} size="auto">
                           <AvTimerIcon color="action" />
                           <Typography className={classes.articlePublishedDate}>
                             {`${formatDateString(article.publishedAt, i18n?.language)} ${dateToTime(
@@ -233,30 +233,32 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                               i18n?.language,
                             )}`}
                           </Typography>
-                        </Grid>
-                        <Grid
+                        </Grid2>
+                        <Grid2
                           container
-                          item
                           gap={1}
-                          xs="auto"
                           style={{ maxWidth: '40%' }}
-                          wrap="nowrap">
+                          wrap="nowrap"
+                          size="auto">
                           <SupervisedUserCircleOutlinedIcon color="action" />
                           <Typography className={classes.articleAuthor}>
                             {article.author}
                           </Typography>
-                        </Grid>
-                      </Grid>
+                        </Grid2>
+                      </Grid2>
                     )}
-                    <Grid container gap={1} direction={'column'} className={classes.articleContent}>
-                      <Grid item>
+                    <Grid2
+                      container
+                      gap={1}
+                      direction={'column'}
+                      className={classes.articleContent}>
+                      <Grid2>
                         <Typography component={'h2'} className={classes.articleHeader}>
                           {article.title}
                         </Typography>
-                      </Grid>
-                      <Grid
+                      </Grid2>
+                      <Grid2
                         container
-                        item
                         direction={'row'}
                         sx={{
                           height:
@@ -276,7 +278,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                             sx={{ wordBreak: 'break-word' }}
                           />
                         </QuillStypeWrapper>
-                      </Grid>
+                      </Grid2>
                       {getArticleHeight(article.id) >= INITIAL_HEIGHT_LIMIT && (
                         <Button
                           className={classes.readMoreButton}
@@ -288,23 +290,23 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                         </Button>
                       )}
                       {article.newsFiles.length > 0 && (
-                        <Grid container gap={1}>
-                          <Grid container item direction={'column'} gap={0.5}>
+                        <Grid2 container gap={1}>
+                          <Grid2 container direction={'column'} gap={0.5}>
                             {documents.map((file) => (
-                              <Grid item key={file.id}>
+                              <Grid2 key={file.id}>
                                 <Link href={file.fileUrl} target="_blank">
                                   <Typography color="primary.dark" fontSize={16} fontWeight="700">
                                     {file.fileName}
                                   </Typography>
                                 </Link>
-                              </Grid>
+                              </Grid2>
                             ))}
-                          </Grid>
-                          <Grid container item gap={1}>
+                          </Grid2>
+                          <Grid2 container gap={1}>
                             <Gallery images={images}>
                               {images.map((file) => {
                                 return (
-                                  <Grid item key={file.id}>
+                                  <Grid2 key={file.id}>
                                     <Image
                                       src={file.src}
                                       width={220}
@@ -312,29 +314,29 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                                       alt={file.fileName}
                                       style={{ objectFit: 'scale-down' }}
                                     />
-                                  </Grid>
+                                  </Grid2>
                                 )
                               })}
                             </Gallery>
-                          </Grid>
-                        </Grid>
+                          </Grid2>
+                        </Grid2>
                       )}
-                    </Grid>
+                    </Grid2>
                   </TimelineContent>
                 </TimelineItem>
               )
             })}
-            <Grid>
+            <Grid2>
               <OutlinedButton
                 href={routes.campaigns.news.listNewsForCampaign(campaign.slug)}
                 variant="outlined"
                 className={classes.readAllButton}>
                 {t('see-all-news')}
               </OutlinedButton>
-            </Grid>
+            </Grid2>
           </StyledTimeline>
-        </Grid>
+        </Grid2>
       )}
-    </Grid>
+    </Grid2>
   )
 }

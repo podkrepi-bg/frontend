@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid2, Typography } from '@mui/material'
 
 import { DocumentInput, DocumentResponse } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
@@ -94,34 +94,34 @@ export default function EditForm() {
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
           {id ? t('documents:edit-form-heading') : t('documents:form-heading')}
         </Typography>
-        <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <Grid item xs={6}>
+        <Grid2 container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+          <Grid2 size={6}>
             <FormTextField type="text" label={t('documents:type')} name="type" />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <FormTextField type="text" label={t('documents:name')} name="name" />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <FormTextField type="text" label={t('documents:filename')} name="filename" />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <FormTextField type="text" label={t('documents:filetype')} name="filetype" />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <FormTextField type="text" label={t('documents:description')} name="description" />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <FormTextField type="text" label={t('documents:sourceUrl')} name="sourceUrl" />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <SubmitButton fullWidth label={t('documents:cta:submit')} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <Link passHref href={routes.admin.documents.index}>
               <Button>{t('documents:cta:cancel')}</Button>
             </Link>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Box>
     </GenericForm>
   )

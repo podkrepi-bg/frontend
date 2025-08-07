@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 
 import RenderSubscribeModal from 'components/client/notifications/GeneralSubscribeModal'
@@ -25,7 +25,7 @@ const SubscriptionSection = () => {
 
   return (
     <Root>
-      <Grid
+      <Grid2
         sx={{
           margin: '0 auto',
           textAlign: 'center',
@@ -35,11 +35,10 @@ const SubscriptionSection = () => {
           {t('index:subscription-section.content')}
         </InfoText>
         {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
-        <Grid
-          item
-          xs={12}
+        <Grid2
           mb={0.5}
-          sx={{ display: 'flex', justifyContent: 'center', paddingTop: theme.spacing(2) }}>
+          sx={{ display: 'flex', justifyContent: 'center', paddingTop: theme.spacing(2) }}
+          size={12}>
           <EmailIcon
             color="primary"
             fontSize="small"
@@ -50,14 +49,14 @@ const SubscriptionSection = () => {
           <SubscribeHeading onClick={() => setSubscribeOpen(true)}>
             {t('common:notifications.subscribe-monthly-newsletter')}
           </SubscribeHeading>
-        </Grid>
+        </Grid2>
         <Subtitle sx={{ display: 'block', padding: theme.spacing(1.25) }}>
           {t('common:notifications.subscribe-general-monthly-newsletter')}
         </Subtitle>
         <SubscribeButton onClick={() => setSubscribeOpen(true)} variant="contained">
           {t('common:notifications.subscribe-general-newsletter-button')}
         </SubscribeButton>
-      </Grid>
+      </Grid2>
     </Root>
   )
 }

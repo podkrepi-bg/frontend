@@ -38,7 +38,19 @@ export default function PodkrepiLogo({
 }: ParkhandsLogoProps) {
   const [width, height] = variant === 'fixed' ? sizes[size] : ['100%', '100%']
   return (
-    <Root width={width} height={height} viewBox="0 0 118 24" className={className}>
+    <Root
+      width={width}
+      height={height}
+      viewBox="0 0 118 24"
+      className={className}
+      sx={
+        variant === 'adaptive'
+          ? {
+              maxWidth: '190.86px',
+              height: '100%',
+            }
+          : undefined
+      }>
       <g>
         <g>
           <path

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Menu } from '@mui/icons-material'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
-import { AppBar, Toolbar, IconButton, Grid, ButtonBase } from '@mui/material'
+import { AppBar, Toolbar, IconButton, Grid2, ButtonBase, Theme } from '@mui/material'
 
 import { routes } from 'common/routes'
 import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
@@ -80,12 +80,12 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             <PodkrepiLogo locale={locale} variant="adaptive" />
           </ButtonBase>
         </Link>
-        <Grid
+        <Grid2
           container
           wrap="nowrap"
           direction="row"
           justifyContent="flex-end"
-          sx={(theme) => ({
+          sx={(theme: Theme) => ({
             marginLeft: theme.spacing(2),
             marginRight: theme.spacing(5),
             [theme.breakpoints.up('lg')]: {
@@ -93,16 +93,16 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             },
             display: { md: 'flex', xs: 'none' },
           })}>
-          <Grid item>
+          <Grid2>
             <MainNavMenu>
               {status === 'authenticated' ? <PrivateMenu /> : <PublicMenu />}
-              <Grid item>
+              <Grid2>
                 <LocaleButton />
-              </Grid>
+              </Grid2>
             </MainNavMenu>
-          </Grid>
-        </Grid>
-        <Grid sx={{ display: { xs: 'flex', md: 'none' } }}>
+          </Grid2>
+        </Grid2>
+        <Grid2 sx={{ display: { xs: 'flex', md: 'none' } }}>
           <IconButton
             size="small"
             edge="end"
@@ -110,7 +110,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             aria-labelledby="navigation menu">
             <Menu fontSize="large" />
           </IconButton>
-        </Grid>
+        </Grid2>
       </Toolbar>
     </AppBar>
   )

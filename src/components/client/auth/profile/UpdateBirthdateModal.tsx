@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { styled } from '@mui/material/styles'
 import { useState } from 'react'
-import { Modal, Box, Grid, IconButton } from '@mui/material'
+import { Modal, Box, Grid2, IconButton } from '@mui/material'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
@@ -117,18 +117,22 @@ function UpdateBirthdateModal({
           onSubmit={onSubmit}
           initialValues={initialValues}
           validationSchema={validationSchema}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={8}>
+          <Grid2 container spacing={3}>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 8,
+              }}>
               <FormDatePicker
                 name="birthday"
                 label={t('profile:birthdateModal.question')}
                 maxDate={maxDate}
               />
-            </Grid>
-            <Grid item xs={6}>
+            </Grid2>
+            <Grid2 size={6}>
               <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </GenericForm>
       </Box>
     </StyledModal>

@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react'
-import { Button, Grid } from '@mui/material'
+import { Button, Grid2 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -20,15 +20,15 @@ export default function Actions({
 }: ActionsProps) {
   const { t } = useTranslation()
   return (
-    <Grid container justifyContent="space-around">
-      <Grid item>
+    <Grid2 container justifyContent="space-around">
+      <Grid2>
         <Button disabled={disableBack} onClick={onBack}>
           {t('support:cta.back')}
         </Button>
-      </Grid>
-      <Grid item>
+      </Grid2>
+      <Grid2>
         <SubmitButton label={nextLabel} loading={loading} />
-      </Grid>
-    </Grid>
+      </Grid2>
+    </Grid2>
   )
 }

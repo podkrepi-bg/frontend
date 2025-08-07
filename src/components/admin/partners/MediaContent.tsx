@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Link } from '@mui/material'
+import { Box, Container, Grid2, Link } from '@mui/material'
 import Image from 'next/image'
 import useMobile from '../../../common/hooks/useMobile'
 import { articles } from './helpers/mediaAboutUsData'
@@ -21,17 +21,18 @@ const MediaContent = () => {
 
   return (
     <Container maxWidth="xl">
-      <Grid container rowSpacing={7.5} columnSpacing={7}>
+      <Grid2 container rowSpacing={7.5} columnSpacing={7}>
         {articles.map((article, index) => (
-          <Grid
+          <Grid2
             key={article.title}
-            item
-            xs={12}
-            md={6}
             marginTop={firstElementMargin(index)}
             display="flex"
             flexDirection={small ? 'column' : 'row'}
-            alignItems="center">
+            alignItems="center"
+            size={{
+              xs: 12,
+              md: 6,
+            }}>
             <Box paddingRight={2}>
               <Image alt="logo" src={article.img} width={80} height={80} />
             </Box>
@@ -47,9 +48,9 @@ const MediaContent = () => {
               </Link>
               <Description>{article.description}</Description>
             </Box>
-          </Grid>
+          </Grid2>
         ))}
-      </Grid>
+      </Grid2>
     </Container>
   )
 }

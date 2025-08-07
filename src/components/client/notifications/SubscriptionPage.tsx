@@ -2,7 +2,7 @@ import { useTranslation, Trans } from 'next-i18next'
 import Layout from '../layout/Layout'
 import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
 import { useRouter } from 'next/router'
-import { Button, DialogTitle, Grid, Typography } from '@mui/material'
+import { Button, DialogTitle, Grid2, Typography } from '@mui/material'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import AnnouncementIcon from '@mui/icons-material/Announcement'
 import { styled } from '@mui/material/styles'
@@ -38,7 +38,7 @@ const classes = {
   loader: `${PREFIX}-loader`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`& .${classes.loader}`]: {
     animation: 'pulsate 1s infinite',
 
@@ -141,14 +141,18 @@ export default function SubscriptionPage(data: Props) {
     return (
       <Layout maxWidth="xl">
         <StyledGrid container alignItems="center" justifyContent="center">
-          <Grid item xs={10} md={5}>
+          <Grid2
+            size={{
+              xs: 10,
+              md: 5,
+            }}>
             <PodkrepiLogo
               className={classes.loader}
               locale={locale}
               size="giant"
               variant="adaptive"
             />
-          </Grid>
+          </Grid2>
         </StyledGrid>
       </Layout>
     )
@@ -156,25 +160,19 @@ export default function SubscriptionPage(data: Props) {
   return (
     <Layout maxWidth="xl">
       <StyledGrid container alignItems="center" justifyContent="center" direction={'column'}>
-        <Grid item alignItems="center" justifyContent="center">
+        <Grid2 alignItems="center" justifyContent="center">
           <PodkrepiLogo locale={locale} size="large" variant="adaptive" />
-        </Grid>
+        </Grid2>
         {isSuccess ? (
           <React.Fragment>
-            <Grid
+            <Grid2
               container
-              item
               mt={5}
               direction="column"
               alignItems="center"
               gap={5}
               justifyContent={'center'}>
-              <Grid
-                container
-                item
-                direction={'column'}
-                justifyContent={'center'}
-                alignItems={'center'}>
+              <Grid2 container direction={'column'} justifyContent={'center'} alignItems={'center'}>
                 <ThumbUpIcon sx={{ fontSize: theme.typography.pxToRem(64), color: '#03C03C' }} />
                 <DialogTitle>
                   <Typography
@@ -195,28 +193,26 @@ export default function SubscriptionPage(data: Props) {
                     values={{ email: data.email }}
                   />
                 </Typography>
-              </Grid>
-              <Grid container item xs={12} justifyContent="center">
+              </Grid2>
+              <Grid2 container justifyContent="center" size={12}>
                 <LinkButton className={classes.siteBtn} href="/" legacyBehavior>
                   {t('notifications:subscribe.cta')}
                 </LinkButton>
-              </Grid>
-            </Grid>
+              </Grid2>
+            </Grid2>
           </React.Fragment>
         ) : (
           <React.Fragment>
             <React.Fragment>
-              <Grid
+              <Grid2
                 container
-                item
                 mt={5}
                 direction="column"
                 alignItems="center"
                 justifyContent={'center'}
                 gap={2}>
-                <Grid
+                <Grid2
                   container
-                  item
                   direction={'column'}
                   alignItems={'center'}
                   justifyContent={'center'}>
@@ -234,13 +230,13 @@ export default function SubscriptionPage(data: Props) {
                   <Typography sx={{ textAlign: 'center' }}>
                     <Trans t={t} i18nKey="notifications:subscribe.subscription-fail-text" />
                   </Typography>
-                </Grid>
-                <Grid container item xs={12} justifyContent={'center'}>
+                </Grid2>
+                <Grid2 container justifyContent={'center'} size={12}>
                   <Button className={classes.siteBtn} onClick={() => router.reload()}>
                     {t('notifications:subscribe.cta-retry')}
                   </Button>
-                </Grid>
-              </Grid>
+                </Grid2>
+              </Grid2>
             </React.Fragment>
           </React.Fragment>
         )}

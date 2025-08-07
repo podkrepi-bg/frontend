@@ -16,7 +16,7 @@ import { editIrregularity, uploadIrregularityFiles } from 'service/irregularity'
 
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Button, Grid, List, ListItemText } from '@mui/material'
+import { Button, Grid2, List, ListItemText } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
@@ -137,61 +137,93 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
+    <Grid2 container direction="column" component="section">
+      <Grid2 size={12}>
         <Heading variant="h5">{t('admin.edit-form')}</Heading>
-      </Grid>
+      </Grid2>
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid container item spacing={3}>
-            <Grid item xs={12} sm={6}>
+        <Grid2 container spacing={3}>
+          <Grid2 container spacing={3}>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 6,
+              }}>
               <FormTextField
                 type="string"
                 name="person.firstName"
                 label={t('admin.fields.firstName')}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </Grid2>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 6,
+              }}>
               <FormTextField
                 type="string"
                 name="person.lastName"
                 label={t('admin.fields.lastName')}
               />
-            </Grid>
-          </Grid>
-          <Grid container item spacing={3}>
-            <Grid item xs={12} sm={6}>
+            </Grid2>
+          </Grid2>
+          <Grid2 container spacing={3}>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 6,
+              }}>
               <EmailField name="person.email" label={t('admin.fields.email')} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </Grid2>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 6,
+              }}>
               <FormTextField type="phone" name="person.phone" label={t('admin.fields.phone')} />
-            </Grid>
-          </Grid>
-          <Grid container item spacing={3}>
-            <Grid item xs={12} sm={6}>
+            </Grid2>
+          </Grid2>
+          <Grid2 container spacing={3}>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 6,
+              }}>
               <NotifierTypeSelect />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </Grid2>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 6,
+              }}>
               <CampaignSelect
                 label={t('admin.fields.campaign')}
                 name="campaignId"
                 campaigns={campaigns}
                 selectedCampaign={initialValues.campaignId}
               />
-            </Grid>
-          </Grid>
-          <Grid container item spacing={3}>
-            <Grid item xs={12} sm={6}>
+            </Grid2>
+          </Grid2>
+          <Grid2 container spacing={3}>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 6,
+              }}>
               <StatusSelect />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </Grid2>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 6,
+              }}>
               <IrregularityReasonSelect name="reason" />
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
+            </Grid2>
+          </Grid2>
+          <Grid2 size={12}>
             <Content
               rows={5}
               multiline
@@ -199,16 +231,16 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
               name="description"
               label={t('admin.fields.description')}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <List dense>
               <ListItemText primary={t('cta.attached-files')} />
               {irregularityFiles.map((file, key) => (
                 <IrregularityFile key={key} file={file} irregularityId={irregularity.id} />
               ))}
             </List>
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FileUpload
               onUpload={(newFiles) => {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
@@ -221,19 +253,19 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
                 setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
               }
             />
-          </Grid>
-          <Grid container item spacing={3} justifyContent="space-between">
-            <Grid item xs={4}>
+          </Grid2>
+          <Grid2 container spacing={3} justifyContent="space-between">
+            <Grid2 size={4}>
               <Link href={routes.admin.irregularity.index} passHref>
                 <Button fullWidth>{t('admin.cta.back')}</Button>
               </Link>
-            </Grid>
-            <Grid item xs={4}>
+            </Grid2>
+            <Grid2 size={4}>
               <SubmitButton fullWidth label={t('admin.cta.submit')} />
-            </Grid>
-          </Grid>
-        </Grid>
+            </Grid2>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
+    </Grid2>
   )
 }

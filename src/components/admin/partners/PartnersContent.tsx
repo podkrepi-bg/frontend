@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from '@mui/material'
+import { Box, Container, Grid2 } from '@mui/material'
 import Image from 'next/image'
 import ExternalLink from 'components/common/ExternalLink'
 import { Fragment } from 'react'
@@ -19,7 +19,7 @@ const PartnersContent = () => {
   return (
     <>
       <Container maxWidth="lg">
-        <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Grid2 container sx={{ display: 'flex', justifyContent: 'center' }}>
           {partners.map((partner) => (
             <StyledGrid item xs={12} md={4} paddingTop={8} paddingBottom={5} key={partner.name}>
               <SectionTitle>{t(partner.title)}</SectionTitle>
@@ -37,11 +37,11 @@ const PartnersContent = () => {
 
           {mainPartners.map((el) => (
             <Fragment key={el.title}>
-              <Grid item xs={12} paddingTop={8}>
+              <Grid2 paddingTop={8} size={12}>
                 <SectionTitle>{t(el.title)}</SectionTitle>
-              </Grid>
+              </Grid2>
 
-              <Grid
+              <Grid2
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -70,14 +70,13 @@ const PartnersContent = () => {
                     </ExternalLink>
                   </StyledGrid>
                 ))}
-              </Grid>
+              </Grid2>
             </Fragment>
           ))}
-        </Grid>
+        </Grid2>
       </Container>
-
       <Container maxWidth="xl">
-        <Grid container>
+        <Grid2 container>
           <StyledGrid item xs={12} paddingTop={8}>
             <SectionTitle>{t('partners:sections.organizations')}</SectionTitle>
           </StyledGrid>
@@ -102,7 +101,7 @@ const PartnersContent = () => {
               ))}
             </PartnersSlider>
           </StyledGrid>
-        </Grid>
+        </Grid2>
       </Container>
     </>
   )

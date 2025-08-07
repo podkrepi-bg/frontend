@@ -1,9 +1,9 @@
 import { styled } from '@mui/material/styles'
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import theme from 'common/theme'
 
-export const TeamMemberWrapper = styled(Grid)(() => ({
+export const TeamMemberWrapper = styled(Grid2)(() => ({
   flexGrow: 1,
   width: '100%',
   textAlign: 'center',

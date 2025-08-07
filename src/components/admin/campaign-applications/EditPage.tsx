@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid, Typography } from '@mui/material'
+import { Box, CircularProgress, Grid2, Typography } from '@mui/material'
 import { red } from '@mui/material/colors'
 import { CampaignApplicationFormData } from 'components/client/campaign-application/helpers/campaignApplication.types'
 import { ActionSubmitButton } from 'components/client/campaign-application/helpers/campaignApplicationFormActions.styled'
@@ -44,17 +44,16 @@ export function EditLoadedCampaign({ campaign }: { campaign: CampaignApplication
             isEdit={true}
             prependChildren={
               <>
-                <Grid
-                  item
+                <Grid2
                   container
                   justifyContent="space-between"
                   direction="row"
                   border={'1px solid orange'}>
-                  <Grid item xs={12}>
+                  <Grid2 size={12}>
                     <Typography textAlign={'center'} variant="h5">
                       Admin props / Административни подробности
                     </Typography>
-                  </Grid>
+                  </Grid2>
                   <CamAppDetail
                     label={t('steps.admin.organizer-edit-link')}
                     value={<OrganizerCanEditAt id={campaign.id} />}
@@ -71,7 +70,7 @@ export function EditLoadedCampaign({ campaign }: { campaign: CampaignApplication
                     label={t('steps.admin.external-url')}
                     value={c.campaignApplicationResult?.ticketURL}
                   />
-                </Grid>
+                </Grid2>
               </>
             }
           />
@@ -107,9 +106,9 @@ export default function EditPage({ id }: Props) {
 
   if (isLoading) {
     return (
-      <Grid container justifyContent="center" alignContent="center" sx={{ height: '100vh' }}>
+      <Grid2 container justifyContent="center" alignContent="center" sx={{ height: '100vh' }}>
         <CircularProgress />
-      </Grid>
+      </Grid2>
     )
   }
 

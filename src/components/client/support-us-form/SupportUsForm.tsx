@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Grid, List, Typography, Divider } from '@mui/material'
+import { Grid2, List, Typography, Divider } from '@mui/material'
 
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { ibanNumber, BIC } from 'common/iban'
@@ -26,14 +26,14 @@ export default function SupportUsForm() {
         {t('step.payment-method.bank.bank-details')}
       </Typography>
       <Divider />
-      <Grid container alignItems="center" mt={2} mb={2}>
-        <Grid my={1} item xs={4}>
+      <Grid2 container alignItems="center" mt={2} mb={2}>
+        <Grid2 my={1} size={4}>
           <BankDetailsLabel>{t('step.payment-method.bank.owner_name')}</BankDetailsLabel>
-        </Grid>
-        <Grid my={1} item xs={5} justifyContent="flex-start">
+        </Grid2>
+        <Grid2 my={1} justifyContent="flex-start" size={5}>
           <Typography>{t('step.payment-method.bank.owner')}</Typography>
-        </Grid>
-        <Grid my={1} item xs={3} display="flex" justifyContent="center">
+        </Grid2>
+        <Grid2 my={1} display="flex" justifyContent="center" size={3}>
           <CopyTextButton
             label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.ownerValue}
@@ -42,14 +42,14 @@ export default function SupportUsForm() {
             color="info"
             sx={{ display: 'flex', justifyContent: 'center' }}
           />
-        </Grid>
-        <Grid my={1} item xs={4}>
+        </Grid2>
+        <Grid2 my={1} size={4}>
           <BankDetailsLabel>{t('step.payment-method.bank.bank_name')}</BankDetailsLabel>
-        </Grid>
-        <Grid my={1} item xs={5}>
+        </Grid2>
+        <Grid2 my={1} size={5}>
           <Typography>{t('step.payment-method.bank.bank')}</Typography>
-        </Grid>
-        <Grid my={1} item display="flex" justifyContent="center" xs={3}>
+        </Grid2>
+        <Grid2 my={1} display="flex" justifyContent="center" size={3}>
           <CopyTextButton
             label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.bank}
@@ -57,14 +57,14 @@ export default function SupportUsForm() {
             size="small"
             color="info"
           />
-        </Grid>
-        <Grid my={1} item xs={4}>
+        </Grid2>
+        <Grid2 my={1} size={4}>
           <BankDetailsLabel>IBAN:</BankDetailsLabel>
-        </Grid>
-        <Grid my={1} item xs={5}>
+        </Grid2>
+        <Grid2 my={1} size={5}>
           <Typography>{ibanNumber}</Typography>
-        </Grid>
-        <Grid my={1} item display="flex" justifyContent="center" xs={3}>
+        </Grid2>
+        <Grid2 my={1} display="flex" justifyContent="center" size={3}>
           <CopyTextButton
             label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.iban.replace(/\s+/g, '')} //remove spaces in IBAN on copy
@@ -72,14 +72,14 @@ export default function SupportUsForm() {
             size="small"
             color="info"
           />
-        </Grid>
-        <Grid my={1} item xs={4}>
+        </Grid2>
+        <Grid2 my={1} size={4}>
           <BankDetailsLabel>BIC:</BankDetailsLabel>
-        </Grid>
-        <Grid my={1} item xs={5}>
+        </Grid2>
+        <Grid2 my={1} size={5}>
           <Typography>{BIC}</Typography>
-        </Grid>
-        <Grid my={1} item display="flex" justifyContent="center" xs={3}>
+        </Grid2>
+        <Grid2 my={1} display="flex" justifyContent="center" size={3}>
           <CopyTextButton
             label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.bic}
@@ -87,16 +87,16 @@ export default function SupportUsForm() {
             size="small"
             color="info"
           />
-        </Grid>
-        <Grid my={1} item xs={4}>
+        </Grid2>
+        <Grid2 my={1} size={4}>
           <BankDetailsLabel my={1} pr={2}>
             {t('step.payment-method.bank.reason-donation')}
           </BankDetailsLabel>
-        </Grid>
-        <Grid my={1} item xs={5}>
+        </Grid2>
+        <Grid2 my={1} size={5}>
           <Typography>{bankAccountInfo.paymentReference}</Typography>
-        </Grid>
-        <Grid my={1} item display="flex" justifyContent="center" xs={3}>
+        </Grid2>
+        <Grid2 my={1} display="flex" justifyContent="center" size={3}>
           <CopyTextButton
             label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.paymentReference}
@@ -104,8 +104,8 @@ export default function SupportUsForm() {
             size="small"
             color="info"
           />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
       <Divider />
     </List>
   )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 
 import RenderSubscribeModal from 'components/client/notifications/GeneralSubscribeModal'
@@ -12,7 +12,7 @@ export default function Subscription() {
   const [subscribeIsOpen, setSubscribeOpen] = useState(false)
 
   return (
-    <Grid item xs={12} display="flex">
+    <Grid2 display="flex" size={12}>
       {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
       <EmailIcon
         color="primary"
@@ -24,6 +24,6 @@ export default function Subscription() {
       <SubscriptionTitle onClick={() => setSubscribeOpen(true)}>
         {t('common:components.footer.subscribe')}
       </SubscriptionTitle>
-    </Grid>
+    </Grid2>
   )
 }

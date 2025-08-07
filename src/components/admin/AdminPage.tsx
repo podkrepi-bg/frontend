@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useSession } from 'next-auth/react'
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material'
+import { Box, Card, CardContent, Grid2, Typography } from '@mui/material'
 
 import { isAdmin } from 'common/util/roles'
 import AdminLayout from 'components/common/navigation/AdminLayout'
@@ -55,9 +55,16 @@ export default function AdminPage() {
         <Box p={4}>
           <Typography variant="h6">{'Добре дошли!'}</Typography>
         </Box>
-        <Grid container spacing={2} rowSpacing={4} px={4} pb={4} mb={2}>
+        <Grid2 container spacing={2} rowSpacing={4} px={4} pb={4} mb={2}>
           {adminCards.map(({ label, href, icon: Icon }, index) => (
-            <Grid xs={12} sm={6} md={4} lg={2.4} item key={index}>
+            <Grid2
+              key={index}
+              size={{
+                xs: 12,
+                sm: 6,
+                md: 4,
+                lg: 2.4,
+              }}>
               <Card
                 sx={{
                   height: 130,
@@ -89,9 +96,9 @@ export default function AdminPage() {
                   </CardContent>
                 </Box>
               </Card>
-            </Grid>
+            </Grid2>
           ))}
-        </Grid>
+        </Grid2>
       </AdminContainer>
     </AdminLayout>
   )

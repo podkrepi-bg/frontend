@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import * as data from '../../../faq/contents'
@@ -15,19 +15,19 @@ export default function FaqSection() {
 
   return (
     <Root>
-      <Grid maxWidth="lg">
+      <Grid2 maxWidth="lg">
         <Heading variant="h4">{t('common:nav.campaigns.faq')}</Heading>
         <FaqWrapper container spacing={2}>
           {data.COMMON_QUESTIONS.slice(0, 5).flatMap(({ header, content, visible }) =>
             visible ? (
-              <Grid item xs={12} key={header}>
+              <Grid2 key={header} size={12}>
                 <ExpandableListItem header={header} content={content} />
-              </Grid>
+              </Grid2>
             ) : (
               []
             ),
           )}
-          <Grid>
+          <Grid2>
             <OutlinedButton
               href={routes.faq}
               variant="outlined"
@@ -35,9 +35,9 @@ export default function FaqSection() {
               endIcon={<ChevronRightIcon />}>
               {t('index:campaign.see-all')}
             </OutlinedButton>
-          </Grid>
+          </Grid2>
         </FaqWrapper>
-      </Grid>
+      </Grid2>
     </Root>
   )
 }

@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactChildren } from 'react'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid2, Typography } from '@mui/material'
 
 import Link from 'components/common/Link'
 import Layout from 'components/client/layout/Layout'
@@ -351,19 +351,35 @@ export default function AboutPage() {
           тези форми на обработване на личните данни.
         </Typography>
         <PrivacyPolicyTitle>Права на субектите на данни</PrivacyPolicyTitle>
-        <Grid className="rights-table" container spacing={2}>
-          <Grid item xs={12} md={4}>
+        <Grid2 className="rights-table" container spacing={2}>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право да бъдете информирани кой, как и защо обработва данните Ви</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               ПОДКРЕПИ БГ публикува съответната информация на интернет страницата си.
             </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право на достъп:</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               Имате право да получите потвърждение от ПОДКРЕПИ БГ дали обработва личните ви данни и
               ако това е така, имате право на достъп до тях, право да получите безплатно копие от
@@ -371,20 +387,36 @@ export default function AboutPage() {
               правото да ви бъде предоставено описание на основните характеристики, свързани с
               обработването на личните ви данни.
             </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право на коригиране:</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               Имате право да коригирате или да поискате от ПОДКРЕПИ БГ да коригира, без ненужно
               забавяне, неточни, непълни или остарели лични данни.
             </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право на изтриване</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               В определени случаи може да поискате от ПОДКРЕПИ БГ да изтрие вашите лични данни без
               ненужно забавяне. Например когато:
@@ -402,11 +434,19 @@ export default function AboutPage() {
               Законът предвижда случаи, в които ПОДКРЕПИ БГ може да откаже да изтрие личните ви
               данни.
             </i>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право на ограничаване на обработването:</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               Може да поискате ПОДКРЕПИ БГ да ограничи обработването в следните случаи:
             </Typography>
@@ -429,11 +469,19 @@ export default function AboutPage() {
                 законните основания за обработването имат преимущество пред вашите интересите.
               </li>
             </ul>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право на възражение:</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               Имате право по всяко време, на основания, свързани с вашата конкретна ситуация, да
               възразите срещу обработване на вашите лични данни. Това право може да се упражни само
@@ -442,53 +490,93 @@ export default function AboutPage() {
               докаже, че съществуват убедителни законови основания за обработването, които имат
               предимство пред Вашите интереси.
             </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право на преносимост на данните:</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               Имате право да получите личните си данни в структуриран, широко използван и пригоден
               за машинно четене формат, за да бъдат прехвърлени на друг администратор.
             </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право на жалба:</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               Имате право да подадете жалба до Комисията за защита на личните данни (КЗЛД),
               компетентният държавен орган в тази сфера.
             </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право да не бъдете обект на профилиране</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               Имате право да не бъдете обект на решение, което се базира единствено на обработване с
               автоматични средства.
             </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право на оттегляне на съгласие</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               Имате право да оттеглите своето съгласие по всяко време, чрез изпращане на писмено
               съобщение до ПОДКРЕПИ БГ.
             </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 4,
+            }}>
             <GridTitle>Право на обезщетение за вреди</GridTitle>
-          </Grid>
-          <Grid item xs={12} md={8}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              md: 8,
+            }}>
             <Typography variant="body2" component="p">
               В случай на нарушение на нормативните актове за защита на данните, имате право на
               обезщетение за причинените вреди.
             </Typography>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
         <PrivacyPolicyTitle>Изпращане на искане или жалба</PrivacyPolicyTitle>
         <Typography variant="body2" component="p">
           Можете да упражните правата си, като изпратите искане или жалба в писмена форма, с писмо

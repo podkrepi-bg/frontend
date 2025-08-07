@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 import { styled } from '@mui/material/styles'
 import { formatDateString } from 'common/util/date'
@@ -25,7 +25,7 @@ const classes = {
   readMoreButton: `${PREFIX}-readMoreButton`,
 }
 
-const ArticleSection = styled(Grid)(({ theme }) => ({
+const ArticleSection = styled(Grid2)(({ theme }) => ({
   paddingLeft: theme.spacing(7),
   paddingRight: theme.spacing(7),
   paddingTop: theme.spacing(2),
@@ -90,30 +90,24 @@ export default function SingleArticlePage({ slug }: Props) {
   const [, sanitizedDescription] = HTMLContentSeparator(article.description)
   return (
     <Layout>
-      <Grid container item xs={12}>
+      <Grid2 container size={12}>
         <ArticleSection>
-          <Grid container columnGap={2} rowGap={0} className={classes.dateAndAuthorContainer}>
-            <Grid container item gap={1} xs="auto">
+          <Grid2 container columnGap={2} rowGap={0} className={classes.dateAndAuthorContainer}>
+            <Grid2 container gap={1} size="auto">
               <AvTimerIcon color="primary" />
               <Typography className={classes.articlepublishedDate}>
                 {formatDateString(article.publishedAt, i18n?.language)}
               </Typography>
-            </Grid>
-            <Grid container item gap={1} xs="auto" style={{ maxWidth: '100%' }} wrap="nowrap">
+            </Grid2>
+            <Grid2 container gap={1} style={{ maxWidth: '100%' }} wrap="nowrap" size="auto">
               <SupervisedUserCircleOutlinedIcon color="primary" />
               <Typography className={classes.articleAuthor}>{article.author}</Typography>
-            </Grid>
-          </Grid>
-          <Grid container rowGap={1} columnGap={4}>
-            <Grid
-              container
-              item
-              direction={'column'}
-              gap={1}
-              xs={'auto'}
-              style={{ maxWidth: '100%' }}>
+            </Grid2>
+          </Grid2>
+          <Grid2 container rowGap={1} columnGap={4}>
+            <Grid2 container direction={'column'} gap={1} style={{ maxWidth: '100%' }} size="auto">
               <Typography className={classes.articleHeader}>{article.title}</Typography>
-              <Grid container item>
+              <Grid2 container>
                 <QuillStypeWrapper>
                   <Typography
                     component={'div'}
@@ -122,10 +116,10 @@ export default function SingleArticlePage({ slug }: Props) {
                     sx={{ wordBreak: 'break-word' }}
                   />
                 </QuillStypeWrapper>
-              </Grid>
-              <Grid container item direction={'column'} gap={0.5}>
+              </Grid2>
+              <Grid2 container direction={'column'} gap={0.5}>
                 {documents.map((file) => (
-                  <Grid item key={file.id}>
+                  <Grid2 key={file.id}>
                     <Link
                       key={file.id}
                       href={file.fileUrl}
@@ -136,20 +130,20 @@ export default function SingleArticlePage({ slug }: Props) {
                         {file.fileName}
                       </Typography>
                     </Link>
-                  </Grid>
+                  </Grid2>
                 ))}
-              </Grid>
-            </Grid>
-            <Grid container item gap={1} xs={'auto'} style={{ maxWidth: '100%' }}>
+              </Grid2>
+            </Grid2>
+            <Grid2 container gap={1} style={{ maxWidth: '100%' }} size="auto">
               {images.map((file) => (
-                <Grid item key={file.id}>
+                <Grid2 key={file.id}>
                   <Image src={file.src} width={220} height={120} alt={file.id} />
-                </Grid>
+                </Grid2>
               ))}
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </ArticleSection>
-      </Grid>
+      </Grid2>
     </Layout>
   )
 }

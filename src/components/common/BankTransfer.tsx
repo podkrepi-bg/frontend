@@ -3,14 +3,14 @@ import { styled } from '@mui/material/styles'
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { CopyTextButton } from './CopyTextButton'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 const PREFIX = 'BankTransfer'
 
 const classes = {
   firstRow: `${PREFIX}-firstRow`,
 }
 
-const StyledGrid = styled(Grid)(() => ({
+const StyledGrid = styled(Grid2)(() => ({
   [`&.${classes.firstRow}`]: {
     lineHeight: '2rem',
     paddingTop: '1rem',
@@ -24,15 +24,15 @@ export const BankTransfer = () => {
 
   return (
     <StyledGrid container justifyContent="space-between" className={classes.firstRow}>
-      <Grid item xs={12}>
+      <Grid2 size={12}>
         <Typography variant="body2" style={{ fontWeight: 'bold' }}>
           {t('about-project:association-name')}
         </Typography>
         <Typography variant="body2">{t('about-project:bank-name')}</Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container direction="row" columnSpacing={2}>
-          <Grid item>
+      </Grid2>
+      <Grid2 size={12}>
+        <Grid2 container direction="row" columnSpacing={2}>
+          <Grid2>
             IBAN:{' '}
             <Typography
               whiteSpace="nowrap"
@@ -41,12 +41,12 @@ export const BankTransfer = () => {
               style={{ fontWeight: 'bold' }}>
               {ibanNumber}
             </Typography>
-          </Grid>
-          <Grid item>
+          </Grid2>
+          <Grid2>
             <CopyTextButton text={trimmedIban} label="support:cta.copy-number" />
-          </Grid>
-        </Grid>
-      </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
     </StyledGrid>
   )
 }

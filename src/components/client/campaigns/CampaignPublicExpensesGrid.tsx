@@ -8,7 +8,7 @@ import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
 import { moneyPublic, toMoney } from 'common/util/money'
 import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
 import { ExpenseFile } from 'gql/expenses'
-import { Button, Grid, Tooltip } from '@mui/material'
+import { Button, Grid2, Tooltip } from '@mui/material'
 import FilePresentIcon from '@mui/icons-material/FilePresent'
 import Link from 'next/link'
 import { expenseFileUrl } from 'common/util/expenseFileUrls'
@@ -27,7 +27,7 @@ const classes = {
 export const ModalStore = new ModalStoreImpl()
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled(Grid)({
+const Root = styled(Grid2)({
   [`& .${classes.grid}`]: {
     fontSize: 14,
     border: 'none',
@@ -120,7 +120,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
             </Tooltip>
           )
         })
-        return <Grid>{rows}</Grid>
+        return <Grid2>{rows}</Grid2>
       },
     },
   ]

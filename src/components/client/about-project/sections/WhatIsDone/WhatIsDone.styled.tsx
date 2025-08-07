@@ -1,5 +1,5 @@
 import { styled } from '@mui/system'
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import theme from 'common/theme'
 
@@ -7,11 +7,11 @@ export const Root = styled('section')(() => ({
   marginBottom: theme.spacing(12),
 }))
 
-export const IconsWrapper = styled(Grid)(() => ({
+export const IconsWrapper = styled(Grid2)(() => ({
   marginBottom: theme.spacing(5),
 }))
 
-export const Checked = styled(Grid)(() => ({
+export const Checked = styled(Grid2)(() => ({
   display: 'flex',
   marginBottom: theme.spacing(1.5),
   marginRight: theme.spacing(2),
@@ -20,7 +20,7 @@ export const Checked = styled(Grid)(() => ({
   },
 }))
 
-export const List = styled(Grid)(() => ({
+export const List = styled(Grid2)(() => ({
   padding: theme.spacing(1),
   marginRight: theme.spacing(1),
   justifyContent: 'space-between',

@@ -1,4 +1,4 @@
-import { Modal, Box, Grid, IconButton } from '@mui/material'
+import { Modal, Box, Grid2, IconButton } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -132,30 +132,42 @@ function UpdateNameModal({
             lastName: person?.lastName || '',
             password: '',
           }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={8}>
+          <Grid2 container spacing={3}>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 8,
+              }}>
               <FormTextField
                 type="text"
                 name="firstName"
                 autoComplete="firstName"
                 label={t('profile:nameModal.firstName')}
               />
-            </Grid>
-            <Grid item xs={12} sm={8}>
+            </Grid2>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 8,
+              }}>
               <FormTextField
                 type="text"
                 name="lastName"
                 autoComplete="lastName"
                 label={t('profile:nameModal.lastName')}
               />
-            </Grid>
-            <Grid item xs={12} sm={8}>
+            </Grid2>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 8,
+              }}>
               <PasswordField />
-            </Grid>
-            <Grid item xs={6}>
+            </Grid2>
+            <Grid2 size={6}>
               <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </GenericForm>
       </Box>
     </StyledModal>

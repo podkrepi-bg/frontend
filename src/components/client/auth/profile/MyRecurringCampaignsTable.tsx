@@ -1,7 +1,4 @@
 import { useTranslation } from 'next-i18next'
-import { useMutation } from '@tanstack/react-query'
-import { AlertStore } from 'stores/AlertStore'
-import { endpoints } from 'service/apiEndpoints'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
@@ -16,8 +13,7 @@ import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import { useGetUserRecurringDonations } from 'common/hooks/recurringDonation'
 
 import Link from 'components/common/Link'
-import { apiClient } from 'service/apiClient'
-import { authConfig } from 'service/restRequests'
+
 import { useCancelRecurringDonation } from 'service/donation'
 
 export default function MyRecurringCampaignsTable() {

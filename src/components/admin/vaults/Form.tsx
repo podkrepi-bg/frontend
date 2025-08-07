@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid2, Typography } from '@mui/material'
 
 import { VaultInput, VaultResponse } from 'gql/vault'
 import { Currency } from 'gql/currency'
@@ -82,31 +82,31 @@ export default function EditForm() {
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
           {id ? t('vaults:edit-form-heading') : t('vaults:form-heading')}
         </Typography>
-        <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <Grid item xs={6}>
+        <Grid2 container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+          <Grid2 size={6}>
             <FormTextField type="text" label={t('vaults:name')} name="name" />
-          </Grid>
+          </Grid2>
           {id ? (
             <></>
           ) : (
             <>
-              <Grid item xs={6}>
+              <Grid2 size={6}>
                 <CurrencySelect />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <FormTextField type="text" label={t('vaults:campaignId')} name="campaignId" />
-              </Grid>
+              </Grid2>
             </>
           )}
-          <Grid item xs={6}>
+          <Grid2 size={6}>
             <SubmitButton fullWidth label={t('vaults:cta:submit')} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <Link href={routes.admin.vaults.index} passHref>
               <Button>{t('vaults:cta:cancel')}</Button>
             </Link>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Box>
     </GenericForm>
   )

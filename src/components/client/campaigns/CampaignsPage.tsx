@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 import CampaignFilter from './CampaignFilter'
 import Layout from 'components/client/layout/Layout'
@@ -75,7 +75,7 @@ export default function CampaignsPage() {
 
   return (
     <Root maxWidth={false}>
-      <Grid>
+      <Grid2>
         <Typography variant="h1" component="h1" className={classes.title}>
           {t('campaigns:campaigns')}
         </Typography>
@@ -83,7 +83,7 @@ export default function CampaignsPage() {
           {t('campaigns:cta.support-cause-today')}
         </Typography>
         <CampaignFilter />
-      </Grid>
+      </Grid2>
     </Root>
   )
 }

@@ -1,4 +1,4 @@
-import { CircularProgress, Grid } from '@mui/material'
+import { CircularProgress, Grid2 } from '@mui/material'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import Layout from '../layout/Layout'
 import CampaignApplicationForm from './CampaignApplicationForm'
@@ -9,9 +9,9 @@ export default function CampaignApplicationPage() {
 
   if (isLoading) {
     return (
-      <Grid container justifyContent="center" alignContent="center" sx={{ height: '100vh' }}>
+      <Grid2 container justifyContent="center" alignContent="center" sx={{ height: '100vh' }}>
         <CircularProgress />
-      </Grid>
+      </Grid2>
     )
   }
 

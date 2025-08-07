@@ -1,4 +1,4 @@
-import { FormControl, Grid, Typography } from '@mui/material'
+import { FormControl, Grid2, Typography } from '@mui/material'
 import { Field, useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
 
@@ -30,53 +30,53 @@ export default function CampaignApplicationBasic() {
   }, [values?.applicationBasic?.campaignEnd])
 
   return (
-    <Grid container spacing={6} justifyContent="center" direction="column" alignContent="center">
-      <Grid item container justifyContent="center">
+    <Grid2 container spacing={6} justifyContent="center" direction="column" alignContent="center">
+      <Grid2 container justifyContent="center">
         <StyledStepHeading variant="h4">{t('steps.application.title')}</StyledStepHeading>
-      </Grid>
-      <Grid item container spacing={6} justifyContent="space-between" direction="row">
-        <Grid item xs={12}>
+      </Grid2>
+      <Grid2 container spacing={6} justifyContent="space-between" direction="row">
+        <Grid2 size={12}>
           <StyledFormTextField
             label={t('steps.application.beneficiary')}
             type="text"
             name="applicationBasic.beneficiaryNames"
             autoComplete="name"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <StyledFormTextField
             label={t('steps.application.beneficiaryRelationship')}
             type="text"
             name="applicationBasic.organizerBeneficiaryRelationship"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <StyledFormTextField
             label={t('steps.application.campaignTitle')}
             type="text"
             name="applicationBasic.title"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <CampaignTypeSelect name="applicationBasic.campaignType" hideSystemTypes={true} />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <StyledFormTextField
             label={t('steps.application.funds')}
             type="number"
             name="applicationBasic.funds"
           />
-        </Grid>
-        <Grid container item>
-          <Grid item xs={12}>
+        </Grid2>
+        <Grid2 container>
+          <Grid2 size={12}>
             <Typography sx={{ fontSize: theme.typography.pxToRem(16), paddingBottom: 2 }}>
               {t('steps.application.campaign-end.title')}
             </Typography>
-          </Grid>
-          <Grid container item xs={12}>
+          </Grid2>
+          <Grid2 container size={12}>
             <FormControl>
-              <Grid container item spacing={2} xs={12}>
-                <Grid item xs={12}>
+              <Grid2 container spacing={2} size={12}>
+                <Grid2 size={12}>
                   <label>
                     <Field
                       size="medium"
@@ -86,8 +86,8 @@ export default function CampaignApplicationBasic() {
                     />
                     {t('steps.application.campaign-end.options.funds')}
                   </label>
-                </Grid>
-                <Grid item xs={12}>
+                </Grid2>
+                <Grid2 size={12}>
                   <label>
                     <Field
                       size="medium"
@@ -97,8 +97,8 @@ export default function CampaignApplicationBasic() {
                     />
                     {t('steps.application.campaign-end.options.ongoing')}
                   </label>
-                </Grid>
-                <Grid item xs={12}>
+                </Grid2>
+                <Grid2 size={12}>
                   <label>
                     <Field
                       size="medium"
@@ -108,18 +108,18 @@ export default function CampaignApplicationBasic() {
                     />
                     {t('steps.application.campaign-end.options.date')}
                   </label>
-                </Grid>
-              </Grid>
+                </Grid2>
+              </Grid2>
               {values?.applicationBasic?.campaignEnd === CampaignEndTypes.DATE &&
                 values?.applicationBasic?.campaignEndDate != null && (
-                  <Grid item xs={6} sx={{ paddingTop: 2 }}>
+                  <Grid2 sx={{ paddingTop: 2 }} size={6}>
                     <FormDatePicker name="applicationBasic.campaignEndDate" label="" />
-                  </Grid>
+                  </Grid2>
                 )}
             </FormControl>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
+    </Grid2>
   )
 }

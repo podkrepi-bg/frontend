@@ -3,8 +3,8 @@ import { useTranslation } from 'next-i18next'
 import {
   FormControl,
   FormHelperText,
-  Grid,
-  GridProps,
+  Grid2,
+  Grid2Props,
   RadioGroup,
   RadioGroupProps,
   Typography,
@@ -26,13 +26,13 @@ export type RadioButtonGroup = {
   columns?: number
   muiRadioGroupProps?: Partial<RadioGroupProps>
   /**
-   * Props that get passed to the `<Grid>` that wraps around each rendered button
+   * Props that get passed to the `<Grid2>` that wraps around each rendered button
    * @example
-   * <Grid {...propsYouPassed}>
+   * <Grid2 {...propsYouPassed}>
    *  <RadioButton>
-   * <Grid />
+   * <Grid2 />
    */
-  muiRadioButtonGridProps?: Partial<GridProps>
+  muiRadioButtonGrid2Props?: Partial<Grid2Props>
   ref?: React.RefObject<HTMLDivElement>
   error?: boolean
 }
@@ -44,7 +44,7 @@ export default function RadioButtonGroup({
   loading,
   columns = 2,
   muiRadioGroupProps,
-  muiRadioButtonGridProps,
+  muiRadioButtonGrid2Props,
   error,
 }: RadioButtonGroup) {
   const { t } = useTranslation()
@@ -61,13 +61,18 @@ export default function RadioButtonGroup({
         value={field.value}
         name={name}
         {...muiRadioGroupProps}>
-        <Grid rowSpacing={2} columnSpacing={2} container>
+        <Grid2 rowSpacing={2} columnSpacing={2} container>
           {options ? (
             <>
               {options.flatMap(
                 ({ label: optionLabel, value: optionValue, hidden }, index) =>
                   !hidden && (
-                    <Grid key={index} item xs={12} sm={12 / columns} {...muiRadioButtonGridProps}>
+                    <Grid2
+                      key={index}
+                      size={{
+                        xs: 12,
+                        sm: 12 / columns,
+                      }}>
                       <PriceRadioButton
                         disabled={disabled}
                         loading={loading}
@@ -76,14 +81,14 @@ export default function RadioButtonGroup({
                         checked={optionValue == field.value}
                         label={optionLabel}
                       />
-                    </Grid>
+                    </Grid2>
                   ),
               )}
             </>
           ) : (
             <Typography>There are no avaliable choices you can make :(</Typography>
           )}
-        </Grid>
+        </Grid2>
       </RadioGroup>
       {typeof error === undefined && showError && helperText && (
         <FormHelperText error>{t(helperText)}</FormHelperText>

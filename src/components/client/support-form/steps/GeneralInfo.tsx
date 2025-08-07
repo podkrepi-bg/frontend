@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { FormControl, Grid, Typography } from '@mui/material'
+import { FormControl, Grid2, Typography } from '@mui/material'
 
 import FormTextField from 'components/common/form/FormTextField'
 import CheckboxField from 'components/common/form/CheckboxField'
@@ -12,15 +12,23 @@ export default function GeneralInfo() {
   const { t } = useTranslation()
 
   return (
-    <Grid container spacing={3} justifyContent="center" direction="column" alignContent="center">
-      <Grid item xs={12}>
+    <Grid2 container spacing={3} justifyContent="center" direction="column" alignContent="center">
+      <Grid2 size={12}>
         <HeaderTypography>{t('support:steps.info.subtitle')}</HeaderTypography>
-      </Grid>
-      <Grid item xs={12} sm={8}>
-        <Grid container spacing={3} justifyContent="center" direction="column">
-          <Grid item xs={12}>
-            <Grid container spacing={3} justifyContent="center" direction="row">
-              <Grid item xs={12} sm={6}>
+      </Grid2>
+      <Grid2
+        size={{
+          xs: 12,
+          sm: 8,
+        }}>
+        <Grid2 container spacing={3} justifyContent="center" direction="column">
+          <Grid2 size={12}>
+            <Grid2 container spacing={3} justifyContent="center" direction="row">
+              <Grid2
+                size={{
+                  xs: 12,
+                  sm: 6,
+                }}>
                 <FormTextField
                   autoFocus
                   type="text"
@@ -28,34 +36,38 @@ export default function GeneralInfo() {
                   autoComplete="first-name"
                   label="support:steps.info.first-name"
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Grid2>
+              <Grid2
+                size={{
+                  xs: 12,
+                  sm: 6,
+                }}>
                 <FormTextField
                   type="text"
                   name="person.lastName"
                   autoComplete="family-name"
                   label="support:steps.info.last-name"
                 />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
+              </Grid2>
+            </Grid2>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               name="person.email"
               autoComplete="email"
               label="support:steps.info.email"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               name="person.phone"
               autoComplete="tel"
               label="support:steps.info.phone"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               multiline
               size="medium"
@@ -64,18 +76,22 @@ export default function GeneralInfo() {
               autoComplete="comment"
               label="support:steps.info.comment"
             />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} sm={8}>
-        <Grid container direction="column" alignItems="flex-start">
-          <Grid item xs={12}>
+          </Grid2>
+        </Grid2>
+      </Grid2>
+      <Grid2
+        size={{
+          xs: 12,
+          sm: 8,
+        }}>
+        <Grid2 container direction="column" alignItems="flex-start">
+          <Grid2 size={12}>
             <AcceptTermsField name="person.terms" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <AcceptPrivacyPolicyField name="person.gdpr" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormControl component="fieldset">
               <CheckboxField
                 name="person.newsletter"
@@ -84,9 +100,9 @@ export default function GeneralInfo() {
                 }
               />
             </FormControl>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
+    </Grid2>
   )
 }
