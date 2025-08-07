@@ -10,7 +10,7 @@ export class CampaignsPage extends HomePage {
   }
 
   private readonly donationGrid = '.InlineDonation-inlineDonationWrapper'
-  private readonly donationSupportButton = this.donationGrid + ' a button'
+  private readonly donationSupportButton = this.donationGrid + ' a.InlineDonation-donateButton'
   private readonly filterButtonsCommonSelector = 'ul button.CampaignFilter-filterButtons'
   // private readonly campaignContainerItem = ".MuiGrid-container .MuiGrid-item";
   private readonly cardActions = '.MuiCardActions-root'
