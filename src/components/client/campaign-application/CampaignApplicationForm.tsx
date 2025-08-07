@@ -1,4 +1,4 @@
-import { Grid, StepLabel } from '@mui/material'
+import { Grid2, StepLabel } from '@mui/material'
 import { Person } from 'gql/person'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -152,8 +152,8 @@ export default function CampaignApplicationForm({
             </StyledCampaignApplicationStep>
           ))}
         </StyledCampaignApplicationStepper>
-        <Grid container>
-          <Grid container item xs={12}>
+        <Grid2 container>
+          <Grid2 container size={12}>
             {activeStep === Steps.ORGANIZER && <CampaignApplicationOrganizer />}
             {activeStep === Steps.CAMPAIGN_BASIC && <CampaignApplicationBasic />}
             {activeStep === Steps.CAMPAIGN_DETAILS && (
@@ -167,8 +167,8 @@ export default function CampaignApplicationForm({
                 isEdit={isEdit}
               />
             )}
-          </Grid>
-          <Grid container item alignContent="center">
+          </Grid2>
+          <Grid2 container alignContent="center">
             <Root
               container
               item
@@ -176,7 +176,12 @@ export default function CampaignApplicationForm({
               spacing={6}
               sx={{ marginTop: 1 }}
               justifyContent="space-between">
-              <Grid item xs={12} md={6} flexWrap="nowrap">
+              <Grid2
+                flexWrap="nowrap"
+                size={{
+                  xs: 12,
+                  md: 6
+                }}>
                 {activeStep === Steps.ORGANIZER ? (
                   <ActionLinkButton
                     fullWidth
@@ -197,8 +202,13 @@ export default function CampaignApplicationForm({
                     {t('cta.back')}
                   </ActionButton>
                 )}
-              </Grid>
-              <Grid item xs={12} md={6} flexWrap="nowrap">
+              </Grid2>
+              <Grid2
+                flexWrap="nowrap"
+                size={{
+                  xs: 12,
+                  md: 6
+                }}>
                 <ActionSubmitButton
                   fullWidth
                   label={t(
@@ -211,10 +221,10 @@ export default function CampaignApplicationForm({
                   endIcon={<ArrowForwardIosIcon fontSize="small" />}
                   disabled={submitting}
                 />
-              </Grid>
+              </Grid2>
             </Root>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
         {(activeStep === Steps.ORGANIZER || activeStep === Steps.CAMPAIGN_BASIC) && (
           <CampaignApplicationRemark />
         )}
@@ -229,5 +239,5 @@ export default function CampaignApplicationForm({
         )}
       </GenericForm>
     </>
-  )
+  );
 }

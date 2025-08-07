@@ -1,4 +1,4 @@
-import { Dialog, Grid, DialogContent, DialogTitle } from '@mui/material'
+import { Dialog, Grid2, DialogContent, DialogTitle } from '@mui/material'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { useState } from 'react'
@@ -61,35 +61,35 @@ export default function RerunTransactionSyncModal({
           paddingTop: '1rem',
           width: '100%',
         }}>
-        <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
+        <Grid2 style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
           <CloseModalButton href={''} onClose={handleClose} />
-        </Grid>
+        </Grid2>
         <DialogTitle style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           {t('bank-transactions:rerun-dates')}
         </DialogTitle>
-        <Grid container direction="column" component="section">
+        <Grid2 container direction="column" component="section">
           <GenericForm
             onSubmit={onSubmit}
             initialValues={{ startDate: new Date(), endDate: new Date() }}
             validationSchema={validationSchema}>
-            <Grid container direction="row" spacing={3}>
-              <Grid item xs={6} sx={{ marginBottom: '1rem' }}>
+            <Grid2 container direction="row" spacing={3}>
+              <Grid2 sx={{ marginBottom: '1rem' }} size={6}>
                 <FormDatePicker label={t('bank-transactions:cta.from')} name="startDate" />
-              </Grid>
-              <Grid item xs={6} sx={{ marginBottom: '1rem' }}>
+              </Grid2>
+              <Grid2 sx={{ marginBottom: '1rem' }} size={6}>
                 <FormDatePicker label={t('bank-transactions:cta.to')} name="endDate" />
-              </Grid>
-              <Grid item xs={12}>
+              </Grid2>
+              <Grid2 size={12}>
                 <SubmitButton
                   fullWidth
                   label="bank-transactions:cta.start-sync"
                   loading={loading}
                 />
-              </Grid>
-            </Grid>
+              </Grid2>
+            </Grid2>
           </GenericForm>
-        </Grid>
+        </Grid2>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

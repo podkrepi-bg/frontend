@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid2, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
 import { formatDateString } from 'common/util/date'
@@ -13,7 +13,7 @@ const classes = {
   infoWrapper: `${PREFIX}-infoWrapper`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`& .${classes.infoHeading}`]: {
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
@@ -34,7 +34,11 @@ function PersonInfo({ person }: Props) {
   const { t, i18n } = useTranslation()
   return (
     <StyledGrid container>
-      <Grid item xs={12} md={6}>
+      <Grid2
+        size={{
+          xs: 12,
+          md: 6
+        }}>
         <Typography className={classes.infoHeading} variant="h6" color={theme.palette.primary.dark}>
           {t('person:info.contact')}
         </Typography>
@@ -49,8 +53,12 @@ function PersonInfo({ person }: Props) {
             {t('person:info.address')}: {person.address}
           </Typography>
         </Box>
-      </Grid>
-      <Grid item xs={12} md={6}>
+      </Grid2>
+      <Grid2
+        size={{
+          xs: 12,
+          md: 6
+        }}>
         <Typography className={classes.infoHeading} variant="h6" color={theme.palette.primary.dark}>
           {t('person:info.general')}
         </Typography>
@@ -65,9 +73,9 @@ function PersonInfo({ person }: Props) {
             {t('person:info.confirmedEmail')}: {person.emailConfirmed ? 'Yes' : 'No'}
           </Typography>
         </Box>
-      </Grid>
+      </Grid2>
     </StyledGrid>
-  )
+  );
 }
 
 export default PersonInfo

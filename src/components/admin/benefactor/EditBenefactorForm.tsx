@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useMutation } from '@tanstack/react-query'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid2, Typography } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 
@@ -77,7 +77,7 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
   }
 
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       component="section"
@@ -96,30 +96,38 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
           <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
             {t('edit-form-heading')}
           </Typography>
-          <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-            <Grid item xs={12} />
-            <Grid item xs={12} sm={4}>
+          <Grid2 container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+            <Grid2 size={12} />
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 4
+              }}>
               <FormTextField
                 type="text"
                 label={t('customerId')}
                 name="extCustomerId"
                 autoComplete="extCustomerId"
               />
-            </Grid>
-            <Grid item xs={12} sm={4}>
+            </Grid2>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 4
+              }}>
               <FormTextField
                 type="text"
                 label={t('personId')}
                 name="person"
                 autoComplete="personId"
               />
-            </Grid>
-            <Grid item xs={6}>
+            </Grid2>
+            <Grid2 size={6}>
               <Button fullWidth variant="contained" type="submit" color="secondary">
                 {t('cta.submit')}
               </Button>
-            </Grid>
-            <Grid item xs={6}>
+            </Grid2>
+            <Grid2 size={6}>
               <LinkButton
                 fullWidth
                 variant="contained"
@@ -127,10 +135,10 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
                 href={routes.admin.benefactor.index}>
                 {t('cta.cancel')}
               </LinkButton>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </Box>
       </GenericForm>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from '@mui/material'
+import { Button, Grid2, Typography } from '@mui/material'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { routes } from 'common/routes'
@@ -72,46 +72,49 @@ export default function SendConsentEmailForm() {
   }
 
   return (
-    <Grid container gap={2}>
-      <Grid item>
+    <Grid2 container gap={2}>
+      <Grid2>
         <Typography variant="h5" component="h2">
           {t('admin.sendConsentEmail')}
         </Typography>
-      </Grid>
+      </Grid2>
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container item spacing={3} xs={12}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={3} size={12}>
+          <Grid2 size={12}>
             <FormTextField type="text" label={t('admin.common.templateId')} name="templateId" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField type="text" label={t('admin.common.listId')} name="listId" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField type="text" label={t('admin.common.subject')} name="subject" />
-          </Grid>
-          <Grid
+          </Grid2>
+          <Grid2
             container
-            item
-            xs={12}
             direction={'row'}
             justifyContent={'space-between'}
-            alignItems={'center'}>
-            <Grid item xs={12} md={6}>
+            alignItems={'center'}
+            size={12}>
+            <Grid2
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <Typography>Премахване от списък на потребители регистрирани след: </Typography>
-            </Grid>
+            </Grid2>
             <FormDatePicker name="dateThreshold" label="" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SubmitButton label="Изпрати" fullWidth loading={mutation.isLoading} />
             <Link href={routes.admin.marketing.index} passHref>
               <Button fullWidth>{t('Откажи')}</Button>
             </Link>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

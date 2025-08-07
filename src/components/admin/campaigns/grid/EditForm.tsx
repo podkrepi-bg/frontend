@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import NextLink from 'next/link'
-import { Button, Grid, List, ListItemText, Typography } from '@mui/material'
+import { Button, Grid2, List, ListItemText, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -232,8 +232,8 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
+    <Grid2 container direction="column" component="section">
+      <Grid2 size={12}>
         <Typography
           variant="h5"
           component="h2"
@@ -244,21 +244,21 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
           })}>
           {t('campaigns:edit-form-heading')}
         </Typography>
-      </Grid>
+      </Grid2>
       <GenericForm<CampaignEditFormData>
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="campaigns:campaign.title"
               name="title"
               autoComplete="title"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="campaigns:campaign.slug.name"
@@ -278,25 +278,45 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
               })}>
               {slugWasChanged && t('campaigns:campaign.slug.warning')}
             </Typography>
-          </Grid>
-          <Grid item xs={12} sm={5}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 5
+            }}>
             <CampaignTypeSelect />
-          </Grid>
-          <Grid item xs={12} sm={5}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 5
+            }}>
             <FormTextField
               type="number"
               name="targetAmount"
               autoComplete="target-amount"
               label="campaigns:campaign.amount"
             />
-          </Grid>
-          <Grid item xs={12} sm={2}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 2
+            }}>
             <CurrencySelect disabled={IsCurrencySelectDisabled} />
-          </Grid>
-          <Grid item xs={12} sm={12}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 12
+            }}>
             <AllowDonationOnComplete name="allowDonationOnComplete" />
-          </Grid>
-          <Grid item xs={12} sm={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 4
+            }}>
             <FormTextField
               type="date"
               name="startDate"
@@ -306,8 +326,12 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
                 shrink: true,
               }}
             />
-          </Grid>
-          <Grid item xs={12} sm={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 4
+            }}>
             <FormTextField
               type="date"
               name="endDate"
@@ -317,15 +341,19 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
                 shrink: true,
               }}
             />
-          </Grid>
-          <Grid item xs={12} sm={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 4
+            }}>
             <CampaignStateSelect />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <Typography>{t('campaigns:campaign.description')}</Typography>
             <FormRichTextField name="description" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <p>
               Select a Beneficiery or{' '}
               <NextLink href={routes.admin.beneficiary.create} passHref>
@@ -333,8 +361,12 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
               </NextLink>
             </p>
             <BeneficiarySelect />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             <p>
               Select a Coordinator or{' '}
               <NextLink href={routes.admin.coordinators.add} passHref>
@@ -342,8 +374,12 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
               </NextLink>
             </p>
             <CoordinatorSelect />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             <p>
               Select an Organizer or{' '}
               <NextLink href={routes.admin.organizers.create} passHref>
@@ -351,16 +387,16 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
               </NextLink>
             </p>
             <OrganizerSelect />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <List dense>
               <ListItemText primary={t('campaigns:cta.attached-files')} />
               {(campaign?.campaignFiles || []).map((file, key) => (
                 <UploadedCampaignFile key={key} file={file} campaignId={campaign.id} />
               ))}
             </List>
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FileUpload
               buttonLabel={t('campaigns:cta.add-files')}
               onUpload={(newFiles) => {
@@ -388,15 +424,15 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
                 ])
               }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
             <NextLink href={routes.admin.campaigns.index} passHref>
               <Button fullWidth>{t('Отказ')}</Button>
             </NextLink>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

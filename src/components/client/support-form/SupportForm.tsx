@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useState, useRef } from 'react'
 import { FormikHelpers, FormikProps } from 'formik'
-import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid, Box } from '@mui/material'
+import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid2, Box } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
 import { createSupportRequest } from 'service/support'
@@ -241,11 +241,13 @@ export default function SupportForm() {
         steps[activeStep].component
       ) : (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Grid container justifyContent="center">
-            <Grid item xs={12} sx={{ mt: 1, mb: 5 }}>
+          <Grid2 container justifyContent="center">
+            <Grid2 sx={{ mt: 1, mb: 5 }} size={12}>
               {steps[activeStep].component}
-            </Grid>
-            <Grid item xs={12} sx={(theme) => ({ '& button': { minWidth: theme.spacing(12) } })}>
+            </Grid2>
+            <Grid2
+              sx={(theme) => ({ '& button': { minWidth: theme.spacing(12) } })}
+              size={12}>
               <Actions
                 disableBack={activeStep === 0}
                 onBack={handleBack}
@@ -254,10 +256,10 @@ export default function SupportForm() {
                   isLastStep(activeStep, steps) ? 'support:cta.submit' : 'support:cta.next'
                 }
               />
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </Box>
       )}
     </GenericForm>
-  )
+  );
 }

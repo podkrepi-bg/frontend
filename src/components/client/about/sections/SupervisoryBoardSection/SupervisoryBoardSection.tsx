@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import { data } from '../../helpers/supervisoryBoardData'
 
@@ -24,7 +24,7 @@ export default function SupervisoryBoardSection() {
   const { t } = useTranslation('about')
 
   return (
-    <Grid component="section">
+    <Grid2 component="section">
       <AboutHeading variant="h4">{t('about.supervisory-board-members')}</AboutHeading>
       <SupervisoryBoardMembersWrapper>
         {data.map((teamMember) => (
@@ -51,6 +51,6 @@ export default function SupervisoryBoardSection() {
           </TeamMemberWrapper>
         ))}
       </SupervisoryBoardMembersWrapper>
-    </Grid>
+    </Grid2>
   )
 }

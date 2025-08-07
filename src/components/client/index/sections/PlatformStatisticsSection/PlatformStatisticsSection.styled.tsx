@@ -1,4 +1,4 @@
-import { Button, Typography, Grid } from '@mui/material'
+import { Button, Typography, Grid2 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
@@ -13,7 +13,7 @@ export const Root = styled('section')(() => ({
   },
 }))
 
-export const SectionGridWrapper = styled(Grid)(() => ({
+export const SectionGridWrapper = styled(Grid2)(() => ({
   display: 'flex',
   margin: '0 auto',
   padding: theme.spacing(4, 1.8),

@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Button, Grid, Typography } from '@mui/material'
+import { Button, Grid2, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import EmailIcon from '@mui/icons-material/Email'
 
@@ -21,7 +21,7 @@ const classes = {
   trustedButton: `${PREFIX}-trustedButton`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`& .${classes.avatarWrapper}`]: {
     paddingLeft: theme.spacing(2.5),
 
@@ -68,7 +68,7 @@ export default function CampaignInfoOperator({ campaign }: Props) {
 
   return (
     <StyledGrid container gap={3} mb={8}>
-      <Grid item className={classes.avatarWrapper} minWidth="max-content" flex={1}>
+      <Grid2 className={classes.avatarWrapper} minWidth="max-content" flex={1}>
         <Image
           src={coordinatorAvatarSource}
           //  A11Y TODO: Translate alt text
@@ -77,8 +77,8 @@ export default function CampaignInfoOperator({ campaign }: Props) {
           height={84}
           className={classes.personAvatar}
         />
-      </Grid>
-      <Grid item flex={6}>
+      </Grid2>
+      <Grid2 flex={6}>
         <Typography variant="subtitle2" component="p">
           <strong>{t('campaigns:campaign.podkrepi-bg-operator')}</strong>
         </Typography>
@@ -99,7 +99,7 @@ export default function CampaignInfoOperator({ campaign }: Props) {
           className={classes.trustedButton}>
           {t('campaigns:campaign.btn-connect')}
         </Button>
-      </Grid>
+      </Grid2>
     </StyledGrid>
-  )
+  );
 }

@@ -61,7 +61,6 @@ function BankPayment() {
           />
         </Grid2>
       </Grid2>
-
       <Typography my={1} variant="h6">
         {t('step.payment-method.bank.reason-donation')}
       </Typography>
@@ -80,14 +79,13 @@ function BankPayment() {
           />
         </Grid2>
       </Grid2>
-
       <Typography>{t('step.payment-method.bank.message-warning')}</Typography>
       <Alert sx={{ mt: 2, mx: mobile ? -2 : 0 }} severity="error">
         <AlertTitle>{t('step.payment-method.bank.alert.important')}!</AlertTitle>
         {t('step.payment-method.bank.alert.authenticate')}
       </Alert>
     </List>
-  )
+  );
 }
 
 export default BankPayment

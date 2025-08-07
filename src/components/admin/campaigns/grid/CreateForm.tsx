@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { format, parse, isDate } from 'date-fns'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, Typography } from '@mui/material'
+import { Button, Grid2, Typography } from '@mui/material'
 import Link from 'next/link'
 
 import { routes } from 'common/routes'
@@ -180,8 +180,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
+    <Grid2 container direction="column" component="section">
+      <Grid2 size={12}>
         <Typography
           variant="h5"
           component="h2"
@@ -192,21 +192,21 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           })}>
           {t('campaigns:form-heading')}
         </Typography>
-      </Grid>
+      </Grid2>
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="campaigns:campaign.title"
               name="title"
               autoComplete="title"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="campaigns:campaign.slug.name"
@@ -214,25 +214,45 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               placeholder={t('campaigns:campaign.slug.placeholder')}
               InputLabelProps={{ shrink: true }}
             />
-          </Grid>
-          <Grid item xs={12} sm={5}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 5
+            }}>
             <CampaignTypeSelect />
-          </Grid>
-          <Grid item xs={12} sm={5}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 5
+            }}>
             <FormTextField
               type="number"
               name="targetAmount"
               autoComplete="target-amount"
               label="campaigns:campaign.amount"
             />
-          </Grid>
-          <Grid item xs={12} sm={2}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 2
+            }}>
             <CurrencySelect />
-          </Grid>
-          <Grid item xs={12} sm={12}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 12
+            }}>
             <AllowDonationOnComplete name="allowDonationOnComplete" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             <FormTextField
               type="date"
               name="startDate"
@@ -242,8 +262,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                 shrink: true,
               }}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             <FormTextField
               type="date"
               name="endDate"
@@ -253,12 +277,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                 shrink: true,
               }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <Typography>{t('campaigns:campaign.description')}</Typography>
             <FormRichTextField name="description" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <p>
               Select a Beneficiery or{' '}
               <Link href={routes.admin.beneficiary.create} passHref>
@@ -266,8 +290,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               </Link>
             </p>
             <BeneficiarySelect />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             <p>
               Select a Coordinator or{' '}
               <Link href={routes.admin.coordinators.add} passHref>
@@ -275,8 +303,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               </Link>
             </p>
             <CoordinatorSelect />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             <p>
               Select an Organizer or{' '}
               <Link href={routes.admin.organizers.create} passHref>
@@ -284,8 +316,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               </Link>
             </p>
             <OrganizerSelect />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FileUpload
               onUpload={(newFiles) => {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
@@ -313,19 +345,19 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                 ])
               }}
             />
-          </Grid>
-          <Grid item container direction="column" xs={12}>
+          </Grid2>
+          <Grid2 container direction="column" size={12}>
             <AcceptTermsField name="terms" />
             <AcceptPrivacyPolicyField name="gdpr" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
-          </Grid>
+          </Grid2>
           <Link href={routes.admin.campaigns.index} passHref>
             <Button fullWidth={true}>{t('Отказ')}</Button>
           </Link>
-        </Grid>
+        </Grid2>
       </GenericForm>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

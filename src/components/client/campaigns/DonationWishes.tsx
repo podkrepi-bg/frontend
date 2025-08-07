@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useState } from 'react'
 
 import { useTranslation } from 'next-i18next'
 
-import { Grid2, Stack, Typography, Grid, Button, TextField, InputAdornment } from '@mui/material'
+import { Grid2, Stack, Typography, Button, TextField, InputAdornment } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
@@ -150,12 +150,12 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
               sx={{ p: 2, bgcolor: 'grey.100', borderRadius: theme.spacing(2) }}>
               <Grid2 size={{ xs: 12 }}>
                 <Stack direction="row" spacing={2}>
-                  <Grid pt={0.7}>
+                  <Grid2 pt={0.7}>
                     <AccountCircleIcon
                       color="disabled"
                       sx={{ fontSize: theme.typography.pxToRem(37) }}
                     />
-                  </Grid>
+                  </Grid2>
                   <Stack direction="column">
                     {donation?.type === DonationType.donation && (
                       <Typography

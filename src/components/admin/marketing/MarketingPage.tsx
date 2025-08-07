@@ -1,4 +1,4 @@
-import { Box, Button, CardContent, Container, Grid, Typography } from '@mui/material'
+import { Box, Button, CardContent, Container, Grid2, Typography } from '@mui/material'
 import AdminContainer from 'components/common/navigation/AdminContainer'
 import AdminLayout from 'components/common/navigation/AdminLayout'
 import React from 'react'
@@ -13,9 +13,16 @@ export default function MarketingPage() {
     <AdminLayout>
       <AdminContainer title={t('admin.marketing')}>
         <Container maxWidth={false} sx={{ py: 5 }}>
-          <Grid container spacing={2} rowSpacing={4} px={4} pb={4} mb={2}>
+          <Grid2 container spacing={2} rowSpacing={4} px={4} pb={4} mb={2}>
             {marketingCards.map(({ label, href, icon: Icon, disabled }, index) => (
-              <Grid xs={12} sm={6} md={4} lg={2.4} item key={index}>
+              <Grid2
+                key={index}
+                size={{
+                  xs: 12,
+                  sm: 6,
+                  md: 4,
+                  lg: 2.4
+                }}>
                 <Button
                   disabled={disabled}
                   sx={{
@@ -48,11 +55,11 @@ export default function MarketingPage() {
                     </CardContent>
                   </Link>
                 </Button>
-              </Grid>
+              </Grid2>
             ))}
-          </Grid>
+          </Grid2>
         </Container>
       </AdminContainer>
     </AdminLayout>
-  )
+  );
 }

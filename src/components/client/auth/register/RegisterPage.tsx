@@ -7,7 +7,7 @@ import {
   Button,
   Container,
   Divider,
-  Grid,
+  Grid2,
   RadioGroup,
   Tooltip,
   Typography,
@@ -107,22 +107,30 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
           onChange={onProfileTypeChange}
           value={profileType}
           aria-label="profile type select">
-          <Grid container justifyContent={'space-between'} rowGap={2} direction={'row'}>
-            <Grid item xs={12} sm={12 / 2.1}>
+          <Grid2 container justifyContent={'space-between'} rowGap={2} direction={'row'}>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 12 / 2.1
+              }}>
               <RadioButton
                 checked={profileType === AccountType.INDIVIDUAL}
                 value={AccountType.INDIVIDUAL}
                 label={t(`auth:type.${AccountType.INDIVIDUAL}`)}
               />
-            </Grid>
-            <Grid item xs={12} sm={12 / 2.1}>
+            </Grid2>
+            <Grid2
+              size={{
+                xs: 12,
+                sm: 12 / 2.1
+              }}>
               <RadioButton
                 checked={profileType === AccountType.CORPORATE}
                 value={AccountType.CORPORATE}
                 label={t(`auth:type.${AccountType.CORPORATE}`)}
               />
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </RadioGroup>
         {profileType === AccountType.INDIVIDUAL && (
           <>
@@ -195,14 +203,14 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
         )}
       </Container>
     </Layout>
-  )
+  );
 }
 
 const ProvidersList = ({ providers }: RegisterPageProps) => {
   const { t } = useTranslation()
   return (
     <Box mt={4} justifyContent={'center'}>
-      <Grid container gap={2} direction="column">
+      <Grid2 container gap={2} direction="column">
         {providers &&
           Object.values(providers)
             .filter((p) => p.id !== 'credentials')
@@ -210,7 +218,7 @@ const ProvidersList = ({ providers }: RegisterPageProps) => {
               const providerIcon =
                 providerIcons[provider.name.toLowerCase() as keyof typeof providerIcons]
               return (
-                <Grid item key={provider.name}>
+                <Grid2 key={provider.name}>
                   <Button
                     fullWidth
                     variant="outlined"
@@ -219,10 +227,10 @@ const ProvidersList = ({ providers }: RegisterPageProps) => {
                     onClick={() => signIn(provider.id, { callbackUrl: baseUrl })}>
                     {t('common:nav.continue-with')} {provider.name}
                   </Button>
-                </Grid>
-              )
+                </Grid2>
+              );
             })}
-      </Grid>
+      </Grid2>
     </Box>
-  )
+  );
 }

@@ -119,7 +119,7 @@ function RadioCardGroup({ options, name, columns, loading, error }: RadioCardGro
   return (
     <FormControl fullWidth required component="fieldset" error={showError}>
       <RadioGroup value={field.value} onChange={handleChange}>
-        <Grid columnSpacing={3} container gap={3} mx={0}>
+        <Grid2 columnSpacing={3} container gap={3} mx={0}>
           {options.map((option) => (
             <Grid2 size={{ xs: 4 }} key={option.value}>
               <RadioCardItem
@@ -157,7 +157,7 @@ function RadioCardGroup({ options, name, columns, loading, error }: RadioCardGro
               />
             </Grid2>
           ))}
-        </Grid>
+        </Grid2>
       </RadioGroup>
     </FormControl>
   )

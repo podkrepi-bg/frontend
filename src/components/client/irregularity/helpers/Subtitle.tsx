@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 
 import { ThemeProvider } from '@mui/styles'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 
@@ -13,11 +13,11 @@ export default function Subtitle({ label }: Props) {
   const { t } = useTranslation()
   return (
     <ThemeProvider theme={theme}>
-      <Grid item xs={12}>
+      <Grid2 size={12}>
         <Typography variant="h4" align="center">
           {t(label)}
         </Typography>
-      </Grid>
+      </Grid2>
     </ThemeProvider>
-  )
+  );
 }

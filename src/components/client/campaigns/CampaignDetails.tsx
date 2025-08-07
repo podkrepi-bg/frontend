@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { CampaignResponse } from 'gql/campaigns'
 import 'react-quill/dist/quill.bubble.css'
 
-import { Divider, Grid, IconButton, Tooltip, Typography } from '@mui/material'
+import { Divider, Grid2, IconButton, Tooltip, Typography } from '@mui/material'
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined'
 import EditIcon from '@mui/icons-material/Edit'
 import { Assessment, InfoOutlined } from '@mui/icons-material'
@@ -42,7 +42,7 @@ const classes = {
   financeSummary: `${PREFIX}-financeSummary`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`& .${classes.banner}`]: {
     zIndex: -1,
     maxHeight: '504px !important',
@@ -144,7 +144,7 @@ export default function CampaignDetails({ campaign }: Props) {
   )
 
   return (
-    <StyledGrid item xs={12} md={8}>
+    <StyledGrid size={{ xs: 12, md: 8 }}>
       <Typography variant="h1" component="h1" mb={8} className={classes.campaignTitle}>
         {campaign.title}
       </Typography>
@@ -152,25 +152,25 @@ export default function CampaignDetails({ campaign }: Props) {
         campaign={campaign}
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
-      <Grid container spacing={8}>
-        <Grid item xs={12} display="flex" alignItems="center" gap="5px" sx={{ mt: 1.5 }}>
+      <Grid2 container spacing={8}>
+        <Grid2 display="flex" alignItems="center" gap="5px" sx={{ mt: 1.5 }} size={12}>
           {renderSubscribeInfo()}
-        </Grid>
-        <Grid item xs={12} sx={{ pt: '20px' }}>
+        </Grid2>
+        <Grid2 sx={{ pt: '20px' }} size={12}>
           <ReactQuill readOnly theme="bubble" value={campaign.description} />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <ImageSlider sliderImages={sliderImages} />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <Divider />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <CampaignInfoOperator campaign={campaign} />
-        </Grid>
+        </Grid2>
         <CampaignInfoGraphics />
-        <Grid container item xs={12} spacing={4} id="expenses">
-          <Grid item xs={12}>
+        <Grid2 container spacing={4} id="expenses" size={12}>
+          <Grid2 size={12}>
             <Typography variant="h4" component="h4" my={4}>
               {t('campaigns:campaign.financial-report')} <Assessment />
               {canEditCampaign ? (
@@ -186,44 +186,44 @@ export default function CampaignDetails({ campaign }: Props) {
               )}
             </Typography>
             <CampaignFinanceSummary campaign={campaign} expenses={totalExpenses ?? 0} />
-          </Grid>
+          </Grid2>
           {(expensesList?.length || canEditCampaign) && (
             <>
-              <Grid item xs={12}>
+              <Grid2 size={12}>
                 <CampaignPublicExpensesChart
                   slug={campaign.slug}
                   height={120}
                   reachedAmount={campaign.summary.reachedAmount}
                   currency={campaign.currency}
                 />
-              </Grid>
-              <Grid item xs={12} mt={2}>
+              </Grid2>
+              <Grid2 mt={2} size={12}>
                 <CampaignPublicExpensesGrid slug={campaign.slug} />
-              </Grid>
+              </Grid2>
             </>
           )}
-        </Grid>
+        </Grid2>
         <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
         {subscribeIsOpen && (
           <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
         )}
-        <Grid item xs={12} display="flex" alignItems="center" gap="5px" mt={2} mb={2}>
+        <Grid2 display="flex" alignItems="center" gap="5px" mt={2} mb={2} size={12}>
           {renderSubscribeInfo()}
-        </Grid>
-        <Grid item xs={12} id="wishes">
+        </Grid2>
+        <Grid2 id="wishes" size={12}>
           <DonationWishes campaignId={campaign?.id} />
-        </Grid>
-        <Grid container item xs={12}>
+        </Grid2>
+        <Grid2 container size={12}>
           <LinkButton
             startIcon={<NotificationsActiveOutlinedIcon className={classes.irregularityIcon} />}
             href={`/campaigns/${campaign.slug}/irregularity`}
             className={classes.linkButton}>
             {t('campaigns:campaign.report-campaign')}
           </LinkButton>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </StyledGrid>
-  )
+  );
 }
 
 type CampaignFinanceProps = Props & {

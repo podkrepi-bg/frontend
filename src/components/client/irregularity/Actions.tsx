@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
@@ -32,8 +32,8 @@ export default function Actions({
   const { t } = useTranslation('irregularity')
 
   return (
-    <Grid container item xs={12} spacing={3} justifyContent="space-between">
-      <Grid item sx={{ textAlign: 'left' }}>
+    <Grid2 container spacing={3} justifyContent="space-between" size={12}>
+      <Grid2 sx={{ textAlign: 'left' }}>
         {activeStep === 0 ? (
           <ActionLinkButton
             href={`/campaigns/${campaign.slug}`}
@@ -50,15 +50,15 @@ export default function Actions({
             {t(backLabel)}
           </ActionButton>
         )}
-      </Grid>
-      <Grid item>
+      </Grid2>
+      <Grid2>
         <ActionSubmitButton
           fullWidth
           label={t(nextLabel)}
           loading={loading}
           endIcon={<ArrowForwardIosIcon fontSize="small" />}
         />
-      </Grid>
-    </Grid>
-  )
+      </Grid2>
+    </Grid2>
+  );
 }

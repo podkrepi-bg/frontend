@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Typography, Grid, PaginationItem, Divider } from '@mui/material'
+import { Typography, Grid2, PaginationItem, Divider } from '@mui/material'
 import Pagination from '@mui/material/Pagination'
 
 import theme from 'common/theme'
@@ -74,8 +74,8 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
           ? `${baseUrl}${routes.campaigns.news.listNewsPaginated(data?.pagination.nextPage, slug)}`
           : undefined
       }>
-      <Grid>
-        <Grid
+      <Grid2>
+        <Grid2
           sx={{
             padding: theme.spacing(0, 3),
             margin: '0 auto',
@@ -93,11 +93,11 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
           </Typography>
           <BreadcrumbWrapper crumb={breadcumbData} />
           <Divider orientation="horizontal" sx={{ marginBottom: theme.spacing(4) }} />
-        </Grid>
+        </Grid2>
         {data && data?.campaign.campaignNews.length > 0 && (
           <CampaignNewsList articles={data.campaign.campaignNews} />
         )}
-        <Grid>
+        <Grid2>
           {data && data?.pagination.totalPages > 1 && (
             <Pagination
               count={data?.pagination.totalPages}
@@ -115,8 +115,8 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
               }}
             />
           )}
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Root>
   )
 }

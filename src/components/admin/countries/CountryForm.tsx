@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useMutation } from '@tanstack/react-query'
-import { Button, Grid } from '@mui/material'
+import { Button, Grid2 } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 
@@ -102,7 +102,7 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
   }
 
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       component="section"
@@ -114,37 +114,45 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={8}>
+        <Grid2 container spacing={3}>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 8
+            }}>
             <FormTextField
               type="text"
               label="countries:fields.name"
               name="name"
               autoComplete="name"
             />
-          </Grid>
-          <Grid item xs={12} sm={4}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 4
+            }}>
             <FormTextField
               type="text"
               label="countries:fields.country-code"
               name="countryCode"
               autoComplete="country-code"
             />
-          </Grid>
+          </Grid2>
           {id ? (
             <>
-              <Grid item xs={6}>
+              <Grid2 size={6}>
                 <Button fullWidth variant="contained" type="submit" color="secondary">
                   {t('btns.save')}
                 </Button>
-              </Grid>
+              </Grid2>
             </>
           ) : (
-            <Grid item xs={6}>
+            <Grid2 size={6}>
               <SubmitButton fullWidth label="countries:btns.add" />
-            </Grid>
+            </Grid2>
           )}
-          <Grid item xs={6}>
+          <Grid2 size={6}>
             <LinkButton
               fullWidth
               variant="contained"
@@ -152,9 +160,9 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
               href={routes.admin.countries.index}>
               {t('btns.cancel')}
             </LinkButton>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 
@@ -13,10 +13,10 @@ const textStyles = {
 
 export default function Remark({ text }: RemarkProps) {
   return (
-    <Grid item xs={12}>
+    <Grid2 size={12}>
       <Typography variant="body1" sx={textStyles}>
         {text}
       </Typography>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

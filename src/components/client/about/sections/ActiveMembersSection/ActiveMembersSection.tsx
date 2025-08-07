@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 import { data } from '../../helpers/activeMembersData'
 
@@ -19,7 +19,7 @@ export default function ActiveMembersSection() {
   const { t } = useTranslation('about')
 
   return (
-    <Grid component="section">
+    <Grid2 component="section">
       <AboutHeading variant="h4">{t('about.active-team-members')}</AboutHeading>
       <AboutWrapper>
         {data.map((teamMember) => (
@@ -39,6 +39,6 @@ export default function ActiveMembersSection() {
           </ТeamMemberWrapper>
         ))}
       </AboutWrapper>
-    </Grid>
+    </Grid2>
   )
 }

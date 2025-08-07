@@ -6,7 +6,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
 
-import { Box, Button, Grid, Tooltip, Typography } from '@mui/material'
+import { Box, Button, Grid2, Tooltip, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -205,20 +205,20 @@ export default function Form() {
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
           {id ? t('headings.edit') : t('headings.add')}
         </Typography>
-        <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <Grid item xs={6}>
+        <Grid2 container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+          <Grid2 size={6}>
             <ExpenseTypeSelect />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <FormDatePicker name="spentAt" label={t('expenses:fields.date')} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <FormTextField type="number" name="money" label="expenses:fields.amount" />
-          </Grid>
-          <Grid item xs={3}>
+          </Grid2>
+          <Grid2 size={3}>
             <CurrencySelect disabled={true} />
-          </Grid>
-          <Grid item xs={3}>
+          </Grid2>
+          <Grid2 size={3}>
             {t('expenses:fields.approved')}:
             <Checkbox
               name="approved"
@@ -229,8 +229,8 @@ export default function Form() {
                 setApprovedBy(val && person ? person.id : null)
               }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FileUpload
               buttonLabel={t('expenses:add-documents')}
               onUpload={(newFiles) => {
@@ -273,8 +273,8 @@ export default function Form() {
                 return undefined
               }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="string"
               name="description"
@@ -282,8 +282,8 @@ export default function Form() {
               multiline
               rows={5}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             {expenseFilesFiltered().length > 0 ? (
               <Typography component="h4" sx={{ textAlign: 'center' }}>
                 {t('expenses:uploaded-files')}:
@@ -316,11 +316,11 @@ export default function Form() {
                 </Tooltip>
               </Typography>
             ))}
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <SubmitButton fullWidth label={'expenses:btns.save'} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <LinkButton
               fullWidth
               variant="contained"
@@ -328,9 +328,9 @@ export default function Form() {
               href={routes.admin.expenses.index}>
               {t('btns.cancel')}
             </LinkButton>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Box>
     </GenericForm>
-  )
+  );
 }

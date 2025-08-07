@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 import Subtitle from '../helpers/Subtitle'
 
@@ -20,11 +20,11 @@ export default function Greeting() {
   }, [])
 
   return (
-    <Grid container spacing={3} alignContent="center">
-      <Grid item xs={12}>
+    <Grid2 container spacing={3} alignContent="center">
+      <Grid2 size={12}>
         <Subtitle label={t('steps.greeting.subtitle')} />
-      </Grid>
-      <Grid item xs={12}>
+      </Grid2>
+      <Grid2 size={12}>
         <Typography variant="h6" sx={greetingStyles}>
           {t('steps.greeting.welcome')}{' '}
           {session &&
@@ -33,21 +33,21 @@ export default function Greeting() {
               ? session.user.preferred_username
               : session.user.given_name)}
         </Typography>
-      </Grid>
-      <Grid container item spacing={3}>
-        <Grid item>
+      </Grid2>
+      <Grid2 container spacing={3}>
+        <Grid2>
           <Typography variant="body1">{t('steps.greeting.text-info')}</Typography>
-        </Grid>
-        <Grid item>
+        </Grid2>
+        <Grid2>
           <Typography variant="body1">
             {t('steps.greeting.text-description-first')}
             {t('steps.greeting.text-description-second')}
           </Typography>
-        </Grid>
-        <Grid item>
+        </Grid2>
+        <Grid2>
           <Typography variant="body1">{t('steps.greeting.text-thanks')}</Typography>
-        </Grid>
-      </Grid>
-    </Grid>
-  )
+        </Grid2>
+      </Grid2>
+    </Grid2>
+  );
 }

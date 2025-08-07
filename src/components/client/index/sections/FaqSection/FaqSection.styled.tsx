@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
@@ -9,7 +9,7 @@ export const Root = styled('section')(() => ({
   padding: theme.spacing(0, 3),
 }))
 
-export const FaqWrapper = styled(Grid)(() => ({
+export const FaqWrapper = styled(Grid2)(() => ({
   justifyContent: 'center',
   marginBottom: theme.spacing(12),
 }))

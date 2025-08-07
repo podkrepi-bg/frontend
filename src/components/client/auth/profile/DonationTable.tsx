@@ -4,7 +4,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  Grid,
+  Grid2,
   Table,
   TableRow,
   Button,
@@ -62,28 +62,36 @@ function DonationTable({ donations }: DonationTableProps) {
 
   return (
     <Card sx={{ padding: theme.spacing(2), boxShadow: theme.shadows[0] }}>
-      <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
+      <Grid2 container alignItems={'flex-start'} spacing={theme.spacing(2)}>
         <LocalizationProvider
           adapterLocale={i18n?.language === 'bg' ? bg : enUS}
           dateAdapter={AdapterDateFns}>
-          <Grid item xs={12} sm={3}>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 3
+            }}>
             <DateTimePicker
               label={t('profile:donations.fromDate')}
               value={fromDate}
               onChange={setFromDate}
               slotProps={{ textField: { size: 'small' } }}
             />
-          </Grid>
-          <Grid item xs={12} sm={3}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 3
+            }}>
             <DateTimePicker
               label={t('profile:donations.toDate')}
               value={toDate}
               onChange={setToDate}
               slotProps={{ textField: { size: 'small' } }}
             />
-          </Grid>
+          </Grid2>
         </LocalizationProvider>
-      </Grid>
+      </Grid2>
       {filteredDonations?.length ? (
         <TableContainer>
           <Table
@@ -146,7 +154,7 @@ function DonationTable({ donations }: DonationTableProps) {
         <Box sx={{ fontSize: 20, mt: 4 }}>{t('profile:donations.noDonations')}</Box>
       )}
     </Card>
-  )
+  );
 }
 
 export default DonationTable

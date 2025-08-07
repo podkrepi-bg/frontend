@@ -2,7 +2,7 @@ import { ContentType } from '../contents/content-type'
 import { filterFaqQuestionByVisibility, filterFaqQuestionBySearchKeyword } from './filters'
 
 export function removeHtmlTags(html: string): string {
-  return html.replace(/<[^>]+>/g, '')
+  return html.replace(/<[^>]+>/g, '');
 }
 
 /**

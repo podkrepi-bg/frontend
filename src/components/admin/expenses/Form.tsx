@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid2, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -136,36 +136,36 @@ export default function Form() {
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
           {id ? t('headings.edit') : t('headings.add')}
         </Typography>
-        <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <Grid item xs={6}>
+        <Grid2 container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+          <Grid2 size={6}>
             <ExpenseTypeSelect />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <ExpenseStatusSelect />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <FormTextField
               disabled={id ? true : false}
               type="number"
               name="amount"
               label="expenses:fields.amount"
             />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <CurrencySelect />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <VaultSelect
               name="vaultId"
               label="expenses:fields.vault"
               disabled={id ? true : false}
               vaults={vaults}
             />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <DocumentSelect />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="string"
               name="description"
@@ -173,9 +173,9 @@ export default function Form() {
               multiline
               rows={5}
             />
-          </Grid>
+          </Grid2>
           {(id && (
-            <Grid item xs={id ? 10 : 12}>
+            <Grid2 size={id ? 10 : 12}>
               <FormTextField
                 type="text"
                 name="approvedById"
@@ -184,21 +184,21 @@ export default function Form() {
                   readOnly: true,
                 }}
               />
-            </Grid>
+            </Grid2>
           )) || (
-            <Grid item xs={12}>
+            <Grid2 size={12}>
               <PersonSelect name="approvedById" label={t('expenses:fields:approvedBy')} />
-            </Grid>
+            </Grid2>
           )}
           {id && (
-            <Grid item xs={2}>
+            <Grid2 size={2}>
               <DeletedCheckbox />
-            </Grid>
+            </Grid2>
           )}
-          <Grid item xs={6}>
+          <Grid2 size={6}>
             <SubmitButton fullWidth label={id ? 'expenses:btns.save' : 'expenses:btns.submit'} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <LinkButton
               fullWidth
               variant="contained"
@@ -206,9 +206,9 @@ export default function Form() {
               href={routes.admin.expenses.index}>
               {t('btns.cancel')}
             </LinkButton>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Box>
     </GenericForm>
-  )
+  );
 }

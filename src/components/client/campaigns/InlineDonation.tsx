@@ -10,7 +10,7 @@ import {
   Chip,
   CircularProgress,
   FormControl,
-  Grid,
+  Grid2,
   IconButton,
   Menu,
   Typography,
@@ -68,7 +68,7 @@ const classes = {
   pagination: `${PREFIX}-pagination`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`&.${classes.inlineDonationWrapper}`]: {
     boxShadow: '2px 4px 5px rgba(0, 0, 0, 0.25)',
     backgroundColor: '#EEEEEE',
@@ -287,7 +287,7 @@ export default function InlineDonation({ campaign }: Props) {
     <>
       <DonorsAndDonations donations={donations} />
       {donations && donations.length !== 0 ? (
-        <Grid container className={classes.pagination}>
+        <Grid2 container className={classes.pagination}>
           <Typography m={1}>{`${page * pageSize + 1}-${rowCount}  ${t(
             'campaigns:of',
           )}  ${all_rows}`}</Typography>
@@ -303,7 +303,7 @@ export default function InlineDonation({ campaign }: Props) {
             onClick={() => setPage((index) => index + 1)}>
             <ArrowForwardIosIcon fontSize="small" />
           </IconButton>
-        </Grid>
+        </Grid2>
       ) : null}
     </>
   )
@@ -353,8 +353,8 @@ export default function InlineDonation({ campaign }: Props) {
 
   return (
     <StyledGrid item xs={12} p={3} className={classes.inlineDonationWrapper}>
-      <Grid className={classes.reachedAndTargetMoneyWrapper}>
-        <Grid>
+      <Grid2 className={classes.reachedAndTargetMoneyWrapper}>
+        <Grid2>
           <Typography component="span" className={classes.moneyUnit}>
             {i18n?.language === 'bg' ? reachedAmount.split(',')[0] : reachedAmount.split('.')[0]}
           </Typography>
@@ -364,8 +364,8 @@ export default function InlineDonation({ campaign }: Props) {
               : reachedAmount.split('.')[1]}
           </Typography>
           {i18n?.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
-        </Grid>
-        <Grid>
+        </Grid2>
+        <Grid2>
           <Typography component="span" className={classes.moneyUnit}>
             {i18n?.language === 'bg' ? targetAmount.split(',')[0] : targetAmount.split('.')[0]}
           </Typography>
@@ -375,12 +375,12 @@ export default function InlineDonation({ campaign }: Props) {
               : targetAmount.split('.')[1]}
           </Typography>
           {i18n?.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
-        </Grid>
-      </Grid>
-      <Grid pt={1}>
+        </Grid2>
+      </Grid2>
+      <Grid2 pt={1}>
         <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
-      </Grid>
-      <Grid container gap={2} className={classes.buttonContainer}>
+      </Grid2>
+      <Grid2 container gap={2} className={classes.buttonContainer}>
         <Menu
           keepMounted
           id="share"
@@ -412,7 +412,7 @@ export default function InlineDonation({ campaign }: Props) {
             color={active}
           />
         </Menu>
-        <Grid item xs={12} mt={2}>
+        <Grid2 mt={2} size={12}>
           <LinkButton
             fullWidth
             href={routes.campaigns.oneTimeDonation(campaignSlug)}
@@ -422,8 +422,8 @@ export default function InlineDonation({ campaign }: Props) {
             className={classes.donateButton}>
             {t('cta.support')}
           </LinkButton>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
       {detailsShown &&
         (donationHistoryError ? (
           'Error fetching donation history'
@@ -431,10 +431,10 @@ export default function InlineDonation({ campaign }: Props) {
           <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
         ) : (
           <>
-            <Grid className={classes.noCommissionInfo}>
+            <Grid2 className={classes.noCommissionInfo}>
               <InfoOutlinedIcon className={classes.infoIcon} />
               <Typography>{t('campaign.noCommissionInfo')}</Typography>
-            </Grid>
+            </Grid2>
             <FormControl className={classes.donorsWishesTabs}>
               <Typography
                 className={[
@@ -460,12 +460,12 @@ export default function InlineDonation({ campaign }: Props) {
           </>
         ))}
       {mobile && (
-        <Grid textAlign="center">
+        <Grid2 textAlign="center">
           <Button variant="text" onClick={() => setIsOpen(!isOpen)} className={classes.openButton}>
             {isOpen ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
           </Button>
-        </Grid>
+        </Grid2>
       )}
     </StyledGrid>
-  )
+  );
 }

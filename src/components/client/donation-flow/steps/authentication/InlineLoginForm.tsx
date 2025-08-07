@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
 import { signIn } from 'next-auth/react'
 import { useFormikContext } from 'formik'
-import { Box, Button, CircularProgress, Grid } from '@mui/material'
+import { Box, Button, CircularProgress, Grid2 } from '@mui/material'
 
 import theme from 'common/theme'
 import Google from 'common/icons/Google'
@@ -65,18 +65,18 @@ function InlineLoginForm() {
     }
   }
   return (
-    <Grid p={2} container rowSpacing={3} id={ids['loginEmail']}>
-      <Grid item xs={12}>
+    <Grid2 p={2} container rowSpacing={3} id={ids['loginEmail']}>
+      <Grid2 size={12}>
         <EmailField name="loginEmail" label="Email" fullWidth />
-      </Grid>
-      <Grid item xs={12}>
+      </Grid2>
+      <Grid2 size={12}>
         <PasswordField
           name="loginPassword"
           type="password"
           label={t('step.authentication.field.password')}
           fullWidth
         />
-      </Grid>
+      </Grid2>
       <Button
         color="primary"
         variant="contained"
@@ -99,8 +99,8 @@ function InlineLoginForm() {
           <Google /> {t('common:nav.login-with')} Google
         </Box>
       </Button>
-    </Grid>
-  )
+    </Grid2>
+  );
 }
 
 export default InlineLoginForm

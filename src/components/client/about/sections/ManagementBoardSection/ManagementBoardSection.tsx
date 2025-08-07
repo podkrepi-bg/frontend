@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import { data } from '../../helpers/managementBoardData'
 
@@ -22,7 +22,7 @@ export default function ManagementBoardSection() {
   const { t } = useTranslation('about')
 
   return (
-    <Grid component="section">
+    <Grid2 component="section">
       <ManagementBoardHeading variant="h4">
         {t('about.management-board-members')}
       </ManagementBoardHeading>
@@ -48,6 +48,6 @@ export default function ManagementBoardSection() {
           </ТeamMemberWrapper>
         ))}
       </AboutWrapper>
-    </Grid>
+    </Grid2>
   )
 }

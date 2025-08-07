@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { Button, Grid } from '@mui/material'
+import { Button, Grid2 } from '@mui/material'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/react'
@@ -71,27 +71,27 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       initialValues={initialValues}
       validationSchema={validationSchema}>
       <FormInput type="hidden" name="csrfToken" />
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Grid2 container spacing={3}>
+        <Grid2 size={12}>
           <EmailField label="auth:fields.email" name="email" />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <PasswordField />
-        </Grid>
-        <Grid container justifyContent="flex-end">
+        </Grid2>
+        <Grid2 container justifyContent="flex-end">
           <LinkButton href={routes.forgottenPassword}>
             {t('auth:account.forgotten-password')}
           </LinkButton>
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <SubmitButton fullWidth label="auth:cta.login" loading={loading} />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <Button variant="outlined" fullWidth onClick={onGoogleLogin}>
             <Google /> {t('nav.login-with')} Google
           </Button>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </GenericForm>
-  )
+  );
 }

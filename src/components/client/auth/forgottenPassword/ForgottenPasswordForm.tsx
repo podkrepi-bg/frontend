@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
-import { Typography, Grid } from '@mui/material'
+import { Typography, Grid2 } from '@mui/material'
 
 import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'
@@ -60,14 +60,14 @@ export default function ForgottenPasswordForm({
       <Typography variant="body1" paragraph>
         {t('auth:pages.forgotten-password.instructions')}
       </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Grid2 container spacing={3}>
+        <Grid2 size={12}>
           <EmailField label="auth:fields.email" name="email" />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <SubmitButton loading={loading} fullWidth label="auth:cta.send" />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </GenericForm>
-  )
+  );
 }

@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid2, Typography } from '@mui/material'
 
 import { RecurringDonationInput, RecurringDonationResponse } from 'gql/recurring-donation'
 
@@ -140,8 +140,8 @@ export default function EditForm() {
                 ? t('recurring-donation:edit-form-heading')
                 : t('recurring-donation:form-heading')}
             </Typography>
-            <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-              <Grid item xs={12}>
+            <Grid2 container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+              <Grid2 size={12}>
                 <PersonSelectDialog
                   error={errors.personId}
                   selectedPerson={selectedPerson}
@@ -152,8 +152,8 @@ export default function EditForm() {
                     person ? setFieldValue('personId', person.id) : setFieldTouched('personId')
                   }}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Grid2>
+              <Grid2 size={12}>
                 <CampaignSelect
                   type="Campaign"
                   label={t('recurring-donation:campaign')}
@@ -169,67 +169,67 @@ export default function EditForm() {
                     })
                   }}
                 />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <FormTextField
                   type="number"
                   label={t('recurring-donation:amount')}
                   name="money"
                   disabled={false}
                 />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:currency')}
                   name="currency"
                   disabled={false}
                 />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:status')}
                   name="status"
                   disabled={false}
                 />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:extSubscriptionId')}
                   name="extSubscriptionId"
                   disabled={false}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Grid2>
+              <Grid2 size={12}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:extCustomerId')}
                   name="extCustomerId"
                   disabled={false}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Grid2>
+              <Grid2 size={12}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:vaultId')}
                   name="sourceVault"
                   disabled={true}
                 />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <SubmitButton fullWidth label={t('recurring-donation:cta:submit')} />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <Link href={routes.admin.recurringDonation.index} passHref>
                   <Button>{t('recurring-donation:cta:cancel')}</Button>
                 </Link>
-              </Grid>
-            </Grid>
+              </Grid2>
+            </Grid2>
           </Box>
         </Form>
       )}
     </Formik>
-  )
+  );
 }

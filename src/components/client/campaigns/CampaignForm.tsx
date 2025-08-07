@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { format, parse, isDate } from 'date-fns'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -156,8 +156,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
+    <Grid2 container direction="column" component="section">
+      <Grid2 size={12}>
         <Typography
           variant="h5"
           component="h2"
@@ -168,51 +168,71 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           })}>
           {t('campaigns:form-heading')}
         </Typography>
-      </Grid>
+      </Grid2>
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="campaigns:campaign.title"
               name="title"
               autoComplete="title"
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             <CampaignTypeSelect />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             <FormTextField
               type="number"
               name="targetAmount"
               autoComplete="target-amount"
               label="campaigns:campaign.amount"
             />
-          </Grid>
-          <Grid item xs={12} sm={12}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 12
+            }}>
             <AllowDonationOnComplete name="allowDonationOnComplete" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             <FormTextField
               type="date"
               name="startDate"
               label="campaigns:campaign.start-date"
               helperText={null}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             <FormTextField
               type="date"
               name="endDate"
               label="campaigns:campaign.end-date"
               helperText={null}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               rows={5}
               multiline
@@ -222,8 +242,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               autoComplete="description"
               sx={{ '& textarea': { resize: 'vertical' } }}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             {coordinator ? (
               <Typography fontWeight="bold" variant="body2">
                 {coordinator?.firstName} {coordinator?.lastName}
@@ -238,8 +262,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               />
             )}
             <input type="hidden" name="coordinatorId" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid2>
+          <Grid2
+            size={{
+              xs: 12,
+              sm: 6
+            }}>
             {beneficiary ? (
               <Typography fontWeight="bold" variant="body2">
                 {beneficiary?.firstName} {beneficiary?.lastName}
@@ -254,8 +282,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               />
             )}
             <input type="hidden" name="beneficiaryId" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FileUpload
               buttonLabel="Добави снимки"
               onUpload={(newFiles) => {
@@ -283,21 +311,21 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                 ])
               }}
             />
-          </Grid>
-          <Grid item container direction="column" xs={12}>
+          </Grid2>
+          <Grid2 container direction="column" size={12}>
             <AcceptTermsField name="terms" />
             <AcceptPrivacyPolicyField name="gdpr" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SubmitButton
               fullWidth
               label="campaigns:cta.submit"
               loading={mutation.isLoading}
               color="info"
             />
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
-import { Grid, Hidden } from '@mui/material'
+import { Grid2, Hidden } from '@mui/material'
 
 import { Root } from './HowWeWorkSection.styled'
 import { Heading, InfoText } from 'components/client/index/IndexPage.styled'
@@ -22,7 +22,7 @@ export default function HowWeWorkSection() {
       <InfoText maxWidth="lg" px={3}>
         {t('how-we-work.text')}
       </InfoText>
-      <Grid>
+      <Grid2>
         <Hidden mdUp>
           {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
           <Image alt="Podkrepi infographic" src={mobileInfographicPath} width={320} height={1000} />
@@ -36,7 +36,7 @@ export default function HowWeWorkSection() {
             height={1000}
           />
         </Hidden>
-      </Grid>
+      </Grid2>
     </Root>
   )
 }

@@ -9,7 +9,7 @@ import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { FormikHelpers, FormikProps } from 'formik'
 
-import { StepLabel, Grid } from '@mui/material'
+import { StepLabel, Grid2 } from '@mui/material'
 
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { createIrregularity, uploadIrregularityFiles } from 'service/irregularity'
@@ -205,10 +205,10 @@ export default function IrregularityForm({ campaign, person }: Props) {
           ))}
         </StyledStepper>
         <Instructions container spacing={5}>
-          <Grid container item xs={12}>
+          <Grid2 container size={12}>
             {activeStep < steps.length && steps[activeStep].component}
-          </Grid>
-          <Grid container item spacing={3}>
+          </Grid2>
+          <Grid2 container spacing={3}>
             <Actions
               activeStep={activeStep}
               disableBack={activeStep === 0}
@@ -218,11 +218,11 @@ export default function IrregularityForm({ campaign, person }: Props) {
               nextLabel={isLastStep(activeStep, steps) ? 'cta.submit' : 'cta.next'}
               backLabel={isFirstStep(activeStep, steps) ? 'cta.back-to-campaign' : 'cta.back'}
             />
-          </Grid>
+          </Grid2>
         </Instructions>
       </GenericForm>
       {activeStep === Steps.GREETING && <Remark text={t('steps.greeting.remark')} />}
       {activeStep === Steps.CONTACTS && <Remark text={t('steps.contacts.remark')} />}
     </>
-  )
+  );
 }

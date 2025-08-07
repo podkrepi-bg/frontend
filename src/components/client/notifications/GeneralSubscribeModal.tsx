@@ -8,7 +8,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { ApiError } from 'next/dist/server/api-utils'
 import { useRouter } from 'next/router'
 import { AlertStore } from 'stores/AlertStore'
-import { Dialog, DialogContent, DialogTitle, Grid, Typography } from '@mui/material'
+import { Dialog, DialogContent, DialogTitle, Grid2, Typography } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import { styled } from '@mui/material/styles'
@@ -30,7 +30,7 @@ const classes = {
   subscribeBtn: `${PREFIX}-subscribe`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`& .${classes.subscribeBtn}`]: {
     fontSize: theme.typography.pxToRem(16),
     background: `${theme.palette.primary}`,
@@ -111,12 +111,12 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
         initialValues={{ email: '', consent: false }}
         validationSchema={validationSchema}>
         <StyledGrid container spacing={2}>
-          <Grid item xs={12}>
+          <Grid2 size={12}>
             <Typography variant="subtitle2">
               {t('common:notifications.subscribe-subtitle')}
             </Typography>
-          </Grid>
-          <Grid item xs={12} textAlign="center">
+          </Grid2>
+          <Grid2 textAlign="center" size={12}>
             <EmailField
               label={t('common:notifications.email-descriptive')}
               name="email"
@@ -127,21 +127,21 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
                 },
               }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <AcceptNewsLetterField name="consent" />
-          </Grid>
-          <Grid item xs={12} textAlign="center">
+          </Grid2>
+          <Grid2 textAlign="center" size={12}>
             <SubmitButton
               sx={{ minWidth: theme.spacing(25) }}
               className={classes.subscribeBtn}
               label="common:notifications.cta.subscribe-button"
               loading={loading}
             />
-          </Grid>
+          </Grid2>
         </StyledGrid>
       </GenericForm>
-    )
+    );
   }
 
   const openAsGuest = () => {
@@ -176,18 +176,16 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
             <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
               {t('common:notifications.subscribe-title')}
             </DialogTitle>
-            <Grid container direction="column" component="section">
+            <Grid2 container direction="column" component="section">
               <StyledGrid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid2 size={12}>
                   <Typography variant="subtitle2" textAlign="center">
                     {status !== 'authenticated'
                       ? t('common:notifications.subscribe-text-nonLoggedUser-general')
                       : t('common:notifications.subscribe-text-loggedUser')}
                   </Typography>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
+                </Grid2>
+                <Grid2
                   sx={{
                     display: 'flex',
                     justifyContent: 'space-evenly',
@@ -198,7 +196,8 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
                     [theme.breakpoints.up('sm')]: {
                       flexFlow: 'row',
                     },
-                  }}>
+                  }}
+                  size={12}>
                   <SubmitButton
                     type="button"
                     sx={{ minWidth: theme.spacing(25) }}
@@ -224,13 +223,13 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
                     loading={loading}
                     onClick={() => openAsGuest()}
                   />
-                </Grid>
+                </Grid2>
               </StyledGrid>
-            </Grid>
+            </Grid2>
           </React.Fragment>
         </DialogContent>
       </Dialog>
-    )
+    );
   } else {
     return (
       <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
@@ -250,9 +249,9 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
               <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
                 {t('common:notifications.subscribe-title')}
               </DialogTitle>
-              <Grid container direction="column" component="section" sx={{ textAlign: 'center' }}>
+              <Grid2 container direction="column" component="section" sx={{ textAlign: 'center' }}>
                 <SubscribeForm />
-              </Grid>
+              </Grid2>
             </React.Fragment>
           ) : (
             <DialogContent

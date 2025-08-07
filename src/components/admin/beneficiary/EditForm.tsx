@@ -9,7 +9,7 @@ import {
   Box,
   Button,
   FormControl,
-  Grid,
+  Grid2,
   InputLabel,
   MenuItem,
   Select,
@@ -125,8 +125,8 @@ export default function EditForm() {
         <Typography variant="body1" sx={{ textAlign: 'center', padding: '8px', mb: 2 }}>
           {t('beneficiary:forms:info')}
         </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={6}>
             <FormControl fullWidth variant="outlined" size="small">
               <InputLabel>{t('beneficiary:grid:type')}</InputLabel>
               <Select
@@ -147,16 +147,16 @@ export default function EditForm() {
                 })}
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <OrganizerRelationSelect
               name="organizerRelation"
               label="beneficiary:grid:organizerRelation"
             />
-          </Grid>
+          </Grid2>
           {initialValues.type === BeneficiaryType.individual ? (
             <>
-              <Grid item xs={12}>
+              <Grid2 size={12}>
                 <Typography paddingLeft={'inherit'} marginBottom={2}>
                   {t('beneficiary:forms.labels.person-select')}{' '}
                   <Link href={routes.admin.person.create}>
@@ -164,16 +164,16 @@ export default function EditForm() {
                   </Link>
                 </Typography>
                 <PersonSelect name="personId" label={t('beneficiary:forms.labels.person-label')} />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <CountrySelect />
-              </Grid>
-              <Grid item xs={6}>
+              </Grid2>
+              <Grid2 size={6}>
                 <CitySelect name="cityId" />
-              </Grid>
+              </Grid2>
             </>
           ) : (
-            <Grid item xs={12}>
+            <Grid2 size={12}>
               <Typography paddingLeft={'inherit'} marginBottom={2}>
                 {t('beneficiary:forms.labels.company-select')}{' '}
                 <Link href={routes.admin.company.create}>
@@ -181,9 +181,9 @@ export default function EditForm() {
                 </Link>
               </Typography>
               <CompanySelect name="companyId" label={t('beneficiary:forms.labels.company-label')} />
-            </Grid>
+            </Grid2>
           )}
-          <Grid item xs={12}>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               name="description"
@@ -191,17 +191,17 @@ export default function EditForm() {
               multiline
               rows={2}
             />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <SubmitButton fullWidth label={t('beneficiary:cta:submit')} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <Link href={routes.admin.beneficiary.index}>
               <Button fullWidth>{t('beneficiary:cta:cancel')}</Button>
             </Link>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Box>
     </GenericForm>
-  )
+  );
 }

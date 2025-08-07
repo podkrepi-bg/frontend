@@ -1,7 +1,7 @@
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
-export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
+export const QuillStypeWrapper = styled(Grid2)(({ theme }) => ({
   ['img']: {
     maxWidth: '100%',
   },

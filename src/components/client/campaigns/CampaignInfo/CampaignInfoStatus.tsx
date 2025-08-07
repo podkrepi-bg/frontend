@@ -3,7 +3,7 @@ import { CampaignResponse } from 'gql/campaigns'
 import { useTranslation } from 'next-i18next'
 
 import { bg, enUS } from 'date-fns/locale'
-import { Box, Chip, Grid } from '@mui/material'
+import { Box, Chip, Grid2 } from '@mui/material'
 
 import { getExactDate } from 'common/util/date'
 import theme from 'common/theme'
@@ -21,7 +21,7 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
   const locale = i18n?.language == 'bg' ? bg : enUS
 
   return (
-    <Grid>
+    <Grid2>
       <Box
         component="span"
         sx={{
@@ -69,7 +69,11 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
         )}
       </Box>
       <InfoStatusWrapper>
-        <Grid item xs={12} md={6}>
+        <Grid2
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <StatusLabel>
             {t(`campaigns:campaignTypesFields.${campaign.campaignType.category}`)}
           </StatusLabel>
@@ -77,8 +81,12 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
             <StatusLabel variant="body2">{t('campaigns:campaign.status')}</StatusLabel>
             <StatusText>{t(`campaigns:campaign-status.${campaign.state}`)}</StatusText>
           </RowWrapper>
-        </Grid>
-        <Grid item xs={12} md={6}>
+        </Grid2>
+        <Grid2
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <RowWrapper>
             <StatusLabel>{t('campaigns:campaign.start-date')}</StatusLabel>
             <StatusText>{getExactDate(campaign.startDate, locale)}</StatusText>
@@ -91,8 +99,8 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
                 : t('campaigns:indefinite')}
             </StatusText>
           </RowWrapper>
-        </Grid>
+        </Grid2>
       </InfoStatusWrapper>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

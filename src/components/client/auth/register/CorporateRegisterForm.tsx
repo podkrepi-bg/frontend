@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import React from 'react'
 import { email, password, name, confirmPassword, companyName } from 'common/form/validation'
 import GenericForm from 'components/common/form/GenericForm'
@@ -68,62 +68,62 @@ export default function CorporateRegisterForm({ onSubmit, loading }: RegisterFor
       onSubmit={onSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Grid2 container spacing={3}>
+        <Grid2 size={12}>
           <FormTextField
             type="text"
             label="auth:fields.company-name"
             name="companyName"
             autoComplete="company-name"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <FormTextField
             type="text"
             label="auth:fields.company-number"
             name="companyNumber"
             autoComplete="company-number"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <FormTextField
             type="text"
             label="auth:fields.company-representitive-first-name"
             name="firstName"
             autoComplete="company-representitive-first-name"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <FormTextField
             type="text"
             label="auth:fields.company-representitive-last-name"
             name="lastName"
             autoComplete="company-representitive-first-name"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <EmailField label="auth:fields.email" name="email" />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <PasswordField autoComplete="new-password" />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <PasswordField
             name="confirmPassword"
             label="auth:account.confirm-password"
             autoComplete="new-password"
           />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <AcceptTermsField name="terms" />
           <AcceptPrivacyPolicyField name="gdpr" />
           <AcceptNewsLetterField name="newsletter" />
           <HelpUsImproveField name="helpUsImprove" />
-        </Grid>
-        <Grid item xs={12}>
+        </Grid2>
+        <Grid2 size={12}>
           <SubmitButton fullWidth label="auth:cta.register" loading={loading} />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </GenericForm>
-  )
+  );
 }

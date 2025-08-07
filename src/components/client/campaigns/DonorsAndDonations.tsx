@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { CampaignDonation } from 'gql/campaigns'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
@@ -82,16 +82,16 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
 
   return (
     <Root>
-      <Grid item className={classes.donationsWrapper} data-testid="summary-donors-wrapper">
+      <Grid2 className={classes.donationsWrapper} data-testid="summary-donors-wrapper">
         {donationsToShow && donationsToShow.length !== 0 ? (
           donationsToShow.map(({ type, metadata, person, amount, createdAt, currency }, key) => (
-            <Grid key={key} className={classes.donationItemWrapper}>
+            <Grid2 key={key} className={classes.donationItemWrapper}>
               <AccountCircleIcon
                 sx={{ position: 'relative', bottom: !metadata || !metadata.name ? 0 : 8 }}
                 color="disabled"
                 className={classes.donatorAvatar}
               />
-              <Grid>
+              <Grid2>
                 {type === DonationType.donation && (
                   <Typography className={classes.donatorName}>
                     {person
@@ -120,7 +120,7 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
                     )}
                   </>
                 )}
-                <Grid className={classes.donationQuantityAndTimeWrapper}>
+                <Grid2 className={classes.donationQuantityAndTimeWrapper}>
                   <Typography>{moneyPublic(amount, currency)}</Typography>
                   <span className={classes.separatorIcon}>|</span>
                   <Typography>
@@ -129,16 +129,16 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
                       addSuffix: true,
                     })}
                   </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
+                </Grid2>
+              </Grid2>
+            </Grid2>
           ))
         ) : (
           <Typography sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
             {t('campaigns:donations.none')}
           </Typography>
         )}
-      </Grid>
+      </Grid2>
     </Root>
-  )
+  );
 }

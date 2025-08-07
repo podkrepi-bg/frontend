@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 
 import { routes } from 'common/routes'
@@ -41,8 +41,8 @@ export default function CoordinatorsForm() {
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
+    <Grid2 container direction="column" component="section">
+      <Grid2 size={12}>
         <Typography
           variant="h5"
           component="h2"
@@ -53,26 +53,26 @@ export default function CoordinatorsForm() {
           })}>
           {t('coordinator:create:heading')}
         </Typography>
-      </Grid>
-      <Grid item xs={12}>
+      </Grid2>
+      <Grid2 size={12}>
         <Typography variant="body1" sx={{ textAlign: 'center', padding: '8px' }}>
           {t('coordinator:create:info')}
         </Typography>
-      </Grid>
+      </Grid2>
       <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={12}>
             <PersonSelect name="personId" label={t('coordinator:create:personSelect')} />
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
+          </Grid2>
+        </Grid2>
+        <Grid2 size={12}>
           <SubmitButton
             fullWidth
             label={t('coordinator:create:submitButton')}
             loading={mutation.isLoading}
           />
-        </Grid>
+        </Grid2>
       </GenericForm>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

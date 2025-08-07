@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, UseQueryResult } from '@tanstack/react-query'
 
@@ -55,8 +55,8 @@ export default function BankAccountsEditForm({ id }: Props) {
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
+    <Grid2 container direction="column" component="section">
+      <Grid2 size={12}>
         <Typography
           variant="h5"
           component="h2"
@@ -67,38 +67,38 @@ export default function BankAccountsEditForm({ id }: Props) {
           })}>
           {t('bankaccounts:headings.edit')}
         </Typography>
-      </Grid>
+      </Grid2>
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchemaBankAccForm}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={12}>
             <BankAccountStatusSelect />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField type="text" name="ibanNumber" label="bankaccounts:fields.ibanNumber" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               name="accountHolderName"
               label="bankaccounts:fields.accountHolderName"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <AccountHolderSelect />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField type="text" name="bankName" label="bankaccounts:fields.bankName" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField type="text" name="bankIdCode" label="bankaccounts:fields.bankIdCode" />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <SubmitButton fullWidth label="admin:cta.submit" loading={mutation.isLoading} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <LinkButton
               fullWidth
               variant="contained"
@@ -106,9 +106,9 @@ export default function BankAccountsEditForm({ id }: Props) {
               href={routes.admin.bankaccounts.index}>
               {t('admin:cta.cancel')}
             </LinkButton>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

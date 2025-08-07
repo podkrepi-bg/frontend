@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import Layout from '../layout/Layout'
 import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
 import { useRouter } from 'next/router'
-import { Button, DialogContent, Grid } from '@mui/material'
+import { Button, DialogContent, Grid2 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import LinkButton from 'components/common/LinkButton'
 import React, { useEffect, useState } from 'react'
@@ -30,7 +30,7 @@ const classes = {
   loader: `${PREFIX}-loader`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`& .${classes.loader}`]: {
     animation: 'pulsate 1s infinite',
 
@@ -128,18 +128,18 @@ export default function UNsubscriptionPage(data: Props) {
 
   return (
     <Layout maxWidth="xl">
-      <Grid display="grid" alignItems="center" justifyContent="center" mt={32}>
-        <Grid item display="grid" alignItems="center" justifyContent="center">
+      <Grid2 display="grid" alignItems="center" justifyContent="center" mt={32}>
+        <Grid2 display="grid" alignItems="center" justifyContent="center">
           <PodkrepiLogo locale={locale} size="large" variant="fixed" />
-        </Grid>
+        </Grid2>
         {isSuccess ? (
           <React.Fragment>
-            <Grid item mt={5}>
+            <Grid2 mt={5}>
               <DialogContent
                 style={{ textAlign: 'center', fontSize: 23, fontWeight: 600, paddingBottom: 6 }}>
                 {t('notifications:unsubscribe.thank-you-msg')}
               </DialogContent>
-            </Grid>
+            </Grid2>
             <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
               <LinkButton className={classes.siteBtn} href="/">
                 {t('notifications:unsubscribe.cta')}
@@ -149,12 +149,12 @@ export default function UNsubscriptionPage(data: Props) {
         ) : (
           <React.Fragment>
             <React.Fragment>
-              <Grid item mt={5}>
+              <Grid2 mt={5}>
                 <DialogContent
                   style={{ textAlign: 'center', fontSize: 23, fontWeight: 600, paddingBottom: 6 }}>
                   {t('notifications:unsubscribe.subscription-fail')}
                 </DialogContent>
-              </Grid>
+              </Grid2>
               <StyledGrid mt={5} display="grid" alignItems="center" justifyContent="center">
                 <Button className={classes.siteBtn} onClick={() => router.reload()}>
                   {t('notifications:unsubscribe.cta-retry')}
@@ -163,7 +163,7 @@ export default function UNsubscriptionPage(data: Props) {
             </React.Fragment>
           </React.Fragment>
         )}
-      </Grid>
+      </Grid2>
     </Layout>
-  )
+  );
 }

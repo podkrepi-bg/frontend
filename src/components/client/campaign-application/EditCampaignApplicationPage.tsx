@@ -1,4 +1,4 @@
-import { CircularProgress, Grid } from '@mui/material'
+import { CircularProgress, Grid2 } from '@mui/material'
 import NotFoundPage from 'pages/404'
 import { useViewCampaignApplicationCached } from 'service/campaign-application'
 import Layout from '../layout/Layout'
@@ -13,9 +13,9 @@ export default function EditCampaignApplicationPage({ id }: EditProps) {
 
   if (isLoading) {
     return (
-      <Grid container justifyContent="center" alignContent="center" sx={{ height: '100vh' }}>
+      <Grid2 container justifyContent="center" alignContent="center" sx={{ height: '100vh' }}>
         <CircularProgress />
-      </Grid>
+      </Grid2>
     )
   }
 

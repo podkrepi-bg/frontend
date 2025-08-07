@@ -2,7 +2,7 @@ import React from 'react'
 import { CampaignResponse } from 'gql/campaigns'
 import { useTranslation } from 'next-i18next'
 
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 
 import { organizerCampaignPictureUrl } from 'common/util/campaignImageUrls'
@@ -23,7 +23,7 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
 
   return (
     <BeneficiaryOrganizerRoot>
-      <Grid>
+      <Grid2>
         <Label variant="subtitle2">{t('campaigns:campaign.organizer.name')}</Label>
         <Typography variant="subtitle2" component="p">
           {organizerName}
@@ -38,7 +38,7 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
           }>
           {campaign?.organizer?.person.email}
         </EmailButton>
-      </Grid>
+      </Grid2>
       <Avatar
         src={organizerAvatarSource}
         alt={`${t('campaign.image-of')}  ${organizerName}`}

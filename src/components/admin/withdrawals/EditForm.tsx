@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid2, Typography } from '@mui/material'
 
 import {
   WithdrawalData,
@@ -130,8 +130,8 @@ export default function EditForm() {
             ? t('withdrawals:alerts.no-edit')
             : ''}
         </Typography>
-        <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <Grid item xs={8}>
+        <Grid2 container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+          <Grid2 size={8}>
             <FormTextField
               type="number"
               label={t('amount-input')}
@@ -139,11 +139,11 @@ export default function EditForm() {
               autoComplete="amount"
               disabled={true}
             />
-          </Grid>
-          <Grid item xs={4}>
+          </Grid2>
+          <Grid2 size={4}>
             <CurrencySelect disabled={true} />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormSelectField
               name="status"
               label={t('status')}
@@ -156,8 +156,8 @@ export default function EditForm() {
               })}
               disabled={initialValues.status === WithdrawalStatus.succeeded}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="string"
               label={t('reason')}
@@ -165,14 +165,14 @@ export default function EditForm() {
               autoComplete="reason"
               disabled={initialValues.status === WithdrawalStatus.succeeded}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <BankAccountSelect disabled={initialValues.status === WithdrawalStatus.succeeded} />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SelectDate name="targetDate" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="string"
               label={t('documentId')}
@@ -180,8 +180,8 @@ export default function EditForm() {
               autoComplete="documentId"
               disabled={initialValues.status === WithdrawalStatus.succeeded}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <CampaignSelect
               name="sourceCampaignId"
               label="withdrawals:sourceCampaign"
@@ -189,32 +189,32 @@ export default function EditForm() {
               disabled={true}
               selectedCampaign={initialValues.sourceCampaignId as string}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <VaultSelect
               name="sourceVaultId"
               label="withdrawals:sourceVault"
               vaults={vaults}
               disabled={true}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <PersonSelect disabled name="approvedById" label={t('approvedBy')} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <SubmitButton
               fullWidth
               label={t('cta.submit')}
               disabled={initialValues.status === WithdrawalStatus.succeeded}
             />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <Link href={routes.admin.withdrawals.index} passHref>
               <Button fullWidth={true}>{t('cta.cancel')}</Button>
             </Link>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Box>
     </GenericForm>
-  )
+  );
 }

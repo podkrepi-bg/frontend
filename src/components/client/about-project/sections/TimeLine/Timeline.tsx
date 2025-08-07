@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useTranslation } from 'next-i18next'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import TimelineItem from '../TimelineItem/TimelineItem'
 import { timelineData } from 'components/client/about-project/helpers/timelineData'
@@ -15,7 +15,7 @@ export default function Timeline() {
   return (
     <Root>
       <Heading variant="h3">{t('timeline')}</Heading>
-      <Grid item>
+      <Grid2>
         <TimelineMaterial position="alternate">
           {timelineData.map(({ icon, title, items }, index) => (
             <TimelineItem key={index} Icon={icon} title={t(title)}>
@@ -23,7 +23,7 @@ export default function Timeline() {
             </TimelineItem>
           ))}
         </TimelineMaterial>
-      </Grid>
+      </Grid2>
     </Root>
-  )
+  );
 }

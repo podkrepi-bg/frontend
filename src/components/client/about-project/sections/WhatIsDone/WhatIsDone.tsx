@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 
 import CheckIcon from '@mui/icons-material/Check'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 import ExternalLink from 'components/common/ExternalLink'
 import {
@@ -49,32 +49,52 @@ export default function WhatIsDone() {
     <Root>
       <Heading variant="h3">{t('whatIsDoneTitle')}</Heading>
       <IconsWrapper item container>
-        <Grid item xs={12} sm={4}>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 4
+          }}>
           <ActivityIcon Icon={VolunteersIcon} count="17" description={t('members')} />
-        </Grid>
-        <Grid item xs={12} sm={4}>
+        </Grid2>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 4
+          }}>
           <ActivityIcon Icon={MeetingsIcon} count="100+" description={t('meetingsIcon')} />
-        </Grid>
-        <Grid item xs={12} sm={4}>
+        </Grid2>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 4
+          }}>
           <ActivityIcon
             Icon={InvestedHoursIcon}
             count="1000+"
             description={t('investedHoursIcon')}
           />
-        </Grid>
+        </Grid2>
       </IconsWrapper>
       <List item container>
-        <Grid item xs={12} sm={6}>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 6
+          }}>
           {leftColumnLabels.map((props, key) => (
             <CheckedLine key={key} {...props} />
           ))}
-        </Grid>
-        <Grid item xs={12} sm={6}>
+        </Grid2>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 6
+          }}>
           {rightColumnLabels.map((props, key) => (
             <CheckedLine key={key} {...props} />
           ))}
-        </Grid>
+        </Grid2>
       </List>
     </Root>
-  )
+  );
 }

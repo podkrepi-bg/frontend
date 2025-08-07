@@ -4,7 +4,7 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import Image from 'next/image'
 
-import { Box, Grid, Pagination } from '@mui/material'
+import { Box, Grid2, Pagination } from '@mui/material'
 
 import useMobile from 'common/hooks/useMobile'
 import CampaignCard from './CampaignCard/CampaignCard'
@@ -38,17 +38,22 @@ export default function CampaignsList({ campaignToShow }: Props) {
   }
 
   return (
-    <Grid container justifyContent="center" spacing={4}>
+    <Grid2 container justifyContent="center" spacing={4}>
       {campaigns?.map((campaign, index) => (
-        <Grid key={campaign.id} item xs={12} sm={6} lg={3}>
+        <Grid2
+          key={campaign.id}
+          size={{
+            xs: 12,
+            sm: 6,
+            lg: 3
+          }}>
           <Box sx={{ textAlign: 'center' }}>
             <CampaignCard index={index} campaign={campaign} />
           </Box>
-        </Grid>
+        </Grid2>
       ))}
-
       {totalCampaigns > campaignsPerPage && (
-        <Grid container justifyContent="center" sx={{ mt: 5 }} alignItems="center">
+        <Grid2 container justifyContent="center" sx={{ mt: 5 }} alignItems="center">
           <Pagination
             count={totalPages}
             page={currentPage}
@@ -57,10 +62,9 @@ export default function CampaignsList({ campaignToShow }: Props) {
             boundaryCount={1}
             size="large"
           />
-        </Grid>
+        </Grid2>
       )}
-
-      <Grid item xs={12} textAlign="center">
+      <Grid2 textAlign="center" size={12}>
         <Box sx={{ mt: 6 }}>
           {mobile ? (
             <Image
@@ -78,7 +82,7 @@ export default function CampaignsList({ campaignToShow }: Props) {
             />
           )}
         </Box>
-      </Grid>
-    </Grid>
-  )
+      </Grid2>
+    </Grid2>
+  );
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
 import { validateEIK9, validateEIK13 } from 'components/common/validations/EIKValidator'
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import GenericForm from 'components/common/form/GenericForm'
 import { companyName } from 'common/form/validation'
@@ -85,45 +85,45 @@ export default function CreateForm() {
   }
 
   return (
-    <Grid container direction="column" component="section">
+    <Grid2 container direction="column" component="section">
       <GenericForm
         onSubmit={handleSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={3}>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="companies:admin.fields.company-name"
               name="companyName"
               autoComplete="companies:admin.fields.company-name"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="companies:admin.fields.company-number"
               name="companyNumber"
               autoComplete="companies:admin.fields.company-number"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               label="companies:admin.fields.legal-person-name"
               name="legalPersonName"
               autoComplete="companies:admin.fields.legal-person-name"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               name="address"
               autoComplete="companies:admin.fields.address"
               label="companies:admin.fields.address"
             />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <p>
               {t('companies:admin.cta.select-country')}{' '}
               <Link href={routes.admin.countries.create} target="_blank">
@@ -131,8 +131,8 @@ export default function CreateForm() {
               </Link>
             </p>
             <CountrySelect formField="countryId" valueName="id" />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <p>
               {t('companies:admin.cta.select-city')}{' '}
               <Link href={routes.admin.cities.create} target="_blank">
@@ -140,12 +140,12 @@ export default function CreateForm() {
               </Link>
             </p>
             <CitySelect name="cityId" />
-          </Grid>
-          <Grid item xs={12} margin="auto">
+          </Grid2>
+          <Grid2 margin="auto" size={12}>
             <SubmitButton fullWidth label="companies:admin.cta.create" />
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </GenericForm>
-    </Grid>
-  )
+    </Grid2>
+  );
 }

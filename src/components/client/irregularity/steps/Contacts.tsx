@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 
 import { styled } from '@mui/material/styles'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 
@@ -28,9 +28,9 @@ export default function Contacts() {
   }, [])
 
   return (
-    <Grid container spacing={4} alignContent="center">
+    <Grid2 container spacing={4} alignContent="center">
       <Subtitle label={t('steps.contacts.subtitle')} />
-      <Grid item xs={12}>
+      <Grid2 size={12}>
         <Typography variant="body1">
           {t('steps.contacts.text')}
           <Link href={routes.privacyPolicy}>
@@ -40,9 +40,15 @@ export default function Contacts() {
         <Typography visibility="hidden" variant="body1">
           {'helper'}
         </Typography>
-      </Grid>
-      <Grid item container spacing={4} justifyContent="space-between" direction="row">
-        <Grid container item xs={12} md={6} flexWrap="nowrap">
+      </Grid2>
+      <Grid2 container spacing={4} justifyContent="space-between" direction="row">
+        <Grid2
+          container
+          flexWrap="nowrap"
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <CssTextField
             fullWidth
             label={t('steps.contacts.first-name')}
@@ -50,8 +56,14 @@ export default function Contacts() {
             name="person.firstName"
             autoComplete="off"
           />
-        </Grid>
-        <Grid container item xs={12} md={6} flexWrap="nowrap">
+        </Grid2>
+        <Grid2
+          container
+          flexWrap="nowrap"
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <CssTextField
             fullWidth
             label={t('steps.contacts.last-name')}
@@ -59,10 +71,16 @@ export default function Contacts() {
             name="person.lastName"
             autoComplete="off"
           />
-        </Grid>
-      </Grid>
-      <Grid item container spacing={4} justifyContent="space-between" direction="row">
-        <Grid container item xs={12} md={6} flexWrap="nowrap">
+        </Grid2>
+      </Grid2>
+      <Grid2 container spacing={4} justifyContent="space-between" direction="row">
+        <Grid2
+          container
+          flexWrap="nowrap"
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <CssTextField
             fullWidth
             label={t('steps.contacts.phone')}
@@ -70,8 +88,14 @@ export default function Contacts() {
             name="person.phone"
             autoComplete="off"
           />
-        </Grid>
-        <Grid container item xs={12} md={6} flexWrap="nowrap">
+        </Grid2>
+        <Grid2
+          container
+          flexWrap="nowrap"
+          size={{
+            xs: 12,
+            md: 6
+          }}>
           <CssTextField
             fullWidth
             label={t('steps.contacts.email')}
@@ -79,8 +103,8 @@ export default function Contacts() {
             name="person.email"
             autoComplete="off"
           />
-        </Grid>
-      </Grid>
-    </Grid>
-  )
+        </Grid2>
+      </Grid2>
+    </Grid2>
+  );
 }

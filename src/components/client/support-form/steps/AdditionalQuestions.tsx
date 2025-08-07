@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
-import { FormControl, FormGroup, FormHelperText, FormLabel, Grid } from '@mui/material'
+import { FormControl, FormGroup, FormHelperText, FormLabel, Grid2 } from '@mui/material'
 
 import { Option, RoleRenderObject, SupportFormData } from '../helpers/support-form.types'
 import CheckboxField from 'components/common/form/CheckboxField'
@@ -208,21 +208,30 @@ export default function AdditionalQuestions() {
   ]
 
   return (
-    <Grid container spacing={6} justifyContent="center">
-      <Grid item xs={12}>
+    <Grid2 container spacing={6} justifyContent="center">
+      <Grid2 size={12}>
         <HeaderTypography>{t('support:steps.addition-questions.subtitle')}</HeaderTypography>
-      </Grid>
-      <Grid item xs={12} md={10}>
-        <Grid container spacing={6} justifyContent="center">
+      </Grid2>
+      <Grid2
+        size={{
+          xs: 12,
+          md: 10
+        }}>
+        <Grid2 container spacing={6} justifyContent="center">
           {Object.entries(formik.values.roles)
             .filter(([, value]) => value)
             .map(([key], index) => (
-              <Grid key={index} item xs={12} sm={10}>
+              <Grid2
+                key={index}
+                size={{
+                  xs: 12,
+                  sm: 10
+                }}>
                 <Question question={questionsList.find((obj) => obj.key == key)} />
-              </Grid>
+              </Grid2>
             ))}
-        </Grid>
-      </Grid>
-    </Grid>
-  )
+        </Grid2>
+      </Grid2>
+    </Grid2>
+  );
 }

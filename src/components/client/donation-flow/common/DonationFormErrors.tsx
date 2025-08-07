@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import { FormikErrors } from 'formik'
 import { DonationFormData } from '../helpers/types'
@@ -20,26 +20,25 @@ type DonationFormSectionErrorTextProps = {
 }
 export function DonationFormSectionErrorText({ message }: DonationFormSectionErrorTextProps) {
   return (
-    <Grid container item gap={1}>
+    <Grid2 container gap={1}>
       <ErrorTwoTone color="error" />
       <Typography variant="subtitle2" color="error.main">
         {message}
       </Typography>
-    </Grid>
-  )
+    </Grid2>
+  );
 }
 
 export function DonationFormErrorList({ errors, show, paymentError }: DonationFormErrorProps) {
   const { t } = useTranslation()
 
   return (
-    <Grid container direction={'column'} gap={2}>
+    <Grid2 container direction={'column'} gap={2}>
       {show && (
         <>
           {Object.entries(errors).map(([id, err]) => (
-            <Grid
+            <Grid2
               container
-              item
               key={id}
               direction="row"
               justifyContent={'flex-start'}
@@ -64,12 +63,11 @@ export function DonationFormErrorList({ errors, show, paymentError }: DonationFo
                 sx={{ textDecoration: 'underline', cursor: 'pointer' }}>
                 {t(err)}
               </Typography>
-            </Grid>
+            </Grid2>
           ))}
           {paymentError && (
-            <Grid
+            <Grid2
               container
-              item
               direction="row"
               justifyContent={'flex-start'}
               wrap="nowrap"
@@ -94,10 +92,10 @@ export function DonationFormErrorList({ errors, show, paymentError }: DonationFo
                 sx={{ textDecoration: 'underline', cursor: 'pointer' }}>
                 {paymentError.message}
               </Typography>
-            </Grid>
+            </Grid2>
           )}
         </>
       )}
-    </Grid>
-  )
+    </Grid2>
+  );
 }

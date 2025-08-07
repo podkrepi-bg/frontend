@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
@@ -18,7 +18,7 @@ const classes = {
   volunteerButton: `${PREFIX}-volunteerButton`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`& .${classes.infoBlock}`]: {
     display: 'block',
     textAlign: 'center',
@@ -78,54 +78,74 @@ export default function CampaignInfoGraphics() {
 
   return (
     <StyledGrid container pl={8}>
-      <Grid item xs={12} lg={6} className={classes.infoBlock}>
+      <Grid2
+        className={classes.infoBlock}
+        size={{
+          xs: 12,
+          lg: 6
+        }}>
         <Image alt="Donation icon" src={donationIconSource} width={90} height={100} />
-        <Grid ml={1}>
+        <Grid2 ml={1}>
           <Typography className={classes.title}>
             {t('campaigns:info-graphics.donation-title')}
           </Typography>
           <Typography className={classes.subtext}>
             {t('campaigns:info-graphics.donation-text')}
           </Typography>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} lg={6} className={classes.infoBlock}>
+        </Grid2>
+      </Grid2>
+      <Grid2
+        className={classes.infoBlock}
+        size={{
+          xs: 12,
+          lg: 6
+        }}>
         <Image alt="Transparency icon" src={transparencyIconSource} width={90} height={100} />
-        <Grid ml={1}>
+        <Grid2 ml={1}>
           <Typography className={classes.title}>
             {t('campaigns:info-graphics.transparency-title')}
           </Typography>
           <Typography className={classes.subtext}>
             {t('campaigns:info-graphics.transparency-text')}
           </Typography>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} lg={6} className={classes.infoBlock}>
+        </Grid2>
+      </Grid2>
+      <Grid2
+        className={classes.infoBlock}
+        size={{
+          xs: 12,
+          lg: 6
+        }}>
         <Image alt="Approval icon" src={approvalIconSource} width={90} height={100} />
-        <Grid ml={1}>
+        <Grid2 ml={1}>
           <Typography className={classes.title}>
             {t('campaigns:info-graphics.approval-title')}
           </Typography>
           <Typography className={classes.subtext}>
             {t('campaigns:info-graphics.approval-text')}
           </Typography>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} lg={6} className={classes.infoBlock}>
-        <Grid>
+        </Grid2>
+      </Grid2>
+      <Grid2
+        className={classes.infoBlock}
+        size={{
+          xs: 12,
+          lg: 6
+        }}>
+        <Grid2>
           <Typography className={classes.title}>
             {t('campaigns:info-graphics.become-volunteer-title')}
           </Typography>
-          <Grid textAlign="center" mt={2}>
+          <Grid2 textAlign="center" mt={2}>
             <LinkButton
               href={routes.support}
               variant="outlined"
               className={classes.volunteerButton}>
               {t('campaigns:info-graphics.become-volunteer-button')}
             </LinkButton>
-          </Grid>
-        </Grid>
-      </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
     </StyledGrid>
-  )
+  );
 }

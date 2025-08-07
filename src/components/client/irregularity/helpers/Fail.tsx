@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 
 import { ThemeProvider } from '@mui/styles'
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 
 import theme from 'common/theme'
@@ -36,33 +36,33 @@ export default function Fail({ setFail, setActiveStep }: Props) {
         <Icon item xs={12} color="#F44336">
           <ErrorOutlineOutlinedIcon />
         </Icon>
-        <Grid item xs={12}>
+        <Grid2 size={12}>
           <Typography variant="h5">{t('steps.fail.title')}</Typography>
-        </Grid>
-        <Grid item xs={12} my={5}>
+        </Grid2>
+        <Grid2 my={5} size={12}>
           <Typography variant="h6">{t('steps.fail.subtitle')}</Typography>
-        </Grid>
+        </Grid2>
         <ButtonsWrapper container item>
-          <Grid item>
+          <Grid2>
             <Typography variant="body1">{t('steps.fail.label-campaigns')}</Typography>
             <ActionLinkButton href={routes.campaigns.index} variant="outlined">
               {t('cta.campaigns')}
             </ActionLinkButton>
-          </Grid>
-          <Grid item>
+          </Grid2>
+          <Grid2>
             <Typography variant="body1">{t('steps.fail.label-project')}</Typography>
             <ActionLinkButton href={routes.aboutProject} variant="outlined">
               {t('cta.project')}
             </ActionLinkButton>
-          </Grid>
-          <Grid item>
+          </Grid2>
+          <Grid2>
             <Typography variant="body1">{t('steps.fail.label-redo')}</Typography>
             <ActionButton onClick={handleClick} variant="outlined">
               {t('cta.redo')}
             </ActionButton>
-          </Grid>
+          </Grid2>
         </ButtonsWrapper>
       </Root>
     </ThemeProvider>
-  )
+  );
 }

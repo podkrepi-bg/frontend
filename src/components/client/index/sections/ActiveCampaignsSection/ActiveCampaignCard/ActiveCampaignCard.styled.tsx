@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, Grid } from '@mui/material'
+import { Card, CardActions, CardContent, Grid2 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
@@ -57,7 +57,7 @@ export const CampaignTitle = styled('h3')(() => ({
   whiteSpace: 'pre-wrap',
 }))
 
-export const SumWrapper = styled(Grid)(() => ({
+export const SumWrapper = styled(Grid2)(() => ({
   display: 'flex',
   width: '100%',
   justifyContent: 'space-between',

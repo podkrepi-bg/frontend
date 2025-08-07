@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid2, Typography } from '@mui/material'
 import { green, orange, red } from '@mui/material/colors'
 import { CampaignApplicationResponse } from 'gql/campaign-applications'
 import { useTranslation } from 'next-i18next'
@@ -21,33 +21,37 @@ function FilesDetail({
   files?: string[]
   type?: 'success' | 'failure' | 'successful-delete'
 }) {
-  return (
-    Number(files?.length) > 0 && (
-      <>
-        <Grid item xs={12} md={6}>
-          {label}
-        </Grid>
-        <Grid item xs={12} md={6}>
-          {files?.map((f) => (
-            <Typography
-              key={f}
-              component="p"
-              color={
-                type === 'success'
-                  ? green[300]
-                  : type === 'failure'
-                  ? red.A200
-                  : type === 'successful-delete'
-                  ? orange[100]
-                  : undefined
-              }>
-              {f}
-            </Typography>
-          ))}
-        </Grid>
-      </>
-    )
-  )
+  return (Number(files?.length) > 0 && (<>
+    <Grid2
+      size={{
+        xs: 12,
+        md: 6
+      }}>
+      {label}
+    </Grid2>
+    <Grid2
+      size={{
+        xs: 12,
+        md: 6
+      }}>
+      {files?.map((f) => (
+        <Typography
+          key={f}
+          component="p"
+          color={
+            type === 'success'
+              ? green[300]
+              : type === 'failure'
+              ? red.A200
+              : type === 'successful-delete'
+              ? orange[100]
+              : undefined
+          }>
+          {f}
+        </Typography>
+      ))}
+    </Grid2>
+  </>));
 }
 
 export function CamAppDetail({ label, value }: { label: string; value?: string | JSX.Element }) {
@@ -55,14 +59,22 @@ export function CamAppDetail({ label, value }: { label: string; value?: string |
     typeof value === 'string' && value.trim() != '' ? value : value != null ? value : '-'
   return (
     <>
-      <Grid item xs={12} md={6}>
+      <Grid2
+        size={{
+          xs: 12,
+          md: 6
+        }}>
         {label}
-      </Grid>
-      <Grid item xs={12} md={6}>
+      </Grid2>
+      <Grid2
+        size={{
+          xs: 12,
+          md: 6
+        }}>
         {normalized}
-      </Grid>
+      </Grid2>
     </>
-  )
+  );
 }
 
 export default function CampaignApplicationSummary({
@@ -78,8 +90,8 @@ export default function CampaignApplicationSummary({
     <>
       <Typography variant="h3">{t(isEdit ? 'result.edited' : 'result.created')}</Typography>
       <Typography component="div" variant="subtitle1">
-        <Grid container justifyContent="center" direction="column" alignContent="center">
-          <Grid item container justifyContent="space-between" direction="row">
+        <Grid2 container justifyContent="center" direction="column" alignContent="center">
+          <Grid2 container justifyContent="space-between" direction="row">
             {prependChildren}
             <FilesDetail
               label={t('result.uploadOk')}
@@ -137,9 +149,9 @@ export default function CampaignApplicationSummary({
             <CamAppDetail label={t('steps.details.cause')} value={camApp?.goal} />
             <CamAppDetail label={t('steps.details.description')} value={camApp?.description} />
             <CamAppDetail label={t('steps.details.current-status.label')} value={camApp?.history} />
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Typography>
     </>
-  )
+  );
 }

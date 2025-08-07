@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid2, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -116,32 +116,32 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
           {t('edit-form-heading')}
         </Typography>
-        <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <Grid item xs={12}>
+        <Grid2 container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+          <Grid2 size={12}>
             <TransferStatusSelect name="status" label={t('status')} />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField type="string" label={t('reason')} name="reason" autoComplete="reason" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <CurrencySelect name="currency" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField disabled type="number" label={t('amount')} name="amount" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <SelectDate name="targetDate" />
-          </Grid>
+          </Grid2>
 
-          <Grid item xs={12}>
+          <Grid2 size={12}>
             <FormTextField
               type="string"
               label={t('documentId')}
               name="documentId"
               autoComplete="documentId"
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <FormTextField
               type="text"
               name="approvedById"
@@ -150,8 +150,8 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
                 readOnly: true,
               }}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <CampaignSelect
               name="sourceCampaignId"
               label="transfer:sourceCampaign"
@@ -159,31 +159,31 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
               disabled={true}
               selectedCampaign={initialValues.sourceCampaignId as string}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <VaultSelect label="transfer:sourceVault" disabled={true} name="sourceVaultId" />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <CampaignSelect
               name="targetCampaignId"
               label="transfer:targetCampaign"
               campaigns={campaigns || []}
               selectedCampaign={initialValues.sourceCampaignId as string}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid2>
+          <Grid2 size={12}>
             <VaultSelect name="targetVaultId" label="transfer:targetVault" />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <SubmitButton fullWidth label={t('transfer:cta:submit')} />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid2>
+          <Grid2 size={6}>
             <Link href={routes.admin.transfer.index} passHref>
               <Button fullWidth>{t('transfer:cta:cancel')}</Button>
             </Link>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       </Box>
     </GenericForm>
-  )
+  );
 }

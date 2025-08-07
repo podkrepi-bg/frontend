@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 
 import ExternalLink from 'components/common/ExternalLink'
 import { footerLinks } from './helpers/FooterData'
@@ -14,7 +14,15 @@ export const FooterLinks = () => {
   return (
     <FooterLinksWrapper item xs={12} sm={4} md={7}>
       {footerLinks.map((data, index) => (
-        <Grid container key={index} item xs={12} md={3} direction="column" mb={3}>
+        <Grid2
+          container
+          key={index}
+          direction="column"
+          mb={3}
+          size={{
+            xs: 12,
+            md: 3
+          }}>
           <FooterLinkTitle>{t(data.title)}</FooterLinkTitle>
           {data.links.map(({ label, href, external }, linkIndex) => (
             <FooterLink key={linkIndex}>
@@ -25,8 +33,8 @@ export const FooterLinks = () => {
               )}
             </FooterLink>
           ))}
-        </Grid>
+        </Grid2>
       ))}
     </FooterLinksWrapper>
-  )
+  );
 }

@@ -1,6 +1,6 @@
 import { useListAdminNews } from 'common/hooks/campaign-news'
 import Layout from 'components/client/layout/Layout'
-import { Box, Button, Divider, Grid, IconButton, Tooltip, Typography } from '@mui/material'
+import { Box, Button, Divider, Grid2, IconButton, Tooltip, Typography } from '@mui/material'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import PageviewOutlinedIcon from '@mui/icons-material/PageviewOutlined'
@@ -173,8 +173,8 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
 
   return (
     <Root maxWidth={false}>
-      <Grid container direction={'column'} spacing={1}>
-        <Grid item>
+      <Grid2 container direction={'column'} spacing={1}>
+        <Grid2>
           <Typography fontSize={24} component={'h1'} fontWeight={'medium'}>
             {data.title}
           </Typography>
@@ -188,11 +188,11 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
               <Typography>{t('write-new-article')}</Typography>
             </Button>
           </Link>
-        </Grid>
-        <Grid item>
+        </Grid2>
+        <Grid2>
           <Divider />
-        </Grid>
-        <Grid item>
+        </Grid2>
+        <Grid2>
           <DataGrid
             rows={data.campaignNews || []}
             columns={columns}
@@ -226,7 +226,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
               },
             }}
           />
-        </Grid>
+        </Grid2>
         <Box>
           {deleteId && (
             <DeleteModal
@@ -239,7 +239,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
             />
           )}
         </Box>
-      </Grid>
+      </Grid2>
     </Root>
-  )
+  );
 }

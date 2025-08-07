@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { useSession } from 'next-auth/react'
 
-import { Grid } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import { isAdmin } from 'common/util/roles'
 import { routes } from 'common/routes'
 
@@ -17,25 +17,25 @@ export const AuthLinks = () => {
   if (session) {
     return (
       <>
-        <Grid item>
+        <Grid2>
           <StyledAuthButton fullWidth href={routes.profile.index}>
             {t('nav.profile')}
           </StyledAuthButton>
-        </Grid>
+        </Grid2>
         {status === 'authenticated' && isAdmin(session) && (
-          <Grid item>
+          <Grid2>
             <StyledAuthButton fullWidth href={routes.admin.index}>
               {t('nav.admin.index')}
             </StyledAuthButton>
-          </Grid>
+          </Grid2>
         )}
-        <Grid item>
+        <Grid2>
           <StyledAuthButton fullWidth href={routes.logout}>
             {t('nav.logout')}
           </StyledAuthButton>
-        </Grid>
+        </Grid2>
       </>
-    )
+    );
   }
 
   return (
