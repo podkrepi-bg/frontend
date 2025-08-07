@@ -14,14 +14,14 @@ export class CampaignsPage extends HomePage {
   private readonly filterButtonsCommonSelector = 'ul button.CampaignFilter-filterButtons'
   // private readonly campaignContainerItem = ".MuiGrid-container .MuiGrid-item";
   private readonly cardActions = '.MuiCardActions-root'
-  private readonly cardActionButtons = this.cardActions + ' button'
+  private readonly cardActionButtons = this.cardActions + ' a'
   // Main headings
   private readonly bgMainCampaignsHeading = bgLocalizationCampaigns.campaigns
   private readonly enMainCampaignsHeading = enLocalizationCampaigns.campaigns
   private readonly bgSupportCauseTodayHeading = bgLocalizationCampaigns.cta['support-cause-today']
   private readonly enSupportCauseTodayHeading = enLocalizationCampaigns.cta['support-cause-today']
-  private readonly bgSupportNowActionButtonText = bgLocalizationCampaigns.cta['support']
-  private readonly enSupportNowActionButtonText = enLocalizationCampaigns.cta['support']
+  private readonly bgLearnMoreActionButtonText = bgLocalizationCampaigns.cta['learn-more']
+  private readonly enLearnMoreActionButtonText = enLocalizationCampaigns.cta['learn-more']
 
   // Summary donors and wishes sections
   private readonly bgDonorsButtonText = bgLocalizationCampaigns.campaign['donors']
@@ -105,9 +105,9 @@ export class CampaignsPage extends HomePage {
   ): Promise<void> {
     let supportButtonText = ''
     if (language === LanguagesEnum.BG) {
-      supportButtonText = this.bgSupportNowActionButtonText
+      supportButtonText = this.bgLearnMoreActionButtonText
     } else if (language === LanguagesEnum.EN) {
-      supportButtonText = this.enSupportNowActionButtonText
+      supportButtonText = this.enLearnMoreActionButtonText
     } else {
       throw new Error('Invalid language!')
     }
