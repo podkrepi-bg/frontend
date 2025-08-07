@@ -109,7 +109,7 @@ export default function CampaignFilter() {
                   component={'li'}
                   size={{
                     xs: 6,
-                    md: 2
+                    md: 2,
                   }}>
                   <IconButton
                     key={category}
@@ -122,14 +122,14 @@ export default function CampaignFilter() {
                     </Typography>
                   </IconButton>
                 </Grid2>
-              );
+              )
             })}
             <Grid2
               className={classes.filterButtonContainer}
               component={'li'}
               size={{
                 xs: 6,
-                md: 2
+                md: 2,
               }}>
               <IconButton
                 className={classes.filterButtons}
@@ -151,5 +151,5 @@ export default function CampaignFilter() {
         <CampaignsList campaignToShow={campaignToShow} />
       )}
     </>
-  );
+  )
 }

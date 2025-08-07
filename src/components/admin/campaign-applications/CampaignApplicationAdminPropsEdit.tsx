@@ -42,12 +42,7 @@ export default function CampaignApplicationAdminPropsEdit({
           />
         </Grid2>
       </Grid2>
-      <Grid2
-        container
-        spacing={6}
-        justifyContent="space-between"
-        direction="row"
-        mb="20px">
+      <Grid2 container spacing={6} justifyContent="space-between" direction="row" mb="20px">
         <CamAppDetail
           label={t('steps.admin.organizer-edit-link')}
           value={<OrganizerCanEditAt id={id} />}
@@ -57,5 +52,5 @@ export default function CampaignApplicationAdminPropsEdit({
         <UploadedCampaignApplicationFiles files={files} campaignApplicationId={id} />
       </Grid2>
     </Grid2>
-  );
+  )
 }

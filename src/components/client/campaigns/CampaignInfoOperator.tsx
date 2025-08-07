@@ -101,5 +101,5 @@ export default function CampaignInfoOperator({ campaign }: Props) {
         </Button>
       </Grid2>
     </StyledGrid>
-  );
+  )
 }

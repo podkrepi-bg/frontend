@@ -157,7 +157,7 @@ export default function CreateForm() {
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <FormTextField
               autoFocus
@@ -170,7 +170,7 @@ export default function CreateForm() {
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <FormTextField
               type="text"
@@ -237,5 +237,5 @@ export default function CreateForm() {
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

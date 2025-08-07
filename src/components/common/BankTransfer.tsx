@@ -48,5 +48,5 @@ export const BankTransfer = () => {
         </Grid2>
       </Grid2>
     </StyledGrid>
-  );
+  )
 }

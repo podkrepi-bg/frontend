@@ -60,5 +60,5 @@ export default function Actions({
         />
       </Grid2>
     </Grid2>
-  );
+  )
 }

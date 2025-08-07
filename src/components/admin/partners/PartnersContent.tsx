@@ -104,7 +104,7 @@ const PartnersContent = () => {
         </Grid2>
       </Container>
     </>
-  );
+  )
 }
 
 export default PartnersContent

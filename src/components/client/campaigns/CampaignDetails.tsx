@@ -223,7 +223,7 @@ export default function CampaignDetails({ campaign }: Props) {
         </Grid2>
       </Grid2>
     </StyledGrid>
-  );
+  )
 }
 
 type CampaignFinanceProps = Props & {

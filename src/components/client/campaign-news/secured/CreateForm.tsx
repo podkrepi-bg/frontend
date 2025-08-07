@@ -227,7 +227,7 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
           <Grid2
             size={{
               xs: 12,
-              sm: 4
+              sm: 4,
             }}>
             {isAdmin && <ArticleStatusSelect />}
           </Grid2>
@@ -279,5 +279,5 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

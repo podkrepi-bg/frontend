@@ -38,7 +38,7 @@ export default function CampaignApplicationOrganizer({ isAdmin }: Props) {
           container
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <StyledFormTextField
             label={t('steps.organizer.phone')}
@@ -51,7 +51,7 @@ export default function CampaignApplicationOrganizer({ isAdmin }: Props) {
           container
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <StyledFormTextField
             label={t('steps.organizer.email')}
@@ -90,5 +90,5 @@ export default function CampaignApplicationOrganizer({ isAdmin }: Props) {
         </Grid2>
       </Grid2>
     </Grid2>
-  );
+  )
 }

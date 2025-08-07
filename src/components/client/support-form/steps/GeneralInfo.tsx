@@ -19,7 +19,7 @@ export default function GeneralInfo() {
       <Grid2
         size={{
           xs: 12,
-          sm: 8
+          sm: 8,
         }}>
         <Grid2 container spacing={3} justifyContent="center" direction="column">
           <Grid2 size={12}>
@@ -27,7 +27,7 @@ export default function GeneralInfo() {
               <Grid2
                 size={{
                   xs: 12,
-                  sm: 6
+                  sm: 6,
                 }}>
                 <FormTextField
                   autoFocus
@@ -40,7 +40,7 @@ export default function GeneralInfo() {
               <Grid2
                 size={{
                   xs: 12,
-                  sm: 6
+                  sm: 6,
                 }}>
                 <FormTextField
                   type="text"
@@ -82,7 +82,7 @@ export default function GeneralInfo() {
       <Grid2
         size={{
           xs: 12,
-          sm: 8
+          sm: 8,
         }}>
         <Grid2 container direction="column" alignItems="flex-start">
           <Grid2 size={12}>
@@ -104,5 +104,5 @@ export default function GeneralInfo() {
         </Grid2>
       </Grid2>
     </Grid2>
-  );
+  )
 }

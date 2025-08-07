@@ -21,7 +21,7 @@ export default function MarketingPage() {
                   xs: 12,
                   sm: 6,
                   md: 4,
-                  lg: 2.4
+                  lg: 2.4,
                 }}>
                 <Button
                   disabled={disabled}
@@ -61,5 +61,5 @@ export default function MarketingPage() {
         </Container>
       </AdminContainer>
     </AdminLayout>
-  );
+  )
 }

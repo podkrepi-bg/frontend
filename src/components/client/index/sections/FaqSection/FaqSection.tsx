@@ -39,5 +39,5 @@ export default function FaqSection() {
         </FaqWrapper>
       </Grid2>
     </Root>
-  );
+  )
 }

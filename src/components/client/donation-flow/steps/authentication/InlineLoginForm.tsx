@@ -100,7 +100,7 @@ function InlineLoginForm() {
         </Box>
       </Button>
     </Grid2>
-  );
+  )
 }
 
 export default InlineLoginForm

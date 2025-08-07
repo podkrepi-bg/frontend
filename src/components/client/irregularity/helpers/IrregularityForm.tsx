@@ -224,5 +224,5 @@ export default function IrregularityForm({ campaign, person }: Props) {
       {activeStep === Steps.GREETING && <Remark text={t('steps.greeting.remark')} />}
       {activeStep === Steps.CONTACTS && <Remark text={t('steps.contacts.remark')} />}
     </>
-  );
+  )
 }

@@ -74,5 +74,5 @@ export default function CoordinatorsForm() {
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

@@ -149,5 +149,5 @@ export default function RenderNotificationsConfirmModal({ type, setOpen }: Modal
         )}
       </DialogContent>
     </Dialog>
-  );
+  )
 }

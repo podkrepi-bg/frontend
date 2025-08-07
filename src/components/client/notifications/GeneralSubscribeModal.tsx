@@ -141,7 +141,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
           </Grid2>
         </StyledGrid>
       </GenericForm>
-    );
+    )
   }
 
   const openAsGuest = () => {
@@ -229,7 +229,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
           </React.Fragment>
         </DialogContent>
       </Dialog>
-    );
+    )
   } else {
     return (
       <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>

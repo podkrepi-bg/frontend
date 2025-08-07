@@ -215,5 +215,5 @@ export default function CreateForm() {
         </Grid2>
       </Box>
     </GenericForm>
-  );
+  )
 }

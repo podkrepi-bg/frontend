@@ -165,5 +165,5 @@ export default function UNsubscriptionPage(data: Props) {
         )}
       </Grid2>
     </Layout>
-  );
+  )
 }

@@ -133,5 +133,5 @@ export default function DonationsWishesInline({
         )}
       </Grid2>
     </Root>
-  );
+  )
 }

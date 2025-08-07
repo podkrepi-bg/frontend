@@ -38,7 +38,7 @@ export default function Success() {
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <Typography variant="body1">{t('steps.success.label-campaigns')}</Typography>
             <ActionLinkButton href={routes.campaigns.index} variant="outlined">
@@ -48,7 +48,7 @@ export default function Success() {
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <Typography variant="body1">{t('steps.success.label-project')}</Typography>
             <ActionLinkButton href={routes.aboutProject} variant="outlined">
@@ -58,5 +58,5 @@ export default function Success() {
         </ButtonsWrapper>
       </Root>
     </ThemeProvider>
-  );
+  )
 }

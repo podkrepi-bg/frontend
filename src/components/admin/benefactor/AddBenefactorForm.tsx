@@ -104,7 +104,7 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
             <Grid2
               size={{
                 xs: 12,
-                sm: 4
+                sm: 4,
               }}>
               <FormTextField
                 type="text"
@@ -116,7 +116,7 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
             <Grid2
               size={{
                 xs: 12,
-                sm: 4
+                sm: 4,
               }}>
               <FormTextField
                 type="text"
@@ -137,5 +137,5 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
         </Box>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

@@ -26,7 +26,7 @@ export default function TechStack() {
               margin="0 auto"
               size={{
                 xs: 12,
-                md: 6
+                md: 6,
               }}>
               {items.map((line: string, key: number) => (
                 <TechnologyItem key={key}>
@@ -39,5 +39,5 @@ export default function TechStack() {
         ))}
       </Grid2>
     </Root>
-  );
+  )
 }

@@ -81,5 +81,5 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
         </NavMenuWrapper>
       </SwipeableDrawer>
     </Grid2>
-  );
+  )
 }

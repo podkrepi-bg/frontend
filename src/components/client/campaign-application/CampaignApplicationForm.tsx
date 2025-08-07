@@ -180,7 +180,7 @@ export default function CampaignApplicationForm({
                 flexWrap="nowrap"
                 size={{
                   xs: 12,
-                  md: 6
+                  md: 6,
                 }}>
                 {activeStep === Steps.ORGANIZER ? (
                   <ActionLinkButton
@@ -207,7 +207,7 @@ export default function CampaignApplicationForm({
                 flexWrap="nowrap"
                 size={{
                   xs: 12,
-                  md: 6
+                  md: 6,
                 }}>
                 <ActionSubmitButton
                   fullWidth
@@ -239,5 +239,5 @@ export default function CampaignApplicationForm({
         )}
       </GenericForm>
     </>
-  );
+  )
 }

@@ -45,7 +45,7 @@ export default function CampaignsList({ campaignToShow }: Props) {
           size={{
             xs: 12,
             sm: 6,
-            lg: 3
+            lg: 3,
           }}>
           <Box sx={{ textAlign: 'center' }}>
             <CampaignCard index={index} campaign={campaign} />
@@ -84,5 +84,5 @@ export default function CampaignsList({ campaignToShow }: Props) {
         </Box>
       </Grid2>
     </Grid2>
-  );
+  )
 }

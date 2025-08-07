@@ -467,5 +467,5 @@ export default function InlineDonation({ campaign }: Props) {
         </Grid2>
       )}
     </StyledGrid>
-  );
+  )
 }

@@ -16,5 +16,5 @@ export default function ThankYou() {
         {t('support:steps.thank-you.await-instructions')}
       </Typography>
     </Grid2>
-  );
+  )
 }

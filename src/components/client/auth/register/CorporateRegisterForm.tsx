@@ -125,5 +125,5 @@ export default function CorporateRegisterForm({ onSubmit, loading }: RegisterFor
         </Grid2>
       </Grid2>
     </GenericForm>
-  );
+  )
 }

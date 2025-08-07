@@ -144,7 +144,7 @@ export default function SubscriptionPage(data: Props) {
           <Grid2
             size={{
               xs: 10,
-              md: 5
+              md: 5,
             }}>
             <PodkrepiLogo
               className={classes.loader}
@@ -155,7 +155,7 @@ export default function SubscriptionPage(data: Props) {
           </Grid2>
         </StyledGrid>
       </Layout>
-    );
+    )
 
   return (
     <Layout maxWidth="xl">
@@ -172,11 +172,7 @@ export default function SubscriptionPage(data: Props) {
               alignItems="center"
               gap={5}
               justifyContent={'center'}>
-              <Grid2
-                container
-                direction={'column'}
-                justifyContent={'center'}
-                alignItems={'center'}>
+              <Grid2 container direction={'column'} justifyContent={'center'} alignItems={'center'}>
                 <ThumbUpIcon sx={{ fontSize: theme.typography.pxToRem(64), color: '#03C03C' }} />
                 <DialogTitle>
                   <Typography
@@ -246,5 +242,5 @@ export default function SubscriptionPage(data: Props) {
         )}
       </StyledGrid>
     </Layout>
-  );
+  )
 }

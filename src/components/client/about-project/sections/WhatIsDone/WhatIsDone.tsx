@@ -52,21 +52,21 @@ export default function WhatIsDone() {
         <Grid2
           size={{
             xs: 12,
-            sm: 4
+            sm: 4,
           }}>
           <ActivityIcon Icon={VolunteersIcon} count="17" description={t('members')} />
         </Grid2>
         <Grid2
           size={{
             xs: 12,
-            sm: 4
+            sm: 4,
           }}>
           <ActivityIcon Icon={MeetingsIcon} count="100+" description={t('meetingsIcon')} />
         </Grid2>
         <Grid2
           size={{
             xs: 12,
-            sm: 4
+            sm: 4,
           }}>
           <ActivityIcon
             Icon={InvestedHoursIcon}
@@ -79,7 +79,7 @@ export default function WhatIsDone() {
         <Grid2
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           {leftColumnLabels.map((props, key) => (
             <CheckedLine key={key} {...props} />
@@ -88,7 +88,7 @@ export default function WhatIsDone() {
         <Grid2
           size={{
             xs: 12,
-            sm: 6
+            sm: 6,
           }}>
           {rightColumnLabels.map((props, key) => (
             <CheckedLine key={key} {...props} />
@@ -96,5 +96,5 @@ export default function WhatIsDone() {
         </Grid2>
       </List>
     </Root>
-  );
+  )
 }

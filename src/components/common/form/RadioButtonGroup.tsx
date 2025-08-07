@@ -71,7 +71,7 @@ export default function RadioButtonGroup({
                       key={index}
                       size={{
                         xs: 12,
-                        sm: 12 / columns
+                        sm: 12 / columns,
                       }}>
                       <PriceRadioButton
                         disabled={disabled}
@@ -94,5 +94,5 @@ export default function RadioButtonGroup({
         <FormHelperText error>{t(helperText)}</FormHelperText>
       )}
     </FormControl>
-  );
+  )
 }

@@ -355,14 +355,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право да бъдете информирани кой, как и защо обработва данните Ви</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               ПОДКРЕПИ БГ публикува съответната информация на интернет страницата си.
@@ -371,14 +371,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право на достъп:</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               Имате право да получите потвърждение от ПОДКРЕПИ БГ дали обработва личните ви данни и
@@ -391,14 +391,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право на коригиране:</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               Имате право да коригирате или да поискате от ПОДКРЕПИ БГ да коригира, без ненужно
@@ -408,14 +408,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право на изтриване</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               В определени случаи може да поискате от ПОДКРЕПИ БГ да изтрие вашите лични данни без
@@ -438,14 +438,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право на ограничаване на обработването:</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               Може да поискате ПОДКРЕПИ БГ да ограничи обработването в следните случаи:
@@ -473,14 +473,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право на възражение:</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               Имате право по всяко време, на основания, свързани с вашата конкретна ситуация, да
@@ -494,14 +494,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право на преносимост на данните:</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               Имате право да получите личните си данни в структуриран, широко използван и пригоден
@@ -511,14 +511,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право на жалба:</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               Имате право да подадете жалба до Комисията за защита на личните данни (КЗЛД),
@@ -528,14 +528,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право да не бъдете обект на профилиране</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               Имате право да не бъдете обект на решение, което се базира единствено на обработване с
@@ -545,14 +545,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право на оттегляне на съгласие</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               Имате право да оттеглите своето съгласие по всяко време, чрез изпращане на писмено
@@ -562,14 +562,14 @@ export default function AboutPage() {
           <Grid2
             size={{
               xs: 12,
-              md: 4
+              md: 4,
             }}>
             <GridTitle>Право на обезщетение за вреди</GridTitle>
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              md: 8
+              md: 8,
             }}>
             <Typography variant="body2" component="p">
               В случай на нарушение на нормативните актове за защита на данните, имате право на
@@ -790,5 +790,5 @@ export default function AboutPage() {
         </Typography>
       </Box>
     </Layout>
-  );
+  )
 }

@@ -105,12 +105,7 @@ export default function SingleArticlePage({ slug }: Props) {
             </Grid2>
           </Grid2>
           <Grid2 container rowGap={1} columnGap={4}>
-            <Grid2
-              container
-              direction={'column'}
-              gap={1}
-              style={{ maxWidth: '100%' }}
-              size='auto'>
+            <Grid2 container direction={'column'} gap={1} style={{ maxWidth: '100%' }} size="auto">
               <Typography className={classes.articleHeader}>{article.title}</Typography>
               <Grid2 container>
                 <QuillStypeWrapper>
@@ -139,7 +134,7 @@ export default function SingleArticlePage({ slug }: Props) {
                 ))}
               </Grid2>
             </Grid2>
-            <Grid2 container gap={1} style={{ maxWidth: '100%' }} size='auto'>
+            <Grid2 container gap={1} style={{ maxWidth: '100%' }} size="auto">
               {images.map((file) => (
                 <Grid2 key={file.id}>
                   <Image src={file.src} width={220} height={120} alt={file.id} />
@@ -150,5 +145,5 @@ export default function SingleArticlePage({ slug }: Props) {
         </ArticleSection>
       </Grid2>
     </Layout>
-  );
+  )
 }

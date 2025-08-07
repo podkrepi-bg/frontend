@@ -258,14 +258,14 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
           <Grid2
             size={{
               xs: 12,
-              sm: 4
+              sm: 4,
             }}>
             {isAdmin && <ArticleStatusSelect />}
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              sm: 4
+              sm: 4,
             }}>
             {isAdmin && (
               <CheckboxField
@@ -326,5 +326,5 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

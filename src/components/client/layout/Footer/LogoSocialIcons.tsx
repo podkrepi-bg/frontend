@@ -19,17 +19,14 @@ export const LogoSocialIcons = () => {
       size={{
         xs: 12,
         sm: 8,
-        md: 5
+        md: 5,
       }}>
-      <Grid2
-        container
-        style={{ maxWidth: 236, maxHeight: 48 }}
-        justifyContent={'flex-start'}>
+      <Grid2 container style={{ maxWidth: 236, maxHeight: 48 }} justifyContent={'flex-start'}>
         <Link href={routes.index} passHref aria-label={t('meta.title')}>
           <PodkrepiLogo locale={locale} size="large" variant="adaptive" />
         </Link>
       </Grid2>
       <SocialIcons />
     </Grid2>
-  );
+  )
 }

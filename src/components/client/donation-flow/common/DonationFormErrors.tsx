@@ -26,7 +26,7 @@ export function DonationFormSectionErrorText({ message }: DonationFormSectionErr
         {message}
       </Typography>
     </Grid2>
-  );
+  )
 }
 
 export function DonationFormErrorList({ errors, show, paymentError }: DonationFormErrorProps) {
@@ -97,5 +97,5 @@ export function DonationFormErrorList({ errors, show, paymentError }: DonationFo
         </>
       )}
     </Grid2>
-  );
+  )
 }

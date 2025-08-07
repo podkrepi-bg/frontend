@@ -143,7 +143,7 @@ export default function CreateForm({ campaigns, person }: Props) {
             <Grid2
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <FormTextField
                 type="string"
@@ -154,7 +154,7 @@ export default function CreateForm({ campaigns, person }: Props) {
             <Grid2
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <FormTextField
                 type="string"
@@ -167,14 +167,14 @@ export default function CreateForm({ campaigns, person }: Props) {
             <Grid2
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <EmailField name="person.email" label={t('admin.fields.email')} />
             </Grid2>
             <Grid2
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <FormTextField type="phone" name="person.phone" label={t('admin.fields.phone')} />
             </Grid2>
@@ -183,14 +183,14 @@ export default function CreateForm({ campaigns, person }: Props) {
             <Grid2
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <NotifierTypeSelect />
             </Grid2>
             <Grid2
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <CampaignSelect
                 label={t('admin.fields.campaign')}
@@ -204,14 +204,14 @@ export default function CreateForm({ campaigns, person }: Props) {
             <Grid2
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <StatusSelect />
             </Grid2>
             <Grid2
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <IrregularityReasonSelect name="reason" />
             </Grid2>
@@ -252,5 +252,5 @@ export default function CreateForm({ campaigns, person }: Props) {
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

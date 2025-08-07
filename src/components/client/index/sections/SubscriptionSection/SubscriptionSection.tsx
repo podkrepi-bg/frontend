@@ -58,7 +58,7 @@ const SubscriptionSection = () => {
         </SubscribeButton>
       </Grid2>
     </Root>
-  );
+  )
 }
 
 export default SubscriptionSection

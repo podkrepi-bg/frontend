@@ -121,7 +121,7 @@ function UpdateBirthdateModal({
             <Grid2
               size={{
                 xs: 12,
-                sm: 8
+                sm: 8,
               }}>
               <FormDatePicker
                 name="birthday"
@@ -136,7 +136,7 @@ function UpdateBirthdateModal({
         </GenericForm>
       </Box>
     </StyledModal>
-  );
+  )
 }
 
 export default UpdateBirthdateModal

@@ -101,7 +101,7 @@ export default function SendConsentEmailForm() {
             <Grid2
               size={{
                 xs: 12,
-                md: 6
+                md: 6,
               }}>
               <Typography>Премахване от списък на потребители регистрирани след: </Typography>
             </Grid2>
@@ -116,5 +116,5 @@ export default function SendConsentEmailForm() {
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

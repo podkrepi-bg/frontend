@@ -72,7 +72,7 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
         <Grid2
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <StatusLabel>
             {t(`campaigns:campaignTypesFields.${campaign.campaignType.category}`)}
@@ -85,7 +85,7 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
         <Grid2
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <RowWrapper>
             <StatusLabel>{t('campaigns:campaign.start-date')}</StatusLabel>
@@ -102,5 +102,5 @@ export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props
         </Grid2>
       </InfoStatusWrapper>
     </Grid2>
-  );
+  )
 }

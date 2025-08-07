@@ -108,7 +108,7 @@ export default function Form() {
           <Grid2
             size={{
               xs: 6,
-              md: 6
+              md: 6,
             }}>
             <FormTextField
               type="text"
@@ -120,7 +120,7 @@ export default function Form() {
           <Grid2
             size={{
               xs: 6,
-              md: 6
+              md: 6,
             }}>
             <InputLabel>{t('campaign-types:grid:category')}</InputLabel>
             <Select
@@ -167,5 +167,5 @@ export default function Form() {
         </Grid2>
       </Box>
     </GenericForm>
-  );
+  )
 }

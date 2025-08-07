@@ -245,9 +245,7 @@ export default function SupportForm() {
             <Grid2 sx={{ mt: 1, mb: 5 }} size={12}>
               {steps[activeStep].component}
             </Grid2>
-            <Grid2
-              sx={(theme) => ({ '& button': { minWidth: theme.spacing(12) } })}
-              size={12}>
+            <Grid2 sx={(theme) => ({ '& button': { minWidth: theme.spacing(12) } })} size={12}>
               <Actions
                 disableBack={activeStep === 0}
                 onBack={handleBack}
@@ -261,5 +259,5 @@ export default function SupportForm() {
         </Box>
       )}
     </GenericForm>
-  );
+  )
 }

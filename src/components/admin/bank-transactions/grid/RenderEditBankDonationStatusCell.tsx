@@ -1,5 +1,5 @@
 import { Edit } from '@mui/icons-material'
-import { Dialog, Box, Tooltip, Grid2, DialogContent, DialogTitle } from '@mui/material'
+import { Dialog, Box, Tooltip, Grid2, DialogTitle } from '@mui/material'
 import { GridRenderCellParams, useGridApiContext } from '@mui/x-data-grid'
 import { paymentRef } from 'common/form/validation'
 import FormTextField from 'components/common/form/FormTextField'
@@ -130,7 +130,7 @@ export default function RenderBankDonationStatusCell({ params }: RenderCellProps
           </Grid2>
         </StyledDialogContent>
       </Dialog>
-    );
+    )
   }
 
   return (

@@ -28,5 +28,5 @@ export default function Footer() {
         </Grid2>
       </FooterWrapper>
     </Root>
-  );
+  )
 }

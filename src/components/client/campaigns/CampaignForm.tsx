@@ -185,14 +185,14 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <CampaignTypeSelect />
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <FormTextField
               type="number"
@@ -204,14 +204,14 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid2
             size={{
               xs: 12,
-              sm: 12
+              sm: 12,
             }}>
             <AllowDonationOnComplete name="allowDonationOnComplete" />
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <FormTextField
               type="date"
@@ -223,7 +223,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <FormTextField
               type="date"
@@ -246,7 +246,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             {coordinator ? (
               <Typography fontWeight="bold" variant="body2">
@@ -266,7 +266,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             {beneficiary ? (
               <Typography fontWeight="bold" variant="body2">
@@ -327,5 +327,5 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

@@ -118,7 +118,7 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
           <Grid2
             size={{
               xs: 12,
-              sm: 8
+              sm: 8,
             }}>
             <FormTextField
               type="text"
@@ -130,7 +130,7 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
           <Grid2
             size={{
               xs: 12,
-              sm: 4
+              sm: 4,
             }}>
             <FormTextField
               type="text"
@@ -164,5 +164,5 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

@@ -241,5 +241,5 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
         </Box>
       </Grid2>
     </Root>
-  );
+  )
 }

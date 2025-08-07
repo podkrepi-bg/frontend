@@ -231,5 +231,5 @@ export default function EditForm() {
         </Form>
       )}
     </Formik>
-  );
+  )
 }

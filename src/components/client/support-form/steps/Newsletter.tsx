@@ -16,5 +16,5 @@ export default function Newsletter() {
         </FormControl>
       </Grid2>
     </Grid2>
-  );
+  )
 }

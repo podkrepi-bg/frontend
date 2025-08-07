@@ -69,5 +69,5 @@ export default function ForgottenPasswordForm({
         </Grid2>
       </Grid2>
     </GenericForm>
-  );
+  )
 }

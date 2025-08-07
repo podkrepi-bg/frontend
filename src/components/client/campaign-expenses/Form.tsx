@@ -332,5 +332,5 @@ export default function Form() {
         </Grid2>
       </Box>
     </GenericForm>
-  );
+  )
 }

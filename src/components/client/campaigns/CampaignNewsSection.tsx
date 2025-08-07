@@ -234,7 +234,12 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                             )}`}
                           </Typography>
                         </Grid2>
-                        <Grid2 container gap={1} style={{ maxWidth: '40%' }} wrap="nowrap" size="auto">
+                        <Grid2
+                          container
+                          gap={1}
+                          style={{ maxWidth: '40%' }}
+                          wrap="nowrap"
+                          size="auto">
                           <SupervisedUserCircleOutlinedIcon color="action" />
                           <Typography className={classes.articleAuthor}>
                             {article.author}
@@ -242,7 +247,11 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                         </Grid2>
                       </Grid2>
                     )}
-                    <Grid2 container gap={1} direction={'column'} className={classes.articleContent}>
+                    <Grid2
+                      container
+                      gap={1}
+                      direction={'column'}
+                      className={classes.articleContent}>
                       <Grid2>
                         <Typography component={'h2'} className={classes.articleHeader}>
                           {article.title}
@@ -306,7 +315,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                                       style={{ objectFit: 'scale-down' }}
                                     />
                                   </Grid2>
-                                );
+                                )
                               })}
                             </Gallery>
                           </Grid2>
@@ -315,7 +324,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                     </Grid2>
                   </TimelineContent>
                 </TimelineItem>
-              );
+              )
             })}
             <Grid2>
               <OutlinedButton
@@ -329,5 +338,5 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
         </Grid2>
       )}
     </Grid2>
-  );
+  )
 }

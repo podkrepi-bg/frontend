@@ -24,7 +24,7 @@ export default function NotFoundPage() {
           size={{
             xs: 12,
             sm: 7,
-            lg: 5
+            lg: 5,
           }}>
           <NotFoundIllustration />
         </Grid2>
@@ -38,5 +38,5 @@ export default function NotFoundPage() {
         </BackButton>
       </Root>
     </Layout>
-  );
+  )
 }

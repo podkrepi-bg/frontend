@@ -35,7 +35,7 @@ export const AuthLinks = () => {
           </StyledAuthButton>
         </Grid2>
       </>
-    );
+    )
   }
 
   return (

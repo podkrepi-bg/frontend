@@ -27,5 +27,5 @@ export default function ActivitySection() {
         </Grid2>
       </Grid2>
     </Grid2>
-  );
+  )
 }

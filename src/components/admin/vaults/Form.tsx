@@ -109,5 +109,5 @@ export default function EditForm() {
         </Grid2>
       </Box>
     </GenericForm>
-  );
+  )
 }

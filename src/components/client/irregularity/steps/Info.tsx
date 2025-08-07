@@ -141,5 +141,5 @@ export default function Info({ files, setFiles }: Props) {
         </Typography>
       </Grid2>
     </Grid2>
-  );
+  )
 }

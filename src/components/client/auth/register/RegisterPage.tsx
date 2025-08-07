@@ -111,7 +111,7 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
             <Grid2
               size={{
                 xs: 12,
-                sm: 12 / 2.1
+                sm: 12 / 2.1,
               }}>
               <RadioButton
                 checked={profileType === AccountType.INDIVIDUAL}
@@ -122,7 +122,7 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
             <Grid2
               size={{
                 xs: 12,
-                sm: 12 / 2.1
+                sm: 12 / 2.1,
               }}>
               <RadioButton
                 checked={profileType === AccountType.CORPORATE}
@@ -203,7 +203,7 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
         )}
       </Container>
     </Layout>
-  );
+  )
 }
 
 const ProvidersList = ({ providers }: RegisterPageProps) => {
@@ -228,9 +228,9 @@ const ProvidersList = ({ providers }: RegisterPageProps) => {
                     {t('common:nav.continue-with')} {provider.name}
                   </Button>
                 </Grid2>
-              );
+              )
             })}
       </Grid2>
     </Box>
-  );
+  )
 }

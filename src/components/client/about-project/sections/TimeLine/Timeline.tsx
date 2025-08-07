@@ -25,5 +25,5 @@ export default function Timeline() {
         </TimelineMaterial>
       </Grid2>
     </Root>
-  );
+  )
 }

@@ -103,5 +103,5 @@ export default observer(function RefundModal() {
         </Grid2>
       </DialogContent>
     </Dialog>
-  );
+  )
 })

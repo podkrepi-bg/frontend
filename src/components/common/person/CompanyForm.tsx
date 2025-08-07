@@ -12,7 +12,7 @@ export default function CompanyForm() {
       <Grid2 size={12}>
         <LegalEntityField name="legalEntity" />
       </Grid2>
-    );
+    )
   }
   return (
     <>
@@ -22,14 +22,14 @@ export default function CompanyForm() {
       <Grid2
         size={{
           xs: 12,
-          sm: 6
+          sm: 6,
         }}>
         <FormTextField type="text" label="Име на фирма" name="companyName" autoComplete="company" />
       </Grid2>
       <Grid2
         size={{
           xs: 12,
-          sm: 6
+          sm: 6,
         }}>
         <FormTextField
           type="text"
@@ -41,14 +41,14 @@ export default function CompanyForm() {
       <Grid2
         size={{
           xs: 12,
-          sm: 6
+          sm: 6,
         }}>
         <FormTextField type="text" label="МОЛ" name="legalPersonName" autoComplete="name" />
       </Grid2>
       <Grid2
         size={{
           xs: 12,
-          sm: 6
+          sm: 6,
         }}>
         <FormTextField
           type="text"
@@ -58,5 +58,5 @@ export default function CompanyForm() {
         />
       </Grid2>
     </>
-  );
+  )
 }

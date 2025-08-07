@@ -121,5 +121,5 @@ export default function CampaignApplicationBasic() {
         </Grid2>
       </Grid2>
     </Grid2>
-  );
+  )
 }

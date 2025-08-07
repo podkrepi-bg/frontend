@@ -30,5 +30,5 @@ export default function Actions({
         <SubmitButton label={nextLabel} loading={loading} />
       </Grid2>
     </Grid2>
-  );
+  )
 }

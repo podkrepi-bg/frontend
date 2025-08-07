@@ -136,7 +136,7 @@ function UpdateNameModal({
             <Grid2
               size={{
                 xs: 12,
-                sm: 8
+                sm: 8,
               }}>
               <FormTextField
                 type="text"
@@ -148,7 +148,7 @@ function UpdateNameModal({
             <Grid2
               size={{
                 xs: 12,
-                sm: 8
+                sm: 8,
               }}>
               <FormTextField
                 type="text"
@@ -160,7 +160,7 @@ function UpdateNameModal({
             <Grid2
               size={{
                 xs: 12,
-                sm: 8
+                sm: 8,
               }}>
               <PasswordField />
             </Grid2>
@@ -171,7 +171,7 @@ function UpdateNameModal({
         </GenericForm>
       </Box>
     </StyledModal>
-  );
+  )
 }
 
 export default UpdateNameModal

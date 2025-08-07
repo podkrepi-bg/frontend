@@ -118,5 +118,5 @@ export default function BankAccountsForm() {
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

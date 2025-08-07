@@ -59,11 +59,11 @@ export default function CampaignSelect({
           })
           .map((value, index) => (
             //select the element that matches the selectedCampaign
-            (<MenuItem key={index} value={value.id} selected={value.id === selectedCampaign}>
+            <MenuItem key={index} value={value.id} selected={value.id === selectedCampaign}>
               {value.title}
-            </MenuItem>)
+            </MenuItem>
           ))}
       </FormTextField>
     </FormControl>
-  );
+  )
 }

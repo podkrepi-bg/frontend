@@ -182,14 +182,14 @@ function DisableAccountModal({
               <Grid2
                 size={{
                   xs: 12,
-                  sm: 8
+                  sm: 8,
                 }}>
                 <PasswordField />
               </Grid2>
               <Grid2
                 size={{
                   xs: 12,
-                  sm: 6
+                  sm: 6,
                 }}>
                 <Button
                   fullWidth
@@ -203,7 +203,7 @@ function DisableAccountModal({
               <Grid2
                 size={{
                   xs: 12,
-                  sm: 6
+                  sm: 6,
                 }}>
                 <SubmitButton
                   fullWidth
@@ -219,7 +219,7 @@ function DisableAccountModal({
             <Grid2
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <Button
                 fullWidth
@@ -233,7 +233,7 @@ function DisableAccountModal({
             <Grid2
               size={{
                 xs: 12,
-                sm: 6
+                sm: 6,
               }}>
               <Button
                 fullWidth
@@ -248,7 +248,7 @@ function DisableAccountModal({
         )}
       </Box>
     </StyledModal>
-  );
+  )
 }
 
 export default DisableAccountModal

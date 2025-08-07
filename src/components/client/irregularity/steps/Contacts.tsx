@@ -47,7 +47,7 @@ export default function Contacts() {
           flexWrap="nowrap"
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <CssTextField
             fullWidth
@@ -62,7 +62,7 @@ export default function Contacts() {
           flexWrap="nowrap"
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <CssTextField
             fullWidth
@@ -79,7 +79,7 @@ export default function Contacts() {
           flexWrap="nowrap"
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <CssTextField
             fullWidth
@@ -94,7 +94,7 @@ export default function Contacts() {
           flexWrap="nowrap"
           size={{
             xs: 12,
-            md: 6
+            md: 6,
           }}>
           <CssTextField
             fullWidth
@@ -106,5 +106,5 @@ export default function Contacts() {
         </Grid2>
       </Grid2>
     </Grid2>
-  );
+  )
 }

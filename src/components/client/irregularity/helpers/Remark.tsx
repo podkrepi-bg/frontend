@@ -18,5 +18,5 @@ export default function Remark({ text }: RemarkProps) {
         {text}
       </Typography>
     </Grid2>
-  );
+  )
 }

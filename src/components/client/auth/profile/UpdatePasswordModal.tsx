@@ -131,14 +131,14 @@ function UpdatePasswordModal({
             <Grid2
               size={{
                 xs: 12,
-                sm: 8
+                sm: 8,
               }}>
               <PasswordField name={'previous-password'} label={'auth:account.previous-password'} />
             </Grid2>
             <Grid2
               size={{
                 xs: 12,
-                sm: 8
+                sm: 8,
               }}>
               <PasswordField
                 name="password"
@@ -149,7 +149,7 @@ function UpdatePasswordModal({
             <Grid2
               size={{
                 xs: 12,
-                sm: 8
+                sm: 8,
               }}>
               <PasswordField
                 name="confirm-password"
@@ -164,7 +164,7 @@ function UpdatePasswordModal({
         </GenericForm>
       </Box>
     </StyledModal>
-  );
+  )
 }
 
 export default UpdatePasswordModal

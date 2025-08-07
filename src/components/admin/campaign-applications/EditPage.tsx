@@ -98,7 +98,7 @@ export function EditLoadedCampaign({ campaign }: { campaign: CampaignApplication
         <Box mb="80px" />
       </AdminContainer>
     </AdminLayout>
-  );
+  )
 }
 
 export default function EditPage({ id }: Props) {

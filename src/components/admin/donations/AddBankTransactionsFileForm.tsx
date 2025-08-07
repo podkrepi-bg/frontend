@@ -243,5 +243,5 @@ export default function BankTransactionsFileForm({
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

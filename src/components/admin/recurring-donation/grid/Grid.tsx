@@ -6,10 +6,8 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { money } from 'common/util/money'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
 
 import DeleteModal from '../DeleteModal'
-import DetailsModal from '../DetailsModal'
 
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import EditIcon from '@mui/icons-material/Edit'

@@ -160,7 +160,7 @@ export default function CampaignNewsList({ articles }: Props) {
                 </Grid2>
                 {article.newsFiles.length > 0 && (
                   <>
-                    <Grid2 container gap={1} style={{ maxWidth: '100%' }} size='auto'>
+                    <Grid2 container gap={1} style={{ maxWidth: '100%' }} size="auto">
                       <Gallery images={images}>
                         {images.map((file) => {
                           return (
@@ -173,7 +173,7 @@ export default function CampaignNewsList({ articles }: Props) {
                                 style={{ objectFit: 'scale-down' }}
                               />
                             </Grid2>
-                          );
+                          )
                         })}
                       </Gallery>
                     </Grid2>
@@ -194,8 +194,8 @@ export default function CampaignNewsList({ articles }: Props) {
               )}
             </ArticleSection>
           </Grid2>
-        );
+        )
       })}
     </>
-  );
+  )
 }

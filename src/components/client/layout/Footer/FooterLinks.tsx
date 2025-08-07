@@ -21,7 +21,7 @@ export const FooterLinks = () => {
           mb={3}
           size={{
             xs: 12,
-            md: 3
+            md: 3,
           }}>
           <FooterLinkTitle>{t(data.title)}</FooterLinkTitle>
           {data.links.map(({ label, href, external }, linkIndex) => (
@@ -36,5 +36,5 @@ export const FooterLinks = () => {
         </Grid2>
       ))}
     </FooterLinksWrapper>
-  );
+  )
 }

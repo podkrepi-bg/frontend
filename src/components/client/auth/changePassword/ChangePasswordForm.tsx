@@ -94,5 +94,5 @@ export default function ChangePasswordForm({ initialValues = defaults }: ChangeP
         </Grid2>
       </Grid2>
     </GenericForm>
-  );
+  )
 }

@@ -68,7 +68,7 @@ export default function ViewCampaignPage({ slug }: Props) {
             }}
             size={{
               xs: 12,
-              sm: 4
+              sm: 4,
             }}>
             <Grid2
               sx={{
@@ -88,5 +88,5 @@ export default function ViewCampaignPage({ slug }: Props) {
         )}
       </Grid2>
     </Layout>
-  );
+  )
 }

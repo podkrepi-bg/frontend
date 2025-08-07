@@ -25,5 +25,5 @@ export default function Subscription() {
         {t('common:components.footer.subscribe')}
       </SubscriptionTitle>
     </Grid2>
-  );
+  )
 }

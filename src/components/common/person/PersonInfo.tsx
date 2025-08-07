@@ -37,7 +37,7 @@ function PersonInfo({ person }: Props) {
       <Grid2
         size={{
           xs: 12,
-          md: 6
+          md: 6,
         }}>
         <Typography className={classes.infoHeading} variant="h6" color={theme.palette.primary.dark}>
           {t('person:info.contact')}
@@ -57,7 +57,7 @@ function PersonInfo({ person }: Props) {
       <Grid2
         size={{
           xs: 12,
-          md: 6
+          md: 6,
         }}>
         <Typography className={classes.infoHeading} variant="h6" color={theme.palette.primary.dark}>
           {t('person:info.general')}
@@ -75,7 +75,7 @@ function PersonInfo({ person }: Props) {
         </Box>
       </Grid2>
     </StyledGrid>
-  );
+  )
 }
 
 export default PersonInfo

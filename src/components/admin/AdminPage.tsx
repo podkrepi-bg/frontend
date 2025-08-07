@@ -63,7 +63,7 @@ export default function AdminPage() {
                 xs: 12,
                 sm: 6,
                 md: 4,
-                lg: 2.4
+                lg: 2.4,
               }}>
               <Card
                 sx={{
@@ -101,5 +101,5 @@ export default function AdminPage() {
         </Grid2>
       </AdminContainer>
     </AdminLayout>
-  );
+  )
 }

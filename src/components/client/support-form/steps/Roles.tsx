@@ -15,14 +15,14 @@ export default function Roles() {
       <Grid2
         size={{
           xs: 12,
-          md: 8
+          md: 8,
         }}>
         <HeaderTypography>{t('support:steps.role.subtitle')}</HeaderTypography>
       </Grid2>
       <Grid2
         size={{
           xs: 12,
-          md: 8
+          md: 8,
         }}>
         <Typography variant="h5" paragraph>
           {t('support:steps.role.first-subtitle')}
@@ -43,5 +43,5 @@ export default function Roles() {
         </FormControl>
       </Grid2>
     </Grid2>
-  );
+  )
 }

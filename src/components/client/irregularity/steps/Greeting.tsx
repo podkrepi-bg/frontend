@@ -49,5 +49,5 @@ export default function Greeting() {
         </Grid2>
       </Grid2>
     </Grid2>
-  );
+  )
 }

@@ -215,7 +215,7 @@ export default function AdditionalQuestions() {
       <Grid2
         size={{
           xs: 12,
-          md: 10
+          md: 10,
         }}>
         <Grid2 container spacing={6} justifyContent="center">
           {Object.entries(formik.values.roles)
@@ -225,7 +225,7 @@ export default function AdditionalQuestions() {
                 key={index}
                 size={{
                   xs: 12,
-                  sm: 10
+                  sm: 10,
                 }}>
                 <Question question={questionsList.find((obj) => obj.key == key)} />
               </Grid2>
@@ -233,5 +233,5 @@ export default function AdditionalQuestions() {
         </Grid2>
       </Grid2>
     </Grid2>
-  );
+  )
 }

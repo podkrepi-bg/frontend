@@ -55,5 +55,5 @@ export default function PlatformStatisticsSection() {
         <Statistics />
       </SectionGridWrapper>
     </Root>
-  );
+  )
 }

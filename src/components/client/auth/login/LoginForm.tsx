@@ -93,5 +93,5 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
         </Grid2>
       </Grid2>
     </GenericForm>
-  );
+  )
 }

@@ -110,5 +110,5 @@ export default function BankAccountsEditForm({ id }: Props) {
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

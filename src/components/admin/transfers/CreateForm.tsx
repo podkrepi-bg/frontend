@@ -177,5 +177,5 @@ export default function CreateForm({ campaigns }: Props) {
         </Grid2>
       </Box>
     </GenericForm>
-  );
+  )
 }

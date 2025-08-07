@@ -185,5 +185,5 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
         </Grid2>
       </Box>
     </GenericForm>
-  );
+  )
 }

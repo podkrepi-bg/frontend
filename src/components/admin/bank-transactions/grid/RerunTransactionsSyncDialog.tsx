@@ -91,5 +91,5 @@ export default function RerunTransactionSyncModal({
         </Grid2>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

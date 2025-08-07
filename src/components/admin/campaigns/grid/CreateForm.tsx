@@ -218,14 +218,14 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid2
             size={{
               xs: 12,
-              sm: 5
+              sm: 5,
             }}>
             <CampaignTypeSelect />
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              sm: 5
+              sm: 5,
             }}>
             <FormTextField
               type="number"
@@ -237,21 +237,21 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid2
             size={{
               xs: 12,
-              sm: 2
+              sm: 2,
             }}>
             <CurrencySelect />
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              sm: 12
+              sm: 12,
             }}>
             <AllowDonationOnComplete name="allowDonationOnComplete" />
           </Grid2>
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <FormTextField
               type="date"
@@ -266,7 +266,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <FormTextField
               type="date"
@@ -294,7 +294,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <p>
               Select a Coordinator or{' '}
@@ -307,7 +307,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid2
             size={{
               xs: 12,
-              sm: 6
+              sm: 6,
             }}>
             <p>
               Select an Organizer or{' '}
@@ -359,5 +359,5 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         </Grid2>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

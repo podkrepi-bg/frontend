@@ -19,5 +19,5 @@ export default function Subtitle({ label }: Props) {
         </Typography>
       </Grid2>
     </ThemeProvider>
-  );
+  )
 }

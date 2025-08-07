@@ -31,7 +31,7 @@ const MediaContent = () => {
             alignItems="center"
             size={{
               xs: 12,
-              md: 6
+              md: 6,
             }}>
             <Box paddingRight={2}>
               <Image alt="logo" src={article.img} width={80} height={80} />
@@ -52,7 +52,7 @@ const MediaContent = () => {
         ))}
       </Grid2>
     </Container>
-  );
+  )
 }
 
 export default MediaContent

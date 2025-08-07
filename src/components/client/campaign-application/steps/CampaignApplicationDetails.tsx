@@ -88,5 +88,5 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
         </Grid2>
       </Grid2>
     </Grid2>
-  );
+  )
 }

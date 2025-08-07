@@ -64,5 +64,5 @@ export default function Fail({ setFail, setActiveStep }: Props) {
         </ButtonsWrapper>
       </Root>
     </ThemeProvider>
-  );
+  )
 }

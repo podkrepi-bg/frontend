@@ -37,5 +37,5 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
       </Grid2> */}
       {children}
     </Grid2>
-  );
+  )
 }

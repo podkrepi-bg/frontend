@@ -131,14 +131,14 @@ function UpdateEmailModal({
             <Grid2
               size={{
                 xs: 12,
-                sm: 8
+                sm: 8,
               }}>
               <EmailField name="email" label="Email" />
             </Grid2>
             <Grid2
               size={{
                 xs: 12,
-                sm: 8
+                sm: 8,
               }}>
               <PasswordField />
             </Grid2>
@@ -149,7 +149,7 @@ function UpdateEmailModal({
         </GenericForm>
       </Box>
     </StyledModal>
-  );
+  )
 }
 
 export default UpdateEmailModal

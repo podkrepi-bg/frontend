@@ -136,7 +136,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
           </Grid2>
         </StyledGrid>
       </GenericForm>
-    );
+    )
   }
 
   const openAsGuest = () => {
@@ -224,7 +224,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
           </React.Fragment>
         </DialogContent>
       </Dialog>
-    );
+    )
   } else {
     return (
       <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>

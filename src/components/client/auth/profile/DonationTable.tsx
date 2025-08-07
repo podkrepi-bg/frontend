@@ -69,7 +69,7 @@ function DonationTable({ donations }: DonationTableProps) {
           <Grid2
             size={{
               xs: 12,
-              sm: 3
+              sm: 3,
             }}>
             <DateTimePicker
               label={t('profile:donations.fromDate')}
@@ -81,7 +81,7 @@ function DonationTable({ donations }: DonationTableProps) {
           <Grid2
             size={{
               xs: 12,
-              sm: 3
+              sm: 3,
             }}>
             <DateTimePicker
               label={t('profile:donations.toDate')}
@@ -154,7 +154,7 @@ function DonationTable({ donations }: DonationTableProps) {
         <Box sx={{ fontSize: 20, mt: 4 }}>{t('profile:donations.noDonations')}</Box>
       )}
     </Card>
-  );
+  )
 }
 
 export default DonationTable

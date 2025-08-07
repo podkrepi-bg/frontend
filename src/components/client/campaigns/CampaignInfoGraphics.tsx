@@ -82,7 +82,7 @@ export default function CampaignInfoGraphics() {
         className={classes.infoBlock}
         size={{
           xs: 12,
-          lg: 6
+          lg: 6,
         }}>
         <Image alt="Donation icon" src={donationIconSource} width={90} height={100} />
         <Grid2 ml={1}>
@@ -98,7 +98,7 @@ export default function CampaignInfoGraphics() {
         className={classes.infoBlock}
         size={{
           xs: 12,
-          lg: 6
+          lg: 6,
         }}>
         <Image alt="Transparency icon" src={transparencyIconSource} width={90} height={100} />
         <Grid2 ml={1}>
@@ -114,7 +114,7 @@ export default function CampaignInfoGraphics() {
         className={classes.infoBlock}
         size={{
           xs: 12,
-          lg: 6
+          lg: 6,
         }}>
         <Image alt="Approval icon" src={approvalIconSource} width={90} height={100} />
         <Grid2 ml={1}>
@@ -130,7 +130,7 @@ export default function CampaignInfoGraphics() {
         className={classes.infoBlock}
         size={{
           xs: 12,
-          lg: 6
+          lg: 6,
         }}>
         <Grid2>
           <Typography className={classes.title}>
@@ -147,5 +147,5 @@ export default function CampaignInfoGraphics() {
         </Grid2>
       </Grid2>
     </StyledGrid>
-  );
+  )
 }

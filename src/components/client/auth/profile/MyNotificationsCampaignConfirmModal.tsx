@@ -127,5 +127,5 @@ export default function RenderCampaignNotificationsConfirmModal({
         )}
       </DialogContent>
     </Dialog>
-  );
+  )
 }

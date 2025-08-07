@@ -108,5 +108,5 @@ export default function SupportUsForm() {
       </Grid2>
       <Divider />
     </List>
-  );
+  )
 }

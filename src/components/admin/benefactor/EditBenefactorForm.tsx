@@ -101,7 +101,7 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
             <Grid2
               size={{
                 xs: 12,
-                sm: 4
+                sm: 4,
               }}>
               <FormTextField
                 type="text"
@@ -113,7 +113,7 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
             <Grid2
               size={{
                 xs: 12,
-                sm: 4
+                sm: 4,
               }}>
               <FormTextField
                 type="text"
@@ -140,5 +140,5 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
         </Box>
       </GenericForm>
     </Grid2>
-  );
+  )
 }

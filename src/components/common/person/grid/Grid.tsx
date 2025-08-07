@@ -3,9 +3,7 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import {
-  DataGrid,
   GridCellParams,
   GridColDef,
   GridPaginationModel,
@@ -13,8 +11,7 @@ import {
   GridSortDirection,
   GridSortModel,
 } from '@mui/x-data-grid'
-import CheckIcon from '@mui/icons-material/Check'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+
 import { useRouter } from 'next/router'
 
 import GridActions from 'components/admin/GridActions'
@@ -27,7 +24,6 @@ import {
   usePersonList,
 } from 'common/hooks/person'
 import { routes } from 'common/routes'
-import theme from 'common/theme'
 import { PersonPaginatedResponse } from 'gql/person'
 import { PaginationData, SortData } from 'gql/types'
 import Switch from '@mui/material/Switch'

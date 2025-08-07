@@ -33,7 +33,7 @@ export default function RegisterSuccess({ type }: Props) {
           textAlign="center"
           size={{
             xs: 12,
-            md: 4
+            md: 4,
           }}>
           <LinkButton
             size="large"
@@ -45,5 +45,5 @@ export default function RegisterSuccess({ type }: Props) {
         </Grid2>
       </Grid2>
     </Grid2>
-  );
+  )
 }

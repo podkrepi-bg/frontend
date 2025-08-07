@@ -12,5 +12,5 @@ export default function Title({ label }: Props) {
         {t(label)}
       </Typography>
     </Grid2>
-  );
+  )
 }

@@ -140,5 +140,5 @@ export default function DonorsAndDonations({ donations }: { donations: CampaignD
         )}
       </Grid2>
     </Root>
-  );
+  )
 }

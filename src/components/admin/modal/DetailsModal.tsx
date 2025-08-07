@@ -97,10 +97,10 @@ function DetailsModal() {
               </Button>
             </DialogActions>
           </Dialog>
-        );
+        )
       })}
     </>
-  );
+  )
 }
 
 export default observer(DetailsModal)

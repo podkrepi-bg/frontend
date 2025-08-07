@@ -21,37 +21,41 @@ function FilesDetail({
   files?: string[]
   type?: 'success' | 'failure' | 'successful-delete'
 }) {
-  return (Number(files?.length) > 0 && (<>
-    <Grid2
-      size={{
-        xs: 12,
-        md: 6
-      }}>
-      {label}
-    </Grid2>
-    <Grid2
-      size={{
-        xs: 12,
-        md: 6
-      }}>
-      {files?.map((f) => (
-        <Typography
-          key={f}
-          component="p"
-          color={
-            type === 'success'
-              ? green[300]
-              : type === 'failure'
-              ? red.A200
-              : type === 'successful-delete'
-              ? orange[100]
-              : undefined
-          }>
-          {f}
-        </Typography>
-      ))}
-    </Grid2>
-  </>));
+  return (
+    Number(files?.length) > 0 && (
+      <>
+        <Grid2
+          size={{
+            xs: 12,
+            md: 6,
+          }}>
+          {label}
+        </Grid2>
+        <Grid2
+          size={{
+            xs: 12,
+            md: 6,
+          }}>
+          {files?.map((f) => (
+            <Typography
+              key={f}
+              component="p"
+              color={
+                type === 'success'
+                  ? green[300]
+                  : type === 'failure'
+                  ? red.A200
+                  : type === 'successful-delete'
+                  ? orange[100]
+                  : undefined
+              }>
+              {f}
+            </Typography>
+          ))}
+        </Grid2>
+      </>
+    )
+  )
 }
 
 export function CamAppDetail({ label, value }: { label: string; value?: string | JSX.Element }) {
@@ -62,19 +66,19 @@ export function CamAppDetail({ label, value }: { label: string; value?: string |
       <Grid2
         size={{
           xs: 12,
-          md: 6
+          md: 6,
         }}>
         {label}
       </Grid2>
       <Grid2
         size={{
           xs: 12,
-          md: 6
+          md: 6,
         }}>
         {normalized}
       </Grid2>
     </>
-  );
+  )
 }
 
 export default function CampaignApplicationSummary({
@@ -153,5 +157,5 @@ export default function CampaignApplicationSummary({
         </Grid2>
       </Typography>
     </>
-  );
+  )
 }

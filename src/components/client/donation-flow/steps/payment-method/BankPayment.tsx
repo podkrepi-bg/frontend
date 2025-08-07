@@ -85,7 +85,7 @@ function BankPayment() {
         {t('step.payment-method.bank.alert.authenticate')}
       </Alert>
     </List>
-  );
+  )
 }
 
 export default BankPayment
