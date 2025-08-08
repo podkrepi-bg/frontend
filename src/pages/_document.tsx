@@ -6,7 +6,11 @@ import { Html, Head, Main, NextScript, DocumentProps } from 'next/document'
 import theme from 'common/theme'
 import FaviconMetadata from 'components/common/brand/FaviconMetadata'
 
-import { DocumentHeadTags, documentGetInitialProps } from '@mui/material-nextjs/v14-pagesRouter'
+import {
+  DocumentHeadTags,
+  createEmotionCache,
+  documentGetInitialProps,
+} from '@mui/material-nextjs/v15-pagesRouter'
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[]
@@ -32,4 +36,9 @@ export default function MyDocument(props: MyDocumentProps) {
   )
 }
 
-MyDocument.getInitialProps = documentGetInitialProps
+MyDocument.getInitialProps = async (ctx: any) => {
+  const finalProps = await documentGetInitialProps(ctx, {
+    emotionCache: createEmotionCache(),
+  })
+  return finalProps
+}

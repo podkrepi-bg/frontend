@@ -202,7 +202,14 @@ export const themeOptions: ThemeOptions = {
       fontFamily: montserrat.style.fontFamily,
     },
     h4: { fontFamily: montserrat.style.fontFamily },
-    h5: { fontFamily: montserrat.style.fontFamily },
+    h5: {
+      fontFamily: montserrat.style.fontFamily,
+      fontWeight: 500,
+      fontSize: '1rem', // 16px
+      lineHeight: 1.33, // 133%
+      letterSpacing: '0px',
+      verticalAlign: 'middle',
+    },
 
     body1: {
       fontSize: '0.875rem',

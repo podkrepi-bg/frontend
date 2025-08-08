@@ -2,7 +2,7 @@ import { Card, CardActions, CardContent, Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
-import theme from 'common/theme'
+import theme, { commissioner, montserrat } from 'common/theme'
 
 export const Root = styled(Card)(() => ({
   display: 'flex',
@@ -30,7 +30,7 @@ export const Root = styled(Card)(() => ({
   [theme.breakpoints.up(1430)]: {
     '&:nth-of-type(1)': {
       img: {
-        height: theme.spacing(71.6),
+        height: theme.spacing(70.6),
       },
     },
   },
@@ -39,13 +39,27 @@ export const Root = styled(Card)(() => ({
 export const StyledContent = styled(CardContent)(() => ({
   padding: 0,
 
+  '.cardcontent--state': {
+    paddingTop: theme.spacing(2),
+
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+    color: theme.palette.common.black,
+    fontFamily: montserrat.style.fontFamily,
+    fontSize: theme.typography.pxToRem(16),
+    fontWeight: 500,
+    paddingBottom: theme.spacing(1),
+  },
+
   '&:last-child': { paddingBottom: 0 },
 }))
 
 export const CampaignTitle = styled('h3')(() => ({
   fontSize: theme.typography.pxToRem(16),
   color: theme.palette.common.black,
-  fontFamily: 'Montserrat, sans-serif',
+  fontFamily: montserrat.style.fontFamily,
   fontWeight: 400,
   textAlign: 'left',
   margin: theme.spacing(1, 0, 0),
@@ -70,7 +84,9 @@ export const SumWrapper = styled(Grid)(() => ({
 export const Sum = styled('span')(() => ({
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
-  fontFamily: 'sans-serif',
+  lineHeight: '150%',
+  letterSpacing: '0.15px',
+  fontFamily: commissioner.style.fontFamily,
 }))
 
 export const SumNumber = styled('span')(() => ({
@@ -90,9 +106,9 @@ export const StyledCardActions = styled(CardActions)(() => ({
   padding: 0,
 }))
 
-export const DonateButton = styled(LinkButton)(() => ({
-  fontFamily: 'Montserrat, sans-serif',
-  width: theme.spacing(11.125),
+export const LearnMoreButton = styled(LinkButton)(() => ({
+  fontFamily: commissioner.style.fontFamily,
+  // width: theme.spacing(11.125),
   height: theme.spacing(4.5),
   padding: theme.spacing(0.75, 2),
   marginRight: theme.spacing(1),

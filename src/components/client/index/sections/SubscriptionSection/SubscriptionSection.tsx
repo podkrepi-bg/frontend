@@ -54,7 +54,10 @@ const SubscriptionSection = () => {
         <Subtitle sx={{ display: 'block', padding: theme.spacing(1.25) }}>
           {t('common:notifications.subscribe-general-monthly-newsletter')}
         </Subtitle>
-        <SubscribeButton onClick={() => setSubscribeOpen(true)} variant="contained">
+        <SubscribeButton
+          onClick={() => setSubscribeOpen(true)}
+          disableElevation
+          variant="contained">
           {t('common:notifications.subscribe-general-newsletter-button')}
         </SubscribeButton>
       </Grid>

@@ -49,8 +49,8 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
     ).toEqual(12)
   })
 
-  test('Support Now action button navigates to the Donation page for particular campaign', async () => {
+  test('Learn more button navigates to the page for particular campaign', async () => {
     await campaignsPage.clickCampaignCardButtonByIndex(0)
-    await donationPage.checkPageUrlByRegExp()
+    await campaignsPage.checkPageUrlByRegExp()
   })
 })
