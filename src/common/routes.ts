@@ -91,7 +91,7 @@ export const routes = {
   campaigns: {
     index: '/campaigns',
     create: '/campaigns/create',
-    application: 'campaigns/application',
+    application: '/campaigns/application',
     applicationEdit: (id: string) => `/campaigns/application/${id}`,
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
     viewExpenses: (slug: string) => `/campaigns/${slug}/expenses`,
