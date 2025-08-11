@@ -21,7 +21,6 @@ import {
   NavMenuWrapper,
   OpenMenuHeader,
 } from './MobileNav.styled'
-import { LearnMoreButton } from 'components/client/index/sections/ActiveCampaignsSection/ActiveCampaignCard/ActiveCampaignCard.styled'
 
 type NavDeckProps = {
   mobileOpen: boolean
@@ -71,13 +70,13 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
             <LocaleButton />
           </LocaleButtonWrapper>
           <Grid textAlign="center">
-            <LearnMoreButton
+            <DonateButton
               size="large"
               variant="outlined"
               href={routes.campaigns.index}
               endIcon={<FavoriteIcon color="primary" fontSize="medium" />}>
               {t('nav.donate')}
-            </LearnMoreButton>
+            </DonateButton>
           </Grid>
         </NavMenuWrapper>
       </SwipeableDrawer>
