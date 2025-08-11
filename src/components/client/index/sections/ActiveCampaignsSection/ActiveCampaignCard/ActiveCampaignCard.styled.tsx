@@ -57,7 +57,7 @@ export const StyledContent = styled(CardContent)(() => ({
 }))
 
 export const CampaignTitle = styled('h3')(() => ({
-  fontSize: theme.typography.pxToRem(16),
+  fontSize: theme.typography.pxToRem(15),
   color: theme.palette.common.black,
   fontFamily: montserrat.style.fontFamily,
   fontWeight: 400,
