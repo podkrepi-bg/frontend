@@ -1,7 +1,5 @@
-import getConfig from 'next/config'
-
-const { publicRuntimeConfig } = getConfig()
+import { API_URL } from 'service/apiClient'
 
 export function expenseFileUrl(fileId: string) {
-  return `${publicRuntimeConfig.API_URL}/expenses/download-file/${fileId}`
+  return `${API_URL}/expenses/download-file/${fileId}`
 }
