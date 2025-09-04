@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -75,7 +75,7 @@ jobs:
    name: Scan k8s manifests
    runs-on: ubuntu-latest
    steps:
-     - uses: actions/checkout@v4
+     - uses: actions/checkout@v5
        with:
          ref: ${{ github.event.pull_request.head.sha }}
 
