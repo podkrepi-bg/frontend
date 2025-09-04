@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: keycloak-config-web
 data:
-  url: https://keycloak-dev.podkrepi.bg
+  url: https://keycloak.podkrepi.bg
   realm: webapp-dev

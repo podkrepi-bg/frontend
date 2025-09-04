@@ -38,13 +38,13 @@ spec:
                 name: api-headless
                 port:
                   number: 80
-          - path: /socket.io
-            pathType: Prefix
-            backend:
-              service:
-                name: api-headless
-                port:
-                  number: 80
+          # - path: /socket.io
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: api-headless
+          #       port:
+          #         number: 80
   tls:
     - hosts:
         - podkrepi.bg

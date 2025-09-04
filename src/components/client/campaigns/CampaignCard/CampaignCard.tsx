@@ -1,7 +1,7 @@
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Box } from '@mui/material'
+import { Box, CardActions, Grid2, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
@@ -10,12 +10,12 @@ import theme from 'common/theme'
 import Link from 'components/common/Link'
 import CampaignProgress from 'components/client/campaigns/CampaignProgress'
 import SuccessfullCampaignTag from '../SuccessfullCampaignTag'
-import { CampaignState } from '../helpers/campaign.enums'
+import { CampaignState, canAcceptDonationState } from '../helpers/campaign.enums'
 
 import { Root } from './CampaignCard.styled'
 import {
   CampaignTitle,
-  DonateButton,
+  LearnMoreButton,
   StyledCardActions,
   StyledContent,
   Sum,
@@ -23,6 +23,13 @@ import {
   SumWrapper,
 } from '../../index/sections/ActiveCampaignsSection/ActiveCampaignCard/ActiveCampaignCard.styled'
 import Image from 'next/image'
+
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined'
+import TaskAltIcon from '@mui/icons-material/TaskAlt'
+import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline'
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
+import BackHandOutlinedIcon from '@mui/icons-material/BackHandOutlined'
+import TonalityOutlinedIcon from '@mui/icons-material/TonalityOutlined'
 
 type Props = { campaign: CampaignResponse; index: number }
 
@@ -44,6 +51,15 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const reachedAmount = moneyPublic(reached)
   const targetAmount = moneyPublic(campaign.targetAmount)
   const percentage = (reached / target) * 100
+
+  const stateIconMap = {
+    [CampaignState.active]: <ArrowCircleRightOutlinedIcon />,
+    [CampaignState.partially_financed]: <TonalityOutlinedIcon />,
+    [CampaignState.paused]: <PauseCircleOutlineIcon />,
+    [CampaignState.complete]: <TaskAltIcon />,
+    [CampaignState.suspended]: <BackHandOutlinedIcon />,
+    [CampaignState.blocked]: <CancelOutlinedIcon />,
+  }
 
   return (
     <Root data-testid={`campaign-card-${index}`}>
@@ -71,6 +87,26 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           ''
         )}
         <StyledContent>
+          <Grid2 className="cardcontent--state">
+            <Typography
+              variant="h5"
+              component={'p'}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                fontSize: theme.typography.pxToRem(16),
+              }}>
+              {t('status')}:{' '}
+              <Box
+                component="span"
+                sx={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                {t(`campaign-status.${campaignState}`)}
+                {stateIconMap[campaignState as keyof typeof stateIconMap]}
+              </Box>
+            </Typography>
+          </Grid2>
+          <CampaignProgress state={campaignState} raised={reached} target={target} />
           <SumWrapper>
             <Sum>
               <SumNumber>
@@ -87,20 +123,24 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
               </SumNumber>
             </Sum>
           </SumWrapper>
-          <CampaignProgress campaignId={id} raised={reached} target={target} />
           <CampaignTitle>{title}</CampaignTitle>
         </StyledContent>
       </Link>
-      <StyledCardActions disableSpacing>
-        {(campaignState === CampaignState.complete && !allowDonationOnComplete) || (
-          <DonateButton
-            href={routes.campaigns.oneTimeDonation(slug)}
-            variant="contained"
-            color="secondary">
-            {t('cta.support')}
-          </DonateButton>
-        )}
-      </StyledCardActions>
+      <CardActions
+        disableSpacing
+        sx={{
+          position: 'absolute',
+          bottom: theme.spacing(20.37),
+          right: theme.spacing(0.75),
+          padding: 0,
+        }}>
+        <LearnMoreButton
+          href={routes.campaigns.viewCampaignBySlug(slug)}
+          variant="contained"
+          color="secondary">
+          {t('cta.learn-more')}
+        </LearnMoreButton>
+      </CardActions>
     </Root>
   )
 }

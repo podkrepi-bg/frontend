@@ -23,6 +23,8 @@ import { FilterData } from 'gql/types'
 import { PaymentMode } from 'components/client/donation-flow/helpers/types'
 import { Session } from 'next-auth'
 import { SetupIntent } from '@stripe/stripe-js'
+import { AlertStore } from 'stores/AlertStore'
+import { useTranslation } from 'next-i18next'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
@@ -172,12 +174,38 @@ export const useUploadBankTransactionsFiles = () => {
   }
 }
 
-export const useExportToExcel = (filterData?: FilterData, searchData?: string) => {
+export const useExportToExcel = (
+  filterData?: FilterData,
+  searchData?: string,
+  campaignId?: string,
+  paymentId?: string,
+) => {
   const { data: session } = useSession()
   return async () => {
-    return await apiClient(endpoints.donation.exportToExcel(filterData, searchData).url, {
-      ...authConfig(session?.accessToken),
-      responseType: 'blob',
-    })
+    return await apiClient(
+      endpoints.donation.exportToExcel(filterData, searchData, campaignId, paymentId).url,
+      {
+        ...authConfig(session?.accessToken),
+        responseType: 'blob',
+      },
+    )
   }
+}
+
+export const useCancelRecurringDonation = () => {
+  const { data: session } = useSession()
+  const { t } = useTranslation()
+  return useMutation({
+    mutationFn: async (id: string) => {
+      return await apiClient.patch(
+        endpoints.recurringDonation.cancelRecurringDonation(id).url,
+        {},
+        authConfig(session?.accessToken),
+      )
+    },
+    onError: (err) => AlertStore.show(t('common:alerts.error') + err, 'error'),
+    onSuccess: () => {
+      AlertStore.show(t('recurring-donation:alerts.cancel'), 'success')
+    },
+  })
 }

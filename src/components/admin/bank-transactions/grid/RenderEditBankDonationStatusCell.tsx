@@ -17,6 +17,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useEditTransactionPaymentRef } from 'service/bankTransaction'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiError } from 'next/dist/server/api-utils'
+import { StyledDialogContent } from 'components/admin/styles/Admin.styled'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -97,13 +98,7 @@ export default function RenderBankDonationStatusCell({ params }: RenderCellProps
 
     return (
       <Dialog open onClose={handleClose} sx={{ scroll: 'none' }} fullWidth={true} maxWidth={'sm'}>
-        <DialogContent
-          style={{
-            overflow: 'hidden',
-            padding: '4rem',
-            paddingTop: '1rem',
-            width: '100%',
-          }}>
+        <StyledDialogContent>
           <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
             <CloseModalButton href={''} onClose={handleClose} />
           </Grid>
@@ -133,7 +128,7 @@ export default function RenderBankDonationStatusCell({ params }: RenderCellProps
               </Grid>
             </GenericForm>
           </Grid>
-        </DialogContent>
+        </StyledDialogContent>
       </Dialog>
     )
   }

@@ -59,7 +59,7 @@ export const authOptions: NextAuthOptions = {
           return data
         } catch (error) {
           if (error instanceof Error) {
-            console.error(error)
+            console.error(error?.message)
           }
         }
         return null

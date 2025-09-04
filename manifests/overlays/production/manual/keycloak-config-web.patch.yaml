@@ -4,4 +4,4 @@ metadata:
   name: keycloak-config-web
 data:
   realm: webapp
-  url: https://keycloak-dev.podkrepi.bg
+  url: https://keycloak.podkrepi.bg

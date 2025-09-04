@@ -6,7 +6,7 @@ import LinkButton from 'components/common/LinkButton'
 
 export const Root = styled('section')(() => ({
   backgroundColor: theme.palette.secondary.light,
-  marginTop: theme.spacing(14),
+  marginTop: theme.spacing(10),
 
   [theme.breakpoints.up('md')]: {
     padding: theme.spacing(0),

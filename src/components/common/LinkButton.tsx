@@ -1,6 +1,7 @@
 import { Button, ButtonProps } from '@mui/material'
-import Link, { LinkProps } from 'next/link'
+import NextLink, { LinkProps } from 'next/link'
 import { forwardRef, Ref } from 'react'
+import Link from '@mui/material/Link'
 
 export type LinkRef = HTMLButtonElement
 export type NextLinkProps = ButtonProps &
@@ -9,18 +10,22 @@ export type NextLinkProps = ButtonProps &
 const LinkButton = (
   { href, as, prefetch, legacyBehavior, locale, disabled, ...props }: NextLinkProps,
   ref: Ref<LinkRef>,
-) => (
-  <Link
-    href={href}
-    as={as}
-    prefetch={prefetch}
-    locale={locale}
-    passHref
-    tabIndex={disabled ? -1 : 0}
-    legacyBehavior={legacyBehavior}
-    style={{ pointerEvents: disabled ? 'none' : 'all' }}>
-    <Button tabIndex={-1} ref={ref} disabled={disabled} {...props} />
-  </Link>
-)
+) => {
+  return (
+    <Button
+      component={NextLink}
+      href={href}
+      as={as}
+      prefetch={prefetch}
+      locale={locale}
+      tabIndex={-1}
+      ref={ref}
+      disableElevation={false}
+      disabled={disabled}
+      {...props}>
+      {props.children}
+    </Button>
+  )
+}
 
 export default forwardRef(LinkButton)

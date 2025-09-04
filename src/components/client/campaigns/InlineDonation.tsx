@@ -378,7 +378,7 @@ export default function InlineDonation({ campaign }: Props) {
         </Grid>
       </Grid>
       <Grid pt={1}>
-        <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
+        <CampaignProgress state={campaignState} raised={reached} target={target} />
       </Grid>
       <Grid container gap={2} className={classes.buttonContainer}>
         <Menu
@@ -416,7 +416,10 @@ export default function InlineDonation({ campaign }: Props) {
           <LinkButton
             fullWidth
             href={routes.campaigns.oneTimeDonation(campaignSlug)}
-            disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
+            disabled={
+              campaignState !== CampaignState.active &&
+              !(campaignState === CampaignState.complete && allowDonationOnComplete)
+            }
             variant="contained"
             endIcon={<Favorite />}
             className={classes.donateButton}>

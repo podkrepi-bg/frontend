@@ -13,7 +13,7 @@ import Image from 'next/image'
 
 import {
   CampaignTitle,
-  DonateButton,
+  LearnMoreButton,
   Root,
   StyledCardActions,
   StyledContent,
@@ -43,7 +43,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
             width: '100%',
             aspectRatio: 1.5,
             [theme.breakpoints.up('lg')]: {
-              maxHeight: index === 0 ? theme.spacing(71.2) : theme.spacing(27.65),
+              maxHeight: index === 0 ? theme.spacing(71.72) : theme.spacing(27.65),
               aspectRatio: index === 0 ? 0.9 : 1,
             },
           }}>
@@ -74,17 +74,17 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
               </SumNumber>
             </Sum>
           </SumWrapper>
-          <CampaignProgress campaignId={id} raised={reached} target={target} />
+          <CampaignProgress state={campaign.state} raised={reached} target={target} />
           <CampaignTitle>{title}</CampaignTitle>
         </StyledContent>
       </Link>
       <StyledCardActions disableSpacing>
-        <DonateButton
-          href={routes.campaigns.oneTimeDonation(slug)}
+        <LearnMoreButton
+          href={routes.campaigns.viewCampaignBySlug(slug)}
           variant="contained"
           color="secondary">
-          {t('cta.support')}
-        </DonateButton>
+          {t('cta.learn-more')}
+        </LearnMoreButton>
       </StyledCardActions>
     </Root>
   )

@@ -29,7 +29,7 @@ export default observer(function DetailsDialog({ modalStore, data }: Prop) {
 
   return (
     <Dialog open={isDetailsOpen} onClose={hideDetails} sx={containerStyles}>
-      <Card style={{ paddingTop: '35px' }}>
+      <Card sx={{ pt: '35px' }}>
         <CloseModalButton onClose={hideDetails} />
         <CardContent>
           {data.map((field) => (

@@ -77,6 +77,7 @@
     "see-all": "Вижте всички",
     "see-less": "Вижте по-малко",
     "see-more": "Вижте повече",
+    "learn-more": "Научете повече",
     "donor": "Дарител",
     "add": "Добави",
     "confirm": "Потвърди",
@@ -182,18 +183,18 @@
     "corporate-donor": "Корпоративен дарител"
   },
   "campaign-status": {
-    "initial": "В начален етап",
     "draft": "Чернова",
-    "pending-validation": "Чакаща валидация",
-    "approved": "Одобрена",
-    "rejected": "Отхвърлена",
     "active": "Активна",
-    "active-pending-validation": "Активна чака валидиране",
-    "suspended": "Спряна",
-    "complete": "Завършена",
-    "disabled": "Деактивирана",
-    "error": "Грешна",
+    "paused": "На пауза",
+    "suspended": "Спряна от организатор",
+    "partially_financed": "Частично финансирана",
+    "blocked": "Спряна",
+    "complete": "Успешнa",
     "deleted": "Изтрита"
+  },
+  "campaign-progress": {
+    "aria-label": "Прогрес на кампанията: {{state}} - събрани {{raised}} от цел {{target}}",
+    "aria-valuetext": "{{percentage}}% завършено - събрани {{raised}} от цел {{target}}"
   },
   "campaignTypesFields": {
     "medical": "Лечение и рехабилитация",
@@ -211,8 +212,12 @@
   "campaign-details-report": {
     "amount-collected": "Събрана сума",
     "available": "Налични",
+    "available-tooltip": "Средства налични по сметката на Podkrepi.bg",
     "guaranteed": "Гарантирани",
+    "guaranteed-tooltip": "Дарения от служители или клиенти на компании, които имат вътрешни дарителски инициативи с партньорска интеграция към Подкрепи.бг. При такова дарение сумите се отразяват веднага в платформата като \" гарантирани\" от компанията и се превеждат веднъж в месеца като консолидирана сума към Подкрепи.бг с цел по-лесно управление.",
     "transferred": "Преведени",
-    "accounted": "Отчетени"
+    "transferred-tooltip": "Средства преведени от сметката на Podkrepi.bg към организатора на кампанията",
+    "accounted": "Отчетени",
+    "accounted-tooltip": "Отчетени разходи"
   }
 }
