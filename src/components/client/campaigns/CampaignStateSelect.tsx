@@ -23,7 +23,7 @@ export default function CampaignStateSelect({ name = 'state' }) {
         </MenuItem>
         {Object.values(CampaignState).map((value, index) => (
           <MenuItem key={index} value={value}>
-            {value}
+            {t(`campaigns:campaign-status.${value}`)}
           </MenuItem>
         ))}
       </Select>

@@ -79,7 +79,7 @@ export default function CampaignProgress({
   const { t } = useTranslation('campaigns')
   const raisedSafe = Math.max(0, raised)
   const targetSafe = Math.max(0, target)
-  const percentage = Math.ceil((raisedSafe / targetSafe) * 100)
+  const percentage = Math.floor((raisedSafe / targetSafe) * 100)
   const progressBarWidth = Math.min(percentage, 100)
 
   const progressBarColorMap = {
