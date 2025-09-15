@@ -100,7 +100,7 @@ Watch releases of this repository to be notified about future updates:
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-88-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-89-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -230,6 +230,7 @@ Thanks goes to these wonderful people:
       <td align="center" valign="top" width="10%"><a href="https://github.com/katina-anachkova"><img src="https://avatars.githubusercontent.com/u/82702355?v=4?s=100" width="100px;" alt="Katina Anachkova"/><br /><sub><b>Katina Anachkova</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=katina-anachkova" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/dpalikova"><img src="https://avatars.githubusercontent.com/u/65405865?v=4?s=100" width="100px;" alt="dpalikova"/><br /><sub><b>dpalikova</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=dpalikova" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="https://sq-ui.github.io/ng-sq-ui/"><img src="https://avatars.githubusercontent.com/u/797921?v=4?s=100" width="100px;" alt="Samuil Gospodinov"/><br /><sub><b>Samuil Gospodinov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=samuil4" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/Ivan-Shaml"><img src="https://avatars.githubusercontent.com/u/72102779?v=4?s=100" width="100px;" alt="Ivan-Shaml"/><br /><sub><b>Ivan-Shaml</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=Ivan-Shaml" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
