@@ -78,6 +78,7 @@ export default function CompletedCampaignsSection() {
                 state={campaign.state}
                 raised={campaign.summary.reachedAmount}
                 target={campaign.targetAmount}
+                showPercentage
               />
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </Link>
