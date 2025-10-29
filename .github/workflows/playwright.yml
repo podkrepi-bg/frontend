@@ -22,17 +22,11 @@ jobs:
           ref: master
           path: './api'
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
       - name: Set yarn version
-        working-directory: ./frontend
         run: yarn set version berry
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        working-directory: ./frontend
         run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v4
@@ -54,6 +48,11 @@ jobs:
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
         run: docker compose up -d stripe-webhook
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '18'
+          package-manager-cache: false
 
       - name: Install backend dependencies
         working-directory: ./api
