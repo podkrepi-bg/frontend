@@ -52,8 +52,6 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '18'
-          cache: yarn
-          cache-dependency-path: '**/yarn.lock'
 
       - name: Install backend dependencies
         working-directory: ./api
