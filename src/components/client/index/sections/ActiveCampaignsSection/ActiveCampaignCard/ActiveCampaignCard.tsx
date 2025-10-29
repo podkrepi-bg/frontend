@@ -74,7 +74,12 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
               </SumNumber>
             </Sum>
           </SumWrapper>
-          <CampaignProgress state={campaign.state} raised={reached} target={target} showPercentage />
+          <CampaignProgress
+            state={campaign.state}
+            raised={reached}
+            target={target}
+            showPercentage
+          />
           <CampaignTitle>{title}</CampaignTitle>
         </StyledContent>
       </Link>
