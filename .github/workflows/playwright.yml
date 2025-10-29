@@ -53,7 +53,7 @@ jobs:
         with:
           node-version: '18'
           cache: yarn
-          cache-dependency-path: frontend/yarn.lock
+          cache-dependency-path: yarn.lock
 
       - name: Install backend dependencies
         working-directory: ./api
