@@ -378,7 +378,7 @@ export default function InlineDonation({ campaign }: Props) {
         </Grid>
       </Grid>
       <Grid pt={1}>
-        <CampaignProgress state={campaignState} raised={reached} target={target} />
+        <CampaignProgress state={campaignState} raised={reached} target={target} showPercentage/>
       </Grid>
       <Grid container gap={2} className={classes.buttonContainer}>
         <Menu
