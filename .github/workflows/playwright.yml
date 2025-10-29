@@ -22,6 +22,10 @@ jobs:
           ref: master
           path: './api'
 
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '18'
+
       - name: Set yarn version
         run: yarn set version berry
 
@@ -48,11 +52,6 @@ jobs:
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
         run: docker compose up -d stripe-webhook
-
-      - uses: actions/setup-node@v5
-        with:
-          node-version: '18'
-          package-manager-cache: false
 
       - name: Install backend dependencies
         working-directory: ./api
