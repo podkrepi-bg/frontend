@@ -106,7 +106,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
               </Box>
             </Typography>
           </Grid2>
-          <CampaignProgress state={campaignState} raised={reached} target={target} />
+          <CampaignProgress state={campaignState} raised={reached} target={target} showPercentage />
           <SumWrapper>
             <Sum>
               <SumNumber>
