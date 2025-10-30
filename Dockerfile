@@ -15,6 +15,13 @@ FROM base AS deps
 COPY .yarn .yarn
 RUN yarn workspaces focus --all --production
 
+# Create a production-only dependencies stage
+FROM base AS deps-prod
+COPY .yarn .yarn
+RUN yarn workspaces focus --all --production && \
+    yarn cache clean && \
+    rm -rf .yarn/cache
+
 # Build target builder #
 ########################
 FROM base AS builder
@@ -34,35 +41,61 @@ RUN apk add --no-cache jq && \
   rm package.json.bak && \
   apk del jq
 
-# Add dev deps
-COPY --from=deps /app/node_modules ./node_modules
+# Add ALL deps for building (including dev dependencies)
+COPY .yarn .yarn
+RUN yarn install --immutable
+
 COPY . .
 
 RUN yarn build && \
   yarn sitemap
 
+# Clean up build cache and unnecessary files
+RUN rm -rf .yarn/cache && \
+    rm -rf node_modules/.cache && \
+    find ./node_modules -name "*.md" -delete && \
+    find ./node_modules -name "*.txt" -delete && \
+    find ./node_modules -name "test" -type d -exec rm -rf {} + || true && \
+    find ./node_modules -name "tests" -type d -exec rm -rf {} + || true && \
+    find ./node_modules -name "__tests__" -type d -exec rm -rf {} + || true
+
 # Build target production #
 ###########################
-FROM base AS runner
+FROM node:20-alpine AS runner
 
-RUN apk --no-cache add curl
+# Install only essential packages
+RUN apk --no-cache add curl && \
+    apk --no-cache add dumb-init
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Create user for security
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
 
-COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+# Set working directory
+WORKDIR /app
+
+# Copy only production dependencies from deps-prod stage
+COPY --from=deps-prod --chown=nextjs:nodejs /app/node_modules ./node_modules
+
+# Copy built application from builder
 COPY --from=builder --chown=nextjs:nodejs /app/next-i18next.config.js ./
 COPY --from=builder --chown=nextjs:nodejs /app/next.config.js ./
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+
+# Only copy the production build, not the entire .next folder
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-ENV PORT 3040
+ENV PORT=3040
+ENV NODE_ENV=production
 
 EXPOSE 3040
 
-CMD [ "npm", "run", "start" ]
+# Use dumb-init for proper signal handling
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["node", "server.js"]
 
-HEALTHCHECK --interval=5s --timeout=3s --retries=3 CMD curl --fail http://localhost:3040 || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 CMD curl --fail http://localhost:3040 || exit 1
