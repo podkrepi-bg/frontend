@@ -44,7 +44,7 @@ export function useCurrentPerson() {
     authQueryFnFactory<CurrentPerson>(session?.accessToken),
     {
       retry: (count, err) => {
-        if (err.isAxiosError && err.response?.status === 401) {
+        if (err.isAxiosError && err.response?.status === 401 && count > 3) {
           return false
         }
         return true
