@@ -115,7 +115,7 @@ jobs:
         working-directory: ./frontend
         run: yarn run test:e2e
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: always()
         with:
           name: playwright-report
@@ -123,7 +123,7 @@ jobs:
           retention-days: 14
           overwrite: true
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: always()
         with:
           name: playwright-report
@@ -131,7 +131,7 @@ jobs:
           retention-days: 14
           overwrite: true
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: failure()
         with:
           name: logs
