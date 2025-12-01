@@ -18,7 +18,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Login to GitHub Packages Docker Registry
         uses: docker/login-action@v3
@@ -48,7 +48,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Login to GitHub Packages Docker Registry
         uses: docker/login-action@v3
@@ -93,7 +93,7 @@ jobs:
    name: Scan k8s manifests
    runs-on: ubuntu-latest
    steps:
-     - uses: actions/checkout@v5
+     - uses: actions/checkout@v6
 
      - name: Install kustomize
        uses: imranismail/setup-kustomize@v2
@@ -131,7 +131,7 @@ jobs:
       name: dev
       url: https://dev.podkrepi.bg
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install kubectl
         uses: azure/setup-kubectl@v4
@@ -188,7 +188,7 @@ jobs:
       name: prod
       url: https://podkrepi.bg
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install kubectl
         uses: azure/setup-kubectl@v4
