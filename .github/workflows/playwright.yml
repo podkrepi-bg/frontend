@@ -10,13 +10,13 @@ jobs:
     name: Run Playwright
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           path: './frontend'
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: podkrepi-bg/api
           ref: master
