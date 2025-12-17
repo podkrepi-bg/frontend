@@ -29,6 +29,7 @@ const moduleExports = {
     APP_VERSION: version,
     SENTRY_DSN: process.env.SENTRY_DSN,
     DEPLOY_TAG: process.env.DEPLOY_TAG,
+    NEXT_PUBLIC_API_URL: process.env.API_URL,
   },
   publicRuntimeConfig: {
     APP_ENV: process.env.APP_ENV,
@@ -54,7 +55,7 @@ const moduleExports = {
     return [
       {
         source: '/api/v1/:slug*',
-        destination: `${process.env.API_URL ?? 'http://localhost:5010/api/v1'}/:slug*`, // Proxy to API
+        destination: `${process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5010/api/v1'}/:slug*`, // Proxy to API
       },
       {
         source: '/robots.txt',

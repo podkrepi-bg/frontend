@@ -1,11 +1,10 @@
 import getConfig from 'next/config'
 import { CampaignFile, CampaignResponse } from 'gql/campaigns'
 import { CampaignFileRole, ImageSlider } from 'components/common/campaign-file/roles'
-
-const { publicRuntimeConfig } = getConfig()
+import { API_URL } from 'service/apiClient'
 
 export function fileUrl(file: CampaignFile) {
-  return `${publicRuntimeConfig.API_URL}/campaign-file/${file.id}`
+  return `${API_URL}/campaign-file/${file.id}`
 }
 
 /**
@@ -29,7 +28,7 @@ export function campaignSliderUrls(campaign: CampaignResponse): ImageSlider[] {
   return files.map((file) => {
     return {
       id: file.id,
-      src: `${publicRuntimeConfig.API_URL}/campaign-file/${file.id}`,
+      src: `${API_URL}/campaign-file/${file.id}`,
       fileName: file.filename.replace(fileExtensionRemoverRegex, ''),
     }
   })
