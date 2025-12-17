@@ -134,7 +134,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
         organizerId: values.organizerId,
-        currency: Currency.BGN,
+        currency: Currency.EUR,
         state: CampaignState.draft,
       })
       await fileUploadMutation.mutateAsync({

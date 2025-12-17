@@ -98,7 +98,7 @@ const defaults: CampaignAdminCreateFormData = {
   description: '',
   terms: false,
   gdpr: false,
-  currency: Currency.BGN,
+  currency: Currency.EUR,
 }
 
 export type CampaignFormProps = { initialValues?: CampaignAdminCreateFormData }
