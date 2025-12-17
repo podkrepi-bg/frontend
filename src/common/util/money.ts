@@ -8,7 +8,7 @@ import { i18n } from 'next-i18next'
  * @param divisionFactor number @default 100
  * @returns string
  */
-export const money = (number: number, currency = 'BGN', divisionFactor = 100) => {
+export const money = (number: number, currency = 'EUR', divisionFactor = 100) => {
   return new Intl.NumberFormat(i18n?.language || 'bg-BG', { style: 'currency', currency }).format(
     number / divisionFactor,
   )
@@ -16,7 +16,7 @@ export const money = (number: number, currency = 'BGN', divisionFactor = 100) =>
 
 export const moneyPublic = (
   number: number,
-  currency = 'BGN',
+  currency = 'EUR',
   divisionFactor = 100,
   maximumFractionDigits = 2,
   minimumFractionDigits = 2,
@@ -29,12 +29,15 @@ export const moneyPublic = (
     }).format(number / divisionFactor)
 
     if (currency === 'EUR') {
-      return `${amount} €`
+      return `${amount} EUR`
     }
     if (currency === 'USD') {
       return `${amount} $`
     }
-    return `${amount} лв.`
+    if (currency === 'BGN') {
+      return `${amount} лв.`
+    }
+    return `${amount} ${currency}`
   }
   return new Intl.NumberFormat(i18n?.language, {
     style: 'currency',
@@ -44,7 +47,7 @@ export const moneyPublic = (
   }).format(number / divisionFactor)
 }
 
-export const moneyPublicDecimals2 = (number: number, currency = 'BGN', divisionFactor = 100) => {
+export const moneyPublicDecimals2 = (number: number, currency = 'EUR', divisionFactor = 100) => {
   return moneyPublic(number, currency, divisionFactor, 2, 2)
 }
 
