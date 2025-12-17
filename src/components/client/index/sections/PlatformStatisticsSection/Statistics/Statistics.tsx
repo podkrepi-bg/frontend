@@ -61,7 +61,7 @@ export default function Statistics() {
           </SubtitleSectionNumber>
           <Fraction>{fraction}</Fraction>
         </Stack>
-        <SubtitleSectionText>{t('platform-statistics.donated-leva')}</SubtitleSectionText>
+        <SubtitleSectionText>{t('platform-statistics.donated-euros')}</SubtitleSectionText>
       </StatisticsWrapper>
       <Divider />
     </StatisticsSectionWrapper>

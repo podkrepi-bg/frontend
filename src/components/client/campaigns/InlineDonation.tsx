@@ -267,6 +267,24 @@ export default function InlineDonation({ campaign }: Props) {
   const reached = summary ? summary.reachedAmount + (summary.guaranteedAmount ?? 0) : 0
   const reachedAmount = moneyPublic(reached)
   const targetAmount = moneyPublic(campaign.targetAmount)
+
+  // Split amounts into integer and decimal parts for styled display
+  const getAmountParts = (formattedAmount: string) => {
+    // For Bulgarian: "1234,56 евро" → ["1234", "56", "евро"]
+    // For English: "1,234.56 EUR" → ["1,234", "56", "EUR"]
+    const parts = formattedAmount.split(' ')
+    const currency = parts[parts.length - 1] // Last part is currency
+    const amountWithDecimals = parts.slice(0, -1).join(' ') // Everything before currency
+
+    const decimalSeparator = i18n?.language === 'bg' ? ',' : '.'
+    const [integerPart, decimalPart] = amountWithDecimals.split(decimalSeparator)
+
+    return { integerPart, decimalPart: decimalPart || '00', currency }
+  }
+
+  const reachedParts = getAmountParts(reachedAmount)
+  const targetParts = getAmountParts(targetAmount)
+
   const donors = summary?.donors ?? 0
   const {
     data: { items: donations, total: all_rows } = { items: [] },
@@ -356,25 +374,21 @@ export default function InlineDonation({ campaign }: Props) {
       <Grid className={classes.reachedAndTargetMoneyWrapper}>
         <Grid>
           <Typography component="span" className={classes.moneyUnit}>
-            {i18n?.language === 'bg' ? reachedAmount.split(',')[0] : reachedAmount.split('.')[0]}
+            {reachedParts.integerPart}
           </Typography>
           <Typography component="span" className={classes.moneyFraction}>
-            {i18n?.language === 'bg'
-              ? reachedAmount.split(',')[1].substring(0, 2)
-              : reachedAmount.split('.')[1]}
+            {reachedParts.decimalPart}
           </Typography>
-          {i18n?.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
+          {i18n?.language === 'bg' ? <span> {t('donations.eur')}</span> : ''}
         </Grid>
         <Grid>
           <Typography component="span" className={classes.moneyUnit}>
-            {i18n?.language === 'bg' ? targetAmount.split(',')[0] : targetAmount.split('.')[0]}
+            {targetParts.integerPart}
           </Typography>
           <Typography component="span" className={classes.moneyFraction}>
-            {i18n?.language === 'bg'
-              ? targetAmount.split(',')[1].substring(0, 2)
-              : targetAmount.split('.')[1]}
+            {targetParts.decimalPart}
           </Typography>
-          {i18n?.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
+          {i18n?.language === 'bg' ? <span> {t('donations.eur')}</span> : ''}
         </Grid>
       </Grid>
       <Grid pt={1}>

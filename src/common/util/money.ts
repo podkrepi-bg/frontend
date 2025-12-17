@@ -9,7 +9,29 @@ import { i18n } from 'next-i18next'
  * @returns string
  */
 export const money = (number: number, currency = 'EUR', divisionFactor = 100) => {
-  return new Intl.NumberFormat(i18n?.language || 'bg-BG', { style: 'currency', currency }).format(
+  const locale = i18n?.language || 'bg-BG'
+
+  // For Bulgarian locale, use custom formatting for EUR to show "евро"
+  if ((locale === 'bg' || locale === 'bg-BG') && currency === 'EUR') {
+    const amount = new Intl.NumberFormat('bg-BG', {
+      style: 'decimal',
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }).format(number / divisionFactor)
+    return `${amount} евро`
+  }
+
+  // For English locale, use custom formatting for EUR to show "EUR"
+  if (currency === 'EUR') {
+    const amount = new Intl.NumberFormat(locale, {
+      style: 'decimal',
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }).format(number / divisionFactor)
+    return `${amount} EUR`
+  }
+
+  return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(
     number / divisionFactor,
   )
 }
@@ -29,7 +51,7 @@ export const moneyPublic = (
     }).format(number / divisionFactor)
 
     if (currency === 'EUR') {
-      return `${amount} EUR`
+      return `${amount} евро`
     }
     if (currency === 'USD') {
       return `${amount} $`
@@ -39,6 +61,17 @@ export const moneyPublic = (
     }
     return `${amount} ${currency}`
   }
+
+  // For English locale, use custom formatting for EUR to show "EUR" instead of "€"
+  if (currency === 'EUR') {
+    const amount = new Intl.NumberFormat(i18n?.language, {
+      style: 'decimal',
+      maximumFractionDigits,
+      minimumFractionDigits,
+    }).format(number / divisionFactor)
+    return `${amount} EUR`
+  }
+
   return new Intl.NumberFormat(i18n?.language, {
     style: 'currency',
     currency,
