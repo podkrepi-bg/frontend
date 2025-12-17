@@ -68,7 +68,6 @@ export const CampaignTitle = styled('h3')(() => ({
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
   WebkitLineClamp: '2',
-  whiteSpace: 'pre-wrap',
 }))
 
 export const SumWrapper = styled(Grid)(() => ({
