@@ -19,3 +19,7 @@ jest.mock('next-i18next', () => ({
     }
   },
 }))
+
+jest.mock('next/config', () => () => ({
+  publicRuntimeConfig: { API_URL: 'http://localhost/api', APP_URL: 'http://localhost' },
+}))
