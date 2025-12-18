@@ -32,3 +32,5 @@ jobs:
         run: |
           cp .env.local.example .env.local
           yarn build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:5010/api/v1

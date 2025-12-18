@@ -31,6 +31,7 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           GHOST_API_URL: https://blog-do.podkrepi.bg
           GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
+          NEXT_PUBLIC_API_URL: https://dev.podkrepi.bg/api/v1
         with:
           context: .
           push: false
@@ -39,6 +40,7 @@ jobs:
             SENTRY_AUTH_TOKEN=${{ env.SENTRY_AUTH_TOKEN }}
             GHOST_API_URL=${{ env.GHOST_API_URL }}
             GHOST_CONTENT_KEY=${{ env.GHOST_CONTENT_KEY }}
+            NEXT_PUBLIC_API_URL=${{ env.NEXT_PUBLIC_API_URL }}
           tags: ghcr.io/podkrepi-bg/frontend:pr
 
       - name: Scan with Mondoo
