@@ -84,7 +84,7 @@ spec:
                 secretKeyRef:
                   name: secrets-web
                   key: google-secret
-            - name: API_URL
+            - name: NEXT_PUBLIC_API_URL
               valueFrom:
                 configMapKeyRef:
                   name: config-web
