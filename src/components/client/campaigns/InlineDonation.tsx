@@ -379,7 +379,7 @@ export default function InlineDonation({ campaign }: Props) {
           <Typography component="span" className={classes.moneyFraction}>
             {reachedParts.decimalPart}
           </Typography>
-          {i18n?.language === 'bg' ? <span> {t('donations.eur')}</span> : ''}
+          <Typography component="span"> {t('donations.eur')}</Typography>
         </Grid>
         <Grid>
           <Typography component="span" className={classes.moneyUnit}>
@@ -388,7 +388,7 @@ export default function InlineDonation({ campaign }: Props) {
           <Typography component="span" className={classes.moneyFraction}>
             {targetParts.decimalPart}
           </Typography>
-          {i18n?.language === 'bg' ? <span> {t('donations.eur')}</span> : ''}
+          <Typography component="span"> {t('donations.eur')}</Typography>
         </Grid>
       </Grid>
       <Grid pt={1}>
