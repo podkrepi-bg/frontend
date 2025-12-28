@@ -56,7 +56,7 @@ function PersonInfo({ person }: Props) {
         </Typography>
         <Box className={classes.infoWrapper}>
           <Typography>
-            {t('person:info.createdAt')}: {formatDateString(person.createdAt, i18n?.language)}
+            {t('person:info.createdAt')}: {formatDateString(person.createdAt)}
           </Typography>
           <Typography>
             {t('person:info.company')}: {person.company.companyName}
