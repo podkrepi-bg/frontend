@@ -4,6 +4,9 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
 
+// Set environment variable for API_URL used in apiClient
+process.env.NEXT_PUBLIC_API_URL = 'http://localhost/api'
+
 jest.mock('next-i18next', () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
   useTranslation: () => {
@@ -17,4 +20,6 @@ jest.mock('next-i18next', () => ({
   },
 }))
 
-jest.mock('next/config', () => () => ({ publicRuntimeConfig: { API_URL: 'http://localhost/api' } }))
+jest.mock('next/config', () => () => ({
+  publicRuntimeConfig: { NEXT_PUBLIC_API_URL: 'http://localhost/api', APP_URL: 'http://localhost' },
+}))

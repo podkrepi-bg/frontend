@@ -1,11 +1,13 @@
 import Axios from 'axios'
 import LRU from 'lru-cache'
-import getConfig from 'next/config'
 import { makeUseAxios } from 'axios-hooks'
+import getConfig from 'next/config'
 
 const {
-  publicRuntimeConfig: { API_URL },
+  publicRuntimeConfig: { NEXT_PUBLIC_API_URL },
 } = getConfig()
+
+export const API_URL = NEXT_PUBLIC_API_URL
 
 const cache = new LRU({ max: 10 })
 export const apiClient = Axios.create({ baseURL: `${API_URL}` })

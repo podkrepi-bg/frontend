@@ -32,7 +32,7 @@ const moduleExports = {
   },
   publicRuntimeConfig: {
     APP_ENV: process.env.APP_ENV,
-    API_URL: process.env.API_URL,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     APP_URL: process.env.APP_URL,
     GTM_ID: process.env.GTM_ID ?? 'GTM-TWQBXM6',
     PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
@@ -54,7 +54,7 @@ const moduleExports = {
     return [
       {
         source: '/api/v1/:slug*',
-        destination: `${process.env.API_URL ?? 'http://localhost:5010/api/v1'}/:slug*`, // Proxy to API
+        destination: `${process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5010/api/v1'}/:slug*`, // Proxy to API
       },
       {
         source: '/robots.txt',
