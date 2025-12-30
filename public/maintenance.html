@@ -8,7 +8,10 @@
     <link rel="shortcut icon" type="image/jpg" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
     <style>
       * {
         margin: 0;
@@ -17,54 +20,106 @@
 
       html,
       body {
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
         font-style: normal;
         font-weight: normal;
         width: 100%;
         height: 100%;
         background-color: #fafafa;
         display: flex;
-        flex-direction: column;
-        padding-top: 3%;
+        justify-content: center;
         align-items: center;
+        padding: 2em 1em;
+        box-sizing: border-box;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 600px;
+        width: 100%;
+        gap: 1.5em;
       }
 
       #illustration {
-        width: 70%;
-        max-width: 800px;
+        width: 100%;
+        max-width: 500px;
         height: auto;
       }
 
       .text {
-        margin: 1em 0;
         text-align: center;
         font-size: 1.5em;
-        line-height: 1em;
+        line-height: 1.4em;
         color: #5e5e5e;
+        padding: 0 1em;
       }
 
       a.button {
-        padding: 1em 0.5em;
+        padding: 1em 2em;
         text-align: center;
-        width: 70%;
-        max-width: 500px;
+        width: 100%;
+        max-width: 400px;
         background-color: white;
         color: #263238;
         -webkit-appearance: button;
         -moz-appearance: button;
         appearance: button;
         text-decoration: none;
-        color: initial;
-        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.12),
-          0px 1px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16),
+          0px 2px 4px rgba(0, 0, 0, 0.12), 0px 1px 8px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
+        transition: box-shadow 0.2s ease;
+      }
+
+      a.button:hover {
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2),
+          0px 4px 8px rgba(0, 0, 0, 0.16), 0px 2px 12px rgba(0, 0, 0, 0.14);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .text {
+          font-size: 1.2em;
+        }
+
+        a.button {
+          padding: 0.8em 1.5em;
+          font-size: 0.95em;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .text {
+          font-size: 1em;
+          padding: 0 0.5em;
+        }
+
+        a.button {
+          padding: 0.7em 1em;
+          font-size: 0.9em;
+        }
       }
     </style>
   </head>
 
   <body>
-    <img id="illustration" src="maintenance-illustration.svg" alt="Maintenance illustration" />
-    <p class="text">Сайтът е под профилактика, скоро ще бъдем обратно онлайн!</p>
-    <a href="https://podkrepi.bg" class="button"> Обратно към началната страница </a>
+    <div class="container">
+      <img
+        id="illustration"
+        src="maintenance-illustration.svg"
+        alt="Maintenance illustration"
+      />
+      <p class="text">
+        Платформата няма да бъде достъпна от 18:00 ч. на 31 декември 2025 г. до
+        20:00 ч. на 1 януари 2026 г. поради технически дейности, свързани с преминаването
+        към еврото.
+      </p>
+      <p class="text">Благодарим Ви за разбирането!</p>
+      <a href="https://podkrepi.bg" class="button">
+        Обратно към началната страница
+      </a>
+    </div>
   </body>
 </html>
