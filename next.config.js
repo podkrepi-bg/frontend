@@ -39,6 +39,7 @@ const moduleExports = {
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
     FEATURE_ENABLED: {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
+      DUAL_CURRENCY: process.env.FEATURE_DUAL_CURRENCY ?? false,
     },
   },
   sentry: {

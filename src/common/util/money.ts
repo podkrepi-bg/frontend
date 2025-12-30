@@ -1,4 +1,5 @@
 import { i18n } from 'next-i18next'
+import { convertEurToBgn, CURRENCY_DIVISION_FACTOR } from './currencyConversion'
 
 /**
  * Format money amounts
@@ -107,4 +108,76 @@ export const toMoney = (number: number, divisionFactor = 100): number => {
  */
 export const fromMoney = (number: number, divisionFactor = 100): number => {
   return number / divisionFactor
+}
+
+/**
+ * Format money with dual currency display
+ * Shows primary currency with BGN conversion in parentheses
+ *
+ * @param number - Amount in smallest unit (e.g., cents)
+ * @param currency - Primary currency code
+ * @param divisionFactor - Division factor (default CURRENCY_DIVISION_FACTOR)
+ * @param showDualCurrency - Whether to show dual currency format
+ * @param maximumFractionDigits - Maximum fraction digits (default 2)
+ * @param minimumFractionDigits - Minimum fraction digits (default 2)
+ * @returns Formatted string like "100.00 EUR (~195.58 BGN)" or "100,00 евро (~195,58 лв.)"
+ */
+export const moneyPublicDual = (
+  number: number,
+  currency = 'EUR',
+  divisionFactor = CURRENCY_DIVISION_FACTOR,
+  showDualCurrency = false,
+  maximumFractionDigits = 2,
+  minimumFractionDigits = 2,
+): string => {
+  // Get primary currency formatted
+  const primaryFormatted = moneyPublic(
+    number,
+    currency,
+    divisionFactor,
+    maximumFractionDigits,
+    minimumFractionDigits,
+  )
+
+  // If dual currency not enabled or already in BGN, return primary only
+  if (!showDualCurrency || currency === 'BGN') {
+    return primaryFormatted
+  }
+
+  // Only support EUR to BGN conversion for now
+  if (currency !== 'EUR') {
+    return primaryFormatted
+  }
+
+  // Convert to BGN
+  const amountInPrimaryCurrency = number / divisionFactor
+  const convertedAmount = convertEurToBgn(amountInPrimaryCurrency)
+
+  // Format BGN amount according to locale
+  const locale = i18n?.language || 'bg-BG'
+  const bgnFormatted = new Intl.NumberFormat(locale, {
+    style: 'decimal',
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  }).format(convertedAmount)
+
+  // Use locale-appropriate BGN symbol
+  // Bulgarian: "лв." (leva symbol)
+  // English and others: "BGN" (ISO code)
+  const bgnSymbol = locale.startsWith('bg') ? 'лв.' : 'BGN'
+
+  // Return dual format
+  return `${primaryFormatted} (~${bgnFormatted} ${bgnSymbol})`
+}
+
+/**
+ * Shorthand for moneyPublicDual with 2 decimal places
+ */
+export const moneyPublicDualDecimals2 = (
+  number: number,
+  currency = 'EUR',
+  divisionFactor = CURRENCY_DIVISION_FACTOR,
+  showDualCurrency = false,
+) => {
+  return moneyPublicDual(number, currency, divisionFactor, showDualCurrency, 2, 2)
 }
