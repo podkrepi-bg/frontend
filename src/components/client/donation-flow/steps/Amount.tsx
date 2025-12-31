@@ -6,7 +6,9 @@ import { useField, useFormikContext } from 'formik'
 
 import { CardRegion } from 'gql/donations.enums'
 import theme from 'common/theme'
-import { moneyPublic, toMoney } from 'common/util/money'
+import { moneyPublicDual, toMoney } from 'common/util/money'
+import { CURRENCY_DIVISION_FACTOR } from 'common/util/currencyConversion'
+import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
@@ -62,8 +64,9 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
   const { t } = useTranslation('donation-flow')
   const { status } = useSession()
   // const { data: prices } = useSinglePriceList()
-  const prices = [1000, 2000, 5000, 10000, 50000, 100000]
+  const prices = [500, 1000, 2500, 5000, 25000, 50000]
   const mobile = useMediaQuery('(max-width:600px)')
+  const dualCurrencyEnabled = featureFlagEnabled(Features.DUAL_CURRENCY)
   useEffect(() => {
     const amountChosen =
       value === 'other'
@@ -114,7 +117,12 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
           prices
             ?.sort((a, b) => Number(a) - Number(b))
             .map((v) => ({
-              label: moneyPublic(Number(v)),
+              label: moneyPublicDual(
+                Number(v),
+                'EUR',
+                CURRENCY_DIVISION_FACTOR,
+                dualCurrencyEnabled,
+              ),
               value: String(Number(v)),
             }))
             .concat({ label: t('step.amount.field.other-amount.label'), value: 'other' }) || []

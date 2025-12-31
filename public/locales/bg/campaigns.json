@@ -179,7 +179,7 @@
   "donations": {
     "anonymous": "Анонимен",
     "none": "Няма направени дарения",
-    "lv": "лв.",
+    "eur": "евро",
     "corporate-donor": "Корпоративен дарител"
   },
   "campaign-status": {

@@ -53,7 +53,7 @@ test.describe.serial('Donations should fail for cards deemed invalid by Stripe',
   test('The total charge, fee tax and donation amount are visible on the Campaign page', async () => {
     await campaignsPage.clickDonationSupportButton()
     await donationPage.checkPageUrlByRegExp()
-    await donationPage.selectRadioButtonByLabelText(['10'])
+    await donationPage.selectRadioButtonByLabelText(['5'])
     await donationPage.selectPaymentMethod(DonationFormPaymentMethod.CARD)
     await donationPage.selectRadioButtonByLabelText([paymentMode])
     await donationPage.setDonationRegionFromTheDropdown(DonationRegions.EUROPE)
@@ -61,8 +61,8 @@ test.describe.serial('Donations should fail for cards deemed invalid by Stripe',
   })
 
   test('The total charge, fee tax and donation amount are recalculated correctly when the donation amount is changed', async () => {
-    await donationPage.selectRadioButtonByLabelText(['20'])
-    await donationPage.checkTotalAmount(20.75)
+    await donationPage.selectRadioButtonByLabelText(['25'])
+    await donationPage.checkTotalAmount(25.81)
   })
 
   test('Fill in the stripe card form', async () => {
