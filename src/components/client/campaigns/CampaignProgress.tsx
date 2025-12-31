@@ -69,7 +69,13 @@ type Props = {
   showPercentage?: boolean
   currency?: string
 }
-export default function CampaignProgress({ state, raised, target, showPercentage, currency = 'EUR' }: Props) {
+export default function CampaignProgress({
+  state,
+  raised,
+  target,
+  showPercentage,
+  currency = 'EUR',
+}: Props) {
   const { t } = useTranslation('campaigns')
   const raisedSafe = Math.max(0, raised)
   const targetSafe = Math.max(0, target)
