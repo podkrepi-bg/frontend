@@ -132,6 +132,7 @@ function PaymentSummaryAlert({
           primaryFontSize={theme.typography.pxToRem(22)}
           secondaryFontSize={theme.typography.pxToRem(14)}
           fontWeight={600}
+          data-testid="total-amount"
         />
       </Grid2>
     </Grid2>

@@ -12,6 +12,7 @@ interface DualCurrencyAmountProps {
   primaryFontSize?: number | string
   secondaryFontSize?: number | string
   fontWeight?: number
+  'data-testid'?: string
 }
 
 /**
@@ -26,6 +27,7 @@ export default function DualCurrencyAmount({
   primaryFontSize = 22,
   secondaryFontSize = 16,
   fontWeight = 600,
+  'data-testid': dataTestId,
 }: DualCurrencyAmountProps) {
   // Get primary currency formatted
   const primaryFormatted = moneyPublic(amount, currency, divisionFactor, 2, 2)
@@ -33,7 +35,7 @@ export default function DualCurrencyAmount({
   // If dual currency not enabled or already in BGN, return primary only
   if (!showDualCurrency || currency === 'BGN' || currency !== 'EUR') {
     return (
-      <Typography fontSize={primaryFontSize} fontWeight={fontWeight}>
+      <Typography fontSize={primaryFontSize} fontWeight={fontWeight} data-testid={dataTestId}>
         {primaryFormatted}
       </Typography>
     )
@@ -56,7 +58,7 @@ export default function DualCurrencyAmount({
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-      <Typography fontSize={primaryFontSize} fontWeight={fontWeight}>
+      <Typography fontSize={primaryFontSize} fontWeight={fontWeight} data-testid={dataTestId}>
         {primaryFormatted}
       </Typography>
       <Typography
