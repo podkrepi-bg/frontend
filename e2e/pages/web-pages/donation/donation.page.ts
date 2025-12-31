@@ -210,12 +210,20 @@ export class DonationPage extends CampaignsPage {
   ): Promise<void> {
     const totalAmount = await this.page.locator(this.totalAmountSelector).first().textContent()
     const totalAmountSpaceFix = totalAmount?.replace(/\s/g, String.fromCharCode(160))
-    const donationAmountIntl = Intl.NumberFormat(language, {
-      style: 'currency',
-      currency: 'EUR',
+
+    // Format amount to match app's custom EUR formatting
+    // BG locale: "121,96 евро", EN locale: "25.81 EUR"
+    const locale = language === LanguagesEnum.BG ? 'bg-BG' : 'en-US'
+    const formattedNumber = new Intl.NumberFormat(locale, {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(amount)
 
-    expect(totalAmountSpaceFix).toEqual(donationAmountIntl)
+    const currencyLabel = language === LanguagesEnum.BG ? 'евро' : 'EUR'
+    const expectedAmount = `${formattedNumber}${String.fromCharCode(160)}${currencyLabel}`
+
+    expect(totalAmountSpaceFix).toEqual(expectedAmount)
   }
 
   async checkPrivacyCheckbox(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
