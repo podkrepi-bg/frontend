@@ -61,7 +61,7 @@ test.describe.serial(
     test('The total charge, fee tax and donation amount are visible on the Campaign page', async () => {
       await campaignsPage.clickDonationSupportButton()
       await donationPage.checkPageUrlByRegExp()
-      await donationPage.selectRadioButtonByLabelText(['10'])
+      await donationPage.selectRadioButtonByLabelText(['5'])
       await donationPage.selectRadioButtonByLabelText([paymentMode])
       await donationPage.selectPaymentMethod(DonationFormPaymentMethod.CARD, LanguagesEnum.EN)
       await donationPage.setDonationRegionFromTheDropdown(DonationRegions.EUROPE)
@@ -69,8 +69,8 @@ test.describe.serial(
     })
 
     test('The total charge, fee tax and donation amount are recalculated correctly when the donation amount is changed', async () => {
-      await donationPage.selectRadioButtonByLabelText(['20'])
-      await donationPage.checkTotalAmount(20.75, LanguagesEnum.EN)
+      await donationPage.selectRadioButtonByLabelText(['25'])
+      await donationPage.checkTotalAmount(25.81, LanguagesEnum.EN)
     })
 
     test('Fill in the stripe card form', async () => {

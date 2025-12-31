@@ -56,7 +56,8 @@ export class DonationPage extends CampaignsPage {
     bgLocalizationValidation['informed-agree-with'] + ' ' + bgLocalizationValidation.gdpr
   private readonly enPrivacyCheckboxText =
     enLocalizationValidation['informed-agree-with'] + ' ' + enLocalizationValidation.gdpr
-  private readonly bgStripeErrorNoBalanceText = 'В картата ви няма достатъчно средства. Опитайте с друга.'
+  private readonly bgStripeErrorNoBalanceText =
+    'В картата ви няма достатъчно средства. Опитайте с друга.'
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await this.page.waitForTimeout(1000)
@@ -200,18 +201,18 @@ export class DonationPage extends CampaignsPage {
   }
 
   /**
-   * Set donation region from the radio cards
-   * @param {number} amount
+   * Check the total amount displayed in the donation summary
+   * @param {number} amount - The expected amount in EUR
    */
   async checkTotalAmount(
     amount: number,
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
     const totalAmount = await this.page.locator(this.totalAmountSelector).first().textContent()
-    const totalAmountSpaceFix = totalAmount?.replace(/\s/, String.fromCharCode(160))
+    const totalAmountSpaceFix = totalAmount?.replace(/\s/g, String.fromCharCode(160))
     const donationAmountIntl = Intl.NumberFormat(language, {
       style: 'currency',
-      currency: 'BGN',
+      currency: 'EUR',
     }).format(amount)
 
     expect(totalAmountSpaceFix).toEqual(donationAmountIntl)
