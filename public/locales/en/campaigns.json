@@ -175,6 +175,13 @@
     "fetch-donations": "Error loading donations",
     "fetch-wishes": "Error loading wishes"
   },
+  "share": {
+    "share-campaign-social": "Share the campaign on social media",
+    "send-email": "Send via E-mail",
+    "copy-link": "Copy link",
+    "instagram": "Share on Instagram",
+    "instagram-copy-message": "Link copied! Paste it in your Instagram story or post."
+  },
   "info-graphics": {
     "donation-title": "100% of the donation goes to those in need",
     "donation-text": "No withholding of fees and commissions for Podkrepi.bg",

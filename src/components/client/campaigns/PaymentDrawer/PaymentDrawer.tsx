@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import { Close, Share, FavoriteBorderOutlined, KeyboardArrowUp } from '@mui/icons-material'
 
-import { baseUrl, routes } from 'common/routes'
+import { routes } from 'common/routes'
 import { moneyPublic } from 'common/util/money'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
 import { useDonationWishesList } from 'common/hooks/donationWish'
@@ -21,7 +21,6 @@ import theme from 'common/theme'
 
 import LinkButton from 'components/common/LinkButton'
 import CampaignProgressPie from './CampaignProgressPie'
-import ShareButtons from './ShareButtons'
 import DonationsTab from './DonationsTab'
 import WishesTab from './WishesTab'
 
@@ -57,13 +56,11 @@ export default function PaymentDrawer({
   initialState = 'collapsed',
 }: PaymentDrawerProps) {
   const { t } = useTranslation('campaigns')
-  const { asPath } = useRouter()
   const { mobile } = useMobile()
 
   const [drawerOpen, setDrawerOpen] = useState(initialState === 'expanded')
   const [activeTab, setActiveTab] = useState<TabValue>('donors')
   const [page, setPage] = useState(0)
-  const [showShareButtons, setShowShareButtons] = useState(false)
   const [sortBy, setSortBy] = useState<'createdAt' | 'amount'>('createdAt')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
 
@@ -76,7 +73,6 @@ export default function PaymentDrawer({
     allowDonationOnComplete,
     state: campaignState,
     slug: campaignSlug,
-    title: campaignTitle,
   } = campaign
 
   const reached = summary ? summary.reachedAmount + (summary.guaranteedAmount ?? 0) : 0
@@ -143,9 +139,11 @@ export default function PaymentDrawer({
     }
   }, [])
 
-  const toggleShareButtons = useCallback(() => {
-    setShowShareButtons((prev) => !prev)
-  }, [])
+  const router = useRouter()
+
+  const navigateToSharePage = useCallback(() => {
+    router.push(routes.campaigns.share(campaignSlug))
+  }, [router, campaignSlug])
 
   const handleTabChange = useCallback((tab: TabValue) => {
     setActiveTab(tab)
@@ -181,7 +179,6 @@ export default function PaymentDrawer({
     }, 300)
   }, [closeDrawer])
 
-  const campaignUrl = baseUrl + asPath
   const canDonate =
     campaignState === CampaignState.active ||
     (campaignState === CampaignState.complete && allowDonationOnComplete)
@@ -340,7 +337,7 @@ export default function PaymentDrawer({
               <Button
                 className={classes.shareButtonOutline}
                 endIcon={<Share />}
-                onClick={toggleShareButtons}>
+                onClick={navigateToSharePage}>
                 {t('cta.share', { ns: 'common' })}
               </Button>
               <LinkButton
@@ -351,16 +348,6 @@ export default function PaymentDrawer({
                 {t('cta.support-now')}
               </LinkButton>
             </Box>
-
-            {showShareButtons && (
-              <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
-                <ShareButtons
-                  campaignUrl={campaignUrl}
-                  campaignTitle={campaignTitle}
-                  platforms={['facebook', 'link', 'email', 'whatsapp']}
-                />
-              </Box>
-            )}
           </MobileDrawerContent>
         </SwipeableDrawer>
       </>
@@ -452,7 +439,7 @@ export default function PaymentDrawer({
         <Button
           className={classes.shareButtonOutline}
           startIcon={<Share />}
-          onClick={toggleShareButtons}>
+          onClick={navigateToSharePage}>
           {t('cta.share', { ns: 'common' })}
         </Button>
         <LinkButton
@@ -463,16 +450,6 @@ export default function PaymentDrawer({
           {t('cta.support-now')}
         </LinkButton>
       </Box>
-
-      {showShareButtons && (
-        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
-          <ShareButtons
-            campaignUrl={campaignUrl}
-            campaignTitle={campaignTitle}
-            platforms={['facebook', 'link', 'email', 'whatsapp']}
-          />
-        </Box>
-      )}
     </DesktopWrapper>
   )
 }
