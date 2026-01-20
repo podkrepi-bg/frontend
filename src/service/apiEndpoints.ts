@@ -220,11 +220,17 @@ export const endpoints = {
       campaignId?: string,
       pageindex?: number,
       pagesize?: number,
+      sortBy?: string,
+      sortOrder?: string,
     ) =>
       <Endpoint>{
         url: campaignId
-          ? `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`
-          : `/donation/listPublic/?status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`,
+          ? `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}${
+              sortBy ? `&sortBy=${sortBy}` : ''
+            }${sortOrder ? `&sortOrder=${sortOrder}` : ''}`
+          : `/donation/listPublic/?status=${status}&pageindex=${pageindex}&pagesize=${pagesize}${
+              sortBy ? `&sortBy=${sortBy}` : ''
+            }${sortOrder ? `&sortOrder=${sortOrder}` : ''}`,
         method: 'GET',
       },
     getUserDonation: (id: string) => <Endpoint>{ url: `/donation/user/${id}`, method: 'GET' },
