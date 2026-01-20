@@ -243,7 +243,7 @@ export default function PaymentDrawer({
           className={classes.mobileClosedWrapper}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}>
-          <Box className={classes.swipeHandle} />
+          <Box className={classes.swipeHandle} aria-hidden="true" />
 
           <Box className={classes.mobileCommissionTextContent}>
             <Typography className={classes.commissionText}>
@@ -294,7 +294,7 @@ export default function PaymentDrawer({
             },
           }}>
           <MobileDrawerContent className={classes.mobileDrawer}>
-            <Box className={classes.swipeHandle} />
+            <Box className={classes.swipeHandle} aria-hidden="true" />
 
             <IconButton
               className={classes.closeButton}

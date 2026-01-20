@@ -181,7 +181,7 @@ export default function WishesTab({
           <Box className={classes.wishContent}>
             <Typography className={classes.wishMessage}>&ldquo;{wish.message}&rdquo;</Typography>
             <Typography className={classes.wishAuthor}>
-              от {getWisherName(wish)}, {getExactDate(wish.createdAt, locale)}
+              {t('campaign.from')} {getWisherName(wish)}, {getExactDate(wish.createdAt, locale)}
             </Typography>
           </Box>
         </Box>
