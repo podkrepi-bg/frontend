@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Box, Typography, Button, IconButton, Avatar } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { Facebook, LinkedIn, Instagram, Email, ContentCopy, ArrowBack } from '@mui/icons-material'
+import { Facebook, LinkedIn, Instagram, Email, ContentCopy } from '@mui/icons-material'
 
 import { routes, baseUrl } from 'common/routes'
 import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
 import { AlertStore } from 'stores/AlertStore'
 import { CampaignResponse } from 'gql/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
+import Layout from 'components/client/layout/Layout'
 
 // =============================================================================
 // DESIGN TOKENS
@@ -38,7 +38,6 @@ const PREFIX = 'SharePage'
 const classes = {
   container: `${PREFIX}-container`,
   content: `${PREFIX}-content`,
-  backButton: `${PREFIX}-backButton`,
   avatar: `${PREFIX}-avatar`,
   title: `${PREFIX}-title`,
   socialIcons: `${PREFIX}-socialIcons`,
@@ -52,11 +51,18 @@ const StyledContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: '100vh',
+    justifyContent: 'flex-start',
     backgroundColor: colors.white,
-    padding: theme.spacing(3),
-    position: 'relative',
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    minHeight: '60vh',
+
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
   },
 
   [`& .${classes.content}`]: {
@@ -66,13 +72,6 @@ const StyledContainer = styled(Box)(({ theme }) => ({
     maxWidth: 400,
     width: '100%',
     gap: theme.spacing(3),
-  },
-
-  [`& .${classes.backButton}`]: {
-    position: 'absolute',
-    top: theme.spacing(2),
-    left: theme.spacing(2),
-    color: colors.darkBlue,
   },
 
   [`& .${classes.avatar}`]: {
@@ -163,15 +162,10 @@ interface SharePageProps {
 
 export default function SharePage({ campaign }: SharePageProps) {
   const { t } = useTranslation('campaigns')
-  const router = useRouter()
   const [, copyToClipboard] = useCopyToClipboard(1000)
 
   const campaignUrl = `${baseUrl}${routes.campaigns.viewCampaignBySlug(campaign.slug)}`
   const campaignImageUrl = campaignListPictureUrl(campaign)
-
-  const handleBack = useCallback(() => {
-    router.back()
-  }, [router])
 
   const shareFacebook = useCallback(() => {
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
@@ -225,51 +219,53 @@ export default function SharePage({ campaign }: SharePageProps) {
   }, [campaignUrl, copyToClipboard, t])
 
   return (
-    <StyledContainer className={classes.container}>
-      <IconButton className={classes.backButton} onClick={handleBack} aria-label={t('back')}>
-        <ArrowBack />
-      </IconButton>
+    <Layout
+      maxWidth={false}
+      ogImage={campaignImageUrl}
+      metaTitle={`${t('share.share-campaign-social')} - ${campaign.title}`}
+      metaDescription={campaign.title}>
+      <StyledContainer className={classes.container}>
+        <Box className={classes.content}>
+          <Avatar src={campaignImageUrl} alt={campaign.title} className={classes.avatar} />
 
-      <Box className={classes.content}>
-        <Avatar src={campaignImageUrl} alt={campaign.title} className={classes.avatar} />
+          <Typography className={classes.title}>
+            {t('share.share-campaign-social', {
+              defaultValue: 'Споделете кампанията в социалните мрежи',
+            })}
+          </Typography>
 
-        <Typography className={classes.title}>
-          {t('share.share-campaign-social', {
-            defaultValue: 'Споделете кампанията в социалните мрежи',
-          })}
-        </Typography>
+          <Box className={classes.socialIcons}>
+            <IconButton
+              className={classes.socialButton}
+              onClick={shareFacebook}
+              aria-label={t('share.facebook', { ns: 'common', defaultValue: 'Share on Facebook' })}>
+              <Facebook />
+            </IconButton>
+            <IconButton
+              className={classes.socialButton}
+              onClick={shareLinkedIn}
+              aria-label={t('share.linkedin', { ns: 'common', defaultValue: 'Share on LinkedIn' })}>
+              <LinkedIn />
+            </IconButton>
+            <IconButton
+              className={classes.socialButton}
+              onClick={shareInstagram}
+              aria-label={t('share.instagram', { defaultValue: 'Share on Instagram' })}>
+              <Instagram />
+            </IconButton>
+          </Box>
 
-        <Box className={classes.socialIcons}>
-          <IconButton
-            className={classes.socialButton}
-            onClick={shareFacebook}
-            aria-label={t('share.facebook', { ns: 'common', defaultValue: 'Share on Facebook' })}>
-            <Facebook />
-          </IconButton>
-          <IconButton
-            className={classes.socialButton}
-            onClick={shareLinkedIn}
-            aria-label={t('share.linkedin', { ns: 'common', defaultValue: 'Share on LinkedIn' })}>
-            <LinkedIn />
-          </IconButton>
-          <IconButton
-            className={classes.socialButton}
-            onClick={shareInstagram}
-            aria-label={t('share.instagram', { defaultValue: 'Share on Instagram' })}>
-            <Instagram />
-          </IconButton>
+          <Button className={classes.actionButtonYellow} onClick={shareEmail}>
+            {t('share.send-email', { defaultValue: 'Изпратете като E-mail' })}
+            <Email />
+          </Button>
+
+          <Button className={classes.actionButton} onClick={copyLink}>
+            {t('share.copy-link', { defaultValue: 'Копиране на линка' })}
+            <ContentCopy />
+          </Button>
         </Box>
-
-        <Button className={classes.actionButtonYellow} onClick={shareEmail}>
-          {t('share.send-email', { defaultValue: 'Изпратете като E-mail' })}
-          <Email />
-        </Button>
-
-        <Button className={classes.actionButton} onClick={copyLink}>
-          {t('share.copy-link', { defaultValue: 'Копиране на линка' })}
-          <ContentCopy />
-        </Button>
-      </Box>
-    </StyledContainer>
+      </StyledContainer>
+    </Layout>
   )
 }
