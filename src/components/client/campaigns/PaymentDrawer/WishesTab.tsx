@@ -8,7 +8,6 @@ import { bg, enUS } from 'date-fns/locale'
 import { getExactDate } from 'common/util/date'
 import { DonationWishPaginatedResponse } from 'gql/donationWish'
 import { WishesTabProps } from './types'
-import { colors, typography } from './constants'
 
 /**
  * Wishes Tab Component
@@ -52,7 +51,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   },
 
   [`& .${classes.wishAuthor}`]: {
-    color: colors.black60,
+    color: theme.palette.text.secondary,
     fontSize: '0.75rem',
     lineHeight: '150%',
     marginTop: theme.spacing(0.5),
@@ -76,7 +75,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   [`& .${classes.avatar}`]: {
     width: 20,
     height: 20,
-    color: colors.heartPink,
+    color: theme.palette.accent.heartLight,
     flexShrink: 0,
     marginTop: theme.spacing(0.25),
   },
@@ -94,19 +93,19 @@ const StyledContainer = styled(Box)(({ theme }) => ({
     width: '100%',
     height: 30,
     padding: '4px 10px',
-    border: `2px solid ${colors.lightBlue}`,
+    border: `2px solid ${theme.palette.primary.light}`,
     borderRadius: 100,
     backgroundColor: 'transparent',
-    fontFamily: typography.fontPrimary,
+    fontFamily: theme.typography.fontFamily,
     fontWeight: 600,
     fontSize: 12,
     lineHeight: '22px',
     letterSpacing: '0.46px',
-    color: colors.darkBlue,
+    color: theme.palette.primary.dark,
     textTransform: 'none',
     '&:hover': {
-      backgroundColor: colors.lightBlueHover,
-      border: `2px solid ${colors.lightBlue}`,
+      backgroundColor: 'rgba(74, 195, 255, 0.08)',
+      border: `2px solid ${theme.palette.primary.light}`,
     },
   },
 }))

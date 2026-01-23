@@ -2,39 +2,6 @@ import { styled, Theme } from '@mui/material/styles'
 import { Box, Grid } from '@mui/material'
 
 // =============================================================================
-// DESIGN TOKENS
-// =============================================================================
-
-export const colors = {
-  white: '#FFFFFF',
-  black: '#000000',
-  blackText: 'rgba(0, 0, 0, 0.87)',
-  blackLight: 'rgba(0, 0, 0, 0.8)',
-  black60: 'rgba(0, 0, 0, 0.6)',
-
-  yellow: '#FFCB57',
-  yellowLight: '#FFD54F',
-  yellowHover: '#FFCA28',
-  yellowBackground: '#FFF9E6',
-
-  heartRed: '#ab2f26',
-  heartPink: '#E57373',
-  lightBlue: '#4AC3FF',
-  lightBlueHover: 'rgba(74, 195, 255, 0.08)',
-  darkBlue: '#284E84',
-
-  summaryGradient: 'linear-gradient(180deg, rgba(234, 244, 252, 0.25) 0%, #EAF4FC 100%)',
-
-  drawerShadow: '0px -8px 6px -4px rgba(0, 0, 0, 0.15)',
-  desktopShadow: '0px 4px 20px rgba(0, 0, 0, 0.15)',
-}
-
-export const typography = {
-  fontPrimary: 'Commissioner, sans-serif',
-  fontSecondary: 'Montserrat, sans-serif',
-}
-
-// =============================================================================
 // CLASS NAMES - Organized by category
 // =============================================================================
 
@@ -107,12 +74,12 @@ const createBaseStyles = (theme: Theme) => ({
   },
 
   commissionText: {
-    fontFamily: typography.fontSecondary,
+    fontFamily: theme.typography.h1.fontFamily, // Montserrat
     fontWeight: 500,
     fontSize: 10,
     lineHeight: '150%',
     letterSpacing: '0.15px',
-    color: colors.blackText,
+    color: theme.palette.text.primary,
     textAlign: 'left' as const,
     marginBottom: 0,
     paddingLeft: 0,
@@ -130,7 +97,7 @@ const createBaseStyles = (theme: Theme) => ({
     cursor: 'pointer',
     transition: 'background-color 0.2s ease',
     fontSize: theme.typography.pxToRem(16),
-    fontFamily: typography.fontPrimary,
+    fontFamily: theme.typography.fontFamily, // Commissioner
     fontWeight: 500,
     letterSpacing: '0.46px',
     lineHeight: '150%',
@@ -138,7 +105,7 @@ const createBaseStyles = (theme: Theme) => ({
 
   tabSelected: {
     fontWeight: 600,
-    borderBottom: `2px solid ${colors.black}`,
+    borderBottom: `2px solid ${theme.palette.common.black}`,
   },
 
   tabsContainer: {
@@ -194,7 +161,7 @@ const createBaseStyles = (theme: Theme) => ({
     alignItems: 'center',
     gap: theme.spacing(2),
     padding: theme.spacing(1.5),
-    background: colors.summaryGradient,
+    background: theme.podkrepiGradients.summary,
     borderRadius: 11,
     margin: theme.spacing(1.5, 0),
   },
@@ -205,8 +172,8 @@ const createBaseStyles = (theme: Theme) => ({
     gap: theme.spacing(0.25),
   },
 
-  summaryTextLine: (color: string = colors.blackLight) => ({
-    fontFamily: typography.fontSecondary,
+  summaryTextLine: (color = 'rgba(0, 0, 0, 0.8)') => ({
+    fontFamily: theme.typography.h1.fontFamily, // Montserrat
     fontWeight: 600,
     fontSize: 10,
     lineHeight: '14px',
@@ -241,7 +208,7 @@ const createBaseStyles = (theme: Theme) => ({
     gap: theme.spacing(1),
     padding: theme.spacing(0.5, 1.5),
     height: 36,
-    border: `1px solid ${colors.yellowLight}`,
+    border: `1px solid ${theme.palette.yellowVariants.light}`,
     borderRadius: theme.spacing(3),
     color: theme.palette.common.black,
     textTransform: 'none' as const,
@@ -255,16 +222,16 @@ const createBaseStyles = (theme: Theme) => ({
     flex: 1,
     padding: theme.spacing(0.5, 1.5),
     height: 36,
-    backgroundColor: colors.yellowLight,
+    backgroundColor: theme.palette.yellowVariants.light,
     color: theme.palette.common.black,
     borderRadius: theme.spacing(3),
     textTransform: 'none' as const,
     fontWeight: 600,
     '& svg': {
-      color: colors.heartRed,
+      color: theme.palette.accent.heart,
     },
     '&:hover': {
-      backgroundColor: colors.yellowHover,
+      backgroundColor: theme.palette.yellowVariants.hover,
     },
   },
 
@@ -277,7 +244,7 @@ const createBaseStyles = (theme: Theme) => ({
     borderRadius: theme.spacing(3),
     textTransform: 'none' as const,
     '& svg': {
-      color: colors.heartRed,
+      color: theme.palette.accent.heart,
     },
     '&:hover': {
       backgroundColor: '#0098e3',
@@ -324,8 +291,8 @@ export const MobileClosedWrapper = styled(Box)(({ theme }) => {
       bottom: 0,
       left: 0,
       right: 0,
-      backgroundColor: colors.white,
-      boxShadow: colors.drawerShadow,
+      backgroundColor: theme.palette.common.white,
+      boxShadow: theme.podkrepiShadows.drawer,
       padding: theme.spacing(1.5, 2, 2, 2),
       zIndex: 1000,
       borderTopLeftRadius: 20,
@@ -364,22 +331,22 @@ export const MobileClosedWrapper = styled(Box)(({ theme }) => {
     },
 
     [`& .${classes.donationsButton}`]: {
-      backgroundColor: colors.white,
-      color: colors.blackText,
+      backgroundColor: theme.palette.common.white,
+      color: theme.palette.text.primary,
       textTransform: 'none',
-      fontFamily: typography.fontPrimary,
+      fontFamily: theme.typography.fontFamily, // Commissioner
       fontWeight: 500,
       fontSize: 12,
       letterSpacing: '0.46px',
       lineHeight: '14px',
       borderRadius: 100,
-      border: `2px solid ${colors.yellow}`,
+      border: `2px solid ${theme.palette.secondary.main}`,
       padding: '4px 10px',
       height: 36,
       width: 134,
       minWidth: 'auto',
       '&:hover': {
-        backgroundColor: colors.yellowBackground,
+        backgroundColor: theme.palette.yellowVariants.background,
       },
       '& .MuiButton-endIcon': {
         marginLeft: theme.spacing(0.5),
@@ -387,10 +354,10 @@ export const MobileClosedWrapper = styled(Box)(({ theme }) => {
     },
 
     [`& .${classes.donateNowButton}`]: {
-      backgroundColor: colors.yellow,
-      color: colors.black,
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.common.black,
       textTransform: 'none',
-      fontFamily: typography.fontPrimary,
+      fontFamily: theme.typography.fontFamily, // Commissioner
       fontWeight: 500,
       fontSize: 12,
       letterSpacing: '0.46px',
@@ -401,13 +368,13 @@ export const MobileClosedWrapper = styled(Box)(({ theme }) => {
       width: 134,
       minWidth: 'auto',
       '&:hover': {
-        backgroundColor: colors.yellowHover,
+        backgroundColor: theme.palette.yellowVariants.hover,
       },
       '& .MuiButton-endIcon': {
         marginLeft: theme.spacing(0.5),
       },
       '& svg': {
-        color: colors.heartRed,
+        color: theme.palette.accent.heart,
         width: 18,
         height: 18,
       },
@@ -442,7 +409,7 @@ export const MobileDrawerContent = styled(Box)(({ theme }) => {
   return {
     [`&.${classes.mobileDrawer}`]: {
       position: 'relative',
-      backgroundColor: colors.white,
+      backgroundColor: theme.palette.common.white,
       borderTopLeftRadius: theme.spacing(2),
       borderTopRightRadius: theme.spacing(2),
       padding: theme.spacing(2, 2, 4, 2),
@@ -510,8 +477,8 @@ export const MobileDrawerContent = styled(Box)(({ theme }) => {
 
     [`& .${classes.summarySection}`]: baseStyles.summarySection,
     [`& .${classes.summaryText}`]: baseStyles.summaryText,
-    [`& .${classes.summaryTextLine1}`]: baseStyles.summaryTextLine(colors.blackLight),
-    [`& .${classes.summaryTextLine2}`]: baseStyles.summaryTextLine(colors.black),
+    [`& .${classes.summaryTextLine1}`]: baseStyles.summaryTextLine('rgba(0, 0, 0, 0.8)'),
+    [`& .${classes.summaryTextLine2}`]: baseStyles.summaryTextLine(theme.palette.common.black),
 
     [`& .${classes.buttonRow}`]: baseStyles.buttonRow,
     [`& .${classes.shareButtonOutline}`]: baseStyles.shareButtonOutline,
@@ -530,10 +497,10 @@ export const DesktopWrapper = styled(Grid)(({ theme }) => {
 
   return {
     [`&.${classes.desktopWrapper}`]: {
-      backgroundColor: colors.white,
+      backgroundColor: theme.palette.common.white,
       borderRadius: theme.spacing(2),
       padding: theme.spacing(1.5),
-      boxShadow: colors.desktopShadow,
+      boxShadow: theme.podkrepiShadows.card,
       width: 360,
       maxHeight: '600px',
       overflowY: 'auto',
@@ -560,8 +527,8 @@ export const DesktopWrapper = styled(Grid)(({ theme }) => {
 
     [`& .${classes.summarySection}`]: baseStyles.summarySection,
     [`& .${classes.summaryText}`]: baseStyles.summaryText,
-    [`& .${classes.summaryTextLine1}`]: baseStyles.summaryTextLine(colors.blackLight),
-    [`& .${classes.summaryTextLine2}`]: baseStyles.summaryTextLine(colors.black),
+    [`& .${classes.summaryTextLine1}`]: baseStyles.summaryTextLine('rgba(0, 0, 0, 0.8)'),
+    [`& .${classes.summaryTextLine2}`]: baseStyles.summaryTextLine(theme.palette.common.black),
 
     [`& .${classes.buttonRow}`]: baseStyles.buttonRow,
     [`& .${classes.shareButtonOutline}`]: baseStyles.shareButtonOutline,

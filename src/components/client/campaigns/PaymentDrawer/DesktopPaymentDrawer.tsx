@@ -10,7 +10,7 @@ import CampaignProgressPie from './CampaignProgressPie'
 import DonationsTab from './DonationsTab'
 import WishesTab from './WishesTab'
 import { DesktopPaymentDrawerProps } from './types'
-import { classes, colors, DesktopWrapper } from './constants'
+import { classes, DesktopWrapper } from './constants'
 
 /**
  * Desktop Payment Drawer Component
@@ -135,7 +135,7 @@ export default function DesktopPaymentDrawer({
         </Box>
       </Box>
 
-      <Typography sx={{ fontSize: 12, color: colors.blackText, textAlign: 'center', mb: 2 }}>
+      <Typography sx={{ fontSize: 12, color: 'text.primary', textAlign: 'center', mb: 2 }}>
         {t('campaign.noCommissionInfo')}
       </Typography>
 

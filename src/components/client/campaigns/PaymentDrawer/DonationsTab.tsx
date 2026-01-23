@@ -14,7 +14,6 @@ import { moneyPublic } from 'common/util/money'
 import { CampaignDonation } from 'gql/campaigns'
 import { DonationType } from 'gql/donations.enums'
 import { DonationsTabProps } from './types'
-import { colors, typography } from './constants'
 
 /**
  * Donations Tab Component
@@ -90,16 +89,16 @@ const StyledContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
-    fontFamily: typography.fontPrimary,
+    fontFamily: theme.typography.fontFamily,
     fontWeight: 500,
     fontSize: 12,
     lineHeight: '150%',
-    color: colors.darkBlue,
+    color: theme.palette.primary.dark,
     '& svg': {
       width: 14,
       height: 14,
       marginLeft: 2,
-      color: colors.darkBlue,
+      color: theme.palette.primary.dark,
     },
     '&:hover': {
       opacity: 0.8,
@@ -118,7 +117,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   [`& .${classes.avatar}`]: {
     width: 20,
     height: 20,
-    color: colors.heartPink,
+    color: theme.palette.accent.heartLight,
   },
 
   [`& .${classes.pagination}`]: {
@@ -142,19 +141,19 @@ const StyledContainer = styled(Box)(({ theme }) => ({
     width: '100%',
     height: 30,
     padding: '4px 10px',
-    border: `2px solid ${colors.lightBlue}`,
+    border: `2px solid ${theme.palette.primary.light}`,
     borderRadius: 100,
     backgroundColor: 'transparent',
-    fontFamily: typography.fontPrimary,
+    fontFamily: theme.typography.fontFamily,
     fontWeight: 600,
     fontSize: 12,
     lineHeight: '22px',
     letterSpacing: '0.46px',
-    color: colors.darkBlue,
+    color: theme.palette.primary.dark,
     textTransform: 'none',
     '&:hover': {
-      backgroundColor: colors.lightBlueHover,
-      border: `2px solid ${colors.lightBlue}`,
+      backgroundColor: 'rgba(74, 195, 255, 0.08)',
+      border: `2px solid ${theme.palette.primary.light}`,
     },
   },
 }))
