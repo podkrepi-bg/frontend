@@ -3,7 +3,7 @@
   "version": "0.9.13",
   "license": "MIT",
   "repository": "https://github.com/orgs/podkrepi-bg",
-  "packageManager": "yarn@4.12.0",
+  "packageManager": "yarn@3.3.0",
   "scripts": {
     "predev": "shx test -e .env.local && exit 0 || shx echo 'You need to create .env.local file. Please check README.md!' && exit 1",
     "dev": "yarn && next dev -p 3040",
