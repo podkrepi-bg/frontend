@@ -10,21 +10,3 @@
  */
 
 export { default as PaymentDrawer } from './PaymentDrawer'
-export { default as CampaignProgressPie } from './CampaignProgressPie'
-export { default as ShareButtons } from './ShareButtons'
-export { default as DonationsTab } from './DonationsTab'
-export { default as WishesTab } from './WishesTab'
-
-// Export types
-export type {
-  PaymentDrawerProps,
-  PaymentDrawerCollapsedProps,
-  PaymentDrawerExpandedProps,
-  CampaignProgressProps,
-  ShareButtonsProps,
-  DonationsTabProps,
-  WishesTabProps,
-  DrawerState,
-  TabValue,
-  SharePlatform,
-} from './types'
