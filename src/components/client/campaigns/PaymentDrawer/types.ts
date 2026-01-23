@@ -1,5 +1,6 @@
 import { CampaignResponse, CampaignDonation } from 'gql/campaigns'
 import { DonationWishPaginatedResponse } from 'gql/donationWish'
+import { TFunction } from 'next-i18next'
 import { CampaignState } from '../helpers/campaign.enums'
 
 /**
@@ -16,6 +17,70 @@ import { CampaignState } from '../helpers/campaign.enums'
 export type DrawerState = 'collapsed' | 'expanded'
 
 export type TabValue = 'donors' | 'wishes'
+
+// ============================================================================
+// Hook Return Type
+// ============================================================================
+
+/**
+ * Return type for usePaymentDrawerLogic hook.
+ * Contains all state, computed values, fetched data, and handlers
+ * needed by MobilePaymentDrawer and DesktopPaymentDrawer components.
+ */
+export interface UsePaymentDrawerLogicReturn {
+  // State
+  drawerOpen: boolean
+  activeTab: TabValue
+  page: number
+  setPage: (page: number) => void
+  sortBy: 'createdAt' | 'amount'
+  sortOrder: 'asc' | 'desc'
+  pageSize: number
+
+  // Campaign data
+  campaignId: string
+  campaignSlug: string
+  campaignState: CampaignState
+  reached: number
+  target: number
+  reachedAmount: string
+  targetAmount: string
+  canDonate: boolean
+
+  // Fetched data
+  donations: CampaignDonation[]
+  totalDonations: number
+  donationHistoryError: unknown
+  isDonationHistoryLoading: boolean
+  wishList: DonationWishPaginatedResponse | undefined
+
+  // Handlers
+  openDrawer: () => void
+  closeDrawer: () => void
+  navigateToSharePage: () => void
+  handleTabChange: (tab: TabValue) => void
+  handleSortChange: (sortBy: 'createdAt' | 'amount') => void
+  handleSeeAllDonations: () => void
+  handleSeeAllWishes: () => void
+
+  // Translation
+  t: TFunction
+}
+
+/**
+ * Props for MobilePaymentDrawer component.
+ * Includes all properties from UsePaymentDrawerLogicReturn.
+ */
+export type MobilePaymentDrawerProps = UsePaymentDrawerLogicReturn
+
+/**
+ * Props for DesktopPaymentDrawer component.
+ * Excludes mobile-only drawer state properties.
+ */
+export type DesktopPaymentDrawerProps = Omit<
+  UsePaymentDrawerLogicReturn,
+  'drawerOpen' | 'openDrawer' | 'closeDrawer'
+>
 
 // ============================================================================
 // Campaign Progress Types
