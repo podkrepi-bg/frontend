@@ -48,7 +48,7 @@ export interface CampaignProgressProps {
 // Share Button Types
 // ============================================================================
 
-export type SharePlatform = 'facebook' | 'email' | 'link' | 'twitter' | 'linkedin' | 'whatsapp'
+export type SharePlatform = 'facebook' | 'email' | 'link' | 'twitter' | 'linkedin'
 
 export interface ShareButtonsProps {
   /** Full URL to the campaign */
