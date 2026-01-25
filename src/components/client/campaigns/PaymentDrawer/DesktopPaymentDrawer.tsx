@@ -60,27 +60,31 @@ export default function DesktopPaymentDrawer({
   t,
 }: DesktopPaymentDrawerProps) {
   return (
-    <DesktopWrapper item xs={12} className={classes.desktopWrapper}>
+    <DesktopWrapper item xs={12} className={classes.desktopWrapper} data-testid="payment-drawer">
       {/* Tabs */}
       <Box className={classes.desktopTabsWrapper}>
         <Typography
           className={`${classes.desktopTab} ${
             activeTab === 'donors' ? classes.desktopTabSelected : ''
           }`}
-          onClick={() => handleTabChange('donors')}>
+          onClick={() => handleTabChange('donors')}
+          data-testid="summary-donors">
           {t('cta.donations')}
         </Typography>
         <Typography
           className={`${classes.desktopTab} ${
             activeTab === 'wishes' ? classes.desktopTabSelected : ''
           }`}
-          onClick={() => handleTabChange('wishes')}>
+          onClick={() => handleTabChange('wishes')}
+          data-testid="summary-wishes">
           {t('campaign.wishes')}
         </Typography>
       </Box>
 
       {/* Content */}
-      <Box className={classes.contentSection}>
+      <Box
+        className={classes.contentSection}
+        data-testid={activeTab === 'donors' ? 'summary-donors-wrapper' : 'summary-wishes-wrapper'}>
         {donationHistoryError ? (
           <Typography color="error">{t('errors.fetch-donations')}</Typography>
         ) : isDonationHistoryLoading ? (
@@ -151,7 +155,8 @@ export default function DesktopPaymentDrawer({
           href={routes.campaigns.oneTimeDonation(campaignSlug)}
           disabled={!canDonate}
           className={classes.donateButtonYellow}
-          endIcon={<FavoriteBorderOutlined />}>
+          endIcon={<FavoriteBorderOutlined />}
+          data-testid="payment-drawer-donate-button">
           {t('cta.support-now')}
         </LinkButton>
       </Box>

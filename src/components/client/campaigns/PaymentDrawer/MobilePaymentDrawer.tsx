@@ -126,7 +126,8 @@ export default function MobilePaymentDrawer({
         ref={mobileWrapperRef}
         className={classes.mobileClosedWrapper}
         onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}>
+        onTouchEnd={handleTouchEnd}
+        data-testid="payment-drawer">
         <Box className={classes.swipeHandle} aria-hidden="true" />
 
         <Box className={classes.mobileCommissionTextContent}>
@@ -156,7 +157,8 @@ export default function MobilePaymentDrawer({
               href={routes.campaigns.oneTimeDonation(campaignSlug)}
               disabled={!canDonate}
               className={classes.donateNowButton}
-              endIcon={<FavoriteBorderOutlined />}>
+              endIcon={<FavoriteBorderOutlined />}
+              data-testid="payment-drawer-donate-button">
               {t('cta.support-now')}
             </LinkButton>
           </Box>
@@ -205,7 +207,11 @@ export default function MobilePaymentDrawer({
           </FormControl>
 
           {/* Content */}
-          <Box className={classes.contentSection}>
+          <Box
+            className={classes.contentSection}
+            data-testid={
+              activeTab === 'donors' ? 'summary-donors-wrapper' : 'summary-wishes-wrapper'
+            }>
             {donationHistoryError ? (
               <Typography color="error">{t('errors.fetch-donations')}</Typography>
             ) : isDonationHistoryLoading ? (
