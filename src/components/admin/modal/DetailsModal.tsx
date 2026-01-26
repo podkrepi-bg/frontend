@@ -47,7 +47,7 @@ function DetailsModal() {
                   <ListItem>
                     <ListItemText primary={row.row.person.email} secondary={row.row.person.phone} />
                   </ListItem>
-                  <ListItem>{formatDateString(row.row.createdAt, i18n?.language)}</ListItem>
+                  <ListItem>{formatDateString(row.row.createdAt)}</ListItem>
                   <ListItem>
                     <Typography variant="body2">{row.row.message || row.row.comment}</Typography>
                   </ListItem>
