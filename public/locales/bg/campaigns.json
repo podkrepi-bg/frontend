@@ -73,7 +73,8 @@
     "apply": "Кандидатствайте",
     "support": "Дарете",
     "support-cause-today": "Подкрепете кауза днес!",
-    "support-now": "Подкрепете сега",
+    "donations": "Дарения",
+    "support-now": "Дарете сега",
     "see-all": "Вижте всички",
     "see-less": "Вижте по-малко",
     "see-more": "Вижте повече",
@@ -108,6 +109,14 @@
     "state": "Статус",
     "from": "от",
     "noCommissionInfo": "Подкрепи.бг работи с 0% комисиона. Възможни са единствено изрично упоменати банкови такси.",
+    "commission-info": "Подкрепи.бг работи с 0% комисионна.",
+    "date-header": "Дата",
+    "amount-header": "Сума",
+    "see-all-donations": "Всички дарения",
+    "see-all-wishes": "Всички пожелания",
+    "summary-text": "До момента са дарени <strong>{{reached}}</strong> от нужните <strong>{{target}}</strong>.",
+    "summary-line1": "До момента са дарени {{reached}}",
+    "summary-line2": "от нужните {{target}}.",
     "donors": "дарители",
     "documents": "документи",
     "guarantor": "гарант",
@@ -150,7 +159,28 @@
     "date": "Дата:",
     "news": "Новини",
     "wishes": "Пожелания",
-    "nowishes": "Няма добавени пожелания"
+    "nowishes": "Няма добавени пожелания",
+    "anonymous": "Анонимен",
+    "no-donations": "Все още няма дарения. Бъдете първият дарител!",
+    "no-wishes": "Все още няма пожелания. Оставете съобщение за подкрепа!"
+  },
+  "campaign-progress-pie": {
+    "aria-label": "Прогрес на кампанията: {{percentage}}% финансирано"
+  },
+  "pagination": {
+    "previous": "Предишна страница",
+    "next": "Следваща страница"
+  },
+  "errors": {
+    "fetch-donations": "Грешка при зареждане на даренията",
+    "fetch-wishes": "Грешка при зареждане на пожеланията"
+  },
+  "share": {
+    "share-campaign-social": "Споделете кампанията в социалните мрежи",
+    "send-email": "Изпратете като E-mail",
+    "copy-link": "Копиране на линка",
+    "instagram": "Споделете в Instagram",
+    "instagram-copy-message": "Линкът е копиран! Поставете го в Instagram историята или публикацията си."
   },
   "info-graphics": {
     "donation-title": "100% от дарението отива при нуждаещите се",

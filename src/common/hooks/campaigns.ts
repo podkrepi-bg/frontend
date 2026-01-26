@@ -136,9 +136,18 @@ export function useCampaignDonationHistory(
   campaignId?: string,
   pageindex?: number,
   pagesize?: number,
+  sortBy?: string,
+  sortOrder?: string,
 ) {
   return useQuery<CampaignDonationHistoryResponse>([
-    endpoints.donation.getDonations(PaymentStatus.succeeded, campaignId, pageindex, pagesize).url,
+    endpoints.donation.getDonations(
+      PaymentStatus.succeeded,
+      campaignId,
+      pageindex,
+      pagesize,
+      sortBy,
+      sortOrder,
+    ).url,
   ])
 }
 
