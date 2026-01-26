@@ -1,0 +1,66 @@
+# Build target dependencies #
+###########################
+FROM node:20-alpine AS base
+WORKDIR /app
+ARG NODE_ENV=production
+ENV PATH=/app/node_modules/.bin:$PATH \
+  NODE_ENV="$NODE_ENV"
+# Yarn
+RUN yarn set version berry
+COPY package.json yarn.lock* .yarnrc.yml ./
+
+# Production dependencies only
+FROM base AS deps-prod
+COPY .yarn .yarn
+RUN yarn workspaces focus --all --production && \
+    yarn cache clean && \
+    rm -rf .yarn/cache
+
+# Build target builder #
+########################
+FROM base AS builder
+
+# Setup build env
+ARG VERSION=unversioned
+ARG SENTRY_AUTH_TOKEN
+ENV SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"
+ARG GHOST_API_URL
+ENV GHOST_API_URL="$GHOST_API_URL"
+ARG GHOST_CONTENT_KEY
+ENV GHOST_CONTENT_KEY="$GHOST_CONTENT_KEY"
+
+RUN apk add --no-cache jq && \
+  mv package.json package.json.bak && \
+  jq --arg version "$VERSION" '.version=$version' package.json.bak > package.json && \
+  rm package.json.bak && \
+  apk del jq
+
+# Add ALL deps for building (including dev dependencies)
+COPY .yarn .yarn
+RUN yarn install --immutable
+
+COPY . .
+
+# Build the application with standalone output
+RUN yarn build && \
+  yarn sitemap
+
+# Build target production with distroless image #
+################################################
+FROM gcr.io/distroless/nodejs20-debian12:latest AS runner
+
+# Copy the standalone output which includes only necessary files
+COPY --from=builder --chown=65534:65534 /app/.next/standalone /app/
+COPY --from=builder --chown=65534:65534 /app/.next/static /app/.next/static
+COPY --from=builder --chown=65534:65534 /app/public /app/public
+
+WORKDIR /app
+
+USER 65534
+
+ENV NODE_ENV=production
+ENV PORT=3040
+
+EXPOSE 3040
+
+CMD ["server.js"]
