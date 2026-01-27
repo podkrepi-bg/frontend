@@ -12,7 +12,7 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import { Button, Grid } from '@mui/material'
 
-import { ApiErrors } from 'service/apiErrors'
+import { ApiErrors, handleFileUploadError } from 'service/apiErrors'
 import { createIrregularity, uploadIrregularityFiles } from 'service/irregularity'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
@@ -90,6 +90,7 @@ export default function CreateForm({ campaigns, person }: Props) {
     IrregularityInput
   >({
     mutationFn: createIrregularity,
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
   })
 
   const fileUploadMutation = useMutation<
@@ -98,6 +99,7 @@ export default function CreateForm({ campaigns, person }: Props) {
     UploadIrregularityFiles
   >({
     mutationFn: uploadIrregularityFiles(),
+    onError: (error) => handleFileUploadError(error, t),
   })
 
   const onSubmit = async (values: IrregularityInput) => {
@@ -122,7 +124,7 @@ export default function CreateForm({ campaigns, person }: Props) {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       router.push(routes.admin.irregularity.index)
     } catch (error) {
-      AlertStore.show(t('common:alerts.error'), 'error')
+      console.error(error)
     }
   }
 

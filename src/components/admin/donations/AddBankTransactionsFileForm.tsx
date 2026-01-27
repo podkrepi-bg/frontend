@@ -22,7 +22,7 @@ import FileUpload from 'components/common/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { ApiErrors, handleFileUploadError, isAxiosError, matchValidator } from 'service/apiErrors'
 import {
   BankTransactionsFileType,
   FileType,
@@ -72,7 +72,7 @@ export default function BankTransactionsFileForm({
     UploadBankTransactionsFiles
   >({
     mutationFn: useUploadBankTransactionsFiles(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onError: (error) => handleFileUploadError(error, t),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 

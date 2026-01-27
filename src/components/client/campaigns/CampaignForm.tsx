@@ -25,7 +25,7 @@ import {
   UploadCampaignFiles,
 } from 'components/common/campaign-file/roles'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { ApiErrors, handleFileUploadError, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
 import {
   CampaignResponse,
@@ -114,6 +114,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     UploadCampaignFiles
   >({
     mutationFn: useUploadCampaignFiles(),
+    onError: (error) => handleFileUploadError(error, t),
   })
 
   const onSubmit = async (

@@ -66,7 +66,6 @@ export default function CampaignApplicationDetails({ files, setFiles }: Props) {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
                 setFieldValue('applicationDetails.documents', newFiles)
               }}
-              accept="text/plain,application/json,application/pdf,image/png,image/jpeg,application/xml,text/xml,application/msword,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             />
             {touched.applicationDetails?.documents && errors.applicationDetails?.documents && (
               <FormHelperText error>{t('steps.details.documents-hint')}</FormHelperText>
