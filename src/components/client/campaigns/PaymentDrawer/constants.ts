@@ -501,7 +501,6 @@ export const DesktopWrapper = styled(Grid)(({ theme }) => {
       borderRadius: theme.spacing(2),
       padding: theme.spacing(1.5),
       boxShadow: theme.podkrepiShadows.card,
-      border: `1px solid ${theme.palette.primary.light}`,
       width: 360,
       maxHeight: '600px',
       overflowY: 'auto',
