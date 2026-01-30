@@ -40,7 +40,8 @@ export default function MobilePaymentDrawer({
   setPage,
   sortBy,
   sortOrder,
-  pageSize,
+  donationsPageSize,
+  wishesPageSize,
 
   // Campaign data
   campaignId,
@@ -223,7 +224,7 @@ export default function MobilePaymentDrawer({
                 total={totalDonations}
                 page={page}
                 setPage={setPage}
-                pageSize={pageSize}
+                pageSize={donationsPageSize}
                 onSeeAll={handleSeeAllDonations}
                 showPagination={false}
                 sortBy={sortBy}
@@ -234,7 +235,7 @@ export default function MobilePaymentDrawer({
               <WishesTab
                 campaignId={campaignId}
                 wishList={wishList}
-                pageSize={pageSize}
+                pageSize={wishesPageSize}
                 onSeeAll={handleSeeAllWishes}
                 showPagination={false}
               />
