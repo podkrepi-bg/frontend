@@ -8,7 +8,7 @@ export class StripeCheckoutPage extends BasePage {
 
   private readonly productSummaryTotalAmount = '#ProductSummary-totalAmount span'
   private readonly checkoutPaymentForm = '.CheckoutPaymentForm'
-  private readonly emailReadonlyInputField = this.checkoutPaymentForm + ' .ReadOnlyFormField-title'
+  private readonly emailInputField = '#linkAuthentication-emailInput'
   private readonly cardNumberInputField = this.checkoutPaymentForm + ' #cardNumber'
   private readonly cardExpDateInputField = this.checkoutPaymentForm + ' #cardExpiry'
   private readonly cardCvcInputField = this.checkoutPaymentForm + ' #cardCvc'
@@ -24,10 +24,18 @@ export class StripeCheckoutPage extends BasePage {
   }
 
   /**
-   * Get readonly e-mail text
+   * Get the email input field value
    */
-  async getReadonlyEmailText(): Promise<string | null> {
-    return this.getTextOfElementBySelector(this.emailReadonlyInputField)
+  async getEmailFieldValue(): Promise<string | null> {
+    return this.getAttributeBySelector(this.emailInputField, 'value')
+  }
+
+  /**
+   * Fill the email input field
+   * @param {string} email
+   */
+  async fillEmailField(email: string): Promise<void> {
+    await this.setInputFieldBySelector(this.emailInputField, email, true, true)
   }
 
   /**
