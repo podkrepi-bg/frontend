@@ -4,9 +4,11 @@ import { useTranslation } from 'next-i18next'
 import { signIn } from 'next-auth/react'
 import { useFormikContext } from 'formik'
 import { Box, Button, CircularProgress, Grid } from '@mui/material'
+import { useQueryClient } from '@tanstack/react-query'
 
 import theme from 'common/theme'
 import Google from 'common/icons/Google'
+import { endpoints } from 'service/apiEndpoints'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
 import { useDonationFlow } from 'components/client/donation-flow/contexts/DonationFlowProvider'
@@ -37,6 +39,7 @@ function InlineLoginForm() {
   const { t } = useTranslation('donation-flow')
   const [loading, setLoading] = useState(false)
   const { values, setFieldValue } = useFormikContext<DonationFormData>()
+  const queryClient = useQueryClient()
   const { campaign } = useDonationFlow()
   const onGoogleLogin = () => {
     signIn('google', { callbackUrl: routes.campaigns.oneTimeDonation(campaign.slug) })
@@ -55,6 +58,8 @@ function InlineLoginForm() {
         throw new Error(resp.error)
       }
       if (resp?.ok) {
+        // Refetch person data so personId is available for subscription metadata
+        await queryClient.invalidateQueries([endpoints.account.me.url])
         setLoading(false)
         setFieldValue('isAnonymous', false)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
