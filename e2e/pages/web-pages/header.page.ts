@@ -11,7 +11,7 @@ export class HeaderPage extends BasePage {
   private readonly muiToolbarRootSelector = '.MuiToolbar-root'
   private readonly headerLogo = this.muiToolbarRootSelector + ' .PodkrepiLogo-letters'
   private readonly toolbarCommonButtonsSelector = this.muiToolbarRootSelector + ' button'
-  private readonly toolbarAnchorButtonSelector = this.muiToolbarRootSelector + ' a .MuiButton-root'
+  private readonly toolbarAnchorButtonSelector = this.muiToolbarRootSelector + ' a.MuiButton-root'
   private readonly headerSubmenuLinks = '.MuiMenu-list a span'
 
   // Values from the localization json file

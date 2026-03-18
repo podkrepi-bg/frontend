@@ -10,13 +10,13 @@ jobs:
     name: Run Playwright
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           path: './frontend'
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: podkrepi-bg/api
           ref: master
@@ -49,9 +49,10 @@ jobs:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
         run: docker compose up -d stripe-webhook
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '18'
+          package-manager-cache: false
 
       - name: Install backend dependencies
         working-directory: ./api
@@ -114,7 +115,7 @@ jobs:
         working-directory: ./frontend
         run: yarn run test:e2e
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: playwright-report
@@ -122,7 +123,7 @@ jobs:
           retention-days: 14
           overwrite: true
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: playwright-report
@@ -130,7 +131,7 @@ jobs:
           retention-days: 14
           overwrite: true
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: logs

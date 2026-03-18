@@ -29,6 +29,9 @@ const colors = {
   yellow: {
     main: '#FFCB57',
     dark: '#F6992B',
+    light: '#FFD54F',
+    hover: '#FFCA28',
+    background: '#FFF9E6',
   },
   gray: {
     main: '#F5F5F5',
@@ -39,6 +42,10 @@ const colors = {
   },
   red: {
     error: '#ED1D1D',
+  },
+  accent: {
+    heart: '#ab2f26',
+    heartLight: '#E57373',
   },
 }
 
@@ -73,6 +80,22 @@ export const themeOptions: ThemeOptions = {
     error: {
       main: colors.red.error,
     },
+    accent: {
+      heart: colors.accent.heart,
+      heartLight: colors.accent.heartLight,
+    },
+    yellowVariants: {
+      light: colors.yellow.light,
+      hover: colors.yellow.hover,
+      background: colors.yellow.background,
+    },
+  },
+  podkrepiShadows: {
+    drawer: '0px -8px 6px -4px rgba(0, 0, 0, 0.15)',
+    card: '0px 4px 20px rgba(0, 0, 0, 0.15)',
+  },
+  podkrepiGradients: {
+    summary: 'linear-gradient(180deg, rgba(234, 244, 252, 0.25) 0%, #EAF4FC 100%)',
   },
   shape: {
     borderRadius: 3,
@@ -202,7 +225,14 @@ export const themeOptions: ThemeOptions = {
       fontFamily: montserrat.style.fontFamily,
     },
     h4: { fontFamily: montserrat.style.fontFamily },
-    h5: { fontFamily: montserrat.style.fontFamily },
+    h5: {
+      fontFamily: montserrat.style.fontFamily,
+      fontWeight: 500,
+      fontSize: '1rem', // 16px
+      lineHeight: 1.33, // 133%
+      letterSpacing: '0px',
+      verticalAlign: 'middle',
+    },
 
     body1: {
       fontSize: '0.875rem',

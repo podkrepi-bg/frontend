@@ -14,7 +14,10 @@ type FooterSection = {
 export const footerLinks: FooterSection[] = [
   {
     title: 'components.footer.donatе',
-    links: [{ label: 'components.footer.all-campaigns', href: routes.campaigns.index }],
+    links: [
+      { label: 'components.footer.all-campaigns', href: routes.campaigns.index },
+      { label: 'nav.campaigns.create', href: routes.campaigns.application },
+    ],
   },
   {
     title: 'components.footer.about-us',

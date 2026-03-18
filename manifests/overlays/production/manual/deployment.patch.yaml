@@ -18,5 +18,7 @@ spec:
               memory: 400Mi
               cpu: 800m
           env:
+            - name: FEATURE_DUAL_CURRENCY
+              value: 'true'
             - name: STRIPE_PUBLISHABLE_KEY
               value: pk_live_51IRdsUKApGjVGa9tbGfNIXvSEFs69XwnkXzU7IZEeBttHhwTCYvBIeFvKPxUd3IBCTp9cizH0bvlQEPqPhVlPYM600YswIlpkq

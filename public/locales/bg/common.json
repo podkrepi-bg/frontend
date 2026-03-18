@@ -75,7 +75,7 @@
       "faq": "Често задавани въпроси",
       "privacy-policy": "Защита на лични данни",
       "terms-of-service": "Общи условия",
-      "copyrights": "Podkrepi.bg ©2024 Всички права запазени.",
+      "copyrights": "Podkrepi.bg ©2025 Всички права запазени.",
       "hosting-partner": "Хостинг партньор:",
       "social": {
         "facebook": "Facebook",
@@ -106,6 +106,24 @@
   "cta": {
     "share": "Сподели",
     "more-information": "Повече информация"
+  },
+  "share": {
+    "facebook": "Споделете във Facebook",
+    "twitter": "Споделете в Twitter",
+    "linkedin": "Споделете в LinkedIn",
+    "email": "Споделете по имейл",
+    "copy-link": "Копирайте линка",
+    "check-out-campaign": "Вижте тази кампания"
+  },
+  "alerts": {
+    "message-sent": "Вашето съобщение беше изпратено успешно!",
+    "message-copy": "Копирахте съобщението успешно!",
+    "link-copied": "Линкът е копиран успешно!",
+    "copy-failed": "Копирането не успя. Моля, опитайте отново.",
+    "error": "Възникна грешка! Опитайте отново!",
+    "noselected": "Моля, изберете поне един запис!",
+    "success": "Успешно запазено!",
+    "success-deleted": "Успешно изтрито!"
   },
   "notifications": {
     "cta": {

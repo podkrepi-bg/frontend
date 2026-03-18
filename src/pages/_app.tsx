@@ -23,7 +23,7 @@ import {
 } from 'components/client/layout/NotificationSnackBar/props/global'
 import { getCookieConsentValue, Cookies } from 'react-cookie-consent'
 import CookieConsentPopup from 'components/common/CookieConsentPopup'
-import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter'
+import { AppCacheProvider } from '@mui/material-nextjs/v15-pagesRouter'
 // Client-side cache, shared for the whole session of the user in the browser.
 
 declare module '@mui/styles/defaultTheme' {

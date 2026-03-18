@@ -56,7 +56,8 @@ export class DonationPage extends CampaignsPage {
     bgLocalizationValidation['informed-agree-with'] + ' ' + bgLocalizationValidation.gdpr
   private readonly enPrivacyCheckboxText =
     enLocalizationValidation['informed-agree-with'] + ' ' + enLocalizationValidation.gdpr
-  private readonly bgStripeErrorNoBalanceText = 'В картата ви няма достатъчно средства. Опитайте с друга.'
+  private readonly bgStripeErrorNoBalanceText =
+    'В картата ви няма достатъчно средства. Опитайте с друга.'
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await this.page.waitForTimeout(1000)
@@ -200,21 +201,29 @@ export class DonationPage extends CampaignsPage {
   }
 
   /**
-   * Set donation region from the radio cards
-   * @param {number} amount
+   * Check the total amount displayed in the donation summary
+   * @param {number} amount - The expected amount in EUR
    */
   async checkTotalAmount(
     amount: number,
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
     const totalAmount = await this.page.locator(this.totalAmountSelector).first().textContent()
-    const totalAmountSpaceFix = totalAmount?.replace(/\s/, String.fromCharCode(160))
-    const donationAmountIntl = Intl.NumberFormat(language, {
-      style: 'currency',
-      currency: 'BGN',
+    const totalAmountSpaceFix = totalAmount?.replace(/\s/g, String.fromCharCode(160))
+
+    // Format amount to match app's custom EUR formatting
+    // BG locale: "121,96 евро", EN locale: "25.81 EUR"
+    const locale = language === LanguagesEnum.BG ? 'bg-BG' : 'en-US'
+    const formattedNumber = new Intl.NumberFormat(locale, {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(amount)
 
-    expect(totalAmountSpaceFix).toEqual(donationAmountIntl)
+    const currencyLabel = language === LanguagesEnum.BG ? 'евро' : 'EUR'
+    const expectedAmount = `${formattedNumber}${String.fromCharCode(160)}${currencyLabel}`
+
+    expect(totalAmountSpaceFix).toEqual(expectedAmount)
   }
 
   async checkPrivacyCheckbox(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {

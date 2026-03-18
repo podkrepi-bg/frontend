@@ -12,7 +12,7 @@
       "campaignTitle": "Campaign title",
       "beneficiary": "Beneficiary names",
       "beneficiaryRelationship": "Beneficiary relationship",
-      "funds": "The required amount in leva",
+      "funds": "The required amount in euros",
       "campaign-end": {
         "title": "Desired campaign end date:",
         "options": {

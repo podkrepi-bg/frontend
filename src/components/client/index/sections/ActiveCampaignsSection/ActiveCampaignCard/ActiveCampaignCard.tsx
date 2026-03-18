@@ -1,4 +1,4 @@
-import { useTranslation, i18n } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
 import { Box } from '@mui/material'
@@ -13,7 +13,7 @@ import Image from 'next/image'
 
 import {
   CampaignTitle,
-  DonateButton,
+  LearnMoreButton,
   Root,
   StyledCardActions,
   StyledContent,
@@ -31,8 +31,8 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   const reached = summary ? summary.reachedAmount + (summary.guaranteedAmount ?? 0) : 0
 
-  const reachedAmount = moneyPublic(reached)
-  const targetAmount = moneyPublic(campaign.targetAmount)
+  const reachedAmount = moneyPublic(reached, 'EUR', 100, 0, 0)
+  const targetAmount = moneyPublic(campaign.targetAmount, 'EUR', 100, 0, 0)
 
   return (
     <Root data-testid={`campaign-card-${index}`}>
@@ -43,7 +43,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
             width: '100%',
             aspectRatio: 1.5,
             [theme.breakpoints.up('lg')]: {
-              maxHeight: index === 0 ? theme.spacing(71.2) : theme.spacing(27.65),
+              maxHeight: index === 0 ? theme.spacing(71.72) : theme.spacing(27.65),
               aspectRatio: index === 0 ? 0.9 : 1,
             },
           }}>
@@ -60,31 +60,28 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         <StyledContent>
           <SumWrapper>
             <Sum>
-              <SumNumber>
-                {i18n?.language === 'bg'
-                  ? reachedAmount.split(',')[0] + ' лв.'
-                  : reachedAmount.split('.')[0]}
-              </SumNumber>
+              <SumNumber>{reachedAmount}</SumNumber>
             </Sum>
             <Sum>
-              <SumNumber>
-                {i18n?.language === 'bg'
-                  ? targetAmount.split(',')[0] + ' лв.'
-                  : targetAmount.split('.')[0]}
-              </SumNumber>
+              <SumNumber>{targetAmount}</SumNumber>
             </Sum>
           </SumWrapper>
-          <CampaignProgress campaignId={id} raised={reached} target={target} />
+          <CampaignProgress
+            state={campaign.state}
+            raised={reached}
+            target={target}
+            showPercentage
+          />
           <CampaignTitle>{title}</CampaignTitle>
         </StyledContent>
       </Link>
       <StyledCardActions disableSpacing>
-        <DonateButton
-          href={routes.campaigns.oneTimeDonation(slug)}
+        <LearnMoreButton
+          href={routes.campaigns.viewCampaignBySlug(slug)}
           variant="contained"
           color="secondary">
-          {t('cta.support')}
-        </DonateButton>
+          {t('cta.learn-more')}
+        </LearnMoreButton>
       </StyledCardActions>
     </Root>
   )

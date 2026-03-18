@@ -55,6 +55,7 @@ export default function PublicMenu() {
   return (
     <StyledGrid item>
       <Button
+        disableElevation
         onClick={handleMenu}
         size="medium"
         color="inherit"

@@ -28,6 +28,7 @@ export default function LocaleButton() {
     <Button
       data-testid="locale-button"
       variant="text"
+      disableElevation
       color="inherit"
       size="small"
       onClick={changeLang(router.locale === 'bg' ? 'en' : 'bg')}

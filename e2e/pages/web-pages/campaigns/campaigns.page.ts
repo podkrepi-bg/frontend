@@ -9,19 +9,20 @@ export class CampaignsPage extends HomePage {
     super(page)
   }
 
-  private readonly donationGrid = '.InlineDonation-inlineDonationWrapper'
-  private readonly donationSupportButton = this.donationGrid + ' a button'
+  // New PaymentDrawer selectors (replaces InlineDonation)
+  private readonly paymentDrawer = '[data-testid="payment-drawer"]'
+  private readonly paymentDrawerDonateButton = '[data-testid="payment-drawer-donate-button"]'
   private readonly filterButtonsCommonSelector = 'ul button.CampaignFilter-filterButtons'
   // private readonly campaignContainerItem = ".MuiGrid-container .MuiGrid-item";
   private readonly cardActions = '.MuiCardActions-root'
-  private readonly cardActionButtons = this.cardActions + ' button'
+  private readonly cardActionButtons = this.cardActions + ' a'
   // Main headings
   private readonly bgMainCampaignsHeading = bgLocalizationCampaigns.campaigns
   private readonly enMainCampaignsHeading = enLocalizationCampaigns.campaigns
   private readonly bgSupportCauseTodayHeading = bgLocalizationCampaigns.cta['support-cause-today']
   private readonly enSupportCauseTodayHeading = enLocalizationCampaigns.cta['support-cause-today']
-  private readonly bgSupportNowActionButtonText = bgLocalizationCampaigns.cta['support']
-  private readonly enSupportNowActionButtonText = enLocalizationCampaigns.cta['support']
+  private readonly bgLearnMoreActionButtonText = bgLocalizationCampaigns.cta['learn-more']
+  private readonly enLearnMoreActionButtonText = enLocalizationCampaigns.cta['learn-more']
 
   // Summary donors and wishes sections
   private readonly bgDonorsButtonText = bgLocalizationCampaigns.campaign['donors']
@@ -43,10 +44,10 @@ export class CampaignsPage extends HomePage {
   }
 
   /**
-   * Click donation Support button into the donation grid container
+   * Click donation Support button in the PaymentDrawer
    */
   async clickDonationSupportButton(): Promise<void> {
-    await this.clickElement(this.donationSupportButton)
+    await this.clickElement(this.paymentDrawerDonateButton)
   }
 
   /**
@@ -105,9 +106,9 @@ export class CampaignsPage extends HomePage {
   ): Promise<void> {
     let supportButtonText = ''
     if (language === LanguagesEnum.BG) {
-      supportButtonText = this.bgSupportNowActionButtonText
+      supportButtonText = this.bgLearnMoreActionButtonText
     } else if (language === LanguagesEnum.EN) {
-      supportButtonText = this.enSupportNowActionButtonText
+      supportButtonText = this.enLearnMoreActionButtonText
     } else {
       throw new Error('Invalid language!')
     }
@@ -123,7 +124,8 @@ export class CampaignsPage extends HomePage {
    * @param {LanguagesEnum} language - the default value is BG
    */
   async isDonorsSectionVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-    return this.isDonorsElementVisible(language, this.bgDonorsButtonText, this.enDonorsButtonText)
+    const donorsTab = this.page.getByTestId('summary-donors')
+    return donorsTab.isVisible()
   }
 
   /**
@@ -131,6 +133,7 @@ export class CampaignsPage extends HomePage {
    * @param {LanguagesEnum} language - the default value is BG
    */
   async isWishesSectionVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-    return this.isWishesElementVisible(language, this.bgWishesButtonText, this.enWishesButtonText)
+    const wishesTab = this.page.getByTestId('summary-wishes')
+    return wishesTab.isVisible()
   }
 }

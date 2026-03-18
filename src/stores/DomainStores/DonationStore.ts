@@ -29,6 +29,7 @@ export class DonationStore {
   }
   donationSearch: string | undefined = undefined
   campaignId: string | undefined = undefined
+  paymentId: string | undefined = undefined
 
   constructor() {
     makeObservable(this, {
@@ -67,6 +68,10 @@ export class DonationStore {
     this.campaignId = value
   }
 
+  setPaymentId(value: string | undefined) {
+    this.paymentId = value
+  }
+
   get getDonations() {
     return this.donations
   }
@@ -81,5 +86,9 @@ export class DonationStore {
 
   get getCampaignId() {
     return this.campaignId
+  }
+
+  get getPaymentId() {
+    return this.paymentId
   }
 }

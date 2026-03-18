@@ -82,7 +82,7 @@ export default function Form() {
   const initialValues: ExpenseInput = {
     type: data?.type || ExpenseType.none,
     status: data?.status || ExpenseStatus.pending,
-    currency: data?.currency || Currency.BGN,
+    currency: data?.currency || Currency.EUR,
     amount: data?.amount || 0,
     money: 0,
     vaultId: data?.vaultId || '',

@@ -44,12 +44,12 @@ const allNavItems: NavItem[] = [
     label: 'nav.campaigns.news',
   },
   {
-    href: routes.faq_campaigns, //temporarily lead to FAQ
+    href: routes.campaigns.application,
     label: 'nav.campaigns.create',
   },
 ]
 
-export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefined' ?? el.enabled)
+export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefined' || el.enabled)
 
 export default function DonationMenu() {
   const { t } = useTranslation()

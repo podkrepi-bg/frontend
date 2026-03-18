@@ -4,7 +4,7 @@ import { Grid, Box, Typography } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import { styled } from '@mui/material/styles'
 
-import theme from 'common/theme'
+import theme, { montserrat } from 'common/theme'
 
 export const Root = styled('section')(() => ({
   marginTop: theme.spacing(12),
@@ -59,7 +59,7 @@ export const CompletedCampaignImage = styled(Grid)(() => ({
 export const CampaignTitle = styled('h6')(() => ({
   fontSize: theme.typography.pxToRem(16),
   color: theme.palette.common.black,
-  fontFamily: 'Montserrat, sans-serif',
+  fontFamily: montserrat.style.fontFamily,
   fontWeight: 400,
   margin: theme.spacing(1, 0, 0),
 }))
@@ -70,7 +70,7 @@ export const CompletedSumWrapper = styled(Grid)(() => ({
   justifyContent: 'space-between',
   padding: theme.spacing(0.6, 0),
   color: theme.palette.common.black,
-  fontFamily: 'Montserrat, sans-serif',
+  fontFamily: montserrat.style.fontFamily,
   fontSize: theme.typography.pxToRem(17),
 }))
 

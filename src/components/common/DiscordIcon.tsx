@@ -5,7 +5,6 @@ const DiscordIcon = (props: SvgIconProps) => {
     <SvgIcon
       {...props}
       viewBox="0 0 640 512"
-      className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium mui-20bmp1-MuiSvgIcon-root"
       sx={{
         width: 28,
         height: 28,

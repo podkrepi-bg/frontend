@@ -19,6 +19,7 @@ export default function GenericNavMenu({ id, label, children }: Props) {
   return (
     <>
       <Button
+        disableElevation
         variant="text"
         color="inherit"
         onClick={handleMenu}

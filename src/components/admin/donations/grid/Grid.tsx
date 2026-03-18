@@ -54,6 +54,13 @@ export default observer(function Grid() {
 
   const campaignId = router.query.campaignId as string | undefined
   const paymentId = router.query.paymentId as string | undefined
+  if (campaignId) {
+    donationStore.setCampaignId(campaignId)
+  }
+
+  if (paymentId) {
+    donationStore.setPaymentId(paymentId)
+  }
 
   const syncMutation = useMutation({
     mutationFn: async (id: string) => {

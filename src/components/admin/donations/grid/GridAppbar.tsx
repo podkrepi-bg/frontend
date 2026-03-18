@@ -26,7 +26,12 @@ export default function GridAppbar() {
   const { donationStore } = useStores()
   const { t } = useTranslation()
   const exportToExcel = useMutation({
-    mutationFn: useExportToExcel(donationStore.donationFilters, donationStore.donationSearch),
+    mutationFn: useExportToExcel(
+      donationStore.donationFilters,
+      donationStore.donationSearch,
+      donationStore.getCampaignId,
+      donationStore.getPaymentId,
+    ),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: ({ data }) => {
       downloadFile('Donations.xlsx', data)

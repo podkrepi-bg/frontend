@@ -220,11 +220,17 @@ export const endpoints = {
       campaignId?: string,
       pageindex?: number,
       pagesize?: number,
+      sortBy?: string,
+      sortOrder?: string,
     ) =>
       <Endpoint>{
         url: campaignId
-          ? `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`
-          : `/donation/listPublic/?status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`,
+          ? `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}${
+              sortBy ? `&sortBy=${sortBy}` : ''
+            }${sortOrder ? `&sortOrder=${sortOrder}` : ''}`
+          : `/donation/listPublic/?status=${status}&pageindex=${pageindex}&pagesize=${pagesize}${
+              sortBy ? `&sortBy=${sortBy}` : ''
+            }${sortOrder ? `&sortOrder=${sortOrder}` : ''}`,
         method: 'GET',
       },
     getUserDonation: (id: string) => <Endpoint>{ url: `/donation/user/${id}`, method: 'GET' },
@@ -235,13 +241,20 @@ export const endpoints = {
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
     uploadBankTransactionsFile: (bankTransactionsFileId: string) =>
       <Endpoint>{ url: `/bank-transactions-file/${bankTransactionsFileId}`, method: 'POST' },
-    exportToExcel: (filterData?: FilterData, searchData?: string) =>
+    exportToExcel: (
+      filterData?: FilterData,
+      searchData?: string,
+      campaignId?: string,
+      paymentId?: string,
+    ) =>
       <Endpoint>{
         url: `/donation/export-excel?status=${filterData?.status}&provider=${
           filterData?.paymentProvider
         }&from=${filterData?.date.from}&to=${filterData?.date.to}&search=${searchData}&minAmount=${
           filterData?.minAmount ?? ''
-        }&maxAmount=${filterData?.maxAmount ?? ''}&sortBy=${filterData?.sortBy ?? ''}`,
+        }&maxAmount=${filterData?.maxAmount ?? ''}&sortBy=${
+          filterData?.sortBy ?? ''
+        }&campaignId=${campaignId}&paymentId=${paymentId}`,
         method: 'GET',
       },
   },

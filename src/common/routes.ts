@@ -91,10 +91,11 @@ export const routes = {
   campaigns: {
     index: '/campaigns',
     create: '/campaigns/create',
-    application: 'campaigns/application',
+    application: '/campaigns/application',
     applicationEdit: (id: string) => `/campaigns/application/${id}`,
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
     viewExpenses: (slug: string) => `/campaigns/${slug}/expenses`,
+    share: (slug: string) => `/campaigns/${slug}/share`,
     oneTimeDonation: (slug: string) => `/campaigns/donation/${slug}`,
     donationStatus: (slug: string) => `/campaigns/donation/${slug}/status`,
     finalizeDonation: `api/donation/finalize`,

@@ -25,8 +25,8 @@
   "withdrawnAmount": "Withdrawn amount",
   "startDate": "Start date",
   "endDate": "End date",
-  "indefinite": "Indefinite",
   "createDate": "Created at",
+  "indefinite": "Indefinite",
   "deletedAt": "Deleted at",
   "targetDate": "Target date",
   "createdAt": "Created at",
@@ -73,10 +73,12 @@
     "apply": "Apply",
     "support": "Donate",
     "support-cause-today": "Support a campaign today!",
+    "donations": "Donations",
     "support-now": "Support now",
     "see-all": "See all",
     "see-less": "See less",
     "see-more": "See more",
+    "learn-more": "Learn more",
     "donor": "Donor",
     "add": "Add",
     "confirm": "Confirm",
@@ -107,6 +109,14 @@
     "state": "Campaign state",
     "from": "from",
     "noCommissionInfo": "Podkrepi.bg works with 0% commission. Only expressly mentioned bank charges are possible.",
+    "commission-info": "Podkrepi.bg works with 0% commission. Only expressly mentioned bank charges are possible.",
+    "date-header": "Date",
+    "amount-header": "Amount",
+    "see-all-donations": "All donations",
+    "see-all-wishes": "All wishes",
+    "summary-text": "So far <strong>{{reached}}</strong> have been donated from the needed <strong>{{target}}</strong>.",
+    "summary-line1": "So far {{reached}} donated",
+    "summary-line2": "from the needed {{target}}.",
     "donors": "donors",
     "documents": "documents",
     "guarantor": "guarantor",
@@ -149,7 +159,28 @@
     "date": "Date:",
     "news": "News",
     "wishes": "Wishes",
-    "nowishes": "No wishes yet"
+    "nowishes": "No wishes yet",
+    "anonymous": "Anonymous",
+    "no-donations": "No donations yet. Be the first to donate!",
+    "no-wishes": "No wishes yet. Leave a message of support!"
+  },
+  "campaign-progress-pie": {
+    "aria-label": "Campaign progress: {{percentage}}% funded"
+  },
+  "pagination": {
+    "previous": "Previous page",
+    "next": "Next page"
+  },
+  "errors": {
+    "fetch-donations": "Error loading donations",
+    "fetch-wishes": "Error loading wishes"
+  },
+  "share": {
+    "share-campaign-social": "Share the campaign on social media",
+    "send-email": "Send via E-mail",
+    "copy-link": "Copy link",
+    "instagram": "Share on Instagram",
+    "instagram-copy-message": "Link copied! Paste it in your Instagram story or post."
   },
   "info-graphics": {
     "donation-title": "100% of the donation goes to those in need",
@@ -178,7 +209,7 @@
   "donations": {
     "anonymous": "Anonymous",
     "none": "No donations yet",
-    "lv": "lv.",
+    "eur": "EUR",
     "corporate-donor": "Corporate Donor"
   },
   "campaign-status": {
@@ -190,6 +221,10 @@
     "partially_financed": "Partially financed",
     "blocked": "Suspended",
     "deleted": "Deleted"
+  },
+  "campaign-progress": {
+    "aria-label": "Campaign progress: {{state}} - {{raised}} raised of {{target}} target",
+    "aria-valuetext": "{{percentage}}% complete - {{raised}} raised of {{target}} target"
   },
   "campaignTypesFields": {
     "medical": "Treatment and rehabilitation",
@@ -207,12 +242,12 @@
   "campaign-details-report": {
     "amount-collected": "Amount Collected",
     "available": "Аvailable",
-    "available-tooltip":"Available balance in Podkrepi.bg account",
+    "available-tooltip": "Available balance in Podkrepi.bg account",
     "guaranteed": "Guaranteed",
-    "guaranteed-tooltip":"Donations from employees or customers via partner-integrated corporate giving initiatives. These are marked as \"guaranteed\" by the company and transferred monthly as a consolidated amount to Podkrepi.bg for easier management.",
+    "guaranteed-tooltip": "Donations from employees or customers via partner-integrated corporate giving initiatives. These are marked as \"guaranteed\" by the company and transferred monthly as a consolidated amount to Podkrepi.bg for easier management.",
     "transferred": "Transferred",
-    "transferred-tooltip":"Disbursed funds to campaign organizer",
+    "transferred-tooltip": "Disbursed funds to campaign organizer",
     "accounted": "Accounted",
-    "accounted-tooltip":"Recorded expenses"
+    "accounted-tooltip": "Recorded expenses"
   }
 }

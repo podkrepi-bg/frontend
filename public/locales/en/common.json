@@ -74,7 +74,7 @@
       "faq": "Frequently asked questions",
       "privacy-policy": "Privacy Policy",
       "terms-of-service": "Terms of Service",
-      "copyrights": "Podkrepi.bg ©2024 All rights reserved.",
+      "copyrights": "Podkrepi.bg ©2025 All rights reserved.",
       "hosting-partner": "Hosting partner:",
       "partners": "Partners",
       "social": {
@@ -106,6 +106,24 @@
   "cta": {
     "share": "Share",
     "more-information": "More information"
+  },
+  "share": {
+    "facebook": "Share on Facebook",
+    "twitter": "Share on Twitter",
+    "linkedin": "Share on LinkedIn",
+    "email": "Share via email",
+    "copy-link": "Copy link",
+    "check-out-campaign": "Check out this campaign"
+  },
+  "alerts": {
+    "message-sent": "Your message has been sent!",
+    "message-copy": "Message was successfully copied to your clipboard!",
+    "link-copied": "Link copied successfully!",
+    "copy-failed": "Copy failed. Please try again.",
+    "error": "There was an error processing your message!",
+    "noselected": "Please, select at least one row!",
+    "success": "Successfully saved!",
+    "success-deleted": "Successfully deleted!"
   },
   "notifications": {
     "cta": {

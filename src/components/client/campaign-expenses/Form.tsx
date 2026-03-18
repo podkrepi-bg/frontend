@@ -88,7 +88,7 @@ export default function Form() {
   const initialValues: ExpenseInput = {
     type: data?.type || ExpenseType.none,
     status: data?.status || ExpenseStatus.pending,
-    currency: data?.currency || Currency.BGN,
+    currency: data?.currency || Currency.EUR,
     money: fromMoney(data?.amount as number),
     amount: data?.amount || 0,
     vaultId: data?.vaultId || campaignResponse?.campaign.defaultVault || '',

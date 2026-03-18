@@ -1,4 +1,4 @@
-import { useTranslation, i18n } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CampaignResponse } from 'gql/campaigns'
@@ -27,6 +27,7 @@ import {
   CampaignProgressWrapper,
   SuccessfullCampiagnText,
 } from './CompletedCampaignsSection.styled'
+import CampaignProgress from 'components/client/campaigns/CampaignProgress'
 
 export default function CompletedCampaignsSection() {
   const { t } = useTranslation('campaigns')
@@ -63,17 +64,18 @@ export default function CompletedCampaignsSection() {
                 />
               </CompletedCampaignImage>
               <CompletedSumWrapper>
-                <Sum>
-                  {i18n?.language === 'bg'
-                    ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
-                    : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
-                </Sum>
+                <Sum>{moneyPublic(campaign.summary.reachedAmount, 'EUR', 100, 0, 0)}</Sum>
                 <SuccessfulCampaignLabel>
                   <SuccessfullCampaignIcon />
                   <SuccessfullCampiagnText>{t('successfull-label')}</SuccessfullCampiagnText>
                 </SuccessfulCampaignLabel>
               </CompletedSumWrapper>
-              <CampaignProgressWrapper width={1} />
+              <CampaignProgress
+                state={campaign.state}
+                raised={campaign.summary.reachedAmount}
+                target={campaign.targetAmount}
+                showPercentage
+              />
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </Link>
           </CardWrapper>

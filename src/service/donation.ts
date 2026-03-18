@@ -174,13 +174,21 @@ export const useUploadBankTransactionsFiles = () => {
   }
 }
 
-export const useExportToExcel = (filterData?: FilterData, searchData?: string) => {
+export const useExportToExcel = (
+  filterData?: FilterData,
+  searchData?: string,
+  campaignId?: string,
+  paymentId?: string,
+) => {
   const { data: session } = useSession()
   return async () => {
-    return await apiClient(endpoints.donation.exportToExcel(filterData, searchData).url, {
-      ...authConfig(session?.accessToken),
-      responseType: 'blob',
-    })
+    return await apiClient(
+      endpoints.donation.exportToExcel(filterData, searchData, campaignId, paymentId).url,
+      {
+        ...authConfig(session?.accessToken),
+        responseType: 'blob',
+      },
+    )
   }
 }
 
