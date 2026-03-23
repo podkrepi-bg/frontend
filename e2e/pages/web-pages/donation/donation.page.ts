@@ -12,8 +12,10 @@ import {
 import { DonationRegions } from '../../../data/enums/donation-regions.enum'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
 import {
+  bgLocalizationAuth,
   bgLocalizationDonationFlow,
   bgLocalizationValidation,
+  enLocalizationAuth,
   enLocalizationDonationFlow,
   enLocalizationValidation,
 } from '../../../data/localization'
@@ -38,6 +40,16 @@ export class DonationPage extends CampaignsPage {
     enLocalizationDonationFlow.step['payment-method'].field.method.bank
   private readonly bgCardText = bgLocalizationDonationFlow.step['payment-method'].field.method.card
   private readonly enCardText = enLocalizationDonationFlow.step['payment-method'].field.method.card
+  // -> Payment mode section <-
+  private readonly bgOneTimeModeText =
+    bgLocalizationDonationFlow.step['payment-mode'].fields['one-time']
+  private readonly enOneTimeModeText =
+    enLocalizationDonationFlow.step['payment-mode'].fields['one-time']
+  private readonly bgMonthlyModeText =
+    bgLocalizationDonationFlow.step['payment-mode'].fields.monthly
+  private readonly enMonthlyModeText =
+    enLocalizationDonationFlow.step['payment-mode'].fields.monthly
+
   // -> Authentication section <-
   private readonly bgLoginText = bgLocalizationDonationFlow.step.authentication.login.label
   private readonly enLoginText = enLocalizationDonationFlow.step.authentication.login.label
@@ -47,6 +59,17 @@ export class DonationPage extends CampaignsPage {
     bgLocalizationDonationFlow.step.authentication.noregister.label
   private readonly enNoRegitserText =
     enLocalizationDonationFlow.step.authentication.noregister.label
+  private readonly bgLoggedAsText =
+    bgLocalizationDonationFlow.step.authentication['logged-as']
+  private readonly enLoggedAsText =
+    enLocalizationDonationFlow.step.authentication['logged-as']
+  private readonly bgRegisterButtonText = bgLocalizationAuth.cta.register
+  private readonly enRegisterButtonText = enLocalizationAuth.cta.register
+  // -> Register form checkbox texts <-
+  private readonly bgTermsCheckboxText =
+    bgLocalizationValidation['agree-with'] + ' ' + bgLocalizationValidation['terms-and-conditions']
+  private readonly enTermsCheckboxText =
+    enLocalizationValidation['agree-with'] + ' ' + enLocalizationValidation['terms-and-conditions']
 
   // -> Summary section <-
   private readonly totalAmountSelector = '[data-testid="total-amount"]'
@@ -188,9 +211,11 @@ export class DonationPage extends CampaignsPage {
         })
         .click()
     } else if (auth === DonationFormAuthState.REGISTER) {
-      await baseLocator.getByText(registerText, {
-        exact: true,
-      })
+      await baseLocator
+        .getByText(registerText, {
+          exact: true,
+        })
+        .click()
     } else if (auth === DonationFormAuthState.NOREGISTER) {
       await baseLocator
         .getByText(noRegisterText, {
@@ -237,5 +262,103 @@ export class DonationPage extends CampaignsPage {
     console.log(submitButtonText)
     const button = this.page.locator(`button:has-text("${submitButtonText}")`).last()
     button.click()
+  }
+
+  /**
+   * Select payment mode (one-time or monthly/subscription)
+   * @param {PaymentMode} mode
+   * @param {LanguagesEnum} language
+   */
+  async selectPaymentMode(
+    mode: PaymentMode,
+    language: LanguagesEnum = LanguagesEnum.BG,
+  ): Promise<void> {
+    const oneTimeText = language === LanguagesEnum.BG ? this.bgOneTimeModeText : this.enOneTimeModeText
+    const monthlyText = language === LanguagesEnum.BG ? this.bgMonthlyModeText : this.enMonthlyModeText
+
+    if (mode === 'one-time') {
+      await this.selectRadioButtonByLabelText([oneTimeText])
+    } else if (mode === 'subscription') {
+      await this.selectRadioButtonByLabelText([monthlyText])
+    } else {
+      throw new Error('Payment mode not found!')
+    }
+  }
+
+  /**
+   * Fill the inline login form and submit it
+   * @param {string} email
+   * @param {string} password
+   * @param {LanguagesEnum} language
+   */
+  async fillInlineLoginForm(
+    email: string,
+    password: string,
+    language: LanguagesEnum = LanguagesEnum.BG,
+  ): Promise<void> {
+    const emailField = this.page.locator('input[name="loginEmail"]')
+    const passwordField = this.page.locator('input[name="loginPassword"]')
+    const loginButtonText =
+      language === LanguagesEnum.BG ? this.bgLoginText : this.enLoginText
+    const loginButton = this.page.locator('button[type="button"]', {
+      hasText: loginButtonText,
+    })
+
+    await emailField.fill(email)
+    await passwordField.fill(password)
+    await loginButton.first().click()
+  }
+
+  /**
+   * Fill the inline register form and submit it
+   * @param {object} data
+   * @param {LanguagesEnum} language
+   */
+  async fillInlineRegisterForm(
+    data: {
+      firstName: string
+      lastName: string
+      email: string
+      password: string
+      confirmPassword: string
+    },
+    language: LanguagesEnum = LanguagesEnum.BG,
+  ): Promise<void> {
+    await this.page.locator('input[name="registerFirstName"]').fill(data.firstName)
+    await this.page.locator('input[name="registerLastName"]').fill(data.lastName)
+    await this.page.locator('input[name="registerEmail"]').fill(data.email)
+    await this.page.locator('input[name="registerPassword"]').fill(data.password)
+    await this.page.locator('input[name="registerConfirmPassword"]').fill(data.confirmPassword)
+
+    // Check terms and GDPR checkboxes by name attribute
+    // Using name-based selectors to avoid conflicts with the donation form's own privacy checkbox
+    // which shares identical GDPR label text
+    const termsCheckbox = this.page.locator('input[name="registerTerms"]')
+    const gdprCheckbox = this.page.locator('input[name="registerGdpr"]')
+    await termsCheckbox.check()
+    await gdprCheckbox.check()
+
+    // Click register button
+    const registerButtonText =
+      language === LanguagesEnum.BG ? this.bgRegisterButtonText : this.enRegisterButtonText
+    const registerButton = this.page.locator('button[type="button"]', {
+      hasText: registerButtonText,
+    })
+    await registerButton.click()
+  }
+
+  /**
+   * Wait for the user to be shown as authenticated after inline login/register
+   * @param {LanguagesEnum} language
+   * @param {number} timeoutParam
+   */
+  async waitForAuthenticatedState(
+    language: LanguagesEnum = LanguagesEnum.BG,
+    timeoutParam = 20000,
+  ): Promise<void> {
+    const loggedAsText =
+      language === LanguagesEnum.BG ? this.bgLoggedAsText : this.enLoggedAsText
+    const loggedAsLocator = this.page.getByText(loggedAsText)
+    await loggedAsLocator.waitFor({ state: 'visible', timeout: timeoutParam })
   }
 }

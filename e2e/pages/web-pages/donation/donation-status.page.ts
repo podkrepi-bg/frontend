@@ -12,6 +12,10 @@ export class DonationStatusPage extends CampaignsPage {
   private readonly bgSuccessTitle = bgLocalizationDonationFlow.status.success.title
   private readonly enSuccessTitle = enLocalizationDonationFlow.status.success.title
 
+  // -> Navigation links <-
+  private readonly bgDonationsLinkText = bgLocalizationDonationFlow.status.success.link.donations
+  private readonly enDonationsLinkText = enLocalizationDonationFlow.status.success.link.donations
+
   // -> Wish form <-
   private readonly wishSendText = bgLocalizationDonationFlow.status.success.wish.send
 
@@ -28,6 +32,18 @@ export class DonationStatusPage extends CampaignsPage {
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<boolean> {
     return this.isH4HeadingVisible(language, this.bgSuccessTitle, this.enSuccessTitle)
+  }
+
+  /**
+   * Click the "View your donations" link on the success status page
+   */
+  async clickViewDonationsProfileLink(
+    language: LanguagesEnum = LanguagesEnum.BG,
+  ): Promise<void> {
+    const linkText =
+      language === LanguagesEnum.BG ? this.bgDonationsLinkText : this.enDonationsLinkText
+    await this.page.getByText(linkText, { exact: true }).click()
+    await this.page.waitForLoadState()
   }
 
   async submitWishForm(): Promise<void> {
