@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { appClient } from 'service/apiClient'
+import { apiClient } from 'service/apiClient'
 
 export type PaymentSessionResponse = {
   hookHash: string
@@ -23,7 +23,7 @@ export type IrisCreateCustomerDto = {
 export function useStartPaymentSession() {
   return useMutation({
     mutationFn: async () => {
-      return await appClient.post('/api/payments/start')
+      return await apiClient.post('/iris-pay/start-session', {}, { withCredentials: true })
     },
   })
 }
@@ -31,8 +31,8 @@ export function useStartPaymentSession() {
 export function useCreatePaymentSession() {
   return useMutation({
     mutationFn: async (data: IrisCreateCustomerDto) => {
-      const response = await appClient.post<PaymentSessionResponse>(
-        '/api/payments/create-payment-session',
+      const response = await apiClient.post<PaymentSessionResponse>(
+        '/iris-pay/create-payment-session',
         data,
         { withCredentials: true },
       )
@@ -60,7 +60,7 @@ export type FinishPaymentDto = {
 export function useCompletePayment() {
   return useMutation({
     mutationFn: async (data: FinishPaymentDto) => {
-      const response = await appClient.post('/api/payments/complete', data, {
+      const response = await apiClient.post('/iris-pay/complete', data, {
         withCredentials: true,
       })
       return response.data

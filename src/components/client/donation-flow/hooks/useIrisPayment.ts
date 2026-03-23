@@ -75,7 +75,7 @@ export function useIrisPayment({
       router.push(
         `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
           payment.status
-        }&payment_intent=${payment.id}`,
+        }&payment_intent=${payment.donationId}`,
       )
     } catch (error) {
       console.error('Payment completion failed:', error)

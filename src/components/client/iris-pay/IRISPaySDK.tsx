@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import IrisPayComponent, {
   IRISAddIbanElementProps,
   IRISAddIbanWithBankElementProps,
@@ -8,9 +9,11 @@ import IrisPayComponent, {
   IRISPayWithCodeElementProps,
   IRISPaymentDataElementProps,
 } from './IRISPayComponent'
-import loadIrisSdk from './loadIrisScript'
 import { StringifyIrisProps } from './objectToString'
 import { IRISPayContext } from './IRISPayContext'
+
+const IRIS_SDK_SCRIPT_URL = 'https://websdk.irispay.bg/assets/irispay-ui/elements.js'
+const IRIS_SDK_STYLE_URL = 'https://websdk.irispay.bg/assets/irispay-ui/styles.css'
 
 type OnPaymentEvent = {
   type: 'loaded' | 'lastStep' | 'error' | 'languageChanged' | 'closeClicked'
@@ -32,13 +35,11 @@ export default function IRISPaySDK(props: IRISPaySDKProps) {
     throw new Error('IRISPay must be a child of IrisSdkElement')
   }
 
-  console.log('IRISPaySDK render:', {
-    paymentSession: context.paymentSession,
-    hookHash: context.paymentSession?.hookHash,
-    userhash: context.paymentSession?.userhash,
-  })
-
+  const hostRef = useRef<HTMLDivElement>(null)
+  const shadowRef = useRef<ShadowRoot | null>(null)
   const irisComponentRef = useRef<HTMLIFrameElement | null>(null)
+  const [portalTarget, setPortalTarget] = useState<HTMLDivElement | null>(null)
+
   const { onLoad, onSuccess, onError, ...restProps } = props
   const stringifiedProps = StringifyIrisProps(restProps)
 
@@ -47,12 +48,40 @@ export default function IRISPaySDK(props: IRISPaySDKProps) {
       ? 'https://developer.irispay.bg/'
       : 'https://developer.sandbox.irispay.bg/'
 
+  // Set up shadow DOM and load SDK assets
   useEffect(() => {
-    console.log('Loading Iris SDK...')
-    loadIrisSdk()
+    if (!hostRef.current || shadowRef.current) return
+
+    const shadow = hostRef.current.attachShadow({ mode: 'open' })
+    shadowRef.current = shadow
+
+    // Load stylesheet scoped inside shadow DOM
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = IRIS_SDK_STYLE_URL
+    shadow.appendChild(link)
+
+    // Load script globally (registers the custom element)
+    if (!document.getElementById('iris-sdk')) {
+      const script = document.createElement('script')
+      script.src = IRIS_SDK_SCRIPT_URL
+      script.id = 'iris-sdk'
+      document.body.appendChild(script)
+    }
+
+    // Create a container inside shadow for React portal
+    const container = document.createElement('div')
+    shadow.appendChild(container)
+    setPortalTarget(container)
+  }, [])
+
+  // Attach event listeners once portal is ready
+  useEffect(() => {
+    const el = irisComponentRef.current
+    if (!el) return
 
     const eventListener = ((data: CustomEvent<OnPaymentEvent>) => {
-      console.log('Iris payment event:', data.detail)
       switch (data.detail.type) {
         case 'loaded':
           onLoad?.(data)
@@ -66,37 +95,31 @@ export default function IRISPaySDK(props: IRISPaySDKProps) {
       }
     }) as EventListener
 
-    irisComponentRef.current?.addEventListener('on_payment_event', eventListener)
+    el.addEventListener('on_payment_event', eventListener)
 
     return () => {
-      irisComponentRef.current?.removeEventListener('on_payment_event', eventListener)
+      el.removeEventListener('on_payment_event', eventListener)
     }
-  }, [])
+  }, [portalTarget])
 
   if (!context.paymentSession?.hookHash || !context.paymentSession?.userhash) {
-    console.log('Missing payment session data:', {
-      hookHash: context.paymentSession?.hookHash,
-      userhash: context.paymentSession?.userhash,
-    })
     return null
   }
 
-  console.log('Rendering IrisPayComponent with:', {
-    backend: environment,
-    hookhash: context.paymentSession?.hookHash,
-    userhash: context.paymentSession?.userhash,
-    stringifiedProps,
-  })
-
   return (
     <>
-      <IrisPayComponent
-        ref={irisComponentRef}
-        {...stringifiedProps}
-        backend={environment}
-        hookhash={context.paymentSession?.hookHash}
-        userhash={context.paymentSession?.userhash}
-      />
+      <div ref={hostRef} />
+      {portalTarget &&
+        createPortal(
+          <IrisPayComponent
+            ref={irisComponentRef}
+            {...stringifiedProps}
+            backend={environment}
+            hookhash={context.paymentSession.hookHash}
+            userhash={context.paymentSession.userhash}
+          />,
+          portalTarget,
+        )}
     </>
   )
 }

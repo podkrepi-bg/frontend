@@ -25,7 +25,7 @@ export default function DonationFlowPage({
         backend="development"
         country="bulgaria"
         publicHash="f75fa38d-ca1b-4241-a01a-58965d444aba"
-        currency="BGN">
+        currency="EUR">
         <StripeElementsProvider>
           <DonationFlowLayout campaign={campaign}>
             <DonationFlowForm />
