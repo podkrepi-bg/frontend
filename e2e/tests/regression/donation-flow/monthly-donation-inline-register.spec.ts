@@ -87,10 +87,12 @@ test.describe.serial(
     test('Accept privacy and submit the form', async () => {
       await donationPage.checkPrivacyCheckbox()
       await donationPage.submitForm()
+      // Wait for Stripe to process the SetupIntent and redirect
+      await page.waitForURL(/\/status/, { timeout: 60000 })
     })
 
     test('The user is redirected to the success status page', async () => {
-      await statusPage.checkPageUrlByRegExp(undefined, 30000)
+      await statusPage.checkPageUrlByRegExp(undefined, 10000)
       expect(await statusPage.isSucceededStatusTitleDisplayed()).toBe(true)
     })
 

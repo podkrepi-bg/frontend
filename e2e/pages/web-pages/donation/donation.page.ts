@@ -195,30 +195,26 @@ export class DonationPage extends CampaignsPage {
     auth: DonationFormAuthState,
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
-    const baseLocator = this.page.locator('span.MuiFormControlLabel-label')
-
     const loginText = language === 'BG' ? this.bgLoginText : this.enLoginText
     const registerText = language === 'BG' ? this.bgRegisterText : this.enRegisterText
     const noRegisterText = language === 'BG' ? this.bgNoRegitserText : this.enNoRegitserText
+
+    let labelText: string
     if (auth === DonationFormAuthState.LOGIN) {
-      await baseLocator
-        .getByText(loginText, {
-          exact: true,
-        })
-        .click()
+      labelText = loginText
     } else if (auth === DonationFormAuthState.REGISTER) {
-      await baseLocator
-        .getByText(registerText, {
-          exact: true,
-        })
-        .click()
-    } else if (auth === DonationFormAuthState.NOREGISTER) {
-      await baseLocator
-        .getByText(noRegisterText, {
-          exact: true,
-        })
-        .click()
+      labelText = registerText
+    } else {
+      labelText = noRegisterText
     }
+
+    // Use role-based selector for reliable radio interaction on CI
+    // The RadioAccordionGroup renders FormControlLabel which associates the label with the radio input
+    const radio = this.page.getByRole('radio', { name: labelText })
+    await radio.waitFor({ state: 'visible', timeout: 10000 })
+    await radio.click({ force: true })
+    // Wait for Collapse animation to mount the expanded content
+    await this.page.waitForTimeout(500)
   }
 
   /**
@@ -326,6 +322,8 @@ export class DonationPage extends CampaignsPage {
     },
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
+    // Wait for the register form to be visible after Collapse expands
+    await this.page.locator('input[name="registerFirstName"]').waitFor({ state: 'visible' })
     await this.page.locator('input[name="registerFirstName"]').fill(data.firstName)
     await this.page.locator('input[name="registerLastName"]').fill(data.lastName)
     await this.page.locator('input[name="registerEmail"]').fill(data.email)
