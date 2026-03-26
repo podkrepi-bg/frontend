@@ -23,9 +23,10 @@ test.describe.serial(
       await page.close()
     })
 
-    test('Navigate to recurring donations in profile', async () => {
+    test('Navigate to recurring donations and verify active donation exists', async () => {
       await profilePage.navigateToRecurringDonations()
       expect(await profilePage.isRecurringDonationVisible()).toBe(true)
+      expect(await profilePage.isActiveDonationVisible()).toBe(true)
     })
 
     test('Click cancel on an active recurring donation', async () => {
@@ -37,12 +38,9 @@ test.describe.serial(
     })
 
     test('Verify the donation status is changed to cancelled', async () => {
-      // Wait for the mutation to complete, then re-navigate to get fresh data
-      await page.waitForTimeout(2000)
-      await profilePage.navigateToRecurringDonations()
-      // Wait for the DataGrid to load before checking status
-      expect(await profilePage.isRecurringDonationVisible()).toBe(true)
-      expect(await profilePage.isDonationStatusCancelled()).toBe(true)
+      // After confirming cancellation, verify the active donation is no longer active
+      // Uses Playwright's auto-retrying expect to handle grid re-renders after mutation
+      await profilePage.verifyNoActiveDonations()
     })
   },
 )

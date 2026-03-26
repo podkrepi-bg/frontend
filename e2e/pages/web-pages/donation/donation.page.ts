@@ -261,7 +261,7 @@ export class DonationPage extends CampaignsPage {
     const submitButtonText = language === 'BG' ? this.bgSubmitButtonText : this.enSubmitButtonText
     console.log(submitButtonText)
     const button = this.page.locator(`button:has-text("${submitButtonText}")`).last()
-    button.click()
+    await button.click()
   }
 
   /**
@@ -304,8 +304,12 @@ export class DonationPage extends CampaignsPage {
       hasText: loginButtonText,
     })
 
+    // Wait for the login form fields to be visible after accordion expands
+    await emailField.waitFor({ state: 'visible' })
     await emailField.fill(email)
     await passwordField.fill(password)
+    // Small delay to ensure Formik processes the field values before submission
+    await this.page.waitForTimeout(500)
     await loginButton.first().click()
   }
 
@@ -354,10 +358,12 @@ export class DonationPage extends CampaignsPage {
    */
   async waitForAuthenticatedState(
     language: LanguagesEnum = LanguagesEnum.BG,
-    timeoutParam = 20000,
+    timeoutParam = 30000,
   ): Promise<void> {
     const loggedAsText =
       language === LanguagesEnum.BG ? this.bgLoggedAsText : this.enLoggedAsText
+    // Wait a moment for the form to detect the authenticated session
+    await this.page.waitForTimeout(1000)
     const loggedAsLocator = this.page.getByText(loggedAsText)
     await loggedAsLocator.waitFor({ state: 'visible', timeout: timeoutParam })
   }

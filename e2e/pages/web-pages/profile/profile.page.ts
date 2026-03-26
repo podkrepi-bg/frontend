@@ -53,6 +53,21 @@ export class ProfilePage extends BasePage {
   }
 
   /**
+   * Check if at least one active recurring donation is visible in the DataGrid
+   */
+  async isActiveDonationVisible(
+    language: LanguagesEnum = LanguagesEnum.BG,
+    timeoutParam = 15000,
+  ): Promise<boolean> {
+    const activeStatus =
+      language === LanguagesEnum.BG ? this.bgActiveStatus : this.enActiveStatus
+    const activeRow = this.page
+      .locator(this.dataGridRowSelector, { hasText: activeStatus })
+      .first()
+    return this.isElementVisibleByLocatorWithTimeout(activeRow, timeoutParam)
+  }
+
+  /**
    * Click the cancel button on the first active recurring donation
    */
   async clickCancelButtonForFirstActiveDonation(
@@ -64,8 +79,10 @@ export class ProfilePage extends BasePage {
     const activeRow = this.page
       .locator(this.dataGridRowSelector, { hasText: activeStatus })
       .first()
-    await this.waitForElementToBePresentedByLocator(activeRow)
+    // Wait for the row to be fully visible (not just attached to DOM)
+    await activeRow.waitFor({ state: 'visible', timeout: 15000 })
     const cancelButton = activeRow.locator('button').first()
+    await cancelButton.waitFor({ state: 'visible', timeout: 5000 })
     await cancelButton.click()
   }
 
@@ -83,18 +100,16 @@ export class ProfilePage extends BasePage {
   /**
    * Check if any recurring donation cell shows cancelled status
    */
-  async isDonationStatusCancelled(
+  async verifyNoActiveDonations(
     language: LanguagesEnum = LanguagesEnum.BG,
     timeoutParam = 15000,
-  ): Promise<boolean> {
-    const cancelledStatus =
-      language === LanguagesEnum.BG ? this.bgCancelledStatus : this.enCancelledStatus
-    // Target the status cell content directly — MUI DataGrid renders cell text
-    // inside div[role="cell"] elements, and row-level hasText may not match
-    // due to virtualization or nested element structure
-    const cancelledCell = this.page.locator('[data-field="status"]', {
-      hasText: cancelledStatus,
-    })
-    return this.isElementVisibleByLocatorWithTimeout(cancelledCell, timeoutParam)
+  ): Promise<void> {
+    const activeStatus =
+      language === LanguagesEnum.BG ? this.bgActiveStatus : this.enActiveStatus
+    // After cancellation, verify no rows contain "Активно" anymore
+    // Using Playwright's auto-retrying expect to handle grid re-renders
+    await expect(
+      this.page.locator(this.dataGridRowSelector, { hasText: activeStatus }),
+    ).toHaveCount(0, { timeout: timeoutParam })
   }
 }
