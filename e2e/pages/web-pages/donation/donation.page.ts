@@ -75,10 +75,6 @@ export class DonationPage extends CampaignsPage {
   private readonly totalAmountSelector = '[data-testid="total-amount"]'
   private readonly bgSubmitButtonText = bgLocalizationDonationFlow.action.submit
   private readonly enSubmitButtonText = enLocalizationDonationFlow.action.submit
-  private readonly bgPrivacyCheckboxText =
-    bgLocalizationValidation['informed-agree-with'] + ' ' + bgLocalizationValidation.gdpr
-  private readonly enPrivacyCheckboxText =
-    enLocalizationValidation['informed-agree-with'] + ' ' + enLocalizationValidation.gdpr
   private readonly bgStripeErrorNoBalanceText =
     'В картата ви няма достатъчно средства. Опитайте с друга.'
 
@@ -251,10 +247,12 @@ export class DonationPage extends CampaignsPage {
     expect(totalAmountSpaceFix).toEqual(expectedAmount)
   }
 
-  async checkPrivacyCheckbox(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
-    const privacyCheckbox =
-      language === 'BG' ? this.bgPrivacyCheckboxText : this.enPrivacyCheckboxText
-    await this.selectCheckboxByLabelText([privacyCheckbox])
+  async checkPrivacyCheckbox(): Promise<void> {
+    // Use name-based selector and .click() instead of .check() to avoid
+    // "Clicking the checkbox did not change its state" with Formik-controlled checkboxes
+    const checkbox = this.page.locator('input[name="privacy"]')
+    await checkbox.waitFor({ state: 'attached' })
+    await checkbox.click({ force: true })
   }
 
   async submitForm(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {

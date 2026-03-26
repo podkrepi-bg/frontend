@@ -34,7 +34,9 @@ test.describe.serial(
     test.use({ locale: 'bg-BG' })
 
     test.beforeAll(async ({ browser }) => {
-      page = await browser.newPage()
+      // Create a fresh context to isolate from other test suites' sessions
+      const context = await browser.newContext()
+      page = await context.newPage()
       homepage = new HomePage(page)
       headerPage = new HeaderPage(page)
       campaignsPage = new CampaignsPage(page)
@@ -46,7 +48,7 @@ test.describe.serial(
     })
 
     test.afterAll(async () => {
-      await page.close()
+      await page.context().close()
     })
 
     test('Particular campaign can be opened through the Campaign page', async () => {
