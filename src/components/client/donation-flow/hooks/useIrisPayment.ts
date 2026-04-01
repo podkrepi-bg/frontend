@@ -1,8 +1,6 @@
-import { useRef } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { FormikProps } from 'formik'
-import { StripeError } from '@stripe/stripe-js'
 
 import { routes } from 'common/routes'
 import { useCompletePayment } from 'service/irisPayment'
@@ -14,13 +12,11 @@ import { DonationFormData } from '../helpers/types'
 interface UseIrisPaymentProps {
   formikRef: React.RefObject<FormikProps<DonationFormData> | null>
   setShowPaymentElement: (show: boolean) => void
-  setPaymentError: (error: StripeError | null) => void
 }
 
 export function useIrisPayment({
   formikRef,
   setShowPaymentElement,
-  setPaymentError,
 }: UseIrisPaymentProps) {
   const router = useRouter()
   const { data: session } = useSession()
@@ -42,10 +38,9 @@ export function useIrisPayment({
     const currentValues = formikRef.current?.values
     if (!currentValues || !iris?.paymentSession?.hookHash) {
       console.error('Missing form values or payment session data')
-      setPaymentError({
-        type: 'invalid_request_error',
-        message: 'Payment completion failed. Missing required data.',
-      })
+      router.push(
+        `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=canceled&p_error=${encodeURIComponent('Payment completion failed. Missing required data.')}`,
+      )
       return
     }
 
@@ -79,20 +74,20 @@ export function useIrisPayment({
       )
     } catch (error) {
       console.error('Payment completion failed:', error)
-      setPaymentError({
-        type: 'invalid_request_error',
-        message: 'Payment completion failed. Please contact support.',
-      })
+      const errorMessage =
+        error instanceof Error ? error.message : 'Payment completion failed. Please contact support.'
+      router.push(
+        `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=canceled&p_error=${encodeURIComponent(errorMessage)}`,
+      )
     }
   }
 
   const handleOnPaymentError = (data: CustomEvent) => {
     console.log('Payment error:', data.detail)
-    setPaymentError({
-      type: 'invalid_request_error',
-      message: 'Payment failed. Please try again.',
-    })
-    setShowPaymentElement(false)
+    const errorMessage = data.detail?.message || 'Payment failed. Please try again.'
+    router.push(
+      `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=canceled&p_error=${encodeURIComponent(errorMessage)}`,
+    )
   }
 
   return {

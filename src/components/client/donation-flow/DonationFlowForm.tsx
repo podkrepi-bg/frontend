@@ -139,7 +139,6 @@ export function DonationFlowForm() {
     useIrisPayment({
       formikRef,
       setShowPaymentElement,
-      setPaymentError,
     })
   const { data: { user: person } = { user: null } } = useCurrentPerson()
   const { data: session } = useSession({
