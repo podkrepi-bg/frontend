@@ -20,7 +20,6 @@ import PaymentDetailsStripeForm from './PaymentDetailsStripeForm'
 import BankPayment from './BankPayment'
 import { DonationFormSectionErrorText } from '../../common/DonationFormErrors'
 import IrisPayIcon from '../../icons/IrisPayIcon'
-import BankListElement from 'components/client/iris-pay/BankListElement'
 
 export default function PaymentMethod({
   sectionRef,
@@ -108,10 +107,6 @@ export default function PaymentMethod({
               {paymentMethodAlertMap[payment.value as DonationFormPaymentMethod]}
             </Typography>
           </Alert>
-          <BankListElement
-            selectedBank={formik.values.selectedBankHashId}
-            onBankSelect={(bankHash) => formik.setFieldValue('selectedBankHashId', bankHash)}
-          />
         </Box>
       ),
     },
@@ -146,12 +141,7 @@ export default function PaymentMethod({
           <Collapse in={payment.value === DonationFormPaymentMethod.BANK}>
             <BankPayment />
           </Collapse>
-          <Collapse unmountOnExit in={payment.value === DonationFormPaymentMethod.IRISPAY}>
-            <BankListElement
-              selectedBank={formik.values.selectedBankHashId}
-              onBankSelect={(bankHash) => formik.setFieldValue('selectedBankHashId', bankHash)}
-            />
-          </Collapse>
+          <Collapse unmountOnExit in={payment.value === DonationFormPaymentMethod.IRISPAY} />
         </div>
       )}
     </Grid>
