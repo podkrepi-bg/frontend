@@ -258,7 +258,7 @@ export function DonationFlowForm() {
               currency: iris.currency,
               toIban: 'BG85IORT80947826532954',
               merchant: 'PodkrepiBG',
-              useOnlySelectedBankHashes: values.selectedBankHashId,
+              useOnlySelectedBankHashes: null,
             }
 
             console.log('Setting payment data:', paymentData)

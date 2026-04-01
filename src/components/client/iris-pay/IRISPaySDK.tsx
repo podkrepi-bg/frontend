@@ -6,8 +6,11 @@ import IrisPayComponent, {
   IRISBackend,
   IRISBudgetPaymentElementProps,
   IRISPayCommonProps,
-  IRISPayWithCodeElementProps,
   IRISPaymentDataElementProps,
+  IRISPaymentDataWithAccountIdProps,
+  IRISPaymentElementProps,
+  IRISPayWithCodeElementProps,
+  IRISPayWithIbanSelectionProps,
 } from './IRISPayComponent'
 import { StringifyIrisProps } from './objectToString'
 import { IRISPayContext } from './IRISPayContext'
@@ -147,10 +150,10 @@ export function PaymentDataElement(props: ElementWithListener<IRISPaymentDataEle
     throw new Error('publicHash must be set for payment-data or budged-payment types')
   }
 
-  if (!context?.currency || (context?.currency !== 'BGN' && context?.currency !== 'EUR')) {
+  if (!context?.currency || !['EUR', 'RON'].includes(context.currency)) {
     console.error('Currency missing or invalid:', context?.currency)
     throw new Error(
-      'Currency missing from context or has invalid values.\n Supported currencies are: EUR, BGN',
+      'Currency missing from context or has invalid values.\n Supported currencies are: EUR, RON',
     )
   }
 
@@ -162,18 +165,38 @@ export function PaymentDataElement(props: ElementWithListener<IRISPaymentDataEle
   return <IRISPaySDK {...props} payment_data={paymentData} type="payment-data" />
 }
 
+export function PaymentElement(props: ElementWithListener<IRISPaymentElementProps>) {
+  return <IRISPaySDK {...props} type="payment" />
+}
+
+export function PayWithIbanSelectionElement(
+  props: ElementWithListener<IRISPayWithIbanSelectionProps>,
+) {
+  return <IRISPaySDK {...props} type="pay-with-iban-selection" />
+}
+
 export function BudgetPaymentElement(props: ElementWithListener<IRISBudgetPaymentElementProps>) {
   const context = useContext(IRISPayContext)
   if (!context?.publicHash)
-    throw new Error('publicHash must be set for payment-data or budged-payment types')
-  if (!context?.currency || (context?.currency !== 'BGN' && context?.currency !== 'EUR')) {
+    throw new Error('publicHash must be set for payment-data or budget-payment types')
+  if (!context?.currency || !['BGN', 'EUR', 'RON'].includes(context.currency)) {
     throw new Error(
-      'Currency missing from context or has invalid values.\n Supported currencies are: EUR, BGN',
+      'Currency missing from context or has invalid values.\n Supported currencies are: BGN, EUR, RON',
     )
   }
   props.payment_data['publicHash'] = context.publicHash
   props.payment_data['currency'] = context.currency
   return <IRISPaySDK {...props} type="budget-payment" />
+}
+
+export function PaymentDataWithAccountIdElement(
+  props: ElementWithListener<IRISPaymentDataWithAccountIdProps>,
+) {
+  return <IRISPaySDK {...props} type="payment-data-with-accountid" />
+}
+
+export function PaymentWithCodeElement(props: ElementWithListener<IRISPayWithCodeElementProps>) {
+  return <IRISPaySDK {...props} type="pay-with-code" />
 }
 
 export function AddIbanElement(props: ElementWithListener<IRISAddIbanElementProps>) {
@@ -184,8 +207,4 @@ export function AddIbanWithBankElement(
   props: ElementWithListener<IRISAddIbanWithBankElementProps>,
 ) {
   return <IRISPaySDK {...props} type="add-iban-with-bank" />
-}
-
-export function PaymentWithCodeElement(props: ElementWithListener<IRISPayWithCodeElementProps>) {
-  return <IRISPaySDK {...props} type="pay-with-code" />
 }

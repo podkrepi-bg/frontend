@@ -24,7 +24,7 @@ export default function DonationFlowPage({
       <IrisElements
         backend="development"
         country="bulgaria"
-        publicHash="f75fa38d-ca1b-4241-a01a-58965d444aba"
+        publicHash={process.env.NEXT_PUBLIC_IRIS_PUBLIC_HASH as string}
         currency="EUR">
         <StripeElementsProvider>
           <DonationFlowLayout campaign={campaign}>

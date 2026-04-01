@@ -37,7 +37,7 @@ export default function IrisElements({
   publicHash,
   country = 'bulgaria',
   lang = 'bg',
-  currency = 'BGN',
+  currency = 'EUR',
 }: IRISSDKElements) {
   const [paymentSession, setPaymentSession] = useState<SessionData>({
     hookHash: hookhash,

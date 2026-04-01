@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 
-export type SupportedCurrencies = 'BGN' | 'EUR' | 'RON'
+export type SupportedCurrencies = 'EUR' | 'RON'
 
 export type PaymentData = {
   sum: number
@@ -18,25 +18,42 @@ type BudgetPayment = {
   ultimateDebtor: string
 }
 
+type PaymentDataWithAccountId = {
+  description: string
+  currency: string
+  receiverName: string
+  toIban: string
+  emailNotification: string
+  bankAccountId: string
+  sum: number
+}
+
+type IRISPaymentElement = { type: 'payment'; show_bank_selector?: boolean }
+type IRISPayWithIbanSelection = { type: 'pay-with-iban-selection'; show_bank_selector?: boolean }
+type IrisBudgetPayment = { type: 'budget-payment'; payment_data: PaymentData & BudgetPayment }
 type IRISPaymentData = {
   type: 'payment-data'
   payment_data?: PaymentData
   show_bank_selector?: boolean
 }
-
-type IRISAddIbanWithBank = { type: 'add-iban-with-bank'; ibanhookhash?: string; bankhash: string }
-type IrisAddIban = { type: 'add-iban'; show_bank_selector?: boolean; ibanhookhash?: string }
-type IrisBudgetPayment = { type: 'budget-payment'; payment_data: PaymentData & BudgetPayment }
-type IRISPaymentElement = { type: 'payment'; payment_data: PaymentData & BudgetPayment }
+type IRISPaymentDataWithAccountId = {
+  type: 'payment-data-with-accountid'
+  payment_data_with_account_id: PaymentDataWithAccountId
+  show_bank_selector?: boolean
+}
 type IRISPayWithCodeElement = { type: 'pay-with-code'; code: string }
+type IrisAddIban = { type: 'add-iban'; show_bank_selector?: boolean; ibanhookhash?: string }
+type IRISAddIbanWithBank = { type: 'add-iban-with-bank'; ibanhookhash?: string; bankhash: string }
 
 type IRISPayTypes =
   | IRISPaymentElement
+  | IRISPayWithIbanSelection
   | IrisBudgetPayment
+  | IRISPaymentData
+  | IRISPaymentDataWithAccountId
+  | IRISPayWithCodeElement
   | IrisAddIban
   | IRISAddIbanWithBank
-  | IRISPaymentData
-  | IRISPayWithCodeElement
 
 export type IRISSupportedLangs = 'bg' | 'en' | 'ro' | 'el' | 'hr' | 'cy'
 export type IRISSupportedCountries = 'bulgaria' | 'romania' | 'greece' | 'croatia' | 'cyprus'
@@ -56,17 +73,24 @@ type IrisPayComponentCommon = {
     start_page_items: number
     increase_per_click: number
   }
-  header_options?: string
+  header_options?: {
+    show_header: boolean
+    show_language_selector: boolean
+  }
 }
 
 type IRISPaySDK = Omit<IrisPayComponentCommon, 'userhash' | 'backend' | 'hookhash'>
 export type IRISPayCommonProps = IRISPaySDK & IRISPayTypes
 
+export type IRISPaymentElementProps = IRISPaySDK & Omit<IRISPaymentElement, 'type'>
+export type IRISPayWithIbanSelectionProps = IRISPaySDK & Omit<IRISPayWithIbanSelection, 'type'>
 export type IRISBudgetPaymentElementProps = IRISPaySDK & Omit<IrisBudgetPayment, 'type'>
+export type IRISPaymentDataElementProps = IRISPaySDK & Omit<IRISPaymentData, 'type'>
+export type IRISPaymentDataWithAccountIdProps = IRISPaySDK &
+  Omit<IRISPaymentDataWithAccountId, 'type'>
+export type IRISPayWithCodeElementProps = IRISPaySDK & Omit<IRISPayWithCodeElement, 'type'>
 export type IRISAddIbanElementProps = IRISPaySDK & Omit<IrisAddIban, 'type'>
 export type IRISAddIbanWithBankElementProps = IRISPaySDK & Omit<IRISAddIbanWithBank, 'type'>
-export type IRISPaymentDataElementProps = IRISPaySDK & Omit<IRISPaymentData, 'type'>
-export type IRISPayWithCodeElementProps = IRISPaySDK & Omit<IRISPayWithCodeElement, 'type'>
 
 export type IrisPayComponentProps = IrisPayComponentCommon & IRISPayTypes
 export type IrisWithRefProp = {
