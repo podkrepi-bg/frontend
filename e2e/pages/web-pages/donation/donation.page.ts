@@ -163,10 +163,10 @@ export class DonationPage extends CampaignsPage {
       .last()
     const emailField = baseEmailLocator.locator('input[name="email"]')
     const nameField = this.page.locator('input[name="billingName"]')
-    const cardNumberField = baseCardPaymentLocator.locator('input[name="number"]')
-    const cardExpiryField = baseCardPaymentLocator.locator('input[name="expiry"]')
-    const cvcField = baseCardPaymentLocator.locator('input[name="cvc"]')
-    const countrySelect = baseCardPaymentLocator.locator('select[name="country"]')
+    const cardNumberField = baseCardPaymentLocator.locator('input[name="number"]').first()
+    const cardExpiryField = baseCardPaymentLocator.locator('input[name="expiry"]').first()
+    const cvcField = baseCardPaymentLocator.locator('input[name="cvc"]').first()
+    const countrySelect = baseCardPaymentLocator.locator('select[name="country"]').first()
     await emailField.fill(data.email)
     await nameField.fill(data.name)
     await cardNumberField.fill(data.cardNumber)
@@ -208,13 +208,11 @@ export class DonationPage extends CampaignsPage {
       labelText = noRegisterText
     }
 
-    // Use role-based selector for reliable radio interaction on CI
-    // The RadioAccordionGroup renders FormControlLabel which associates the label with the radio input
-    const radio = this.page.getByRole('radio', { name: labelText })
-    await radio.waitFor({ state: 'visible', timeout: 10000 })
-    await radio.click({ force: true })
-    // Wait for Collapse animation to mount the expanded content
-    await this.page.waitForTimeout(500)
+    // Scope to the authentication section to avoid matching nav menu items with the same text
+    const authSection = this.page.locator('#select-authentication-method')
+    const label = authSection.getByText(labelText, { exact: true })
+    await label.waitFor({ state: 'visible', timeout: 10000 })
+    await label.click()
   }
 
   /**
@@ -299,7 +297,7 @@ export class DonationPage extends CampaignsPage {
     })
 
     // Wait for the login form fields to be visible after accordion expands
-    await emailField.waitFor({ state: 'visible' })
+    await emailField.waitFor({ state: 'visible', timeout: 15000 })
     await emailField.fill(email)
     await passwordField.fill(password)
     // Small delay to ensure Formik processes the field values before submission

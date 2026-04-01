@@ -10,7 +10,7 @@ import { LanguagesEnum } from '../../../data/enums/languages.enum'
 import { DonationRegions } from '../../../data/enums/donation-regions.enum'
 
 // This spec contains E2E tests related to monthly subscription donation flow
-// for an already authenticated user (giver)
+// for an already authenticated user (giver), including cancellation
 test.describe.serial(
   'Authenticated user is able to create a monthly subscription donation - BG',
   async () => {
@@ -67,7 +67,7 @@ test.describe.serial(
       await donationPage.checkPrivacyCheckbox()
       await donationPage.submitForm()
       // Wait for Stripe to process the SetupIntent and redirect
-      await page.waitForURL(/\/status/, { timeout: 60000 })
+      await page.waitForURL(/\/status/, { timeout: 90000 })
     })
 
     test('The user is redirected to the success status page', async () => {
@@ -79,6 +79,20 @@ test.describe.serial(
       await statusPage.clickViewDonationsProfileLink()
       await profilePage.navigateToRecurringDonations()
       expect(await profilePage.isRecurringDonationVisible()).toBe(true)
+    })
+
+    // Cancel the subscription that was just created (previously in monthly-donation-cancel.spec.ts)
+    test('Verify active donation exists and cancel it', async () => {
+      expect(await profilePage.isActiveDonationVisible()).toBe(true)
+      await profilePage.clickCancelButtonForFirstActiveDonation()
+    })
+
+    test('Confirm the cancellation in the dialog', async () => {
+      await profilePage.confirmCancellation()
+    })
+
+    test('Verify the donation status is changed to cancelled', async () => {
+      await profilePage.verifyNoActiveDonations()
     })
   },
 )

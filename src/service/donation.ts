@@ -18,7 +18,7 @@ import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
 import { UploadBankTransactionsFiles } from 'components/admin/bank-transactions-file/types'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { FilterData } from 'gql/types'
 import { PaymentMode } from 'components/client/donation-flow/helpers/types'
 import { Session } from 'next-auth'
@@ -195,6 +195,7 @@ export const useExportToExcel = (
 export const useCancelRecurringDonation = () => {
   const { data: session } = useSession()
   const { t } = useTranslation()
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (id: string) => {
       return await apiClient.patch(
@@ -206,6 +207,8 @@ export const useCancelRecurringDonation = () => {
     onError: (err) => AlertStore.show(t('common:alerts.error') + err, 'error'),
     onSuccess: () => {
       AlertStore.show(t('recurring-donation:alerts.cancel'), 'success')
+      queryClient.refetchQueries([endpoints.recurringDonation.getUserRecurringDonations.url])
+      queryClient.refetchQueries([endpoints.recurringDonation.list.url])
     },
   })
 }

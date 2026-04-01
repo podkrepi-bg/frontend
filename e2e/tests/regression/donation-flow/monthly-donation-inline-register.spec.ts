@@ -88,7 +88,7 @@ test.describe.serial(
       await donationPage.checkPrivacyCheckbox()
       await donationPage.submitForm()
       // Wait for Stripe to process the SetupIntent and redirect
-      await page.waitForURL(/\/status/, { timeout: 60000 })
+      await page.waitForURL(/\/status/, { timeout: 90000 })
     })
 
     test('The user is redirected to the success status page', async () => {
