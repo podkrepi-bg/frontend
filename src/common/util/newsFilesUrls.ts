@@ -1,6 +1,5 @@
 import { CampaignNewsFile } from 'gql/campaign-news'
 import { CampaignFileRole } from 'components/common/campaign-file/roles'
-import { API_URL } from 'service/apiClient'
 
 export function GetArticleDocuments(files: CampaignNewsFile[]) {
   const fileExtensionRemoverRegex = /.\w*$/
@@ -11,7 +10,7 @@ export function GetArticleDocuments(files: CampaignNewsFile[]) {
     .map((file) => {
       return {
         id: file.id,
-        fileUrl: `${API_URL}/campaign-news-file/${file.id}`,
+        fileUrl: `/api/v1/campaign-news-file/${file.id}`,
         fileName: file.filename.replace(fileExtensionRemoverRegex, ''),
       }
     })
@@ -24,7 +23,7 @@ export function GetArticleGalleryPhotos(files: CampaignNewsFile[]) {
     .map((file) => {
       return {
         id: file.id,
-        src: `${API_URL}/campaign-news-file/${file.id}`,
+        src: `/api/v1/campaign-news-file/${file.id}`,
         fileName: file.filename.replace(fileExtensionRemoverRegex, ''),
       }
     })

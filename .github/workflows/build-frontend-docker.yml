@@ -80,8 +80,12 @@ jobs:
           docker run --rm ${{ inputs.image_tag }} node -e "
             const s = require('fs').readFileSync('.next/required-server-files.json','utf8');
             const c = JSON.parse(s).config.images;
-            console.log('domains:', JSON.stringify(c.domains));
-            console.log('remotePatterns:', JSON.stringify(c.remotePatterns));
+            console.log('required-server-files domains:', JSON.stringify(c.domains));
+            console.log('required-server-files remotePatterns:', JSON.stringify(c.remotePatterns));
+            const sjs = require('fs').readFileSync('server.js','utf8');
+            const cfg = JSON.parse(sjs.match(/const nextConfig = ({.+})\s*\n/)[1]);
+            console.log('server.js domains:', JSON.stringify(cfg.images.domains));
+            console.log('server.js remotePatterns:', JSON.stringify(cfg.images.remotePatterns));
           "
 
       - name: Scan with Mondoo
