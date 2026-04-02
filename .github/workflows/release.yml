@@ -41,16 +41,27 @@ jobs:
         with:
           image: ghcr.io/podkrepi-bg/frontend/maintenance:master
 
-  build-frontend-image-dev:
-    name: Build frontend container image for dev
+  build-frontend-image:
+    name: Build frontend image (${{ matrix.environment }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+    strategy:
+      matrix:
+        include:
+          - environment: dev
+            api_url: https://dev.podkrepi.bg/api/v1
+            tag_suffix: "-dev"
+          - environment: prod
+            api_url: https://podkrepi.bg/api/v1
+            tag_suffix: ""
     steps:
       - uses: actions/checkout@v6
+        if: ${{ matrix.environment == 'dev' || startsWith(github.ref, 'refs/tags/v') }}
 
       - name: Login to GitHub Packages Docker Registry
+        if: ${{ matrix.environment == 'dev' || startsWith(github.ref, 'refs/tags/v') }}
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -65,14 +76,15 @@ jobs:
         if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
         run: echo "VERSION=master-$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
 
-      - name: Build and push dev image
+      - name: Build and push
+        if: ${{ matrix.environment == 'dev' || startsWith(github.ref, 'refs/tags/v') }}
         uses: docker/build-push-action@v6
         env:
           NODE_ENV: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           GHOST_API_URL: https://blog-do.podkrepi.bg
           GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
-          NEXT_PUBLIC_API_URL: https://dev.podkrepi.bg/api/v1
+          NEXT_PUBLIC_API_URL: ${{ matrix.api_url }}
         with:
           push: true
           target: runner
@@ -82,60 +94,15 @@ jobs:
             GHOST_CONTENT_KEY=${{ env.GHOST_CONTENT_KEY }}
             NEXT_PUBLIC_API_URL=${{ env.NEXT_PUBLIC_API_URL }}
             VERSION=${{ env.VERSION }}
-          tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}-dev
+          tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}${{ matrix.tag_suffix }}
 
       - name: Scan with Mondoo
+        if: ${{ matrix.environment == 'dev' || startsWith(github.ref, 'refs/tags/v') }}
         uses: mondoohq/actions/docker-image@main
         env:
           MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
         with:
-          image: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}-dev
-
-  build-frontend-image-prod:
-    name: Build frontend container image for prod
-    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Login to GitHub Packages Docker Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Get tag
-        run: echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
-      - name: Build and push prod image
-        uses: docker/build-push-action@v6
-        env:
-          NODE_ENV: production
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          GHOST_API_URL: https://blog-do.podkrepi.bg
-          GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
-          NEXT_PUBLIC_API_URL: https://podkrepi.bg/api/v1
-        with:
-          push: true
-          target: runner
-          build-args: |
-            SENTRY_AUTH_TOKEN=${{ env.SENTRY_AUTH_TOKEN }}
-            GHOST_API_URL=${{ env.GHOST_API_URL }}
-            GHOST_CONTENT_KEY=${{ env.GHOST_CONTENT_KEY }}
-            NEXT_PUBLIC_API_URL=${{ env.NEXT_PUBLIC_API_URL }}
-            VERSION=${{ env.VERSION }}
-          tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
-
-      - name: Scan with Mondoo
-        uses: mondoohq/actions/docker-image@main
-        env:
-          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
-        with:
-          image: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
+          image: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}${{ matrix.tag_suffix }}
 
   scan-manifests:
    name: Scan k8s manifests
@@ -174,7 +141,7 @@ jobs:
   release-dev:
     name: Release to dev
     runs-on: ubuntu-latest
-    needs: [build-frontend-image-dev, build-maintenance-image, scan-manifests, run-playwright]
+    needs: [build-frontend-image, build-maintenance-image, scan-manifests, run-playwright]
     environment:
       name: dev
       url: https://dev.podkrepi.bg
@@ -218,7 +185,7 @@ jobs:
     name: Github release
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
-    needs: [build-frontend-image-prod, release-dev]
+    needs: [release-dev]
     permissions:
       contents: write
     steps:
