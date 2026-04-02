@@ -75,6 +75,15 @@ jobs:
             VERSION=${{ inputs.version }}
           tags: ${{ inputs.image_tag }}
 
+      - name: Debug image config
+        run: |
+          docker run --rm ${{ inputs.image_tag }} node -e "
+            const s = require('fs').readFileSync('.next/required-server-files.json','utf8');
+            const c = JSON.parse(s).config.images;
+            console.log('domains:', JSON.stringify(c.domains));
+            console.log('remotePatterns:', JSON.stringify(c.remotePatterns));
+          "
+
       - name: Scan with Mondoo
         uses: mondoohq/actions/docker-image@main
         env:
