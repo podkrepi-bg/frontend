@@ -74,7 +74,7 @@ export default function CampaignProgress({
   raised,
   target,
   showPercentage,
-  currency = 'BGN',
+  currency = 'EUR',
 }: Props) {
   const { t } = useTranslation('campaigns')
   const raisedSafe = Math.max(0, raised)

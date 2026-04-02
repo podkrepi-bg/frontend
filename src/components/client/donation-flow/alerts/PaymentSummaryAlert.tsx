@@ -4,11 +4,13 @@ import { Info } from '@mui/icons-material'
 import { BoxProps, IconButton, Theme, Tooltip, Typography } from '@mui/material'
 import theme from 'common/theme'
 import { moneyPublicDecimals2 } from 'common/util/money'
+import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 import { stripeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { CardRegion } from 'gql/donations.enums'
 import { useFormikContext } from 'formik'
 import { DonationFormData } from '../helpers/types'
 import { Grid2 } from '@mui/material'
+import DualCurrencyAmount from 'components/common/DualCurrencyAmount'
 
 function PaymentSummaryAlert({
   donationAmount,
@@ -20,6 +22,7 @@ function PaymentSummaryAlert({
 }) {
   const { t } = useTranslation('donation-flow')
   const formik = useFormikContext<DonationFormData>()
+  const dualCurrencyEnabled = featureFlagEnabled(Features.DUAL_CURRENCY)
   const feeAmount =
     donationAmount !== 0
       ? stripeFeeCalculator(donationAmount, formik.values.cardRegion as CardRegion)
@@ -122,12 +125,15 @@ function PaymentSummaryAlert({
         <Typography fontSize={theme.typography.pxToRem(22)} fontWeight={600}>
           {t('step.summary.total')}:{' '}
         </Typography>
-        <Typography
-          fontSize={theme.typography.pxToRem(22)}
+        <DualCurrencyAmount
+          amount={donationAmount}
+          currency="EUR"
+          showDualCurrency={dualCurrencyEnabled}
+          primaryFontSize={theme.typography.pxToRem(22)}
+          secondaryFontSize={theme.typography.pxToRem(14)}
           fontWeight={600}
-          data-testid="total-amount">
-          {moneyPublicDecimals2(donationAmount)}
-        </Typography>
+          data-testid="total-amount"
+        />
       </Grid2>
     </Grid2>
   )

@@ -88,7 +88,7 @@ export default function NumberInputField({
         if (Number(amount) > limit) {
           setError(
             t('step.amount.field.other-amount.transaction-limit', {
-              limit: moneyPublic(limit, 'BGN', 1),
+              limit: moneyPublic(limit, 'EUR', 1),
             }),
           )
           return

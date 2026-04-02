@@ -33,7 +33,7 @@ type Props = {
 
 const initialValues: TransferInput = {
   status: TransferStatus.initial,
-  currency: Currency.BGN,
+  currency: Currency.EUR,
   amount: 0,
   reason: '',
   documentId: '',

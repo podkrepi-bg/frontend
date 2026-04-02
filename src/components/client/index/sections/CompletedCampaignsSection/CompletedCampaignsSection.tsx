@@ -1,4 +1,4 @@
-import { useTranslation, i18n } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CampaignResponse } from 'gql/campaigns'
@@ -64,11 +64,7 @@ export default function CompletedCampaignsSection() {
                 />
               </CompletedCampaignImage>
               <CompletedSumWrapper>
-                <Sum>
-                  {i18n?.language === 'bg'
-                    ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
-                    : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
-                </Sum>
+                <Sum>{moneyPublic(campaign.summary.reachedAmount, 'EUR', 100, 0, 0)}</Sum>
                 <SuccessfulCampaignLabel>
                   <SuccessfullCampaignIcon />
                   <SuccessfullCampiagnText>{t('successfull-label')}</SuccessfullCampiagnText>

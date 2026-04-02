@@ -1,4 +1,4 @@
-import { useTranslation, i18n } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
 import { Box, CardActions, Grid2, Typography } from '@mui/material'
@@ -48,8 +48,8 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const campaignImagesUrl = campaignListPictureUrl(campaign)
 
   const reached = summary ? summary.reachedAmount + (summary.guaranteedAmount ?? 0) : 0
-  const reachedAmount = moneyPublic(reached)
-  const targetAmount = moneyPublic(campaign.targetAmount)
+  const reachedAmount = moneyPublic(reached, 'EUR', 100, 0, 0)
+  const targetAmount = moneyPublic(campaign.targetAmount, 'EUR', 100, 0, 0)
   const percentage = (reached / target) * 100
 
   const stateIconMap = {
@@ -109,18 +109,10 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           <CampaignProgress state={campaignState} raised={reached} target={target} showPercentage />
           <SumWrapper>
             <Sum>
-              <SumNumber>
-                {i18n?.language === 'bg'
-                  ? reachedAmount.split(',')[0] + ' лв.'
-                  : reachedAmount.split('.')[0]}
-              </SumNumber>
+              <SumNumber>{reachedAmount}</SumNumber>
             </Sum>
             <Sum>
-              <SumNumber>
-                {i18n?.language === 'bg'
-                  ? targetAmount.split(',')[0] + ' лв.'
-                  : targetAmount.split('.')[0]}
-              </SumNumber>
+              <SumNumber>{targetAmount}</SumNumber>
             </Sum>
           </SumWrapper>
           <CampaignTitle>{title}</CampaignTitle>

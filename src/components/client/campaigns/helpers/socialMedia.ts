@@ -1,5 +1,5 @@
 import React from 'react'
-import { FacebookOutlined, LinkedIn, Twitter, WhatsApp } from '@mui/icons-material'
+import { FacebookOutlined, LinkedIn, Twitter } from '@mui/icons-material'
 
 export type Social = {
   label: string
@@ -18,11 +18,6 @@ export function socialMedia(url: string): Social {
       label: 'Споделете в Linkedin',
       icon: LinkedIn,
       url: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-    },
-    {
-      label: 'Споделете в Whatsapp',
-      icon: WhatsApp,
-      url: `https://api.whatsapp.com/send/?text=${url}`,
     },
     {
       label: 'Споделете в Twitter',

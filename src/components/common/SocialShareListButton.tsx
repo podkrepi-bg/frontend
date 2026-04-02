@@ -8,7 +8,7 @@ import {
   PopoverProps,
   ButtonProps,
 } from '@mui/material'
-import { ContentCopy, Facebook, LinkedIn, Share, Twitter, X } from '@mui/icons-material'
+import { ContentCopy, Facebook, LinkedIn, Share, X } from '@mui/icons-material'
 
 import { AlertStore } from 'stores/AlertStore'
 import theme from 'common/theme'

@@ -38,6 +38,7 @@ export const Root = styled(Card)(() => ({
 
 export const StyledContent = styled(CardContent)(() => ({
   padding: 0,
+  minWidth: 0,
 
   '.cardcontent--state': {
     paddingTop: theme.spacing(2),
@@ -64,10 +65,14 @@ export const CampaignTitle = styled('h3')(() => ({
   textAlign: 'left',
   margin: theme.spacing(1, 0, 0),
   minHeight: theme.spacing(6.25),
+  maxHeight: theme.spacing(6.25),
+  width: '100%',
+  minWidth: 0,
   overflow: 'hidden',
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
-  WebkitLineClamp: '2',
+  WebkitLineClamp: 2,
+  lineHeight: 1.5,
 }))
 
 export const SumWrapper = styled(Grid)(() => ({

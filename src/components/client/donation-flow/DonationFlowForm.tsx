@@ -194,7 +194,7 @@ export function DonationFlowForm() {
                 return_url: `${window.location.origin}/${routes.campaigns.donationStatus(
                   campaign.slug,
                 )}`,
-                personId: !values.isAnonymous && session?.user && person?.id ? person.id : null,
+                personId: session?.user && person?.id ? person.id : null,
               },
             },
           })

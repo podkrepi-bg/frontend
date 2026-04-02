@@ -12,6 +12,7 @@ const { i18n } = require('./next-i18next.config')
  */
 const moduleExports = {
   i18n,
+  output: 'standalone',
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
@@ -32,13 +33,14 @@ const moduleExports = {
   },
   publicRuntimeConfig: {
     APP_ENV: process.env.APP_ENV,
-    API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     APP_URL: process.env.APP_URL,
     GTM_ID: process.env.GTM_ID ?? 'GTM-TWQBXM6',
     PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
     FEATURE_ENABLED: {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
+      DUAL_CURRENCY: process.env.FEATURE_DUAL_CURRENCY ?? false,
     },
   },
   sentry: {
@@ -80,7 +82,7 @@ const moduleExports = {
       {
         key: 'X-XSS-Protection',
         value: '1; mode=block',
-      },
+      }
     ]
 
     return [
@@ -88,7 +90,7 @@ const moduleExports = {
         // Apply the headers to all routes
         source: '/:path*',
         headers: securityHeaders,
-      },
+      }
     ]
   },
   modularizeImports: {

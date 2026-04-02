@@ -4,9 +4,11 @@ import * as yup from 'yup'
 import { Button, CircularProgress, FormHelperText, Grid } from '@mui/material'
 import { signIn } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
+import { useQueryClient } from '@tanstack/react-query'
 
 import theme from 'common/theme'
 import { useRegister } from 'service/auth'
+import { endpoints } from 'service/apiEndpoints'
 import { AlertStore } from 'stores/AlertStore'
 import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
@@ -66,6 +68,7 @@ export default function InlineRegisterForm() {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const { mutateAsync: register } = useRegister()
+  const queryClient = useQueryClient()
   const formik = useFormikContext<DonationFormData>()
 
   const values: IndividualRegisterFormData = {
@@ -104,6 +107,8 @@ export default function InlineRegisterForm() {
         throw new Error(resp.error)
       }
       if (resp?.ok) {
+        // Refetch person data so personId is available for subscription metadata
+        await queryClient.invalidateQueries([endpoints.account.me.url])
         setLoading(false)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
         formik.setFieldValue('authentication', DonationFormAuthState.AUTHENTICATED)
