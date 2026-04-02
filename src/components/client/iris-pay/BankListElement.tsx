@@ -15,36 +15,19 @@ export default function BankListElement({ selectedBank, onBankSelect }: BankList
   useEffect(() => {
     async function loadBanks() {
       try {
-        const IRIS_API_BASE = process.env.NEXT_PUBLIC_IRIS_API_BASE
-        ;('/api/iris-pay')
+        const apiUrl = `/api/iris-pay/banks/${context.publicHash}?backend=${context.backend}`
 
-        if (context.backend === 'production') {
-          const apiUrl = `${IRIS_API_BASE}/banks/${context.publicHash}`
+        const response = await fetch(apiUrl, {
+          headers: { accept: 'application/json', 'content-type': 'application/json' },
+        })
 
-          const response = await fetch(apiUrl, {
-            headers: { accept: 'application/json', 'content-type': 'application/json' },
-          })
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`)
-          }
-
-          const data = (await response.json()) as BankList[]
-          const list = data.filter((bank) => bank.country === context.country)
-          setBanks(list)
-          return
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
 
-        setBanks([
-          {
-            name: 'Iris Test Bank',
-            bankHash: 'bf935ea4814061d70902683c1565fa2c',
-            fullName: 'Iris Test Bank',
-            bic: 'TESTBIC',
-            services: 'Test Services',
-            country: 'bulgaria',
-          },
-        ])
+        const data = (await response.json()) as BankList[]
+        const list = data.filter((bank) => bank.country === context.country)
+        setBanks(list)
       } catch (err) {
         console.error(`Failed to fetch ${(err as any).message}`)
       } finally {

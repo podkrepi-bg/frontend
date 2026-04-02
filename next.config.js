@@ -40,6 +40,7 @@ const moduleExports = {
     FEATURE_ENABLED: {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
       DUAL_CURRENCY: process.env.FEATURE_DUAL_CURRENCY ?? false,
+      IRISPAY: process.env.FEATURE_IRISPAY ?? false,
     },
   },
   sentry: {

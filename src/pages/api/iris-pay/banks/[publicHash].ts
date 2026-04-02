@@ -12,8 +12,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
+    const { backend } = req.query
+    const baseUrl =
+      backend === 'production'
+        ? 'https://paybyclick.irispay.bg'
+        : 'https://dev.paybyclick.irispay.bg'
+
     const response = await fetch(
-      `https://paybyclick.irispay.bg/backend/payment/banks/${publicHash}`,
+      `${baseUrl}/backend/payment/banks/${publicHash}`,
       {
         method: 'GET',
         headers: {

@@ -20,6 +20,7 @@ import PaymentDetailsStripeForm from './PaymentDetailsStripeForm'
 import BankPayment from './BankPayment'
 import { DonationFormSectionErrorText } from '../../common/DonationFormErrors'
 import IrisPayIcon from '../../icons/IrisPayIcon'
+import { featureEnabledForSession, Features } from 'common/util/featureFlag'
 
 export default function PaymentMethod({
   sectionRef,
@@ -32,8 +33,9 @@ export default function PaymentMethod({
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
   const [mode] = useField<PaymentMode>('mode')
-  const { status } = useSession()
+  const { data: session, status } = useSession()
   const formik = useFormikContext<DonationFormData>()
+  const showIrisPay = featureEnabledForSession(Features.IRISPAY, session)
   const options = [
     {
       value: 'card',
@@ -47,12 +49,16 @@ export default function PaymentMethod({
       icon: <BankIcon sx={{ width: 80, height: 80, minWidth: 480 }} />,
       disabled: mode.value === 'subscription',
     },
-    {
-      value: 'irispay',
-      label: t('step.payment-method.field.method.irispay'),
-      icon: <IrisPayIcon sx={{ width: 80, height: 80, minWidth: 480 }} />,
-      disabled: mode.value === 'subscription',
-    },
+    ...(showIrisPay
+      ? [
+          {
+            value: 'irispay',
+            label: t('step.payment-method.field.method.irispay'),
+            icon: <IrisPayIcon sx={{ width: 80, height: 80, minWidth: 480 }} />,
+            disabled: mode.value === 'subscription',
+          },
+        ]
+      : []),
   ]
   const cardAlertDescription = t('step.payment-method.alert.card-fee')
   const bankAlertDescription = t('step.payment-method.alert.bank-fee')
@@ -96,20 +102,24 @@ export default function PaymentMethod({
         </Box>
       ),
     },
-    {
-      value: 'irispay',
-      label: t('step.payment-method.field.method.irispay'),
-      icon: <IrisPayIcon sx={{ width: 80, height: 80 }} />,
-      content: (
-        <Box>
-          <Alert sx={{ my: 2 }} color="info" icon={false}>
-            <Typography>
-              {paymentMethodAlertMap[payment.value as DonationFormPaymentMethod]}
-            </Typography>
-          </Alert>
-        </Box>
-      ),
-    },
+    ...(showIrisPay
+      ? [
+          {
+            value: 'irispay',
+            label: t('step.payment-method.field.method.irispay'),
+            icon: <IrisPayIcon sx={{ width: 80, height: 80 }} />,
+            content: (
+              <Box>
+                <Alert sx={{ my: 2 }} color="info" icon={false}>
+                  <Typography>
+                    {paymentMethodAlertMap[payment.value as DonationFormPaymentMethod]}
+                  </Typography>
+                </Alert>
+              </Box>
+            ),
+          },
+        ]
+      : []),
   ]
   return (
     <Grid
