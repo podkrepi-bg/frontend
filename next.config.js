@@ -35,9 +35,13 @@ const moduleExports = {
     hideSourceMaps: true,
   },
   images: {
-    domains: [
-      process.env.IMAGE_HOST ?? 'localhost',
-      process.env.GHOST_API_URL?.replace('https://', '') || 'blog.podkrepi.bg',
+    remotePatterns: [
+      {
+        hostname: process.env.IMAGE_HOST ?? 'localhost',
+      },
+      {
+        hostname: process.env.GHOST_API_URL?.replace('https://', '') || 'blog.podkrepi.bg',
+      },
     ],
   },
   async rewrites() {
