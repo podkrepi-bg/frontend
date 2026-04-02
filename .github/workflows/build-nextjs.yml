@@ -36,3 +36,4 @@ jobs:
           NEXT_PUBLIC_API_URL: http://localhost:5010/api/v1
           APP_URL: http://localhost:3040
           APP_ENV: development
+          IMAGE_HOST: localhost

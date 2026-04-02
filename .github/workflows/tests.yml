@@ -50,6 +50,7 @@ jobs:
             PAYPAL_CLIENT_ID=sb
             FEATURE_CAMPAIGN=true
             FEATURE_DUAL_CURRENCY=true
+            IMAGE_HOST=dev.podkrepi.bg
           tags: ghcr.io/podkrepi-bg/frontend:pr
 
       - name: Scan with Mondoo

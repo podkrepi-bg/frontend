@@ -54,6 +54,7 @@ jobs:
             api_url: https://dev.podkrepi.bg/api/v1
             app_url: https://dev.podkrepi.bg
             app_env: staging
+            image_host: dev.podkrepi.bg
             tag_suffix: "-dev"
             stripe_key: pk_test_51ShGidL6dlpeL1XIoc6Vd9mvgY295mU2QxprhNvLBqYXmGTyGgd9GJ3EVbZvdrJdpWti7BjnGskZKweHGbb1ueC500ua3mdG2U
             paypal_client_id: sb
@@ -63,6 +64,7 @@ jobs:
             api_url: https://podkrepi.bg/api/v1
             app_url: https://podkrepi.bg
             app_env: production
+            image_host: podkrepi.bg
             tag_suffix: ""
             stripe_key: pk_live_51IRdsUKApGjVGa9tbGfNIXvSEFs69XwnkXzU7IZEeBttHhwTCYvBIeFvKPxUd3IBCTp9cizH0bvlQEPqPhVlPYM600YswIlpkq
             paypal_client_id: ""
@@ -112,6 +114,7 @@ jobs:
             PAYPAL_CLIENT_ID=${{ matrix.paypal_client_id }}
             FEATURE_CAMPAIGN=${{ matrix.feature_campaign }}
             FEATURE_DUAL_CURRENCY=${{ matrix.feature_dual_currency }}
+            IMAGE_HOST=${{ matrix.image_host }}
             VERSION=${{ env.VERSION }}
           tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}${{ matrix.tag_suffix }}
 
