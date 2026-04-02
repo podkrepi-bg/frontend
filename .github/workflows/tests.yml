@@ -5,6 +5,8 @@ on:
     secrets:
       SENTRY_AUTH_TOKEN:
         required: true
+      SENTRY_DSN:
+        required: false
       GHOST_CONTENT_KEY:
         required: true
       MONDOO_SECRET:
@@ -41,6 +43,13 @@ jobs:
             GHOST_API_URL=${{ env.GHOST_API_URL }}
             GHOST_CONTENT_KEY=${{ env.GHOST_CONTENT_KEY }}
             NEXT_PUBLIC_API_URL=${{ env.NEXT_PUBLIC_API_URL }}
+            APP_URL=https://dev.podkrepi.bg
+            APP_ENV=staging
+            SENTRY_DSN=${{ secrets.SENTRY_DSN }}
+            STRIPE_PUBLISHABLE_KEY=pk_test_51ShGidL6dlpeL1XIoc6Vd9mvgY295mU2QxprhNvLBqYXmGTyGgd9GJ3EVbZvdrJdpWti7BjnGskZKweHGbb1ueC500ua3mdG2U
+            PAYPAL_CLIENT_ID=sb
+            FEATURE_CAMPAIGN=true
+            FEATURE_DUAL_CURRENCY=true
           tags: ghcr.io/podkrepi-bg/frontend:pr
 
       - name: Scan with Mondoo

@@ -52,10 +52,22 @@ jobs:
         include:
           - environment: dev
             api_url: https://dev.podkrepi.bg/api/v1
+            app_url: https://dev.podkrepi.bg
+            app_env: staging
             tag_suffix: "-dev"
+            stripe_key: pk_test_51ShGidL6dlpeL1XIoc6Vd9mvgY295mU2QxprhNvLBqYXmGTyGgd9GJ3EVbZvdrJdpWti7BjnGskZKweHGbb1ueC500ua3mdG2U
+            paypal_client_id: sb
+            feature_campaign: "true"
+            feature_dual_currency: "true"
           - environment: prod
             api_url: https://podkrepi.bg/api/v1
+            app_url: https://podkrepi.bg
+            app_env: production
             tag_suffix: ""
+            stripe_key: pk_live_51IRdsUKApGjVGa9tbGfNIXvSEFs69XwnkXzU7IZEeBttHhwTCYvBIeFvKPxUd3IBCTp9cizH0bvlQEPqPhVlPYM600YswIlpkq
+            paypal_client_id: ""
+            feature_campaign: "false"
+            feature_dual_currency: "true"
     steps:
       - uses: actions/checkout@v6
         if: ${{ matrix.environment == 'dev' || startsWith(github.ref, 'refs/tags/v') }}
@@ -93,6 +105,13 @@ jobs:
             GHOST_API_URL=${{ env.GHOST_API_URL }}
             GHOST_CONTENT_KEY=${{ env.GHOST_CONTENT_KEY }}
             NEXT_PUBLIC_API_URL=${{ env.NEXT_PUBLIC_API_URL }}
+            APP_URL=${{ matrix.app_url }}
+            APP_ENV=${{ matrix.app_env }}
+            SENTRY_DSN=${{ secrets.SENTRY_DSN }}
+            STRIPE_PUBLISHABLE_KEY=${{ matrix.stripe_key }}
+            PAYPAL_CLIENT_ID=${{ matrix.paypal_client_id }}
+            FEATURE_CAMPAIGN=${{ matrix.feature_campaign }}
+            FEATURE_DUAL_CURRENCY=${{ matrix.feature_dual_currency }}
             VERSION=${{ env.VERSION }}
           tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}${{ matrix.tag_suffix }}
 
