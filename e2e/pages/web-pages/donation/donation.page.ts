@@ -215,7 +215,32 @@ export class DonationPage extends CampaignsPage {
     const authSection = this.page.locator('#select-authentication-method')
     const label = authSection.getByText(labelText, { exact: true })
     await label.waitFor({ state: 'visible', timeout: 10000 })
+
+    // Let any in-flight Stripe iframe activity settle before clicking,
+    // as Stripe Link network calls can trigger React re-renders that
+    // reset the Formik auth field value after our click.
+    await this.page.waitForLoadState('networkidle')
     await label.click()
+
+    // Verify the Collapse actually expanded by waiting for the form content.
+    // If the click was swallowed by a re-render, retry once.
+    let formFieldSelector: string | null = null
+    if (auth === DonationFormAuthState.LOGIN) {
+      formFieldSelector = 'input[name="loginEmail"]'
+    } else if (auth === DonationFormAuthState.REGISTER) {
+      formFieldSelector = 'input[name="registerFirstName"]'
+    }
+    if (formFieldSelector) {
+      const formField = this.page.locator(formFieldSelector)
+      const appeared = await formField.waitFor({ state: 'visible', timeout: 5000 }).then(
+        () => true,
+        () => false,
+      )
+      if (!appeared) {
+        await label.click()
+        await formField.waitFor({ state: 'visible', timeout: 10000 })
+      }
+    }
   }
 
   /**
