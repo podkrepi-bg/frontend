@@ -45,7 +45,7 @@
     "@stripe/react-stripe-js": "^2.7.0",
     "@stripe/stripe-js": "^3.3.0",
     "@tanstack/react-query": "^4.16.1",
-    "@tryghost/content-api": "^1.11.4",
+    "@tryghost/content-api": "^1.12.6",
     "axios": "^1.13.5",
     "axios-hooks": "2.7.0",
     "chart.js": "^4.4.0",
@@ -120,8 +120,8 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "7.0.1",
-    "jest": "^29.6.1",
-    "jest-environment-jsdom": "^29.6.1",
+    "jest": "^30.0.0",
+    "jest-environment-jsdom": "^30.0.0",
     "lint-staged": "11.0.0",
     "msw": "1",
     "next-sitemap": "^3.1.52",
@@ -130,7 +130,7 @@
     "stripe": "^8.184.0",
     "stylelint": "^15.10.1",
     "stylelint-config-sass-guidelines": "9.0.1",
-    "typescript": "5.1.6"
+    "typescript": "^5.4.0"
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
