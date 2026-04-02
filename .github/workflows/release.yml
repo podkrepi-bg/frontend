@@ -116,7 +116,7 @@ jobs:
   release-dev:
     name: Release to dev
     runs-on: ubuntu-latest
-    needs: [build-frontend-dev, build-frontend-prod, build-maintenance-image, scan-manifests, run-playwright]
+    needs: [build-frontend-dev, build-maintenance-image, scan-manifests, run-playwright]
     environment:
       name: dev
       url: https://dev.podkrepi.bg

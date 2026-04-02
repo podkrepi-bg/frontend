@@ -63,7 +63,6 @@ jobs:
             .github/build-env.yml > .env.production
           echo "SENTRY_DSN=${SENTRY_DSN}" >> .env.production
           echo "SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}" >> .env.production
-          grep IMAGE_HOST .env.production
 
       - name: Build
         uses: docker/build-push-action@v6
@@ -74,19 +73,6 @@ jobs:
           build-args: |
             VERSION=${{ inputs.version }}
           tags: ${{ inputs.image_tag }}
-
-      - name: Debug image config
-        run: |
-          docker run --rm ${{ inputs.image_tag }} node -e "
-            const s = require('fs').readFileSync('.next/required-server-files.json','utf8');
-            const c = JSON.parse(s).config.images;
-            console.log('required-server-files domains:', JSON.stringify(c.domains));
-            console.log('required-server-files remotePatterns:', JSON.stringify(c.remotePatterns));
-            const sjs = require('fs').readFileSync('server.js','utf8');
-            const cfg = JSON.parse(sjs.match(/const nextConfig = ({.+})\s*\n/)[1]);
-            console.log('server.js domains:', JSON.stringify(cfg.images.domains));
-            console.log('server.js remotePatterns:', JSON.stringify(cfg.images.remotePatterns));
-          "
 
       - name: Scan with Mondoo
         uses: mondoohq/actions/docker-image@main
