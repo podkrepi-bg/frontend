@@ -167,7 +167,12 @@ export class DonationPage extends CampaignsPage {
     const cardExpiryField = baseCardPaymentLocator.locator('input[name="expiry"]').first()
     const cvcField = baseCardPaymentLocator.locator('input[name="cvc"]').first()
     const countrySelect = baseCardPaymentLocator.locator('select[name="country"]').first()
-    await emailField.fill(data.email)
+    // Wait for the Stripe iframe email field to be ready, then skip if Stripe Link
+    // has auto-filled and disabled it (happens for recognized/authenticated emails)
+    await emailField.waitFor({ state: 'visible', timeout: 15000 })
+    if (await emailField.isEnabled()) {
+      await emailField.fill(data.email)
+    }
     await nameField.fill(data.name)
     await cardNumberField.fill(data.cardNumber)
     await cardExpiryField.fill(data.expiryDate)
