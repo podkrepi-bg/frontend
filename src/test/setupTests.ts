@@ -23,3 +23,13 @@ jest.mock('next-i18next', () => ({
 jest.mock('next/config', () => () => ({
   publicRuntimeConfig: { NEXT_PUBLIC_API_URL: 'http://localhost/api', APP_URL: 'http://localhost' },
 }))
+
+jest.mock('lru-cache', () => {
+  return {
+    __esModule: true,
+    default: class LRU {
+      get() { return undefined }
+      set() {}
+    },
+  }
+})
