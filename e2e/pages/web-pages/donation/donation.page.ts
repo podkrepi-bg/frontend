@@ -59,10 +59,8 @@ export class DonationPage extends CampaignsPage {
     bgLocalizationDonationFlow.step.authentication.noregister.label
   private readonly enNoRegitserText =
     enLocalizationDonationFlow.step.authentication.noregister.label
-  private readonly bgLoggedAsText =
-    bgLocalizationDonationFlow.step.authentication['logged-as']
-  private readonly enLoggedAsText =
-    enLocalizationDonationFlow.step.authentication['logged-as']
+  private readonly bgLoggedAsText = bgLocalizationDonationFlow.step.authentication['logged-as']
+  private readonly enLoggedAsText = enLocalizationDonationFlow.step.authentication['logged-as']
   private readonly bgRegisterButtonText = bgLocalizationAuth.cta.register
   private readonly enRegisterButtonText = enLocalizationAuth.cta.register
   // -> Register form checkbox texts <-
@@ -270,8 +268,10 @@ export class DonationPage extends CampaignsPage {
     mode: PaymentMode,
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
-    const oneTimeText = language === LanguagesEnum.BG ? this.bgOneTimeModeText : this.enOneTimeModeText
-    const monthlyText = language === LanguagesEnum.BG ? this.bgMonthlyModeText : this.enMonthlyModeText
+    const oneTimeText =
+      language === LanguagesEnum.BG ? this.bgOneTimeModeText : this.enOneTimeModeText
+    const monthlyText =
+      language === LanguagesEnum.BG ? this.bgMonthlyModeText : this.enMonthlyModeText
 
     if (mode === 'one-time') {
       await this.selectRadioButtonByLabelText([oneTimeText])
@@ -295,8 +295,7 @@ export class DonationPage extends CampaignsPage {
   ): Promise<void> {
     const emailField = this.page.locator('input[name="loginEmail"]')
     const passwordField = this.page.locator('input[name="loginPassword"]')
-    const loginButtonText =
-      language === LanguagesEnum.BG ? this.bgLoginText : this.enLoginText
+    const loginButtonText = language === LanguagesEnum.BG ? this.bgLoginText : this.enLoginText
     const loginButton = this.page.locator('button[type="button"]', {
       hasText: loginButtonText,
     })
@@ -359,8 +358,7 @@ export class DonationPage extends CampaignsPage {
     language: LanguagesEnum = LanguagesEnum.BG,
     timeoutParam = 30000,
   ): Promise<void> {
-    const loggedAsText =
-      language === LanguagesEnum.BG ? this.bgLoggedAsText : this.enLoggedAsText
+    const loggedAsText = language === LanguagesEnum.BG ? this.bgLoggedAsText : this.enLoggedAsText
     // Wait a moment for the form to detect the authenticated session
     await this.page.waitForTimeout(1000)
     const loggedAsLocator = this.page.getByText(loggedAsText)
