@@ -1,7 +1,6 @@
 ## Build-time environment config for Next.js standalone builds.
 ## shared values are merged with the per-environment values.
 ## Per-environment values override shared values when both exist.
-
 shared:
   GHOST_API_URL: https://blog-do.podkrepi.bg
   NEXT_PUBLIC_FEATURE_DUAL_CURRENCY: "true"

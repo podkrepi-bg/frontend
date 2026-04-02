@@ -63,6 +63,7 @@ jobs:
             .github/build-env.yml > .env.production
           echo "SENTRY_DSN=${SENTRY_DSN}" >> .env.production
           echo "SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}" >> .env.production
+          grep IMAGE_HOST .env.production
 
       - name: Build
         uses: docker/build-push-action@v6
