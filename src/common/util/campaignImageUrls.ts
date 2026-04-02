@@ -1,4 +1,3 @@
-import getConfig from 'next/config'
 import { CampaignFile, CampaignResponse } from 'gql/campaigns'
 import { CampaignFileRole, ImageSlider } from 'components/common/campaign-file/roles'
 import { API_URL } from 'service/apiClient'

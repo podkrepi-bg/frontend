@@ -1,9 +1,6 @@
 import { CampaignNewsFile } from 'gql/campaign-news'
 import { CampaignFileRole } from 'components/common/campaign-file/roles'
-import getConfig from 'next/config'
 import { API_URL } from 'service/apiClient'
-
-const { publicRuntimeConfig } = getConfig()
 
 export function GetArticleDocuments(files: CampaignNewsFile[]) {
   const fileExtensionRemoverRegex = /.\w*$/

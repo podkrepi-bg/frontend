@@ -31,18 +31,6 @@ const moduleExports = {
     SENTRY_DSN: process.env.SENTRY_DSN,
     DEPLOY_TAG: process.env.DEPLOY_TAG,
   },
-  publicRuntimeConfig: {
-    APP_ENV: process.env.APP_ENV,
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-    APP_URL: process.env.APP_URL,
-    GTM_ID: process.env.GTM_ID ?? 'GTM-TWQBXM6',
-    PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
-    STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
-    FEATURE_ENABLED: {
-      CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
-      DUAL_CURRENCY: process.env.FEATURE_DUAL_CURRENCY ?? false,
-    },
-  },
   sentry: {
     hideSourceMaps: true,
   },

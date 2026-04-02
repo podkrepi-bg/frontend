@@ -1,7 +1,6 @@
-import getConfig from 'next/config'
 import { default as TagManager, TagManagerArgs } from 'react-gtm-module'
 
-const gtmId = getConfig().publicRuntimeConfig.GTM_ID
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID ?? 'GTM-TWQBXM6'
 
 export type EventType = 'change_language' | 'page_view'
 

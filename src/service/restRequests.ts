@@ -1,4 +1,3 @@
-import getConfig from 'next/config'
 import { Session } from 'next-auth'
 
 import { QueryFunction } from '@tanstack/react-query'
@@ -6,11 +5,8 @@ import { AxiosRequestConfig } from 'axios'
 
 import { apiClient } from 'service/apiClient'
 
-const {
-  publicRuntimeConfig: { APP_URL },
-} = getConfig()
 export async function fetchSession(): Promise<Session | null> {
-  const res = await apiClient.get('/api/auth/session', { baseURL: APP_URL })
+  const res = await apiClient.get('/api/auth/session', { baseURL: process.env.NEXT_PUBLIC_APP_URL })
   const session = res.data
 
   if (Object.keys(session).length) {

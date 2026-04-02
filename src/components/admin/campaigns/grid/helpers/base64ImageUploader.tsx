@@ -4,9 +4,6 @@ import { CampaignFileRole, UploadCampaignFiles } from 'components/common/campaig
 import { CampaignUploadImage } from 'gql/campaigns'
 import { ApiErrors } from 'service/apiErrors'
 import crypto from 'crypto'
-import getConfig from 'next/config'
-
-const { publicRuntimeConfig } = getConfig()
 
 /**
  * This function finds all base64 image links in the given string, uploads them to the server
@@ -74,7 +71,7 @@ async function uploadImage(
       roles: [{ file: imageFile.name, role: CampaignFileRole.campaignPhoto }],
     })
     .then((response) => {
-      return `${publicRuntimeConfig.APP_URL}/api/v1/campaign-file/` + response.data[0]
+      return `${process.env.NEXT_PUBLIC_APP_URL}/api/v1/campaign-file/` + response.data[0]
     })
     .catch(() => {
       return ''
