@@ -17,6 +17,16 @@ on:
         required: true
 
 jobs:
+  validate-env:
+    name: Validate env config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Validate .env.local.example against build-env.yml
+        run: bash .github/scripts/validate-env.sh
+
   build-frontend:
     name: Build and scan frontend container image
     uses: ./.github/workflows/build-frontend-docker.yml

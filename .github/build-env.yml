@@ -1,24 +1,31 @@
 ## Build-time environment config for Next.js standalone builds.
 ## shared values are merged with the per-environment values.
 ## Per-environment values override shared values when both exist.
+##
+## When adding a new env var to .env.local.example, add it to either:
+##   - shared/test/dev/prod (build-time, baked into Docker image)
+##   - runtime_only         (runtime, set via K8s manifests)
+## The validate-env CI check enforces this.
 shared:
   GHOST_API_URL: https://blog-do.podkrepi.bg
   NEXT_PUBLIC_FEATURE_DUAL_CURRENCY: "true"
   NEXT_PUBLIC_FEATURE_CAMPAIGN: "true"
-  NEXT_PUBLIC_PAYPAL_CLIENT_ID: sb
-  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_test_51ShGidL6dlpeL1XIoc6Vd9mvgY295mU2QxprhNvLBqYXmGTyGgd9GJ3EVbZvdrJdpWti7BjnGskZKweHGbb1ueC500ua3mdG2U
 
 test:
   NEXT_PUBLIC_API_URL: http://localhost:5010/api/v1
   NEXT_PUBLIC_APP_URL: http://localhost:3040
   APP_ENV: development
   IMAGE_HOST: localhost
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_test_51ShGidL6dlpeL1XIoc6Vd9mvgY295mU2QxprhNvLBqYXmGTyGgd9GJ3EVbZvdrJdpWti7BjnGskZKweHGbb1ueC500ua3mdG2U
+  NEXT_PUBLIC_PAYPAL_CLIENT_ID: sb
 
 dev:
   NEXT_PUBLIC_API_URL: https://dev.podkrepi.bg/api/v1
   NEXT_PUBLIC_APP_URL: https://dev.podkrepi.bg
   APP_ENV: staging
   IMAGE_HOST: dev.podkrepi.bg
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_test_51ShGidL6dlpeL1XIoc6Vd9mvgY295mU2QxprhNvLBqYXmGTyGgd9GJ3EVbZvdrJdpWti7BjnGskZKweHGbb1ueC500ua3mdG2U
+  NEXT_PUBLIC_PAYPAL_CLIENT_ID: sb
 
 prod:
   NEXT_PUBLIC_API_URL: https://podkrepi.bg/api/v1
@@ -28,3 +35,18 @@ prod:
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_live_51IRdsUKApGjVGa9tbGfNIXvSEFs69XwnkXzU7IZEeBttHhwTCYvBIeFvKPxUd3IBCTp9cizH0bvlQEPqPhVlPYM600YswIlpkq
   NEXT_PUBLIC_PAYPAL_CLIENT_ID: ""
   NEXT_PUBLIC_FEATURE_CAMPAIGN: "false"
+
+## Runtime-only env vars - set via K8s manifests/secrets, NOT baked into the build.
+## Listed here for validation purposes only.
+runtime_only:
+  - NODE_ENV
+  - TARGET_ENV
+  - APP_PORT
+  - SENTRY_SERVER_INIT_PATH
+  - NEXTAUTH_URL
+  - NEXTAUTH_SECRET
+  - GOOGLE_ID
+  - GOOGLE_SECRET
+  - GHOST_CONTENT_KEY
+  - PODKREPI_EMAIL
+  - PODKREPI_PASSWORD
