@@ -43,8 +43,8 @@ const moduleExports = {
       DUAL_CURRENCY: process.env.FEATURE_DUAL_CURRENCY ?? false,
     },
   },
-  sentry: {
-    hideSourceMaps: true,
+  experimental: {
+    instrumentationHook: true,
   },
   images: {
     domains: [
@@ -119,10 +119,13 @@ const SentryWebpackPluginOptions = {
   //   release, url, org, project, authToken, configFile, stripPrefix,
   //   urlPrefix, include, ignore
   // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options.
+  // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
   debug: ['staging', 'production'].includes(process.env.APP_ENV) || false,
   dryRun: ['development', 'nightly'].includes(process.env.APP_ENV) || true,
   silent: true,
+  sourcemaps: {
+    deleteSourcemapsAfterUpload: true,
+  },
 }
 
 // Make sure adding Sentry options is the last code to run before exporting, to
