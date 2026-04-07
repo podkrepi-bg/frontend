@@ -52,7 +52,20 @@ if [ -n "$missing" ]; then
   echo "Add them to one of:"
   echo "  - shared/test/dev/prod  (build-time, baked into Docker image)"
   echo "  - runtime_only          (runtime, set via K8s manifests)"
-  exit 1
+
+  if [ -n "${GITHUB_OUTPUT:-}" ]; then
+    {
+      echo "has_missing=true"
+      echo "missing_vars<<EOF"
+      echo "$missing"
+      echo "EOF"
+    } >> "$GITHUB_OUTPUT"
+  fi
+  exit 0
 fi
 
 echo "✅ All env vars in $EXAMPLE are classified"
+
+if [ -n "${GITHUB_OUTPUT:-}" ]; then
+  echo "has_missing=false" >> "$GITHUB_OUTPUT"
+fi
