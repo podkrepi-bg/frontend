@@ -177,8 +177,7 @@ export const endpoints = {
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     synchronizeWithPayment: (id: string) =>
       <Endpoint>{ url: `/donation/${id}/sync-with-payment`, method: 'PATCH' },
-    refundStripePayment: (id: string) =>
-      <Endpoint>{ url: `/stripe/${id}/refund`, method: 'POST' },
+    refundStripePayment: (id: string) => <Endpoint>{ url: `/stripe/${id}/refund`, method: 'POST' },
     invalidateStripePayment: (id: string) =>
       <Endpoint>{ url: `/donation/${id}/invalidate`, method: 'PATCH' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
