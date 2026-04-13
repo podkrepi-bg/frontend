@@ -6386,17 +6386,6 @@ __metadata:
   linkType: hard
 
 "axios@npm:^1.0.0":
-  version: 1.14.0
-  resolution: "axios@npm:1.14.0"
-  dependencies:
-    follow-redirects: ^1.15.11
-    form-data: ^4.0.5
-    proxy-from-env: ^2.1.0
-  checksum: 505d21ea777e7613ec61dc2ca92647a55878b6c86ae268e791747fb199913e68b1a9bdb9faa5a72eb59dcefc5e93c2579636504b84dbfed59aa9a680ade749e6
-  languageName: node
-  linkType: hard
-
-"axios@npm:^1.15.0":
   version: 1.15.0
   resolution: "axios@npm:1.15.0"
   dependencies:
@@ -14117,7 +14106,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.61.0
     "@typescript-eslint/parser": ^5.61.0
     all-contributors-cli: ^6.20.0
-    axios: ^1.15.0
     axios-hooks: 2.7.0
     chart.js: ^4.4.0
     chartjs-plugin-annotation: ^3.0.1
