@@ -1,10 +1,4 @@
-import getConfig from 'next/config'
-
-const {
-  publicRuntimeConfig: { APP_URL },
-} = getConfig()
-
-export const baseUrl = APP_URL
+export const baseUrl = process.env.NEXT_PUBLIC_APP_URL
 export const defaultOgImage = {
   src: `${baseUrl}/img/og_image.jpeg`,
   width: '1640',

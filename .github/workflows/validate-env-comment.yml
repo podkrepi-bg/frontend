@@ -1,0 +1,96 @@
+name: Validate env config (PR comment)
+
+# Runs on pull_request_target so that PRs from forks have a token with
+# pull-requests: write permission and can receive comments.
+#
+# SECURITY: pull_request_target executes in the context of the base repo with
+# access to secrets. We must NOT run any code from the PR head. To stay safe:
+#   1. Check out the trusted base ref first to get validate-env.sh.
+#   2. Check out the PR head into a separate directory and only read the data
+#      files (.env.local.example, .github/build-env.yml) from it.
+#   3. Run the trusted script against the untrusted data files.
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '.env.local.example'
+      - '.github/build-env.yml'
+      - '.github/scripts/validate-env.sh'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate-and-comment:
+    name: Validate env config and comment on PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout base (trusted)
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+          persist-credentials: false
+
+      - name: Checkout PR head (untrusted - data files only)
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: pr
+          persist-credentials: false
+
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Run validation (trusted script against PR data files)
+        id: validate
+        working-directory: pr
+        run: bash ../base/.github/scripts/validate-env.sh
+
+      - name: Find existing comment
+        id: find-comment
+        uses: peter-evans/find-comment@v3
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '<!-- env-validation-report -->'
+
+      - name: Create or update comment (missing vars)
+        if: steps.validate.outputs.has_missing == 'true'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          edit-mode: replace
+          body: |
+            <!-- env-validation-report -->
+            ### ⚠️ Env config out of sync
+
+            The following variables in `.env.local.example` are **not classified** in `.github/build-env.yml`:
+
+            ```
+            ${{ steps.validate.outputs.missing_vars }}
+            ```
+
+            Please add each one to **one** of the following sections in `.github/build-env.yml`:
+
+            - `shared` / `test` / `dev` / `prod` — build-time vars baked into the Docker image
+            - `runtime_only` — runtime vars set via K8s manifests
+
+            This comment will update automatically on each push, and resolve once the mismatch is fixed.
+
+      - name: Update comment to resolved
+        if: steps.validate.outputs.has_missing == 'false' && steps.find-comment.outputs.comment-id != ''
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |
+            <!-- env-validation-report -->
+            ### ✅ Env config in sync
+
+            All variables in `.env.local.example` are classified in `.github/build-env.yml`. Thanks for the fix!

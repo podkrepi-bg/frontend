@@ -47,9 +47,13 @@ const moduleExports = {
     instrumentationHook: true,
   },
   images: {
-    domains: [
-      process.env.IMAGE_HOST ?? 'localhost',
-      process.env.GHOST_API_URL?.replace('https://', '') || 'blog.podkrepi.bg',
+    remotePatterns: [
+      {
+        hostname: process.env.IMAGE_HOST ?? 'localhost',
+      },
+      {
+        hostname: process.env.GHOST_API_URL?.replace('https://', '') || 'blog.podkrepi.bg',
+      },
     ],
   },
   async rewrites() {
@@ -82,7 +86,7 @@ const moduleExports = {
       {
         key: 'X-XSS-Protection',
         value: '1; mode=block',
-      }
+      },
     ]
 
     return [
@@ -90,7 +94,7 @@ const moduleExports = {
         // Apply the headers to all routes
         source: '/:path*',
         headers: securityHeaders,
-      }
+      },
     ]
   },
   modularizeImports: {
