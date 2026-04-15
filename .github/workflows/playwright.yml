@@ -42,11 +42,14 @@ jobs:
         working-directory: ./api
         run: docker compose up -d pg-db keycloak
 
-      - name: Run stripe webhook
+      - name: Setup Stripe secret for webhook container
         working-directory: ./api
         env:
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+        run: printf 'STRIPE_SECRET_KEY=%s\n' "$STRIPE_SECRET_KEY" >> .env.local
+
+      - name: Run stripe webhook
+        working-directory: ./api
         run: docker compose up -d stripe-webhook
 
       - uses: actions/setup-node@v6
@@ -62,12 +65,30 @@ jobs:
         working-directory: ./api
         run: yarn prisma generate && yarn prisma migrate deploy && yarn prisma db seed
 
+      - name: Wait for stripe webhook secret
+        working-directory: ./api
+        run: |
+          for i in $(seq 1 30); do
+            if grep -q 'whsec_' .env.local 2>/dev/null; then
+              echo "Stripe webhook secret found"
+              break
+            fi
+            echo "Waiting for stripe webhook secret... ($i/30)"
+            sleep 2
+          done
+          if ! grep -q 'whsec_' .env.local 2>/dev/null; then
+            echo "ERROR: Stripe webhook secret not found after 60s"
+            docker compose logs stripe-webhook
+            exit 1
+          fi
+
       - name: Run backend
         working-directory: ./api
         env:
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-        run: yarn start &> api.log &
+        run: |
+          export STRIPE_WEBHOOK_SECRET=$(grep STRIPE_WEBHOOK_SECRET .env.local | tail -1 | cut -d= -f2)
+          yarn start &> api.log &
 
       - name: Install Frontend Dependencies
         working-directory: ./frontend
@@ -131,6 +152,11 @@ jobs:
           retention-days: 14
           overwrite: true
 
+      - name: Collect stripe webhook logs
+        if: always()
+        working-directory: ./api
+        run: docker compose logs stripe-webhook > stripe-webhook.log 2>&1 || true
+
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
@@ -138,4 +164,5 @@ jobs:
           path: |
             ./frontend/frontend.log
             ./api/api.log
+            ./api/stripe-webhook.log
           retention-days: 14
