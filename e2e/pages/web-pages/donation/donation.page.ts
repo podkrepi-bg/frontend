@@ -216,10 +216,6 @@ export class DonationPage extends CampaignsPage {
     const label = authSection.getByText(labelText, { exact: true })
     await label.waitFor({ state: 'visible', timeout: 10000 })
 
-    // Let any in-flight Stripe iframe activity settle before clicking,
-    // as Stripe Link network calls can trigger React re-renders that
-    // reset the Formik auth field value after our click.
-    await this.page.waitForLoadState('networkidle')
     await label.click()
 
     // Verify the Collapse actually expanded by waiting for the form content.
