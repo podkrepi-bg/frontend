@@ -62,6 +62,27 @@ jobs:
         working-directory: ./api
         run: yarn prisma generate && yarn prisma migrate deploy && yarn prisma db seed
 
+      - name: Cleanup test customer payment methods
+        working-directory: ./api
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+        run: |
+          node -e "
+            const Stripe = require('stripe');
+            const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+            (async () => {
+              let count = 0;
+              for await (const pm of stripe.paymentMethods.list({
+                customer: 'cus_R0IyY95op1Z7XN',
+                type: 'card', limit: 100
+              })) {
+                await stripe.paymentMethods.detach(pm.id);
+                count++;
+              }
+              console.log('Detached ' + count + ' payment methods');
+            })();
+          "
+
       - name: Run backend
         working-directory: ./api
         env:
