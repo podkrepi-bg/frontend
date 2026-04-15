@@ -41,6 +41,7 @@ e2e/.yarn/*
 
 .env
 .env*.local
+.env.production
 !.env.example
 
 # Act

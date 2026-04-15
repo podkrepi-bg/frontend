@@ -34,9 +34,7 @@ import { AlertStore } from 'stores/AlertStore'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { CampaignResponse } from 'gql/campaigns'
 import FailGraphic from './icons/FailGraphic'
-import getConfig from 'next/config'
 import { useFindDonationById } from 'common/hooks/donation'
-const { publicRuntimeConfig } = getConfig()
 function LinkCard({ href, text }: { href: string; text: string }) {
   return (
     <Card sx={{ backgroundColor: '#eee' }}>
@@ -157,7 +155,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
           <Typography mb={1}>{t('status.success.share.description')}!</Typography>
         </Box>
         <SocialShareListButton
-          url={`${publicRuntimeConfig.APP_URL}${routes.campaigns.viewCampaignBySlug(slug)}`}
+          url={`${process.env.NEXT_PUBLIC_APP_URL}${routes.campaigns.viewCampaignBySlug(slug)}`}
         />
       </Stack>
       <StepSplitter />

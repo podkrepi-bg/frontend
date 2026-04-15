@@ -36,7 +36,7 @@ jobs:
           echo "Not all tests have run for this PR. Please add the `run tests` label to trigger them."
           exit 1
       - name: Update PR comment
-        uses: mshick/add-pr-comment@v2
+        uses: mshick/add-pr-comment@v3
         if: always()
         with:
           message: |

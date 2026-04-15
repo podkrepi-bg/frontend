@@ -20,13 +20,10 @@ RUN yarn workspaces focus --all --production
 FROM base AS builder
 
 # Setup build env
+# All Next.js env vars are provided via .env.production (created by CI)
+# and loaded automatically by Next.js during build.
+# Only VERSION is needed as a Docker ARG for package.json patching.
 ARG VERSION=unversioned
-ARG SENTRY_AUTH_TOKEN
-ENV SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"
-ARG GHOST_API_URL
-ENV GHOST_API_URL="$GHOST_API_URL"
-ARG GHOST_CONTENT_KEY
-ENV GHOST_CONTENT_KEY="$GHOST_CONTENT_KEY"
 
 RUN apk add --no-cache jq && \
   mv package.json package.json.bak && \
@@ -37,6 +34,9 @@ RUN apk add --no-cache jq && \
 # Add dev deps
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Remove .env.local so .env.production (created by CI) takes effect
+RUN rm -f .env.local .env.local.example
 
 RUN yarn build && \
   yarn sitemap

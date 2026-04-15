@@ -5,6 +5,8 @@ on:
     secrets:
       SENTRY_AUTH_TOKEN:
         required: true
+      SENTRY_DSN:
+        required: false
       GHOST_CONTENT_KEY:
         required: true
       MONDOO_SECRET:
@@ -15,38 +17,23 @@ on:
         required: true
 
 jobs:
-  build-frontend:
-    name: Build and scan frontend container image
+  validate-env:
+    name: Validate env config
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+      - name: Validate .env.local.example against build-env.yml
+        run: bash .github/scripts/validate-env.sh
 
-      - name: Build
-        uses: docker/build-push-action@v6
-        env:
-          NODE_ENV: production
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          GHOST_API_URL: https://blog-do.podkrepi.bg
-          GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
-        with:
-          context: .
-          push: false
-          target: runner
-          build-args: |
-            SENTRY_AUTH_TOKEN=${{ env.SENTRY_AUTH_TOKEN }}
-            GHOST_API_URL=${{ env.GHOST_API_URL }}
-            GHOST_CONTENT_KEY=${{ env.GHOST_CONTENT_KEY }}
-          tags: ghcr.io/podkrepi-bg/frontend:pr
-
-      - name: Scan with Mondoo
-        uses: mondoohq/actions/docker-image@main
-        env:
-          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
-        with:
-          image: ghcr.io/podkrepi-bg/frontend:pr
+  build-frontend:
+    name: Build and scan frontend container image
+    uses: ./.github/workflows/build-frontend-docker.yml
+    with:
+      environment: test
+      ref: ${{ github.event.pull_request.head.sha }}
+    secrets: inherit
 
   build-maintenance:
     name: Build and scan maintenance container image
@@ -80,7 +67,7 @@ jobs:
          ref: ${{ github.event.pull_request.head.sha }}
 
      - name: Install kustomize
-       uses: imranismail/setup-kustomize@v2
+       uses: imranismail/setup-kustomize@v3
 
      - name: Build development manifests
        run: kustomize build manifests/overlays/development > dev-manifests.yaml

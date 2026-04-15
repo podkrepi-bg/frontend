@@ -43,13 +43,17 @@ const moduleExports = {
       DUAL_CURRENCY: process.env.FEATURE_DUAL_CURRENCY ?? false,
     },
   },
-  sentry: {
-    hideSourceMaps: true,
+  experimental: {
+    instrumentationHook: true,
   },
   images: {
-    domains: [
-      process.env.IMAGE_HOST ?? 'localhost',
-      process.env.GHOST_API_URL?.replace('https://', '') || 'blog.podkrepi.bg',
+    remotePatterns: [
+      {
+        hostname: process.env.IMAGE_HOST ?? 'localhost',
+      },
+      {
+        hostname: process.env.GHOST_API_URL?.replace('https://', '') || 'blog.podkrepi.bg',
+      },
     ],
   },
   async rewrites() {
@@ -82,7 +86,7 @@ const moduleExports = {
       {
         key: 'X-XSS-Protection',
         value: '1; mode=block',
-      }
+      },
     ]
 
     return [
@@ -90,7 +94,7 @@ const moduleExports = {
         // Apply the headers to all routes
         source: '/:path*',
         headers: securityHeaders,
-      }
+      },
     ]
   },
   modularizeImports: {
@@ -119,10 +123,13 @@ const SentryWebpackPluginOptions = {
   //   release, url, org, project, authToken, configFile, stripPrefix,
   //   urlPrefix, include, ignore
   // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options.
+  // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
   debug: ['staging', 'production'].includes(process.env.APP_ENV) || false,
   dryRun: ['development', 'nightly'].includes(process.env.APP_ENV) || true,
   silent: true,
+  sourcemaps: {
+    deleteSourcemapsAfterUpload: true,
+  },
 }
 
 // Make sure adding Sentry options is the last code to run before exporting, to
