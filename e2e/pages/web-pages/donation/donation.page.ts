@@ -114,8 +114,9 @@ export class DonationPage extends CampaignsPage {
    */
   async setDonationRegionFromTheDropdown(desiredRegion: DonationRegions): Promise<void> {
     await this.clickElement(this.regionsDropdownRootElement)
+    // Wait for the MUI dropdown menu to render before targeting the specific item
+    await this.page.locator('#menu-cardRegion').waitFor({ state: 'visible', timeout: 10000 })
     const menuItem = this.page.locator(this.regionsMenuList + `[data-value=${desiredRegion}]`)
-    await menuItem.waitFor({ state: 'visible', timeout: 10000 })
     await menuItem.click()
     // Wait for the dropdown menu to close before proceeding
     await menuItem.waitFor({ state: 'hidden', timeout: 5000 })
