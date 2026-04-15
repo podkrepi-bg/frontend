@@ -59,7 +59,7 @@ function InlineLoginForm() {
       }
       if (resp?.ok) {
         // Refetch person data so personId is available for subscription metadata
-        await queryClient.invalidateQueries([endpoints.account.me.url])
+        await queryClient.refetchQueries([endpoints.account.me.url])
         setLoading(false)
         setFieldValue('isAnonymous', false)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
