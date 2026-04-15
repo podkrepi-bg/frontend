@@ -45,10 +45,21 @@ RUN yarn build && \
 ###########################
 FROM base AS runner
 
-RUN apk --no-cache add curl
+# Upgrade all system packages to pick up security patches (musl, zlib, openssl, etc.)
+# No Docker layer cache is used in CI, so this always fetches the latest on each build.
+RUN apk --no-cache upgrade && apk --no-cache add curl
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
+
+# Harden file permissions flagged by Mondoo/CIS benchmarks
+# Ensure root group is empty (remove any default members)
+RUN sed -i 's/^root:x:0:root$/root:x:0:/' /etc/group 2>/dev/null || true && \
+  # Secure backup password/group files
+  [ -f /etc/passwd- ] && chmod 600 /etc/passwd- || true && \
+  [ -f /etc/group- ]  && chmod 600 /etc/group-  || true && \
+  [ -f /etc/shadow- ] && chmod 600 /etc/shadow- || true && \
+  [ -f /etc/gshadow- ] && chmod 600 /etc/gshadow- || true
 
 # Copy standalone server and its dependencies
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
