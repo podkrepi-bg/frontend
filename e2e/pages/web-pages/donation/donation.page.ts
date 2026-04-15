@@ -114,7 +114,11 @@ export class DonationPage extends CampaignsPage {
    */
   async setDonationRegionFromTheDropdown(desiredRegion: DonationRegions): Promise<void> {
     await this.clickElement(this.regionsDropdownRootElement)
-    await this.clickElement(this.regionsMenuList + `[data-value=${desiredRegion}]`)
+    const menuItem = this.page.locator(this.regionsMenuList + `[data-value=${desiredRegion}]`)
+    await menuItem.waitFor({ state: 'visible', timeout: 10000 })
+    await menuItem.click()
+    // Wait for the dropdown menu to close before proceeding
+    await menuItem.waitFor({ state: 'hidden', timeout: 5000 })
   }
 
   /**

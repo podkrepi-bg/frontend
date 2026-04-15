@@ -40,9 +40,16 @@ export class DonationStatusPage extends CampaignsPage {
   async clickViewDonationsProfileLink(
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
+    // Ensure the success status page is fully loaded before clicking the link
+    const successTitle =
+      language === LanguagesEnum.BG ? this.bgSuccessTitle : this.enSuccessTitle
+    await this.page.getByText(successTitle).waitFor({ state: 'visible', timeout: 15000 })
+
     const linkText =
       language === LanguagesEnum.BG ? this.bgDonationsLinkText : this.enDonationsLinkText
-    await this.page.getByText(linkText, { exact: true }).click()
+    const link = this.page.getByText(linkText, { exact: true })
+    await link.waitFor({ state: 'visible', timeout: 10000 })
+    await link.click()
     await this.page.waitForLoadState()
   }
 
