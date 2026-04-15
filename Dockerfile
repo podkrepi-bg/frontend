@@ -54,11 +54,10 @@ RUN adduser --system --uid 1001 nextjs
 
 # Harden file permissions flagged by Mondoo/CIS benchmarks
 # Ensure root group is empty (remove any default members)
-RUN sed -i 's/^\(root:x:0:\).*/\1/' /etc/group && \
-  [ -f /etc/passwd- ] && chmod 600 /etc/passwd- || true && \
-  [ -f /etc/group- ]  && chmod 600 /etc/group-  || true && \
-  [ -f /etc/shadow- ] && chmod 600 /etc/shadow- || true && \
-  [ -f /etc/gshadow- ] && chmod 600 /etc/gshadow- || true
+RUN delgroup root root && \
+  cp /etc/group /etc/group- && \
+  chmod 600 /etc/group- && \
+  [ -f /etc/passwd- ] && chmod 600 /etc/passwd- || true
 
 # Copy standalone server and its dependencies
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
