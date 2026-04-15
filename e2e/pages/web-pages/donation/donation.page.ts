@@ -220,6 +220,10 @@ export class DonationPage extends CampaignsPage {
     const label = authSection.getByText(labelText, { exact: true })
     await label.waitFor({ state: 'visible', timeout: 10000 })
 
+    // Click the section heading first to release focus from the Stripe iframe,
+    // which otherwise prevents the radio onChange from firing
+    await authSection.first().click()
+
     await label.click()
 
     // Verify the Collapse actually expanded by waiting for the form content.
