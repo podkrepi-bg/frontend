@@ -6,14 +6,17 @@ on:
     branches: [master]
 
 jobs:
+  validate-env:
+    name: Validate env config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate .env.local.example against build-env.yml
+        run: bash .github/scripts/validate-env.sh
+
   tests:
     name: Tests
     if: |
       !github.event.pull_request.head.repo.fork && github.event.pull_request.user.login != 'dependabot[bot]'
     uses: ./.github/workflows/tests.yml
-    secrets:
-      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
-      MONDOO_SECRET: ${{ secrets.MONDOO_SECRET }}
-      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+    secrets: inherit
