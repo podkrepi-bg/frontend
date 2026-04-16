@@ -212,14 +212,20 @@ export class DonationPage extends CampaignsPage {
     }
 
     const authSection = this.page.locator('#select-authentication-method')
-    const radio = authSection.getByRole('radio', { name: labelText, exact: true })
-    await radio.waitFor({ state: 'visible', timeout: 10000 })
+    // Click the visible label text inside the radiogroup, NOT the hidden <input>.
+    // MUI renders radio inputs as visually-hidden; force-clicking them doesn't
+    // propagate through React's event system. Clicking the label does.
+    // Scoping to [role="radiogroup"] + .first() avoids the strict-mode violation
+    // for "Регистрация" (where both the label and the submit button match).
+    const radioGroup = authSection.locator('[role="radiogroup"]')
+    const label = radioGroup.getByText(labelText.trim(), { exact: true }).first()
+    await label.waitFor({ state: 'visible', timeout: 10000 })
 
     // Click the section heading first to release focus from the Stripe iframe,
     // which otherwise prevents the radio onChange from firing
     await authSection.first().click()
 
-    await radio.click({ force: true })
+    await label.click()
 
     // Verify the Collapse actually expanded by waiting for the form content.
     // If the click was swallowed by a re-render, retry once.
@@ -236,7 +242,7 @@ export class DonationPage extends CampaignsPage {
         () => false,
       )
       if (!appeared) {
-        await radio.click({ force: true })
+        await label.click()
         await formField.waitFor({ state: 'visible', timeout: 10000 })
       }
     }
