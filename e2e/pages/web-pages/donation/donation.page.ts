@@ -275,11 +275,13 @@ export class DonationPage extends CampaignsPage {
   }
 
   async checkPrivacyCheckbox(): Promise<void> {
-    // Use name-based selector and .click() instead of .check() to avoid
-    // "Clicking the checkbox did not change its state" with Formik-controlled checkboxes
+    // Click the visible MUI wrapper around the checkbox, not the hidden <input>.
+    // MUI's hidden inputs don't reliably propagate force-clicks through React's
+    // event system, causing flaky state changes. Using .check() also fails with
+    // "Clicking the checkbox did not change its state" on Formik-controlled checkboxes.
     const checkbox = this.page.locator('input[name="privacy"]')
     await checkbox.waitFor({ state: 'attached' })
-    await checkbox.click({ force: true })
+    await checkbox.locator('..').click()
   }
 
   async submitForm(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
