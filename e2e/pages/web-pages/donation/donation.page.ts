@@ -212,7 +212,7 @@ export class DonationPage extends CampaignsPage {
     }
 
     const authSection = this.page.locator('#select-authentication-method')
-    const radio = authSection.getByRole('radio', { name: labelText })
+    const radio = authSection.getByRole('radio', { name: labelText, exact: true })
     await radio.waitFor({ state: 'visible', timeout: 10000 })
     await radio.click({ force: true })
   }
