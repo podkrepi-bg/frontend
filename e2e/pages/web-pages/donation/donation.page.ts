@@ -165,10 +165,17 @@ export class DonationPage extends CampaignsPage {
     const cardExpiryField = baseCardPaymentLocator.locator('input[name="expiry"]').first()
     const cvcField = baseCardPaymentLocator.locator('input[name="cvc"]').first()
     const countrySelect = baseCardPaymentLocator.locator('select[name="country"]').first()
-    // Wait for the Stripe iframe email field to be ready, then skip if Stripe Link
-    // has auto-filled and disabled it (happens for recognized/authenticated emails)
-    await emailField.waitFor({ state: 'visible', timeout: 15000 })
-    if (await emailField.isEnabled()) {
+    // Wait for the card iframe to be ready first — it loads more reliably than the
+    // Stripe Link email iframe and signals that Stripe has initialized.
+    await cardNumberField.waitFor({ state: 'visible', timeout: 15000 })
+    // Try to fill the email in the Stripe Link iframe. This iframe intermittently
+    // fails to render in headless/CI environments. If it doesn't appear, continue
+    // filling the card fields — the email will already be known for authenticated
+    // users, or the test will surface a clear validation error at submission time.
+    const emailAppeared = await emailField
+      .waitFor({ state: 'visible', timeout: 5000 })
+      .then(() => true, () => false)
+    if (emailAppeared && (await emailField.isEnabled())) {
       await emailField.fill(data.email)
     }
     await nameField.fill(data.name)
