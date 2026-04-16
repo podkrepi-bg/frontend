@@ -156,14 +156,9 @@ export class DonationPage extends CampaignsPage {
    */
   async fillCardForm(options: { fail?: boolean }): Promise<void> {
     const data = options.fail ? stripeErrorNoBalanceFormData : stripeSuccessFormData
-    const baseEmailLocator = this.page
-      .locator('[data-testid="stripe-payment-form"]')
-      .frameLocator('iframe')
-      .first()
-    const baseCardPaymentLocator = this.page
-      .locator('[data-testid="stripe-payment-form"]')
-      .frameLocator('iframe')
-      .last()
+    const stripeForm = this.page.locator('[data-testid="stripe-payment-form"]')
+    const baseEmailLocator = stripeForm.frameLocator('iframe').first()
+    const baseCardPaymentLocator = stripeForm.frameLocator('iframe').last()
     const emailField = baseEmailLocator.locator('input[name="email"]')
     const nameField = this.page.locator('input[name="billingName"]')
     const cardNumberField = baseCardPaymentLocator.locator('input[name="number"]').first()
@@ -216,36 +211,10 @@ export class DonationPage extends CampaignsPage {
       labelText = noRegisterText
     }
 
-    // Scope to the authentication section to avoid matching nav menu items with the same text
     const authSection = this.page.locator('#select-authentication-method')
-    const label = authSection.getByText(labelText, { exact: true })
-    await label.waitFor({ state: 'visible', timeout: 10000 })
-
-    // Click the section heading first to release focus from the Stripe iframe,
-    // which otherwise prevents the radio onChange from firing
-    await authSection.first().click()
-
-    await label.click()
-
-    // Verify the Collapse actually expanded by waiting for the form content.
-    // If the click was swallowed by a re-render, retry once.
-    let formFieldSelector: string | null = null
-    if (auth === DonationFormAuthState.LOGIN) {
-      formFieldSelector = 'input[name="loginEmail"]'
-    } else if (auth === DonationFormAuthState.REGISTER) {
-      formFieldSelector = 'input[name="registerFirstName"]'
-    }
-    if (formFieldSelector) {
-      const formField = this.page.locator(formFieldSelector)
-      const appeared = await formField.waitFor({ state: 'visible', timeout: 5000 }).then(
-        () => true,
-        () => false,
-      )
-      if (!appeared) {
-        await label.click()
-        await formField.waitFor({ state: 'visible', timeout: 10000 })
-      }
-    }
+    const radio = authSection.getByRole('radio', { name: labelText })
+    await radio.waitFor({ state: 'visible', timeout: 10000 })
+    await radio.click({ force: true })
   }
 
   /**
