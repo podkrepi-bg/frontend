@@ -324,7 +324,11 @@ export function DonationFlowForm() {
                       disabled: !session?.user,
                     }}
                   />
-                  <AcceptPrivacyPolicyField name="privacy" showFieldError={false} />
+                  <AcceptPrivacyPolicyField
+                    name="privacy"
+                    showFieldError={false}
+                    data-testid="donation-privacy"
+                  />
                   <DonationFormErrorList
                     errors={errors}
                     show={submitCount > 0}

@@ -24,6 +24,7 @@ export type CheckboxFieldProps = {
   disabledTooltip?: string
   checkboxProps?: CheckboxProps
   showFieldError?: boolean
+  'data-testid'?: string
 }
 
 export default function CheckboxField({
@@ -35,6 +36,7 @@ export default function CheckboxField({
   disabledTooltip,
   checkboxProps,
   showFieldError,
+  'data-testid': dataTestId,
 }: CheckboxFieldProps) {
   const { t } = useTranslation()
   const [field, meta] = useField(name)
@@ -54,6 +56,9 @@ export default function CheckboxField({
               color="primary"
               checked={Boolean(field.value)}
               disabled={disabled}
+              inputProps={
+                { 'data-testid': dataTestId } as React.InputHTMLAttributes<HTMLInputElement>
+              }
               {...field}
               {...checkboxProps}
               onChange={(e) => {

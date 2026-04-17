@@ -92,6 +92,9 @@ test.describe.serial(
 
     test('Navigate to profile and verify recurring donation exists', async () => {
       await statusPage.clickViewDonationsProfileLink()
+      // Give the Stripe webhook time to reach the backend and persist the
+      // recurring donation before we query the profile page.
+      await page.waitForTimeout(3000)
       await profilePage.navigateToRecurringDonations()
       expect(await profilePage.isRecurringDonationVisible()).toBe(true)
     })

@@ -275,13 +275,10 @@ export class DonationPage extends CampaignsPage {
   }
 
   async checkPrivacyCheckbox(): Promise<void> {
-    // Click the visible MUI wrapper around the checkbox, not the hidden <input>.
-    // MUI's hidden inputs don't reliably propagate force-clicks through React's
-    // event system, causing flaky state changes. Using .check() also fails with
-    // "Clicking the checkbox did not change its state" on Formik-controlled checkboxes.
-    const checkbox = this.page.locator('input[name="privacy"]')
-    await checkbox.waitFor({ state: 'attached' })
-    await checkbox.locator('..').click()
+    // The testid is on the hidden <input> inside MUI's Checkbox (via inputProps).
+    // Playwright's .check() is purpose-built for checkbox inputs: it handles the
+    // hidden-input actionability case and verifies the checked state after click.
+    await this.page.getByTestId('donation-privacy').check()
   }
 
   async submitForm(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
