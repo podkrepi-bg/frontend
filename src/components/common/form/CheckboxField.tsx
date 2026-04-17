@@ -56,9 +56,7 @@ export default function CheckboxField({
               color="primary"
               checked={Boolean(field.value)}
               disabled={disabled}
-              inputProps={
-                { 'data-testid': dataTestId } as React.InputHTMLAttributes<HTMLInputElement>
-              }
+              data-testid={dataTestId}
               {...field}
               {...checkboxProps}
               onChange={(e) => {

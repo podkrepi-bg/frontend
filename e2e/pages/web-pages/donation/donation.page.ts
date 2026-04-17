@@ -275,10 +275,15 @@ export class DonationPage extends CampaignsPage {
   }
 
   async checkPrivacyCheckbox(): Promise<void> {
-    // The testid is on the hidden <input> inside MUI's Checkbox (via inputProps).
-    // Playwright's .check() is purpose-built for checkbox inputs: it handles the
-    // hidden-input actionability case and verifies the checked state after click.
-    await this.page.getByTestId('donation-privacy').check()
+    // Brief wait for any pending React re-renders to settle — particularly for
+    // the subscription flow, where useSession() hydration triggers multiple
+    // setFieldValue calls that can race with our click and drop the state update.
+    await this.page.waitForTimeout(500)
+    // The testid is on MUI's Checkbox wrapper span (which has the onClick handler
+    // that forwards to React/Formik). Clicking the wrapper triggers the state
+    // change reliably — clicking the hidden <input> directly doesn't propagate
+    // through MUI's event system.
+    await this.page.getByTestId('donation-privacy').click()
   }
 
   async submitForm(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
