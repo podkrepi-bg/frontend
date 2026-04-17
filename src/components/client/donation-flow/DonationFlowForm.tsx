@@ -349,7 +349,7 @@ export function DonationFlowForm() {
                 </Grid2>
               </Grid2>
               <PersistFormikValues
-                ignoreValues={['authentication']}
+                ignoreValues={['authentication', 'privacy', 'isAnonymous']}
                 storage="sessionStorage"
                 persistInvalid={true}
                 name={`donation-flow-${campaign.slug}`}

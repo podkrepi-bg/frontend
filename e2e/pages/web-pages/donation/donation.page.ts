@@ -275,14 +275,6 @@ export class DonationPage extends CampaignsPage {
   }
 
   async checkPrivacyCheckbox(): Promise<void> {
-    // Brief wait for any pending React re-renders to settle — particularly for
-    // the subscription flow, where useSession() hydration triggers multiple
-    // setFieldValue calls that can race with our click and drop the state update.
-    await this.page.waitForTimeout(500)
-    // The testid is on MUI's Checkbox wrapper span (which has the onClick handler
-    // that forwards to React/Formik). Clicking the wrapper triggers the state
-    // change reliably — clicking the hidden <input> directly doesn't propagate
-    // through MUI's event system.
     await this.page.getByTestId('donation-privacy').click()
   }
 
