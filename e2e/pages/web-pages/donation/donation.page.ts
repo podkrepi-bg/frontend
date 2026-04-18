@@ -275,7 +275,24 @@ export class DonationPage extends CampaignsPage {
   }
 
   async checkPrivacyCheckbox(): Promise<void> {
-    await this.page.getByTestId('donation-privacy').click()
+    const wrapper = this.page.getByTestId('donation-privacy')
+    const input = wrapper.locator('input[type="checkbox"]')
+
+    // Gate on the pre-click state so session-hydration re-renders have settled
+    // before we interact. Without this, a click can coincide with a setFieldValue
+    // re-render and the onChange never makes it into Formik state.
+    await expect(input).not.toBeChecked()
+
+    // Click the MUI wrapper (the hidden input is visually hidden and fails
+    // actionability checks). If the first click was swallowed by a re-render,
+    // retry once — verified via toBeChecked on the real input.
+    await wrapper.click()
+    try {
+      await expect(input).toBeChecked({ timeout: 3000 })
+    } catch {
+      await wrapper.click()
+      await expect(input).toBeChecked()
+    }
   }
 
   async submitForm(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
