@@ -62,8 +62,11 @@ test.describe.serial(
       await donationPage.fillCardForm({ fail: false })
     })
 
-    test('Verify user is already authenticated and submit the form', async () => {
+    test('Verify user is already authenticated', async () => {
       await donationPage.waitForAuthenticatedState()
+    })
+
+    test('Accept privacy and submit the form', async () => {
       await donationPage.checkPrivacyCheckbox()
       await donationPage.submitForm()
       // Wait for Stripe to process the SetupIntent and redirect
