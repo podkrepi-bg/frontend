@@ -370,9 +370,11 @@ export class DonationPage extends CampaignsPage {
     await emailField.waitFor({ state: 'visible', timeout: 15000 })
     await emailField.fill(email)
     await passwordField.fill(password)
-    // Small delay to ensure Formik processes the field values before submission
-    await this.page.waitForTimeout(500)
-    await loginButton.first().click()
+    // Wait for Formik to settle (validateOnChange) and enable the submit
+    // button before clicking — replaces an arbitrary sleep.
+    const submitButton = loginButton.first()
+    await expect(submitButton).toBeEnabled()
+    await submitButton.click()
   }
 
   /**

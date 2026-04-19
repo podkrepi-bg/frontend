@@ -207,8 +207,8 @@ export const useCancelRecurringDonation = () => {
     onError: (err) => AlertStore.show(t('common:alerts.error') + err, 'error'),
     onSuccess: () => {
       AlertStore.show(t('recurring-donation:alerts.cancel'), 'success')
-      queryClient.refetchQueries([endpoints.recurringDonation.getUserRecurringDonations.url])
-      queryClient.refetchQueries([endpoints.recurringDonation.list.url])
+      queryClient.invalidateQueries([endpoints.recurringDonation.getUserRecurringDonations.url])
+      queryClient.invalidateQueries([endpoints.recurringDonation.list.url])
     },
   })
 }

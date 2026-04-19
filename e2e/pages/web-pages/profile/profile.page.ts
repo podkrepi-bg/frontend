@@ -71,17 +71,27 @@ export class ProfilePage extends BasePage {
   }
 
   /**
+   * Locate rows whose status cell specifically contains the active-status
+   * text. Matching against the status cell (`data-field="status"`) rather
+   * than the whole row avoids false positives from other columns happening
+   * to contain the same word.
+   */
+  private activeRowLocator(language: LanguagesEnum = LanguagesEnum.BG) {
+    const activeStatus =
+      language === LanguagesEnum.BG ? this.bgActiveStatus : this.enActiveStatus
+    return this.page.locator(this.dataGridRowSelector).filter({
+      has: this.page.locator('[data-field="status"]', { hasText: activeStatus }),
+    })
+  }
+
+  /**
    * Check if at least one active recurring donation is visible in the DataGrid
    */
   async isActiveDonationVisible(
     language: LanguagesEnum = LanguagesEnum.BG,
     timeoutParam = 15000,
   ): Promise<boolean> {
-    const activeStatus =
-      language === LanguagesEnum.BG ? this.bgActiveStatus : this.enActiveStatus
-    const activeRow = this.page
-      .locator(this.dataGridRowSelector, { hasText: activeStatus })
-      .first()
+    const activeRow = this.activeRowLocator(language).first()
     return this.isElementVisibleByLocatorWithTimeout(activeRow, timeoutParam)
   }
 
@@ -91,12 +101,7 @@ export class ProfilePage extends BasePage {
   async clickCancelButtonForFirstActiveDonation(
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
-    const activeStatus =
-      language === LanguagesEnum.BG ? this.bgActiveStatus : this.enActiveStatus
-    // Find the first row with active status and click its cancel button
-    const activeRow = this.page
-      .locator(this.dataGridRowSelector, { hasText: activeStatus })
-      .first()
+    const activeRow = this.activeRowLocator(language).first()
     // Wait for the row to be fully visible (not just attached to DOM)
     await activeRow.waitFor({ state: 'visible', timeout: 15000 })
     const cancelButton = activeRow.locator('button').first()
@@ -116,18 +121,13 @@ export class ProfilePage extends BasePage {
   }
 
   /**
-   * Check if any recurring donation cell shows cancelled status
+   * Verify the grid no longer contains any rows whose status cell shows the
+   * active-status text. Auto-retries against grid re-renders.
    */
   async verifyNoActiveDonations(
     language: LanguagesEnum = LanguagesEnum.BG,
     timeoutParam = 15000,
   ): Promise<void> {
-    const activeStatus =
-      language === LanguagesEnum.BG ? this.bgActiveStatus : this.enActiveStatus
-    // After cancellation, verify no rows contain "Активно" anymore
-    // Using Playwright's auto-retrying expect to handle grid re-renders
-    await expect(
-      this.page.locator(this.dataGridRowSelector, { hasText: activeStatus }),
-    ).toHaveCount(0, { timeout: timeoutParam })
+    await expect(this.activeRowLocator(language)).toHaveCount(0, { timeout: timeoutParam })
   }
 }

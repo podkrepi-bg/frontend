@@ -42,9 +42,7 @@ export default function CheckboxField({
   const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   const showError =
-    typeof showFieldError !== undefined
-      ? showFieldError
-      : Boolean(meta.error) && Boolean(meta.touched)
+    showFieldError !== undefined ? showFieldError : Boolean(meta.error) && Boolean(meta.touched)
   return (
     <FormControl required component="fieldset" error={showError}>
       <Tooltip title={disabled && disabledTooltip} arrow>
