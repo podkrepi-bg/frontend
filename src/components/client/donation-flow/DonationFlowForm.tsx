@@ -118,17 +118,16 @@ export function DonationFlowForm() {
       formikRef.current?.setFieldValue('authentication', null)
     },
   })
-  const userEmail = session?.user?.email ?? null
   useEffect(() => {
-    if (userEmail) {
-      formikRef.current?.setFieldValue('email', userEmail, false)
+    if (session?.user) {
+      formikRef.current?.setFieldValue('email', session.user.email, false)
       formikRef.current?.setFieldValue('authentication', DonationFormAuthState.AUTHENTICATED, false)
       formikRef.current?.setFieldValue('isAnonymous', false)
       return
     }
     formikRef.current?.setFieldValue('email', '')
     formikRef.current?.setFieldValue('isAnonymous', true, false)
-  }, [userEmail])
+  }, [session])
 
   return (
     <Formik

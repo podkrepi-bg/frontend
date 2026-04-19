@@ -278,8 +278,12 @@ export class DonationPage extends CampaignsPage {
     const wrapper = this.page.getByTestId('donation-privacy')
     const input = wrapper.locator('input[type="checkbox"]')
     await expect(input).not.toBeChecked()
+    // Click the label at the left edge (over the checkbox icon). The default
+    // center-of-bounding-box click lands on the ExternalLink to the privacy
+    // policy when the label wraps to two lines (narrower CI viewport), and a
+    // click on a link inside a <label> does NOT toggle the enclosed input.
     const label = wrapper.locator('xpath=ancestor::label[1]')
-    await label.click()
+    await label.click({ position: { x: 10, y: 10 } })
     await expect(input).toBeChecked()
   }
 
