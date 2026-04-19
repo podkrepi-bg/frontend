@@ -270,9 +270,6 @@ export class DonationPage extends CampaignsPage {
     amount: number,
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
-    const totalAmount = await this.page.locator(this.totalAmountSelector).first().textContent()
-    const totalAmountSpaceFix = totalAmount?.replace(/\s/g, String.fromCharCode(160))
-
     // Format amount to match app's custom EUR formatting
     // BG locale: "121,96 евро", EN locale: "25.81 EUR"
     const locale = language === LanguagesEnum.BG ? 'bg-BG' : 'en-US'
@@ -285,7 +282,16 @@ export class DonationPage extends CampaignsPage {
     const currencyLabel = language === LanguagesEnum.BG ? 'евро' : 'EUR'
     const expectedAmount = `${formattedNumber}${String.fromCharCode(160)}${currencyLabel}`
 
-    expect(totalAmountSpaceFix).toEqual(expectedAmount)
+    // Use auto-retrying assertion: Formik's fee recalculation after a radio
+    // change takes a render tick to reach the DOM, so a one-shot textContent()
+    // read can race against the update.
+    const totalAmountLocator = this.page.locator(this.totalAmountSelector).first()
+    await expect
+      .poll(
+        async () => (await totalAmountLocator.textContent())?.replace(/\s/g, String.fromCharCode(160)),
+        { timeout: 5000 },
+      )
+      .toEqual(expectedAmount)
   }
 
   async checkPrivacyCheckbox(): Promise<void> {

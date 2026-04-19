@@ -92,11 +92,18 @@ test.describe.serial(
 
     test('Navigate to profile and verify recurring donation exists', async () => {
       await statusPage.clickViewDonationsProfileLink()
-      // Give the Stripe webhook time to reach the backend and persist the
-      // recurring donation before we query the profile page.
-      await page.waitForTimeout(3000)
       await profilePage.navigateToRecurringDonations()
-      expect(await profilePage.isRecurringDonationVisible()).toBe(true)
+      // The Stripe webhook → backend persist is async. Reload on each poll
+      // so React Query re-fetches instead of polling a stale cached response.
+      await expect
+        .poll(
+          async () => {
+            await page.reload()
+            return profilePage.isRecurringDonationVisible(2000)
+          },
+          { timeout: 60000, intervals: [2000, 3000, 5000] },
+        )
+        .toBe(true)
     })
   },
 )
