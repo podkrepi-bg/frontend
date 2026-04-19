@@ -291,12 +291,11 @@ export class DonationPage extends CampaignsPage {
   }
 
   async submitForm(): Promise<void> {
-    // Scope to the form's submit button — avoids matching unrelated "Дари"
-    // buttons elsewhere on the page. Dispatch the click directly on the
-    // element so it bypasses hit-testing; this is immune to layout shifts
-    // from Stripe re-renders that would otherwise cause a Playwright click
-    // to land on a stale coordinate and miss the React handler.
-    const button = this.page.locator('form button[type="submit"]').last()
+    // Dispatch the click directly on the element so it bypasses hit-testing;
+    // this is immune to layout shifts from Stripe re-renders that would
+    // otherwise cause a Playwright click to land on a stale coordinate and
+    // miss the React handler.
+    const button = this.page.getByTestId('donation-submit')
     await expect(button).toBeEnabled()
     await button.scrollIntoViewIfNeeded()
     await button.dispatchEvent('click')

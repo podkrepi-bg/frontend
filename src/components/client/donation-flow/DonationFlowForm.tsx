@@ -335,6 +335,7 @@ export function DonationFlowForm() {
                     paymentError={paymentError}
                   />
                   <SubmitButton
+                    data-testid="donation-submit"
                     disabled={submitPaymentLoading || (submitCount > 0 && !isValid)}
                     loading={submitPaymentLoading}
                     label={t('action.submit')}

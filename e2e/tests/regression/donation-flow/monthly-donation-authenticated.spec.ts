@@ -41,63 +41,47 @@ test.describe.serial(
       await page.close()
     })
 
-    test('Particular campaign can be opened through the Campaign page', async () => {
+    test('Create a monthly subscription donation', async () => {
       await headerPage.clickDonateHeaderNavButton(LanguagesEnum.BG)
       await campaignsPage.clickCampaignCardByIndex(0)
       expect(
         await campaignsPage.checkPageUrlByRegExp(),
         'The url is not changed after clicking on the campaign card.',
       )
-    })
 
-    test('Open donation form and select amount with monthly payment mode', async () => {
       await campaignsPage.clickDonationSupportButton()
       await donationPage.checkPageUrlByRegExp()
       await donationPage.selectRadioButtonByLabelText(['10'])
       await donationPage.selectPaymentMode('subscription')
-    })
 
-    test('Fill in the Stripe card form', async () => {
       await donationPage.setDonationRegionFromTheDropdown(DonationRegions.EUROPE)
       await donationPage.fillCardForm({ fail: false })
-    })
 
-    test('Verify user is already authenticated', async () => {
       await donationPage.waitForAuthenticatedState()
-    })
 
-    test('Accept privacy and submit the form', async () => {
       await donationPage.checkPrivacyCheckbox()
       await donationPage.submitForm()
       // Wait for Stripe to process the SetupIntent and redirect
       await page.waitForURL(/\/status/, { timeout: 90000 })
-    })
 
-    test('The user is redirected to the success status page', async () => {
       await statusPage.checkPageUrlByRegExp(undefined, 10000)
       expect(await statusPage.isSucceededStatusTitleDisplayed()).toBe(true)
     })
 
-    test('Navigate to profile and verify recurring donation exists', async () => {
+    test('Recurring donation appears in the profile', async () => {
       await statusPage.clickViewDonationsProfileLink()
-      // Give the Stripe webhook time to reach the backend and persist the
-      // recurring donation before we query the profile page.
-      await page.waitForTimeout(3000)
       await profilePage.navigateToRecurringDonations()
-      expect(await profilePage.isRecurringDonationVisible()).toBe(true)
+      // Poll for the row to appear instead of a fixed sleep — the Stripe
+      // webhook → backend persist timing varies in CI.
+      await expect
+        .poll(() => profilePage.isRecurringDonationVisible(), { timeout: 30000 })
+        .toBe(true)
     })
 
-    // Cancel the subscription that was just created (previously in monthly-donation-cancel.spec.ts)
-    test('Verify active donation exists and cancel it', async () => {
+    test('Cancel the recurring donation', async () => {
       expect(await profilePage.isActiveDonationVisible()).toBe(true)
       await profilePage.clickCancelButtonForFirstActiveDonation()
-    })
-
-    test('Confirm the cancellation in the dialog', async () => {
       await profilePage.confirmCancellation()
-    })
-
-    test('Verify the donation status is changed to cancelled', async () => {
       await profilePage.verifyNoActiveDonations()
     })
   },
