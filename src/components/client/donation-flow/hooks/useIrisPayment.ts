@@ -24,8 +24,7 @@ export function useIrisPayment({ setShowPaymentElement }: UseIrisPaymentProps) {
   const iris = useIrisElements()
   const finalizeMutation = useFinalizePayment()
 
-  const handleOnPaymentElementLoad = (data: CustomEvent) => {
-    console.log('Payment element loaded successfully:', data.detail)
+  const handleOnPaymentElementLoad = (_data: CustomEvent) => {
     setShowPaymentElement(true)
   }
 
@@ -72,16 +71,14 @@ export function useIrisPayment({ setShowPaymentElement }: UseIrisPaymentProps) {
     }
   }
 
-  const handleOnPaymentSuccess = async (data: CustomEvent) => {
-    console.log('Iris payment success event:', data.detail)
+  const handleOnPaymentSuccess = async (_data: CustomEvent) => {
     await finalizeAndRedirect()
   }
 
-  const handleOnPaymentError = async (data: CustomEvent) => {
-    console.log('Iris payment error event:', data.detail)
-    // Still call finalize — IRIS is the authority on the final payment state,
-    // not the SDK's error event. If IRIS confirms a failure, the status page
-    // will show it; if IRIS actually succeeded, the user gets the right outcome.
+  // Still call finalize — IRIS is the authority on the final payment state,
+  // not the SDK's error event. If IRIS confirms a failure, the status page
+  // will show it; if IRIS actually succeeded, the user gets the right outcome.
+  const handleOnPaymentError = async (_data: CustomEvent) => {
     await finalizeAndRedirect()
   }
 

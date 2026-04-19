@@ -155,27 +155,31 @@ export function DonationFlowForm() {
 
   useEffect(() => {
     if (session?.user) {
-      formikRef.current?.setFieldValue('email', session.user.email, false)
       formikRef.current?.setFieldValue('authentication', DonationFormAuthState.AUTHENTICATED, false)
       formikRef.current?.setFieldValue('isAnonymous', false)
       return
     }
-    formikRef.current?.setFieldValue('email', '')
+    formikRef.current?.setFieldValue('billingEmail', '')
     formikRef.current?.setFieldValue('isAnonymous', true, false)
   }, [session])
 
-  // Add some debugging to see what's happening
+  // Prefill billingName/billingEmail for authenticated users — no UI surfaces
+  // these fields when IRISPAY is selected, so without this, validation blocks
+  // submission. Fall back to JWT claims when the /me response hasn't arrived
+  // yet or the profile is missing firstName/lastName.
   useEffect(() => {
-    console.log('Payment element visibility changed:', showPaymentElement)
-    if (showPaymentElement) {
-      console.log('Payment element is now visible. Context state:', {
-        hasPaymentSession: !!iris?.paymentSession,
-        hookHash: iris?.paymentSession?.hookHash,
-        userhash: iris?.paymentSession?.userhash,
-        hasPaymentData: !!iris?.paymentData,
-      })
+    if (!session?.user) return
+    const firstName = person?.firstName || session.user.given_name
+    const lastName = person?.lastName || session.user.family_name
+    const fullName = [firstName, lastName].filter(Boolean).join(' ') || session.user.name
+    if (fullName) {
+      formikRef.current?.setFieldValue('billingName', fullName, false)
     }
-  }, [showPaymentElement, iris?.paymentSession, iris?.paymentData])
+    const email = person?.email || session.user.email
+    if (email) {
+      formikRef.current?.setFieldValue('billingEmail', email, false)
+    }
+  }, [session?.user, person?.firstName, person?.lastName, person?.email])
 
   // Add scroll to top when payment element shows
   useEffect(() => {
@@ -220,12 +224,6 @@ export function DonationFlowForm() {
           try {
             cancelSetupIntentMutation.mutate({ id: setupIntent.id })
             const name = values?.billingName?.split(' ') as string[]
-            console.log('Creating payment session with:', {
-              campaignId: campaign.id,
-              email: values.billingEmail,
-              name: name[0],
-              family: name[name.length - 1],
-            })
 
             const sessionData = await createPaymentSessionMutation.mutateAsync({
               campaignId: campaign.id,
@@ -235,8 +233,7 @@ export function DonationFlowForm() {
               amount: values.finalAmount as number,
               type: person?.company ? 'corporate' : 'donation',
               isAnonymous: values.isAnonymous,
-              personId:
-                !values.isAnonymous && session?.user && person?.id ? person.id : null,
+              personId: !values.isAnonymous && session?.user && person?.id ? person.id : null,
               billingName: values.billingName,
               billingEmail: values.billingEmail,
               successUrl: `${window.location.origin}${routes.campaigns.donationStatus(
@@ -247,38 +244,24 @@ export function DonationFlowForm() {
               )}?p_status=failed`,
             })
 
-            console.log('Session data received:', sessionData)
-
-            // Update context with session data
             iris?.updatePaymentSessionData?.({
               userhash: sessionData.userHash,
               hookHash: sessionData.hookHash,
             })
 
-            console.log('Updated payment session data')
-
-            // Update payment data with amount
-            const paymentData = {
+            iris?.updatePaymentData?.({
               sum: Number((values.finalAmount || 100) / 100),
               description: `${campaign.title} - Donation`,
               currency: iris.currency,
-              toIban: 'BG85IORT80947826532954',
+              toIban: 'BG31UNCR70001526254645',
               merchant: 'PodkrepiBG',
               useOnlySelectedBankHashes: null,
-            }
+            })
 
-            console.log('Setting payment data:', paymentData)
-
-            iris?.updatePaymentData?.(paymentData)
-
-            console.log('Context updated, showing payment element immediately')
-
-            // Show payment element immediately - let the PaymentDataElement handle loading
             setShowPaymentElement(true)
 
             setSubmitPaymentLoading(false)
           } catch (error) {
-            console.error('Payment session creation failed:', error)
             setSubmitPaymentLoading(false)
             setPaymentError({
               type: 'invalid_request_error',
