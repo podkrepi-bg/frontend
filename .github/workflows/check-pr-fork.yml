@@ -36,7 +36,7 @@ jobs:
           echo "Not all tests have run for this PR. Please add the `run tests` label to trigger them."
           exit 1
       - name: Update PR comment
-        uses: mshick/add-pr-comment@v2
+        uses: mshick/add-pr-comment@v3
         if: always()
         with:
           message: |
@@ -49,9 +49,4 @@ jobs:
     name: Tests
     needs: [check-label]
     uses: ./.github/workflows/tests.yml
-    secrets:
-      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
-      MONDOO_SECRET: ${{ secrets.MONDOO_SECRET }}
-      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+    secrets: inherit

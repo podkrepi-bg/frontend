@@ -1,8 +1,6 @@
-import getConfig from 'next/config'
 import { io } from 'socket.io-client'
 
-const { publicRuntimeConfig } = getConfig()
-const notificationClient = io(publicRuntimeConfig.API_URL, {
+const notificationClient = io(process.env.NEXT_PUBLIC_API_URL as string, {
   transports: ['websocket'],
   autoConnect: false,
 })

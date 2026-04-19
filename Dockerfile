@@ -20,13 +20,10 @@ RUN yarn workspaces focus --all --production
 FROM base AS builder
 
 # Setup build env
+# All Next.js env vars are provided via .env.production (created by CI)
+# and loaded automatically by Next.js during build.
+# Only VERSION is needed as a Docker ARG for package.json patching.
 ARG VERSION=unversioned
-ARG SENTRY_AUTH_TOKEN
-ENV SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"
-ARG GHOST_API_URL
-ENV GHOST_API_URL="$GHOST_API_URL"
-ARG GHOST_CONTENT_KEY
-ENV GHOST_CONTENT_KEY="$GHOST_CONTENT_KEY"
 
 RUN apk add --no-cache jq && \
   mv package.json package.json.bak && \
@@ -38,6 +35,9 @@ RUN apk add --no-cache jq && \
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Remove .env.local so .env.production (created by CI) takes effect
+RUN rm -f .env.local .env.local.example
+
 RUN yarn build && \
   yarn sitemap
 
@@ -45,24 +45,32 @@ RUN yarn build && \
 ###########################
 FROM base AS runner
 
-RUN apk --no-cache add curl
+# Upgrade all system packages to pick up security patches (musl, zlib, openssl, etc.)
+# No Docker layer cache is used in CI, so this always fetches the latest on each build.
+RUN apk --no-cache upgrade && apk --no-cache add curl
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=nextjs:nodejs /app/next-i18next.config.js ./
-COPY --from=builder --chown=nextjs:nodejs /app/next.config.js ./
-COPY --from=builder --chown=nextjs:nodejs /app/package.json ./
+# Harden file permissions flagged by Mondoo/CIS benchmarks
+# Ensure root group is empty (remove any default members)
+RUN delgroup root root && \
+  cp /etc/group /etc/group- && \
+  chmod 600 /etc/group- && \
+  [ -f /etc/passwd- ] && chmod 600 /etc/passwd- || true
+
+# Copy standalone server and its dependencies
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+# Copy static assets to standalone directory
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-ENV PORT 3040
+ENV PORT=3040
 
 EXPOSE 3040
 
-CMD [ "npm", "run", "start" ]
+CMD [ "node", "server.js" ]
 
 HEALTHCHECK --interval=5s --timeout=3s --retries=3 CMD curl --fail http://localhost:3040 || exit 1
