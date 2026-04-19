@@ -356,7 +356,11 @@ export function DonationFlowForm() {
                   <SubmitButton
                     onClick={(e) => {
                       setDebugState(
-                        `button.onClick|defaultPrevented=${e.defaultPrevented}|isTrusted=${e.isTrusted}|disabled=${(e.currentTarget as HTMLButtonElement).disabled}|type=${(e.currentTarget as HTMLButtonElement).type}|form=${!!(e.currentTarget as HTMLButtonElement).form}`,
+                        `button.onClick|defaultPrevented=${e.defaultPrevented}|isTrusted=${
+                          e.isTrusted
+                        }|disabled=${(e.currentTarget as HTMLButtonElement).disabled}|type=${
+                          (e.currentTarget as HTMLButtonElement).type
+                        }|form=${!!(e.currentTarget as HTMLButtonElement).form}`,
                       )
                     }}
                     disabled={submitPaymentLoading || (submitCount > 0 && !isValid)}
