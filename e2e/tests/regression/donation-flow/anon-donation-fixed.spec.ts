@@ -85,7 +85,7 @@ test.describe.serial(
 
     test('The user can submit the form', async () => {
       await donationPage.checkPrivacyCheckbox()
-      await donationPage.submitForm(LanguagesEnum.EN)
+      await donationPage.submitForm()
     })
 
     test('The user is redirected to succes page', async () => {

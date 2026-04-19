@@ -71,8 +71,6 @@ export class DonationPage extends CampaignsPage {
 
   // -> Summary section <-
   private readonly totalAmountSelector = '[data-testid="total-amount"]'
-  private readonly bgSubmitButtonText = bgLocalizationDonationFlow.action.submit
-  private readonly enSubmitButtonText = enLocalizationDonationFlow.action.submit
   private readonly bgStripeErrorNoBalanceText =
     'В картата ви няма достатъчно средства. Опитайте с друга.'
 
@@ -292,11 +290,16 @@ export class DonationPage extends CampaignsPage {
     await expect(input).toBeChecked()
   }
 
-  async submitForm(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
-    const submitButtonText = language === 'BG' ? this.bgSubmitButtonText : this.enSubmitButtonText
-    console.log(submitButtonText)
-    const button = this.page.locator(`button:has-text("${submitButtonText}")`).last()
-    await button.click()
+  async submitForm(): Promise<void> {
+    // Scope to the form's submit button — avoids matching unrelated "Дари"
+    // buttons elsewhere on the page. Dispatch the click directly on the
+    // element so it bypasses hit-testing; this is immune to layout shifts
+    // from Stripe re-renders that would otherwise cause a Playwright click
+    // to land on a stale coordinate and miss the React handler.
+    const button = this.page.locator('form button[type="submit"]').last()
+    await expect(button).toBeEnabled()
+    await button.scrollIntoViewIfNeeded()
+    await button.dispatchEvent('click')
   }
 
   /**
