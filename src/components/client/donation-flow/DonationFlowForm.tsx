@@ -111,7 +111,6 @@ export function DonationFlowForm() {
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
   const [submitPaymentLoading, setSubmitPaymentLoading] = React.useState(false)
-  const [debugState, setDebugState] = React.useState('idle')
   const { data: { user: person } = { user: null } } = useCurrentPerson()
   const { data: session } = useSession({
     required: false,
@@ -140,12 +139,6 @@ export function DonationFlowForm() {
       }}
       validationSchema={validationSchema}
       onSubmit={async (values, helpers) => {
-        setDebugState(
-          `onSubmit-entered|mode=${values.mode}|payment=${
-            values.payment
-          }|stripe=${!!stripe}|elements=${!!elements}|setupIntent=${!!setupIntent}|sub=${!!session
-            ?.user?.sub}`,
-        )
         setSubmitPaymentLoading(true)
         if (values.payment === DonationFormPaymentMethod.BANK) {
           cancelSetupIntentMutation.mutate({ id: setupIntent.id })
@@ -236,19 +229,7 @@ export function DonationFlowForm() {
       {({ handleSubmit, values, errors, submitCount, isValid }) => (
         <Grid2 spacing={4} container justifyContent={'center'}>
           <Grid2 size={{ sm: 12, md: 9 }} justifyContent={'center'}>
-            <Form
-              onSubmit={(e) => {
-                setDebugState(
-                  `form.onSubmit|submitCount=${submitCount}|isValid=${isValid}|errors=${Object.keys(
-                    errors,
-                  ).join(',')}|privacy=${values.privacy}`,
-                )
-                handleSubmit(e)
-              }}
-              autoComplete="off">
-              <p role="status" data-testid="debug-state">
-                DEBUG_STATE: {debugState}
-              </p>
+            <Form onSubmit={handleSubmit} autoComplete="off">
               <ConfirmationDialog
                 isOpen={showCancelDialog}
                 handleCancel={() => {
@@ -354,15 +335,6 @@ export function DonationFlowForm() {
                     paymentError={paymentError}
                   />
                   <SubmitButton
-                    onClick={(e) => {
-                      setDebugState(
-                        `button.onClick|defaultPrevented=${e.defaultPrevented}|isTrusted=${
-                          e.isTrusted
-                        }|disabled=${(e.currentTarget as HTMLButtonElement).disabled}|type=${
-                          (e.currentTarget as HTMLButtonElement).type
-                        }|form=${!!(e.currentTarget as HTMLButtonElement).form}`,
-                      )
-                    }}
                     disabled={submitPaymentLoading || (submitCount > 0 && !isValid)}
                     loading={submitPaymentLoading}
                     label={t('action.submit')}
