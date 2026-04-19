@@ -141,7 +141,10 @@ export function DonationFlowForm() {
       validationSchema={validationSchema}
       onSubmit={async (values, helpers) => {
         setDebugState(
-          `onSubmit-entered|mode=${values.mode}|payment=${values.payment}|stripe=${!!stripe}|elements=${!!elements}|setupIntent=${!!setupIntent}|sub=${!!session?.user?.sub}`,
+          `onSubmit-entered|mode=${values.mode}|payment=${
+            values.payment
+          }|stripe=${!!stripe}|elements=${!!elements}|setupIntent=${!!setupIntent}|sub=${!!session
+            ?.user?.sub}`,
         )
         setSubmitPaymentLoading(true)
         if (values.payment === DonationFormPaymentMethod.BANK) {
@@ -236,7 +239,9 @@ export function DonationFlowForm() {
             <Form
               onSubmit={(e) => {
                 setDebugState(
-                  `form.onSubmit|submitCount=${submitCount}|isValid=${isValid}|errors=${Object.keys(errors).join(',')}|privacy=${values.privacy}`,
+                  `form.onSubmit|submitCount=${submitCount}|isValid=${isValid}|errors=${Object.keys(
+                    errors,
+                  ).join(',')}|privacy=${values.privacy}`,
                 )
                 handleSubmit(e)
               }}
