@@ -275,14 +275,24 @@ export class DonationPage extends CampaignsPage {
   }
 
   async checkPrivacyCheckbox(): Promise<void> {
-    // Target the actual hidden <input> inside MUI's Checkbox wrapper. Clicking
-    // the wrapper span was landing but no onChange was propagating — force the
-    // click on the input itself so the native change event fires with
-    // e.target === input, which is what Formik's handleChange expects.
-    const input = this.page.getByTestId('donation-privacy').locator('input[type="checkbox"]')
+    const wrapper = this.page.getByTestId('donation-privacy')
+    const input = wrapper.locator('input[type="checkbox"]')
     await expect(input).not.toBeChecked()
-    await input.check({ force: true })
-    await expect(input).toBeChecked()
+
+    // Release focus from the Stripe iframe — fillCardForm ends on a <select>
+    // inside the iframe, and in the authenticated flow nothing else clicks
+    // back into the parent document before we reach this step. If the iframe
+    // still owns focus, the React onChange on MUI's hidden checkbox input
+    // doesn't reliably propagate in CI.
+    await this.page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+
+    // Click the wrapping <label> instead of force-clicking the hidden input.
+    // The browser's native label-to-input association fires a synthetic event
+    // that Formik picks up regardless of render timing.
+    const label = wrapper.locator('xpath=ancestor::label[1]')
+    await label.click()
+
+    await expect(input).toBeChecked({ timeout: 5000 })
   }
 
   async submitForm(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
