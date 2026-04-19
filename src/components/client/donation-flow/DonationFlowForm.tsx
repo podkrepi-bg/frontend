@@ -139,6 +139,17 @@ export function DonationFlowForm() {
       }}
       validationSchema={validationSchema}
       onSubmit={async (values, helpers) => {
+        console.log('[DEBUG submit]', {
+          mode: values.mode,
+          payment: values.payment,
+          privacy: values.privacy,
+          finalAmount: values.finalAmount,
+          hasStripe: !!stripe,
+          hasElements: !!elements,
+          hasSetupIntent: !!setupIntent,
+          hasSub: !!session?.user?.sub,
+          sessionUser: session?.user,
+        })
         setSubmitPaymentLoading(true)
         if (values.payment === DonationFormPaymentMethod.BANK) {
           cancelSetupIntentMutation.mutate({ id: setupIntent.id })
