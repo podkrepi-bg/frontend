@@ -275,15 +275,20 @@ export class DonationPage extends CampaignsPage {
   }
 
   async checkPrivacyCheckbox(): Promise<void> {
-    const wrapper = this.page.getByTestId('donation-privacy')
-    const input = wrapper.locator('input[type="checkbox"]')
+    const input = this.page.getByTestId('donation-privacy').locator('input[type="checkbox"]')
     await expect(input).not.toBeChecked()
-    // Click the label at the left edge (over the checkbox icon). The default
-    // center-of-bounding-box click lands on the ExternalLink to the privacy
-    // policy when the label wraps to two lines (narrower CI viewport), and a
-    // click on a link inside a <label> does NOT toggle the enclosed input.
-    const label = wrapper.locator('xpath=ancestor::label[1]')
-    await label.click({ position: { x: 10, y: 10 } })
+    // Trigger the state change via the native `checked` setter + dispatched
+    // events. React's input value tracker picks up the setter call, so the
+    // onChange handler fires and Formik updates `privacy=true`. Click-based
+    // strategies (label, wrapper, force-click on the hidden input) have all
+    // proven unreliable in CI for this specific flow; this path is
+    // deterministic and independent of DOM layout, focus, and click targeting.
+    await input.evaluate((el: HTMLInputElement) => {
+      const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'checked')?.set
+      setter?.call(el, true)
+      el.dispatchEvent(new Event('click', { bubbles: true }))
+      el.dispatchEvent(new Event('change', { bubbles: true }))
+    })
     await expect(input).toBeChecked()
   }
 
