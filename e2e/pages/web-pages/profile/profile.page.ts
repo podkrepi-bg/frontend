@@ -53,6 +53,24 @@ export class ProfilePage extends BasePage {
   }
 
   /**
+   * Wait for a recurring donation row to appear in the DataGrid.
+   * Stripe webhook → backend persist is async, and React Query caches the
+   * empty-rows response from the first fetch. Reload on each poll so a fresh
+   * backend query runs; otherwise we'd poll stale client-side cache forever.
+   */
+  async waitForRecurringDonation(timeoutMs = 60000): Promise<void> {
+    await expect
+      .poll(
+        async () => {
+          await this.page.reload()
+          return this.isRecurringDonationVisible(2000)
+        },
+        { timeout: timeoutMs, intervals: [2000, 3000, 5000] },
+      )
+      .toBe(true)
+  }
+
+  /**
    * Check if at least one active recurring donation is visible in the DataGrid
    */
   async isActiveDonationVisible(

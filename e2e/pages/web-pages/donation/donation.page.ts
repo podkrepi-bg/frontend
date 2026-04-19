@@ -124,9 +124,11 @@ export class DonationPage extends CampaignsPage {
       try {
         await menu.waitFor({ state: 'visible', timeout: 3000 })
         break
-      } catch {
+      } catch (err) {
         if (attempt === maxAttempts) {
-          throw new Error(`Region dropdown did not open after ${maxAttempts} attempts`)
+          throw new Error(`Region dropdown did not open after ${maxAttempts} attempts`, {
+            cause: err as Error,
+          })
         }
       }
     }
@@ -282,9 +284,9 @@ export class DonationPage extends CampaignsPage {
     const currencyLabel = language === LanguagesEnum.BG ? 'евро' : 'EUR'
     const expectedAmount = `${formattedNumber}${String.fromCharCode(160)}${currencyLabel}`
 
-    // Use auto-retrying assertion: Formik's fee recalculation after a radio
-    // change takes a render tick to reach the DOM, so a one-shot textContent()
-    // read can race against the update.
+    // Auto-retrying assertion: a radio change triggers a Formik state update,
+    // which re-runs the fee calculation memo, which re-renders the summary.
+    // That's multiple ticks — a one-shot textContent() read races the chain.
     const totalAmountLocator = this.page.locator(this.totalAmountSelector).first()
     await expect
       .poll(
