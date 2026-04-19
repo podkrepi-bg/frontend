@@ -111,12 +111,28 @@ export class DonationPage extends CampaignsPage {
    * @param {string} desiredRegion
    */
   async setDonationRegionFromTheDropdown(desiredRegion: DonationRegions): Promise<void> {
-    await this.clickElement(this.regionsDropdownRootElement)
-    // Wait for the MUI dropdown menu to render before targeting the specific item
-    await this.page.locator('#menu-cardRegion').waitFor({ state: 'visible', timeout: 10000 })
+    const trigger = this.page.locator(this.regionsDropdownRootElement).first()
+    const menu = this.page.locator('#menu-cardRegion')
+    await trigger.waitFor({ state: 'visible', timeout: 10000 })
+
+    // The MUI Select trigger click can race with Stripe initialization
+    // re-renders, so the first click sometimes fails to open the menu. Retry
+    // a few times and confirm the menu actually rendered before continuing.
+    const maxAttempts = 3
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      await trigger.click()
+      try {
+        await menu.waitFor({ state: 'visible', timeout: 3000 })
+        break
+      } catch {
+        if (attempt === maxAttempts) {
+          throw new Error(`Region dropdown did not open after ${maxAttempts} attempts`)
+        }
+      }
+    }
+
     const menuItem = this.page.locator(this.regionsMenuList + `[data-value=${desiredRegion}]`)
     await menuItem.click()
-    // Wait for the dropdown menu to close before proceeding
     await menuItem.waitFor({ state: 'hidden', timeout: 5000 })
   }
 
