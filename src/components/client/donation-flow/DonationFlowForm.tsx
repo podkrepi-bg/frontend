@@ -240,7 +240,18 @@ export function DonationFlowForm() {
       {({ handleSubmit, values, errors, submitCount, isValid }) => (
         <Grid2 spacing={4} container justifyContent={'center'}>
           <Grid2 size={{ sm: 12, md: 9 }} justifyContent={'center'}>
-            <Form onSubmit={handleSubmit} autoComplete="off">
+            <Form
+              onSubmit={(e) => {
+                console.log('[DEBUG form.onSubmit]', {
+                  submitCount,
+                  isValid,
+                  errors,
+                  privacy: values.privacy,
+                  mode: values.mode,
+                })
+                handleSubmit(e)
+              }}
+              autoComplete="off">
               <ConfirmationDialog
                 isOpen={showCancelDialog}
                 handleCancel={() => {

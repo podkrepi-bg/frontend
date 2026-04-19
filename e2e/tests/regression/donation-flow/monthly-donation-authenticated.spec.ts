@@ -27,6 +27,12 @@ test.describe.serial(
     test.beforeAll(async ({ browser, storageState, baseURL }) => {
       const context = await browser.newContext({ storageState, baseURL: baseURL || undefined })
       page = await context.newPage()
+      page.on('console', (msg) => {
+        console.log(`[browser:${msg.type()}]`, msg.text())
+      })
+      page.on('pageerror', (err) => {
+        console.log('[browser:pageerror]', err.message)
+      })
       homepage = new HomePage(page)
       headerPage = new HeaderPage(page)
       campaignsPage = new CampaignsPage(page)
