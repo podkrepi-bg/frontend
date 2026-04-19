@@ -232,6 +232,13 @@ export function DonationFlowForm() {
               email: values.billingEmail as string,
               name: name[0] as string,
               family: name[name.length - 1] as string,
+              amount: values.finalAmount as number,
+              type: person?.company ? 'corporate' : 'donation',
+              isAnonymous: values.isAnonymous,
+              personId:
+                !values.isAnonymous && session?.user && person?.id ? person.id : null,
+              billingName: values.billingName,
+              billingEmail: values.billingEmail,
               successUrl: `${window.location.origin}${routes.campaigns.donationStatus(
                 campaign.slug,
               )}?p_status=succeeded`,

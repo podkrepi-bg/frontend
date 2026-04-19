@@ -23,6 +23,8 @@ export enum DonationFormPaymentStatus {
   REQUIRES_ACTION = 'requires_action',
   REQUIRES_CAPTURE = 'requires_capture',
   REQUIRES_CONFIRMATION = 'requires_confirmation',
+  // IRIS-specific: BE finalize failed/unreachable, webhook will reconcile
+  PENDING = 'pending',
 }
 
 export type PaymentMode = 'one-time' | 'subscription'

@@ -1,6 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
 import { apiClient } from 'service/apiClient'
 
+export type DonationType = 'donation' | 'corporate'
+
 export type PaymentSessionResponse = {
   hookHash: string
   userHash: string
@@ -16,6 +18,12 @@ export type IrisCreateCustomerDto = {
   email: string
   webhookUrl?: string
   campaignId: string
+  amount: number
+  type: DonationType
+  isAnonymous: boolean
+  personId: string | null
+  billingName: string
+  billingEmail: string
   successUrl?: string
   errorUrl?: string
 }
@@ -41,28 +49,25 @@ export function useCreatePaymentSession() {
   })
 }
 
-export type FinishPaymentMetadataDto = {
-  campaignId: string
-  personId: string | null
-  isAnonymous: 'true' | 'false'
-  type: string
-}
-
-export type FinishPaymentDto = {
-  hookHash: string
+export type FinalizePaymentResponse = {
   status: string
-  amount: number
-  billingName?: string
-  billingEmail?: string
-  metadata: FinishPaymentMetadataDto
+  donationId?: string
+  reason?: string
 }
 
-export function useCompletePayment() {
+export type FinalizePaymentError = {
+  error: 'unknown_payment' | 'payment_integrity' | 'iris_unavailable' | string
+  reason?: string
+}
+
+export function useFinalizePayment() {
   return useMutation({
-    mutationFn: async (data: FinishPaymentDto) => {
-      const response = await apiClient.post('/iris-pay/complete', data, {
-        withCredentials: true,
-      })
+    mutationFn: async () => {
+      const response = await apiClient.post<FinalizePaymentResponse>(
+        '/iris-pay/finalize',
+        {},
+        { withCredentials: true },
+      )
       return response.data
     },
   })

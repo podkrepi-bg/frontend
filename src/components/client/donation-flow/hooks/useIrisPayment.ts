@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
 import { FormikProps } from 'formik'
+import { AxiosError } from 'axios'
 
 import { routes } from 'common/routes'
-import { useCompletePayment } from 'service/irisPayment'
-import { useCurrentPerson } from 'common/util/useCurrentPerson'
+import { useFinalizePayment, FinalizePaymentError } from 'service/irisPayment'
 import { useIrisElements } from 'components/client/iris-pay/irisContextHooks'
 import { useDonationFlow } from '../contexts/DonationFlowProvider'
 import { DonationFormData } from '../helpers/types'
@@ -14,86 +13,82 @@ interface UseIrisPaymentProps {
   setShowPaymentElement: (show: boolean) => void
 }
 
-export function useIrisPayment({
-  formikRef,
-  setShowPaymentElement,
-}: UseIrisPaymentProps) {
+const ERROR_MESSAGES: Record<string, string> = {
+  unknown_payment: 'Payment session could not be found. Please try again.',
+  payment_integrity: 'Payment could not be verified due to a data integrity error.',
+}
+
+export function useIrisPayment({ setShowPaymentElement }: UseIrisPaymentProps) {
   const router = useRouter()
-  const { data: session } = useSession()
   const { campaign } = useDonationFlow()
   const iris = useIrisElements()
-  const completePaymentMutation = useCompletePayment()
-  const { data: { user: person } = { user: null } } = useCurrentPerson()
+  const finalizeMutation = useFinalizePayment()
 
   const handleOnPaymentElementLoad = (data: CustomEvent) => {
     console.log('Payment element loaded successfully:', data.detail)
-    // Element is already shown, this confirms it loaded properly
     setShowPaymentElement(true)
   }
 
-  const handleOnPaymentSuccess = async (data: CustomEvent) => {
-    console.log('Payment successful:', data.detail)
-
-    // Get current form values
-    const currentValues = formikRef.current?.values
-    if (!currentValues || !iris?.paymentSession?.hookHash) {
-      console.error('Missing form values or payment session data')
-      router.push(
-        `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=canceled&p_error=${encodeURIComponent('Payment completion failed. Missing required data.')}`,
-      )
-      return
+  const redirectToStatus = (params: Record<string, string | undefined>) => {
+    const query = new URLSearchParams()
+    for (const [key, value] of Object.entries(params)) {
+      if (value !== undefined && value !== null && value !== '') {
+        query.set(key, value)
+      }
     }
+    router.push(
+      `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?${query.toString()}`,
+    )
+  }
 
+  const finalizeAndRedirect = async () => {
     try {
-      // Prepare payment completion data
-      const completionData = {
-        hookHash: iris.paymentSession.hookHash,
-        status: 'succeeded',
-        amount: currentValues.finalAmount || 0,
-        billingName: currentValues.billingName,
-        billingEmail: currentValues.billingEmail,
-        metadata: {
-          campaignId: campaign.id,
-          personId: !currentValues.isAnonymous && session?.user && person?.id ? person.id : null,
-          isAnonymous: currentValues.isAnonymous.toString() as 'true' | 'false',
-          type: person?.company ? 'corporate' : 'donation',
-        },
+      const result = await finalizeMutation.mutateAsync()
+      redirectToStatus({
+        p_status: result.status,
+        payment_intent: result.donationId,
+      })
+    } catch (err) {
+      const axiosErr = err as AxiosError<FinalizePaymentError>
+      const errorCode = axiosErr?.response?.data?.error
+      const httpStatus = axiosErr?.response?.status
+
+      // IRIS unreachable or other transient BE failure — fall back to pending and
+      // let the webhook reconcile the donation status. The hookHash from the IRIS
+      // session doubles as ext_payment_intent_id, which the status page looks up by.
+      if (errorCode === 'iris_unavailable' || httpStatus === 503 || !httpStatus) {
+        redirectToStatus({
+          p_status: 'pending',
+          payment_intent: iris?.paymentSession?.hookHash,
+        })
+        return
       }
 
-      console.log('Completing payment with data:', completionData)
-
-      // Call the complete payment API
-      const payment = await completePaymentMutation.mutateAsync(completionData)
-      console.log('Payment completion response:', payment)
-
-      // Navigate to success page
-      router.push(
-        `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
-          payment.status
-        }&payment_intent=${payment.donationId}`,
-      )
-    } catch (error) {
-      console.error('Payment completion failed:', error)
-      const errorMessage =
-        error instanceof Error ? error.message : 'Payment completion failed. Please contact support.'
-      router.push(
-        `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=canceled&p_error=${encodeURIComponent(errorMessage)}`,
-      )
+      const message = (errorCode && ERROR_MESSAGES[errorCode]) || 'Payment completion failed.'
+      redirectToStatus({
+        p_status: 'canceled',
+        p_error: message,
+      })
     }
   }
 
-  const handleOnPaymentError = (data: CustomEvent) => {
-    console.log('Payment error:', data.detail)
-    const errorMessage = data.detail?.message || 'Payment failed. Please try again.'
-    router.push(
-      `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=canceled&p_error=${encodeURIComponent(errorMessage)}`,
-    )
+  const handleOnPaymentSuccess = async (data: CustomEvent) => {
+    console.log('Iris payment success event:', data.detail)
+    await finalizeAndRedirect()
+  }
+
+  const handleOnPaymentError = async (data: CustomEvent) => {
+    console.log('Iris payment error event:', data.detail)
+    // Still call finalize — IRIS is the authority on the final payment state,
+    // not the SDK's error event. If IRIS confirms a failure, the status page
+    // will show it; if IRIS actually succeeded, the user gets the right outcome.
+    await finalizeAndRedirect()
   }
 
   return {
     handleOnPaymentElementLoad,
     handleOnPaymentSuccess,
     handleOnPaymentError,
-    isCompleting: completePaymentMutation.isLoading,
+    isCompleting: finalizeMutation.isLoading,
   }
 }
