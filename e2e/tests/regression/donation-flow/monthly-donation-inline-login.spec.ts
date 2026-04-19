@@ -51,46 +51,36 @@ test.describe.serial(
       await page.context().close()
     })
 
-    test('Particular campaign can be opened through the Campaign page', async () => {
+    test('Create a monthly subscription donation via inline login', async () => {
       await headerPage.clickDonateHeaderNavButton(LanguagesEnum.BG)
       await campaignsPage.clickCampaignCardByIndex(0)
       expect(
         await campaignsPage.checkPageUrlByRegExp(),
         'The url is not changed after clicking on the campaign card.',
       )
-    })
 
-    test('Open donation form and select amount with monthly payment mode', async () => {
       await campaignsPage.clickDonationSupportButton()
       await donationPage.checkPageUrlByRegExp()
       await donationPage.selectRadioButtonByLabelText(['10'])
       await donationPage.selectPaymentMode('subscription')
-    })
 
-    test('Fill in the Stripe card form', async () => {
       await donationPage.setDonationRegionFromTheDropdown(DonationRegions.EUROPE)
       await donationPage.fillCardForm({ fail: false })
-    })
 
-    test('Select login authentication and fill credentials', async () => {
       await donationPage.selectAuthentication(DonationFormAuthState.LOGIN)
       await donationPage.fillInlineLoginForm(loginEmail, loginPassword)
       await donationPage.waitForAuthenticatedState()
-    })
 
-    test('Accept privacy and submit the form', async () => {
       await donationPage.checkPrivacyCheckbox()
       await donationPage.submitForm()
       // Wait for Stripe to process the SetupIntent and redirect
       await page.waitForURL(/\/status/, { timeout: 90000 })
-    })
 
-    test('The user is redirected to the success status page', async () => {
       await statusPage.checkPageUrlByRegExp(undefined, 10000)
       expect(await statusPage.isSucceededStatusTitleDisplayed()).toBe(true)
     })
 
-    test('Navigate to profile and verify recurring donation exists', async () => {
+    test('Recurring donation appears in the profile', async () => {
       await statusPage.clickViewDonationsProfileLink()
       await profilePage.navigateToRecurringDonations()
       await profilePage.waitForRecurringDonation()
