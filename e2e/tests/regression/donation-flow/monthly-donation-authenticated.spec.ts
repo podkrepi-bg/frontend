@@ -71,10 +71,16 @@ test.describe.serial(
     test('Recurring donation appears in the profile', async () => {
       await statusPage.clickViewDonationsProfileLink()
       await profilePage.navigateToRecurringDonations()
-      // Poll for the row to appear instead of a fixed sleep — the Stripe
-      // webhook → backend persist timing varies in CI.
+      // The Stripe webhook → backend persist is async. Reload on each poll
+      // so React Query re-fetches instead of polling a stale cached response.
       await expect
-        .poll(() => profilePage.isRecurringDonationVisible(), { timeout: 30000 })
+        .poll(
+          async () => {
+            await page.reload()
+            return profilePage.isRecurringDonationVisible(2000)
+          },
+          { timeout: 60000, intervals: [2000, 3000, 5000] },
+        )
         .toBe(true)
     })
 
