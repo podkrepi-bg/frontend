@@ -111,6 +111,7 @@ export function DonationFlowForm() {
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
   const [submitPaymentLoading, setSubmitPaymentLoading] = React.useState(false)
+  const [debugState, setDebugState] = React.useState('idle')
   const { data: { user: person } = { user: null } } = useCurrentPerson()
   const { data: session } = useSession({
     required: false,
@@ -139,17 +140,9 @@ export function DonationFlowForm() {
       }}
       validationSchema={validationSchema}
       onSubmit={async (values, helpers) => {
-        console.log('[DEBUG submit]', {
-          mode: values.mode,
-          payment: values.payment,
-          privacy: values.privacy,
-          finalAmount: values.finalAmount,
-          hasStripe: !!stripe,
-          hasElements: !!elements,
-          hasSetupIntent: !!setupIntent,
-          hasSub: !!session?.user?.sub,
-          sessionUser: session?.user,
-        })
+        setDebugState(
+          `onSubmit-entered|mode=${values.mode}|payment=${values.payment}|stripe=${!!stripe}|elements=${!!elements}|setupIntent=${!!setupIntent}|sub=${!!session?.user?.sub}`,
+        )
         setSubmitPaymentLoading(true)
         if (values.payment === DonationFormPaymentMethod.BANK) {
           cancelSetupIntentMutation.mutate({ id: setupIntent.id })
@@ -242,16 +235,15 @@ export function DonationFlowForm() {
           <Grid2 size={{ sm: 12, md: 9 }} justifyContent={'center'}>
             <Form
               onSubmit={(e) => {
-                console.log('[DEBUG form.onSubmit]', {
-                  submitCount,
-                  isValid,
-                  errors,
-                  privacy: values.privacy,
-                  mode: values.mode,
-                })
+                setDebugState(
+                  `form.onSubmit|submitCount=${submitCount}|isValid=${isValid}|errors=${Object.keys(errors).join(',')}|privacy=${values.privacy}`,
+                )
                 handleSubmit(e)
               }}
               autoComplete="off">
+              <p role="status" data-testid="debug-state">
+                DEBUG_STATE: {debugState}
+              </p>
               <ConfirmationDialog
                 isOpen={showCancelDialog}
                 handleCancel={() => {
