@@ -10,7 +10,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { ApiErrors } from 'service/apiErrors'
+import { ApiErrors, handleFileUploadError } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
 import { editIrregularity, uploadIrregularityFiles } from 'service/irregularity'
 
@@ -98,6 +98,7 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
     IrregularityEditInput
   >({
     mutationFn: editIrregularity(irregularity.id),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
   })
 
   const fileUploadMutation = useMutation<
@@ -106,6 +107,7 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
     UploadIrregularityFiles
   >({
     mutationFn: uploadIrregularityFiles(),
+    onError: (error) => handleFileUploadError(error, t),
   })
 
   const onSubmit = async (values: IrregularityEditInput) => {
@@ -132,7 +134,7 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
       queryClient.invalidateQueries([endpoints.irregularity.viewIrregularity(irregularity.id).url])
       router.push(routes.admin.irregularity.index)
     } catch (error) {
-      AlertStore.show(t('common:alerts.error'), 'error')
+      console.error(error)
     }
   }
 
