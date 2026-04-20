@@ -18,15 +18,53 @@ import { IRISPayContext } from './IRISPayContext'
 const IRIS_SDK_SCRIPT_URL = 'https://websdk.irispay.bg/assets/irispay-ui/elements.js'
 const IRIS_SDK_STYLE_URL = 'https://websdk.irispay.bg/assets/irispay-ui/styles.css'
 
-type OnPaymentEvent = {
-  type: 'loaded' | 'lastStep' | 'error' | 'languageChanged' | 'closeClicked'
+// Event shapes emitted by the IRIS SDK's `on_payment_event` CustomEvent.
+// Derived from the SDK's `emitCustomEvent(type, payload)` call sites in
+// elements.js — each variant mirrors what the SDK actually sends.
+export type OnPaymentEventLoaded = {
+  type: 'loaded'
+  payload: { description: string }
 }
+export type OnPaymentEventCreatingPayment = {
+  type: 'creating-payment'
+  payload: { description: string }
+}
+export type OnPaymentEventCloseClicked = {
+  type: 'closeClicked'
+  payload: { description: string }
+}
+export type OnPaymentEventLanguageChanged = {
+  type: 'languageChanged'
+  payload: { description: string; data: { lang: string } }
+}
+// `message` is the backend's error message — string when present, the raw
+// error object otherwise.
+export type OnPaymentEventError = {
+  type: 'error'
+  payload: { message: string | Record<string, unknown>; description: string }
+}
+// `success` is `true` for bank-approved payments, `false` when the user or
+// bank rejected the payment.
+export type OnPaymentEventLastStep = {
+  type: 'lastStep'
+  payload: { success: boolean; description: string; data: unknown }
+}
+
+export type OnPaymentEvent =
+  | OnPaymentEventLoaded
+  | OnPaymentEventCreatingPayment
+  | OnPaymentEventCloseClicked
+  | OnPaymentEventLanguageChanged
+  | OnPaymentEventError
+  | OnPaymentEventLastStep
 
 type IRISListenerProps = {
   isMounted?: boolean
-  onLoad?: (data: CustomEvent<OnPaymentEvent>) => void
-  onSuccess?: (data: CustomEvent<OnPaymentEvent>) => void
-  onError?: (data: CustomEvent<OnPaymentEvent>) => void
+  onLoad?: (data: CustomEvent<OnPaymentEventLoaded>) => void
+  // Fires on the SDK's `lastStep` — read `data.detail.payload.success` to
+  // distinguish bank-approved from rejected.
+  onSuccess?: (data: CustomEvent<OnPaymentEventLastStep>) => void
+  onError?: (data: CustomEvent<OnPaymentEventError>) => void
 }
 
 type ElementWithListener<T> = T & IRISListenerProps
@@ -87,13 +125,13 @@ export default function IRISPaySDK(props: IRISPaySDKProps) {
     const eventListener = ((data: CustomEvent<OnPaymentEvent>) => {
       switch (data.detail.type) {
         case 'loaded':
-          onLoad?.(data)
+          onLoad?.(data as CustomEvent<OnPaymentEventLoaded>)
           break
         case 'lastStep':
-          onSuccess?.(data)
+          onSuccess?.(data as CustomEvent<OnPaymentEventLastStep>)
           break
         case 'error':
-          onError?.(data)
+          onError?.(data as CustomEvent<OnPaymentEventError>)
           break
       }
     }) as EventListener

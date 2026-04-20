@@ -5,6 +5,10 @@ import { AxiosError } from 'axios'
 import { routes } from 'common/routes'
 import { useFinalizePayment, FinalizePaymentError } from 'service/irisPayment'
 import { useIrisElements } from 'components/client/iris-pay/irisContextHooks'
+import type {
+  OnPaymentEventError,
+  OnPaymentEventLastStep,
+} from 'components/client/iris-pay/IRISPaySDK'
 import { useDonationFlow } from '../contexts/DonationFlowProvider'
 import { DonationFormData } from '../helpers/types'
 
@@ -35,9 +39,7 @@ export function useIrisPayment({ setShowPaymentElement }: UseIrisPaymentProps) {
         query.set(key, value)
       }
     }
-    router.push(
-      `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?${query.toString()}`,
-    )
+    router.push(`${routes.campaigns.donationStatus(campaign.slug)}?${query.toString()}`)
   }
 
   const finalizeAndRedirect = async () => {
@@ -71,14 +73,28 @@ export function useIrisPayment({ setShowPaymentElement }: UseIrisPaymentProps) {
     }
   }
 
-  const handleOnPaymentSuccess = async (_data: CustomEvent) => {
-    await finalizeAndRedirect()
+  const handleOnPaymentSuccess = async (data: CustomEvent<OnPaymentEventLastStep>) => {
+    // Dispatch finalize first so the XHR is in flight before the router
+    // tears this component down — webhook backstops if it's still aborted.
+    finalizeMutation.mutateAsync().catch(() => {})
+
+    // Let the SDK's success/failure screen show briefly before leaving.
+    setTimeout(() => {
+      if (data.detail.payload.success) {
+        redirectToStatus({
+          p_status: 'succeeded',
+          payment_intent: iris?.paymentSession?.hookHash,
+        })
+      } else {
+        redirectToStatus({
+          p_status: 'canceled',
+          p_error: 'Payment was not completed.',
+        })
+      }
+    }, 3500)
   }
 
-  // Still call finalize — IRIS is the authority on the final payment state,
-  // not the SDK's error event. If IRIS confirms a failure, the status page
-  // will show it; if IRIS actually succeeded, the user gets the right outcome.
-  const handleOnPaymentError = async (_data: CustomEvent) => {
+  const handleOnPaymentError = async (_data: CustomEvent<OnPaymentEventError>) => {
     await finalizeAndRedirect()
   }
 
