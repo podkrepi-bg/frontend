@@ -324,13 +324,18 @@ export function DonationFlowForm() {
                       disabled: !session?.user,
                     }}
                   />
-                  <AcceptPrivacyPolicyField name="privacy" showFieldError={false} />
+                  <AcceptPrivacyPolicyField
+                    name="privacy"
+                    showFieldError={false}
+                    data-testid="donation-privacy"
+                  />
                   <DonationFormErrorList
                     errors={errors}
                     show={submitCount > 0}
                     paymentError={paymentError}
                   />
                   <SubmitButton
+                    data-testid="donation-submit"
                     disabled={submitPaymentLoading || (submitCount > 0 && !isValid)}
                     loading={submitPaymentLoading}
                     label={t('action.submit')}
@@ -345,7 +350,7 @@ export function DonationFlowForm() {
                 </Grid2>
               </Grid2>
               <PersistFormikValues
-                ignoreValues={['authentication']}
+                ignoreValues={['authentication', 'privacy', 'isAnonymous']}
                 storage="sessionStorage"
                 persistInvalid={true}
                 name={`donation-flow-${campaign.slug}`}

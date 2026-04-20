@@ -24,6 +24,7 @@ export type CheckboxFieldProps = {
   disabledTooltip?: string
   checkboxProps?: CheckboxProps
   showFieldError?: boolean
+  'data-testid'?: string
 }
 
 export default function CheckboxField({
@@ -35,14 +36,13 @@ export default function CheckboxField({
   disabledTooltip,
   checkboxProps,
   showFieldError,
+  'data-testid': dataTestId,
 }: CheckboxFieldProps) {
   const { t } = useTranslation()
   const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   const showError =
-    typeof showFieldError !== undefined
-      ? showFieldError
-      : Boolean(meta.error) && Boolean(meta.touched)
+    showFieldError !== undefined ? showFieldError : Boolean(meta.error) && Boolean(meta.touched)
   return (
     <FormControl required component="fieldset" error={showError}>
       <Tooltip title={disabled && disabledTooltip} arrow>
@@ -54,6 +54,7 @@ export default function CheckboxField({
               color="primary"
               checked={Boolean(field.value)}
               disabled={disabled}
+              data-testid={dataTestId}
               {...field}
               {...checkboxProps}
               onChange={(e) => {

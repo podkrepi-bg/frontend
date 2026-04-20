@@ -12,6 +12,10 @@ export class DonationStatusPage extends CampaignsPage {
   private readonly bgSuccessTitle = bgLocalizationDonationFlow.status.success.title
   private readonly enSuccessTitle = enLocalizationDonationFlow.status.success.title
 
+  // -> Navigation links <-
+  private readonly bgDonationsLinkText = bgLocalizationDonationFlow.status.success.link.donations
+  private readonly enDonationsLinkText = enLocalizationDonationFlow.status.success.link.donations
+
   // -> Wish form <-
   private readonly wishSendText = bgLocalizationDonationFlow.status.success.wish.send
 
@@ -28,6 +32,25 @@ export class DonationStatusPage extends CampaignsPage {
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<boolean> {
     return this.isH4HeadingVisible(language, this.bgSuccessTitle, this.enSuccessTitle)
+  }
+
+  /**
+   * Click the "View your donations" link on the success status page
+   */
+  async clickViewDonationsProfileLink(
+    language: LanguagesEnum = LanguagesEnum.BG,
+  ): Promise<void> {
+    // Ensure the success status page is fully loaded before clicking the link
+    const successTitle =
+      language === LanguagesEnum.BG ? this.bgSuccessTitle : this.enSuccessTitle
+    await this.page.getByText(successTitle).waitFor({ state: 'visible', timeout: 15000 })
+
+    const linkText =
+      language === LanguagesEnum.BG ? this.bgDonationsLinkText : this.enDonationsLinkText
+    const link = this.page.getByText(linkText, { exact: true })
+    await link.waitFor({ state: 'visible', timeout: 10000 })
+    await link.click()
+    await this.page.waitForLoadState()
   }
 
   async submitWishForm(): Promise<void> {
