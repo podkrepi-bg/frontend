@@ -22,6 +22,9 @@ const ERROR_MESSAGES: Record<string, string> = {
   payment_integrity: 'Payment could not be verified due to a data integrity error.',
 }
 
+// Let IRIS's own success/failure screen show before we navigate away.
+const IRIS_RESULT_SCREEN_DISPLAY_MS = 3500
+
 export function useIrisPayment({ setShowPaymentElement }: UseIrisPaymentProps) {
   const router = useRouter()
   const { campaign } = useDonationFlow()
@@ -91,7 +94,7 @@ export function useIrisPayment({ setShowPaymentElement }: UseIrisPaymentProps) {
           p_error: 'Payment was not completed.',
         })
       }
-    }, 3500)
+    }, IRIS_RESULT_SCREEN_DISPLAY_MS)
   }
 
   const handleOnPaymentError = async (_data: CustomEvent<OnPaymentEventError>) => {

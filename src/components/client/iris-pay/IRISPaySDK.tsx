@@ -82,6 +82,15 @@ export default function IRISPaySDK(props: IRISPaySDKProps) {
   const [portalTarget, setPortalTarget] = useState<HTMLDivElement | null>(null)
 
   const { onLoad, onSuccess, onError, ...restProps } = props
+  const onLoadRef = useRef(onLoad)
+  const onSuccessRef = useRef(onSuccess)
+  const onErrorRef = useRef(onError)
+  useEffect(() => {
+    onLoadRef.current = onLoad
+    onSuccessRef.current = onSuccess
+    onErrorRef.current = onError
+  }, [onLoad, onSuccess, onError])
+
   const stringifiedProps = StringifyIrisProps(restProps)
 
   const environment: IRISBackend =
@@ -125,13 +134,13 @@ export default function IRISPaySDK(props: IRISPaySDKProps) {
     const eventListener = ((data: CustomEvent<OnPaymentEvent>) => {
       switch (data.detail.type) {
         case 'loaded':
-          onLoad?.(data as CustomEvent<OnPaymentEventLoaded>)
+          onLoadRef.current?.(data as CustomEvent<OnPaymentEventLoaded>)
           break
         case 'lastStep':
-          onSuccess?.(data as CustomEvent<OnPaymentEventLastStep>)
+          onSuccessRef.current?.(data as CustomEvent<OnPaymentEventLastStep>)
           break
         case 'error':
-          onError?.(data as CustomEvent<OnPaymentEventError>)
+          onErrorRef.current?.(data as CustomEvent<OnPaymentEventError>)
           break
       }
     }) as EventListener
