@@ -55,7 +55,9 @@
   "cta": {
     "next": "Save and continue",
     "back": "Back",
-    "submit": "Submit campaign"
+    "submit": "Submit campaign",
+    "hideArchived": "Hide archived",
+    "showArchived": "Show archived"
   },
   "remark": {
     "part-one": "*Additional information about the application process and its stages can be found in our ",
