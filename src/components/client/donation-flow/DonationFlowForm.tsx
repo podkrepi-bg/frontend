@@ -251,7 +251,7 @@ export function DonationFlowForm() {
 
             iris?.updatePaymentData?.({
               sum: Number((values.finalAmount || 100) / 100),
-              description: `${campaign.title} - Donation`,
+              description: `IRISPAY ${campaign.title} - Donation`,
               currency: iris.currency,
               toIban: 'BG31UNCR70001526254645',
               merchant: 'PodkrepiBG',
