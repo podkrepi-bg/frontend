@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react'
 import { LinkAuthenticationElement, PaymentElement } from '@stripe/react-stripe-js'
 import { Box, BoxProps, TextField, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useField, useFormikContext } from 'formik'
 
 import { DonationFormData } from '../../helpers/types'
@@ -46,6 +46,14 @@ export default function PaymentDetailsStripeForm({
     formik.setFieldValue('billingEmail', session?.user?.email || '')
   }, [session, isLoading])
 
+  // Stripe ignores mutations to defaultValues on linkAuthentication after mount
+  // and logs a warning. Memoizing on the session email keeps the options
+  // reference stable across Formik-driven re-renders.
+  const linkAuthOptions = useMemo(
+    () => ({ defaultValues: { email: session?.user?.email ?? '' } }),
+    [session?.user?.email],
+  )
+
   return (
     <Box
       data-testid="stripe-payment-form"
@@ -53,6 +61,11 @@ export default function PaymentDetailsStripeForm({
       display={'flex'}
       flexDirection={'column'}
       gap={2}>
+      <LinkAuthenticationElement
+        id="billingEmail"
+        onChange={(e) => formik.setFieldValue('billingEmail', e.value.email)}
+        options={linkAuthOptions}
+      />
       <Box
         display={'flex'}
         flexDirection={'column'}

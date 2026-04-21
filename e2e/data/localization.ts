@@ -16,6 +16,15 @@ import enLocalizationCampaignsJson from '../../public/locales/en/campaigns.json'
 import bgLocalizationDonationFlowJson from '../../public/locales/bg/donation-flow.json'
 import enLocalizationDonationFlowJson from '../../public/locales/en/donation-flow.json'
 
+import bgLocalizationAuthJson from '../../public/locales/bg/auth.json'
+import enLocalizationAuthJson from '../../public/locales/en/auth.json'
+
+import bgLocalizationRecurringDonationJson from '../../public/locales/bg/recurring-donation.json'
+import enLocalizationRecurringDonationJson from '../../public/locales/en/recurring-donation.json'
+
+import bgLocalizationProfileJson from '../../public/locales/bg/profile.json'
+import enLocalizationProfileJson from '../../public/locales/en/profile.json'
+
 // All these constants are used in the E2E test pages to manipulate web elements in a respective language
 // Common localization terms
 export const bgLocalizationCommon = bgLocalizationCommonJson
@@ -35,3 +44,12 @@ export const enLocalizationDonationFlow = enLocalizationDonationFlowJson
 // Validations
 export const bgLocalizationValidation = bgLocalizationValidationJson
 export const enLocalizationValidation = enLocalizationValidationJson
+// Auth
+export const bgLocalizationAuth = bgLocalizationAuthJson
+export const enLocalizationAuth = enLocalizationAuthJson
+// Recurring Donations
+export const bgLocalizationRecurringDonation = bgLocalizationRecurringDonationJson
+export const enLocalizationRecurringDonation = enLocalizationRecurringDonationJson
+// Profile
+export const bgLocalizationProfile = bgLocalizationProfileJson
+export const enLocalizationProfile = enLocalizationProfileJson
