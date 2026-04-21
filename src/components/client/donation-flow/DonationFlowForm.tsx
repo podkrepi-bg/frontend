@@ -253,7 +253,7 @@ export function DonationFlowForm() {
               sum: Number((values.finalAmount || 100) / 100),
               description: `IRISPAY ${campaign.title} - Donation`,
               currency: iris.currency,
-              toIban: 'BG31UNCR70001526254645',
+              toIban: process.env.NEXT_PUBLIC_PLATFORM_IBAN as string,
               merchant: 'PodkrepiBG',
               useOnlySelectedBankHashes: null,
             })

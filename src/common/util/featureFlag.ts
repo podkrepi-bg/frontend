@@ -36,7 +36,7 @@ const roleGatedFeatures: Partial<Record<Features, RoleGate>> = {
 const featureEnvMap: Record<Features, string | undefined> = {
   [Features.CAMPAIGN]: process.env.NEXT_PUBLIC_FEATURE_CAMPAIGN,
   [Features.DUAL_CURRENCY]: process.env.NEXT_PUBLIC_FEATURE_DUAL_CURRENCY,
-  [Features.IRISPAY]: process.env.NEXT_PUBLIC_FEATURE_DUAL_CURRENCY,
+  [Features.IRISPAY]: process.env.NEXT_PUBLIC_FEATURE_IRISPAY,
 }
 
 export const featureFlagEnabled = (flagName: Features): boolean => {

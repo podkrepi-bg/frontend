@@ -22,7 +22,7 @@ export default function DonationFlowPage({
   return (
     <DonationFlowProvider campaign={campaign} setupIntent={setupIntent}>
       <IrisElements
-        backend="development"
+        backend={process.env.NEXT_PUBLIC_IRIS_BACKEND === 'production' ? 'production' : 'development'}
         country="bulgaria"
         publicHash={process.env.NEXT_PUBLIC_IRIS_PUBLIC_HASH as string}
         currency="EUR">
