@@ -79,7 +79,9 @@ export function useIrisPayment({ setShowPaymentElement }: UseIrisPaymentProps) {
   const handleOnPaymentSuccess = async (data: CustomEvent<OnPaymentEventLastStep>) => {
     // Dispatch finalize first so the XHR is in flight before the router
     // tears this component down — webhook backstops if it's still aborted.
-    finalizeMutation.mutateAsync().catch(() => {})
+    finalizeMutation.mutateAsync().catch((err) => {
+      console.error(err)
+    })
 
     // Let the SDK's success/failure screen show briefly before leaving.
     setTimeout(() => {

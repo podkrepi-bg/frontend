@@ -58,9 +58,7 @@ export default observer(function GridFilters() {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       {isClient && (
-        <LocalizationProvider
-          adapterLocale={currentLocale}
-          dateAdapter={AdapterDateFns}>
+        <LocalizationProvider adapterLocale={currentLocale} dateAdapter={AdapterDateFns}>
           <DateTimePicker
             label={t('bank-transactions:cta.from')}
             value={bankTransactionsStore.bankTransactionsFilter.date?.from || null}
