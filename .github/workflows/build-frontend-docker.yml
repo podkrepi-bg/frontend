@@ -62,7 +62,7 @@ jobs:
           echo "SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}" >> .env.production
 
       - name: Build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: ${{ inputs.push }}
