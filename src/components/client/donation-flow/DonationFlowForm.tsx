@@ -17,7 +17,6 @@ import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicy
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { useCancelSetupIntent, useUpdateSetupIntent } from 'service/donation'
-import { useStartPaymentSession, useCreatePaymentSession } from 'service/irisPayment'
 
 import StepSplitter from './common/StepSplitter'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
@@ -47,6 +46,7 @@ import { StripeError } from '@stripe/stripe-js'
 import { DonationFormErrorList } from './common/DonationFormErrors'
 import { useIrisElements } from '../iris-pay/irisContextHooks'
 import { useIrisPayment } from './hooks/useIrisPayment'
+import { usePaymentSession } from './hooks/usePaymentSession'
 
 const initialGeneralFormValues = {
   mode: null,
@@ -126,8 +126,7 @@ export function DonationFlowForm() {
   const router = useRouter()
   const updateSetupIntentMutation = useUpdateSetupIntent()
   const cancelSetupIntentMutation = useCancelSetupIntent()
-  const startPaymentMutation = useStartPaymentSession()
-  const createPaymentSessionMutation = useCreatePaymentSession()
+  const { startSession, createSession } = usePaymentSession()
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
@@ -148,9 +147,8 @@ export function DonationFlowForm() {
     },
   })
 
-  // Call payments/start when component mounts
   useEffect(() => {
-    startPaymentMutation.mutate()
+    startSession()
   }, [])
 
   useEffect(() => {
@@ -225,7 +223,7 @@ export function DonationFlowForm() {
             cancelSetupIntentMutation.mutate({ id: setupIntent.id })
             const name = values?.billingName?.split(' ') as string[]
 
-            const sessionData = await createPaymentSessionMutation.mutateAsync({
+            const sessionData = await createSession({
               campaignId: campaign.id,
               email: values.billingEmail as string,
               name: name[0] as string,
