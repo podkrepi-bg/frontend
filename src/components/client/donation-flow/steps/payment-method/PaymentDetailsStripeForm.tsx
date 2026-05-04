@@ -8,6 +8,7 @@ import { DonationFormData } from '../../helpers/types'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { ids } from '../../common/DonationFormSections'
+import { featureEnabledForSession, Features } from 'common/util/featureFlag'
 
 export type PaymentDetailsStripeFormProps = {
   containerProps?: BoxProps
@@ -61,36 +62,40 @@ export default function PaymentDetailsStripeForm({
       display={'flex'}
       flexDirection={'column'}
       gap={2}>
-      <LinkAuthenticationElement
-        id="billingEmail"
-        onChange={(e) => formik.setFieldValue('billingEmail', e.value.email)}
-        options={linkAuthOptions}
-      />
-      <Box
-        display={'flex'}
-        flexDirection={'column'}
-        gap={0.2}
-        sx={{
-          opacity: isLoading ? 0 : 1,
-          transition: 'opacity 0.6s ease-out',
-        }}>
-        <Typography component={'label'} fontSize={'0.875rem'} fontWeight={350} color={'black'}>
-          {t('donation-flow:step.payment-method.field.card-data.name-label')}
-        </Typography>
-        <BillingNameField
-          fullWidth
-          {...billingName}
-          id="billingName"
-          variant="outlined"
-          placeholder={t('donation-flow:step.payment-method.field.card-data.name-label')}
-          onInput={(e) => {
-            const input = e.target as HTMLInputElement
-            input.value = input.value
-              .replace(/[^a-zA-Z\s-]/g, '')
-              .replace(/[-\s]{2,}/g, (match) => match[0])
-          }}
-        />
-      </Box>
+      {!featureEnabledForSession(Features.IRISPAY, session) && (
+        <>
+          <LinkAuthenticationElement
+            id="billingEmail"
+            onChange={(e) => formik.setFieldValue('billingEmail', e.value.email)}
+            options={linkAuthOptions}
+          />
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            gap={0.2}
+            sx={{
+              opacity: isLoading ? 0 : 1,
+              transition: 'opacity 0.6s ease-out',
+            }}>
+            <Typography component={'label'} fontSize={'0.875rem'} fontWeight={350} color={'black'}>
+              {t('donation-flow:step.payment-method.field.card-data.name-label')}
+            </Typography>
+            <BillingNameField
+              fullWidth
+              {...billingName}
+              id="billingName"
+              variant="outlined"
+              placeholder={t('donation-flow:step.payment-method.field.card-data.name-label')}
+              onInput={(e) => {
+                const input = e.target as HTMLInputElement
+                input.value = input.value
+                  .replace(/[^a-zA-Z\s-]/g, '')
+                  .replace(/[-\s]{2,}/g, (match) => match[0])
+              }}
+            />
+          </Box>
+        </>
+      )}
       <PaymentElement
         id={ids['stripeCardField']}
         onReady={() => setIsloading(false)}

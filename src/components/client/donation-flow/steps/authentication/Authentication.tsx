@@ -18,6 +18,7 @@ import InlineLoginForm from './InlineLoginForm'
 import InlineRegisterForm from './InlineRegisterForm'
 import { ids } from '../../common/DonationFormSections'
 import { DonationFormSectionErrorText } from '../../common/DonationFormErrors'
+import { featureEnabledForSession, Features } from 'common/util/featureFlag'
 
 export default function Authentication({
   sectionRef,
@@ -104,25 +105,27 @@ export default function Authentication({
               {t('step.authentication.noregister.description')}
             </Alert>
           )}
-          <Grid2 container spacing={2} sx={{ mt: 1 }}>
-            <Grid2 size={{ xs: 12 }}>
-              <EmailField
-                label="donation-flow:step.authentication.field.billing-email"
-                name="billingEmail"
-                autoComplete="email"
-                fullWidth
-              />
+          {featureEnabledForSession(Features.IRISPAY, session) && (
+            <Grid2 container spacing={2} sx={{ mt: 1 }}>
+              <Grid2 size={{ xs: 12 }}>
+                <EmailField
+                  label="donation-flow:step.authentication.field.billing-email"
+                  name="billingEmail"
+                  autoComplete="email"
+                  fullWidth
+                />
+              </Grid2>
+              <Grid2 size={{ xs: 12 }}>
+                <FormTextField
+                  type="text"
+                  label="donation-flow:step.authentication.field.billing-name"
+                  name="billingName"
+                  autoComplete="name"
+                  fullWidth
+                />
+              </Grid2>
             </Grid2>
-            <Grid2 size={{ xs: 12 }}>
-              <FormTextField
-                type="text"
-                label="donation-flow:step.authentication.field.billing-name"
-                name="billingName"
-                autoComplete="name"
-                fullWidth
-              />
-            </Grid2>
-          </Grid2>
+          )}
         </Box>
       ),
     },
