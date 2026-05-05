@@ -48,6 +48,7 @@
           "card": "Card",
           "bank": "Bank transfer",
           "paypal": "PayPal",
+          "irispay": "Iris Pay",
           "error": "You have to select a payment method"
         },
         "tax-box": {
@@ -93,7 +94,8 @@
       "alert": {
         "card-fee": "Stripe tax is calculated based on the region of the card's issuer: 1.2% + 0.5 EUR for the EU Economic Zone",
         "bank-fee": "Bank fee depends on the individual terms of your bank. Varies from (0-4 EUR)",
-        "calculated-fees": "For your donation of <strong>{{amount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the total charged amount will be <strong>{{totalAmount}}</strong>"
+        "calculated-fees": "For your donation of <strong>{{amount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the total charged amount will be <strong>{{totalAmount}}</strong>",
+        "irispay-fee": "Iris Pay does not charge any transaction fees"
       }
     },
     "authentication": {
@@ -114,7 +116,9 @@
         "password": "Password",
         "email": {
           "error": "You have to enter a valid email"
-        }
+        },
+        "billing-email": "Email for receipt",
+        "billing-name": "Full name for receipt"
       },
       "alert": {
         "authenticate": {

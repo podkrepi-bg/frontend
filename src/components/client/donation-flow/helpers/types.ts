@@ -10,6 +10,7 @@ export enum DonationFormAuthState {
 export enum DonationFormPaymentMethod {
   CARD = 'card',
   BANK = 'bank',
+  IRISPAY = 'irispay',
 }
 
 // "canceled" | "processing" | "requires_action" | "requires_capture" | "requires_confirmation" | "requires_payment_method" | "succeeded"
@@ -22,6 +23,8 @@ export enum DonationFormPaymentStatus {
   REQUIRES_ACTION = 'requires_action',
   REQUIRES_CAPTURE = 'requires_capture',
   REQUIRES_CONFIRMATION = 'requires_confirmation',
+  // IRIS-specific: BE finalize failed/unreachable, webhook will reconcile
+  PENDING = 'pending',
 }
 
 export type PaymentMode = 'one-time' | 'subscription'
@@ -39,8 +42,8 @@ export type DonationFormData = {
   amountChosen?: string
   otherAmount?: number
   //Login fields
-  billingEmail?: string
-  billingName?: string
+  billingEmail: string
+  billingName: string
   loginEmail?: string
   loginPassword?: string
   //Register fields
@@ -51,4 +54,30 @@ export type DonationFormData = {
   registerLastName?: string
   registerTerms?: boolean
   registerGdpr?: boolean
+  selectedBankHashId?: string
+}
+
+export const initialValues: DonationFormData = {
+  isAnonymous: false,
+  authentication: null,
+  payment: null,
+  privacy: false,
+  mode: null,
+  cardRegion: undefined,
+  cardIncludeFees: false,
+  finalAmount: undefined,
+  amountChosen: undefined,
+  otherAmount: undefined,
+  billingEmail: '',
+  billingName: '',
+  loginEmail: '',
+  loginPassword: '',
+  registerEmail: '',
+  registerPassword: '',
+  registerConfirmPassword: '',
+  registerFirstName: '',
+  registerLastName: '',
+  registerTerms: false,
+  registerGdpr: false,
+  selectedBankHashId: '',
 }

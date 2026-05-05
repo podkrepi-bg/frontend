@@ -3,15 +3,22 @@ import Filter from './Filter'
 import { useStores } from '../../../../common/hooks/useStores'
 import { observer } from 'mobx-react'
 
-import { DateTimePicker, enUS, LocalizationProvider } from '@mui/x-date-pickers'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { useTranslation } from 'next-i18next'
-import { bg } from 'date-fns/locale'
+import { bg, enUS } from 'date-fns/locale'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { useEffect, useState } from 'react'
 import { BankDonationStatus, BankTransactionType } from 'gql/bank-transactions.enums'
 
 export default observer(function GridFilters() {
   const { bankTransactionsStore } = useStores()
   const { t, i18n } = useTranslation()
+  const [isClient, setIsClient] = useState(false)
+
+  // Ensure this only renders on the client side
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
   const bankTransactionStatusOptions = {
     name: 'status',
     label: 'bank-transactions:cta.status',
@@ -45,26 +52,29 @@ export default observer(function GridFilters() {
     }
   }
 
+  // Get the current locale with fallback to enUS
+  const currentLocale = i18n?.language === 'bg' ? bg : enUS
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-      <LocalizationProvider
-        adapterLocale={i18n?.language === 'bg' ? bg : enUS}
-        dateAdapter={AdapterDateFns}>
-        <DateTimePicker
-          label={t('bank-transactions:cta.from')}
-          value={bankTransactionsStore.bankTransactionsFilter.date?.from || null}
-          onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'from')}
-          slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
-          maxDate={bankTransactionsStore.bankTransactionsFilter.date?.to}
-        />
-        <DateTimePicker
-          label={t('bank-transactions:cta.to')}
-          value={bankTransactionsStore.bankTransactionsFilter.date?.to || null}
-          onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'to')}
-          slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
-          minDate={bankTransactionsStore.bankTransactionsFilter.date?.from}
-        />
-      </LocalizationProvider>
+      {isClient && (
+        <LocalizationProvider adapterLocale={currentLocale} dateAdapter={AdapterDateFns}>
+          <DateTimePicker
+            label={t('bank-transactions:cta.from')}
+            value={bankTransactionsStore.bankTransactionsFilter.date?.from || null}
+            onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'from')}
+            slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
+            maxDate={bankTransactionsStore.bankTransactionsFilter.date?.to}
+          />
+          <DateTimePicker
+            label={t('bank-transactions:cta.to')}
+            value={bankTransactionsStore.bankTransactionsFilter.date?.to || null}
+            onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'to')}
+            slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
+            minDate={bankTransactionsStore.bankTransactionsFilter.date?.from}
+          />
+        </LocalizationProvider>
+      )}
       <Filter
         value={bankTransactionsStore.bankTransactionsFilter.status}
         options={bankTransactionStatusOptions}

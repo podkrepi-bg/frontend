@@ -41,6 +41,7 @@ const moduleExports = {
     FEATURE_ENABLED: {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
       DUAL_CURRENCY: process.env.FEATURE_DUAL_CURRENCY ?? false,
+      IRISPAY: process.env.FEATURE_IRISPAY ?? false,
     },
   },
   experimental: {
@@ -86,7 +87,7 @@ const moduleExports = {
       {
         key: 'X-XSS-Protection',
         value: '1; mode=block',
-      },
+      }
     ]
 
     return [
@@ -94,7 +95,7 @@ const moduleExports = {
         // Apply the headers to all routes
         source: '/:path*',
         headers: securityHeaders,
-      },
+      }
     ]
   },
   modularizeImports: {

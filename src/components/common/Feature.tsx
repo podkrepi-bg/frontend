@@ -1,14 +1,17 @@
 import { PropsWithChildren } from 'react'
 import { Typography } from '@mui/material'
+import { useSession } from 'next-auth/react'
 
 import Layout from 'components/client/layout/Layout'
-import { featureFlagEnabled, Features } from 'common/util/featureFlag'
+import { featureEnabledForSession, Features } from 'common/util/featureFlag'
 
 export { Features }
 
 type Props = PropsWithChildren<{ name: Features }>
 export default function Feature({ name, children }: Props) {
-  if (featureFlagEnabled(name)) {
+  const { data: session } = useSession()
+
+  if (featureEnabledForSession(name, session)) {
     return <>{children}</>
   }
 

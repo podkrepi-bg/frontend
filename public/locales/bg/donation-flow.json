@@ -48,6 +48,7 @@
           "card": "Карта",
           "bank": "Банков превод",
           "paypal": "PayPal",
+          "irispay": "Iris Pay",
           "error": "Трябва да изберете начин на плащане"
         },
         "card-region": {
@@ -89,7 +90,8 @@
       "alert": {
         "card-fee": "Таксата на Stripe се изчислява според района на картодържателя:  1.2% + 0.5 евро за Европейската икономическа зона.",
         "bank-fee": "Таксата за транзакция при банков превод зависи от индивидуалните условия на Вашата банка (от 0 до 4 евро).",
-        "calculated-fees": "За вашия превод от <strong>{{totalAmount}}</strong>, таксата на Stripe ще е <strong>{{fees}}</strong>, а кампанията ще получи <strong>{{amount}}</strong>."
+        "calculated-fees": "За вашия превод от <strong>{{totalAmount}}</strong>, таксата на Stripe ще е <strong>{{fees}}</strong>, а кампанията ще получи <strong>{{amount}}</strong>.",
+        "irispay-fee": "Iris Pay не начислява такси върху трансакциите."
       }
     },
     "authentication": {
@@ -110,7 +112,9 @@
         "password": "Парола",
         "email": {
           "error": "Трябва да въведете валиден имейл."
-        }
+        },
+        "billing-email": "Имейл за фактура",
+        "billing-name": "Пълно име за фактура"
       },
       "alert": {
         "authenticate": {
