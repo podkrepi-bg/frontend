@@ -10278,9 +10278,9 @@ __metadata:
   linkType: hard
 
 "i18next-fs-backend@npm:^2.1.5":
-  version: 2.2.0
-  resolution: "i18next-fs-backend@npm:2.2.0"
-  checksum: 33e00ccc8ec66a9fc20363513c3189a201a59e8601f167f0483c0a0d53ecee1dd4bb43b83d0f5661784e7a7ca3e43cd9c771d426cec73d8f819b9b823b77d724
+  version: 2.6.4
+  resolution: "i18next-fs-backend@npm:2.6.4"
+  checksum: 49833d5cf8d3f39fbc9bd6ffcb505a4cb559437405a29f136d8803ba1e56efb3acf60b534beb4fae639c3756d3aa79b3a434084eabc7821769091e73fd1b86cf
   languageName: node
   linkType: hard
 
