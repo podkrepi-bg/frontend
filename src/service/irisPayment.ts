@@ -1,5 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
+import { useSession } from 'next-auth/react'
 import { apiClient } from 'service/apiClient'
+import { authConfig } from 'service/restRequests'
 
 export type DonationType = 'donation' | 'corporate'
 
@@ -29,20 +31,26 @@ export type IrisCreateCustomerDto = {
 }
 
 export function useStartPaymentSession() {
+  const { data: session } = useSession()
   return useMutation({
     mutationFn: async () => {
-      return await apiClient.post('/iris-pay/start-session', {}, { withCredentials: true })
+      return await apiClient.post(
+        '/iris-pay/start-session',
+        {},
+        { ...authConfig(session?.accessToken), withCredentials: true },
+      )
     },
   })
 }
 
 export function useCreatePaymentSession() {
+  const { data: session } = useSession()
   return useMutation({
     mutationFn: async (data: IrisCreateCustomerDto) => {
       const response = await apiClient.post<PaymentSessionResponse>(
         '/iris-pay/create-payment-session',
         data,
-        { withCredentials: true },
+        { ...authConfig(session?.accessToken), withCredentials: true },
       )
       return response.data
     },
@@ -61,12 +69,13 @@ export type FinalizePaymentError = {
 }
 
 export function useFinalizePayment() {
+  const { data: session } = useSession()
   return useMutation({
     mutationFn: async () => {
       const response = await apiClient.post<FinalizePaymentResponse>(
         '/iris-pay/finalize',
         {},
-        { withCredentials: true },
+        { ...authConfig(session?.accessToken), withCredentials: true },
       )
       return response.data
     },
