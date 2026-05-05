@@ -11,8 +11,6 @@ import SubscriptionSection from './sections/SubscriptionSection/SubscriptionSect
 import TeamMembersSection from './sections/TeamMembersSection/TeamMembersSection'
 import JoinPodkrepiBgSection from './sections/JoinPodkrepiBgSection/JoinPodkrepiBgSection'
 import FaqSection from './sections/FaqSection/FaqSection'
-import IrisElements, { IRISPayContext } from '../iris-pay/IRISPayContext'
-import { PaymentDataElement } from '../iris-pay/IRISPaySDK'
 
 export default function IndexPage() {
   const { t } = useTranslation('index')

@@ -9,7 +9,10 @@ import { PersistFormikValues } from 'formik-persist-values'
 import { Box, Button, IconButton, Tooltip, Typography, Grid2 } from '@mui/material'
 import { ArrowBack, Info } from '@mui/icons-material'
 
-import { PaymentDataElement } from 'components/client/iris-pay/IRISPaySDK'
+import {
+  PaymentDataElement,
+  type PaymentDataElementHandle,
+} from '@podkrepi-bg/react-irispay'
 
 import { routes } from 'common/routes'
 import CheckboxField from 'components/common/form/CheckboxField'
@@ -44,7 +47,7 @@ import { confirmStripePayment } from './helpers/confirmStripeDonation'
 
 import { StripeError } from '@stripe/stripe-js'
 import { DonationFormErrorList } from './common/DonationFormErrors'
-import { useIrisElements } from '../iris-pay/irisContextHooks'
+import { useIrisElements } from '@podkrepi-bg/react-irispay'
 import { useIrisPayment } from './hooks/useIrisPayment'
 import { usePaymentSession } from './hooks/usePaymentSession'
 
@@ -129,6 +132,7 @@ export function DonationFlowForm() {
   const { startSession, createSession } = usePaymentSession()
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
+  const paymentDataRef = useRef<PaymentDataElementHandle>(null)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
   const [submitPaymentLoading, setSubmitPaymentLoading] = React.useState(false)
   const [showPaymentElement, setShowPaymentElement] = React.useState(false)
@@ -247,7 +251,7 @@ export function DonationFlowForm() {
               hookHash: sessionData.hookHash,
             })
 
-            iris?.updatePaymentData?.({
+            paymentDataRef.current?.updateElementData({
               sum: Number((values.finalAmount || 100) / 100),
               description: `IRISPAY ${campaign.title} - Donation`,
               currency: iris.currency,
@@ -506,6 +510,7 @@ export function DonationFlowForm() {
                 }}>
                 <Box sx={{ p: 3, height: '100%', minHeight: '100%' }}>
                   <PaymentDataElement
+                    ref={paymentDataRef}
                     onLoad={handleOnPaymentElementLoad}
                     onSuccess={handleOnPaymentSuccess}
                     onError={handleOnPaymentError}

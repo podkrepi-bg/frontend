@@ -6,7 +6,7 @@ import { DonationFlowProvider } from './contexts/DonationFlowProvider'
 import { StripeElementsProvider } from './contexts/StripeElementsProvider'
 import DonationFlowLayout from './DonationFlowLayout'
 import { CampaignResponse } from 'gql/campaigns'
-import IrisElements from '../iris-pay/IRISPayContext'
+import { IrisElements } from '@podkrepi-bg/react-irispay'
 
 export default function DonationFlowPage({
   slug,

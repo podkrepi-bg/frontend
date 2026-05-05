@@ -3730,6 +3730,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@podkrepi-bg/react-irispay@github:podkrepi-bg/react-irispay#v0.1.0":
+  version: 0.1.0
+  resolution: "@podkrepi-bg/react-irispay@https://github.com/podkrepi-bg/react-irispay.git#commit=1d0a91d0c13bc0502f3d8335bbe8895a72ba942c"
+  peerDependencies:
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  checksum: e1154d72981be0ae6ce97039e736baaea5a982d5433cc4d0420c916b80ad7d256adab20a4fdaf24d1eb0652fe31fcf8bf826b3717476923d6291eaf0cb9acb79
+  languageName: node
+  linkType: hard
+
 "@polka/url@npm:^1.0.0-next.20":
   version: 1.0.0-next.21
   resolution: "@polka/url@npm:1.0.0-next.21"
@@ -14212,6 +14222,7 @@ __metadata:
     "@mui/x-date-pickers": ^6.16.1
     "@next/bundle-analyzer": ^12.1.0
     "@paypal/react-paypal-js": ^7.8.1
+    "@podkrepi-bg/react-irispay": "github:podkrepi-bg/react-irispay#v0.1.0"
     "@ramonak/react-progress-bar": ^5.0.3
     "@react-pdf/renderer": ^3.1.3
     "@sentry/nextjs": ^8.55.1

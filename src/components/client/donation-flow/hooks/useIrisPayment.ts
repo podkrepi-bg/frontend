@@ -4,11 +4,11 @@ import { AxiosError } from 'axios'
 
 import { routes } from 'common/routes'
 import { useFinalizePayment, FinalizePaymentError } from 'service/irisPayment'
-import { useIrisElements } from 'components/client/iris-pay/irisContextHooks'
+import { useIrisElements } from '@podkrepi-bg/react-irispay'
 import type {
   OnPaymentEventError,
   OnPaymentEventLastStep,
-} from 'components/client/iris-pay/IRISPaySDK'
+} from '@podkrepi-bg/react-irispay'
 import { useDonationFlow } from '../contexts/DonationFlowProvider'
 import { DonationFormData } from '../helpers/types'
 
