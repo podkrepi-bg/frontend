@@ -45,7 +45,7 @@ jobs:
 
       - name: Login to GitHub Packages Docker Registry
         if: ${{ inputs.push }}
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
