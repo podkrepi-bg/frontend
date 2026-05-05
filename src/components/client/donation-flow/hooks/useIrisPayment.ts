@@ -5,10 +5,7 @@ import { AxiosError } from 'axios'
 import { routes } from 'common/routes'
 import { useFinalizePayment, FinalizePaymentError } from 'service/irisPayment'
 import { useIrisElements } from '@podkrepi-bg/react-irispay'
-import type {
-  OnPaymentEventError,
-  OnPaymentEventLastStep,
-} from '@podkrepi-bg/react-irispay'
+import type { OnPaymentEventError, OnPaymentEventLastStep } from '@podkrepi-bg/react-irispay'
 import { useDonationFlow } from '../contexts/DonationFlowProvider'
 import { DonationFormData } from '../helpers/types'
 

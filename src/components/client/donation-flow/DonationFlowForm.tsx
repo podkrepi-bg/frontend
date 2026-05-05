@@ -9,10 +9,7 @@ import { PersistFormikValues } from 'formik-persist-values'
 import { Box, Button, IconButton, Tooltip, Typography, Grid2 } from '@mui/material'
 import { ArrowBack, Info } from '@mui/icons-material'
 
-import {
-  PaymentDataElement,
-  type PaymentDataElementHandle,
-} from '@podkrepi-bg/react-irispay'
+import { PaymentDataElement, PaymentDataElementHandle } from '@podkrepi-bg/react-irispay'
 
 import { routes } from 'common/routes'
 import CheckboxField from 'components/common/form/CheckboxField'
