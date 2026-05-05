@@ -61,7 +61,7 @@ jobs:
 
       - name: Create or update comment (missing vars)
         if: steps.validate.outputs.has_missing == 'true'
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         with:
           comment-id: ${{ steps.find-comment.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -85,7 +85,7 @@ jobs:
 
       - name: Update comment to resolved
         if: steps.validate.outputs.has_missing == 'false' && steps.find-comment.outputs.comment-id != ''
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         with:
           comment-id: ${{ steps.find-comment.outputs.comment-id }}
           edit-mode: replace
