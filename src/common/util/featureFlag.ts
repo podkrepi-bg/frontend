@@ -3,6 +3,7 @@ import { Session } from 'next-auth'
 
 import {
   isAdmin,
+  roles,
   SessionRoles,
   RealmRole,
   ResourceRole,
@@ -30,7 +31,9 @@ type RoleGate = {
  * Features not listed here fall back to the global env-based flag.
  */
 const roleGatedFeatures: Partial<Record<Features, RoleGate>> = {
-  [Features.IRISPAY]: { realmRoles: ['beta-tester'] },
+  [Features.IRISPAY]: {
+    realmRoles: [roles.realm.BetaTester, roles.realm.RealmViewSupporters],
+  },
 }
 
 const featureEnvMap: Record<Features, string | undefined> = {

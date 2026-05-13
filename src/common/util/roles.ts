@@ -29,6 +29,7 @@ export const roles = {
   realm: {
     RealmViewContactRequests: <const>'view-contact-requests',
     RealmViewSupporters: <const>'view-supporters',
+    BetaTester: <const>'beta-tester',
   },
 }
 
