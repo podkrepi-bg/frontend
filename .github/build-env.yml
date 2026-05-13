@@ -10,6 +10,7 @@ shared:
   GHOST_API_URL: https://blog-do.podkrepi.bg
   NEXT_PUBLIC_FEATURE_DUAL_CURRENCY: "true"
   NEXT_PUBLIC_FEATURE_CAMPAIGN: "true"
+  NEXT_PUBLIC_FEATURE_IRISPAY: "true"
 
 test:
   NEXT_PUBLIC_API_URL: http://localhost:5010/api/v1
@@ -26,6 +27,9 @@ dev:
   IMAGE_HOST: dev.podkrepi.bg
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_test_51IRdsUKApGjVGa9tYn5oVQwt3rybeIwNHAyWR8nAYd6JaKyTyB4X0g3EgzIEGfqwMYo3ZSlt9gBExTFnVomFTNEO008bjoNXSx
   NEXT_PUBLIC_PAYPAL_CLIENT_ID: sb
+  NEXT_PUBLIC_IRIS_BACKEND: "development"
+  NEXT_PUBLIC_IRIS_PUBLIC_HASH: "f75fa38d-ca1b-4241-a01a-58965d444aba"
+  NEXT_PUBLIC_PLATFORM_IBAN: "BG31UNCR70001526254645"
 
 prod:
   NEXT_PUBLIC_API_URL: https://podkrepi.bg/api/v1
@@ -35,6 +39,10 @@ prod:
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_live_51IRdsUKApGjVGa9tbGfNIXvSEFs69XwnkXzU7IZEeBttHhwTCYvBIeFvKPxUd3IBCTp9cizH0bvlQEPqPhVlPYM600YswIlpkq
   NEXT_PUBLIC_PAYPAL_CLIENT_ID: ""
   NEXT_PUBLIC_FEATURE_CAMPAIGN: "false"
+  NEXT_PUBLIC_IRIS_BACKEND: "production"
+  NEXT_PUBLIC_IRIS_PUBLIC_HASH: "c0f7f9ae-8da4-4916-a74f-b19bc03032e9"
+  NEXT_PUBLIC_PLATFORM_IBAN: "BG66UNCR70001524349032"
+
 
 ## Runtime-only env vars - set via K8s manifests/secrets, NOT baked into the build.
 ## Listed here for validation purposes only.

@@ -29,10 +29,12 @@ export const loginValidation = {
   loginEmail: yup.string().when('authentication', {
     is: DonationFormAuthState.LOGIN,
     then: yup.string().email('donation-flow:general.error.email').required(),
+    otherwise: yup.string(),
   }),
   loginPassword: yup.string().when('authentication', {
     is: DonationFormAuthState.LOGIN,
     then: yup.string().required(),
+    otherwise: yup.string(),
   }),
 }
 function InlineLoginForm() {

@@ -23,9 +23,11 @@ function AlertsColumn({
   } = useFormikContext<DonationFormData>()
   const cardAlertDescription = t('step.payment-method.alert.card-fee')
   const bankAlertDescription = t('step.payment-method.alert.bank-fee')
+  const irisPayAlertDescription = t('step.payment-method.alert.irispay-fee')
   const paymentMethodAlertMap = {
     [DonationFormPaymentMethod.CARD]: cardAlertDescription,
     [DonationFormPaymentMethod.BANK]: bankAlertDescription,
+    [DonationFormPaymentMethod.IRISPAY]: irisPayAlertDescription,
   }
   const [updatedRefArray, setUpdatedRefArray] =
     React.useState<React.MutableRefObject<HTMLDivElement | null>[]>(sectionsRefArray)

@@ -12,7 +12,7 @@ import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
-import { DonationFormData } from '../helpers/types'
+import { DonationFormData, DonationFormPaymentMethod } from '../helpers/types'
 import { useSession } from 'next-auth/react'
 import { ids } from '../common/DonationFormSections'
 import { DonationFormSectionErrorText } from '../common/DonationFormErrors'
@@ -30,19 +30,23 @@ export const amountValidation = {
   amountChosen: yup.string().when('payment', {
     is: 'card',
     then: yup.string().optional(),
+    otherwise: yup.string(),
   }),
   finalAmount: yup.number().when('payment', {
     is: (payment: string | null) => ['card', null].includes(payment),
     then: () =>
       yup.number().min(1, 'donation-flow:step.amount.field.final-amount.error').required(),
+    otherwise: yup.number(),
   }),
   otherAmount: yup.number().when('amountChosen', {
     is: 'other',
     then: yup.number().min(1, 'donation-flow:step.amount.field.final-amount.error').required(),
+    otherwise: yup.number(),
   }),
   cardIncludeFees: yup.boolean().when('payment', {
     is: 'card',
     then: yup.boolean().required(),
+    otherwise: yup.boolean(),
   }),
   cardRegion: yup
     .string()
@@ -50,6 +54,7 @@ export const amountValidation = {
     .when('payment', {
       is: 'card',
       then: yup.string().oneOf(Object.values(CardRegion)).required(),
+      otherwise: yup.string().oneOf(Object.values(CardRegion)),
     }) as yup.SchemaOf<CardRegion>,
 }
 
@@ -76,17 +81,32 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
     // Do not perform calculations if amount is not set
     if (amountChosen === 0) return
 
-    if (formik.values.cardIncludeFees) {
-      formik.setFieldValue('amountWithoutFees', amountChosen)
-      formik.setFieldValue(
-        'finalAmount',
-        stripeIncludeFeeCalculator(amountChosen, formik.values.cardRegion as CardRegion),
-      )
+    // For non-card payment methods (IRISPAY, BANK), always use the chosen amount without fees
+    if (
+      formik.values.payment === DonationFormPaymentMethod.IRISPAY ||
+      formik.values.payment === DonationFormPaymentMethod.BANK
+    ) {
+      formik.setFieldValue('finalAmount', amountChosen)
+      return
+    }
+
+    // For card payments, handle fee calculations
+    if (formik.values.payment === DonationFormPaymentMethod.CARD) {
+      if (formik.values.cardIncludeFees) {
+        formik.setFieldValue('amountWithoutFees', amountChosen)
+        formik.setFieldValue(
+          'finalAmount',
+          stripeIncludeFeeCalculator(amountChosen, formik.values.cardRegion as CardRegion),
+        )
+      } else {
+        formik.setFieldValue(
+          'amountWithoutFees',
+          amountChosen - stripeFeeCalculator(amountChosen, formik.values.cardRegion as CardRegion),
+        )
+        formik.setFieldValue('finalAmount', amountChosen)
+      }
     } else {
-      formik.setFieldValue(
-        'amountWithoutFees',
-        amountChosen - stripeFeeCalculator(amountChosen, formik.values.cardRegion as CardRegion),
-      )
+      // Default case when no payment method is selected yet
       formik.setFieldValue('finalAmount', amountChosen)
     }
   }, [
@@ -94,6 +114,7 @@ export default function Amount({ disabled, sectionRef, error }: SelectDonationAm
     formik.values.amountChosen,
     formik.values.cardIncludeFees,
     formik.values.cardRegion,
+    formik.values.payment,
   ])
 
   return (

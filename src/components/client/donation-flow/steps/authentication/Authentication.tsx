@@ -10,12 +10,15 @@ import {
 } from 'components/client/donation-flow/helpers/types'
 import { AuthenticateAlertContent } from 'components/client/donation-flow/alerts/AlertsContent'
 import theme from 'common/theme'
+import FormTextField from 'components/common/form/FormTextField'
+import EmailField from 'components/common/form/EmailField'
 
 import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import InlineLoginForm from './InlineLoginForm'
 import InlineRegisterForm from './InlineRegisterForm'
 import { ids } from '../../common/DonationFormSections'
 import { DonationFormSectionErrorText } from '../../common/DonationFormErrors'
+import { featureEnabledForSession, Features } from 'common/util/featureFlag'
 
 export default function Authentication({
   sectionRef,
@@ -101,6 +104,27 @@ export default function Authentication({
               sx={{ mb: 1, mx: -2 }}>
               {t('step.authentication.noregister.description')}
             </Alert>
+          )}
+          {featureEnabledForSession(Features.IRISPAY, session) && (
+            <Grid2 container spacing={2} sx={{ mt: 1 }}>
+              <Grid2 size={{ xs: 12 }}>
+                <EmailField
+                  label="donation-flow:step.authentication.field.billing-email"
+                  name="billingEmail"
+                  autoComplete="email"
+                  fullWidth
+                />
+              </Grid2>
+              <Grid2 size={{ xs: 12 }}>
+                <FormTextField
+                  type="text"
+                  label="donation-flow:step.authentication.field.billing-name"
+                  name="billingName"
+                  autoComplete="name"
+                  fullWidth
+                />
+              </Grid2>
+            </Grid2>
           )}
         </Box>
       ),

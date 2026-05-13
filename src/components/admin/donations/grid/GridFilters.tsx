@@ -3,15 +3,22 @@ import Filter from './Filter'
 import { useStores } from '../../../../common/hooks/useStores'
 import { observer } from 'mobx-react'
 import { PaymentStatus, PaymentProvider } from 'gql/donations.enums'
-import { DateTimePicker, enUS, LocalizationProvider } from '@mui/x-date-pickers'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { useTranslation } from 'next-i18next'
-import { bg } from 'date-fns/locale'
+import { bg, enUS } from 'date-fns/locale'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { fromMoney, toMoney } from 'common/util/money'
+import { useEffect, useState } from 'react'
 
 export default observer(function GridFilters() {
   const { donationStore } = useStores()
   const { t, i18n } = useTranslation()
+  const [isClient, setIsClient] = useState(false)
+
+  // Ensure this only renders on the client side
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
   const donationStatusOptions = {
     name: 'status',
     label: 'donations:cta.status',
@@ -45,26 +52,29 @@ export default observer(function GridFilters() {
     }
   }
 
+  // Get the current locale with fallback to enUS
+  const currentLocale = i18n?.language === 'bg' ? bg : enUS
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-      <LocalizationProvider
-        adapterLocale={i18n?.language === 'bg' ? bg : enUS}
-        dateAdapter={AdapterDateFns}>
-        <DateTimePicker
-          label={t('donations:cta.from')}
-          value={donationStore.donationFilters.date?.from || null}
-          onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'from')}
-          slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
-          maxDate={donationStore.donationFilters.date?.to}
-        />
-        <DateTimePicker
-          label={t('donations:cta.to')}
-          value={donationStore.donationFilters.date?.to || null}
-          onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'to')}
-          slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
-          minDate={donationStore.donationFilters.date?.from}
-        />
-      </LocalizationProvider>
+      {isClient && (
+        <LocalizationProvider adapterLocale={currentLocale} dateAdapter={AdapterDateFns}>
+          <DateTimePicker
+            label={t('donations:cta.from')}
+            value={donationStore.donationFilters.date?.from || null}
+            onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'from')}
+            slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
+            maxDate={donationStore.donationFilters.date?.to}
+          />
+          <DateTimePicker
+            label={t('donations:cta.to')}
+            value={donationStore.donationFilters.date?.to || null}
+            onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'to')}
+            slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
+            minDate={donationStore.donationFilters.date?.from}
+          />
+        </LocalizationProvider>
+      )}
       <TextField
         label={t('donations:cta.minAmount')}
         type="number"

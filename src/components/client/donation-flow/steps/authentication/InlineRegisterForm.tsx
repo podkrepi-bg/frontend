@@ -37,30 +37,37 @@ export const registerFormValidation = {
   registerEmail: yup.string().when('authentication', {
     is: DonationFormAuthState.REGISTER,
     then: yup.string().email('donation-flow:general.error.email').required(),
+    otherwise: yup.string(),
   }),
   registerPassword: yup.string().when('authentication', {
     is: DonationFormAuthState.REGISTER,
     then: yup.string().required(),
+    otherwise: yup.string(),
   }),
   registerConfirmPassword: yup.string().when('authentication', {
     is: DonationFormAuthState.REGISTER,
     then: yup.string().required(),
+    otherwise: yup.string(),
   }),
   registerFirstName: yup.string().when('authentication', {
     is: DonationFormAuthState.REGISTER,
     then: yup.string().required(),
+    otherwise: yup.string(),
   }),
   registerLastName: yup.string().when('authentication', {
     is: DonationFormAuthState.REGISTER,
     then: yup.string().required(),
+    otherwise: yup.string(),
   }),
   registerGdpr: yup.boolean().when('authentication', {
     is: DonationFormAuthState.REGISTER,
     then: yup.boolean().required(),
+    otherwise: yup.boolean(),
   }),
   registerTerms: yup.boolean().when('authentication', {
     is: DonationFormAuthState.REGISTER,
     then: yup.boolean().required(),
+    otherwise: yup.boolean(),
   }),
 }
 

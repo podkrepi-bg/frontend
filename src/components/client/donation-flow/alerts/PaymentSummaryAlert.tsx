@@ -8,7 +8,7 @@ import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 import { stripeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { CardRegion } from 'gql/donations.enums'
 import { useFormikContext } from 'formik'
-import { DonationFormData } from '../helpers/types'
+import { DonationFormData, DonationFormPaymentMethod } from '../helpers/types'
 import { Grid2 } from '@mui/material'
 import DualCurrencyAmount from 'components/common/DualCurrencyAmount'
 
@@ -24,9 +24,9 @@ function PaymentSummaryAlert({
   const formik = useFormikContext<DonationFormData>()
   const dualCurrencyEnabled = featureFlagEnabled(Features.DUAL_CURRENCY)
   const feeAmount =
-    donationAmount !== 0
+    formik.values.payment === DonationFormPaymentMethod.CARD
       ? stripeFeeCalculator(donationAmount, formik.values.cardRegion as CardRegion)
-      : donationAmount
+      : 0
 
   return (
     <Grid2

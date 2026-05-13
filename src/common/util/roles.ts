@@ -12,6 +12,7 @@ export type RealmRole =
   | 'offline_access'
   | 'default-roles-webapp-dev'
   | 'uma_authorization'
+  | 'beta-tester'
 
 export type ResourceRole =
   | 'view-profile'

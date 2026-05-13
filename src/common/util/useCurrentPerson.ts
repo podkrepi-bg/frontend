@@ -43,6 +43,10 @@ export function useCurrentPerson() {
     [endpoints.account.me.url],
     authQueryFnFactory<CurrentPerson>(session?.accessToken),
     {
+      // Wait until the session token is available — otherwise the queryFn
+      // fires with an undefined token and hangs in the fetchSession fallback,
+      // leaving /account/me stuck in 'fetching' forever.
+      enabled: !!session?.accessToken,
       retry: (count, err) => {
         if (err.isAxiosError && err.response?.status === 401 && count > 3) {
           return false

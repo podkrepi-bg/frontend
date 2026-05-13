@@ -179,6 +179,35 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
     </Box>
   )
 
+  const Pending = () => (
+    <Box>
+      <Typography textAlign="center" variant="h4" component="h1" mb={1}>
+        {t('status.pending.title', 'Обработваме плащането ви')}
+      </Typography>
+      <Typography textAlign="center" mb={3}>
+        {t(
+          'status.pending.description',
+          'Плащането ви се потвърждава от банката. Можете да проверите статуса в профила си.',
+        )}
+      </Typography>
+      <Box display="flex" justifyContent="center" my={4}>
+        <CircularProgress size={80} />
+      </Box>
+      <StepSplitter />
+      <Grid2 spacing={2} container>
+        <Grid2 size={{ xs: 12, md: 6 }}>
+          <LinkCard
+            href={routes.campaigns.viewCampaignBySlug(slug)}
+            text={t('status.success.link.return')}
+          />
+        </Grid2>
+        <Grid2 size={{ xs: 12, md: 6 }}>
+          <LinkCard href={routes.profile.index} text={t('status.success.link.donations')} />
+        </Grid2>
+      </Grid2>
+    </Box>
+  )
+
   const Fail = () => (
     <Box>
       <Typography textAlign="center" variant="h4" mb={1}>
@@ -214,8 +243,12 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
     </Box>
   )
 
-  const StatusToRender = () =>
-    status === DonationFormPaymentStatus.SUCCEEDED ? <Success /> : error ? <Fail /> : null
+  const StatusToRender = () => {
+    if (status === DonationFormPaymentStatus.SUCCEEDED) return <Success />
+    if (status === DonationFormPaymentStatus.PENDING) return <Pending />
+    if (error) return <Fail />
+    return null
+  }
 
   return (
     <DonationFlowLayout campaign={campaign} maxWidth={'960px'}>
