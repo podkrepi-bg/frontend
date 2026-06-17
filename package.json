@@ -54,7 +54,7 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "cookie": "^1.0.2",
     "date-fns": "2.24.0",
-    "dompurify": "^3.4.0",
+    "dompurify": "^3.4.9",
     "formik": "2.2.9",
     "formik-persist-values": "^1.4.1",
     "i18next": "^23.5.1",
