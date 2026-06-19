@@ -203,7 +203,7 @@ export default function PersonalInfoTab() {
               <p className={classes.bold}>{t('profile:personalInfo.birthday')}</p>
               <Typography sx={{ color: person?.birthday ? undefined : '#F22727' }}>
                 {person?.birthday
-                  ? formatDateString(person?.birthday, i18n?.language)
+                  ? formatDateString(person?.birthday)
                   : t('profile:personalInfo.noBirthday')}
               </Typography>
               <Box className={classes.editBox}>

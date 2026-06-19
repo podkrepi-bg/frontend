@@ -2,10 +2,9 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { format } from 'date-fns'
 import { useField, useFormikContext } from 'formik'
-import { useTranslation } from 'next-i18next'
 import theme from 'common/theme'
 
-import { DATE_VALUE_FORMAT, getDateFormat } from 'common/util/date'
+import { DATE_VALUE_FORMAT, dateViewFormat } from 'common/util/date'
 
 interface FormDatePickerProps {
   name: string
@@ -25,9 +24,6 @@ const errorValidationColor = theme.palette.error as unknown as string
 export default function FormDatePicker({ name, label, maxDate }: FormDatePickerProps) {
   const [field, meta] = useField(name)
   const { setFieldValue } = useFormikContext()
-  const { i18n } = useTranslation()
-
-  const dateViewFormat = getDateFormat(i18n?.language)
 
   const updateValue = (newValue: Date | null) => {
     let formattedValue
