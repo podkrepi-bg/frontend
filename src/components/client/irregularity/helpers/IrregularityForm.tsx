@@ -11,7 +11,7 @@ import { FormikHelpers, FormikProps } from 'formik'
 
 import { StepLabel, Grid } from '@mui/material'
 
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { ApiErrors, handleFileUploadError, isAxiosError, matchValidator } from 'service/apiErrors'
 import { createIrregularity, uploadIrregularityFiles } from 'service/irregularity'
 
 import {
@@ -116,6 +116,7 @@ export default function IrregularityForm({ campaign, person }: Props) {
     UploadIrregularityFiles
   >({
     mutationFn: uploadIrregularityFiles(),
+    onError: (error) => handleFileUploadError(error, t),
   })
 
   const handleBack = () => {

@@ -27,7 +27,13 @@ const FormRichTextField = dynamic(() => import('components/common/form/FormRichT
   ssr: false,
 })
 
-import { ApiErrors, handleUniqueViolation, isAxiosError, matchValidator } from 'service/apiErrors'
+import {
+  ApiErrors,
+  handleFileUploadError,
+  handleUniqueViolation,
+  isAxiosError,
+  matchValidator,
+} from 'service/apiErrors'
 import { CampaignUploadImage } from 'gql/campaigns'
 import { ArticleStatus } from 'components/admin/campaign-news/helpers/article-status.enum'
 import ArticleStatusSelect from 'components/admin/campaign-news/ArticleStatusSelect'
@@ -123,7 +129,7 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
     UploadCampaignNewsFiles
   >({
     mutationFn: useUploadCampaignNewsFiles(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onError: (error) => handleFileUploadError(error, t),
     onSuccess: () => {
       //invalidate query for getting new values
       queryClient.invalidateQueries([endpoints.campaignNews.viewNewsArticleById(article.id).url])
