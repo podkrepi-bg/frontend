@@ -35,14 +35,14 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   [`&.${classes.container}`]: {
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(1.5),
+    gap: theme.spacing(0.5),
   },
 
   [`& .${classes.wishItem}`]: {
     display: 'flex',
     alignItems: 'flex-start',
     gap: theme.spacing(1.5),
-    padding: theme.spacing(1, 0),
+    padding: theme.spacing(0.5, 0),
   },
 
   [`& .${classes.wishContent}`]: {
@@ -54,7 +54,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
     color: theme.palette.text.secondary,
     fontSize: '0.75rem',
     lineHeight: '150%',
-    marginTop: theme.spacing(0.5),
+    marginTop: theme.spacing(0),
   },
 
   [`& .${classes.wishMessage}`]: {

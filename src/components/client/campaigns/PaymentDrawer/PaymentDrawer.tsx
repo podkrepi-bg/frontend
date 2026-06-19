@@ -26,7 +26,7 @@ export default function PaymentDrawer({
   initialState = 'collapsed',
 }: PaymentDrawerProps) {
   const { mobile } = useMobile()
-  const logic = usePaymentDrawerLogic(campaign, initialState, mobile)
+  const logic = usePaymentDrawerLogic(campaign, initialState)
 
   return mobile ? <MobilePaymentDrawer {...logic} /> : <DesktopPaymentDrawer {...logic} />
 }

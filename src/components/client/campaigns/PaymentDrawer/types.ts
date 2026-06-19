@@ -35,7 +35,8 @@ export interface UsePaymentDrawerLogicReturn {
   setPage: (page: number) => void
   sortBy: 'createdAt' | 'amount'
   sortOrder: 'asc' | 'desc'
-  pageSize: number
+  donationsPageSize: number
+  wishesPageSize: number
 
   // Campaign data
   campaignId: string
