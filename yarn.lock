@@ -10312,9 +10312,9 @@ __metadata:
   linkType: hard
 
 "i18next-fs-backend@npm:^2.1.5":
-  version: 2.6.4
-  resolution: "i18next-fs-backend@npm:2.6.4"
-  checksum: 49833d5cf8d3f39fbc9bd6ffcb505a4cb559437405a29f136d8803ba1e56efb3acf60b534beb4fae639c3756d3aa79b3a434084eabc7821769091e73fd1b86cf
+  version: 2.6.6
+  resolution: "i18next-fs-backend@npm:2.6.6"
+  checksum: 0055e737379d29bac8230b057325e5d2e9311dd12cfd65ad1053fd78bade0d020d1a16b549de311b20c41106c50013019a22fe70d6e0585e07196f6a11c958ab
   languageName: node
   linkType: hard
 
