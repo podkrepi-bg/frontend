@@ -13246,9 +13246,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-auth@npm:^4.24.12":
-  version: 4.24.12
-  resolution: "next-auth@npm:4.24.12"
+"next-auth@npm:^4.24.15":
+  version: 4.24.15
+  resolution: "next-auth@npm:4.24.15"
   dependencies:
     "@babel/runtime": ^7.20.13
     "@panva/hkdf": ^1.0.2
@@ -13258,9 +13258,9 @@ __metadata:
     openid-client: ^5.4.0
     preact: ^10.6.3
     preact-render-to-string: ^5.1.19
-    uuid: ^8.3.2
+    uuid: ^11.1.1
   peerDependencies:
-    "@auth/core": 0.34.2
+    "@auth/core": 0.34.3
     next: ^12.2.5 || ^13 || ^14 || ^15 || ^16
     nodemailer: ^7.0.7
     react: ^17.0.2 || ^18 || ^19
@@ -13270,7 +13270,7 @@ __metadata:
       optional: true
     nodemailer:
       optional: true
-  checksum: 50e8ddef4ee7ab2fdd071ac9ab4260f5a3ee83b8c63e402edca201d51c8dc118bd3ffe6c5c2f6a013867cd99c901eb4002a15bfbfa634c21db29de62f6af3a77
+  checksum: 8ce20aff76fcdcd95deab322bce3adfa12f9858830689d56658c5cfb98e787aaddc85009dd39c2709f9664af14067638c906793cf17bed7d8a8c15b28d3df9f9
   languageName: node
   linkType: hard
 
@@ -14131,7 +14131,7 @@ __metadata:
     mobx-react: 7.2.0
     msw: 1
     next: ^14.2.35
-    next-auth: ^4.24.12
+    next-auth: ^4.24.15
     next-i18next: ^14.0.3
     next-sitemap: ^3.1.52
     nookies: ^2.5.2
@@ -17182,12 +17182,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^8.3.2":
-  version: 8.3.2
-  resolution: "uuid@npm:8.3.2"
+"uuid@npm:^11.1.1":
+  version: 11.1.1
+  resolution: "uuid@npm:11.1.1"
   bin:
-    uuid: dist/bin/uuid
-  checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
+    uuid: dist/esm/bin/uuid
+  checksum: 1c1ea6ffc9fd02a343d77151734af65644ebf5bac733b59bdab85859cf793cf03ac8d60909fa19dcd2272e154b20734c464b667afd8bdac02b4da5e206079469
   languageName: node
   linkType: hard
 

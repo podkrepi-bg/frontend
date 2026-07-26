@@ -64,7 +64,7 @@
     "mobx": "6.3.2",
     "mobx-react": "7.2.0",
     "next": "^14.2.35",
-    "next-auth": "^4.24.12",
+    "next-auth": "^4.24.15",
     "next-i18next": "^14.0.3",
     "nookies": "^2.5.2",
     "quill-blot-formatter": "^1.0.5",
