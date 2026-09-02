@@ -84,7 +84,7 @@
     "remark-directive": "^2.0.1",
     "remark-parse": "^10.0.2",
     "remark-rehype": "^10.1.0",
-    "sanitize-html": "^2.17.5",
+    "sanitize-html": "^2.17.7",
     "sharp": "^0.35.0",
     "slick-carousel": "^1.8.1",
     "slugify": "^1.6.0",
