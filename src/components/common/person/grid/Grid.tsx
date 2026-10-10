@@ -81,9 +81,9 @@ export default observer(function Grid() {
     const sortData: SortData =
       sortModel.length !== 0
         ? {
-          sortBy: sortModel[0].field === 'name' ? 'firstName' : sortModel[0].field,
-          sortOrder: sortModel[0].sort ?? 'desc',
-        }
+            sortBy: sortModel[0].field === 'name' ? 'firstName' : sortModel[0].field,
+            sortOrder: sortModel[0].sort ?? 'desc',
+          }
         : defaultSort
 
     setSortingModel(sortData)
