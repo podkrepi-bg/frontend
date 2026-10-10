@@ -1,5 +1,4 @@
 import { useTranslation } from 'next-i18next'
-import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
@@ -18,7 +17,6 @@ import { useCancelRecurringDonation } from 'service/donation'
 export default function MyRecurringCampaignsTable() {
   const { t } = useTranslation()
   const { data: recurringDonations } = useGetUserRecurringDonations()
-  const { data: session } = useSession()
 
   const [openDialog, setOpenDialog] = useState(false)
   const [selectedRecurringDonation, setSelectedRecurringDonation] = useState<string | null>(null)

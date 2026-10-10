@@ -1,7 +1,6 @@
 import { Button, ButtonProps } from '@mui/material'
 import NextLink, { LinkProps } from 'next/link'
 import { forwardRef, Ref } from 'react'
-import Link from '@mui/material/Link'
 
 export type LinkRef = HTMLButtonElement
 export type NextLinkProps = ButtonProps &

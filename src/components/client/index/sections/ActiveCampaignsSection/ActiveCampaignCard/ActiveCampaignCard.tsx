@@ -26,7 +26,7 @@ type Props = { campaign: CampaignResponse; index: number }
 
 export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
-  const { id, slug, title, summary, targetAmount: target } = campaign
+  const { slug, title, summary, targetAmount: target } = campaign
   const campaignImagesUrl = campaignListPictureUrl(campaign)
 
   const reached = summary ? summary.reachedAmount + (summary.guaranteedAmount ?? 0) : 0

@@ -135,7 +135,7 @@ export function DonationFlowForm() {
   const [showPaymentElement, setShowPaymentElement] = React.useState(false)
 
   // Use the Iris payment hook
-  const { handleOnPaymentElementLoad, handleOnPaymentSuccess, handleOnPaymentError, isCompleting } =
+  const { handleOnPaymentElementLoad, handleOnPaymentSuccess, handleOnPaymentError } =
     useIrisPayment({
       formikRef,
       setShowPaymentElement,
@@ -328,8 +328,7 @@ export function DonationFlowForm() {
             session,
           )
           router.push(
-            `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${
-              payment.status
+            `${window.location.origin}${routes.campaigns.donationStatus(campaign.slug)}?p_status=${payment.status
             }&payment_intent=${payment.id}`,
           )
         } catch (error) {

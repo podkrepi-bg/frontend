@@ -1,4 +1,3 @@
-import getConfig from 'next/config'
 import { Session } from 'next-auth'
 
 import {
@@ -10,8 +9,6 @@ import {
   hasRealmRole,
   hasResourceRole,
 } from './roles'
-
-const { publicRuntimeConfig } = getConfig() || {}
 
 export enum Features {
   CAMPAIGN = 'CAMPAIGN',
