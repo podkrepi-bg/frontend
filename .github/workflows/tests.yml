@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+          allow-unsafe-pr-checkout: true
 
       - name: Build
         uses: docker/build-push-action@v7
@@ -42,6 +43,7 @@ jobs:
      - uses: actions/checkout@v7
        with:
          ref: ${{ github.event.pull_request.head.sha }}
+         allow-unsafe-pr-checkout: true
 
      - name: Install kustomize
        uses: imranismail/setup-kustomize@v3
