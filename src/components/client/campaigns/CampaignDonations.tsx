@@ -28,7 +28,7 @@ type Props = {
   pageSize?: number
 }
 
-export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
+export default function CampaignDonations({ campaignId, pageSize = 5 }: Props) {
   const { t, i18n } = useTranslation('campaigns')
   const locale = i18n?.language == 'bg' ? bg : enUS
   const titleRef = useRef<HTMLElement>(null)
