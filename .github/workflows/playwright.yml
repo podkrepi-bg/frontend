@@ -14,6 +14,7 @@ jobs:
         with:
           path: './frontend'
           ref: ${{ github.event.pull_request.head.sha }}
+          allow-unsafe-pr-checkout: true
 
       - name: Checkout
         uses: actions/checkout@v7
