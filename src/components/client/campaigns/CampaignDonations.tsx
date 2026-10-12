@@ -11,7 +11,7 @@ import Pagination from '@mui/material/Pagination'
 
 import { bg, enUS } from 'date-fns/locale'
 import { moneyPublic } from 'common/util/money'
-import { useDonationWishesList } from 'common/hooks/donationWish'
+import { useDonationsWithWishesList } from 'common/hooks/donationWish'
 import { getExactDate } from 'common/util/date'
 import theme from 'common/theme'
 import { SortData } from 'gql/types'
@@ -28,7 +28,7 @@ type Props = {
   pageSize?: number
 }
 
-export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
+export default function CampaignDonations({ campaignId, pageSize = 5 }: Props) {
   const { t, i18n } = useTranslation('campaigns')
   const locale = i18n?.language == 'bg' ? bg : enUS
   const titleRef = useRef<HTMLElement>(null)
@@ -40,7 +40,7 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
     sortOrder: 'desc',
   })
 
-  const { data, isSuccess } = useDonationWishesList(
+  const { data, isSuccess } = useDonationsWithWishesList(
     campaignId,
     { pageIndex, pageSize },
     sort,
@@ -142,7 +142,7 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
       </Grid2>
       <Grid2 container direction="column" rowGap={3}>
         {isSuccess &&
-          data?.items?.map(({ id, person, donation, message, createdAt }) => (
+          data?.items?.map(({ id, type, amount, currency, person, metadata, wish, createdAt }) => (
             <Grid2
               container
               key={id}
@@ -157,7 +157,7 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
                     />
                   </Grid>
                   <Stack direction="column">
-                    {donation?.type === DonationType.donation && (
+                    {type === DonationType.donation && (
                       <Typography
                         variant="caption"
                         sx={{
@@ -170,9 +170,9 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
                           : t('campaigns:donations.anonymous')}
                       </Typography>
                     )}
-                    {donation?.type === DonationType.corporate && (
+                    {type === DonationType.corporate && (
                       <>
-                        {!donation?.metadata || !donation?.metadata.name ? (
+                        {!metadata?.name ? (
                           <Typography
                             variant="caption"
                             sx={{
@@ -193,11 +193,11 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
                                 fontSize: theme.typography.pxToRem(16),
                                 color: theme.palette.grey[800],
                               }}>
-                              {donation?.metadata.name}
+                              {metadata.name}
                             </Typography>
                             <Typography sx={{ fontSize: 12 }}>
                               {t('campaigns:campaign.from')}{' '}
-                              {person
+                              {person && person.company
                                 ? person.company.companyName
                                 : t('campaigns:donations.corporate-donor')}
                             </Typography>
@@ -206,17 +206,15 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
                       </>
                     )}
                     <Stack direction="row">
-                      {donation && (
-                        <Typography
-                          variant="caption"
-                          sx={{
-                            fontSize: theme.typography.pxToRem(14),
-                            color: 'rgba(0, 0, 0, 0.54)',
-                            '&:after': { content: '"|"', paddingX: '5px' },
-                          }}>
-                          {moneyPublic(donation.amount, donation.currency)}
-                        </Typography>
-                      )}
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          fontSize: theme.typography.pxToRem(14),
+                          color: 'rgba(0, 0, 0, 0.54)',
+                          '&:after': { content: '"|"', paddingX: '5px' },
+                        }}>
+                        {moneyPublic(amount, currency)}
+                      </Typography>
                       <Typography
                         variant="caption"
                         sx={{
@@ -226,17 +224,19 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
                         {getExactDate(createdAt, locale)}
                       </Typography>
                     </Stack>
-                    <Typography
-                      component="blockquote"
-                      sx={{
-                        mt: 1,
-                        fontSize: theme.typography.pxToRem(16),
-                        lineHeight: '160%',
-                        '&:before': { content: 'open-quote', verticalAlign: theme.spacing(1.25) },
-                        '&:after': { content: 'close-quote' },
-                      }}>
-                      {message}
-                    </Typography>
+                    {wish && (
+                      <Typography
+                        component="blockquote"
+                        sx={{
+                          mt: 1,
+                          fontSize: theme.typography.pxToRem(16),
+                          lineHeight: '160%',
+                          '&:before': { content: 'open-quote', verticalAlign: theme.spacing(1.25) },
+                          '&:after': { content: 'close-quote' },
+                        }}>
+                        {wish.message}
+                      </Typography>
+                    )}
                   </Stack>
                 </Stack>
               </Grid2>
@@ -245,6 +245,9 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
         <Grid2 size={{ xs: 12 }}>
           {data?.items?.length === 0 && searchValue !== '' && (
             <Typography align="center"> {t('campaign.sort.noResults')}</Typography>
+          )}
+          {data?.items?.length === 0 && searchValue === '' && (
+            <Typography align="center">{t('campaign.no-donations')}</Typography>
           )}
         </Grid2>
         <Grid2 size={{ xs: 12 }}>

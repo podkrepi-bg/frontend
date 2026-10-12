@@ -20,7 +20,7 @@ import { useCanEditCampaign } from 'common/hooks/campaigns'
 import { moneyPublic } from 'common/util/money'
 import { routes } from 'common/routes'
 
-import DonationWishes from './DonationWishes'
+import CampaignDonations from './CampaignDonations'
 import CampaignInfo from './CampaignInfo/CampaignInfo'
 import CampaignInfoGraphics from './CampaignInfoGraphics'
 import CampaignInfoOperator from './CampaignInfoOperator'
@@ -211,7 +211,7 @@ export default function CampaignDetails({ campaign }: Props) {
           {renderSubscribeInfo()}
         </Grid>
         <Grid item xs={12} id="wishes">
-          <DonationWishes campaignId={campaign?.id} />
+          <CampaignDonations campaignId={campaign?.id} />
         </Grid>
         <Grid container item xs={12}>
           <LinkButton

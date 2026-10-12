@@ -23,3 +23,19 @@ export type DonationWishPaginatedResponse = {
   items: DonationWishResponse[]
   totalCount: number
 }
+
+export type DonationWithWishResponse = {
+  id: UUID
+  type: DonationType
+  amount: number
+  currency: string
+  createdAt: DateTime
+  person: { firstName: string; lastName: string; company: { companyName: string } | null } | null
+  metadata: { name: string | null } | null
+  wish: { id: UUID; message: string; createdAt: DateTime } | null
+}
+
+export type DonationWithWishPaginatedResponse = {
+  items: DonationWithWishResponse[]
+  totalCount: number
+}
