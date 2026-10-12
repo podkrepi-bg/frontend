@@ -232,6 +232,22 @@ export const endpoints = {
             }${sortOrder ? `&sortOrder=${sortOrder}` : ''}`,
         method: 'GET',
       },
+    listDonationsWithWishes: (
+      campaignId?: string,
+      paginationData?: PaginationData,
+      sort?: SortData,
+      searchData?: string,
+    ) => {
+      const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
+      const { sortBy, sortOrder } = (sort as SortData) || {}
+
+      return <Endpoint>{
+        url: `/donation/list-with-wishes/${campaignId}?pageindex=${pageIndex}&pagesize=${pageSize}&search=${encodeURIComponent(
+          searchData ?? '',
+        )}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+        method: 'GET',
+      }
+    },
     getUserDonation: (id: string) => <Endpoint>{ url: `/donation/user/${id}`, method: 'GET' },
     getDonorsCount: <Endpoint>{ url: `/donation/donors-count`, method: 'GET' },
     getTotalDonatedMoney: <Endpoint>{ url: '/donation/money', method: 'GET' },
