@@ -135,7 +135,7 @@ export function DonationFlowForm() {
   const [showPaymentElement, setShowPaymentElement] = React.useState(false)
 
   // Use the Iris payment hook
-  const { handleOnPaymentElementLoad, handleOnPaymentSuccess, handleOnPaymentError, isCompleting } =
+  const { handleOnPaymentElementLoad, handleOnPaymentSuccess, handleOnPaymentError } =
     useIrisPayment({
       formikRef,
       setShowPaymentElement,

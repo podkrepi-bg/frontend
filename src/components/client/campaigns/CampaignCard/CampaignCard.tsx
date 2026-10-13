@@ -10,13 +10,12 @@ import theme from 'common/theme'
 import Link from 'components/common/Link'
 import CampaignProgress from 'components/client/campaigns/CampaignProgress'
 import SuccessfullCampaignTag from '../SuccessfullCampaignTag'
-import { CampaignState, canAcceptDonationState } from '../helpers/campaign.enums'
+import { CampaignState } from '../helpers/campaign.enums'
 
 import { Root } from './CampaignCard.styled'
 import {
   CampaignTitle,
   LearnMoreButton,
-  StyledCardActions,
   StyledContent,
   Sum,
   SumNumber,
@@ -35,15 +34,7 @@ type Props = { campaign: CampaignResponse; index: number }
 
 export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
-  const {
-    id,
-    slug,
-    title,
-    summary,
-    targetAmount: target,
-    state: campaignState,
-    allowDonationOnComplete,
-  } = campaign
+  const { slug, title, summary, targetAmount: target, state: campaignState } = campaign
 
   const campaignImagesUrl = campaignListPictureUrl(campaign)
 

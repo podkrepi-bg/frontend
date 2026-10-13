@@ -108,7 +108,7 @@ export interface RadioCardGroupProps extends RadioGroupProps {
  * icon: <MoneyIcon />,
  * },
  */
-function RadioCardGroup({ options, name, columns, loading, error }: RadioCardGroupProps) {
+function RadioCardGroup({ options, name, loading, error }: RadioCardGroupProps) {
   const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)

@@ -24,7 +24,6 @@ const ProgressBar = styled('div')(
     progress = 0,
     labelSize = `0.81rem`,
     color,
-    state,
   }: {
     theme?: Theme
     progress: number

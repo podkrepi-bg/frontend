@@ -24,7 +24,6 @@ import {
   SuccessfulCampaignLabel,
   CompletedSumWrapper,
   SuccessfullCampaignIcon,
-  CampaignProgressWrapper,
   SuccessfullCampiagnText,
 } from './CompletedCampaignsSection.styled'
 import CampaignProgress from 'components/client/campaigns/CampaignProgress'
