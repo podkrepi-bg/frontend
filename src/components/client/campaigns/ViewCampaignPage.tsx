@@ -1,13 +1,17 @@
 import React from 'react'
 
 import { Grid } from '@mui/material'
+import { useTranslation } from 'next-i18next'
+import { Cookies, getCookieConsentValue } from 'react-cookie-consent'
 
 import { useViewCampaign } from 'common/hooks/campaigns'
-import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
-import theme from 'common/theme'
 import useMobile from 'common/hooks/useMobile'
-import Layout from 'components/client/layout/Layout'
+import theme from 'common/theme'
+import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
+import useGTM from 'common/util/useGTM'
 import CenteredSpinner from 'components/common/CenteredSpinner'
+import CookieConsentPopup from 'components/common/CookieConsentPopup'
+import Layout from 'components/client/layout/Layout'
 
 import { PaymentDrawer } from './PaymentDrawer'
 import CampaignDetails from './CampaignDetails'
@@ -18,6 +22,21 @@ type Props = { slug: string }
 export default function ViewCampaignPage({ slug }: Props) {
   const { data, isLoading, isError } = useViewCampaign(slug)
   const { mobile, small } = useMobile()
+  const { initialize } = useGTM()
+  const { i18n } = useTranslation()
+
+  const handleAcceptCookie = () => {
+    initialize({
+      events: { user_lang: i18n.language },
+    })
+  }
+
+  const handleDeclineCookie = () => {
+    Cookies.remove('_ga')
+    Cookies.remove('_gat')
+    Cookies.remove('_gid')
+  }
+
   if (isLoading || !data)
     return (
       <>
@@ -25,6 +44,7 @@ export default function ViewCampaignPage({ slug }: Props) {
         {isError && <NotFoundPage />}
       </>
     )
+
   const { campaign } = data
   const ogImageUrl = campaignListPictureUrl(campaign)
 
@@ -36,6 +56,36 @@ export default function ViewCampaignPage({ slug }: Props) {
       metaDescription={campaign.title}>
       <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <CampaignDetails campaign={campaign} />
+        {getCookieConsentValue() !== 'true' && (
+          <Grid
+            item
+            xs={12}
+            sx={{
+              position: 'fixed',
+              left: 0,
+              right: 0,
+              bottom: 100,
+              zIndex: 1300,
+              '@media (max-width: 522px)': {
+                bottom: 115,
+              },
+              '@media (min-width: 901px)': {
+                bottom: 0,
+              },
+            }}>
+            <CookieConsentPopup
+              handleAcceptCookie={handleAcceptCookie}
+              handleDeclineCookie={handleDeclineCookie}
+              styleOverride={{
+                position: 'relative',
+                bottom: 'auto',
+                left: 'auto',
+                right: 'auto',
+                zIndex: 1301,
+              }}
+            />
+          </Grid>
+        )}
         {mobile || small ? (
           <PaymentDrawer campaign={campaign} />
         ) : (
@@ -48,7 +98,6 @@ export default function ViewCampaignPage({ slug }: Props) {
             flexWrap="nowrap"
             sx={{
               position: 'sticky',
-
               [theme.breakpoints.down('md')]: {
                 maxWidth: 'max-content',
                 flexBasis: 'fit-content',
@@ -62,7 +111,6 @@ export default function ViewCampaignPage({ slug }: Props) {
                 top: theme.spacing(12),
                 width: theme.spacing(48),
                 paddingLeft: theme.spacing(2),
-
                 [theme.breakpoints.down('lg')]: {
                   width: 'fit-content',
                   height: 'fit-content',
