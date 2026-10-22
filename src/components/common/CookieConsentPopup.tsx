@@ -1,16 +1,19 @@
 import CookieConsent from 'react-cookie-consent'
 import { useTranslation } from 'next-i18next'
+import type { CSSProperties } from 'react'
 
 import theme from 'common/theme'
 
 type CookieConsentPopupProps = {
   handleAcceptCookie: () => void
   handleDeclineCookie: () => void
+  styleOverride?: CSSProperties
 }
 
 const CookieConsentPopup = ({
   handleAcceptCookie,
   handleDeclineCookie,
+  styleOverride,
 }: CookieConsentPopupProps) => {
   const { t } = useTranslation()
 
@@ -28,6 +31,7 @@ const CookieConsentPopup = ({
         justifyContent: 'space-evenly',
         padding: theme.spacing(2.5),
         gap: theme.spacing(2.5),
+        ...styleOverride,
       }}
       contentStyle={{
         fontSize: theme.typography.pxToRem(16),
