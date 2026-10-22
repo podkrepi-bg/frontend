@@ -3847,6 +3847,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/test@npm:latest":
+  version: 1.64.1
+  resolution: "@playwright/test@npm:1.64.1"
+  dependencies:
+    playwright: 1.64.1
+  bin:
+    playwright: cli.js
+  checksum: 971aeb35bc50293984a5e1fa0d4f40be27fb845898edf0a6a6fa2bbd28aee0c1416f70149971ac09644784b873a7aa0cc24d002a4ffb7e1e34602b4736f043b0
+  languageName: node
+  linkType: hard
+
 "@podkrepi-bg/react-irispay@npm:^0.1.6":
   version: 0.1.6
   resolution: "@podkrepi-bg/react-irispay@npm:0.1.6"
@@ -14086,6 +14097,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"playwright-core@npm:1.64.1":
+  version: 1.64.1
+  resolution: "playwright-core@npm:1.64.1"
+  bin:
+    playwright-core: cli.js
+  checksum: 614007bcdeaad5c6ff46465b623a81e0dbcae060f04022ba37e325d10c2eb618a9b70c44da2eb7b0857c80f83fca6db73c53f0600dcdf1d922c7942af1e0b701
+  languageName: node
+  linkType: hard
+
+"playwright@npm:1.64.1":
+  version: 1.64.1
+  resolution: "playwright@npm:1.64.1"
+  dependencies:
+    playwright-core: 1.64.1
+  bin:
+    playwright: cli.js
+  checksum: 74861fdf4087b6d4c33dce1779c977390591d4e76bb590a904018b3823d35b20737b3b8f8bddf8bf32969953b1e9a37f72ab3e33b4b1cebed4b1bcc4a5e62738
+  languageName: node
+  linkType: hard
+
 "please-upgrade-node@npm:^3.2.0":
   version: 3.2.0
   resolution: "please-upgrade-node@npm:3.2.0"
@@ -14113,6 +14144,7 @@ __metadata:
     "@mui/x-date-pickers": ^6.16.1
     "@next/bundle-analyzer": ^12.1.0
     "@paypal/react-paypal-js": ^7.8.1
+    "@playwright/test": latest
     "@podkrepi-bg/react-irispay": ^0.1.6
     "@ramonak/react-progress-bar": ^5.0.3
     "@react-pdf/renderer": ^3.1.3
