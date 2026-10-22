@@ -1,6 +1,6 @@
 # Build target dependencies #
 ###########################
-FROM node:20-alpine AS base
+FROM node:24-alpine AS base
 WORKDIR /app
 ARG NODE_ENV=production
 ENV PATH=/app/node_modules/.bin:$PATH \
