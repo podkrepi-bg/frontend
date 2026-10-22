@@ -96,7 +96,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.1.0",
-    "@playwright/test": "latest",
+    "@playwright/test": "1.64.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/cookie": "^0.4.1",

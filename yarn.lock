@@ -3847,7 +3847,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:latest":
+"@playwright/test@npm:1.64.1":
   version: 1.64.1
   resolution: "@playwright/test@npm:1.64.1"
   dependencies:
@@ -14144,7 +14144,7 @@ __metadata:
     "@mui/x-date-pickers": ^6.16.1
     "@next/bundle-analyzer": ^12.1.0
     "@paypal/react-paypal-js": ^7.8.1
-    "@playwright/test": latest
+    "@playwright/test": 1.64.1
     "@podkrepi-bg/react-irispay": ^0.1.6
     "@ramonak/react-progress-bar": ^5.0.3
     "@react-pdf/renderer": ^3.1.3
