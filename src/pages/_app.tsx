@@ -115,10 +115,12 @@ function CustomApp(props: AppProps) {
           </QueryClientProvider>
         </SessionProvider>
       </ThemeProvider>
-      <CookieConsentPopup
-        handleAcceptCookie={handleAcceptCookie}
-        handleDeclineCookie={handleDeclineCookie}
-      />
+      {router.pathname !== '/campaigns/[slug]' && (
+        <CookieConsentPopup
+          handleAcceptCookie={handleAcceptCookie}
+          handleDeclineCookie={handleDeclineCookie}
+        />
+      )}
     </AppCacheProvider>
   )
 }
