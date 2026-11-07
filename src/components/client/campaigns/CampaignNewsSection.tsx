@@ -164,6 +164,8 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
 
   const LINE_HEIGHT = theme.typography.body1.lineHeight
   const INITIAL_HEIGHT_LIMIT = 200 * Number(LINE_HEIGHT)
+  // A fixed px height cut the last line in half, line-clamp always stops on a full line (#2023)
+  const COLLAPSED_LINE_COUNT = 12
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
@@ -191,6 +193,8 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
               const documents = GetArticleDocuments(article.newsFiles)
               const images = GetArticleGalleryPhotos(article.newsFiles)
               const sanitizedDescription = sanitizeHTML(article.description)
+              const isCollapsed =
+                getArticleHeight(article.id) > INITIAL_HEIGHT_LIMIT && !isExpanded[article.id]
               return (
                 <TimelineItem key={article.id} className={classes.timelineItem} id={article.id}>
                   {!small && (
@@ -254,18 +258,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                           {article.title}
                         </Typography>
                       </Grid>
-                      <Grid
-                        container
-                        item
-                        direction={'row'}
-                        sx={{
-                          height:
-                            getArticleHeight(article.id) > INITIAL_HEIGHT_LIMIT &&
-                            !isExpanded[article.id]
-                              ? INITIAL_HEIGHT_LIMIT
-                              : 'auto',
-                          overflow: 'hidden',
-                        }}>
+                      <Grid container item direction={'row'} sx={{ overflow: 'hidden' }}>
                         <QuillStypeWrapper>
                           <Typography
                             component={'article'}
@@ -273,7 +266,15 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                             dangerouslySetInnerHTML={{
                               __html: sanitizedDescription,
                             }}
-                            sx={{ wordBreak: 'break-word' }}
+                            sx={{
+                              wordBreak: 'break-word',
+                              ...(isCollapsed && {
+                                display: '-webkit-box',
+                                WebkitBoxOrient: 'vertical',
+                                WebkitLineClamp: COLLAPSED_LINE_COUNT,
+                                overflow: 'hidden',
+                              }),
+                            }}
                           />
                         </QuillStypeWrapper>
                       </Grid>
