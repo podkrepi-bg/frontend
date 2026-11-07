@@ -22,13 +22,11 @@ import { PaymentDrawerProps, TabValue, UsePaymentDrawerLogicReturn } from './typ
  *
  * @param campaign - Campaign data from props
  * @param initialState - Initial drawer state ('collapsed' | 'expanded')
- * @param isMobile - Whether the current viewport is mobile
  * @returns All state, computed values, fetched data, and handlers needed by child components
  */
 export function usePaymentDrawerLogic(
   campaign: PaymentDrawerProps['campaign'],
   initialState: PaymentDrawerProps['initialState'] = 'collapsed',
-  isMobile: boolean,
 ): UsePaymentDrawerLogicReturn {
   const { t } = useTranslation('campaigns')
   const router = useRouter()
@@ -43,7 +41,8 @@ export function usePaymentDrawerLogic(
   const [sortBy, setSortBy] = useState<'createdAt' | 'amount'>('createdAt')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
 
-  const pageSize = isMobile ? 7 : 7
+  const donationsPageSize = 7
+  const wishesPageSize = 4
 
   // ============================================================================
   // CAMPAIGN DATA EXTRACTION
@@ -74,11 +73,11 @@ export function usePaymentDrawerLogic(
     data: { items: donations, total: totalDonations } = { items: [], total: 0 },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
-  } = useCampaignDonationHistory(campaignId, page, pageSize, sortBy, sortOrder)
+  } = useCampaignDonationHistory(campaignId, page, donationsPageSize, sortBy, sortOrder)
 
   const { data: wishList } = useDonationWishesList(
     campaignId,
-    { pageIndex: 0, pageSize },
+    { pageIndex: 0, pageSize: wishesPageSize },
     { sortBy: 'createdAt', sortOrder: 'desc' },
     '',
   )
@@ -138,7 +137,8 @@ export function usePaymentDrawerLogic(
     setPage,
     sortBy,
     sortOrder,
-    pageSize,
+    donationsPageSize,
+    wishesPageSize,
 
     // Campaign data
     campaignId,
