@@ -21,7 +21,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import { Checkbox } from '@mui/material'
 import { useCreateExpense, useEditExpense } from 'service/expense'
 
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { ApiErrors, handleFileUploadError, isAxiosError, matchValidator } from 'service/apiErrors'
 import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/expenses'
 import FileUpload from 'components/common/file-upload/FileUpload'
 
@@ -66,7 +66,7 @@ export default function Form() {
     UploadExpenseFile
   >({
     mutationFn: useUploadExpenseFiles(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onError: (error) => handleFileUploadError(error, t),
   })
 
   let data: ExpenseResponse | undefined

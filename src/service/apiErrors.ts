@@ -1,5 +1,6 @@
-import Axios from 'axios'
+import Axios, { AxiosError, HttpStatusCode } from 'axios'
 import { TFunction } from 'i18next'
+import { AlertStore } from '../stores/AlertStore'
 
 const { isAxiosError } = Axios
 export { isAxiosError }
@@ -85,4 +86,17 @@ export const handleUniqueViolation = (
   }
 
   return t('common:alerts.error')
+}
+
+export const handleFileUploadError = (
+  e: AxiosError<ApiErrors>,
+  t: TFunction<'translation', undefined>,
+) => {
+  const error = e.response
+
+  if (error?.status === HttpStatusCode.UnsupportedMediaType) {
+    return AlertStore.show(t('validation:invalid-file'), 'error')
+  }
+
+  AlertStore.show(t('common:alerts.error'), 'error')
 }

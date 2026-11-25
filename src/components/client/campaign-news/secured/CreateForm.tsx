@@ -22,7 +22,13 @@ const FormRichTextField = dynamic(() => import('components/common/form/FormRichT
   ssr: false,
 })
 
-import { ApiErrors, handleUniqueViolation, isAxiosError, matchValidator } from 'service/apiErrors'
+import {
+  ApiErrors,
+  handleFileUploadError,
+  handleUniqueViolation,
+  isAxiosError,
+  matchValidator,
+} from 'service/apiErrors'
 import { useUploadCampaignNewsFiles } from 'service/campaign-news'
 import {
   CampaignFileRole,
@@ -111,6 +117,7 @@ export default function CreateForm({ campaignId = '', isAdmin = true }: Campaign
     UploadCampaignNewsFiles
   >({
     mutationFn: useUploadCampaignNewsFiles(),
+    onError: (error) => handleFileUploadError(error, t),
   })
 
   const onSubmit = async (

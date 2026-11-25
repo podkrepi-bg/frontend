@@ -23,7 +23,13 @@ const FormRichTextField = dynamic(() => import('components/common/form/FormRichT
   ssr: false,
 })
 
-import { ApiErrors, handleUniqueViolation, isAxiosError, matchValidator } from 'service/apiErrors'
+import {
+  ApiErrors,
+  handleFileUploadError,
+  handleUniqueViolation,
+  isAxiosError,
+  matchValidator,
+} from 'service/apiErrors'
 import {
   CampaignResponse,
   CampaignInput,
@@ -167,7 +173,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     UploadCampaignFiles
   >({
     mutationFn: useUploadCampaignFiles(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onError: (error) => handleFileUploadError(error, t),
     onSuccess: () => {
       //invalidate query for getting new values
       queryClient.invalidateQueries([endpoints.campaign.viewCampaignById(campaign.id).url])
