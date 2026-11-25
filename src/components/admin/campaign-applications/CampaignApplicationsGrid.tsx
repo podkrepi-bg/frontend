@@ -1,5 +1,5 @@
+import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
-
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useQuery } from '@tanstack/react-query'
 import { routes } from 'common/routes'
@@ -9,10 +9,16 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
+import { Toolbar, Typography, Button } from '@mui/material'
 
 export default function CampaignApplicationsGrid() {
   const { t } = useTranslation('campaign-application')
-  const { list } = useCampaignsList()
+  const [showArchived, setShowArchived] = useState(false)
+  const { list } = useCampaignsList(showArchived)
+
+  const toggleArchivedFilter = () => {
+    setShowArchived((prev) => !prev)
+  }
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -79,23 +85,37 @@ export default function CampaignApplicationsGrid() {
   ]
 
   return (
-    <DataGrid
-      style={{
-        background: theme.palette.common.white,
-        position: 'absolute',
-        height: 'calc(100vh - 299px)',
-        border: 'none',
-        width: 'calc(100% - 48px)',
-        left: '24px',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        borderRadius: '0 0 13px 13px',
-      }}
-      rows={list || []}
-      columns={columns}
-      editMode="row"
-      pageSizeOptions={[20, 50, 100]}
-    />
+    <>
+      <Toolbar
+        sx={{
+          background: theme.palette.common.white,
+          borderTop: '1px solid lightgrey',
+          display: 'flex',
+          justifyContent: 'space-between',
+          height: '64px',
+        }}>
+        <Button variant="outlined"  onClick={toggleArchivedFilter}>
+          <Typography>{showArchived ? t('cta.showArchived') : t('cta.hideArchived')}</Typography>
+        </Button>
+      </Toolbar>
+      <DataGrid
+        style={{
+          background: theme.palette.common.white,
+          position: 'absolute',
+          height: 'calc(100vh - 299px)',
+          border: 'none',
+          width: 'calc(100% - 48px)',
+          left: '24px',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          borderRadius: '0 0 13px 13px',
+        }}
+        rows={list || []}
+        columns={columns}
+        editMode="row"
+        pageSizeOptions={[20, 50, 100]}
+      />
+    </>
   )
 }
 
@@ -111,12 +131,14 @@ function fetchMutation() {
   )
 }
 
-export const useCampaignsList = () => {
+export const useCampaignsList = (filterArchived = false) => {
   const { data, isLoading } = fetchMutation()
 
   return {
     // the data array is strict mode (sometimes) it throws a Readonly array error on the sort so create a shallow copy
-    list: [...(data ?? [])].sort((a, b) => b?.updatedAt?.localeCompare(a?.updatedAt ?? '') ?? 0),
+    list: [...(data ?? [])]
+    .filter((campaign) => (filterArchived ? !campaign.archived : true))
+    .sort((a, b) => b?.updatedAt?.localeCompare(a?.updatedAt ?? '') ?? 0),
     isLoading,
   }
 }
