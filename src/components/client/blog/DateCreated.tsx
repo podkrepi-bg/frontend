@@ -13,7 +13,7 @@ export default function DateCreated({ createdAt, showLabel = false }: Props) {
   if (!createdAt) return null
   return (
     <Typography variant="subtitle2" color={grey[600]}>
-      {showLabel && t('blog:created-on')} {formatDateString(createdAt, i18n?.language)}
+      {showLabel && t('blog:created-on')} {formatDateString(createdAt)}
     </Typography>
   )
 }

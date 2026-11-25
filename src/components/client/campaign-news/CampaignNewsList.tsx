@@ -111,7 +111,7 @@ export default function CampaignNewsList({ articles }: Props) {
                 <Grid container item gap={1} xs="auto">
                   <AvTimerIcon color="primary" />
                   <Typography className={classes.articlepublishedDate}>
-                    {formatDateString(article.publishedAt, i18n?.language)} &nbsp;
+                    {formatDateString(article.publishedAt)} &nbsp;
                     {dateToTime(article.publishedAt, i18n?.language)}
                   </Typography>
                 </Grid>
